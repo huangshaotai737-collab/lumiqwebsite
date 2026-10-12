@@ -1,0 +1,60 @@
+/* Shared scale for semantic labels, captions and secondary copy.
+   Keep headings and the site's larger reading text on their existing scale. */
+.lumiq-root { --lq-small-copy: 14px; }
+
+.lumiq-root .lh-home :is(.lh-eyebrow, .lh-trust-caption, .lh-product-type, .lh-products-hint, .lh-waitlist-note, .lh-consent, .lh-form-message),
+.lumiq-root .lh-home .lh-join .lh-waitlist label,
+.lumiq-root .lh-home .lh-products .lh-product-copy p,
+.lumiq-root :is(.eyebrow, .kicker, .pd-eyebrow, .pd-row-eyebrow, .pd-concept-note, .prod-kicker, .prod-pill, .prod-sub, .prod-tab-sub, .prod-counter, .billing-save, .pop-tag, .faq-count, .members-eyebrow, .members-preview-badge, .members-tag),
+.lumiq-root :is(.prod-topbar-inner, .prod-feat, .prod-promise-item, .prod-peek-caption, .pending-link-list, .members-avatar) small,
+.lumiq-root .prod-topbar-inner,
+.lumiq-root .story-hero-media figcaption span,
+.lumiq-root .story-section-label p,
+.lumiq-root .story-quote-band cite,
+.lumiq-root .story-collection span,
+.lumiq-root .fee-cell em,
+.lumiq-root .members-section-head > span {
+  font-size: var(--lq-small-copy);
+  line-height: 1.6;
+}
+.lumiq-root .members-device-copy p,
+.lumiq-root .members-hint {
+  font-size: var(--lq-small-copy);
+}
+
+/* Match the component scope so later route styles cannot restore tiny copy. */
+.lumiq-root main.lh-home .lh-join .lh-consent,
+.lumiq-root main.lh-home .lh-products .lh-product-copy p,
+.lumiq-root > footer.footer .pending-link-list small {
+  font-size: var(--lq-small-copy);
+  line-height: 1.6;
+}
+
+/* These responsive descriptions can already be larger than the small-copy scale. */
+.lumiq-root main.lh-home .lh-hero .lh-lead {
+  font-size: max(var(--lq-small-copy), calc(var(--lh-body) * .6));
+}
+.lumiq-root .product-detail-light .pd-price--compact {
+  font-size: clamp(var(--lq-small-copy), 1.1vw, 17px);
+  line-height: 1.5;
+  white-space: normal;
+}
+.lumiq-root .prod-peek-caption { font-size: clamp(var(--lq-small-copy), 1.3vw, 17.6px); }
+.lumiq-root .plans-page .hw-more { font-size: max(var(--lq-small-copy), .78rem); }
+.lumiq-root .contact-card > div:first-child { font-size: var(--lq-small-copy) !important; }
+.lumiq-root .prelaunch-page > .container > p:last-of-type { font-size: var(--lq-small-copy) !important; }
+
+/* Touch layouts start at the site's existing desktop/mobile boundary. */
+@media (max-width: 1100px) {
+  .lumiq-root { --lq-small-copy: 13px; }
+  .lumiq-root .navbar.site-nav .login-btn { font-size: 13px; max-width: none; }
+  .lumiq-root .navbar.site-nav .site-mobile-trigger-label { font-size: 13px; }
+}
+@media (max-width: 767px) {
+  .lumiq-root .plans-page .hw-more { font-size: max(var(--lq-small-copy), .9rem); }
+  .lumiq-root .navbar.site-nav .nav-inner { gap: 6px; }
+  .lumiq-root .navbar.site-nav .nav-actions { gap: 6px; }
+}
+@media (max-width: 600px) {
+  .lumiq-root .members-sidebar button { font-size: var(--lq-small-copy); }
+}

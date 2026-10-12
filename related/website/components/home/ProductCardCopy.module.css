@@ -1,0 +1,57 @@
+/* Own the HTML overlay dimensions; route-preview styles must not position copy. */
+.surface {
+  position: relative;
+  box-sizing: border-box;
+  width: 285px;
+  height: 420px;
+  padding: 0;
+  color: #233448;
+  transform-origin: 0 0;
+}
+
+.copy {
+  position: absolute;
+  inset: 273px 12px 21px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  min-width: 0;
+  pointer-events: none;
+}
+
+.title {
+  position: static;
+  width: 100%;
+  margin: 0;
+  font: 600 22px/1.2 Arial, sans-serif;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.surface[data-active="true"] .title { font-size: 26px; }
+
+.copy .description {
+  position: static;
+  box-sizing: border-box;
+  align-self: stretch;
+  width: 100%;
+  min-width: 0;
+  max-width: none;
+  margin: 8px 0 0;
+  padding: 0;
+  font: 400 16px/1.4 Arial, sans-serif;
+  text-align: left;
+  white-space: normal;
+  text-wrap: wrap;
+  word-break: normal;
+  overflow-wrap: normal;
+}
+
+.action {
+  width: 100%;
+  margin-top: auto;
+  padding-top: 8px;
+  font: 500 17px/1.25 Arial, sans-serif;
+  text-align: center;
+  white-space: nowrap;
+}

@@ -1,0 +1,14 @@
+<!doctype html>
+<html lang="zh-CN">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>LumiQ · 五套背景动效</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f6f5fb;color:#1c2b40;font:16px/1.6 system-ui,sans-serif}main{max-width:1400px;margin:auto;padding:48px 24px}h1{font-size:clamp(28px,4vw,48px);letter-spacing:-.04em}header p{color:#637088;max-width:800px}article{margin:48px 0 64px}h2{font-size:24px;margin:0 0 16px}video{display:block;width:100%;aspect-ratio:16/9;background:#eeedf5;border-radius:20px;box-shadow:0 12px 48px #22314a12}nav{display:flex;gap:16px;flex-wrap:wrap;margin:16px 0}a{color:inherit;text-underline-offset:4px}.timeline{color:#637088;font-size:14px}
+</style>
+<main><header><h1>五套背景动效。</h1><p>每套包含六段连续变化。下方可以直接播放完整视频，也可以进入网页，用滚动前进、停留或倒放，检查每一页的衔接。</p></header><div id="versions"></div></main>
+<script>
+const versions=['柔和珠光 · 液态缓流','玻璃丝带 · 缓慢舒展','折射光纹 · 焦散流动','光环轨迹 · 汇聚散开','空间视差 · 液光与粒子'];
+document.querySelector('#versions').innerHTML=versions.map((name,index)=>`<article><h2>0${index+1} / ${name}</h2><video controls playsinline preload="metadata" src="/assets/background-variants-20260911/version-${index+1}.mp4"></video><nav><a href="/en?background=${index+1}#products" target="_blank" rel="noopener">放入网页，查看滚动效果 ↗</a><a href="/assets/background-variants-20260911/version-${index+1}.mp4" download>下载视频</a></nav><p class="timeline">0 秒 · 第二页衔接 → 5 秒 · 产品 → 10 秒 · 视频 → 15 秒 · 房屋 → 20 秒 · 安全 → 25 秒 · 家庭 → 30 秒 · 加入</p></article>`).join('');
+document.querySelectorAll('video').forEach(video=>video.addEventListener('play',()=>document.querySelectorAll('video').forEach(other=>{if(other!==video)other.pause()})));
+</script>
+</html>

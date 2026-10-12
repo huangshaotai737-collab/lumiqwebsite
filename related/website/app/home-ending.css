@@ -1,0 +1,118 @@
+/* A quiet, centered invitation; the form remains real and fully interactive. */
+.lh-home .lh-join {
+  background: #f7f6f3;
+  padding-block: clamp(96px, 9vw, 150px);
+}
+.lh-join::before {
+  position: absolute;
+  content: "";
+  inset: 0 0 auto;
+  height: 100px;
+  background: linear-gradient(#f6f3f4, transparent);
+  pointer-events: none;
+}
+.lh-join .lh-join-art {
+  inset: -8% 0;
+  mask-image: linear-gradient(180deg, transparent, #000 18%, #000 82%, transparent);
+}
+.lh-join .lh-join-art img {
+  opacity: 0.82;
+}
+.lh-join .lh-join-layout {
+  display: block;
+  max-width: 850px;
+  text-align: center;
+}
+.lh-join-copy .lh-eyebrow {
+  justify-content: center;
+}
+.lh-home .lh-join .lh-lead {
+  max-width: 550px;
+  margin-inline: auto;
+}
+.lh-join .lh-waitlist {
+  max-width: 610px;
+  margin: 40px auto 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+}
+.lh-join .lh-waitlist label {
+  text-align: left;
+  padding-left: 22px;
+  font-size: 13px;
+  color: #53616f;
+}
+.lh-join .lh-email-row {
+  flex-direction: row;
+  gap: 12px;
+  padding: 8px;
+  border: 1px solid #b8c1c8;
+  border-radius: 100px;
+  box-shadow: 0 12px 40px -26px #59697f66;
+}
+.lh-join .lh-email-row input {
+  min-height: 48px;
+  padding-left: 14px;
+}
+.lh-home .lh-join .lh-email-row .lh-button {
+  min-height: 52px;
+  padding-inline: 26px;
+}
+.lh-home .lh-join .lh-form-message {
+  margin-top: 16px;
+}
+.lh-home .lh-join .lh-consent {
+  max-width: 510px;
+  margin: 4px auto 0;
+  color: #596674;
+  font-size: 12px;
+}
+.lumiq-root:has(.lh-home) > .footer {
+  background: #f7f6f3;
+  border-top-color: #d8dcdb;
+}
+.lumiq-root:has(.lh-home) > .footer .foot-nav h4 {
+  color: #596c79;
+}
+
+@media (min-aspect-ratio: 21/10) and (min-width: 1600px) {
+  .lh-join .lh-join-art {
+    max-width: 2200px;
+    margin-inline: auto;
+    mask-image: linear-gradient(90deg, transparent, #000 15%, #000 85%, transparent);
+  }
+}
+@media (max-width: 767px) {
+  .lh-home .lh-join {
+    padding-block: 88px;
+  }
+  .lh-join .lh-join-art img {
+    opacity: 0.4;
+  }
+  .lh-join .lh-waitlist {
+    margin-top: 32px;
+  }
+  .lh-home .lh-join .lh-consent {
+    font-size: 13px;
+  }
+}
+@media (max-width: 520px) {
+  .lh-join .lh-email-row {
+    flex-direction: column;
+    gap: 10px;
+    border-radius: 25px;
+    padding: 10px;
+  }
+  .lh-home .lh-join .lh-email-row .lh-button {
+    justify-content: center;
+  }
+  .lh-join .lh-waitlist label {
+    padding-left: 0;
+  }
+  .lh-join .lh-join-art {
+    display: none;
+  }
+}

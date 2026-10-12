@@ -1,0 +1,43 @@
+import assert from 'node:assert/strict';
+import {chromium} from 'playwright';
+const browser=await chromium.launch({channel:'chrome',headless:true});
+try {
+  const page=await browser.newPage({viewport:{width:1440,height:900}});
+  const errors=[];page.on('pageerror',e=>errors.push(e.message));
+  await page.goto('http://127.0.0.1:4211/en');
+  await page.waitForFunction(()=>document.querySelector('.lh-home')?.dataset.homeState==='open');
+  const heading=page.locator('#films h2');
+  const text=await heading.textContent();
+  assert.equal(await heading.getAttribute('data-word-pending'),'');
+  await heading.scrollIntoViewIfNeeded();
+  await page.waitForFunction(()=>document.querySelector('#films h2 .scroll-word'));
+  const motion=await heading.locator('.scroll-word').evaluateAll(words=>{
+    const animations=words.map(w=>w.getAnimations()[0]);
+    animations.forEach(a=>a.pause());
+    const first=animations[0];
+    const y=()=>new DOMMatrixReadOnly(getComputedStyle(words[0]).transform).m42;
+    first.currentTime=0;const start=y();
+    first.currentTime=475;const middle=y();
+    first.currentTime=950;const end=y();
+    const delay=animations.at(-1).effect.getTiming().delay;
+    animations.forEach(a=>a.play());
+    return {start,middle,end,delay,count:words.length};
+  });
+  assert.ok(motion.count>2 && motion.start>20);
+  assert.ok(motion.middle>0 && motion.middle<motion.start);
+  assert.ok(Math.abs(motion.end)<.01 && motion.delay>0);
+  await page.waitForFunction(()=>!document.querySelector('#films h2 .scroll-word'));
+  assert.equal(await heading.textContent(),text);
+  assert.equal(await heading.getAttribute('data-word-pending'),null);
+  await heading.scrollIntoViewIfNeeded();
+  assert.equal(await heading.locator('.scroll-word').count(),0);
+  await page.goto('http://127.0.0.1:4211/en/products/tablet');
+  await page.waitForTimeout(1600);
+  assert.ok((await page.locator('h1').textContent()).trim());
+  await page.emulateMedia({reducedMotion:'reduce'});
+  await page.reload();
+  await page.waitForTimeout(500);
+  assert.equal(await page.locator('[data-word-pending],.scroll-word').count(),0);
+  assert.deepEqual(errors,[]);
+  console.log('Scroll words: stagger, text restoration, one-time reveal, detail route and reduced motion passed.');
+}finally{await browser.close();}

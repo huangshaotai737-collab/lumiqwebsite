@@ -1,0 +1,51 @@
+name: Browser and operating system audit
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+permissions:
+  contents: read
+concurrency:
+  group: browser-audit-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  audit:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 20
+    defaults:
+      run:
+        working-directory: related/website
+        shell: bash
+    env:
+      LUMIQ_STATIC_IMAGES: '1'
+      SITE_URL: http://localhost:4223
+      QA_OUTPUT: qa/release-platform
+      TEST_EDGE: ${{ matrix.os == 'windows-latest' && '1' || '0' }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          lfs: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: related/website/package-lock.json
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium firefox webkit
+      - if: runner.os == 'Windows'
+        run: npx playwright install msedge
+      - run: npm test
+      - run: npm run build
+      - run: node scripts/run-platform-ci.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: browser-audit-${{ runner.os }}
+          path: related/website/qa/release-platform
+          retention-days: 14

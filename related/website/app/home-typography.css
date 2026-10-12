@@ -1,0 +1,68 @@
+/* A shared reading scale for every homepage floor. */
+.lh-home {
+  --lh-h1: var(--lq-h1);
+  --lh-h2: var(--lq-h2);
+  --lh-h3: var(--lq-h3);
+  --lh-body: var(--lq-body);
+  --lh-detail: 14px;
+  --lh-action: var(--lq-action);
+}
+.lumiq-root .lh-home .lh-hero h1 { font-size: var(--lh-h1); }
+.lumiq-root .lh-home :is(.lh-ola-copy, .lh-products-heading, .lh-room-heading, .lh-safety-copy, .lh-family-heading, .lh-join-copy) h2 {
+  font-size: var(--lh-h2);
+  line-height: 1.14;
+  letter-spacing: -.04em;
+}
+.lumiq-root .lh-home :is(.lh-rhythm-copy, .lh-product, .lh-principle) h3 {
+  font-size: var(--lh-h3);
+  line-height: 1.25;
+  letter-spacing: -.025em;
+}
+.lumiq-root .lh-home :is(.lh-lead, .lh-room-intro, .lh-section-intro) {
+  font-size: var(--lh-body);
+  line-height: 1.7;
+}
+.lumiq-root .lh-home :is(.lh-rhythm-copy, .lh-product, .lh-principle) p {
+  font-size: var(--lh-detail);
+  line-height: 1.6;
+}
+.lumiq-root .lh-home :is(.lh-button, .lh-text-link, .lh-product-bottom, .lh-chapter-navigation button) {
+  font-size: var(--lh-action);
+  line-height: 1.5;
+}
+@media (min-width: 1101px) {
+  .lh-ola-copy { max-width: min(100%, 22vw, 380px); }
+}
+.lumiq-root .lh-home:lang(ja) :is(h1, h2, h3),
+.lumiq-root .lh-home:lang(zh-Hant) :is(h1, h2, h3) {
+  letter-spacing: .01em;
+  line-height: 1.25;
+  overflow-wrap: anywhere;
+}
+@media (max-width: 767px) {
+  /* Let the copy breathe beside the smaller character. */
+  .lh-ola-copy { padding-right: 0; }
+  .lh-ola-copy h2 { padding-right: 96px; }
+  .lh-ola-copy .lh-lead { padding-right: 88px; }
+  .lh-brand-character { width: 105px; height: 240px; right: -8px; }
+}
+
+/* Geometric hardware title: bold capitals and a compact, deliberate three-line block. */
+.lumiq-root .lh-home .lh-hero h1:lang(en) {
+  font-family: var(--font-heading);
+  font-size: clamp(48px, 5.1vw, 87px);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: -.055em;
+  line-height: 1.02;
+  text-wrap: initial;
+}
+.lumiq-root .lh-home .lh-hero h1 .lh-hero-accent { color: #627185; }
+@media(max-width:767px) {
+  .lumiq-root .lh-home .lh-hero h1:lang(en) { font-size: clamp(40px, 13.05vw, 72px); line-height: 1.06; letter-spacing: -.045em; }
+}
+
+@media(min-width:768px) {
+  .lh-hero-copy { top: clamp(40px, 8svh, 80px); }
+  .lumiq-root .lh-home .lh-hero h1:lang(en) { width: max-content; }
+}

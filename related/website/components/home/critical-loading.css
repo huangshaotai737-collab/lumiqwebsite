@@ -1,0 +1,12 @@
+/* Reserve the desktop canvas footprint before downloading its renderer. The
+   ordinary cards occupy the same slot until the textured scene can be shown. */
+@media (min-width: 1101px) {
+  .lh-home .lh-products { --carousel-height: clamp(560px, 65svh, 900px); }
+  .lh-home .lh-products .lh-products-stage { position: relative; min-height: 0; gap: 8px; padding-bottom: var(--lq-section-edge); }
+  .lh-home .lh-products .lh-glass-products { display: block; position: relative; height: var(--carousel-height); width: 100%; margin-bottom: 0; }
+  .lh-home .lh-products:not([data-glass-3d]) .lh-glass-products { visibility: hidden; }
+  .lh-home .lh-products:not([data-glass-3d]) .lh-products-viewport { position: absolute; bottom: var(--lq-section-edge); width: 100%; height: var(--carousel-height); }
+  .lh-home .lh-products .lh-products-footer { position: absolute; top: calc(100% - var(--lq-section-edge) - var(--carousel-height) * .61); left: 0; width: 100%; height: 0; min-height: 0; margin: 0; pointer-events: none; }
+  .lh-home .lh-products .lh-products-controls { position: absolute; top: 0; left: 0; right: 0; height: 44px; padding-inline: clamp(16px, 4vw, 72px); justify-content: space-between; transform: translateY(-50%); pointer-events: none; }
+  .lh-home .lh-products .lh-products-controls button { pointer-events: auto; }
+}

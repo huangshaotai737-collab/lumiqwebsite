@@ -1,0 +1,203 @@
+/* Only the first two floors participate. No video request on the small-screen fallback. */
+@media (max-width: 1100px) {
+  .lh-hero-stage {
+    height: auto;
+    min-height: 0;
+    aspect-ratio: 4 / 3;
+    width: calc(100% + var(--lh-gutter) * 2);
+    margin: 30px calc(var(--lh-gutter) * -1) 0;
+  }
+  .lh-hero-stage > :not(.lh-mobile-hero-art), .lh-hero .lh-glass-word { display: none; }
+  .lh-mobile-hero-art { display: block; position: absolute; inset: 0; }
+  .lh-mobile-hero-art img { object-fit: contain; }
+  .lh-products[data-enhanced] .lh-products-progress { display: none; }
+}
+/* Desktop uses one viewport stage, one 16:9 film plane and stable copy
+   anchors. Width/height resize changes their scale continuously, not layouts. */
+.lh-video-layer { display: none; }
+.lh-opening[data-video-mode] {
+  --opening-gutter: clamp(28px, 5vw, 104px);
+  --opening-top: 104px;
+  --opening-bottom: 24px;
+  --opening-height: calc(100svh - var(--opening-top) - var(--opening-bottom));
+  --opening-media-width: min(calc(100vw - var(--opening-gutter) * 2), calc(var(--opening-height) * 16 / 9));
+  height: auto;
+  min-height: 0;
+  isolation: isolate;
+  background: #f6f5fa;
+}
+.lh-opening[data-video-mode] .lh-opening-stage {
+  position: relative;
+  height: 100svh;
+}
+.lh-opening[data-video-mode] .lh-video-layer {
+  display: block;
+  position: absolute;
+  inset: 0;
+  overflow: clip;
+  pointer-events: none;
+  background: #f6f5fa;
+}
+.lh-video-start-poster,
+.lh-video-end-poster,
+.lh-opening-video {
+  position: absolute;
+  left: 50%;
+  top: calc(var(--opening-top) + var(--opening-height) / 2);
+  width: var(--opening-media-width);
+  max-width: none;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  transform: translate(-50%, -50%);
+  object-fit: contain;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  /* Keep all hardware inside the film; soften only its empty outer edges. */
+  mask-image:
+    linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent),
+    linear-gradient(180deg, transparent, #000 8%, #000 92%, transparent);
+  mask-composite: intersect;
+}
+.lh-video-start-poster {
+  background-image: url("/assets/home-video/ola-scroll-v16-start-20260909.webp");
+}
+.lh-video-end-poster {
+  background-image: url("/assets/home-video/ola-scroll-v16-end-20260909.webp");
+  opacity: 0;
+}
+.lh-opening-video { opacity: 0; }
+.lh-video-layer[data-ready] .lh-opening-video { opacity: 1; }
+.lh-video-layer[data-ready] :is(.lh-video-start-poster, .lh-video-end-poster) { visibility: hidden; }
+.lh-opening[data-video-mode] :is(.lh-opening-atmosphere, .lh-glass-word, .lh-hero-stage, .lh-brand-character) { display: none; }
+.lh-opening[data-video-mode] :is(.lh-hero, .lh-ola) {
+  position: absolute;
+  inset: 0;
+  height: 100%;
+  min-height: 0;
+  pointer-events: none;
+}
+.lh-hero-line { display: block; }
+
+/* Scope above the global type/mobile cascade; static and touch fallbacks
+   continue in document flow. These anchors never depend on aspect-ratio. */
+.lumiq-root .lh-home .lh-opening[data-video-mode]:not([data-static-opening]) :is(.lh-hero-layout, .lh-ola-layout) {
+  position: relative;
+  top: 0;
+  width: calc(100% - var(--opening-gutter) * 2);
+  height: 100svh;
+  min-height: 0;
+  margin-inline: auto;
+  padding-block: var(--opening-top) var(--opening-bottom);
+  pointer-events: none;
+}
+.lumiq-root .lh-home .lh-opening[data-video-mode]:not([data-static-opening]) .lh-hero-layout {
+  display: grid;
+  grid-template-columns: 42% minmax(0, 1fr);
+  align-items: center;
+}
+.lumiq-root .lh-home .lh-opening[data-video-mode]:not([data-static-opening]) .lh-hero-copy {
+  top: 0;
+  width: 100%;
+  min-width: 0;
+  max-width: 660px;
+}
+.lumiq-root .lh-home .lh-opening[data-video-mode]:not([data-static-opening]) .lh-hero h1 {
+  width: 100%;
+  font-size: clamp(34px, min(4.8vw, calc(var(--opening-height) * .105)), 82px);
+  line-height: 1.16;
+  letter-spacing: -.025em;
+  font-weight: 700;
+  text-wrap: initial;
+}
+.lumiq-root .lh-home .lh-opening[data-video-mode]:not([data-static-opening]) .lh-hero-line {
+  white-space: nowrap;
+  overflow-wrap: normal;
+}
+.lumiq-root .lh-home .lh-opening[data-video-mode]:not([data-static-opening]) .lh-eyebrow {
+  margin-bottom: clamp(10px, 2svh, 20px);
+}
+.lumiq-root .lh-home .lh-opening[data-video-mode]:not([data-static-opening]) .lh-hero .lh-lead {
+  max-width: 440px;
+  margin-top: clamp(14px, 2svh, 20px);
+  font-size: 14px;
+  line-height: 1.65;
+}
+.lumiq-root .lh-home .lh-opening[data-video-mode]:not([data-static-opening]) .lh-hero .lh-actions {
+  flex-wrap: nowrap;
+  gap: clamp(16px, 1.6vw, 28px);
+  margin-top: clamp(20px, 3svh, 28px);
+}
+.lumiq-root .lh-home .lh-opening[data-video-mode]:not([data-static-opening]) .lh-hero :is(.lh-button, .lh-text-link) {
+  flex: none;
+  white-space: nowrap;
+  font-size: 14px;
+}
+.lumiq-root .lh-home .lh-opening[data-video-mode]:not([data-static-opening]) .lh-hero .lh-button {
+  min-height: 48px;
+  padding: 12px 22px;
+  gap: 18px;
+}
+
+.lumiq-root .lh-home .lh-opening[data-video-mode]:not([data-static-opening]) .lh-ola-layout {
+  display: grid;
+  grid-template-columns: 57% minmax(0, 43%);
+  grid-template-rows: auto auto;
+  align-content: center;
+  gap: clamp(10px, 2svh, 20px) 0;
+}
+.lumiq-root .lh-home .lh-opening[data-video-mode]:not([data-static-opening]) .lh-ola-copy {
+  grid-column: 2;
+  grid-row: 1;
+  width: 100%;
+  max-width: none;
+  padding: 0;
+}
+.lumiq-root .lh-home .lh-opening[data-video-mode]:not([data-static-opening]) .lh-ola-copy h2 {
+  font-size: clamp(26px, min(3.5vw, calc(var(--opening-height) * .084)), 58px);
+  line-height: 1.14;
+  letter-spacing: -.025em;
+}
+.lumiq-root .lh-home .lh-opening[data-video-mode]:not([data-static-opening]) .lh-ola-copy h2 .lh-muted {
+  white-space: nowrap;
+}
+.lumiq-root .lh-home .lh-opening[data-video-mode]:not([data-static-opening]) .lh-ola-copy :is(h2, .lh-lead) { padding-right: 0; }
+.lumiq-root .lh-home .lh-opening[data-video-mode]:not([data-static-opening]) .lh-ola-copy .lh-lead {
+  max-width: 580px;
+  margin-top: clamp(12px, 2svh, 20px);
+  font-size: clamp(14px, min(1.1vw, calc(var(--opening-height) * .038)), 18px);
+  line-height: 1.5;
+}
+.lumiq-root .lh-home .lh-opening[data-video-mode]:not([data-static-opening]) .lh-ola-copy .lh-text-link {
+  margin-top: clamp(12px, 2svh, 20px);
+  min-height: 40px;
+  font-size: 14px;
+}
+.lumiq-root .lh-home .lh-opening[data-video-mode]:not([data-static-opening]) .lh-rhythm-cards {
+  grid-column: 2;
+  grid-row: 2;
+  min-width: 0;
+  gap: clamp(8px, 1vw, 15px);
+}
+.lumiq-root .lh-home .lh-opening[data-video-mode]:not([data-static-opening]) .lh-rhythm-card {
+  align-self: stretch;
+  margin-top: 0;
+}
+.lumiq-root .lh-home .lh-opening[data-video-mode]:not([data-static-opening]) .lh-rhythm-photo {
+  height: clamp(30px, calc(var(--opening-height) * .13), 100px);
+  aspect-ratio: auto;
+  min-height: 0;
+}
+.lumiq-root .lh-home .lh-opening[data-video-mode]:not([data-static-opening]) .lh-rhythm-copy {
+  padding: clamp(8px, 1.5svh, 14px) clamp(8px, .8vw, 14px);
+  min-height: 0;
+}
+.lumiq-root .lh-home .lh-opening[data-video-mode]:not([data-static-opening]) .lh-rhythm-copy h3 {
+  font-size: clamp(18px, min(1.6vw, 3svh), 25px);
+  margin-bottom: 4px;
+}
+.lumiq-root .lh-home .lh-opening[data-video-mode]:not([data-static-opening]) .lh-rhythm-copy p {
+  font-size: 14px;
+  line-height: 1.5;
+}
+.lh-opening[data-video-mode] :is(.lh-hero-copy, .lh-ola-copy, .lh-rhythm-cards) { pointer-events: auto; }

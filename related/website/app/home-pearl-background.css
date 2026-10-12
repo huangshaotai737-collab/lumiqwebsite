@@ -1,0 +1,68 @@
+/* A single fixed video follows chapter scroll progress; one image is a loading fallback. */
+.lumiq-root:has(.lh-home) { isolation: isolate; background: transparent; }
+.lumiq-root .lh-home,
+.lumiq-root .lh-home :is(.lh-opening, .lh-hero, .lh-ola, .lh-products, .lh-experiences, .lh-films-section, .lh-safety, .lh-family, .lh-join),
+.lumiq-root:has(.lh-home) > .footer { background: transparent; }
+.lumiq-root .lh-home .lh-join-art, .lh-home .lh-join::before { display: none; }
+.lh-home .lh-trust-room::after, .lh-home .lh-safety-photo::after, .lh-home .lh-family-stage::after { background: none; }
+.lh-home .lh-room-background { mask-image: radial-gradient(ellipse at center, #000 48%, transparent 73%); }
+.lh-home .lh-safety-photo, .lh-home .lh-family-stage { mask-image: linear-gradient(transparent, #000 6%, #000 94%, transparent); }
+.lh-home .lh-glass-products { mask-image: linear-gradient(transparent, #000 6%, #000 87%, transparent); }
+.lh-home .lh-products[data-glass-3d] .lh-glass-products::after { display: none; }
+.lumiq-root:has(.lh-home) > .footer { border-top-color: #ffffff70; }
+@media(max-width:767px) { .lh-home .lh-room-background { mask-image: linear-gradient(transparent, #000 10%, #000 90%, transparent); } }
+
+.lh-fixed-backgrounds { position: fixed; inset: 0; pointer-events: none; background: #f8f7fc; }
+.lh-fixed-backgrounds > div { position: absolute; inset: 0; background-position: center; background-size: cover; background-repeat: no-repeat; }
+.lh-home :is(.lh-products, .lh-films-section, .lh-experiences, .lh-safety, .lh-family, .lh-join)::before { display: none; }
+
+/* Only the new desktop film needs light foregrounds in its final two chapters.
+   Static/reduced-motion layouts and the first two screens keep their palette. */
+.lumiq-root[data-flow-background="true"] .lh-home :is(.lh-family, .lh-join) {
+  --lh-ink: #f7f8fc;
+  --lh-muted: #dce3f2;
+  color: var(--lh-ink);
+}
+.lumiq-root[data-flow-background="true"] :is(.lh-family-heading, .lh-join-copy) :is(h2, .lh-text-link) { color: #f7f8fc; }
+.lumiq-root[data-flow-background="true"] :is(.lh-family-heading, .lh-join-copy) :is(.lh-muted, .lh-lead, .lh-eyebrow, .lh-section-intro) { color: #dce3f2; }
+.lumiq-root[data-flow-background="true"] .lh-home .lh-join :is(label, .lh-consent, .lh-consent a) { color: #dce3f2; }
+.lumiq-root[data-flow-background="true"] .lh-join .lh-email-row { background: #ffffffed; border-color: #ffffff80; }
+.lumiq-root[data-flow-background="true"] :is(.lh-family, .lh-join) :focus-visible { outline-color: #d6e9ff; }
+.lumiq-root[data-flow-background="true"] > .footer { color: #dce3f2; }
+.lumiq-root[data-flow-background="true"] > .footer :is(h4, a) { color: #dce3f2; }
+.lumiq-root[data-flow-background="true"] .lh-home .lh-safety { --lh-ink: #0c1629; --lh-muted: #152439; }
+.lumiq-root[data-flow-background="true"] .lh-home .lh-safety :is(.lh-muted, .lh-lead, .lh-principle p, .lh-principle-top, .lh-trust-caption, .lh-principle-arrow) { color: #152439; }
+.lumiq-root[data-flow-background="true"] .lh-family .lh-chapter-navigation button { color: #dce3f2; }
+.lumiq-root[data-flow-background="true"]:has(.lh-home) > .footer .foot-nav h4 { color: #dce3f2; }
+
+/* Feather only the media edge into the same fixed pearl frame used by products.
+   Copy and device sizing stay outside this mask; later chapter cues stay intact. */
+.lumiq-root .lh-home .lh-opening[data-video-mode] .lh-video-layer {
+  mask-image: linear-gradient(#000 88%, transparent);
+}
+/* Static desktop keeps its approved posters in a separate, feathered media layer. */
+@media (min-width: 1101px) {
+  .lumiq-root .lh-home .lh-opening[data-static-opening] :is(.lh-hero, .lh-ola) {
+    background-image: none;
+    isolation: isolate;
+  }
+  .lumiq-root .lh-home .lh-opening[data-static-opening] :is(.lh-hero, .lh-ola)::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background: var(--opening-still) center / cover no-repeat;
+    mask-image: linear-gradient(#000 88%, transparent);
+  }
+  .lh-opening[data-static-opening] .lh-hero { --opening-still: url('/assets/home-video/ola-scroll-v16-start-20260909.webp'); }
+  .lh-opening[data-static-opening] .lh-ola { --opening-still: url('/assets/home-video/ola-scroll-v16-end-20260909.webp'); }
+}
+/* Touch chapter art keeps its existing soft edges over the continuous pearl base,
+   rather than revealing a separate opaque white floor between OLA and products. */
+@media (max-width: 1100px) {
+  .lumiq-root:has(.lh-home[data-home-state]) { background: transparent; }
+  .lumiq-root:has(.lh-home) > .bg-layer,
+  .lumiq-root .lh-fixed-backgrounds { display: block; }
+  .lumiq-root:has(.lh-home[data-home-state]) > .footer { background: transparent; }
+}

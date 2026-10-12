@@ -1,0 +1,132 @@
+/* Touch layouts use document flow; desktop scenes keep their original composition. */
+@media (max-width: 1100px) {
+  .lumiq-root { --lq-h1: clamp(34px, 9.5vw, 48px); --lq-h2: clamp(28px, 7.5vw, 36px); }
+  .lumiq-root main { overflow-wrap: break-word; }
+  .lumiq-root .site-nav .nav-inner { min-height: 72px; padding: 10px 20px; gap: 12px; }
+  .lumiq-root .site-nav .nav-logo { width: 116px; height: 48px; }
+  .lumiq-root .site-nav .nav-actions { gap: 6px; }
+  .lumiq-root .site-nav .login-btn { min-height: 44px; padding: 8px 12px; font-size: 11px; }
+  .lumiq-root .site-nav .site-mobile-menu { max-height: calc(100dvh - 72px); }
+  .lumiq-root .lh-home { --lh-gutter: 20px; --lh-ending-nav: 72px; }
+  .lumiq-root .lh-home section { scroll-margin-top: 80px; }
+  .lumiq-root .lh-home .lh-hero-layout { padding: 112px 0 32px; gap: 0; }
+  .lumiq-root .lh-home .lh-hero-copy { top: auto; width: 100%; max-width: none; }
+  .lumiq-root .lh-home .lh-hero h1:lang(en) { font-size: clamp(34px, 10.5vw, 54px); width: auto; }
+  .lumiq-root .lh-home .lh-hero-stage { height: auto; min-height: 0; aspect-ratio: 4 / 3; width: calc(100% + 40px); margin: 24px -20px 0; }
+  .lumiq-root .lh-home .lh-actions { flex-wrap: wrap; gap: 16px; }
+  .lumiq-root .lh-home .lh-ola-layout { display: grid; grid-template-columns: minmax(0, 1fr) 90px; gap: 24px 12px; padding: 40px 0; }
+  .lumiq-root .lh-home .lh-ola-copy { min-height: 0; padding: 0; width: auto; }
+  .lumiq-root .lh-home .lh-ola-copy :is(h2, .lh-lead) { padding-right: 0; }
+  .lumiq-root .lh-home .lh-ola-copy h2 { font-size: clamp(26px, 7vw, 34px); }
+  .lumiq-root .lh-home .lh-brand-character { position: relative; inset: auto; width: 100%; height: 220px; align-self: center; }
+  .lumiq-root .lh-home .lh-rhythm-cards { grid-column: 1 / -1; grid-template-columns: 1fr; padding: 0; gap: 14px; }
+  .lumiq-root .lh-home .lh-rhythm-card { display: grid; grid-template-columns: 38% minmax(0, 1fr); margin: 0; border-radius: 20px; }
+  .lumiq-root .lh-home .lh-rhythm-photo { min-height: 156px; aspect-ratio: auto; }
+  .lumiq-root .lh-home .lh-rhythm-copy { padding: 20px 16px; min-height: 0; align-self: center; }
+  .lumiq-root .lh-home .lh-rhythm-copy h3 { font-size: 22px; }
+  .lumiq-root .lh-home .lh-rhythm-copy p { font-size: 14px; }
+  .lumiq-root .lh-home .lh-products-stage { min-height: 0; padding: 48px 0; gap: 24px; }
+  .lumiq-root .lh-home .lh-products-viewport { margin: 0; padding: 12px 0 28px; scroll-padding-inline: 0; }
+  .lumiq-root .lh-home .lh-products-track { gap: 24px; padding-inline: calc((100vw - min(84vw, 360px)) / 2); }
+  .lumiq-root .lh-home .lh-product-slot { flex-basis: min(84vw, 360px); width: min(84vw, 360px); scroll-snap-align: center; }
+  .lumiq-root .lh-home .lh-products .lh-product { height: 440px; padding: 20px; border-radius: 28px; }
+  .lumiq-root .lh-home .lh-products .lh-product-art { margin: 0 0 16px; }
+  .lumiq-root .lh-home .lh-products .lh-product h3 { font-size: 24px; }
+  .lumiq-root .lh-home .lh-products-controls button { width: 44px; height: 44px; }
+  .lumiq-root .lh-home .lh-films-section { padding: 40px 0 48px; }
+  .lumiq-root .lh-home .lh-films { display: flex; flex-direction: column; }
+  .lumiq-root .lh-home .lh-films-heading { position: relative; inset: auto; width: calc(100% - 40px); margin: 0 auto; order: 0; }
+  .lumiq-root .lh-home .lh-films-heading h2 { font-size: clamp(30px, 8vw, 40px); white-space: normal; line-height: 1.12; }
+  .lumiq-root .lh-home .lh-film-character { display: none; }
+  .lumiq-root .lh-home .lh-films-layout { --film-width: min(72vw, 600px); width: var(--film-width); margin: 28px auto 0; flex-direction: column; gap: 12px; order: 2; }
+  .lumiq-root .lh-home .lh-family-stage { touch-action: pan-y; }
+  .lumiq-root .lh-home .lh-films-stage { width: 100%; height: calc(var(--film-height) * 1.9); min-height: 300px; touch-action: pan-y; }
+  .lumiq-root .lh-home .lh-film-slot { width: 100%; }
+  .lumiq-root .lh-home .lh-films-controls { flex-direction: row; width: 100%; height: 48px; }
+  .lumiq-root .lh-home .lh-films-controls > span { flex-direction: row; gap: 14px; }
+  .lumiq-root .lh-home .lh-films-controls button { width: 48px; height: 48px; }
+  .lumiq-root .lh-home .lh-room-layout { padding: 40px 0; }
+  .lumiq-root .lh-home :is(.lh-safety, .lh-family) { padding: 32px 0; }
+  .lumiq-root .lh-home :is(.lh-safety-copy, .lh-family-heading) { width: calc(100% - 40px); text-align: left; }
+  .lumiq-root .lh-home .lh-family-heading .lh-section-intro { display: block; }
+  .lumiq-root .lh-home .lh-family-heading .lh-text-link { display: inline-flex; margin-top: 16px; min-height: 44px; }
+  .lumiq-root .lh-home :is(.lh-safety-photo, .lh-family-stage) { width: calc(100% - 40px); aspect-ratio: 4 / 3; border-radius: 20px; mask-image: none; }
+  .lumiq-root .lh-home .lh-safety .lh-principles { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px 16px; }
+  .lumiq-root .lh-home .lh-principle p { font-size: 14px; }
+  .lumiq-root .lh-home .lh-join { min-height: 0; padding: 56px 20px; }
+  .lumiq-root .product-detail-light .pd-hero-floor { padding: 104px 0 48px; }
+  .lumiq-root .product-detail-light .pd-hero-grid { gap: 32px; }
+  .lumiq-root .product-detail-light .pd-back-link { margin-bottom: 24px; }
+  .lumiq-root .product-detail-light .pd-floor { padding-block: 56px; }
+  .lumiq-root .product-detail-light :is(.pd-story-grid, .pd-feature-layout.has-image, .pd-dark-layout, .pd-extra-layout.has-image) { gap: 32px; }
+  .lumiq-root .product-detail-light .pd-shell { width: calc(100% - 40px); }
+  .lumiq-root .product-detail-light .pd-finish-picker button { width: 44px; height: 44px; }
+}
+@media (min-width: 600px) and (max-width: 1100px) and (max-height: 500px) {
+  .lumiq-root .lh-home .lh-films-layout {
+    --film-width: min(calc(100vw - 40px), calc((100svh - 120px) * 16 / 9));
+    width: var(--film-width);
+  }
+}
+
+.lh-mobile-ola-art { display: none; }
+/* Portrait artwork belongs to each chapter, with a shared pearl edge between chapters. */
+@media (max-width: 1100px) {
+  .lumiq-root:has(.lh-home[data-home-state]) { background: #f8f7fc; }
+  .lumiq-root:has(.lh-home) > .bg-layer,
+  .lumiq-root .lh-fixed-backgrounds,
+  .lumiq-root .lh-home .lh-opening-atmosphere { display: none; }
+  .lumiq-root .lh-home section[data-home-section] { position: relative; isolation: isolate; }
+  .lumiq-root .lh-home section[data-home-section]::before {
+    content: ""; display: block; position: absolute; inset: 0; z-index: -1;
+    width: auto; height: auto; opacity: 1; transform: none; filter: none;
+    pointer-events: none; background: var(--mobile-chapter-art) center / cover no-repeat;
+    mask-image: linear-gradient(transparent, #000 10%, #000 87%, transparent);
+  }
+  .lumiq-root .lh-home :is(#top, #ola)::before { display: none; }
+  .lumiq-root .lh-home #products { --mobile-chapter-art: url('/assets/mobile-backgrounds-20260914/products.webp'); }
+  .lumiq-root .lh-home #films { --mobile-chapter-art: url('/assets/mobile-backgrounds-20260914/films.webp'); }
+  .lumiq-root .lh-home #experiences { --mobile-chapter-art: url('/assets/mobile-backgrounds-20260914/experiences.webp'); }
+  .lumiq-root .lh-home #safety { --mobile-chapter-art: url('/assets/mobile-backgrounds-20260914/safety.webp'); }
+  .lumiq-root .lh-home #family { --mobile-chapter-art: url('/assets/mobile-backgrounds-20260914/family.webp'); }
+  .lumiq-root .lh-home #join { --mobile-chapter-art: url('/assets/mobile-backgrounds-20260914/join.webp'); }
+  .lumiq-root .site-nav .nav-logo { flex-shrink: 0; overflow: visible; }
+  .lumiq-root .site-nav .nav-logo img { object-fit: contain; }
+  .lumiq-root .lh-home .lh-hero-layout { padding-top: 102px; padding-bottom: 16px; }
+  .lumiq-root .lh-home #hero-title {
+    font-size: clamp(30px, 9.2vw, 42px); line-height: 1.09;
+    letter-spacing: -.035em; width: auto; max-width: 100%; text-wrap: balance;
+  }
+  .lumiq-root .lh-home .lh-hero .lh-lead { font-size: 15px; line-height: 1.65; margin-top: 20px; }
+  .lumiq-root .lh-home .lh-hero .lh-actions { margin-top: 22px; }
+  .lumiq-root .lh-home .lh-hero { min-height: calc(200px + min(100vw, 600px) * 16 / 9); }
+  .lumiq-root .lh-home .lh-hero .lh-hero-stage { display: none; }
+  .lumiq-root .lh-home .lh-mobile-hero-art {
+    inset: 0; z-index: -1; max-width: 600px; margin-inline: auto;
+    mask-image: linear-gradient(#000 94%, transparent);
+  }
+  .lumiq-root .lh-home .lh-mobile-hero-art img { object-fit: contain; object-position: center bottom; transform: none; }
+  .lumiq-root .lh-home :is(.lh-ola-copy, .lh-products-heading, .lh-room-heading, .lh-safety-copy, .lh-family-heading, .lh-join-copy) h2 {
+    font-size: clamp(26px, 7.2vw, 34px); line-height: 1.17; text-wrap: balance;
+  }
+  .lumiq-root .lh-home section :is(.lh-lead, .lh-room-intro, .lh-section-intro) { font-size: 15px; line-height: 1.65; }
+  .lumiq-root .lh-home .lh-ola-layout { display: grid; grid-template-columns: minmax(0, 1fr); padding-block: 0 32px; gap: 24px; }
+  .lumiq-root .lh-home .lh-ola-copy { grid-area: 1 / 1; align-self: start; z-index: 1; padding-top: 32px; }
+  .lumiq-root .lh-home .lh-ola .lh-brand-character { display: none; }
+  .lumiq-root .lh-home .lh-mobile-ola-art { display: block; grid-area: 1 / 1; width: calc(100% + 40px); margin-inline: -20px; padding-top: 100px; mask-image: linear-gradient(transparent, #000 7%, #000 92%, transparent); }
+  .lumiq-root .lh-home .lh-mobile-ola-art img { display: block; width: 100%; height: auto; object-fit: contain; }
+  .lumiq-root .lh-home .lh-hero .lh-actions { flex-wrap: nowrap; gap: 12px; }
+  .lumiq-root .lh-home .lh-hero .lh-button { font-size: 13px; padding-inline: 16px; gap: 10px; white-space: nowrap; }
+  .lumiq-root .lh-home .lh-hero .lh-text-link { font-size: 13px; gap: 8px; white-space: nowrap; }
+  .lumiq-root .lh-home .lh-ola-copy .lh-lead { margin-top: 20px; }
+  .lumiq-root .lh-home .lh-rhythm-photo { min-height: 138px; }
+  .lumiq-root .lh-home .lh-rhythm-copy { padding: 16px 14px; }
+  .lumiq-root .lh-home .lh-products-stage { padding-block: 36px; }
+  .lumiq-root .lh-home .lh-products-viewport { mask-image: linear-gradient(#000 calc(100% - 24px), transparent); }
+  .lumiq-root .lh-home .lh-films-section { padding-block: 36px; }
+  .lumiq-root .lh-home .lh-films-heading h2 { font-size: clamp(28px, 8vw, 36px); max-width: 14ch; text-wrap: balance; line-height: 1.15; }
+  .lumiq-root .lh-home .lh-films-stage { height: calc(var(--film-height) * 1.7); min-height: 0; }
+  .lumiq-root .lh-home .lh-join { padding-block: 40px; }
+  .lumiq-root .lh-home .lh-join input { font-size: 16px; }
+  .lumiq-root:has(.lh-home[data-home-state]) > .footer { padding-top: 32px; background: #f8f7fc; }
+}

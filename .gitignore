@@ -1,0 +1,17 @@
+.DS_Store
+Thumbs.db
+.playwright-cli/
+tmp/
+*.log
+
+# 避免把迁移包再次装进仓库
+output/交付/LumiQ-Codex-接力包-*.zip
+output/交付/LumiQ-Codex-接力包-*.zip.sha256
+
+# 本机配置、登录信息和密钥
+.env
+.env.*
+!.env.example
+config/
+**/config/mcporter.json
+

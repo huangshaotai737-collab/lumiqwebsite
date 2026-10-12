@@ -1,0 +1,101 @@
+/* One viewport layer reuses the approved home pearl-to-dark scroll film. */
+.lumiq-root[data-site-flow] {
+  isolation: isolate;
+  background: transparent;
+  --site-flow-ink: #152439;
+  --site-flow-muted: #40536c;
+  --site-flow-accent: #735127;
+  --site-flow-line: #15243930;
+}
+.lumiq-root[data-site-flow][data-site-flow-tone="dark"] {
+  --site-flow-ink: #f7f8fc;
+  --site-flow-muted: #dce3f2;
+  --site-flow-accent: #f0d9b4;
+  --site-flow-line: #ffffff40;
+}
+.lumiq-root[data-site-flow] > .bg-layer {
+  display: block;
+  position: fixed;
+  inset: 0;
+  background: #f8f7fc url('/assets/home-background-flow-20261007/pearl-first.webp') center / cover no-repeat;
+}
+.lumiq-root[data-site-flow] .lh-fixed-backgrounds { display: block; position: fixed; inset: 0; pointer-events: none; }
+.lumiq-root[data-site-flow] .lh-fixed-backgrounds > [data-background-fallback] { position: absolute; inset: 0; background-position: center; background-size: cover; }
+.lumiq-root[data-site-flow] .lh-home .lh-opening[data-video-mode] .lh-video-layer { background: transparent; }
+
+/* Remove the retired full-page/floor images while preserving content surfaces. */
+.lumiq-root[data-site-flow] main:not(.lh-home) { position: relative; isolation: isolate; background: transparent !important; }
+.lumiq-root[data-site-flow] main:not(.lh-home)::before,
+.lumiq-root[data-site-flow] :is(.editorial-page,.subpage) > section::before { display: none; }
+.lumiq-root[data-site-flow] main:not(.lh-home) {
+  --ink: var(--site-flow-ink);
+  --ink-2: var(--site-flow-muted);
+  --ink-3: var(--site-flow-muted);
+  --ink-4: var(--site-flow-muted);
+  --gold: var(--site-flow-accent);
+  --border: var(--site-flow-line);
+  --border-h: var(--site-flow-line);
+  --pd-ink: var(--site-flow-ink);
+  --pd-muted: var(--site-flow-muted);
+  --pd-accent: var(--site-flow-ink) !important;
+  --pd-line: var(--site-flow-line);
+  color: var(--site-flow-ink);
+}
+.lumiq-root[data-site-flow] main.product-detail-light .pd-hero-display-title {
+  color: var(--pd-ink);
+  -webkit-text-fill-color: var(--pd-ink);
+}
+.lumiq-root[data-site-flow] .product-detail-light .pd-dark-floor .pd-index-row h3 { color: var(--pd-ink); }
+.lumiq-root[data-site-flow] .product-detail-light .pd-dark-floor .pd-index-row p { color: var(--pd-muted); }
+.lumiq-root[data-site-flow] .members-heading :is(h1,.members-eyebrow) { color: var(--site-flow-ink); }
+.lumiq-root[data-site-flow] .members-heading p { color: var(--site-flow-muted); }
+
+/* Pale cards and inputs have their own palette, independent of the page frame. */
+.lumiq-root[data-site-flow] main :is(.hw-card,.pal-table,.tier-card,.billing-toggle,.faq-search,.story-principle-grid,.story-future-grid,.prelaunch-form,.contact-card,.press-card,.members-content,.members-sidebar,.members-disclosure,.members-preview-badge,.pd-price-row,.prod-stage-nav button) {
+  --ink: #152439;
+  --ink-2: #40536c;
+  --ink-3: #40536c;
+  --ink-4: #53647b;
+  --gold: #735127;
+  --border: #15243930;
+  --border-h: #15243950;
+  --pd-ink: #152439;
+  --pd-muted: #40536c;
+  color: #152439;
+}
+.lumiq-root[data-site-flow] .story-principle-grid { background: #f8faffed; }
+.lumiq-root[data-site-flow] .tier-card.featured { color: white; }
+.lumiq-root[data-site-flow] .product-detail-light .pd-price-row { background: #f8faffed; }
+.lumiq-root[data-site-flow] main :is(.btn-navy,.prod-product-link) { background: #152439; color: white; }
+.lumiq-root[data-site-flow] .faq-search input { color: #152439; }
+.lumiq-root[data-site-flow] .prelaunch-form :is(input,select,textarea) { color: #152439; }
+
+.lumiq-root[data-site-flow]:not(:has(.lh-home)) > .footer {
+  --ink: var(--site-flow-ink);
+  --ink-2: var(--site-flow-muted);
+  --ink-3: var(--site-flow-muted);
+  --gold: var(--site-flow-accent);
+  --border: var(--site-flow-line);
+  color: var(--site-flow-muted);
+  background: transparent;
+}
+.lumiq-root[data-site-flow]:not(:has(.lh-home))[data-site-flow-tone="dark"] .footer .foot-logo-img:not(.foot-logo-light) { display: none; }
+.lumiq-root[data-site-flow]:not(:has(.lh-home))[data-site-flow-tone="dark"] .footer .foot-logo-light { display: block; }
+@media (max-width: 1100px) {
+  /* No animated media on touch layouts; all chapters share the same still. */
+  .lumiq-root[data-site-flow] .lh-home :is(#products,#films,#experiences,#safety,#family,#join)::before { display: none; }
+}
+.lumiq-root[data-site-flow] main .prod-stage-nav button:hover { color: white; }
+.lumiq-root[data-site-flow]:not(:has(.lh-home)) > .footer .foot-nav h4 { color: var(--site-flow-muted); }
+/* Registered colors blend the palette without replacing existing hover motion. */
+@property --site-flow-ink { syntax: '<color>'; inherits: true; initial-value: #152439; }
+@property --site-flow-muted { syntax: '<color>'; inherits: true; initial-value: #40536c; }
+@property --site-flow-accent { syntax: '<color>'; inherits: true; initial-value: #735127; }
+@property --site-flow-line { syntax: '<color>'; inherits: true; initial-value: #15243930; }
+@media (prefers-reduced-motion: no-preference) {
+  .lumiq-root[data-site-flow] { transition: --site-flow-ink 160ms linear, --site-flow-muted 160ms linear, --site-flow-accent 160ms linear, --site-flow-line 160ms linear; }
+}
+/* Bright ribbons remain visible; a small outline protects exposed white copy. */
+.lumiq-root[data-site-flow][data-site-flow-tone="dark"] main:not(.lh-home) { text-shadow: 0 1px 2px #071322d9, 0 0 7px #07132280; }
+.lumiq-root[data-site-flow] main :is(.hw-card,.pal-table,.tier-card,.billing-toggle,.faq-search,.story-principle-grid,.story-future-grid,.prelaunch-form,.contact-card,.press-card,.members-content,.members-sidebar,.members-disclosure,.members-preview-badge,.pd-price-row,.prod-stage-nav button,.btn,.pd-primary-action) { text-shadow: none; }
+.lumiq-root[data-site-flow][data-site-flow-tone="dark"] > .footer { background: linear-gradient(transparent, #0713228c 80px, #0713228c); }

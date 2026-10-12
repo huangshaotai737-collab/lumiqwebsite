@@ -1,0 +1,45 @@
+.lh-home .lh-films-section { padding: 56px 0; overflow: clip; }
+.lh-films { width: 100%; margin: auto; position: relative; isolation: isolate; }
+.lh-films-heading { width: min(88vw, 1440px); margin: 0 auto 32px; text-align: left; }
+.lh-films-heading .lh-eyebrow { color: #68758a; margin-bottom: 18px; justify-content: flex-start; }
+.lh-home .lh-films-heading h2 { font-size: clamp(32px,3.8vw,60px); letter-spacing: -.045em; line-height: 1.08; max-width: 22ch; }
+@media(min-width:768px) { .lh-films-heading { position: absolute; top: clamp(28px,3.6svh,44px); left: 4vw; width: 85vw; margin: 0; z-index: 2; } .lh-home .lh-films-heading h2 { font-size: clamp(28px,3.2vw,73px); line-height: .96; max-width: none; white-space: nowrap; } }
+.lh-films-layout { --film-width: min(47.92vw,1092px); --film-height: calc(var(--film-width) * 9 / 16); position: relative; display: flex; align-items: center; gap: clamp(20px,3vw,48px); margin: 0 8vw 0 auto; width: max-content; }
+.lh-films-stage { position: relative; width: min(52.66vw,1200px); height: clamp(600px,76svh,930px); isolation: isolate; overflow: clip; mask-image: linear-gradient(transparent,#000 8%,#000 92%,transparent); }
+/* A reserved left text lane prevents the heading from painting across the video. */
+@media(min-width:1101px) {
+  .lh-films-layout { --film-width: min(45.5vw,1092px); margin-right: 3vw; }
+  .lh-films-stage { width: min(50vw,1200px); }
+}
+.lh-film-slot { position: absolute; top: 50%; right: 0; width: 91%; height: calc(var(--film-height) * var(--card-height)); translate: 0 -50%; transform: translateY(calc(var(--slot) * (var(--film-height) * .62 + 24px))) scale(var(--card-scale)); opacity: var(--card-opacity); transform-origin: center; }
+.lh-film-slot { z-index: 1; }
+.lh-film-slot[data-main=true] { z-index: 2; }
+.lh-film-slot[data-center=true] { z-index: 3; }
+.lh-films-stage[data-moving=true] .lh-film-slot { transition: transform .8s cubic-bezier(.22,.61,.36,1), height .8s cubic-bezier(.22,.61,.36,1), opacity .8s ease; pointer-events: none; }
+.lh-films-stage[data-moving=true] .lh-film-slot[data-center=true] { transition-property: transform, height; }
+.lh-film-card { position: relative; width: 100%; height: 100%; overflow: hidden; border: 1px solid #ffffffb3; border-radius: 26px; background: #141412; box-shadow: 0 24px 60px #353f6020; }
+.lh-film-card video { display: block; width: 100%; aspect-ratio: 16/9; object-fit: contain; background: #141412; }
+.lh-film-card-portrait { background: #141412 url('/assets/films-20260908/welcome-home.jpg') center / cover no-repeat; }
+.lh-film-card-portrait video { height: 100%; aspect-ratio: auto; background: transparent; }
+.lh-film-preview { display: block; width: 100%; height: 100%; border-radius: 24px; overflow: hidden; border: 1px solid #fff9; cursor: pointer; padding: 0; box-shadow: 0 16px 45px #353f6015; }
+.lh-film-preview img { width: 100%; height: 100%; object-fit: cover; }
+.lh-film-toggle { position: absolute; inset: 0; margin: auto; width: 76px; height: 76px; display: grid; place-items: center; border-radius: 50%; background: #ffffffbf; color: #233448; -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); cursor: pointer; transition: opacity .25s; border: 1px solid #fff; }
+.lh-film-open { position:absolute; bottom:16px; left:16px; z-index:4; padding:10px 16px; border-radius:24px; background:#fff; color:#233448; font-size:14px; }
+.lh-film-card[data-playing=true] .lh-film-toggle { inset: auto 20px 20px auto; width: 48px; height: 48px; opacity: 0; }
+.lh-film-card[data-playing=true]:hover .lh-film-toggle, .lh-film-toggle:focus-visible { opacity: 1; }
+.lh-films-controls { display: flex; flex-direction: column; align-items: center; justify-content: space-between; height: var(--film-height); width: 56px; flex-shrink: 0; }
+.lh-films-controls > span { display: flex; flex-direction: column; align-items: center; gap: 18px; color: #68758a; font-size: 17px; font-variant-numeric: tabular-nums; letter-spacing: .08em; }
+.lh-films-controls strong { color: #233448; font-size: 25px; font-weight: 600; }
+.lh-films-controls button { display: grid; place-items: center; width: 52px; height: 52px; border-radius: 50%; border: 1px solid #fff; background: #fff8; color: #233448; cursor: pointer; }
+.lh-films button:focus-visible { outline: 2px solid #65758d; outline-offset: 4px; }
+@media(max-width:767px) { .lh-films-heading { width: calc(100% - 40px); margin-bottom: 24px; } .lh-films-layout { --film-width: 70.07vw; margin-right: 3vw; gap: 12px; } .lh-films-stage { width: 77vw; height: 540px; } .lh-films-controls { width: 40px; } .lh-films-controls button { width: 38px; height: 38px; } .lh-films-controls > span { gap: 4px; font-size: 14px; } .lh-films-controls strong { font-size: 20px; } .lh-home .lh-films-section { padding: 64px 0; } .lh-film-card { border-radius: 18px; } .lh-film-toggle { width: 54px; height: 54px; } }
+@media(prefers-reduced-motion:reduce) { .lh-films-stage[data-moving=true] .lh-film-slot { transition: none; } }
+@media(hover:none) { .lh-film-card[data-playing=true] .lh-film-toggle { opacity: 1; } }
+
+.lh-film-character { position: absolute; z-index: 3; bottom: 6%; left: 0; width: 0; max-width: none; height: auto; aspect-ratio: 16/9; pointer-events: none; background: transparent; }
+.lh-film-character[data-alpha-video="false"] img { opacity: 0; }
+.lh-film-character[data-alpha-video="false"][data-visible="true"] img { animation: filmCharacterIn 650ms cubic-bezier(.23,1,.32,1) both; }
+/* The original PNG's rightmost opaque pixel is at 78% of its transparent canvas.
+   Start that edge at viewport x=0, not 12% inside the page. No asset crop needed. */
+@keyframes filmCharacterIn { from { opacity: 0; transform: translateX(-78%); } to { opacity: 1; transform: translateX(0); } }
+@media(prefers-reduced-motion:reduce) { .lh-film-character { display: none; } }

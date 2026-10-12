@@ -1,0 +1,30 @@
+/* Shared outer rhythm. Keep hero/scroll-stage geometry and all inner layouts intact. */
+[data-scroll-reveal="pending"] { opacity: 0; }
+@media (prefers-reduced-motion: reduce) { [data-scroll-reveal="pending"] { opacity: 1; } }
+@media print { [data-scroll-reveal="pending"] { opacity: 1; } }
+.lumiq-root {
+  --lq-section-gap: 128px;
+  --lq-section-edge: calc(var(--lq-section-gap) / 2);
+}
+@media (max-width: 1100px) { .lumiq-root { --lq-section-gap: 96px; } }
+@media (max-width: 767px) { .lumiq-root { --lq-section-gap: 64px; } }
+
+.lumiq-root .lh-home :is(.lh-films-section, .lh-safety, .lh-family, .lh-join),
+.lumiq-root .lh-home .lh-room-layout,
+.lumiq-root .story-page :is(.story-origin, .story-principles, .story-quote-band, .story-timeline, .story-future),
+.lumiq-root .prod-page > :is(.prod-feats, .prod-lineup, .prod-catalog, .prod-promise),
+.lumiq-root .prod-page .prod-story-invite .prod-story-invite-inner,
+.lumiq-root .product-detail-light :is(.pd-floor, .pd-final-floor) {
+  padding-block: var(--lq-section-edge);
+}
+/* These legacy editorial sections have inline spacing; only their outer edges change. */
+.lumiq-root .editorial-page:not(.story-page):not(.prod-page) > section {
+  padding-block: var(--lq-section-edge) !important;
+}
+.lumiq-root .lh-home .lh-products-stage {
+  padding-top: var(--lq-section-edge);
+}
+/* Arrow position follows the rendered carousel, never the space after it. */
+.lumiq-root .lh-home .lh-products[data-glass-3d] .lh-products-footer {
+  top: calc(100% - var(--lq-section-edge) - var(--carousel-height) * .61);
+}

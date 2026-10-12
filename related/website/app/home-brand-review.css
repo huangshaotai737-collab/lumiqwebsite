@@ -1,0 +1,56 @@
+/* September 30 brand review: larger type, quieter controls, preserved glass material. */
+.lumiq-root .lh-home {
+  --lh-h1: calc(var(--lq-h1) * 1.053);
+  --lh-h2: calc(var(--lq-h2) * 1.3);
+  --lh-h3: calc(var(--lq-h3) * 1.3);
+  --lh-body: calc(var(--lq-body) * 1.3);
+  --lh-detail: 18.2px;
+}
+.lumiq-root .lh-home .lh-hero h1:lang(en) { font-size: clamp(50.544px, 5.3703vw, 91.611px); }
+.lumiq-root .lh-home :is(.lh-lead, .lh-room-intro, .lh-section-intro) { font-size: var(--lh-body); }
+.lh-home :is(.lh-product-body, .lh-room-mobile-links span) { font-size: max(16px, var(--lh-detail)); }
+.lh-home .lh-films-heading h2 { font-size: clamp(46.8px, 5.2vw, 93.6px); }
+.lh-home .lh-room-label :is(span,small) { font-size: 16px; }
+.lh-film-character > :is(video,img) { width: 100%; height: 100%; object-fit: contain; background: transparent; }
+.lh-products[data-glass-3d] { --carousel-height: clamp(560px, 65svh, 900px); }
+.lh-products[data-glass-3d] .lh-glass-products { height: var(--carousel-height); margin-bottom: 0; }
+.lh-products[data-glass-3d] .lh-products-stage { position: relative; padding-bottom: var(--lq-section-edge); }
+.lh-products[data-glass-3d] .lh-products-footer {
+  position: absolute; top: calc(100% - var(--lq-section-edge) - var(--carousel-height) * .61); left: 0;
+  height: 0; min-height: 0; margin: 0; pointer-events: none;
+}
+.lh-products[data-glass-3d] .lh-products-controls {
+  position: absolute; top: 0; left: 0; right: 0; height: 44px;
+  padding-inline: clamp(16px, 4vw, 72px); justify-content: space-between;
+  transform: translateY(-50%); pointer-events: none;
+}
+.lh-products[data-glass-3d] .lh-products-controls button { pointer-events: auto; }
+.lh-home .lh-products-stage { touch-action: pan-y; }
+.lh-home .lh-products-controls button:active { transform: scale(.96); }
+/* The non-WebGL layout uses the same separated image/copy zones on touch screens. */
+.lumiq-root .lh-home .lh-products .lh-product { padding-inline: 12px; }
+.lumiq-root .lh-home .lh-products .lh-product-copy { width: 100%; min-width: 0; text-align: center; }
+.lumiq-root .lh-home .lh-products .lh-product-copy p { max-width: none; width: 100%; margin: 8px 0 0; font-size: 13px; text-align: left; white-space: normal; text-wrap: wrap; }
+.lh-products .lh-product-art { flex-shrink: 0; }
+@media(min-width:768px) {
+  .lh-home .lh-hero-copy { max-width: min(660px, 48vw); }
+  .lh-home .lh-products-heading h2 { max-width: 1100px; text-wrap: balance; }
+}
+@media(max-width:767px) {
+  .lumiq-root .lh-home .lh-hero h1:lang(en) { width: auto; font-size: clamp(31.59px, 8.424vw, 44.226px); line-height: 1.06; }
+  .lh-home .lh-films-heading h2 { font-size: clamp(36px, 10vw, 52px); }
+  .lumiq-root .lh-home .lh-products-heading h2 { font-size: clamp(32px, 8.4vw, 44px); }
+  .lumiq-root .lh-home :is(.lh-lead, .lh-room-intro, .lh-section-intro) { font-size: max(16px, calc(var(--lq-body) * 1.3)); }
+}
+.lumiq-root .lh-home .lh-hero .lh-lead { font-size: calc(var(--lh-body) * .6); line-height: 1.6; }
+@media(prefers-reduced-motion:reduce) { .lh-home .lh-products-controls button:active { transform: none; } }
+
+@media (min-width:1101px) {
+  .lh-opening:not([data-video-mode]) :is(.lh-glass-word,.lh-hero-stage,.lh-brand-character) { display:none; }
+  .lh-video-end-poster { opacity:var(--opening-progress,0); }
+  .lh-opening[data-static-opening] .lh-opening-stage { height:auto; }
+  .lh-opening[data-static-opening] .lh-video-layer { display:none; }
+  .lh-opening[data-static-opening] :is(.lh-hero,.lh-ola) { position:relative; height:auto; min-height:100svh; background-size:cover; background-position:center; }
+  .lh-opening[data-static-opening] .lh-hero { background-image:url('/assets/home-video/ola-scroll-v16-start-20260909.webp'); }
+  .lh-opening[data-static-opening] .lh-ola { background-image:url('/assets/home-video/ola-scroll-v16-end-20260909.webp'); }
+}

@@ -1,0 +1,53 @@
+/* One composited viewport layer: no scroll-time background reattachment/resizing. */
+.lumiq-root :is(.story-page,.plans-page,.media-page,.faq-page,.prelaunch-page,.prod-page,.product-detail-light,.members-page) {
+  position: relative;
+  isolation: isolate;
+  background: transparent !important;
+}
+.lumiq-root :is(.story-page,.plans-page,.media-page,.faq-page,.prelaunch-page,.prod-page,.product-detail-light,.members-page)::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  height: 100lvh;
+  z-index: -1;
+  pointer-events: none;
+  background: var(--stable-page-base, #fbfbfe) var(--stable-page-bg, var(--single-page-bg)) center / cover no-repeat;
+  transform: translateZ(0);
+}
+.lumiq-root .prod-page { --stable-page-bg: var(--prod-flow-bg); }
+.lumiq-root main.product-detail-light {
+  --stable-page-base: #737f99;
+  --stable-page-bg: url('/assets/slate-backgrounds-20261012/product-detail.png');
+  --pd-ink: #fff;
+  --pd-muted: #fff;
+  --pd-line: rgba(255,255,255,.3);
+  --pd-accent: #fff !important;
+}
+.lumiq-root .product-detail-light .pd-price-row {
+  background: rgba(18,28,46,.66);
+}
+.lumiq-root .product-detail-light .pd-primary-action:hover {
+  background: #243e58;
+}
+.lumiq-root .product-detail-light .pd-hero-display-title {
+  color: #fff;
+  -webkit-text-fill-color: #fff;
+  background: none;
+}
+.lumiq-root .product-detail-light :is(.pd-concept-note,.pd-eyebrow) {
+  color: var(--pd-muted);
+}
+.lumiq-root .product-detail-light :is(.pd-hero-floor,.pd-story-floor,.pd-scenes-floor,.pd-feature-floor,.pd-dark-floor,.pd-extra-floor,.pd-final-floor) {
+  background: transparent;
+}
+.lumiq-root .members-page {
+  --stable-page-base: #737f99;
+  --stable-page-bg: url('/assets/slate-backgrounds-20261012/members.png');
+}
+.lumiq-root .members-heading { color: #081321; }
+.lumiq-root .members-heading :is(h1,.members-eyebrow) { color: #fff; }
+.lumiq-root .members-heading p:not(.members-eyebrow) { color: #101c2c; }
+.lumiq-root .members-page :is(.members-content,.members-sidebar) { background: rgba(248,250,255,.94); }
