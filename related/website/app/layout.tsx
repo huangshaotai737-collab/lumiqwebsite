@@ -10,6 +10,7 @@ import "./brand-review-20261009.css";
 import "./stable-page-backgrounds.css";
 import "./cart.css";
 import "./site-readable-copy.css";
+import "./mobile-experience.css";
 import {htmlLang, type Locale} from "@/i18n/routing";
 
 export const metadata: Metadata = {

@@ -21,11 +21,13 @@ import {
 } from "lucide-react";
 import { PRODUCT_BY_ID } from "@/lib/products";
 import { CarouselInput } from "@/lib/carousel-input";
+import {usePhoneLayout} from "@/components/home/usePhoneLayout";
 
 const GlassCardMaterial = dynamic(() => import("./GlassCardMaterial"), {ssr: false});
 
 export default function ProductsShowcase() {
   const t = useTranslations("Products");
+  const isPhone = usePhoneLayout();
   const rootRef = useRef<HTMLElement>(null);
   const heroMediaRef = useRef<HTMLDivElement>(null);
   const stageRef = useRef<HTMLDivElement>(null);
@@ -241,12 +243,12 @@ export default function ProductsShowcase() {
   const current = products[active];
 
   const selectProduct = (index: number) => {
-    if (index === active || !carouselInput.navigate(performance.now())) return;
+    if (index === active || (!isPhone && !carouselInput.navigate(performance.now()))) return;
     setActive((index + products.length) % products.length);
   };
 
   const stepProduct = (direction: 1 | -1) => {
-    if (!carouselInput.navigate(performance.now())) return;
+    if (!isPhone && !carouselInput.navigate(performance.now())) return;
     setActive((currentIndex) =>
       (currentIndex + direction + products.length) % products.length,
     );
@@ -360,6 +362,11 @@ export default function ProductsShowcase() {
           ))}
         </div>
 
+        <nav className="prod-mobile-nav" aria-label={t('productsAria')}>
+          <button type="button" onClick={() => stepProduct(-1)} aria-label={t('previous')}><ArrowLeft size={22} /></button>
+          <span className="prod-counter" aria-live="polite" aria-atomic="true">{String(active + 1).padStart(2, '0')} / 05</span>
+          <button type="button" onClick={() => stepProduct(1)} aria-label={t('next')}><ArrowRight size={22} /></button>
+        </nav>
         <div ref={stageRef} className="prod-carousel" style={{touchAction: 'pan-y pinch-zoom'}} onDragStart={event => event.preventDefault()}>
           {products.map((p, i) => {
             const distance = (i - active + products.length) % products.length;
@@ -387,13 +394,14 @@ export default function ProductsShowcase() {
                   }
                 } : undefined}
               >
-                {(selected || preview) && <GlassCardMaterial animated={selected} />}
+                {!isPhone && (selected || preview) && <GlassCardMaterial animated={selected} />}
                 <div className="prod-stage-media">
                   <Image
                     src={p.img}
                     alt={selected ? p.name : ""}
                     width={1000}
                     height={1000}
+                    unoptimized={isPhone}
                     sizes="(max-width: 960px) 100vw, (max-width: 1500px) 45vw, 520px"
                     className={p.id === "nest" ? "nest" : ""}
                     loading={i === 0 || i === 1 || i === products.length - 1 ? "eager" : "lazy"}

@@ -1,5 +1,7 @@
 "use client";
 import {homeWideQuery} from "./responsiveLayout";
+import {usePhoneLayout} from "./usePhoneLayout";
+import MobileFilmCarousel from "./MobileFilmCarousel";
 import Heading from "@/components/Heading";
 
 
@@ -13,6 +15,7 @@ const films = ["everyday-companion", "worlds-together", "welcome-home"] as const
 
 export default function HomeFilms() {
   const t = useTranslations("HomeFilms");
+  const isPhone = usePhoneLayout();
   const [active, setActive] = useState(0);
   const [mediaRequested, setMediaRequested] = useState(false);
   const [playing, setPlaying] = useState(false);
@@ -26,10 +29,12 @@ export default function HomeFilms() {
   const touchStart = useRef<{ x: number; y: number } | null>(null);
   const [travel, setTravel] = useState(0);
   const switching = useRef(false);
+  const pendingStep = useRef(0);
   const timer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
   const select = useCallback((step: number) => {
     if (switching.current) return;
     switching.current = true;
+    pendingStep.current = step;
     video.current?.pause();
     setPlaying(false);
     setPlaybackError(false);
@@ -38,9 +43,19 @@ export default function HomeFilms() {
       setActive(index => (index + step + films.length) % films.length);
       setTravel(0);
       switching.current = false;
+      pendingStep.current = 0;
     }, matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : 800);
   }, []);
   useEffect(() => () => clearTimeout(timer.current), []);
+  useEffect(() => {
+    if (!switching.current) return;
+    clearTimeout(timer.current);
+    const step = pendingStep.current;
+    setActive(index => (index + step + films.length) % films.length);
+    setTravel(0);
+    switching.current = false;
+    pendingStep.current = 0;
+  }, [isPhone]);
   useEffect(() => {
     const target = stage.current?.closest("[data-home-section]");
     if (!target) return;
@@ -49,12 +64,12 @@ export default function HomeFilms() {
     }, { rootMargin: "600px 0px" });
     observer.observe(target);
     return () => observer.disconnect();
-  }, []);
+  }, [isPhone]);
   useEffect(() => {
     const target = stage.current;
     if (!target) return;
     return mountHorizontalCarousel(target, select, () => switching.current);
-  }, [select]);
+  }, [select, isPhone]);
   useEffect(() => {
     // VP9 support is not proof of VP9 alpha support. WebKit gets the same cleaned
     // animation encoded with HEVC alpha; Chromium/Firefox retain transparent VP9.
@@ -82,7 +97,7 @@ export default function HomeFilms() {
       element.pause(); observer.disconnect(); document.removeEventListener("visibilitychange", onHidden);
       element.removeEventListener("error", onFailure); source?.removeEventListener("error", onFailure);
     };
-  }, [active, mediaRequested]);
+  }, [active, mediaRequested, isPhone]);
   useEffect(() => {
     const clip = character.current;
     const host = characterHost.current;
@@ -143,7 +158,7 @@ export default function HomeFilms() {
       reduced.removeEventListener("change", sync);
       clip?.removeEventListener("loadeddata", sync);
     };
-  }, [characterFormat, characterFailed]);
+  }, [characterFormat, characterFailed, isPhone]);
   const toggle = async () => {
     if (!video.current) return;
     setMediaRequested(true);
@@ -158,6 +173,7 @@ export default function HomeFilms() {
       <header className="lh-films-heading">
         <div><p className="lh-eyebrow">{t("eyebrow")}</p><Heading as="h2" id="films-title">{t("heading")}</Heading></div>
       </header>
+      {isPhone ? <MobileFilmCarousel films={films} active={active} onChange={setActive} /> : <>
       <div className="lh-films-layout">
       <div ref={stage} className="lh-films-stage" data-moving={travel !== 0} onTouchStart={e => { touchStart.current = { x: e.touches[0].clientX, y: e.touches[0].clientY }; }}
         onTouchEnd={e => {
@@ -201,6 +217,7 @@ export default function HomeFilms() {
         <source src={`/assets/character-20261012/ola-girl-clean-alpha${characterFormat === "hevc" ? "-safari.mov" : ".webm"}`} type={characterFormat === "hevc" ? 'video/quicktime; codecs="hvc1"' : "video/webm"} />
       </video> : <Image src="/assets/character-20261012/settled-clean.png" alt="" fill unoptimized sizes="100vw" />}
       </div>
+      </>}
     </div>
   );
 }
