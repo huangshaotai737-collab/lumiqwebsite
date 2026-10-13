@@ -36,7 +36,10 @@
   inset: 0;
   overflow: clip;
   pointer-events: none;
-  background: #f6f5fa;
+  background:
+    radial-gradient(ellipse at 0% 38%, #ebe5f5 0, transparent 48%),
+    radial-gradient(ellipse at 100% 64%, #e8e5f3 0, transparent 48%),
+    linear-gradient(165deg, #faf7fc, #f4eff9 48%, #edeaf5);
 }
 .lh-video-start-poster,
 .lh-video-end-poster,
@@ -120,7 +123,7 @@
 .lumiq-root .lh-home .lh-opening[data-video-mode]:not([data-static-opening]) .lh-hero .lh-lead {
   max-width: 440px;
   margin-top: clamp(14px, 2svh, 20px);
-  font-size: 14px;
+  font-size: calc(var(--lh-body) * .6);
   line-height: 1.65;
 }
 .lumiq-root .lh-home .lh-opening[data-video-mode]:not([data-static-opening]) .lh-hero .lh-actions {
@@ -131,7 +134,7 @@
 .lumiq-root .lh-home .lh-opening[data-video-mode]:not([data-static-opening]) .lh-hero :is(.lh-button, .lh-text-link) {
   flex: none;
   white-space: nowrap;
-  font-size: 14px;
+  font-size: var(--lh-action);
 }
 .lumiq-root .lh-home .lh-opening[data-video-mode]:not([data-static-opening]) .lh-hero .lh-button {
   min-height: 48px;
@@ -154,7 +157,7 @@
   padding: 0;
 }
 .lumiq-root .lh-home .lh-opening[data-video-mode]:not([data-static-opening]) .lh-ola-copy h2 {
-  font-size: clamp(26px, min(3.5vw, calc(var(--opening-height) * .084)), 58px);
+  font-size: clamp(28px, min(3.7vw, calc(var(--opening-height) * .10)), 64px);
   line-height: 1.14;
   letter-spacing: -.025em;
 }
@@ -165,13 +168,13 @@
 .lumiq-root .lh-home .lh-opening[data-video-mode]:not([data-static-opening]) .lh-ola-copy .lh-lead {
   max-width: 580px;
   margin-top: clamp(12px, 2svh, 20px);
-  font-size: clamp(14px, min(1.1vw, calc(var(--opening-height) * .038)), 18px);
+  font-size: clamp(16px, 1.25vw, 19px);
   line-height: 1.5;
 }
 .lumiq-root .lh-home .lh-opening[data-video-mode]:not([data-static-opening]) .lh-ola-copy .lh-text-link {
   margin-top: clamp(12px, 2svh, 20px);
   min-height: 40px;
-  font-size: 14px;
+  font-size: var(--lh-action);
 }
 .lumiq-root .lh-home .lh-opening[data-video-mode]:not([data-static-opening]) .lh-rhythm-cards {
   grid-column: 2;
@@ -193,11 +196,11 @@
   min-height: 0;
 }
 .lumiq-root .lh-home .lh-opening[data-video-mode]:not([data-static-opening]) .lh-rhythm-copy h3 {
-  font-size: clamp(18px, min(1.6vw, 3svh), 25px);
+  font-size: clamp(20px, 1.6vw, 25px);
   margin-bottom: 4px;
 }
 .lumiq-root .lh-home .lh-opening[data-video-mode]:not([data-static-opening]) .lh-rhythm-copy p {
-  font-size: 14px;
+  font-size: clamp(13px, 1vw, 15px);
   line-height: 1.5;
 }
 .lh-opening[data-video-mode] :is(.lh-hero-copy, .lh-ola-copy, .lh-rhythm-cards) { pointer-events: auto; }

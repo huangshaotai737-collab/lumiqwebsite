@@ -17,7 +17,9 @@ jobs:
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
     runs-on: ${{ matrix.os }}
-    timeout-minutes: 20
+    # Windows installs can consume over eight minutes before browser checks.
+    # Keep per-operation deadlines; allow time for all four browser engines.
+    timeout-minutes: 30
     defaults:
       run:
         working-directory: related/website

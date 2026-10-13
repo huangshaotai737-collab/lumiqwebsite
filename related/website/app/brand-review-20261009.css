@@ -46,10 +46,6 @@
 @media (max-width: 767px) { .lumiq-root > .footer .foot-grid, .lumiq-root:has(.lh-home) > .footer .foot-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px 24px; } }
 @media (max-width: 420px) { .lumiq-root > .footer .container, .lumiq-root:has(.lh-home) > .footer .container { width: calc(100% - 32px); } .lumiq-root > .footer .foot-grid, .lumiq-root:has(.lh-home) > .footer .foot-grid { grid-template-columns: 1fr; gap: 28px; } }
 .lumiq-root .footer .foot-logo-light { display: none; }
-.lumiq-root[data-flow-background="true"] .footer .foot-logo-img:not(.foot-logo-light) { display: none; }
-.lumiq-root[data-flow-background="true"] .footer .foot-logo-light { display: block; }
-.lumiq-root[data-flow-background="true"] .footer { --ink-3: #dce3f2; }
-.lumiq-root[data-flow-background="true"]:has(.lh-home) > .footer { background: rgba(9, 15, 26, .68); }
 
 /* Text uses document flow; large poster type stays behind the product. */
 @media (min-width: 981px) {

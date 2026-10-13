@@ -60,11 +60,14 @@ test("continuous width and aspect-ratio resize keeps one proportional media plan
     await page.evaluate(() => new Promise<void>(resolve => requestAnimationFrame(() => requestAnimationFrame(() => resolve()))));
     const boxes = await page.evaluate(() => [".lh-opening-video", ".lh-video-start-poster", ".lh-video-end-poster"].map(selector => {
       const r = document.querySelector(selector)!.getBoundingClientRect();
-      return { width: r.width, height: r.height, center: r.y + r.height / 2, left: r.left, right: r.right };
+      const stage = document.querySelector(".lh-opening-stage")!.getBoundingClientRect();
+      return { width: r.width, height: r.height, center: r.y + r.height / 2, left: r.left, right: r.right, layoutCenter: stage.left + stage.width / 2 };
     }));
     for (const box of boxes) {
       expect(Math.abs(box.width / box.height - 16 / 9)).toBeLessThan(.001);
-      expect(Math.abs((box.left + box.right) / 2 - width / 2)).toBeLessThan(1);
+      // The current cart fix reserves the classic scrollbar gutter. Media is
+      // centered in the actual content viewport, not including that gutter.
+      expect(Math.abs((box.left + box.right) / 2 - box.layoutCenter)).toBeLessThan(1);
       expect(box.left).toBeGreaterThanOrEqual(-1);
       expect(box.right).toBeLessThanOrEqual(width + 1);
       expect(box.center - box.height / 2).toBeGreaterThan(90);

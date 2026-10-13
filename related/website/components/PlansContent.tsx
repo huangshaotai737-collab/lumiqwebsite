@@ -227,16 +227,13 @@ function PlanTable({
                     justifyContent: "space-between",
                     gap: "1rem",
                     padding: ".5rem 0",
-                    borderBottom: `1px solid ${col === featured ? "rgba(255,255,255,0.12)" : "var(--border)"}`,
+                    borderBottom: "1px solid var(--border)",
                     fontSize: ".9rem",
                   }}
                 >
                   <span
                     style={{
-                      color:
-                        col === featured
-                          ? "rgba(255,255,255,0.7)"
-                          : "var(--ink-3)",
+                      color: "var(--ink-3)",
                     }}
                   >
                     {row.label}
@@ -250,8 +247,8 @@ function PlanTable({
                 href="/prelaunch"
                 className="btn"
                 style={{
-                  background: col === featured ? "white" : "var(--ink)",
-                  color: col === featured ? "var(--ink)" : "white",
+                  background: "var(--ink)",
+                  color: "white",
                   textAlign: "center",
                 }}
               >
@@ -478,8 +475,8 @@ export default function PlansContent() {
         .is-featured .fee-cell em { color: var(--ink-3); }
 
         .tier-card { background: #fff; color: var(--ink); border: 1px solid var(--border); border-radius: 16px; padding: 2rem 1.75rem; display: flex; flex-direction: column; }
-        .tier-card.featured { background: var(--ink); color: white; border-color: transparent; }
-        .tier-card.featured .fee-cell em { color: rgba(255,255,255,0.6); }
+        .tier-card.featured { background: #f5f7ff; color: var(--ink); border-color: #b8c7de; }
+        .tier-card.featured .fee-cell em { color: var(--ink-3); }
 
         .pal-table-wrap { display: block; overflow-x: auto; border: 1px solid var(--border); border-radius: 16px; }
         .pal-table { width: 100%; border-collapse: collapse; background: #fff; }
@@ -488,8 +485,8 @@ export default function PlansContent() {
         .pal-table tbody th { text-align: left; color: var(--ink-2); font-weight: 500; }
         .pal-table tbody tr:not(.cta-row):hover th, .pal-table tbody tr:not(.cta-row):hover td { background: rgba(240,245,252,.6); }
         .pal-table .is-featured { background: rgba(240,245,252,.6); }
-        .pal-table thead .is-featured { background: var(--ink); color: white; }
-        .pop-tag { display: block; font-family: var(--font-sans); font-size: .55rem; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; color: #E8CE8F; margin-bottom: .3rem; }
+        .pal-table thead .is-featured { background: #f5f7ff; color: var(--ink); }
+        .pop-tag { display: block; font-family: var(--font-sans); font-size: .55rem; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; color: #805832; margin-bottom: .3rem; }
         .pal-table .cta-row th, .pal-table .cta-row td { border-bottom: none; padding-top: 1.25rem; padding-bottom: 1.5rem; }
         .plan-choose { background: transparent; color: var(--ink); border: 1px solid var(--ink); padding: .5rem 1rem; font-size: .85rem; }
         .plan-choose:hover { background: var(--ink); color: #fff; transform: translateY(-2px); }

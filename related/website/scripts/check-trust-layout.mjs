@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import { chromium } from 'playwright';
+import { chromium } from '@playwright/test';
 const browser = await chromium.launch({ channel: 'chrome', headless: true });
 try {
   for (const width of [390, 1440, 1920]) {

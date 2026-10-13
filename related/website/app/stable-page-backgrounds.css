@@ -19,22 +19,30 @@
 }
 .lumiq-root .prod-page { --stable-page-bg: var(--prod-flow-bg); }
 .lumiq-root main.product-detail-light {
-  --stable-page-base: #737f99;
-  --stable-page-bg: url('/assets/slate-backgrounds-20261012/product-detail.png');
-  --pd-ink: #fff;
-  --pd-muted: #fff;
-  --pd-line: rgba(255,255,255,.3);
-  --pd-accent: #fff !important;
+  --stable-page-base: #fbfbfe;
+  --stable-page-bg: url('/assets/subpage-backgrounds-20260915/generated-set-02/flow-01-low-arc.webp');
+  --pd-ink: #152439;
+  --pd-muted: #526174;
+  --pd-line: rgba(21,36,57,.18);
+  --pd-accent: #805832 !important;
 }
 .lumiq-root .product-detail-light .pd-price-row {
-  background: rgba(18,28,46,.66);
+  background: rgba(255,255,255,.78);
 }
 .lumiq-root .product-detail-light .pd-primary-action:hover {
   background: #243e58;
 }
+.lumiq-root .product-detail-light .cart-add-button {
+  color: var(--pd-ink);
+  border-color: #9cacc0;
+  background: rgba(255,255,255,.84);
+}
+.lumiq-root .product-detail-light .cart-add-button:not(:disabled):hover {
+  background: #eaf0fc;
+}
 .lumiq-root .product-detail-light .pd-hero-display-title {
-  color: #fff;
-  -webkit-text-fill-color: #fff;
+  color: var(--pd-ink);
+  -webkit-text-fill-color: var(--pd-ink);
   background: none;
 }
 .lumiq-root .product-detail-light :is(.pd-concept-note,.pd-eyebrow) {
@@ -44,10 +52,10 @@
   background: transparent;
 }
 .lumiq-root .members-page {
-  --stable-page-base: #737f99;
-  --stable-page-bg: url('/assets/slate-backgrounds-20261012/members.png');
+  --stable-page-base: #fbfbfe;
+  --stable-page-bg: url('/assets/subpage-backgrounds-20260915/generated-set-02/flow-03-open-loop.webp');
 }
 .lumiq-root .members-heading { color: #081321; }
-.lumiq-root .members-heading :is(h1,.members-eyebrow) { color: #fff; }
-.lumiq-root .members-heading p:not(.members-eyebrow) { color: #101c2c; }
+.lumiq-root .members-heading :is(h1,.members-eyebrow) { color: #152439; }
+.lumiq-root .members-heading p:not(.members-eyebrow) { color: #526174; }
 .lumiq-root .members-page :is(.members-content,.members-sidebar) { background: rgba(248,250,255,.94); }

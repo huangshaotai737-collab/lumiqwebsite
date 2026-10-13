@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { PRODUCT_BY_ID, type ProductId } from "@/lib/products";
+import HomeBackgrounds from "@/components/home/HomeBackgrounds";
 import HomeMotion from "@/components/home/HomeMotion";
 import HomeGlassProducts from "@/components/home/HomeGlassProducts";
 import HomeFilms from "@/components/home/HomeFilms";
@@ -50,6 +51,7 @@ export default async function Home() {
   const locale = await getLocale();
   return (
     <HomeMotion>
+      <HomeBackgrounds />
       <div className="lh-opening">
         <div className="lh-opening-stage">
           <div className="lh-video-layer" aria-hidden="true">
@@ -74,14 +76,20 @@ export default async function Home() {
             data-home-section
           >
             <div className="lh-mobile-hero-art" role="img" aria-label={t("heroAlt")}>
-              <Image
-                src="/assets/mobile-backgrounds-20260914/hero-unified.webp"
-                alt=""
-                fill
-                sizes="(max-width: 1100px) 100vw, 1px"
-                unoptimized
-                priority
-              />
+              <picture>
+                <source
+                  media="(min-width: 768px)"
+                  srcSet="/assets/home-video/ola-scroll-v16-start-20260909.webp"
+                />
+                <Image
+                  src="/assets/mobile-backgrounds-20260914/hero-unified.webp"
+                  alt=""
+                  fill
+                  sizes="(max-width: 1100px) 100vw, 1px"
+                  unoptimized
+                  priority
+                />
+              </picture>
             </div>
             <div className="lh-wrap lh-hero-layout">
               <div className="lh-hero-copy">

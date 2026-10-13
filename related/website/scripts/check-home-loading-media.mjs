@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
-import { chromium } from 'playwright';
+import { chromium } from '@playwright/test';
 
 const url = process.env.LUMIQ_LOADING_URL || 'http://127.0.0.1:4192/en';
 const browser = await chromium.launch({ channel: 'chrome', headless: true });

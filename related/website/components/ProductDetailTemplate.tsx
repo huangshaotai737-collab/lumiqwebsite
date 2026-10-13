@@ -1,5 +1,6 @@
 "use client";
 import Heading from "@/components/Heading";
+import AddToCartButton from "@/components/cart/AddToCartButton";
 
 
 import { useEffect, useRef, type CSSProperties, type ReactNode } from "react";
@@ -204,6 +205,7 @@ export default function ProductDetailTemplate({
                 {ctaLabel}
               </Link>
             </div>
+            <div className="pd-cart-action"><AddToCartButton productId={slug} /></div>
             {heroOptions && <div className="pd-hero-options">{heroOptions}</div>}
           </div>
 
@@ -370,6 +372,7 @@ export default function ProductDetailTemplate({
             <Link href="/prelaunch" className="pd-primary-action">
               {ctaLabel}
             </Link>
+            <AddToCartButton productId={slug} />
             {secondaryAction && (
               <Link href={secondaryAction.href} className="pd-secondary-action">
                 {secondaryAction.label}

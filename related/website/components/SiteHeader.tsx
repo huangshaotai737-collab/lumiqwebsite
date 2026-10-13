@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import { Globe2, Menu, X } from "lucide-react";
 import type { Locale } from "@/i18n/routing";
 import Image from "next/image";
+import CartTrigger from "@/components/cart/CartTrigger";
 
 export default function SiteHeader() {
   const t = useTranslations("Common");
@@ -167,6 +168,7 @@ export default function SiteHeader() {
         </div>
 
         <div className="nav-actions">
+          <CartTrigger onOpen={closeMenu} />
           <div className="lang-switch site-desktop-action hidden md:block">
             <button
               type="button"

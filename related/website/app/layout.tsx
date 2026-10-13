@@ -8,8 +8,7 @@ import "./mobile.css";
 import "./section-spacing.css";
 import "./brand-review-20261009.css";
 import "./stable-page-backgrounds.css";
-import "./site-small-copy.css";
-import "./site-background-flow.css";
+import "./cart.css";
 import {htmlLang, type Locale} from "@/i18n/routing";
 
 export const metadata: Metadata = {
