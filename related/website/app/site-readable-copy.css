@@ -1,7 +1,7 @@
 /* Semantic secondary text shares a readable scale across all public routes. */
 .lumiq-root {
-  --lq-label-size: 14px;
-  --lq-caption-size: 15px;
+  --lq-label-size: 16px;
+  --lq-caption-size: 16px;
   --lq-link-size: 16px;
   --lq-support-size: 16px;
 }
@@ -50,20 +50,55 @@
   font-size: var(--lq-label-size) !important;
 }
 /* Dialogs render outside .lumiq-root and need their own scale. */
-.cart-drawer { --lq-label-size: 14px; --lq-caption-size: 15px; --lq-link-size: 16px; }
+.cart-drawer { --lq-label-size: 16px; --lq-caption-size: 16px; --lq-link-size: 16px; }
 .cart-drawer :is(.cart-eyebrow, .cart-count, .cart-item-price, .cart-price-note, .cart-local-note),
 .cart-total span { font-size: var(--lq-label-size); line-height: 1.6; }
 .cart-drawer :is(.cart-remove, .cart-continue) { font-size: var(--lq-caption-size); }
 .cart-drawer .cart-primary { font-size: var(--lq-link-size); }
 @media (max-width: 1100px) {
   .lumiq-root, .cart-drawer {
-    --lq-label-size: 13px;
-    --lq-caption-size: 14px;
-    --lq-link-size: 15px;
-    --lq-support-size: 15px;
+    --lq-label-size: 16px;
+    --lq-caption-size: 16px;
+    --lq-link-size: 16px;
+    --lq-support-size: 16px;
   }
-  .lumiq-root .navbar.site-nav .login-btn { font-size: 13px; }
-  .lumiq-root .navbar.site-nav .site-mobile-trigger-label { font-size: 13px; }
+  .lumiq-root .navbar.site-nav .login-btn { font-size: 16px; }
+  .lumiq-root .navbar.site-nav .site-mobile-trigger-label { font-size: 16px; }
+}
+
+/* The footer links define the 16px minimum, including supporting UI states. */
+.lumiq-root :is(.lang-btn, .lang-item, .lang-caret,
+  .lh-film-open, .lh-family-tabs,
+  .lh-family-tabs button, .lh-family-dot, .lh-rhythm-copy p, .lh-chapter-navigation button,
+  .prod-feat strong, .prod-tab-num, .prod-ghost-link,
+  .prod-specs li, .prod-story-invite-copy p, .prod-catalog-description,
+  .prod-promise-item strong, .story-milestone p,
+  .billing-toggle button,
+  .hw-copy, .hw-copy p, .hw-card > p, .hw-price-pending, .hw-price span,
+  .pal-table tbody th, .pal-table td, .plan-list, .plan-list li,
+  .members-disclosure, .members-avatar strong, .members-sidebar button,
+  .members-help, .members-primary, .members-explore, .members-text-action,
+  .members-panel-head button, .members-panel label, .members-check,
+  .members-upload input, .members-form-actions a, .members-status,
+  .draft-notice, .draft-notice-compact, .pending-link-list span),
+.lumiq-root .pd-finish-picker p,
+.lumiq-root .pd-back-link,
+.lumiq-root .pal-cards li,
+.lumiq-root .footer :is(.foot-nav h4, .foot-bottom, .pending-link-list small) {
+  font-size: 16px !important;
+}
+.cart-drawer :is(.cart-empty p, .cart-quantity output) { font-size: 16px; }
+.cart-nav-count { min-width: 24px; height: 24px; font-size: 16px; }
+.lumiq-root .lh-home .lh-rhythm-copy p { font-size: max(16px, var(--lh-detail)) !important; }
+.lumiq-root .hw-price-pending { font-size: clamp(16px, 1.4vw, 16.8px) !important; }
+@media (max-width: 1100px) {
+  .lumiq-root .lh-home :is(.lh-lead, .lh-room-intro, .lh-section-intro),
+  .lumiq-root .lh-home .lh-section-intro p { font-size: 16px !important; }
+  .lumiq-root .prod-tab-name { font-size: 16px !important; }
+}
+@media (max-width: 767px) {
+  .lumiq-root .story-hero-media figcaption strong,
+  .lumiq-root .lh-films-controls > span { font-size: 16px !important; }
 }
 @media (max-width: 420px) {
   .lumiq-root .navbar.site-nav .login-btn { max-width: 104px; }
