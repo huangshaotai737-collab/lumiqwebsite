@@ -11,7 +11,7 @@
 
 .copy {
   position: absolute;
-  inset: 273px 12px 21px;
+  inset: 260px 12px 21px;
   display: flex;
   flex-direction: column;
   align-items: stretch;
@@ -23,12 +23,13 @@
   position: static;
   width: 100%;
   margin: 0;
-  font: 600 22px/1.2 Arial, sans-serif;
+  font: 600 36px/1.2 var(--font-sans, Arial, sans-serif);
   text-align: center;
   white-space: nowrap;
 }
 
-.surface[data-active="true"] .title { font-size: 26px; }
+.surface[data-active="true"] .title { font-size: 30px; }
+.surface[data-active="true"] .copy { top: 244px; }
 
 .copy .description {
   position: static;
@@ -39,7 +40,7 @@
   max-width: none;
   margin: 8px 0 0;
   padding: 0;
-  font: 400 16px/1.4 Arial, sans-serif;
+  font: 400 18px/1.4 var(--font-sans, Arial, sans-serif);
   text-align: left;
   white-space: normal;
   text-wrap: wrap;
@@ -51,7 +52,9 @@
   width: 100%;
   margin-top: auto;
   padding-top: 8px;
-  font: 500 17px/1.25 Arial, sans-serif;
+  font: 600 32px/1.25 var(--font-sans, Arial, sans-serif);
   text-align: center;
   white-space: nowrap;
 }
+
+.surface[data-active="true"] .action { font-size: 20px; }
