@@ -36,15 +36,15 @@ test("height resizing preserves the current opening frame and reverse scrub", as
 });
 
 // Catches pin teardown discarding the saved desktop chapter during mobile mode.
-test("1100/1101px handoff retains opening progress when returning to desktop", async ({ page }) => {
+test("1199/1200px handoff retains opening progress when returning to desktop", async ({ page }) => {
   await page.evaluate(() => scrollTo({ top: 1100, behavior: "instant" }));
   await expect.poll(async () => (await state(page)).time).toBeGreaterThan(3);
   const before = await state(page);
-  await page.setViewportSize({ width: 1100, height: 800 });
+  await page.setViewportSize({ width: 1199, height: 800 });
   await expect(page.locator(".lh-opening")).not.toHaveAttribute("data-video-mode", "true");
   expect((await state(page)).src).toBeNull();
   await page.waitForTimeout(650);
-  await page.setViewportSize({ width: 1101, height: 800 });
+  await page.setViewportSize({ width: 1200, height: 800 });
   await expect(page.locator(".lh-video-layer")).toHaveAttribute("data-ready", "true");
   await page.waitForTimeout(650);
   expect(Math.abs((await state(page)).progress - before.progress)).toBeLessThan(.015);
@@ -93,10 +93,10 @@ test("a continuous window drag keeps the mid-film frame through width and height
   await page.evaluate(() => scrollTo({ top: 1100, behavior: "instant" }));
   await expect.poll(async () => (await state(page)).time).toBeGreaterThan(3);
   const before = await state(page);
-  for (const [width, height] of [[1460, 790], [1500, 780], [1519, 799], [1521, 801], [1440, 719], [1400, 640], [1380, 600], [1280, 498], [1101, 720], [1100, 720], [1090, 730], [1101, 740], [1440, 800]]) {
+  for (const [width, height] of [[1460, 790], [1500, 780], [1519, 799], [1521, 801], [1440, 719], [1400, 640], [1380, 600], [1280, 498], [1200, 720], [1199, 720], [1190, 730], [1200, 740], [1440, 800]]) {
     await page.setViewportSize({ width, height });
     await page.evaluate(() => new Promise<void>(resolve => requestAnimationFrame(() => requestAnimationFrame(() => resolve()))));
-    if (width > 1100) expect(Math.abs((await state(page)).progress - before.progress)).toBeLessThan(.015);
+    if (width >= 1200) expect(Math.abs((await state(page)).progress - before.progress)).toBeLessThan(.015);
   }
   await page.waitForTimeout(650);
   expect(Math.abs((await state(page)).time - before.time)).toBeLessThan(.09);

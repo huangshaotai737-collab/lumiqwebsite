@@ -1,6 +1,6 @@
 /* Reserve the desktop canvas footprint before downloading its renderer. The
    ordinary cards occupy the same slot until the textured scene can be shown. */
-@media (min-width: 1101px) {
+@media (min-width: 1200px) {
   .lh-home .lh-products { --carousel-height: clamp(560px, 65svh, 900px); }
   .lh-home .lh-products .lh-products-stage { position: relative; min-height: 0; gap: 8px; padding-bottom: var(--lq-section-edge); }
   .lh-home .lh-products .lh-glass-products { display: block; position: relative; height: var(--carousel-height); width: 100%; margin-bottom: 0; }

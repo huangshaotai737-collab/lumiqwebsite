@@ -7,7 +7,7 @@
 .lh-films-layout { --film-width: min(47.92vw,1092px); --film-height: calc(var(--film-width) * 9 / 16); position: relative; display: flex; align-items: center; gap: clamp(20px,3vw,48px); margin: 0 8vw 0 auto; width: max-content; }
 .lh-films-stage { position: relative; width: min(52.66vw,1200px); height: clamp(600px,76svh,930px); isolation: isolate; overflow: clip; mask-image: linear-gradient(transparent,#000 8%,#000 92%,transparent); }
 /* A reserved left text lane prevents the heading from painting across the video. */
-@media(min-width:1101px) {
+@media(min-width:1200px) {
   .lh-films-layout { --film-width: min(45.5vw,1092px); margin-right: 3vw; }
   .lh-films-stage { width: min(50vw,1200px); }
 }

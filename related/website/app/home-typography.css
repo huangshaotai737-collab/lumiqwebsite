@@ -30,7 +30,7 @@
   font-size: var(--lh-action);
   line-height: 1.5;
 }
-@media (min-width: 1101px) {
+@media (min-width: 1200px) {
   .lh-ola-copy { max-width: min(100%, 22vw, 380px); }
 }
 .lumiq-root .lh-home:lang(ja) :is(h1, h2, h3),

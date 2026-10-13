@@ -1,4 +1,5 @@
 "use client";
+import {homeWideQuery} from "./responsiveLayout";
 import Heading from "@/components/Heading";
 
 
@@ -88,11 +89,12 @@ export default function HomeFilms() {
     const target = stage.current;
     if (!host || !target) return;
     const reduced = matchMedia("(prefers-reduced-motion: reduce)");
+    const wide = matchMedia(homeWideQuery);
     let visible = false;
     let disposed = false;
     if (clip) { clip.muted = true; clip.defaultMuted = true; }
     const sync = () => {
-      const showing = visible && !document.hidden && !reduced.matches && innerWidth > 1100;
+      const showing = visible && !document.hidden && !reduced.matches && wide.matches;
       host.dataset.visible = String(showing);
       if (!clip) return;
       if (!showing) clip.pause();
@@ -101,7 +103,7 @@ export default function HomeFilms() {
       });
     };
     const placeCharacter = () => {
-      if (innerWidth <= 1100) {
+      if (!wide.matches) {
         sync();
         return;
       }

@@ -1,4 +1,6 @@
 "use client";
+import {homeMotionQuery} from "./responsiveLayout";
+
 import { useEffect, useRef, type ReactNode } from "react";
 import { useGSAP } from "@gsap/react";
 import { gsap } from "gsap";
@@ -36,7 +38,7 @@ export default function HomeMotion({ children }: { children: ReactNode }) {
       mm.add(
         {
           desktop:
-            "(min-width: 1101px) and (min-height: 640px) and (prefers-reduced-motion: no-preference)",
+            `${homeMotionQuery} and (min-height: 640px)`,
           video: openingVideoQuery,
         },
         (context) => {

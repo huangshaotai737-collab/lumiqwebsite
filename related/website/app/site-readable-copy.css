@@ -55,7 +55,7 @@
 .cart-total span { font-size: var(--lq-label-size); line-height: 1.6; }
 .cart-drawer :is(.cart-remove, .cart-continue) { font-size: var(--lq-caption-size); }
 .cart-drawer .cart-primary { font-size: var(--lq-link-size); }
-@media (max-width: 1100px) {
+@media (max-width: 1199px) {
   .lumiq-root, .cart-drawer {
     --lq-label-size: 16px;
     --lq-caption-size: 16px;
@@ -91,7 +91,7 @@
 .cart-nav-count { min-width: 24px; height: 24px; font-size: 16px; }
 .lumiq-root .lh-home .lh-rhythm-copy p { font-size: max(16px, var(--lh-detail)) !important; }
 .lumiq-root .hw-price-pending { font-size: clamp(16px, 1.4vw, 16.8px) !important; }
-@media (max-width: 1100px) {
+@media (max-width: 1199px) {
   .lumiq-root .lh-home :is(.lh-lead, .lh-room-intro, .lh-section-intro),
   .lumiq-root .lh-home .lh-section-intro p { font-size: 16px !important; }
   .lumiq-root .prod-tab-name { font-size: 16px !important; }

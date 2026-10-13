@@ -148,7 +148,7 @@
 @media (min-width:1921px) {
   .lh-room-background { mask-image: linear-gradient(transparent,#000 8%,#000 92%,transparent),linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent); mask-composite: intersect; }
 }
-@media (max-width:1100px) {
+@media (max-width:1199px) {
   .lh-room-layout { display: flex; flex-direction: column; min-height: 0; padding: 75px 0 48px; }
   .lh-room-heading { width: min(680px,calc(100% - var(--lh-gutter)*2)); margin: auto; padding-bottom: 25px; }
   .lh-home .lh-room-heading h2 { font-size: clamp(32px,4.5vw,46px); }

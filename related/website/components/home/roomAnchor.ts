@@ -1,3 +1,4 @@
+import {homeMotionQuery} from "./responsiveLayout";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -6,7 +7,7 @@ export function mountRoomAnchor(root: HTMLElement) {
   const section = room?.closest<HTMLElement>(".lh-room-section");
   if (!room || !section) return () => {};
   const mm = gsap.matchMedia();
-  mm.add("(min-width: 1101px) and (min-height: 720px) and (pointer: fine) and (prefers-reduced-motion: no-preference)", () => {
+  mm.add(`${homeMotionQuery} and (min-height: 720px) and (pointer: fine)`, () => {
     const navHeight = () => document.querySelector('.site-nav')?.getBoundingClientRect().height ?? 86;
     const measure = () => {
       const top = navHeight();

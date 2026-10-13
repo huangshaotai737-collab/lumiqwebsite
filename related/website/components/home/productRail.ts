@@ -1,3 +1,4 @@
+import {homeWideQuery} from "./responsiveLayout";
 import { mountHorizontalCarousel } from "./readingNavigation";
 
 /** Five real product links, presented as a circular glass carousel on desktop. */
@@ -11,12 +12,15 @@ export function mountProductRail(root: HTMLElement) {
   const previous = section.querySelector<HTMLButtonElement>("[data-products-previous]")!;
   const next = section.querySelector<HTMLButtonElement>("[data-products-next]")!;
   const meter = section.querySelector<HTMLElement>(".lh-products-progress span")!;
-  const desktop = matchMedia("(min-width: 1101px)");
+  const desktop = matchMedia(homeWideQuery);
   const reduced = matchMedia("(prefers-reduced-motion: reduce)");
   const events = new AbortController();
   const options = { signal: events.signal };
   let active = 0;
   let lockedUntil = 0;
+  let positioning = false;
+  let resizeFrame = 0;
+  let settleFrame = 0;
   const centeredLeft = (slot: HTMLElement) => slot.offsetLeft - (viewport.clientWidth - slot.offsetWidth) / 2;
   const render = () => {
     section.dataset.carousel = String(desktop.matches);
@@ -55,12 +59,27 @@ export function mountProductRail(root: HTMLElement) {
     slots[active].querySelector<HTMLElement>("a")?.focus({ preventScroll: true });
   }, options);
   viewport.addEventListener("scroll", () => {
-    if (desktop.matches) return;
+    if (desktop.matches || positioning) return;
     active = slots.reduce((best, slot, i) => Math.abs(centeredLeft(slot) - viewport.scrollLeft) < Math.abs(centeredLeft(slots[best]) - viewport.scrollLeft) ? i : best, 0);
     render();
   }, { ...options, passive: true });
-  const resize = () => { viewport.scrollLeft = 0; active = 0; render(); };
+  const resize = () => {
+    // A layout switch changes the presentation, not the selected product.
+    positioning = true;
+    render();
+    cancelAnimationFrame(resizeFrame);
+    cancelAnimationFrame(settleFrame);
+    resizeFrame = requestAnimationFrame(() => {
+      viewport.scrollTo({left: desktop.matches ? 0 : centeredLeft(slots[active]), behavior: 'instant'});
+      settleFrame = requestAnimationFrame(() => { positioning = false; });
+    });
+  };
   desktop.addEventListener("change", resize, options);
+  let viewportWidth = viewport.clientWidth;
+  const sizeObserver = new ResizeObserver(() => {
+    if (viewport.clientWidth !== viewportWidth) { viewportWidth = viewport.clientWidth; resize(); }
+  });
+  sizeObserver.observe(viewport);
   const releaseWheel = mountHorizontalCarousel(
     section.querySelector<HTMLElement>(".lh-products-stage") || section,
     (step) => select(active + step),
@@ -69,6 +88,9 @@ export function mountProductRail(root: HTMLElement) {
   section.dataset.enhanced = "true";
   render();
   return () => {
+    sizeObserver.disconnect();
+    cancelAnimationFrame(resizeFrame);
+    cancelAnimationFrame(settleFrame);
     releaseWheel(); events.abort();
     delete section.dataset.enhanced; delete section.dataset.carousel; delete section.dataset.activeProduct;
     slots.forEach(slot => { slot.inert = false; delete slot.dataset.offset; delete slot.dataset.active; });

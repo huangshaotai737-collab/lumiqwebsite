@@ -1,10 +1,11 @@
+import {homeMotionQuery, homeWideQuery} from "./responsiveLayout";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 // Same approved film, short-GOP H.264 for bounded scroll-seek decoding on WebKit.
 export const openingVideoSource = "/assets/home-video/compat-20261008/ola-scroll-v16-scrub.mp4";
 export const openingVideoQuery =
-  "(min-width: 1101px) and (prefers-reduced-motion: no-preference)";
+  homeMotionQuery;
 
 /** One continuous shot, held at its approved first frame until the user scrolls. */
 export function mountOpeningVideo(root: HTMLElement) {
@@ -28,11 +29,14 @@ export function mountOpeningVideo(root: HTMLElement) {
   let currentScroll: ScrollTrigger | undefined;
   let reading: number | null = initialAnchor ? anchor : window.scrollY <= 1 ? 0 : null;
   let restoring: number | null = null;
+  type ChapterPosition = {element: HTMLElement; top: number};
+  let chapterReading: ChapterPosition | null = null;
+  let restoringChapter: ChapterPosition | null = null;
   let alive = true;
   let resizeFrame = 0;
   let settleTimer = 0;
   const capture = () => {
-    if (!alive || restoring !== null || scrollState.isRefreshing) return;
+    if (!alive || restoring !== null || restoringChapter || scrollState.isRefreshing) return;
     if (currentScroll) {
       reading = scrollY >= currentScroll.start - 1 && scrollY <= currentScroll.end + 1
         ? currentScroll.progress : null;
@@ -43,18 +47,39 @@ export function mountOpeningVideo(root: HTMLElement) {
       reading = scrollY >= top - 1 && scrollY <= top + distance + 1
         ? Math.max(0, Math.min(1, (scrollY - top) / distance)) : null;
     }
+    chapterReading = null;
+    if (reading === null) {
+      const navBottom = document.querySelector('.site-nav')?.getBoundingClientRect().bottom ?? 0;
+      let largest = 0;
+      root.querySelectorAll<HTMLElement>('[data-home-section]').forEach(element => {
+        if (opening.contains(element)) return;
+        const bounds = element.getBoundingClientRect();
+        const visible = Math.max(0, Math.min(bounds.bottom, innerHeight) - Math.max(bounds.top, navBottom));
+        if (visible > largest) { largest = visible; chapterReading = {element, top: bounds.top}; }
+      });
+    }
   };
   // Only a real responsive layout transaction acquires a snapshot. A later
   // font/section refresh may restore an existing one, never reacquire after input.
   const beginLayout = () => {
     restoring ??= reading;
+    if (restoring === null) restoringChapter ??= chapterReading;
     clearTimeout(settleTimer);
     settleTimer = window.setTimeout(() => {
       restoring = null;
+      restoringChapter = null;
       capture();
     }, 300);
   };
   const restore = () => {
+    if (restoringChapter) {
+      // A pin disappearing above the current chapter must not change what the
+      // reader is looking at. Restore its viewport offset after each refresh.
+      const {element, top} = restoringChapter;
+      window.scrollTo({top: scrollY + element.getBoundingClientRect().top - top, behavior: 'instant'});
+      ScrollTrigger.update();
+      return;
+    }
     if (restoring === null) return;
     const bounds = stage.getBoundingClientRect();
     const top = currentScroll?.start ?? scrollY + bounds.top;
@@ -75,6 +100,7 @@ export function mountOpeningVideo(root: HTMLElement) {
   const input = () => {
     clearTimeout(settleTimer);
     restoring = null;
+    restoringChapter = null;
     capture();
   };
   const key = (event: KeyboardEvent) => {
@@ -90,7 +116,7 @@ export function mountOpeningVideo(root: HTMLElement) {
   window.addEventListener("click", input);
   window.addEventListener("keydown", key);
   const mm = gsap.matchMedia();
-  mm.add({desktop: "(min-width: 1101px)", motion: "(prefers-reduced-motion: no-preference)"}, context => {
+  mm.add({desktop: homeWideQuery, motion: "(prefers-reduced-motion: no-preference)"}, context => {
     if (!context.conditions?.desktop) return;
     opening.dataset.videoMode = "true";
     if (!context.conditions.motion) {

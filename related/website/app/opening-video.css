@@ -1,5 +1,5 @@
 /* Only the first two floors participate. No video request on the small-screen fallback. */
-@media (max-width: 1100px) {
+@media (max-width: 1199px) {
   .lh-hero-stage {
     height: auto;
     min-height: 0;

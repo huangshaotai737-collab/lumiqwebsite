@@ -74,7 +74,7 @@ for (const locale of ["en", "zh-hant", "ja"]) {
     test.skip(info.project.name !== "desktop");
     await page.setViewportSize({ width: 1710, height: 900 });
     await ready(page, locale);
-    for (const [width, height] of [[1710, 900], [1710, 700], [1710, 600], [1710, 540], [1101, 800], [1280, 720], [1440, 1000], [2560, 1080], [3420, 545]]) {
+    for (const [width, height] of [[1710, 900], [1710, 700], [1710, 600], [1710, 540], [1200, 800], [1280, 720], [1440, 1000], [2560, 1080], [3420, 545]]) {
       await page.setViewportSize({ width, height });
       await page.evaluate(() => new Promise<void>(resolve => requestAnimationFrame(() => requestAnimationFrame(() => resolve()))));
       const current = await geometry(page);

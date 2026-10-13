@@ -1,4 +1,6 @@
 "use client";
+import {homeMotionQuery} from "./responsiveLayout";
+
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -24,7 +26,7 @@ export default function HomeBackgrounds() {
     const movie = video.current!;
     const root = host.closest<HTMLElement>(".lumiq-root");
     const lastFrame = () => Math.max(0, movie.duration - 1 / 24);
-    const motion = matchMedia("(min-width: 1101px) and (prefers-reduced-motion: no-preference)");
+    const motion = matchMedia(homeMotionQuery);
     const update = () => {
       frame = 0;
       // Load the approved light movie only as its first chapter approaches.

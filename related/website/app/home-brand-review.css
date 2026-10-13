@@ -34,7 +34,7 @@
 .lh-products .lh-product-art { flex-shrink: 0; }
 @media(min-width:768px) {
   .lh-home .lh-hero-copy { max-width: min(660px, 48vw); }
-  .lh-home .lh-products-heading h2 { max-width: 1100px; text-wrap: balance; }
+  .lh-home .lh-products-heading h2 { max-width: 1199px; text-wrap: balance; }
 }
 @media(max-width:767px) {
   .lumiq-root .lh-home .lh-hero h1:lang(en) { width: auto; font-size: clamp(31.59px, 8.424vw, 44.226px); line-height: 1.06; }
@@ -45,7 +45,7 @@
 .lumiq-root .lh-home .lh-hero .lh-lead { font-size: calc(var(--lh-body) * .6); line-height: 1.6; }
 @media(prefers-reduced-motion:reduce) { .lh-home .lh-products-controls button:active { transform: none; } }
 
-@media (min-width:1101px) {
+@media (min-width:1200px) {
   .lh-opening:not([data-video-mode]) :is(.lh-glass-word,.lh-hero-stage,.lh-brand-character) { display:none; }
   .lh-video-end-poster { opacity:var(--opening-progress,0); }
   .lh-opening[data-static-opening] .lh-opening-stage { height:auto; }

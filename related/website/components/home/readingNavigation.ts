@@ -1,3 +1,4 @@
+import {homeMotionQuery} from "./responsiveLayout";
 import { CarouselInput } from "@/lib/carousel-input";
 
 /** A trackpad gesture changes one card. Vertical input always belongs to the page. */
@@ -18,7 +19,7 @@ export function mountHorizontalCarousel(target: HTMLElement, advance: (step: num
 
 /** Catch a wheel pulse briefly at a complete composition; never require card advances. */
 export function mountReadingAnchors(root: HTMLElement) {
-  const enabled = matchMedia("(min-width: 1101px) and (pointer: fine) and (prefers-reduced-motion: no-preference)");
+  const enabled = matchMedia(`${homeMotionQuery} and (pointer: fine)`);
   const targets = [...root.querySelectorAll<HTMLElement>(".lh-products-stage, .lh-films-stage, .lh-family-anchor, .lh-room-layout, .lh-safety, #join")];
   const visited = new Set<HTMLElement>();
   let held: HTMLElement | null = null;

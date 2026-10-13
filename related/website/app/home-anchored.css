@@ -88,7 +88,7 @@
   opacity: 0.85;
 }
 .lh-safety .lh-principle-arrow { top: 14px; width: 16px; height: 16px; }
-@media (min-width: 1101px) {
+@media (min-width: 1200px) {
   .lh-home .lh-trust-room {
     display: grid;
     grid-template-columns: 48vw minmax(0, 1fr);
@@ -279,11 +279,11 @@
   align-self: center;
   margin: 18px 0 0;
 }
-@media (min-width: 1101px) {
+@media (min-width: 1200px) {
   .lh-home .lh-family-anchor { min-height: calc(100svh - 86px); padding-bottom: 20px; justify-content: center; }
   .lh-home .lh-family-heading { width: min(90%, 1200px); padding: 16px 0 24px; }
 }
-@media (max-width: 1100px) {
+@media (max-width: 1199px) {
   .lumiq-root .lh-home .lh-family-chapters { --family-card-width: 84vw; }
   .lumiq-root .lh-home .lh-family-stage { width: 100%; height: calc(var(--family-card-width) * 9 / 16); aspect-ratio: auto; }
 }

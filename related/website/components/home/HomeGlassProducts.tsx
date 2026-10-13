@@ -1,4 +1,6 @@
 "use client";
+import {homeWideQuery} from "./responsiveLayout";
+
 import dynamic from "next/dynamic";
 import { useEffect, useRef, useState } from "react";
 import type { GlassProduct } from "./GlassCards";
@@ -14,7 +16,7 @@ export default function HomeGlassProducts({ products }: { products: GlassProduct
   useEffect(() => {
     const element = host.current!;
     const section = element.closest<HTMLElement>(".lh-products")!;
-    const desktop = matchMedia("(min-width: 1101px)");
+    const desktop = matchMedia(homeWideQuery);
     let near = false;
     let supported: boolean | undefined;
     const sync = () => setSelected(Number(section.dataset.activeProduct || 0));
@@ -49,7 +51,7 @@ export default function HomeGlassProducts({ products }: { products: GlassProduct
   }, []);
   const ready = () => {
     // A pending frame must not re-enable the canvas after a mobile resize/unmount.
-    if (matchMedia("(min-width: 1101px)").matches && host.current?.querySelector("canvas")) {
+    if (matchMedia(homeWideQuery).matches && host.current?.querySelector("canvas")) {
       host.current.closest(".lh-products")?.setAttribute("data-glass-3d", "");
     }
   };

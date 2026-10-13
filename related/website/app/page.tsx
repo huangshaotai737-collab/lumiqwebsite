@@ -30,6 +30,7 @@ import "./home-typography.css";
 import "./home-loading.css";
 import "./home-pearl-background.css";
 import "./home-brand-review.css";
+import "./responsive-layout.css";
 
 const collection: ProductId[] = ["tablet", "ola", "ola-go", "nest", "print"];
 const artwork: Record<ProductId, string> = {
@@ -85,7 +86,7 @@ export default async function Home() {
                   src="/assets/mobile-backgrounds-20260914/hero-unified.webp"
                   alt=""
                   fill
-                  sizes="(max-width: 1100px) 100vw, 1px"
+                  sizes="(max-width: 1199px) 100vw, 1px"
                   unoptimized
                   priority
                 />
@@ -136,14 +137,17 @@ export default async function Home() {
                 </Link>
               </div>
               <div className="lh-mobile-ola-art">
+                <picture>
+                <source media="(min-width: 768px)" srcSet="/assets/home-video/ola-scroll-v16-end-20260909.webp" />
                 <Image
                   src="/assets/mobile-backgrounds-20260914/ola-go-ui.webp"
                   alt="LUMIQ OLA + Go"
                   width={941}
                   height={1672}
-                  sizes="(max-width: 1100px) 100vw, 1px"
+                  sizes="(max-width: 1199px) 100vw, 1px"
                   unoptimized
                 />
+                </picture>
               </div>
               <div className="lh-rhythm-cards">
                 {(["learn", "connect", "care"] as const).map((key) => (
@@ -156,7 +160,7 @@ export default async function Home() {
                         src={"/assets/home-video/" + key + ".webp"}
                         alt={t(`rhythms.${key}.alt`)}
                         fill
-                        sizes="(max-width: 520px) 42vw, (max-width: 1100px) 28vw, 320px"
+                        sizes="(max-width: 520px) 42vw, (max-width: 1199px) 28vw, 320px"
                       />
                     </div>
                     <div className="lh-rhythm-copy">
