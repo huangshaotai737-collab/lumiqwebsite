@@ -1,6 +1,12 @@
 .prod-mobile-nav { display: none; }
 
 @media (max-width: 767px) {
+  /* Reserve the lower artwork area after the actual copy height. Longer
+     translations can wrap actions without colliding with the brand artwork. */
+  .lumiq-root .lh-home .lh-hero { min-height: 0; padding-bottom: calc(112vw + 24px); }
+  .lumiq-root .lh-home .lh-hero .lh-actions { flex-wrap: wrap; }
+  .lumiq-root .hw-actions { flex-wrap: wrap; gap: 10px 14px; }
+  .lumiq-root .hw-actions .hw-reserve { flex: 0 0 auto; max-width: 100%; white-space: normal; text-align: center; }
   .lumiq-root .lh-mobile-films { width: 100%; margin-top: 24px; }
   .lh-mobile-films-track {
     position: relative; display: flex; gap: 16px; width: 100%; overflow-x: auto;

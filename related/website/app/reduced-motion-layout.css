@@ -1,0 +1,40 @@
+/* The non-animated opening is a real layout, rather than the legacy 26/17/57
+   grid that squeezed all three companion cards into its 17% middle column. */
+@media (min-width: 1200px) and (prefers-reduced-motion: reduce) {
+  .lumiq-root main.lh-home .lh-opening[data-static-opening] { height: auto; }
+  .lumiq-root main.lh-home .lh-opening[data-static-opening] .lh-opening-stage { height: auto; }
+  .lumiq-root main.lh-home .lh-opening[data-static-opening] .lh-video-layer { display: none; }
+  .lumiq-root main.lh-home .lh-opening[data-static-opening] :is(.lh-hero, .lh-ola) {
+    position: relative; inset: auto; height: auto; min-height: 0; pointer-events: auto;
+  }
+  .lumiq-root main.lh-home .lh-opening[data-static-opening] :is(.lh-hero-layout, .lh-ola-layout) {
+    position: relative; width: calc(100% - var(--opening-gutter) * 2);
+    min-height: max(620px, calc(100vw * 9 / 16));
+    margin-inline: auto; padding: 48px 0; display: grid; align-content: center;
+    gap: 20px 0;
+  }
+  .lumiq-root main.lh-home .lh-opening[data-static-opening] .lh-hero { padding-top: 104px; }
+  .lumiq-root main.lh-home .lh-opening[data-static-opening] .lh-hero-layout { grid-template-columns: 40% minmax(0, 60%); }
+  .lumiq-root main.lh-home .lh-opening[data-static-opening] .lh-hero-copy { grid-area: 1 / 1; position: relative; top: 0; width: 100%; max-width: none; z-index: 2; }
+  .lumiq-root main.lh-home .lh-opening[data-static-opening] #hero-title { width: 100%; font-size: clamp(36px, 3.5vw, 60px); line-height: 1.2; }
+  .lumiq-root main.lh-home .lh-opening[data-static-opening] .lh-ola-layout { grid-template-columns: 57% minmax(0, 43%); }
+  .lumiq-root main.lh-home .lh-opening[data-static-opening] .lh-ola-copy { grid-area: 1 / 2; width: 100%; max-width: none; padding: 0; }
+  .lumiq-root main.lh-home .lh-opening[data-static-opening] .lh-ola-copy h2 { font-size: clamp(32px, 3.2vw, 48px); }
+  .lumiq-root main.lh-home .lh-opening[data-static-opening] .lh-ola-copy .lh-lead { max-width: 100%; }
+  .lumiq-root main.lh-home .lh-opening[data-static-opening] .lh-rhythm-cards { grid-area: 2 / 2; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+  .lumiq-root main.lh-home .lh-opening[data-static-opening] .lh-rhythm-card { margin: 0; min-width: 0; align-self: stretch; }
+  .lumiq-root main.lh-home .lh-opening[data-static-opening] .lh-rhythm-photo { height: 100px; min-height: 0; aspect-ratio: auto; }
+  .lumiq-root main.lh-home .lh-opening[data-static-opening] .lh-rhythm-copy { padding: 12px; min-height: 0; overflow-wrap: anywhere; }
+  .lumiq-root main.lh-home .lh-opening[data-static-opening] .lh-rhythm-copy h3 { font-size: 20px; }
+  .lumiq-root main.lh-home .lh-opening[data-static-opening] :is(.lh-mobile-hero-art, .lh-mobile-ola-art) {
+    position: absolute; inset: 48px 0 auto; width: 100%; aspect-ratio: 16 / 9;
+    display: block; padding: 0; margin: 0; z-index: 0; pointer-events: none;
+    mask-image: linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent),
+      linear-gradient(180deg, transparent, #000 8%, #000 92%, transparent);
+    mask-composite: intersect;
+  }
+  .lumiq-root main.lh-home .lh-opening[data-static-opening] .lh-mobile-hero-art { top: 152px; }
+  .lumiq-root main.lh-home .lh-opening[data-static-opening] :is(.lh-mobile-hero-art, .lh-mobile-ola-art) img {
+    position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain;
+  }
+}

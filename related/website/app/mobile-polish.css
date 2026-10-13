@@ -1,0 +1,180 @@
+/* Layout variants are hidden outside their phone breakpoint. */
+.foot-mobile-nav, .site-login-short { display: none; }
+
+@media (max-width: 767px) {
+  /* Reading copy, supporting text and controls serve different purposes.
+     Inputs keep 16px to avoid focus zoom on mobile Safari. */
+  .lumiq-root {
+    --lq-h1: 28px; --lq-h2: 24px; --lq-h3: 18px;
+    --lq-body: 15px; --lq-action: 14px; --lq-ui-size: 14px;
+    --lq-label-size: 12px; --lq-caption-size: 12px;
+    --lq-link-size: 14px; --lq-support-size: 15px;
+    --lq-section-gap: 56px;
+  }
+  .lumiq-root main:not(.lh-home) h1 { font-size: var(--lq-h1) !important; line-height: 1.3; }
+  .lumiq-root main:not(.lh-home) h2 { font-size: var(--lq-h2) !important; line-height: 1.35; }
+  .lumiq-root main:not(.lh-home) h3 { font-size: var(--lq-h3) !important; line-height: 1.4; }
+  .lumiq-root main p { font-size: var(--lq-body) !important; line-height: 1.7; }
+  .lumiq-root :is(input:not([type=checkbox]):not([type=radio]), select, textarea) { font-size: 16px !important; }
+  .lumiq-root :is(.btn, .pd-primary-action, .pd-secondary-action, .cart-add-button) { min-height: 44px; padding: 10px 16px; }
+
+  /* Short localized labels retain the full accessible name and destination. */
+  .lumiq-root .navbar.site-nav .nav-inner { min-height: 60px; padding: 8px 12px; gap: 8px; }
+  .lumiq-root .navbar.site-nav .nav-logo { width: 96px; height: 36px; }
+  .lumiq-root .navbar.site-nav .nav-actions { gap: 4px; }
+  .lumiq-root .navbar.site-nav .site-login-full { display: none; }
+  .lumiq-root .navbar.site-nav .site-login-short { display: inline; }
+  .lumiq-root .navbar.site-nav .login-btn {
+    flex: 0 0 auto; min-height: 40px; max-width: none;
+    padding: 8px 10px; font-size: 13px !important; line-height: 1.5; white-space: nowrap;
+  }
+  .lumiq-root .navbar.site-nav .site-mobile-trigger { min-width: 40px; height: 40px; padding: 8px; }
+  .lumiq-root .navbar.site-nav .site-mobile-trigger-label { font-size: 13px; }
+  .lumiq-root .navbar.site-nav .cart-nav-trigger { width: 40px; height: 40px; min-width: 40px; }
+  .lumiq-root .cart-nav-count { min-width: 17px; height: 17px; font-size: 11px; }
+  .lumiq-root .navbar.site-nav .site-mobile-menu { max-height: calc(100dvh - 88px); }
+  .lumiq-root .navbar.site-nav .site-mobile-menu > a { font-size: 16px; min-height: 44px; padding-block: 10px; }
+  .lumiq-root .navbar.site-nav .site-mobile-languages button { font-size: 13px; min-height: 40px; }
+
+  /* Home chapters: strong headlines, compact supporting cards and controls. */
+  .lumiq-root main.lh-home :is(.lh-ola-copy, .lh-products-heading, .lh-films-heading, .lh-room-heading, .lh-safety-copy, .lh-family-heading, .lh-join-copy) h2 {
+    font-size: 24px !important; line-height: 1.35; max-width: 100%;
+  }
+  .lumiq-root main.lh-home :is(.lh-lead, .lh-room-intro, .lh-section-intro),
+  .lumiq-root main.lh-home .lh-section-intro p { font-size: 15px !important; line-height: 1.7; }
+  .lumiq-root main.lh-home .lh-hero-layout { padding-top: 96px; }
+  .lumiq-root main.lh-home .lh-button { min-height: 44px; padding: 10px 18px; }
+  .lumiq-root main.lh-home .lh-text-link { min-height: 44px; }
+  /* The portrait already contains a large empty area above the devices.
+     Put copy in normal flow and crop that empty area, preserving image ratio. */
+  .lumiq-root main.lh-home .lh-ola-layout { gap: 16px; padding-bottom: 28px; }
+  .lumiq-root main.lh-home .lh-ola-copy { grid-area: 1 / 1; padding-top: 28px; }
+  .lumiq-root main.lh-home .lh-mobile-ola-art {
+    --phone-ola-art-width: min(100vw, 480px);
+    grid-area: 2 / 1; width: var(--phone-ola-art-width);
+    height: calc(var(--phone-ola-art-width) * 1.14); padding: 0;
+    margin-inline: calc((100% - var(--phone-ola-art-width)) / 2); overflow: hidden;
+  }
+  .lumiq-root main.lh-home .lh-mobile-ola-art img { margin-top: calc(var(--phone-ola-art-width) * -.64); }
+  .lumiq-root main.lh-home .lh-rhythm-cards { grid-area: 3 / 1; }
+  .lumiq-root main.lh-home .lh-rhythm-cards { gap: 10px; }
+  .lumiq-root main.lh-home .lh-rhythm-card { grid-template-columns: 30% minmax(0, 1fr); border-radius: 16px; }
+  .lumiq-root main.lh-home .lh-rhythm-photo { min-height: 100px; }
+  .lumiq-root main.lh-home .lh-rhythm-copy { padding: 12px; }
+  .lumiq-root main.lh-home .lh-rhythm-copy h3 { font-size: 18px; line-height: 1.4; }
+  .lumiq-root main.lh-home .lh-rhythm-copy p { font-size: 14px !important; line-height: 1.6; }
+  .lumiq-root main.lh-home .lh-products-stage { padding-block: 28px; gap: 18px; }
+  .lumiq-root main.lh-home .lh-products .lh-product { height: auto; min-height: 360px; padding: 18px; border-radius: 22px; }
+  .lumiq-root main.lh-home .lh-products .lh-product-art { height: 180px; min-height: 0; flex: 0 0 180px; margin: 0 0 14px; }
+  .lumiq-root main.lh-home .lh-products .lh-product h3 { font-size: 20px; line-height: 1.4; }
+  .lumiq-root main.lh-home .lh-products .lh-product-copy p { font-size: 14px !important; line-height: 1.6; }
+  .lumiq-root main.lh-home .lh-products :is(.lh-products-hint, .lh-product-type) { font-size: 12px !important; }
+  .lumiq-root .lh-mobile-films { margin-top: 18px; }
+  .lumiq-root .lh-mobile-film-copy { padding: 14px; }
+  .lumiq-root .lh-mobile-film-copy h3 { font-size: 18px; }
+  .lumiq-root main.lh-home .lh-mobile-film-copy p { font-size: 14px !important; line-height: 1.65; }
+  .lumiq-root .lh-mobile-films-controls button, .lumiq-root .prod-mobile-nav button { width: 44px; height: 44px; }
+  .lumiq-root .lh-mobile-films-controls span { font-size: 13px; }
+  .lumiq-root .lh-mobile-films-controls strong { font-size: 16px; }
+  .lumiq-root main.lh-home .lh-room-layout { padding-block: 28px; }
+  .lumiq-root main.lh-home .lh-safety .lh-principles { gap: 16px 12px; }
+  .lumiq-root main.lh-home .lh-safety .lh-principle { padding-top: 8px; }
+  .lumiq-root main.lh-home .lh-safety .lh-principle h3 { font-size: 16px; min-height: 0; line-height: 1.45; }
+  .lumiq-root main.lh-home .lh-safety .lh-principle p { font-size: 14px !important; line-height: 1.65; }
+  .lumiq-root main.lh-home .lh-family-tabs button { font-size: 13px !important; padding: 10px; min-height: 44px; }
+  .lumiq-root main.lh-home .lh-join { padding-block: 32px; }
+  .lumiq-root main.lh-home :is(.lh-consent, .lh-form-message) { font-size: 12px !important; line-height: 1.7; }
+
+  /* Product pages keep all five choices visible and feature copy in real cards. */
+  .lumiq-root .prod-page .prod-feat { min-height: 132px; padding: 14px; gap: 10px; border-radius: 16px; }
+  .lumiq-root .prod-page .prod-feat-ico { width: 32px; height: 32px; }
+  .lumiq-root .prod-page .prod-feat strong { font-size: 16px !important; line-height: 1.4; }
+  .lumiq-root .prod-page .prod-feat small { font-size: 14px !important; line-height: 1.6; margin-top: 4px; }
+  .lumiq-root .prod-page .prod-tabs { gap: 8px; margin-top: 18px; }
+  .lumiq-root .prod-page .prod-tab { min-height: 44px; padding: 10px; border-radius: 12px; }
+  .lumiq-root .prod-page .prod-tab-name { font-size: 14px !important; }
+  .lumiq-root .prod-page .prod-stage-panel { padding-top: 18px; }
+  .lumiq-root .prod-page .prod-catalog h2 { margin-bottom: 20px; }
+  .lumiq-root .prod-page .prod-catalog-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  .lumiq-root .prod-page .prod-catalog-card { min-height: 0; aspect-ratio: auto; padding: 14px 10px; border: 1px solid #fff; border-radius: 18px; background: #ffffff78; }
+  .lumiq-root .prod-page .prod-catalog-image { flex: none; height: 140px; padding: 0 0 12px; }
+  .lumiq-root .prod-page .prod-catalog-caption { padding: 0; }
+  .lumiq-root .prod-page .prod-catalog-caption h3 { font-size: 16px !important; line-height: 1.4; }
+  .lumiq-root .prod-page .prod-catalog-description { font-size: 14px !important; line-height: 1.6; min-height: 0; margin-block: 8px 12px; }
+  .lumiq-root .prod-page .prod-catalog-more .prod-catalog-image { padding: 20px; }
+  .lumiq-root .prod-page .prod-story-invite .prod-story-invite-inner { padding-block: 28px; gap: 20px; min-height: 0; }
+  .lumiq-root .prod-page .prod-promise-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  .lumiq-root .prod-page .prod-promise-item { padding: 14px; border: 0; border-radius: 16px; background: #ffffff78; }
+  .lumiq-root .prod-page .prod-promise-ico { margin-bottom: 2px; }
+  .lumiq-root .product-detail-light .pd-hero-floor { padding-top: 96px; padding-bottom: 28px; min-height: 0; }
+  .lumiq-root .product-detail-light .pd-hero-grid { gap: 24px; }
+  .lumiq-root .product-detail-light .pd-back-link { margin-bottom: 16px; font-size: 13px !important; }
+  .lumiq-root .product-detail-light .pd-hero-copy h1 .pd-product-tagline { font-size: 20px; line-height: 1.4; }
+  .lumiq-root .product-detail-light .pd-floor { padding-block: 28px; }
+  .lumiq-root .product-detail-light :is(.pd-story-grid, .pd-feature-layout.has-image, .pd-dark-layout, .pd-extra-layout.has-image) { gap: 24px; }
+  .lumiq-root :is(.prod-specs, .plan-list, .pal-cards) li { font-size: 14px !important; line-height: 1.65; }
+  .lumiq-root .hw-price-pending { font-size: 14px !important; }
+  .lumiq-root .draft-notice, .lumiq-root .draft-notice-compact { font-size: 12px !important; line-height: 1.7; }
+
+  /* Member preview: navigation stays usable without dominating the page. */
+  .lumiq-root .members-page { padding: 96px 20px 32px; }
+  .lumiq-root .members-heading { gap: 10px; margin-bottom: 16px; flex-direction: column; }
+  .lumiq-root .members-heading h1 { margin: 8px 0 10px; }
+  .lumiq-root .members-preview-badge { padding: 6px 10px; }
+  .lumiq-root main.members-page .members-disclosure { font-size: 13px !important; padding: 12px; margin-bottom: 16px; }
+  .lumiq-root .members-sidebar { padding: 12px; gap: 6px; border-radius: 18px; }
+  .lumiq-root .members-avatar { padding: 0 2px 12px; margin-bottom: 4px; }
+  .lumiq-root .members-avatar > span { width: 32px; height: 32px; }
+  .lumiq-root .members-avatar strong { font-size: 14px !important; }
+  .lumiq-root main.members-page .members-sidebar button { flex: 1 1 calc(33.33% - 6px); flex-direction: column; min-height: 56px; padding: 8px 4px; gap: 5px; font-size: 13px !important; line-height: 1.4; }
+  .lumiq-root .members-sidebar button svg { width: 17px; height: 17px; }
+  .lumiq-root main.members-page .members-content { padding: 18px; min-height: 0; border-radius: 18px; }
+  .lumiq-root .members-section-head { margin-bottom: 16px; }
+  .lumiq-root main.members-page .members-section-head h2 { font-size: 20px !important; }
+  .lumiq-root .members-empty { padding: 20px 0; gap: 12px; }
+  .lumiq-root .members-empty > svg { width: 32px; height: 32px; }
+  .lumiq-root .members-explore { padding-top: 14px; margin-top: 14px; }
+  .lumiq-root .members-panel { gap: 16px; margin-top: 18px; }
+  .lumiq-root .members-device { padding: 16px; }
+  .lumiq-root .members-device-image, .lumiq-root .members-device-image img { height: 150px; }
+
+  /* Native accordions shorten the footer while keeping every destination. */
+  .lumiq-root .footer { padding: 28px 0 20px; }
+  .lumiq-root > footer.footer .foot-grid,
+  .lumiq-root:has(.lh-home) > footer.footer .foot-grid { grid-template-columns: 1fr; gap: 16px; margin-bottom: 18px; }
+  .lumiq-root .footer .foot-nav { display: none; }
+  .lumiq-root .footer .foot-logo { margin-bottom: 10px; }
+  .lumiq-root .footer .foot-logo-img { height: 26px; }
+  .lumiq-root .footer .foot-blurb { max-width: 100%; font-size: 13px; line-height: 1.65; }
+  .lumiq-root .footer .foot-mobile-nav { display: block; }
+  .foot-mobile-nav details { border-bottom: 1px solid #dce2eb; }
+  .foot-mobile-nav summary { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 44px; font-size: 14px; font-weight: 600; cursor: pointer; list-style: none; }
+  .foot-mobile-nav summary::-webkit-details-marker { display: none; }
+  .foot-mobile-nav summary > span { position: relative; width: 14px; height: 14px; flex: 0 0 14px; }
+  .foot-mobile-nav summary > span::before, .foot-mobile-nav summary > span::after { content: ''; position: absolute; background: currentColor; left: 1px; right: 1px; top: 6px; height: 1px; }
+  .foot-mobile-nav summary > span::after { transform: rotate(90deg); }
+  .foot-mobile-nav details[open] summary > span::after { display: none; }
+  .foot-mobile-nav ul { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4px 12px; padding: 4px 0 12px; }
+  .foot-mobile-nav a { display: flex; align-items: center; min-height: 40px; font-size: 13px; line-height: 1.6; overflow-wrap: anywhere; }
+  .lumiq-root .footer .foot-mobile-nav .pending-link-list { padding-block: 4px 12px; gap: 8px; }
+  .lumiq-root .footer .foot-mobile-nav .pending-link-list span { font-size: 13px !important; }
+  .lumiq-root .footer .foot-mobile-nav .pending-link-list small { font-size: 12px !important; }
+  .lumiq-root .footer .foot-bottom { padding-top: 16px; gap: 6px; text-align: left; font-size: 12px !important; line-height: 1.6; }
+  .foot-mobile-nav summary:focus-visible { outline: 2px solid #52677d; outline-offset: 2px; }
+
+  .cart-drawer { --lq-label-size: 12px; --lq-caption-size: 13px; --lq-link-size: 14px; }
+  .cart-drawer .cart-empty p { font-size: 14px; }
+  .cart-drawer h2 { font-size: 22px; }
+}
+
+@media (max-width: 359px) {
+  .lumiq-root .navbar.site-nav .nav-inner { padding-inline: 8px; gap: 4px; }
+  .lumiq-root .navbar.site-nav .nav-logo { width: 80px; }
+  .lumiq-root .navbar.site-nav .site-mobile-trigger-label { display: none; }
+  .lumiq-root .prod-page .prod-feat { min-height: 88px; }
+  .lumiq-root .prod-page .prod-catalog-grid { grid-template-columns: minmax(0, 1fr); }
+  .lumiq-root .prod-page .prod-catalog-card { flex-direction: row; align-items: center; gap: 12px; padding: 14px; }
+  .lumiq-root .prod-page .prod-catalog-image { flex: 0 0 88px; height: 110px; padding: 0; }
+  .lumiq-root .prod-page .prod-catalog-caption { flex: 1 1 0; min-width: 0; text-align: left; }
+  .lumiq-root .prod-page .prod-catalog-more .prod-catalog-image { padding: 0; }
+}

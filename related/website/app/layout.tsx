@@ -11,6 +11,8 @@ import "./stable-page-backgrounds.css";
 import "./cart.css";
 import "./site-readable-copy.css";
 import "./mobile-experience.css";
+import "./mobile-polish.css";
+import "./reduced-motion-layout.css";
 import {htmlLang, type Locale} from "@/i18n/routing";
 
 export const metadata: Metadata = {

@@ -4,6 +4,7 @@
   --lq-caption-size: 16px;
   --lq-link-size: 16px;
   --lq-support-size: 16px;
+  --lq-ui-size: 16px;
 }
 .lumiq-root :is(.lh-eyebrow, .lh-trust-caption, .lh-product-type, .lh-products-hint,
   .lh-waitlist-note, .lh-consent, .lh-form-message, .eyebrow, .kicker,
@@ -66,7 +67,7 @@
   .lumiq-root .navbar.site-nav .site-mobile-trigger-label { font-size: 16px; }
 }
 
-/* The footer links define the 16px minimum, including supporting UI states. */
+/* Shared UI scale; phones can use a distinct reading and supporting hierarchy. */
 .lumiq-root :is(.lang-btn, .lang-item, .lang-caret,
   .lh-film-open, .lh-family-tabs,
   .lh-family-tabs button, .lh-family-dot, .lh-rhythm-copy p, .lh-chapter-navigation button,
@@ -85,7 +86,7 @@
 .lumiq-root .pd-back-link,
 .lumiq-root .pal-cards li,
 .lumiq-root .footer :is(.foot-nav h4, .foot-bottom, .pending-link-list small) {
-  font-size: 16px !important;
+  font-size: var(--lq-ui-size) !important;
 }
 .cart-drawer :is(.cart-empty p, .cart-quantity output) { font-size: 16px; }
 .cart-nav-count { min-width: 24px; height: 24px; font-size: 16px; }

@@ -204,8 +204,10 @@ export default function SiteHeader() {
             href="/prelaunch"
             onClick={closeMenu}
             className="btn btn-ghost-navy login-btn site-login-btn"
+            aria-label={t("login")}
           >
-            {t("login")}
+            <span className="site-login-full">{t("login")}</span>
+            <span className="site-login-short" aria-hidden="true">{t("loginShort")}</span>
           </Link>
 
           <button
