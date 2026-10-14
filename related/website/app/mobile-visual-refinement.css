@@ -1,0 +1,118 @@
+/* Preserve the desktop's existing flex items and control positions. */
+.lh-products-carousel { display: contents; }
+
+@media (max-width: 767px) {
+  .lumiq-root {
+    --lq-h1: 30px;
+    --lq-h2: 28px;
+    --lq-h3: 20px;
+    --lq-body: 16px;
+    --lq-action: 15px;
+    --lq-ui-size: 15px;
+    --lq-label-size: 14px;
+    --lq-caption-size: 14px;
+    --lq-link-size: 15px;
+    --lq-support-size: 16px;
+  }
+
+  /* Main reading copy, supporting captions and actions keep distinct levels. */
+  .lumiq-root main p { font-size: 16px !important; line-height: 1.65; }
+  .lumiq-root main :is(small, figcaption) { font-size: 14px !important; line-height: 1.6; }
+  .lumiq-root main.lh-home .lh-hero #hero-title,
+  .lumiq-root main.lh-home .lh-hero h1:lang(en) {
+    font-size: clamp(36px, 10vw, 48px); line-height: 1.16; letter-spacing: -.025em;
+  }
+  .lumiq-root main.lh-home :is(.lh-ola-copy, .lh-products-heading, .lh-films-heading, .lh-room-heading, .lh-safety-copy, .lh-family-heading, .lh-join-copy) h2 {
+    font-size: 28px !important; line-height: 1.3;
+  }
+  .lumiq-root main.lh-home :is(.lh-lead, .lh-room-intro, .lh-section-intro),
+  .lumiq-root main.lh-home .lh-section-intro p,
+  .lumiq-root main.lh-home .lh-rhythm-copy p,
+  .lumiq-root main.lh-home .lh-safety .lh-principle p,
+  .lumiq-root main.lh-home .lh-mobile-film-copy p,
+  .lumiq-root main.lh-home .lh-products .lh-product-copy p {
+    font-size: 16px !important; line-height: 1.65;
+  }
+  .lumiq-root main.lh-home .lh-hero .lh-lead { max-width: 36ch; }
+  .lumiq-root main.lh-home .lh-products .lh-product h3 { font-size: 22px; line-height: 1.35; }
+  .lumiq-root main.lh-home :is(.lh-consent, .lh-form-message),
+  .lumiq-root main.lh-home .lh-products :is(.lh-products-hint, .lh-product-type) { font-size: 14px !important; line-height: 1.6; }
+  .lumiq-root main.lh-home .lh-family-tabs button { font-size: 15px !important; }
+  .lumiq-root .lh-mobile-films-controls span { font-size: 14px; }
+
+  .lumiq-root .prod-page :is(.prod-feat small, .prod-catalog-description, .prod-promise-item small) { font-size: 15px !important; line-height: 1.6; }
+  .lumiq-root .prod-page .prod-catalog-caption h3 { font-size: 18px !important; }
+  .lumiq-root .product-detail-light .pd-back-link { font-size: 15px !important; }
+  .lumiq-root :is(.prod-specs, .plan-list) li { font-size: 15px !important; }
+  .lumiq-root .hw-price-pending { font-size: 15px !important; }
+  .lumiq-root :is(.draft-notice, .draft-notice-compact),
+  .lumiq-root main.members-page .members-disclosure { font-size: 14px !important; line-height: 1.6; }
+  .lumiq-root main.members-page .members-sidebar button { font-size: 14px !important; }
+  .lumiq-root .footer .foot-blurb { font-size: 15px; line-height: 1.65; }
+  .lumiq-root .footer .foot-mobile-nav a,
+  .lumiq-root .footer .foot-mobile-nav .pending-link-list span,
+  .lumiq-root .footer .foot-mobile-nav .pending-link-list small,
+  .lumiq-root .footer .foot-bottom { font-size: 14px !important; }
+  .cart-drawer { --lq-label-size: 14px; --lq-caption-size: 14px; --lq-link-size: 15px; }
+  .cart-drawer .cart-empty p { font-size: 16px; }
+
+  /* Feather the embedded portrait background into the chapter on all edges,
+     while leaving the central product artwork opaque and unchanged. */
+  .lumiq-root main.lh-home .lh-mobile-ola-art {
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 9%, #000 91%, transparent), linear-gradient(transparent, #000 7%, #000 90%, transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 9%, #000 91%, transparent), linear-gradient(transparent, #000 7%, #000 90%, transparent);
+    -webkit-mask-composite: source-in;
+    mask-composite: intersect;
+  }
+
+  /* A small visible circle has a full 44px touch target. The existing controls
+     continue driving the same rail and retain keyboard/focus behaviour. */
+  .lumiq-root main.lh-home .lh-products-carousel { display: block; position: relative; width: 100%; }
+  .lumiq-root main.lh-home .lh-products .lh-products-footer {
+    position: absolute; inset: 0; height: auto; min-height: 0; margin: 0; pointer-events: none;
+  }
+  .lumiq-root main.lh-home .lh-products .lh-products-controls {
+    position: absolute; inset: 0; height: auto; padding-inline: clamp(24px, 8vw, 64px);
+    transform: none; align-items: center; justify-content: space-between; pointer-events: none;
+  }
+  .lumiq-root main.lh-home .lh-products .lh-products-controls button {
+    position: relative; width: 44px; height: 44px; border: 0;
+    background: transparent; color: #233448; pointer-events: auto; isolation: isolate;
+  }
+  .lumiq-root main.lh-home .lh-products .lh-products-controls button::before {
+    content: ''; position: absolute; inset: 4px; z-index: -1; border-radius: 50%;
+    border: 1px solid #fff; background: #ffffffeb; box-shadow: 0 3px 12px #23344814;
+  }
+  .lumiq-root main.lh-home .lh-products .lh-products-controls button svg { width: 18px; height: 18px; }
+  .lumiq-root main.lh-home .lh-products .lh-products-progress {
+    position: absolute; bottom: 4px; left: 50%; width: 72px; height: 2px;
+    transform: translateX(-50%); flex: none;
+  }
+
+  /* Wide phone windows no longer stretch a small subscription list across the
+     entire screen. Every feature remains visible; longer labels can wrap. */
+  .lumiq-root main.plans-page .pal-table-wrap { display: none; }
+  .lumiq-root main.plans-page .pal-cards { display: grid; width: min(100%, 460px); margin-inline: auto; gap: 20px; }
+  .lumiq-root main.plans-page .tier-card { padding: 22px 24px; border-radius: 20px; }
+  .lumiq-root main.plans-page .tier-card > .kicker { font-size: 17px !important; letter-spacing: .02em; font-weight: 600; }
+  .lumiq-root main.plans-page .tier-card .fee-cell {
+    display: grid; grid-template-columns: max-content max-content; align-items: baseline;
+    gap: 4px 6px; font-size: 15px; line-height: 1.35;
+  }
+  .lumiq-root main.plans-page .tier-card .fee-cell strong { font-size: 30px; line-height: 1.15; }
+  .lumiq-root main.plans-page .tier-card .fee-cell em { grid-column: 1 / -1; font-size: 14px !important; letter-spacing: 0; }
+  .lumiq-root main.plans-page .tier-card ul { margin-bottom: 18px !important; }
+  .lumiq-root main.plans-page .tier-card li {
+    display: grid !important; grid-template-columns: minmax(0, 1fr) auto;
+    gap: 12px !important; padding: 10px 0 !important; font-size: 16px !important; line-height: 1.55;
+  }
+  .lumiq-root main.plans-page .tier-card li > span:first-child { min-width: 0; }
+  .lumiq-root main.plans-page .tier-card li > span:last-child { min-width: 40px; text-align: right; font-weight: 550; }
+  .lumiq-root main.plans-page .billing-toggle { max-width: 100%; }
+  .lumiq-root main.plans-page .billing-toggle button { padding-inline: 14px; flex-wrap: wrap; justify-content: center; }
+  .lumiq-root main.plans-page .billing-save { font-size: 14px !important; letter-spacing: 0; }
+}
+
+@media (max-width: 359px) {
+  .lumiq-root main.plans-page .tier-card { padding-inline: 18px; }
+}

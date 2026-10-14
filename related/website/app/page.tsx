@@ -188,6 +188,7 @@ export default async function Home() {
             name: t(`products.${id}.name`), body: t(`products.${id}.body`),
             image: "/assets/" + artwork[id] + ".webp", href: `/${locale}${PRODUCT_BY_ID[id].href}`, explore: t("explore"),
           }))} />
+          <div className="lh-products-carousel">
           <div className="lh-products-viewport" id="home-products-rail">
             <div className="lh-products-track">
               {collection.map((id) => (
@@ -261,6 +262,7 @@ export default async function Home() {
                 <ArrowRight size={20} />
               </button>
             </div>
+          </div>
           </div>
         </div>
       </section>
