@@ -5,6 +5,7 @@ import AddToCartButton from "@/components/cart/AddToCartButton";
 
 import { useEffect, useRef, type CSSProperties, type ReactNode } from "react";
 import Image from "next/image";
+import { preload } from "react-dom";
 import { Link } from "@/i18n/navigation";
 
 export type ProductVisual = {
@@ -162,6 +163,9 @@ export default function ProductDetailTemplate({
   finalBody,
   secondaryAction,
 }: ProductDetailTemplateProps) {
+  preload("/assets/fonts/barlow-condensed-semibold.ttf", {
+    as: "font", type: "font/ttf", crossOrigin: "anonymous",
+  });
   const heroRef = useRef<HTMLElement>(null);
   const style = {
     "--pd-accent": accent,
@@ -193,6 +197,9 @@ export default function ProductDetailTemplate({
             <Link href="/products" className="pd-back-link">
               {backLabel}
             </Link>
+            <div className="pd-hero-display-title" aria-hidden="true">
+              {productName.toUpperCase()}
+            </div>
             <Heading as="h1">
               <span className="pd-product-name">{productName}</span>
               <span className="pd-product-tagline">{title}</span>
@@ -207,10 +214,6 @@ export default function ProductDetailTemplate({
             </div>
             <div className="pd-cart-action"><AddToCartButton productId={slug} /></div>
             {heroOptions && <div className="pd-hero-options">{heroOptions}</div>}
-          </div>
-
-          <div className="pd-hero-display-title" aria-hidden="true">
-            {productName.toUpperCase()}
           </div>
 
           <figure className="pd-hero-visual">

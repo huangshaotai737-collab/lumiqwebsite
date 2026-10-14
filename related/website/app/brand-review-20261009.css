@@ -63,18 +63,19 @@
 @media (max-width: 420px) { .lumiq-root > .footer .container, .lumiq-root:has(.lh-home) > .footer .container { width: calc(100% - 32px); } .lumiq-root > .footer .foot-grid, .lumiq-root:has(.lh-home) > .footer .foot-grid { grid-template-columns: 1fr; gap: 28px; } }
 .lumiq-root .footer .foot-logo-light { display: none; }
 
-/* Text uses document flow; large poster type stays behind the product. */
+/* Product names stay in the copy column, including while a font is loading. */
 @media (min-width: 981px) {
   .lumiq-root .product-detail-light .pd-hero-floor { min-height: 0; padding-bottom: var(--lq-section-edge); }
-  .lumiq-root .product-detail-light .pd-hero-grid { min-height: 660px; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); align-items: center; }
-  .lumiq-root .product-detail-light .pd-hero-copy { position: relative; z-index: 3; align-self: start; padding-top: 220px; padding-bottom: 16px; max-width: 440px; }
-  .lumiq-root .product-detail-light .pd-hero-display-title { top: 66px; font-size: clamp(78px, 8vw, 118px); line-height: 1; }
-  .lumiq-root .product-detail-light.pd-ola .pd-hero-display-title { font-size: clamp(90px, 9vw, 138px); }
+  .lumiq-root .product-detail-light .pd-hero-grid { min-height: 660px; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); align-items: center; container-type: inline-size; }
+  .lumiq-root .product-detail-light .pd-hero-copy { position: relative; z-index: 3; align-self: start; padding: 66px 32px 16px 0; max-width: none; min-width: 0; }
+  .lumiq-root .product-detail-light .pd-hero-display-title { position: static; width: auto; margin-bottom: 24px; font-size: clamp(56px, 8.2cqw, 118px); line-height: 1.06; white-space: normal; overflow-wrap: anywhere; }
+  .lumiq-root .product-detail-light.pd-ola .pd-hero-display-title { font-size: clamp(64px, 9cqw, 138px); }
+  .lumiq-root .product-detail-light:is(.pd-ola-go, .pd-nest) .pd-hero-display-title { font-size: clamp(56px, 8.2cqw, 118px); }
   .lumiq-root .product-detail-light .pd-back-link { top: 0; }
-  .lumiq-root .product-detail-light .pd-hero-copy h1 { margin: 0 0 24px; }
+  .lumiq-root .product-detail-light .pd-hero-copy h1 { max-width: 440px; margin: 0 0 24px; }
   .lumiq-root .product-detail-light .pd-hero-copy h1 .pd-product-tagline { position: static; display: block; width: 100%; font-size: clamp(26px, 2.1vw, 36px); line-height: 1.3; }
   .lumiq-root .product-detail-light .pd-hero-lede,
-  .lumiq-root .product-detail-light .pd-concept-note { position: static; width: 100%; margin: 0 0 22px; }
+  .lumiq-root .product-detail-light .pd-concept-note { position: static; width: 100%; max-width: 440px; margin: 0 0 22px; }
   .lumiq-root .product-detail-light .pd-price-row { position: static; width: fit-content; max-width: 100%; margin-top: 24px; flex-wrap: wrap; border-radius: 20px; }
   .lumiq-root .product-detail-light .pd-hero-options { position: static; margin-top: 24px; }
   .lumiq-root .product-detail-light .pd-hero-visual { grid-row: 1; --pd-product-shift: 0%; --pd-product-y: 0%; }

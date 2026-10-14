@@ -52,6 +52,9 @@ export default function NestProductPage() {
         src: selected.image,
         alt: t("altFinish", { name: selected.name }),
         fit: "contain",
+        // These small WebP renders are already optimized. Avoid making the
+        // first visible product depend on a second, dynamic transformation.
+        unoptimized: true,
       }}
       heroOptions={
         <div className="pd-finish-picker" aria-label={t("choose")}>

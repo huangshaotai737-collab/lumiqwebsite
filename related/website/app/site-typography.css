@@ -9,7 +9,7 @@
   src: url("/assets/fonts/barlow-condensed-semibold.ttf") format("truetype");
   font-weight: 600;
   font-style: normal;
-  font-display: optional;
+  font-display: swap;
 }
 /* The homepage supplies the shared type and colour language. */
 .lumiq-root {
