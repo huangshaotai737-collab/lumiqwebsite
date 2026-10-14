@@ -46,7 +46,7 @@ test('the phone OLA portrait has no abrupt colour step at either side', async ({
   }
 });
 
-test('phone product arrows flank the middle of the cards and still turn all five products', async ({page}) => {
+test('phone product controls sit below the cards and still turn all five products', async ({page}) => {
   for (const width of [320, 390, 500, 767]) {
     await page.setViewportSize({width, height: 900});
     await ready(page, '/zh-hant');
@@ -55,9 +55,10 @@ test('phone product arrows flank the middle of the cards and still turn all five
     const rail = (await page.locator('.lh-products-viewport').boundingBox())!;
     const previous = page.locator('[data-products-previous]'), next = page.locator('[data-products-next]');
     const left = (await previous.boundingBox())!, right = (await next.boundingBox())!;
-    expect(Math.abs(left.y + left.height / 2 - (rail.y + rail.height / 2))).toBeLessThan(24);
+    expect(left.y).toBeGreaterThanOrEqual(rail.y + rail.height);
     expect(left.width).toBeGreaterThanOrEqual(44);
-    expect(right.x - left.x).toBeGreaterThan(width * .4);
+    await expect(page.locator('.lh-products-count')).toContainText('/ 05');
+    expect(right.x).toBeGreaterThan(left.x + left.width);
     expect(left.x).toBeGreaterThan(20);
     expect(right.x + right.width).toBeLessThan(width - 20);
     for (let step = 1; step <= 5; step++) {

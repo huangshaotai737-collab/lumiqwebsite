@@ -253,6 +253,9 @@ export default async function Home() {
               >
                 <ArrowLeft size={20} />
               </button>
+              <span className="lh-products-count" aria-live="polite" aria-atomic="true">
+                <strong data-products-current>01</strong> / {String(collection.length).padStart(2, "0")}
+              </span>
               <button
                 type="button"
                 data-products-next

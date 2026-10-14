@@ -49,7 +49,12 @@ export default function SiteFooter() {
               />
               <Image src="/assets/brand/lumiq-logo-white-transparent-v2.png" alt="" className="foot-logo-img foot-logo-light" width={360} height={96} />
             </div>
+            <span className="foot-mobile-tag">{t("tagline")}</span>
             <p className="foot-blurb">{isHomepage ? t("blurb").replace(/lumiq/gi, "LUMIQ") : t("blurb")}</p>
+            <details className="foot-brand-details">
+              <summary>{t("about")}<span aria-hidden="true" /></summary>
+              <p>{isHomepage ? t("blurb").replace(/lumiq/gi, "LUMIQ") : t("blurb")}</p>
+            </details>
           </div>
           {groups.map(group => <div className="foot-nav" key={group.id}>
             <Heading as="h4">{group.title}</Heading>

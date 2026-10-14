@@ -206,13 +206,15 @@ export default function ProductDetailTemplate({
             </Heading>
             <p className="pd-hero-lede">{lede}</p>
             <p className="pd-concept-note">{conceptNotice}</p>
-            <div className="pd-price-row">
-              <p className={`pd-price${compactHeroPriceLabel ? " pd-price--compact" : ""}`}>{priceLabel}</p>
-              <Link href="/prelaunch" className="pd-primary-action">
-                {ctaLabel}
-              </Link>
+            <div className="pd-hero-actions">
+              <div className="pd-price-row">
+                <p className={`pd-price${compactHeroPriceLabel ? " pd-price--compact" : ""}`}>{priceLabel}</p>
+                <Link href="/prelaunch" className="pd-primary-action">
+                  {ctaLabel}
+                </Link>
+              </div>
+              <div className="pd-cart-action"><AddToCartButton productId={slug} /></div>
             </div>
-            <div className="pd-cart-action"><AddToCartButton productId={slug} /></div>
             {heroOptions && <div className="pd-hero-options">{heroOptions}</div>}
           </div>
 
@@ -370,7 +372,7 @@ export default function ProductDetailTemplate({
             <Heading as="h2">{finalTitle}</Heading>
             <p>{finalBody}</p>
           </div>
-          <div className="pd-final-actions">
+          <div className={`pd-final-actions${compactHeroPriceLabel ? " is-compact-price" : ""}`}>
             <p className="pd-price">{priceLabel}</p>
             <Link href="/prelaunch" className="pd-primary-action">
               {ctaLabel}

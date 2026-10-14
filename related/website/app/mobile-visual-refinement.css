@@ -1,5 +1,7 @@
 /* Preserve the desktop's existing flex items and control positions. */
 .lh-products-carousel { display: contents; }
+.pd-hero-actions { display: contents; }
+.lh-products-count, .foot-brand-details, .foot-mobile-tag { display: none; }
 
 @media (max-width: 767px) {
   .lumiq-root {
@@ -23,8 +25,18 @@
     font-size: clamp(36px, 10vw, 48px); line-height: 1.16; letter-spacing: -.025em;
   }
   .lumiq-root main.lh-home :is(.lh-ola-copy, .lh-products-heading, .lh-films-heading, .lh-room-heading, .lh-safety-copy, .lh-family-heading, .lh-join-copy) h2 {
-    font-size: 28px !important; line-height: 1.3;
+    font-size: clamp(36px, 10vw, 48px) !important; line-height: 1.18;
   }
+  .lumiq-root, .lumiq-root main:not(.lh-home) {
+    --ink-2: #34465d; --ink-3: #42546a; --ink-4: #526174; --pd-muted: #34465d;
+  }
+  .lumiq-root main:not(.lh-home):not(.members-page) { --lq-h1: clamp(34px, 8.8vw, 42px); }
+  .lumiq-root main:not(.lh-home) :is(.prod-hero-text p, .subpage-intro, .lq-body, .pd-hero-lede) {
+    font-size: 17px !important; color: #34465d; line-height: 1.65;
+  }
+  .lumiq-root main.lh-home :is(.lh-lead, .lh-section-intro, .lh-room-intro, .lh-rhythm-copy p, .lh-principle p, .lh-product-copy p, .lh-mobile-film-copy p) { color: #3e5067; }
+  .lumiq-root main.lh-home .lh-muted { color: #465970; }
+  .lumiq-root .navbar.site-nav .nav-logo { width: clamp(96px, calc(100vw - 248px), 136px); height: 44px; }
   .lumiq-root main.lh-home :is(.lh-lead, .lh-room-intro, .lh-section-intro),
   .lumiq-root main.lh-home .lh-section-intro p,
   .lumiq-root main.lh-home .lh-rhythm-copy p,
@@ -65,29 +77,78 @@
     mask-composite: intersect;
   }
 
-  /* A small visible circle has a full 44px touch target. The existing controls
-     continue driving the same rail and retain keyboard/focus behaviour. */
+  /* Phones use the same lightweight native scrolling and bottom controls as
+     the film cards; glass effects remain on desktop only. */
   .lumiq-root main.lh-home .lh-products-carousel { display: block; position: relative; width: 100%; }
+  .lumiq-root main.lh-home .lh-products-stage,
+  .lumiq-root main.lh-home .lh-products-viewport { touch-action: auto; }
+  .lumiq-root main.lh-home .lh-products-viewport { scroll-behavior: auto; }
+  .lumiq-root main.lh-home .lh-products .lh-product {
+    background: #ffffffb8; border: 1px solid #fff; box-shadow: 0 8px 24px #23344812;
+    backdrop-filter: none; -webkit-backdrop-filter: none; transition: none;
+  }
+  .lumiq-root main.lh-home .lh-products .lh-product::before { display: none; animation: none; }
+  .lumiq-root main.lh-home .lh-products .lh-product-float img { transform: none; filter: none; transition: none; }
+  .lumiq-root main.lh-home .lh-products .lh-product-art { perspective: none; }
+  .lumiq-root main.lh-home .lh-products .lh-product-float { transform-style: flat; }
   .lumiq-root main.lh-home .lh-products .lh-products-footer {
-    position: absolute; inset: 0; height: auto; min-height: 0; margin: 0; pointer-events: none;
+    position: static; inset: auto; height: auto; min-height: 44px; margin: 8px 0 0;
+    justify-content: center; gap: 0; pointer-events: auto;
   }
   .lumiq-root main.lh-home .lh-products .lh-products-controls {
-    position: absolute; inset: 0; height: auto; padding-inline: clamp(24px, 8vw, 64px);
-    transform: none; align-items: center; justify-content: space-between; pointer-events: none;
+    position: static; inset: auto; height: 44px; padding: 0; gap: 28px;
+    transform: none; align-items: center; justify-content: center; pointer-events: auto;
   }
   .lumiq-root main.lh-home .lh-products .lh-products-controls button {
-    position: relative; width: 44px; height: 44px; border: 0;
-    background: transparent; color: #233448; pointer-events: auto; isolation: isolate;
+    position: relative; width: 44px; height: 44px; border: 1px solid #fff;
+    background: #ffffffb8; color: #233448; pointer-events: auto;
   }
-  .lumiq-root main.lh-home .lh-products .lh-products-controls button::before {
-    content: ''; position: absolute; inset: 4px; z-index: -1; border-radius: 50%;
-    border: 1px solid #fff; background: #ffffffeb; box-shadow: 0 3px 12px #23344814;
+  .lumiq-root main.lh-home .lh-products .lh-products-controls button::before { display: none; }
+  .lumiq-root main.lh-home .lh-products .lh-products-controls button svg { width: 24px; height: 24px; }
+  .lumiq-root main.lh-home .lh-products .lh-products-progress { display: none; }
+  .lumiq-root main.lh-home .lh-products-count {
+    display: inline; font-size: 14px; color: #46576b; font-variant-numeric: tabular-nums; white-space: nowrap;
   }
-  .lumiq-root main.lh-home .lh-products .lh-products-controls button svg { width: 18px; height: 18px; }
-  .lumiq-root main.lh-home .lh-products .lh-products-progress {
-    position: absolute; bottom: 4px; left: 50%; width: 72px; height: 2px;
-    transform: translateX(-50%); flex: none;
+  .lumiq-root main.lh-home .lh-products-count strong { font-size: 16px; color: #233448; }
+
+  .lumiq-root .footer { padding: 22px 0 18px; }
+  .lumiq-root > footer.footer .foot-grid,
+  .lumiq-root:has(.lh-home) > footer.footer .foot-grid { gap: 10px; margin-bottom: 10px; }
+  .lumiq-root .footer .foot-brand { display: grid; grid-template-columns: 160px minmax(0, 1fr); align-items: center; gap: 8px 12px; }
+  .lumiq-root .footer .foot-logo { margin: 0; }
+  .lumiq-root .footer .foot-logo-img { width: 160px; height: 42px; object-fit: contain; object-position: left center; }
+  .lumiq-root .footer .foot-blurb { display: none; }
+  .lumiq-root .footer .foot-mobile-tag { display: block; font-size: 14px; line-height: 1.4; text-align: right; color: #42546a; }
+  .lumiq-root .footer .foot-brand-details { display: block; grid-column: 1 / -1; }
+  .lumiq-root .footer .foot-brand-details summary { display: flex; align-items: center; gap: 8px; min-height: 32px; font-size: 14px; color: #42546a; cursor: pointer; list-style: none; }
+  .foot-brand-details summary::-webkit-details-marker { display: none; }
+  .foot-brand-details summary > span::after { content: '+'; }
+  .foot-brand-details[open] summary > span::after { content: '−'; }
+  .lumiq-root .footer .foot-brand-details p { margin: 4px 0 10px; font-size: 15px; line-height: 1.6; color: #42546a; }
+  .lumiq-root .footer .foot-mobile-nav { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 18px; align-items: start; }
+  .lumiq-root .footer .foot-mobile-nav ul { grid-template-columns: 1fr; }
+  .lumiq-root .footer .foot-bottom { padding-top: 12px; margin: 0; }
+  .lumiq-root .footer .foot-bottom .foot-tag { display: none; }
+
+  .lumiq-root .product-detail-light :is(.pd-hero-actions, .pd-final-actions) {
+    display: grid; grid-template-columns: max-content minmax(0, 1fr) minmax(0, 1fr);
+    align-items: center; gap: 10px; margin-top: 24px;
   }
+  .lumiq-root .product-detail-light .pd-hero-actions .pd-price-row { display: contents; }
+  .lumiq-root .product-detail-light :is(.pd-hero-actions, .pd-final-actions) .pd-price { margin: 0; font-size: 18px !important; line-height: 1.4; }
+  .lumiq-root .product-detail-light .pd-hero-actions .pd-price--compact { grid-column: 1 / -1; font-size: 16px !important; }
+  .lumiq-root .product-detail-light .pd-hero-actions:has(.pd-price--compact) { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .lumiq-root .product-detail-light .pd-final-actions.is-compact-price { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .lumiq-root .product-detail-light .pd-final-actions.is-compact-price .pd-price { grid-column: 1 / -1; font-size: 16px !important; }
+  .lumiq-root .product-detail-light :is(.pd-hero-actions, .pd-final-actions) .pd-primary-action,
+  .lumiq-root .product-detail-light :is(.pd-hero-actions, .pd-final-actions) .cart-add-button {
+    width: 100%; min-height: 44px; max-width: 100%; padding: 10px 12px; font-size: 14px !important;
+    border-radius: 999px; white-space: normal; text-align: center;
+  }
+  .lumiq-root .product-detail-light .pd-hero-actions .pd-cart-action { margin: 0; }
+  .lumiq-root .product-detail-light :is(.pd-hero-actions, .pd-final-actions) .cart-add-button { gap: 6px; }
+  .lumiq-root .product-detail-light :is(.pd-hero-actions, .pd-final-actions) .cart-add-button svg { flex-shrink: 0; }
+  .lumiq-root .product-detail-light .pd-final-actions .pd-secondary-action { grid-column: 1 / -1; justify-self: start; }
 
   /* Wide phone windows no longer stretch a small subscription list across the
      entire screen. Every feature remains visible; longer labels can wrap. */
@@ -115,4 +176,6 @@
 
 @media (max-width: 359px) {
   .lumiq-root main.plans-page .tier-card { padding-inline: 18px; }
+  .lumiq-root .product-detail-light :is(.pd-hero-actions, .pd-final-actions) { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .lumiq-root .product-detail-light :is(.pd-hero-actions, .pd-final-actions) .pd-price { grid-column: 1 / -1; }
 }
