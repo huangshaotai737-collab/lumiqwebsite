@@ -121,6 +121,14 @@ test('desktop and tablet styling matches the snapshot taken before the phone ref
       const c = getComputedStyle(document.querySelector(selector)!);
       return {selector, width: c.width, height: c.height, size: c.fontSize, line: c.lineHeight, padding: c.padding, gap: c.gap, display: c.display, position: c.position, columns: c.gridTemplateColumns, transform: c.transform};
     }), snapshot.styles.map((s: {selector: string}) => s.selector));
-    expect(styles).toEqual(snapshot.styles);
+    // The desktop fallback's old padding belonged to the oversized three-card
+    // composition. Its five-card replacement is checked in product-fallback;
+    // retain every other original measurement, including tablet padding.
+    const retainedMeasurements = (style: Record<string, string>) => {
+      const retained = {...style};
+      if (snapshot.route === '' && snapshot.width >= 1200 && style.selector === '.lh-products-viewport') delete retained.padding;
+      return retained;
+    };
+    expect(styles.map(retainedMeasurements)).toEqual(snapshot.styles.map(retainedMeasurements));
   }
 });

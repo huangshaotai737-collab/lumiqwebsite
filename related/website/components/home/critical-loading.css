@@ -9,4 +9,43 @@
   .lh-home .lh-products .lh-products-footer { position: absolute; top: calc(100% - var(--lq-section-edge) - var(--carousel-height) * .61); left: 0; width: 100%; height: 0; min-height: 0; margin: 0; pointer-events: none; }
   .lh-home .lh-products .lh-products-controls { position: absolute; top: 0; left: 0; right: 0; height: 44px; padding-inline: clamp(16px, 4vw, 72px); justify-content: space-between; transform: translateY(-50%); pointer-events: none; }
   .lh-home .lh-products .lh-products-controls button { pointer-events: auto; }
+
+  /* Loading or losing WebGL must keep the same five-product composition.
+     Match the scene's camera units instead of reviving the legacy three-card
+     layout. nth-child positions also cover the server render before JS starts. */
+  .lumiq-root main.lh-home .lh-products:not([data-glass-3d]) .lh-products-viewport {
+    --fallback-unit: min(calc(var(--carousel-height) / 8.8), calc(100vw / 16.8));
+    margin: 0; padding: 0; overflow: clip; scroll-snap-type: none; mask-image: none;
+  }
+  .lumiq-root main.lh-home .lh-products:not([data-glass-3d]) .lh-products-track {
+    position: relative; display: block; width: 100%; height: 100%; padding: 0; perspective: 1600px;
+  }
+  .lumiq-root main.lh-home .lh-products:not([data-glass-3d]) .lh-product-slot {
+    --card-x: 0; --card-width: 3.8; --card-height: 5.5;
+    position: absolute; top: auto; bottom: calc(var(--carousel-height) * .22); left: 50%;
+    width: calc(var(--fallback-unit) * var(--card-width)); height: calc(var(--fallback-unit) * var(--card-height));
+    transform: translateX(calc(-50% + var(--fallback-unit) * var(--card-x)));
+    opacity: 1; pointer-events: auto; z-index: 1;
+  }
+  .lumiq-root main.lh-home .lh-products:not([data-glass-3d]) .lh-product-slot:nth-child(2) { --card-x: 3.8; --card-width: 2.2; --card-height: 3.2; }
+  .lumiq-root main.lh-home .lh-products:not([data-glass-3d]) .lh-product-slot:nth-child(3) { --card-x: 6.6; --card-width: 2.1; --card-height: 3; }
+  .lumiq-root main.lh-home .lh-products:not([data-glass-3d]) .lh-product-slot:nth-child(4) { --card-x: -6.6; --card-width: 2.1; --card-height: 3; }
+  .lumiq-root main.lh-home .lh-products:not([data-glass-3d]) .lh-product-slot:nth-child(5) { --card-x: -3.8; --card-width: 2.2; --card-height: 3.2; }
+  .lumiq-root main.lh-home .lh-products:not([data-glass-3d]) .lh-product-slot[data-offset='0'] { --card-x: 0; --card-width: 3.8; --card-height: 5.5; z-index: 3; }
+  .lumiq-root main.lh-home .lh-products:not([data-glass-3d]) .lh-product-slot[data-offset='-1'] { --card-x: -3.8; --card-width: 2.2; --card-height: 3.2; }
+  .lumiq-root main.lh-home .lh-products:not([data-glass-3d]) .lh-product-slot[data-offset='1'] { --card-x: 3.8; --card-width: 2.2; --card-height: 3.2; }
+  .lumiq-root main.lh-home .lh-products:not([data-glass-3d]) .lh-product-slot[data-offset='-2'] { --card-x: -6.6; --card-width: 2.1; --card-height: 3; }
+  .lumiq-root main.lh-home .lh-products:not([data-glass-3d]) .lh-product-slot[data-offset='2'] { --card-x: 6.6; --card-width: 2.1; --card-height: 3; }
+  .lumiq-root main.lh-home .lh-products:not([data-glass-3d]) .lh-product {
+    height: 100%; padding: 12px; border-radius: 20px;
+  }
+  .lumiq-root main.lh-home .lh-products:not([data-glass-3d]) .lh-product-art { flex: 1; min-height: 0; margin: 0 0 8px; }
+  .lumiq-root main.lh-home .lh-products:not([data-glass-3d]) .lh-product h3 { font-size: 16px; line-height: 1.3; }
+  .lumiq-root main.lh-home .lh-products:not([data-glass-3d]) .lh-product-copy p { display: none; min-height: 0; font-size: 16px; line-height: 1.5; }
+  .lumiq-root main.lh-home .lh-products:not([data-glass-3d]) :is(.lh-product-slot[data-active=true], .lh-product-slot:not([data-offset]):first-child) h3 { font-size: 22px; }
+  .lumiq-root main.lh-home .lh-products:not([data-glass-3d]) :is(.lh-product-slot[data-active=true], .lh-product-slot:not([data-offset]):first-child) .lh-product-copy p { display: block; }
+  .lumiq-root main.lh-home .lh-products:not([data-glass-3d]) .lh-product-bottom { flex-shrink: 0; margin-top: 10px; padding-top: 8px; gap: 4px; font-size: 16px; line-height: 1.4; }
+  .lumiq-root main.lh-home .lh-products:not([data-glass-3d]) .lh-product-bottom > span:first-child { min-width: 0; }
+  .lumiq-root main.lh-home .lh-products:not([data-glass-3d]) .lh-product-arrow { flex-shrink: 0; width: 18px; height: 18px; }
+  .lumiq-root main.lh-home .lh-products:not([data-glass-3d]) .lh-products-progress { display: none; }
 }

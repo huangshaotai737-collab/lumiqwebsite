@@ -47,7 +47,9 @@ export function mountProductRail(root: HTMLElement) {
       if (offset > slots.length / 2) offset -= slots.length;
       slot.dataset.offset = String(offset);
       slot.dataset.active = String(i === active);
-      slot.inert = desktop.matches && Math.abs(offset) > 1;
+      // The WebGL fallback now displays all five products, including both outer
+      // cards. Keep every visible card reachable by pointer and keyboard.
+      slot.inert = false;
     });
     meter.style.transform = `scaleX(${(active + 1) / slots.length})`;
     if (pageNumber) pageNumber.textContent = String(active + 1).padStart(2, '0');
