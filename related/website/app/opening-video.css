@@ -41,9 +41,7 @@
     radial-gradient(ellipse at 100% 64%, #e8e5f3 0, transparent 48%),
     linear-gradient(165deg, #faf7fc, #f4eff9 48%, #edeaf5);
 }
-.lh-video-start-poster,
-.lh-video-end-poster,
-.lh-opening-video {
+.lh-opening-film {
   position: absolute;
   left: 50%;
   top: calc(var(--opening-top) + var(--opening-height) / 2);
@@ -52,15 +50,25 @@
   height: auto;
   aspect-ratio: 16 / 9;
   transform: translate(-50%, -50%);
-  object-fit: contain;
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  /* Keep all hardware inside the film; soften only its empty outer edges. */
+  overflow: clip;
+  /* Keep the feathered frame fixed while its media grows inside it. */
   mask-image:
     linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent),
     linear-gradient(180deg, transparent, #000 8%, #000 92%, transparent);
   mask-composite: intersect;
+}
+.lh-opening-film > :is(.lh-video-start-poster, .lh-video-end-poster, .lh-opening-video) {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: contain;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  transform: scale(1.15);
+  transform-origin: center;
 }
 .lh-video-start-poster {
   background-image: url("/assets/home-video/ola-scroll-v16-start-20260909.webp");

@@ -58,7 +58,7 @@ test("continuous width and aspect-ratio resize keeps one proportional media plan
   for (const width of [1516, 1518, 1519, 1520, 1521, 1522, 1524]) {
     await page.setViewportSize({ width, height: 800 });
     await page.evaluate(() => new Promise<void>(resolve => requestAnimationFrame(() => requestAnimationFrame(() => resolve()))));
-    const boxes = await page.evaluate(() => [".lh-opening-video", ".lh-video-start-poster", ".lh-video-end-poster"].map(selector => {
+    const boxes = await page.evaluate(() => [".lh-opening-film"].map(selector => {
       const r = document.querySelector(selector)!.getBoundingClientRect();
       const stage = document.querySelector(".lh-opening-stage")!.getBoundingClientRect();
       return { width: r.width, height: r.height, center: r.y + r.height / 2, left: r.left, right: r.right, layoutCenter: stage.left + stage.width / 2 };
@@ -80,7 +80,7 @@ test("continuous width and aspect-ratio resize keeps one proportional media plan
   for (const [width, height] of [[1280, 720], [1440, 1000], [2435, 498], [3440, 1440]]) {
     await page.setViewportSize({ width, height });
     await page.waitForTimeout(350);
-    const box = await page.locator(".lh-opening-video").boundingBox();
+    const box = await page.locator(".lh-opening-film").boundingBox();
     expect(box!.width / box!.height).toBeCloseTo(16 / 9, 3);
     expect((await state(page)).time).toBeLessThan(.05);
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
