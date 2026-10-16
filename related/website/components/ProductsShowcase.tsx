@@ -362,6 +362,7 @@ export default function ProductsShowcase() {
           ))}
         </div>
 
+        <div className="prod-carousel-shell">
         <nav className="prod-mobile-nav" aria-label={t('productsAria')}>
           <button type="button" onClick={() => stepProduct(-1)} aria-label={t('previous')}><ArrowLeft size={22} /></button>
           <span className="prod-counter" aria-live="polite" aria-atomic="true">{String(active + 1).padStart(2, '0')} / 05</span>
@@ -439,6 +440,7 @@ export default function ProductsShowcase() {
               </div>
             );
           })}
+        </div>
         </div>
       </section>
 

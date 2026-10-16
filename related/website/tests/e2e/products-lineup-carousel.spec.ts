@@ -106,14 +106,38 @@ test('the next card travels into the center with its product image fully visible
   expect(after!.width).toBeGreaterThan(before!.width * 2);
 });
 
-test('the active card fills the mobile content width without horizontal overflow', async ({page}, info) => {
-  test.skip(info.project.name !== 'desktop', 'mobile viewport on desktop browser');
-  await page.setViewportSize({width: 390, height: 844});
-  await page.goto('/en/products#lineup');
-  const stage = page.locator('.prod-stage');
-  const box = await stage.boundingBox();
-  expect(box).not.toBeNull();
-  expect(box!.width).toBeGreaterThan(340);
-  expect(box!.x).toBeLessThan(25);
-  expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(390);
+test('compact cards leave room for side arrows that cycle all five products', async ({page}, info) => {
+  test.skip(info.project.name !== 'desktop', 'responsive viewport on desktop browser');
+  for (const width of [320, 390, 430, 767]) {
+    await page.setViewportSize({width, height: 900});
+    await page.goto('/en/products#lineup');
+    await page.locator('.cart-nav-trigger:not(:disabled)').waitFor();
+    const stage = page.locator('.prod-stage');
+    // Same-page hash navigation preserves the selection from the last viewport.
+    await page.getByRole('tab').first().click();
+    await expect(stage).toHaveAttribute('data-product-id', 'pal');
+    await page.waitForFunction(() => document.fonts.status === 'loaded');
+    await stage.evaluate(element => window.scrollTo({top: scrollY + element.getBoundingClientRect().top - 100, behavior: 'instant'}));
+    const controls = page.locator('.prod-mobile-nav');
+    const previous = controls.getByRole('button').first();
+    const next = controls.getByRole('button').last();
+    const card = (await stage.boundingBox())!;
+    const left = (await previous.boundingBox())!;
+    const right = (await next.boundingBox())!;
+    expect(left.x).toBeGreaterThanOrEqual(0);
+    expect(left.x + left.width).toBeLessThanOrEqual(card.x + 1);
+    expect(right.x).toBeGreaterThanOrEqual(card.x + card.width - 1);
+    expect(right.x + right.width).toBeLessThanOrEqual(width);
+    expect(left.width).toBeGreaterThanOrEqual(44);
+    expect(left.height).toBeGreaterThanOrEqual(44);
+    expect(Math.abs(left.y + left.height / 2 - (card.y + card.height / 2))).toBeLessThan(1);
+    for (const id of ['ola-go', 'tablet', 'book', 'nest', 'pal']) {
+      await next.click();
+      await expect(stage).toHaveAttribute('data-product-id', id);
+    }
+    await previous.click();
+    await expect(stage).toHaveAttribute('data-product-id', 'nest');
+    await expect(controls).toContainText('05 / 05');
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth + 1)).toBe(true);
+  }
 });

@@ -1,4 +1,5 @@
 .prod-mobile-nav { display: none; }
+.prod-carousel-shell { display: contents; }
 
 @media (max-width: 767px) {
   /* Reserve the lower artwork area after the actual copy height. Longer
@@ -50,4 +51,41 @@
 @media (max-width: 359px) {
   .lumiq-root .prod-page .prod-feats-grid { grid-template-columns: 1fr; }
   .lumiq-root .prod-page .prod-feat { flex-direction: row; align-items: center; min-height: 96px; }
+}
+
+/* Keep the single-card layout compact, with visible controls beside the card. */
+@media (max-width: 960px) {
+  .lumiq-root .prod-page .prod-carousel-shell {
+    display: block; position: relative; left: 50%; transform: translateX(-50%);
+    width: min(calc(100% + 32px), 448px); margin-bottom: 44px;
+  }
+  .lumiq-root .prod-page .prod-carousel {
+    width: calc(100% - 88px); margin-inline: auto;
+  }
+  .lumiq-root .prod-page .prod-slide[data-slot=center] { padding: 14px; border-radius: 24px; }
+  .lumiq-root .prod-page .prod-stage .prod-stage-media { height: clamp(160px, 43vw, 220px); aspect-ratio: auto; }
+  .lumiq-root .prod-page .prod-stage .prod-stage-media img { padding: 8px; }
+  .lumiq-root .prod-page .prod-stage .prod-stage-panel { padding: 10px 0 2px; }
+  .lumiq-root .prod-page .prod-index { font-size: 32px; line-height: 1; }
+  .lumiq-root .prod-page .prod-panel-body p { margin-block: 0 12px; }
+  .lumiq-root .prod-page .prod-specs { padding-bottom: 12px; }
+  .lumiq-root .prod-page .prod-specs li { padding-block: 4px; }
+  .lumiq-root .prod-page .prod-stage-nav { display: none; }
+  .lumiq-root .prod-page .prod-mobile-nav {
+    display: block; position: absolute; inset: 0; z-index: 4; margin: 0; pointer-events: none;
+  }
+  .lumiq-root .prod-page .prod-mobile-nav button {
+    position: absolute; top: 50%; transform: translateY(-50%);
+    display: grid; place-items: center; width: 44px; height: 44px; padding: 0;
+    border: 1px solid #c9d2e1; border-radius: 50%; background: #fffffff2;
+    color: #233448; box-shadow: 0 3px 12px #23344812; cursor: pointer; pointer-events: auto;
+  }
+  .lumiq-root .prod-page .prod-mobile-nav button:first-child { left: 0; }
+  .lumiq-root .prod-page .prod-mobile-nav button:last-child { right: 0; }
+  .lumiq-root .prod-page .prod-mobile-nav button:active { background: #e4eaf4; }
+  .lumiq-root .prod-page .prod-mobile-nav button:focus-visible { outline: 2px solid #65758d; outline-offset: 2px; }
+  .lumiq-root .prod-page .prod-mobile-nav .prod-counter {
+    position: absolute; top: calc(100% + 12px); left: 50%; transform: translateX(-50%);
+    white-space: nowrap; font-variant-numeric: tabular-nums;
+  }
 }
