@@ -47,7 +47,7 @@
 
 @media (min-width:1200px) {
   .lh-opening:not([data-video-mode]) :is(.lh-glass-word,.lh-hero-stage,.lh-brand-character) { display:none; }
-  .lh-video-end-poster { opacity:var(--opening-progress,0); }
+  .lh-video-end-poster { opacity:var(--opening-poster-end,0); }
   .lh-opening[data-static-opening] .lh-opening-stage { height:auto; }
   .lh-opening[data-static-opening] .lh-video-layer { display:none; }
   .lh-opening[data-static-opening] :is(.lh-hero,.lh-ola) { position:relative; height:auto; min-height:100svh; background-size:cover; background-position:center; }

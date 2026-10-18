@@ -126,32 +126,60 @@ export function mountOpeningVideo(root: HTMLElement) {
     layer.dataset.intro = "complete";
     let mounted = true;
     let frame = 0;
+    let decodedFrame = 0;
+    let presentedTime: number | null = null;
     const playhead = { progress: 0 };
     const duration = () => Number.isFinite(video.duration) ? video.duration : 6;
     const endTime = () => Math.max(0, duration() - 1 / 30);
+    const desiredTime = () => Math.min(endTime(), Math.round(playhead.progress * endTime() * 24) / 24);
+    const aligned = () => !video.error && video.readyState >= 2 && !video.seeking &&
+      Math.abs(video.currentTime - desiredTime()) <= 1 / 48 &&
+      (!video.requestVideoFrameCallback || (presentedTime !== null && Math.abs(presentedTime - desiredTime()) <= 1 / 12));
+    // Keep the last decoded frame across ordinary one/two-frame seeks. Only
+    // fall back when it is far enough behind to conflict with the copy.
+    const stale = () => !!video.error || video.readyState < 2 ||
+      Math.abs((presentedTime ?? video.currentTime) - desiredTime()) > 0.25;
     const tick = () => {
       frame = 0;
-      if (!mounted || document.hidden || video.error || video.readyState < 2 || video.seeking) return;
+      if (!mounted || document.hidden) return;
+      if (stale()) delete layer.dataset.ready;
+      if (video.error || video.readyState < 2 || video.seeking) return;
       const bounds = stage.getBoundingClientRect();
       if (bounds.bottom < 0 || bounds.top > innerHeight) return;
-      const desired = Math.min(endTime(), Math.round(playhead.progress * endTime() * 24) / 24);
+      const desired = desiredTime();
       if (Math.abs(video.currentTime - desired) > 1 / 48) {
         video.currentTime = desired;
         return;
       }
-      layer.dataset.ready = "true";
+      if (aligned()) layer.dataset.ready = "true";
     };
     const schedule = () => { if (mounted && !frame) frame = requestAnimationFrame(tick); };
+    // currentTime changes before Safari necessarily presents the decoded frame.
+    // Only reveal the film after that frame matches the requested composition.
+    const watchFrame = () => {
+      if (!video.requestVideoFrameCallback) return;
+      decodedFrame = video.requestVideoFrameCallback((_now, metadata) => {
+        if (!mounted) return;
+        presentedTime = metadata.mediaTime;
+        schedule();
+        watchFrame();
+      });
+    };
+    watchFrame();
     const update = () => {
       heroCopy.inert = playhead.progress > 0.4;
       brandCopy.inert = cards.inert = playhead.progress < 0.43;
       video.dataset.scrollProgress = String(playhead.progress);
-      layer.style.setProperty("--opening-progress", String(playhead.progress));
+      // The end composition must be fully in place before second-screen text
+      // appears. A proportional crossfade would retain first-frame hardware.
+      layer.style.setProperty("--opening-poster-end", playhead.progress >= 0.4 ? "1" : "0");
+      if (stale()) delete layer.dataset.ready;
       capture();
       schedule();
     };
     const ready = () => { video.pause(); schedule(); };
-    const failed = () => { video.pause(); delete layer.dataset.ready; };
+    const pending = () => { if (stale()) delete layer.dataset.ready; schedule(); };
+    const failed = () => { video.pause(); pending(); };
     const visibility = () => {
       if (document.hidden) video.pause();
       else schedule();
@@ -161,6 +189,9 @@ export function mountOpeningVideo(root: HTMLElement) {
     video.preload = "auto";
     video.addEventListener("loadeddata", ready);
     video.addEventListener("seeked", schedule);
+    video.addEventListener("seeking", pending);
+    video.addEventListener("waiting", pending);
+    video.addEventListener("stalled", pending);
     video.addEventListener("canplay", schedule);
     video.addEventListener("error", failed);
     document.addEventListener("visibilitychange", visibility);
@@ -198,8 +229,12 @@ export function mountOpeningVideo(root: HTMLElement) {
       currentScroll = undefined;
       cancelAnimationFrame(resetFrame);
       cancelAnimationFrame(frame);
+      if (decodedFrame) video.cancelVideoFrameCallback(decodedFrame);
       video.removeEventListener("loadeddata", ready);
       video.removeEventListener("seeked", schedule);
+      video.removeEventListener("seeking", pending);
+      video.removeEventListener("waiting", pending);
+      video.removeEventListener("stalled", pending);
       video.removeEventListener("canplay", schedule);
       video.removeEventListener("error", failed);
       document.removeEventListener("visibilitychange", visibility);
@@ -209,7 +244,7 @@ export function mountOpeningVideo(root: HTMLElement) {
       delete opening.dataset.videoMode;
       delete layer.dataset.ready;
       delete layer.dataset.intro;
-      layer.style.removeProperty("--opening-progress");
+      layer.style.removeProperty("--opening-poster-end");
       heroCopy.inert = brandCopy.inert = cards.inert = false;
     };
   });
