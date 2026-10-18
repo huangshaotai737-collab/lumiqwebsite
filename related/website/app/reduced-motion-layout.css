@@ -1,6 +1,6 @@
 /* The non-animated opening is a real layout, rather than the legacy 26/17/57
    grid that squeezed all three companion cards into its 17% middle column. */
-@media (min-width: 1200px) and (prefers-reduced-motion: reduce) {
+@media (min-width: 1200px) {
   .lumiq-root main.lh-home .lh-opening[data-static-opening] { height: auto; }
   .lumiq-root main.lh-home .lh-opening[data-static-opening] .lh-opening-stage { height: auto; }
   .lumiq-root main.lh-home .lh-opening[data-static-opening] .lh-video-layer { display: none; }

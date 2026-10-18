@@ -212,3 +212,17 @@
   line-height: 1.5;
 }
 .lh-opening[data-video-mode] :is(.lh-hero-copy, .lh-ola-copy, .lh-rhythm-cards) { pointer-events: auto; }
+
+/* Hold the first composition while the complete film is cached and decoded.
+   No overlay or progress UI; the existing artwork stays visible. */
+html:has(.lh-opening[data-opening-loading]),
+body:has(.lh-opening[data-opening-loading]) { overflow: hidden; }
+html:has(.lh-opening[data-opening-loading]) { scrollbar-gutter: stable; }
+
+/* Reserve the lock from server-rendered first paint, before hydration. The
+   scripting query leaves the static document navigable when JS is disabled. */
+@media (min-width: 1200px) and (prefers-reduced-motion: no-preference) and (scripting: enabled) {
+  html:has(.lh-opening[data-opening-pending]),
+  body:has(.lh-opening[data-opening-pending]) { overflow: hidden; }
+  html:has(.lh-opening[data-opening-pending]) { scrollbar-gutter: stable; }
+}

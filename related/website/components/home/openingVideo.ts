@@ -1,3 +1,4 @@
+import {preloadOpening} from "./preloadOpening";
 import {homeMotionQuery, homeWideQuery} from "./responsiveLayout";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -33,6 +34,7 @@ export function mountOpeningVideo(root: HTMLElement) {
   let chapterReading: ChapterPosition | null = null;
   let restoringChapter: ChapterPosition | null = null;
   let alive = true;
+  let failedThisVisit = false;
   let resizeFrame = 0;
   let settleTimer = 0;
   const capture = () => {
@@ -117,102 +119,166 @@ export function mountOpeningVideo(root: HTMLElement) {
   window.addEventListener("keydown", key);
   const mm = gsap.matchMedia();
   mm.add({desktop: homeWideQuery, motion: "(prefers-reduced-motion: no-preference)"}, context => {
+    delete opening.dataset.openingPending;
     if (!context.conditions?.desktop) return;
     opening.dataset.videoMode = "true";
-    if (!context.conditions.motion) {
+    if (!context.conditions.motion || failedThisVisit) {
       opening.dataset.staticOpening = "true";
       return () => { delete opening.dataset.videoMode; delete opening.dataset.staticOpening; };
     }
     layer.dataset.intro = "complete";
     let mounted = true;
+    let failed = false;
     let frame = 0;
     let decodedFrame = 0;
+    let stallTimer = 0;
     let presentedTime: number | null = null;
-    const playhead = { progress: 0 };
+    let ownedSource: string | null = null;
+    const controller = new AbortController();
+    const playhead = {progress: 0};
     const duration = () => Number.isFinite(video.duration) ? video.duration : 6;
     const endTime = () => Math.max(0, duration() - 1 / 30);
     const desiredTime = () => Math.min(endTime(), Math.round(playhead.progress * endTime() * 24) / 24);
+    // Only the opening blocks entry. Lower floors keep their own lazy loading.
+    const blocked = Array.from(root.querySelectorAll<HTMLElement>("[data-home-section]"))
+      .map(element => ({element, inert: element.inert}));
+    blocked.forEach(({element}) => { element.inert = true; });
+    opening.dataset.openingLoading = "true";
+    opening.setAttribute("aria-busy", "true");
+    const releaseGate = () => {
+      if (!opening.hasAttribute("data-opening-loading")) return;
+      blocked.forEach(({element, inert}) => { element.inert = inert; });
+      delete opening.dataset.openingLoading;
+      opening.removeAttribute("aria-busy");
+    };
+    // Copy is rendered from the presented media frame, never from a requested
+    // seek. Pending decodes therefore retain one coherent composition.
+    const copyTimeline = gsap.timeline({paused: true})
+      .to(heroCopy, {autoAlpha: 0, y: -35, duration: .25, ease: "none"}, .05)
+      .fromTo(brandCopy, {autoAlpha: 0, y: 24}, {autoAlpha: 1, y: 0, duration: .22, ease: "none"}, .42)
+      .fromTo(cards, {autoAlpha: 0, y: 24}, {autoAlpha: 1, y: 0, duration: .22, ease: "none"}, .48);
+    const renderCopy = () => {
+      const actual = Math.max(0, Math.min(1, (presentedTime ?? 0) / endTime()));
+      copyTimeline.time(actual * anchor);
+      if (!opening.hasAttribute("data-opening-loading")) {
+        heroCopy.inert = actual > .4;
+        brandCopy.inert = cards.inert = actual < .43;
+      }
+    };
+    const clearStall = () => { clearTimeout(stallTimer); stallTimer = 0; };
+    const fallback = () => {
+      if (!mounted || failed) return;
+      failed = failedThisVisit = true;
+      controller.abort();
+      clearTimeout(deadline);
+      clearStall();
+      const inOpening = stage.getBoundingClientRect().bottom > 0 && stage.getBoundingClientRect().top <= innerHeight;
+      const chapter = playhead.progress >= .4 ? brandCopy.closest<HTMLElement>("section")! : heroCopy.closest<HTMLElement>("section")!;
+      const nextChapter = chapterReading;
+      timeline.scrollTrigger?.kill(true);
+      timeline.kill();
+      copyTimeline.kill();
+      currentScroll = undefined;
+      reading = restoring = null;
+      restoringChapter = null;
+      gsap.set([heroCopy, brandCopy, cards], {clearProps: "opacity,visibility,transform"});
+      opening.dataset.staticOpening = "true";
+      delete layer.dataset.ready;
+      releaseGate();
+      heroCopy.inert = brandCopy.inert = cards.inert = false;
+      video.pause(); video.removeAttribute("src"); video.load();
+      if (ownedSource) { URL.revokeObjectURL(ownedSource); ownedSource = null; }
+      ScrollTrigger.refresh();
+      if (inOpening) window.scrollTo({top: chapter.offsetTop, behavior: "instant"});
+      else if (nextChapter) window.scrollBy({top: nextChapter.element.getBoundingClientRect().top - nextChapter.top, behavior: "instant"});
+      capture();
+    };
+    // A slow or unsupported decoder must not trap the visitor behind a loader.
+    const deadline = window.setTimeout(fallback, 12000);
     const aligned = () => !video.error && video.readyState >= 2 && !video.seeking &&
       Math.abs(video.currentTime - desiredTime()) <= 1 / 48 &&
-      (!video.requestVideoFrameCallback || (presentedTime !== null && Math.abs(presentedTime - desiredTime()) <= 1 / 12));
-    // Keep the last decoded frame across ordinary one/two-frame seeks. Only
-    // fall back when it is far enough behind to conflict with the copy.
-    const stale = () => !!video.error || video.readyState < 2 ||
-      Math.abs((presentedTime ?? video.currentTime) - desiredTime()) > 0.25;
+      (presentedTime !== null && Math.abs(presentedTime - desiredTime()) <= 1 / 12);
+    const waitForDecoder = () => {
+      if (layer.dataset.ready && !stallTimer) stallTimer = window.setTimeout(fallback, 4000);
+    };
     const tick = () => {
       frame = 0;
-      if (!mounted || document.hidden) return;
-      if (stale()) delete layer.dataset.ready;
-      if (video.error || video.readyState < 2 || video.seeking) return;
+      if (!mounted || failed || document.hidden) return;
       const bounds = stage.getBoundingClientRect();
-      if (bounds.bottom < 0 || bounds.top > innerHeight) return;
-      const desired = desiredTime();
-      if (Math.abs(video.currentTime - desired) > 1 / 48) {
-        video.currentTime = desired;
+      if (bounds.bottom < 0 || bounds.top > innerHeight) { clearStall(); return; }
+      if (!ownedSource) return;
+      if (video.readyState < 2) { waitForDecoder(); return; }
+      if (video.seeking) { waitForDecoder(); return; }
+      if (Math.abs(video.currentTime - desiredTime()) > 1 / 48) {
+        waitForDecoder();
+        video.currentTime = desiredTime();
         return;
       }
-      if (aligned()) layer.dataset.ready = "true";
+      if (aligned()) {
+        clearStall();
+        // Latch the movie plane. Ordinary waiting/seeking never reveals posters.
+        layer.dataset.ready = "true";
+        clearTimeout(deadline);
+        releaseGate();
+        renderCopy();
+      } else waitForDecoder();
     };
-    const schedule = () => { if (mounted && !frame) frame = requestAnimationFrame(tick); };
-    // currentTime changes before Safari necessarily presents the decoded frame.
-    // Only reveal the film after that frame matches the requested composition.
+    const schedule = () => { if (mounted && !failed && !frame) frame = requestAnimationFrame(tick); };
     const watchFrame = () => {
       if (!video.requestVideoFrameCallback) return;
       decodedFrame = video.requestVideoFrameCallback((_now, metadata) => {
-        if (!mounted) return;
+        if (!mounted || failed) return;
+        if (presentedTime !== metadata.mediaTime) clearStall();
         presentedTime = metadata.mediaTime;
+        renderCopy();
         schedule();
         watchFrame();
       });
     };
     watchFrame();
+    const ready = () => {
+      if (!mounted || failed) return;
+      video.pause();
+      if (!video.requestVideoFrameCallback && video.readyState >= 2 && !video.seeking) {
+        presentedTime = video.currentTime;
+        clearStall();
+        renderCopy();
+      }
+      schedule();
+    };
     const update = () => {
-      heroCopy.inert = playhead.progress > 0.4;
-      brandCopy.inert = cards.inert = playhead.progress < 0.43;
+      if (failed) return;
       video.dataset.scrollProgress = String(playhead.progress);
-      // The end composition must be fully in place before second-screen text
-      // appears. A proportional crossfade would retain first-frame hardware.
-      layer.style.setProperty("--opening-poster-end", playhead.progress >= 0.4 ? "1" : "0");
-      if (stale()) delete layer.dataset.ready;
       capture();
       schedule();
     };
-    const ready = () => { video.pause(); schedule(); };
-    const pending = () => { if (stale()) delete layer.dataset.ready; schedule(); };
-    const failed = () => { video.pause(); pending(); };
     const visibility = () => {
-      if (document.hidden) video.pause();
+      if (document.hidden) { video.pause(); clearStall(); }
       else schedule();
     };
     video.muted = true;
     video.loop = false;
     video.preload = "auto";
     video.addEventListener("loadeddata", ready);
-    video.addEventListener("seeked", schedule);
-    video.addEventListener("seeking", pending);
-    video.addEventListener("waiting", pending);
-    video.addEventListener("stalled", pending);
-    video.addEventListener("canplay", schedule);
-    video.addEventListener("error", failed);
+    video.addEventListener("seeked", ready);
+    video.addEventListener("seeking", schedule);
+    video.addEventListener("waiting", schedule);
+    video.addEventListener("stalled", schedule);
+    video.addEventListener("canplay", ready);
+    video.addEventListener("error", fallback);
     document.addEventListener("visibilitychange", visibility);
     window.addEventListener("lumiq:home-enter", ready);
-    const source = video.dataset.preparedSrc || openingVideoSource;
-    if (video.getAttribute("src") !== source) { video.src = source; video.load(); }
     const timeline = gsap.timeline({ scrollTrigger: {
       id: "home-opening-video", trigger: stage, pin: stage, start: "top top",
       end: () => `+=${window.innerHeight * 2.85}`, scrub: true,
       invalidateOnRefresh: true, refreshPriority: 2, onRefresh: update,
     } });
-    timeline
-      .to(playhead, { progress: 1, duration: anchor, ease: "none", onUpdate: update }, 0)
-      .to({}, { duration: 1 - anchor }, anchor)
-      .to(heroCopy, { autoAlpha: 0, y: -35, duration: 0.25, ease: "none" }, 0.05)
-      // Text shares the video's scroll timeline in both directions.
-      .fromTo(brandCopy, { autoAlpha: 0, y: 24 }, { autoAlpha: 1, y: 0, duration: 0.22, ease: "none" }, 0.42)
-      .fromTo(cards, { autoAlpha: 0, y: 24 }, { autoAlpha: 1, y: 0, duration: 0.22, ease: "none" }, 0.48);
+    timeline.to(playhead, {progress: 1, duration: anchor, ease: "none", onUpdate: update}, 0)
+      .to({}, {duration: 1 - anchor}, anchor);
     const scroll = timeline.scrollTrigger!;
     currentScroll = scroll;
     const resetFrame = requestAnimationFrame(() => {
+      if (failed || !mounted) return;
       ScrollTrigger.refresh();
       if (initialAnchor) {
         reading = restoring = anchor;
@@ -221,30 +287,41 @@ export function mountOpeningVideo(root: HTMLElement) {
       restore();
       scroll.update();
       update();
-      ready();
     });
+    void preloadOpening(openingVideoSource, controller.signal).then(blob => {
+      if (!mounted || failed || controller.signal.aborted) return;
+      ownedSource = URL.createObjectURL(blob);
+      video.src = ownedSource;
+      video.load();
+    }).catch(() => { if (!controller.signal.aborted) fallback(); });
+    renderCopy();
     update();
     return () => {
       mounted = false;
+      controller.abort();
+      clearTimeout(deadline);
+      clearStall();
+      releaseGate();
       currentScroll = undefined;
       cancelAnimationFrame(resetFrame);
       cancelAnimationFrame(frame);
       if (decodedFrame) video.cancelVideoFrameCallback(decodedFrame);
       video.removeEventListener("loadeddata", ready);
-      video.removeEventListener("seeked", schedule);
-      video.removeEventListener("seeking", pending);
-      video.removeEventListener("waiting", pending);
-      video.removeEventListener("stalled", pending);
-      video.removeEventListener("canplay", schedule);
-      video.removeEventListener("error", failed);
+      video.removeEventListener("seeked", ready);
+      video.removeEventListener("seeking", schedule);
+      video.removeEventListener("waiting", schedule);
+      video.removeEventListener("stalled", schedule);
+      video.removeEventListener("canplay", ready);
+      video.removeEventListener("error", fallback);
       document.removeEventListener("visibilitychange", visibility);
       window.removeEventListener("lumiq:home-enter", ready);
       video.pause(); video.removeAttribute("src"); video.load();
+      if (ownedSource) URL.revokeObjectURL(ownedSource);
       delete video.dataset.scrollProgress;
       delete opening.dataset.videoMode;
+      delete opening.dataset.staticOpening;
       delete layer.dataset.ready;
       delete layer.dataset.intro;
-      layer.style.removeProperty("--opening-poster-end");
       heroCopy.inert = brandCopy.inert = cards.inert = false;
     };
   });
