@@ -1,3 +1,6 @@
+import { assertSameOrigin } from "@/lib/http/origin";
+import { enforceRateLimit, clientAddress } from "@/lib/http/rate-limit";
+import { HttpError } from "@/lib/http/result";
 import {
   insertWaitlistRecord,
   hasSupabaseServerConfig,
@@ -43,6 +46,8 @@ export async function POST(request: Request) {
   }
 
   try {
+    assertSameOrigin(request, process.env.APP_ORIGIN || "");
+    await enforceRateLimit("waitlist", clientAddress(request));
     const result = await registerWaitlistEmail(payload, insertWaitlistRecord);
     if (!result.ok) {
       const status = result.error === "invalid_email" ? 400 : 503;
@@ -53,7 +58,23 @@ export async function POST(request: Request) {
       status: result.state === "created" ? 201 : 200,
       headers: noStoreHeaders,
     });
-  } catch {
+  } catch (error) {
+    if (error instanceof HttpError && error.code === "FORBIDDEN")
+      return Response.json(
+        { ok: false, error: "temporarily_unavailable" },
+        { status: 403, headers: noStoreHeaders },
+      );
+    if (error instanceof HttpError && error.code === "RATE_LIMITED")
+      return Response.json(
+        { ok: false, error: "temporarily_unavailable" },
+        {
+          status: 429,
+          headers: {
+            ...noStoreHeaders,
+            "Retry-After": String(error.retryAfterSeconds || 900),
+          },
+        },
+      );
     return Response.json(
       { ok: false, error: "temporarily_unavailable" },
       { status: 503, headers: noStoreHeaders },

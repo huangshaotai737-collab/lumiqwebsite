@@ -133,12 +133,37 @@ test('media inventory recognizes exact columns and rejects missing, drifted and 
  try {
   const input=manifest(); input.migrations=[];Object.assign(input.tables,identityTables,{'public.staff_invites':inviteTable},structuredClone(contentTables),{'public.media_assets':structuredClone(mediaTable)});
   const files=await import('node:fs/promises').then(fs=>fs.readdir(new URL('../../supabase/migrations',import.meta.url)));
-  for(const file of files.filter(file=>/^\d{14}_.*\.sql$/.test(file)).sort())input.migrations.push({version:file.slice(0,14),sha256:createHash('sha256').update(await readFile(new URL(`../../supabase/migrations/${file}`,import.meta.url))).digest('hex')});
+  for(const file of files.filter(file=>/^\d{14}_.*\.sql$/.test(file) && file < '20261020174500').sort())input.migrations.push({version:file.slice(0,14),sha256:createHash('sha256').update(await readFile(new URL(`../../supabase/migrations/${file}`,import.meta.url))).digest('hex')});
   input.tables['public.content_drafts'].columns.base_release_id='uuid';
   const target=path.join(fixture,'remote.json');const run=async()=>{await writeFile(target,JSON.stringify(input));return spawnSync(process.execPath,[script,'--remote-manifest',target],{encoding:'utf8'});};
   assert.equal((await run()).status,0,'exact media schema accepted');
   input.tables['public.media_assets'].columns.advertised_size='integer';assert.match((await run()).stderr,/MEDIA_SCHEMA_MISMATCH/);
   input.tables['public.media_assets']=structuredClone(mediaTable);input.tables['public.media_assets'].columns.browser_public='boolean';assert.match((await run()).stderr,/MEDIA_SCHEMA_MISMATCH/);
   delete input.tables['public.media_assets'];assert.match((await run()).stderr,/MEDIA_SCHEMA_MISMATCH/);
+ }finally{await rm(fixture,{recursive:true,force:true});}
+});
+
+const operationsTables = {
+ 'public.waitlist_operations':{columns:{signup_id:'uuid',status:'text',note:'text',version:'integer'},primaryKey:['signup_id'],unique:[],rlsEnabled:true},
+ 'public.customer_notes':{columns:{id:'uuid',user_id:'uuid',note:'text',created_by:'uuid',created_at:'timestamp with time zone'},primaryKey:['id'],unique:[],rlsEnabled:true},
+};
+test('customer operations inventory accepts exact schema and rejects drift/missing/unknown columns',async()=>{
+ const fixture=await mkdtemp(path.join(tmpdir(),'lumiq-operations-baseline-'));
+ try {
+  const input=manifest();input.migrations=[];
+  Object.assign(input.tables,identityTables,{'public.staff_invites':inviteTable},structuredClone(contentTables),{'public.media_assets':structuredClone(mediaTable)},structuredClone(operationsTables));
+  input.tables['public.content_drafts'].columns.base_release_id='uuid';
+  const {readdir}=await import('node:fs/promises');
+  for(const file of (await readdir(new URL('../../supabase/migrations',import.meta.url))).filter(file=>/^\d{14}_.*\.sql$/.test(file) && file <= '20261020174500_customer_operations.sql').sort()) input.migrations.push({version:file.slice(0,14),sha256:createHash('sha256').update(await readFile(new URL(`../../supabase/migrations/${file}`,import.meta.url))).digest('hex')});
+  const target=path.join(fixture,'remote.json');
+  const run=async()=>{await writeFile(target,JSON.stringify(input));return spawnSync(process.execPath,[script,'--remote-manifest',target],{encoding:'utf8'});};
+  assert.equal((await run()).status,0,'exact operations inventory accepted');
+  for(const name of Object.keys(operationsTables)) {
+   input.tables[name].columns.note='jsonb';assert.match((await run()).stderr,/CUSTOMER_OPERATIONS_SCHEMA_MISMATCH/);
+   input.tables[name]=structuredClone(operationsTables[name]);
+   delete input.tables[name];assert.match((await run()).stderr,/CUSTOMER_OPERATIONS_SCHEMA_MISMATCH/);
+   input.tables[name]=structuredClone(operationsTables[name]);input.tables[name].columns.unknown='text';assert.match((await run()).stderr,/CUSTOMER_OPERATIONS_SCHEMA_MISMATCH/);
+   input.tables[name]=structuredClone(operationsTables[name]);
+  }
  }finally{await rm(fixture,{recursive:true,force:true});}
 });

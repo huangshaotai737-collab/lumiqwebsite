@@ -92,3 +92,15 @@ node scripts/check-migration-baseline.mjs --remote-manifest /absolute/path/remot
 员工邀请、首管理员 CLI、SMTP 配置与设置归属参见 [后台初始化说明](docs/admin/bootstrap.md)。团队邀请只在同一已确认邮箱显式接受后授权；系统配置状态不返回密钥，公开联系方式由后续版本化内容设置统一管理。
 已执行 staff_management 迁移时，基线清单还须包含 staff_invites 全部字段及 RLS/主键描述（精确结构见检查器）；未知表或字段漂移继续失败关闭。
 当前仅验证本地合成账号和数据，尚未验收生产数据库、正式邮件或真实候补名单存储。
+
+### 会员与候补名单运营（C2）
+
+后台 `/customers`、`/waitlist` 仅开放给数据库中当前有效的管理员与运营。会员邮箱通过受限 RPC 读取；普通会员和编辑不能列出邮箱或内部备注。员工（包括已停用员工）与已匿名化会员不进入客户列表，也不能通过详情或备注接口访问。会员普通资料接口不包含邮箱扩展或内部备注。
+
+列表从第1页开始，默认25条、最大100条，按创建时间与ID倒序稳定排序，搜索按字面子串匹配。候补处理状态、最多2000字备注及乐观版本单独保存在 `waitlist_operations`，原报名邮箱、来源、同意版本和重复报名语义保持不变。保存版本过期返回 `CONFLICT`。新增会员内部备注保存在 `customer_notes`，详情显示最近100条。
+
+CSV 导出忽略分页，覆盖当前搜索与状态筛选范围；超过10000条返回 `INVALID_INPUT`，需要收窄筛选。数据库在同一事务中检查当前角色、读取范围、限制每员工每小时5次并写入范围审计，任一步失败都不会返回CSV。审计只包含状态、是否搜索、行数、上限与排序，不记录邮箱或原始搜索词。CSV 使用UTF-8 BOM、RFC4180转义并保护公式前缀。
+
+官网真实报名需要同时配置原有服务端Supabase存储和 `APP_ORIGIN`、共享 `REQUEST_LIMIT_SALT` 及可信IP入口策略；报名默认每IP每15分钟5次，缺少限流配置或数据库不可用时失败关闭。原有限流清理任务也清理新增的报名与导出计数；导出1小时窗口最多保留到到期后下一次15分钟清理。生产配置与真实存储仍须独立验收。
+
+本地专用浏览器贯通：`npm --prefix related/admin run test:e2e:operations`（读取忽略的本地合成凭据，隔离运行4262/4263，不使用正式预览进程）；SQL测试：`supabase test db supabase/tests/database/customer-operations.test.sql`。所有迁移仍由根目录 `supabase/migrations/` 唯一管理。

@@ -21,6 +21,8 @@ Object.assign(schemaDefinitions, {
  'public.content_publication': { columns: {singleton:'boolean',release_id:'uuid',updated_at:'timestamp with time zone'},primaryKey:['singleton'],unique:[],rlsEnabled:true },
 });
 schemaDefinitions['public.media_assets'] = { columns: {id:'uuid',created_by:'uuid',file_name:'text',advertised_size:'bigint',mime:'text',usage_key:'text',original_path:'text',metadata:'jsonb',release_path:'text',status:'text',created_at:'timestamp with time zone'},primaryKey:['id'],unique:[['original_path'],['release_path']],rlsEnabled:true };
+schemaDefinitions['public.waitlist_operations'] = {columns:{signup_id:'uuid',status:'text',note:'text',version:'integer'},primaryKey:['signup_id'],unique:[],rlsEnabled:true};
+schemaDefinitions['public.customer_notes'] = {columns:{id:'uuid',user_id:'uuid',note:'text',created_by:'uuid',created_at:'timestamp with time zone'},primaryKey:['id'],unique:[],rlsEnabled:true};
 const fail = (code) => { throw new Error(code); };
 const canonical = (value) => JSON.stringify(value, (_key, item) => item && typeof item === 'object' && !Array.isArray(item) ? Object.fromEntries(Object.entries(item).sort(([a], [b]) => a.localeCompare(b))) : item);
 
@@ -63,8 +65,10 @@ try {
   if (contentApplied) expectedTables.push('public.content_drafts','public.content_releases','public.content_publication');
   const mediaApplied = applied.some(version => local.get(version).file.endsWith('_media_assets.sql'));
   if (mediaApplied) { expectedTables.push('public.media_assets'); schemaDefinitions['public.content_drafts'].columns.base_release_id = 'uuid'; }
+  const operationsApplied = applied.some(version => local.get(version).file.endsWith('_customer_operations.sql'));
+  if (operationsApplied) expectedTables.push('public.waitlist_operations','public.customer_notes');
   for (const table of expectedTables) {
-    if (canonical(remote.tables[table]) !== canonical(schemaDefinitions[table])) fail(table === 'public.waitlist_signups' ? 'WAITLIST_SCHEMA_MISMATCH' : table === 'public.staff_invites' ? 'STAFF_SCHEMA_MISMATCH' : table === 'public.media_assets' ? 'MEDIA_SCHEMA_MISMATCH' : table.startsWith('public.content_') ? 'CONTENT_SCHEMA_MISMATCH' : 'IDENTITY_SCHEMA_MISMATCH');
+    if (canonical(remote.tables[table]) !== canonical(schemaDefinitions[table])) fail(['public.waitlist_operations','public.customer_notes'].includes(table) ? 'CUSTOMER_OPERATIONS_SCHEMA_MISMATCH' : table === 'public.waitlist_signups' ? 'WAITLIST_SCHEMA_MISMATCH' : table === 'public.staff_invites' ? 'STAFF_SCHEMA_MISMATCH' : table === 'public.media_assets' ? 'MEDIA_SCHEMA_MISMATCH' : table.startsWith('public.content_') ? 'CONTENT_SCHEMA_MISMATCH' : 'IDENTITY_SCHEMA_MISMATCH');
   }
   if (canonical(Object.keys(remote.tables).sort()) !== canonical(expectedTables.sort())) fail('UNRECOGNIZED_SCHEMA_INVENTORY');
   const pending = [...local.keys()].filter((version) => !seen.has(version));

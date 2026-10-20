@@ -103,6 +103,26 @@ isOneToOne: false
       referencedColumns: ["id"]
     }
                   ]
+                },"customer_notes": {
+                  Row: {
+                    "created_at": string,"created_by": string,"id": string,"note": string,"user_id": string
+                  }
+                  ComputedFields: never
+                  Insert: {
+                    "created_at"?: string,"created_by": string,"id"?: string,"note": string,"user_id": string
+                  }
+                  Update: {
+                    "created_at"?: string,"created_by"?: string,"id"?: string,"note"?: string,"user_id"?: string
+                  }
+                  Relationships: [
+                    {
+      foreignKeyName: "customer_notes_user_id_fkey"
+      columns: ["user_id"]
+isOneToOne: false
+      referencedRelation: "profiles"
+      referencedColumns: ["user_id"]
+    }
+                  ]
                 },"media_assets": {
                   Row: {
                     "advertised_size": number,"created_at": string,"created_by": string,"file_name": string,"id": string,"metadata": Json | null,"mime": string,"original_path": string,"release_path": string | null,"status": string,"usage_key": string
@@ -159,6 +179,26 @@ isOneToOne: false
                   Relationships: [
 
                   ]
+                },"waitlist_operations": {
+                  Row: {
+                    "note": string,"signup_id": string,"status": string,"version": number
+                  }
+                  ComputedFields: never
+                  Insert: {
+                    "note"?: string,"signup_id": string,"status"?: string,"version"?: number
+                  }
+                  Update: {
+                    "note"?: string,"signup_id"?: string,"status"?: string,"version"?: number
+                  }
+                  Relationships: [
+                    {
+      foreignKeyName: "waitlist_operations_signup_id_fkey"
+      columns: ["signup_id"]
+isOneToOne: true
+      referencedRelation: "waitlist_signups"
+      referencedColumns: ["id"]
+    }
+                  ]
                 },"waitlist_signups": {
                   Row: {
                     "consent_version": string,"created_at": string,"email": string,"id": string,"source": string
@@ -181,6 +221,9 @@ isOneToOne: false
           Functions: {
             "accept_staff_invite":
 { Args: { "invite_id": string,"token_digest": string }; Returns: undefined
+                           },
+"add_customer_note":
+{ Args: { "note": string,"user_id": string }; Returns: undefined
                            },
 "archive_media_asset":
 { Args: { "asset_id": string }; Returns: undefined
@@ -208,6 +251,9 @@ isOneToOne: false
 "create_staff_invite":
 { Args: { "email": string,"role": string,"token_digest": string }; Returns: string
                            },
+"export_waitlist_operations":
+{ Args: { "search"?: string,"status"?: string }; Returns: Json
+                           },
 "get_content_draft":
 { Args: { "id": string }; Returns: Json
                            },
@@ -226,6 +272,12 @@ isOneToOne: false
 "get_published_content":
 { Args: Record<PropertyKey, never>; Returns: Json
                            },
+"list_customer_notes":
+{ Args: { "user_id": string }; Returns: Json
+                           },
+"list_customer_operations":
+{ Args: { "page"?: number,"page_size"?: number,"search"?: string }; Returns: Json
+                           },
 "list_media_options":
 { Args: { "after_created_at"?: string,"after_id"?: string,"search"?: string,"usage_key": string }; Returns: Json
                            },
@@ -233,6 +285,9 @@ isOneToOne: false
 { Args: Record<PropertyKey, never>; Returns: {
               "active": boolean,"email": string,"role": string,"user_id": string
             }[]
+                           },
+"list_waitlist_operations":
+{ Args: { "page"?: number,"page_size"?: number,"search"?: string,"status"?: string }; Returns: Json
                            },
 "mark_media_copy":
 { Args: { "actor_id": string,"asset_id": string }; Returns: undefined
@@ -251,6 +306,9 @@ isOneToOne: false
                            },
 "submit_content_draft":
 { Args: { "expected_version": number,"id": string }; Returns: Json
+                           },
+"update_waitlist_operations":
+{ Args: { "expected_version": number,"id": string,"note": string,"status": string }; Returns: undefined
                            }
           }
           Enums: {

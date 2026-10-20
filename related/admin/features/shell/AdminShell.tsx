@@ -25,6 +25,7 @@ export function AdminShell({
   const links = role
     ? [
         ...(role === 'admin' || role === 'editor' ? [['官网内容', '文', '/content'], ['素材库', '图', '/media']] : []),
+        ...(role === 'admin' || role === 'operations' ? [['会员', '人', '/customers'], ['候补名单', '单', '/waitlist']] : []),
         ...(role === 'admin'
           ? [
               ['团队与权限', '组', '/team'],
