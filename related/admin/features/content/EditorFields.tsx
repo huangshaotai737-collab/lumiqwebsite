@@ -10,18 +10,19 @@ export function replaceField(snapshot: ContentSnapshot, path: string, value: unk
 }
 // Keep the DOM's entered text (including decimal intermediates/errors); snapshot stores valid numeric values.
 function numericValue(text: string) { return text !== '' && Number.isFinite(Number(text)) ? Number(text) : text; }
-export function FieldControl({ field, snapshot, change, invalid, selectedPage }: {
-  field: EditorField; snapshot: ContentSnapshot; change: (path: string, value: unknown) => void; invalid: boolean; selectedPage: string;
+export function FieldControl({ field, snapshot, change, invalidControlPaths, selectedPage }: {
+  field: EditorField; snapshot: ContentSnapshot; change: (path: string, value: unknown) => void; invalidControlPaths: readonly string[]; selectedPage: string;
 }) {
   const value = fieldValue(snapshot, field.path);
-  const properties = { id: `field-${field.path}`, 'aria-invalid': invalid, 'aria-describedby': `context-${field.path} hint-${field.path}` };
+  const controlProperties = (path: string) => ({ id: `field-${path}`, 'aria-invalid': invalidControlPaths.includes(path), 'aria-describedby': `context-${field.path} hint-${field.path}` });
+  const properties = controlProperties(field.path);
   let control;
   if (field.path.endsWith('.price.kind')) {
     const pricePath = field.path.slice(0, -5);
     const price = fieldValue(snapshot, pricePath) as ProductPresentation['price'];
     control = <><select {...properties} value={price.kind} onChange={event => change(pricePath, event.target.value === 'usd' ? { kind: 'usd', amount: 0 } : { kind: 'pending' })}>
       <option value="pending">待确认</option><option value="usd">美元参考价</option>
-    </select>{price.kind === 'usd' && <label>参考金额（美元）<input aria-label="参考金额（美元）" inputMode="decimal" defaultValue={price.amount} onChange={event => change(pricePath, { kind: 'usd', amount: numericValue(event.target.value) })} /></label>}
+    </select>{price.kind === 'usd' && <label>参考金额（美元）<input {...controlProperties(`${pricePath}.amount`)} aria-label="参考金额（美元）" inputMode="decimal" defaultValue={price.amount} onChange={event => change(pricePath, { kind: 'usd', amount: numericValue(event.target.value) })} /></label>}
     <small>仅用于展示，不影响订单金额。</small></>;
   } else if (field.path.endsWith('.contentStatus')) {
     control = <select {...properties} value={String(value)} onChange={event => change(field.path, event.target.value)}><option value="pending_brand_confirmation">待品牌确认</option><option value="confirmed">已确认</option></select>;

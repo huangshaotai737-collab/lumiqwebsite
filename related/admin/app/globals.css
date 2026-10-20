@@ -101,3 +101,4 @@ dl>div { display:flex; gap:24px; margin:10px 0; } dd { margin:0; }
 @media(max-width:700px) { .content-filters { display:grid; } .content-toolbar button { flex:1 1 120px; } .content-field { margin:20px 0; } .panel { padding:18px; } }
 .content-path { font-size:12px; color:var(--muted); overflow-wrap:anywhere; font-weight:400; }
 .content-filters input { max-width:100%; }
+.content-fieldset { border:0; margin:0; padding:0; min-width:0; }

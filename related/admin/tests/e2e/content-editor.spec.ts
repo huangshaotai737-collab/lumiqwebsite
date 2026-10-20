@@ -1,4 +1,4 @@
-import { expect, test, type BrowserContext } from '@playwright/test';
+import { expect, test, type BrowserContext, type Page } from '@playwright/test';
 import { createClient } from '@supabase/supabase-js';
 import { mkdirSync, readFileSync } from 'node:fs';
 import { parseEnv } from 'node:util';
@@ -27,6 +27,16 @@ async function login(context: BrowserContext, role: string) {
 }
 async function post(context: BrowserContext, url: string, data: unknown) {
   return context.request.post(`${origin}${url}`, { headers: { origin }, data });
+}
+async function holdDraftResponse(page: Page) {
+  let release!: () => void; let arrive!: () => void;
+  const gate = new Promise<void>(resolve => { release = resolve; });
+  const arrived = new Promise<void>(resolve => { arrive = resolve; });
+  await page.route('**/api/content/drafts', async route => {
+    if (route.request().method() !== 'POST') return route.continue();
+    const response = await route.fetch(); arrive(); await gate; await route.fulfill({ response });
+  });
+  return { arrived, release, dispose: async () => { release(); await page.unrouteAll({ behavior: 'wait' }); } };
 }
 async function draft(context: BrowserContext) { return (await (await context.request.get(`${origin}/api/content/drafts?id=${draftId}`)).json()).data; }
 test('admin initializes workspace; field errors keep input and expose exact field location', async ({ page, context, browser }) => {
@@ -75,10 +85,49 @@ test('admin initializes workspace; field errors keep input and expose exact fiel
   await page.getByRole('button', { name: '保存草稿', exact: true }).click();
   await expect(page.locator('main').getByRole('alert')).toContainText('products.nest.price');
   await expect(amount).toHaveValue('not-a-number');
+  await page.getByLabel('字段分组').selectOption('messages');
+  await page.getByRole('button', { name: '定位 products.nest.price', exact: true }).click();
+  await expect(page.getByLabel('字段分组')).toHaveValue('products');
+  await expect(amount).toBeFocused();
+  await expect(amount).toHaveAttribute('aria-invalid', 'true');
+  await expect(amount).toHaveAttribute('id', 'field-products.nest.price.amount');
+  await expect(amount).toHaveValue('not-a-number');
   await page.locator('[id="field-products.nest.price.kind"]').selectOption('pending');
   await page.getByRole('button', { name: '保存草稿', exact: true }).click();
   await expect(page.getByRole('status')).toContainText('草稿已保存');
 });
+
+for (const action of ['save', 'submit'] as const) {
+  test(`pending ${action} response prevents editing and cannot mark newer text saved`, async ({ page, context }) => {
+    await login(context, 'admin');
+    const created = await post(context, '/api/content/drafts', { action: 'create' });
+    expect(created.status()).toBe(200); const ownId = (await created.json()).data.id;
+    await page.goto(`/content/${ownId}`);
+    await page.getByLabel('字段分组').selectOption('products');
+    await page.getByLabel('搜索字段').fill('products.ola.name');
+    const name = page.locator('[id="field-products.ola.name"]');
+    const requestText = action === 'save' ? 'Delayed save request content' : await name.inputValue();
+    if (action === 'save') await name.fill(requestText);
+    const held = await holdDraftResponse(page);
+    try {
+      await page.getByRole('button', { name: action === 'save' ? '保存草稿' : '提交审核', exact: true }).click();
+      await held.arrived;
+      await expect(name).toBeDisabled();
+      await expect(name).toHaveValue(requestText);
+      await expect(page.getByLabel('字段分组')).toBeDisabled();
+      await expect(page.getByRole('button', { name: '发布当前版本', exact: true })).toBeDisabled();
+      held.release();
+      await expect(page.getByRole('status')).toContainText(action === 'save' ? '草稿已保存' : '已提交审核');
+      await expect(name).toBeEnabled();
+      await expect(name).toHaveValue(requestText);
+      const stored = (await (await context.request.get(`${origin}/api/content/drafts?id=${ownId}`)).json()).data;
+      expect(stored.snapshot.products.ola.name).toBe(requestText);
+      await name.fill('New edit after pending operation finished');
+      await expect(page.getByText(/有未保存修改/)).toBeVisible();
+      await expect(page.getByRole('button', { name: '发布当前版本', exact: true })).toBeDisabled();
+    } finally { await held.dispose(); }
+  });
+}
 test('concurrent_draft_save_conflicts and draft_never_changes_public_release', async ({ context }) => {
   await login(context, 'admin');
   expect((await context.request.post(`${origin}/api/content/drafts`, { data: { action: 'create' } })).status()).toBe(403);
@@ -99,19 +148,26 @@ test('stale browser retains input and offers a downloadable conflict copy', asyn
   await page.locator('[id="field-products.ola.name"]').fill('My unsaved conflict copy');
   const current = await draft(context); current.snapshot.products.ola.name = 'Other window saved';
   expect((await post(context, '/api/content/drafts', { id: draftId, expectedVersion: current.version, snapshot: current.snapshot })).status()).toBe(200);
-  await page.getByRole('button', { name: '保存草稿', exact: true }).click();
+  const held = await holdDraftResponse(page);
+  try {
+    await page.getByRole('button', { name: '保存草稿', exact: true }).click();
+    await held.arrived;
+    await expect(page.locator('[id="field-products.ola.name"]')).toBeDisabled();
+  } finally { await held.dispose(); }
   await expect(page.locator('main').getByRole('alert')).toContainText('冲突');
   await expect(page.locator('[id="field-products.ola.name"]')).toHaveValue('My unsaved conflict copy');
+  await page.locator('[id="field-products.ola.name"]').fill('Corrected input after conflict response');
   const download = page.waitForEvent('download');
   await page.getByRole('button', { name: '下载冲突副本', exact: true }).click();
   expect((await download).suggestedFilename()).toContain('conflict');
   await page.getByRole('button', { name: '载入最新草稿', exact: true }).click();
   await expect(page.getByRole('status')).toContainText('已载入最新草稿');
+  await page.locator('[id="field-products.ola.name"]').fill('Merge into latest draft without replacing backup');
   const retainedDownload = page.waitForEvent('download');
   await page.getByRole('button', { name: '下载冲突副本', exact: true }).click();
   const retained = await retainedDownload;
   const copy = JSON.parse(readFileSync((await retained.path())!, 'utf8'));
-  expect(copy.snapshot.products.ola.name).toBe('My unsaved conflict copy');
+  expect(copy.snapshot.products.ola.name).toBe('Corrected input after conflict response');
   expect(copy.expectedVersion).toBe(current.version);
 });
 test('editor settings bypass and operations drafts access are denied by server and direct RPC', async ({ browser }) => {

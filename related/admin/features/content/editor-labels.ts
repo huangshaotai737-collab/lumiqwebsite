@@ -48,3 +48,12 @@ export function matchesField(field: EditorField, snapshot: ContentSnapshot, quer
   const needle = query.trim().toLocaleLowerCase();
   return !needle || [field.path, fieldLabel(field, snapshot), fieldValue(snapshot, field.path)].some(value => String(value ?? '').toLocaleLowerCase().includes(needle));
 }
+
+/** One mapping for both error navigation and the actual input's aria-invalid marker. */
+export function fieldIssueTarget(path: string, snapshot: ContentSnapshot): { rowPath: string; controlPath: string } {
+  const price = /^(products\.[^.]+\.price)(?:\.(amount|kind))?$/.exec(path);
+  if (!price) return { rowPath: path, controlPath: path };
+  const rowPath = `${price[1]}.kind`;
+  const hasAmount = fieldValue(snapshot, rowPath) === 'usd';
+  return { rowPath, controlPath: hasAmount && price[2] !== 'kind' ? `${price[1]}.amount` : rowPath };
+}
