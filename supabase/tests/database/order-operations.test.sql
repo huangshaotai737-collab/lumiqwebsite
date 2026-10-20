@@ -1,0 +1,66 @@
+begin;
+select no_plan();
+select has_function('public','list_staff_orders',array['text','text','integer','integer']);
+select has_function('public','get_staff_order',array['uuid']);
+select has_function('public','get_staff_order_detail',array['uuid']);
+select has_function('public','add_order_note',array['uuid','text']);
+insert into auth.users(id,email,email_confirmed_at,is_anonymous) values
+ ('c4000000-0000-4000-8000-000000000001','c4-admin@example.invalid',now(),false),
+ ('c4000000-0000-4000-8000-000000000002','c4-ops@example.invalid',now(),false),
+ ('c4000000-0000-4000-8000-000000000003','c4-editor@example.invalid',now(),false),
+ ('c4000000-0000-4000-8000-000000000004','c4-member@example.invalid',now(),false);
+insert into public.staff_memberships(user_id,role) values
+ ('c4000000-0000-4000-8000-000000000001','admin'),('c4000000-0000-4000-8000-000000000002','operations'),('c4000000-0000-4000-8000-000000000003','editor');
+insert into public.content_drafts(id,version,snapshot,created_by,updated_by) values('c4100000-0000-4000-8000-000000000001',1,'{}','c4000000-0000-4000-8000-000000000001','c4000000-0000-4000-8000-000000000001');
+insert into public.content_releases(id,snapshot,draft_id,draft_version,created_by) values('c4100000-0000-4000-8000-000000000002','{}','c4100000-0000-4000-8000-000000000001',1,'c4000000-0000-4000-8000-000000000001');
+insert into public.customer_orders(id,user_id,idempotency_key,request_digest,currency,items_minor,shipping_address,terms_release_id) values('c4200000-0000-4000-8000-000000000001','c4000000-0000-4000-8000-000000000004','c4-sql-test',repeat('a',64),'USD',123,'{"name":"Synthetic","country":"US","region":"","city":"Test","postalCode":"","line1":"Test","line2":"","phone":""}','c4100000-0000-4000-8000-000000000002');
+insert into public.order_items(order_id,sku_id,product_id,name,quantity,unit_minor,offering_version) select 'c4200000-0000-4000-8000-000000000001',id,product_id,name,1,123,version from public.catalog_offerings where product_id='ola';
+set local role anon;
+select throws_ok($$select public.get_staff_order('c4200000-0000-4000-8000-000000000001')$$,'42501',null,'anon no execute');
+set local role service_role;
+select throws_ok($$select public.add_order_note('c4200000-0000-4000-8000-000000000001','note')$$,'42501',null,'service role no business execute');
+set local role authenticated;
+set local request.jwt.claims='{"sub":"c4000000-0000-4000-8000-000000000004","role":"authenticated"}';
+select throws_ok($$select * from public.order_notes$$,'42501',null,'member no table access');
+select throws_ok($$select public.list_staff_orders()$$,'42501',null,'member no list');
+select throws_ok($$select public.get_staff_order_detail('c4200000-0000-4000-8000-000000000001')$$,'42501',null,'member no private detail');
+select throws_ok($$select public.add_order_note('c4200000-0000-4000-8000-000000000001','note')$$,'42501',null,'member no note write');
+select ok(not(public.get_customer_order('c4200000-0000-4000-8000-000000000001') ? 'notes'),'canonical own response has no notes');
+set local request.jwt.claims='{"sub":"c4000000-0000-4000-8000-000000000003","role":"authenticated"}';
+select throws_ok($$select public.get_staff_order('c4200000-0000-4000-8000-000000000001')$$,'42501',null,'editor cannot get order');
+select throws_ok($$select public.add_order_note('c4200000-0000-4000-8000-000000000001','note')$$,'42501',null,'editor cannot add note');
+set local request.jwt.claims='{"sub":"c4000000-0000-4000-8000-000000000002","role":"authenticated"}';
+select is(public.list_staff_orders('c4200000-0000-4000-8000-000000000001','all',1,25)->>'total','1','operations exact ID search');
+select is(public.list_staff_orders('c4200000-0000-4000-8000-000000000001','cancelled',1,25)->>'total','0','status filter');
+select throws_ok($$select public.list_staff_orders('', 'paid', 1,25)$$,'22023',null,'unsupported status rejected');
+select throws_ok($$select public.list_staff_orders('', 'all', 1,101)$$,'22023',null,'page bounded');
+select throws_ok($$select public.add_order_note('c4200000-0000-4000-8000-000000000001',' ')$$,'22023',null,'blank note rejected');
+select throws_ok($$select public.add_order_note('c4200000-0000-4000-8000-000000000001',repeat('x',2001))$$,'22023',null,'note bounded');
+select throws_ok($$select public.add_order_note('c4200000-0000-4000-8000-000000000099','note')$$,'P0002',null,'missing order rejected');
+select lives_ok($$select public.add_order_note('c4200000-0000-4000-8000-000000000001','private synthetic note')$$,'operations add note');
+select is(public.get_staff_order_detail('c4200000-0000-4000-8000-000000000001')->'notes'->0->>'note','private synthetic note','narrow staff DTO includes note');
+select ok(not(public.get_staff_order('c4200000-0000-4000-8000-000000000001') ? 'notes'),'canonical staff Order interface note-free');
+select throws_ok($$update public.order_notes set note='changed'$$,'42501',null,'no direct update even operations');
+select throws_ok($$update public.customer_orders set status='paid'$$,'42501',null,'staff cannot mutate financial/state table');
+reset role;
+select is((select count(*) from public.audit_events where action='orders.note_added' and entity_id='c4200000-0000-4000-8000-000000000001'),1::bigint,'note audited');
+select ok(not exists(select 1 from public.audit_events where entity_id='c4200000-0000-4000-8000-000000000001' and summary::text like '%private synthetic note%'),'audit omits private note text');
+create function pg_temp.fail_note_audit() returns trigger language plpgsql as $$begin if new.action='orders.note_added' then raise exception 'synthetic audit failure';end if;return new;end$$;
+create trigger c4_synthetic_fail before insert on public.audit_events for each row execute function pg_temp.fail_note_audit();
+set local role authenticated;
+set local request.jwt.claims='{"sub":"c4000000-0000-4000-8000-000000000001","role":"authenticated"}';
+select throws_ok($$select public.add_order_note('c4200000-0000-4000-8000-000000000001','rolled back')$$,'P0001','synthetic audit failure','audit failure rolls back note');
+reset role;
+select is((select count(*) from public.order_notes where order_id='c4200000-0000-4000-8000-000000000001'),1::bigint,'failed audit leaves only prior note');
+drop trigger c4_synthetic_fail on public.audit_events;
+update public.staff_memberships set active=false where user_id='c4000000-0000-4000-8000-000000000002';
+set local role authenticated;
+set local request.jwt.claims='{"sub":"c4000000-0000-4000-8000-000000000002","role":"authenticated"}';
+select throws_ok($$select public.add_order_note('c4200000-0000-4000-8000-000000000001','revoked')$$,'42501',null,'revocation takes effect without new token');
+reset role;
+update public.profiles set access_state='suspended' where user_id='c4000000-0000-4000-8000-000000000001';
+set local role authenticated;
+set local request.jwt.claims='{"sub":"c4000000-0000-4000-8000-000000000001","role":"authenticated"}';
+select throws_ok($$select public.get_staff_order_detail('c4200000-0000-4000-8000-000000000001')$$,'42501',null,'suspended admin cannot read');
+select * from finish();
+rollback;

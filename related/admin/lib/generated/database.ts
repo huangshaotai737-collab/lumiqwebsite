@@ -223,6 +223,32 @@ isOneToOne: false
       referencedColumns: ["id"]
     }
                   ]
+                },"order_notes": {
+                  Row: {
+                    "created_at": string,"created_by": string | null,"id": string,"note": string,"order_id": string
+                  }
+                  ComputedFields: never
+                  Insert: {
+                    "created_at"?: string,"created_by"?: string | null,"id"?: string,"note": string,"order_id": string
+                  }
+                  Update: {
+                    "created_at"?: string,"created_by"?: string | null,"id"?: string,"note"?: string,"order_id"?: string
+                  }
+                  Relationships: [
+                    {
+      foreignKeyName: "order_notes_created_by_fkey"
+      columns: ["created_by"]
+isOneToOne: false
+      referencedRelation: "profiles"
+      referencedColumns: ["user_id"]
+    },{
+      foreignKeyName: "order_notes_order_id_fkey"
+      columns: ["order_id"]
+isOneToOne: false
+      referencedRelation: "customer_orders"
+      referencedColumns: ["id"]
+    }
+                  ]
                 },"profiles": {
                   Row: {
                     "access_state": string,"display_name": string,"locale": string,"shipping_address": NonNullable<Json>,"user_id": string
@@ -311,6 +337,9 @@ isOneToOne: true
 "add_customer_note":
 { Args: { "note": string,"user_id": string }; Returns: undefined
                            },
+"add_order_note":
+{ Args: { "note": string,"order_id": string }; Returns: undefined
+                           },
 "archive_media_asset":
 { Args: { "asset_id": string }; Returns: undefined
                            },
@@ -373,6 +402,12 @@ isOneToOne: true
 "get_published_content":
 { Args: Record<PropertyKey, never>; Returns: Json
                            },
+"get_staff_order":
+{ Args: { "order_id": string }; Returns: Json
+                           },
+"get_staff_order_detail":
+{ Args: { "order_id": string }; Returns: Json
+                           },
 "list_customer_notes":
 { Args: { "user_id": string }; Returns: Json
                            },
@@ -389,6 +424,9 @@ isOneToOne: true
 { Args: Record<PropertyKey, never>; Returns: {
               "active": boolean,"email": string,"role": string,"user_id": string
             }[]
+                           },
+"list_staff_orders":
+{ Args: { "page"?: number,"page_size"?: number,"search"?: string,"status"?: string }; Returns: Json
                            },
 "list_waitlist_operations":
 { Args: { "page"?: number,"page_size"?: number,"search"?: string,"status"?: string }; Returns: Json

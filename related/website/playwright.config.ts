@@ -2,7 +2,7 @@ import { defineConfig, devices } from "@playwright/test";
 
 export default defineConfig({
   testDir: "./tests/e2e",
-  testIgnore: "account-auth.spec.ts",
+  testIgnore: ["account-auth.spec.ts", "customer-orders.spec.ts"],
   fullyParallel: false,
   retries: process.env.CI ? 1 : 0,
   reporter: "line",

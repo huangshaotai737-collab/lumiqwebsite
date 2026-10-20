@@ -1,6 +1,8 @@
 'use client';
 import {useState, type FormEvent} from 'react';
 import type {Locale, Profile, ShippingAddress, ApiResult} from '@/lib/generated/platform/core';
+import {notifyAccountChange} from './session-event';
+import {orderCopy} from '@/features/orders/copy';
 import {accountCopy, accountError} from './copy';
 
 const emptyAddress: ShippingAddress = {name:'', country:'', region:'', city:'', postalCode:'', line1:'', line2:'', phone:''};
@@ -39,6 +41,7 @@ export function AccountPanel({locale, initial}: {locale:Locale; initial:ApiResul
     try {
       const response = await fetch('/api/auth/signout', {method:'POST', cache:'no-store'});
       if (response.ok || response.status === 401) {
+        notifyAccountChange(true);
         window.location.assign(`/${locale}/login?status=signed-out`);
         return;
       }
@@ -60,6 +63,7 @@ export function AccountPanel({locale, initial}: {locale:Locale; initial:ApiResul
   return (
     <form className="members-panel" onSubmit={submit}>
       <p>{t.signedIn}</p>
+      <a href={`/${locale}/members/orders`}>{orderCopy[locale].orders}</a>
       <label>{t.name}<input name="displayName" maxLength={120} value={profile.displayName} autoComplete="nickname" onChange={event => setProfile({...profile, displayName:event.target.value})}/></label>
       <label>{t.locale}
         <select name="locale" value={profile.locale} onChange={event => setProfile({...profile, locale:event.target.value as Locale})}>

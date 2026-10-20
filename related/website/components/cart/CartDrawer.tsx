@@ -8,6 +8,8 @@ import type { RefObject } from "react";
 import { Link } from "@/i18n/navigation";
 import { CART_MAX_QUANTITY, summarizeCart } from "@/lib/cart";
 import {useCartCopy} from "@/components/content/useCartCopy";
+import {orderCopy} from "@/features/orders/copy";
+import type {Locale} from "@/lib/generated/platform/core";
 import { useCart } from "./CartProvider";
 
 export default function CartDrawer({ dialogRef }: { dialogRef: RefObject<HTMLDialogElement | null> }) {
@@ -80,7 +82,8 @@ export default function CartDrawer({ dialogRef }: { dialogRef: RefObject<HTMLDia
             <div className="cart-total"><span>{copy.referenceTotal}</span><strong>{summary.pricedQuantity ? formatPrice(summary.referenceTotal) : copy.noPublishedTotal}</strong></div>
             {summary.unpricedQuantity ? <p className="cart-price-note">{copy.unpriced(summary.unpricedQuantity)}</p> : null}
             <p className="cart-price-note">{copy.priceNote}</p>
-            <Link href="/prelaunch" className="cart-primary" onClick={() => closeCart(false)}>{copy.interest}</Link>
+            <Link href="/checkout" className="cart-primary" onClick={() => closeCart(false)}>{orderCopy[locale as Locale].checkout}</Link>
+            <Link href="/prelaunch" className="cart-continue" onClick={() => closeCart(false)}>{copy.interest}</Link>
             <button type="button" className="cart-continue" onClick={(event) => closeCart(event.detail !== 0)}>{copy.continue}</button>
           </> : null}
           <p id="cart-local-note" className="cart-local-note">{storageAvailable ? copy.note : `${copy.note} ${copy.storageUnavailable}`}</p>

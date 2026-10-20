@@ -29,6 +29,8 @@ const commerceTables = {
  'public.customer_orders':{columns:{id:'uuid',user_id:'uuid',idempotency_key:'text',request_digest:'text',status:'text',payment_status:'text',fulfillment_status:'text',currency:'text',items_minor:'bigint',shipping_minor:'bigint',tax_minor:'bigint',payable_minor:'bigint',shipping_address:'jsonb',terms_release_id:'uuid',created_at:'timestamp with time zone'},primaryKey:['id'],unique:[['user_id','idempotency_key']],rlsEnabled:true},
  'public.order_items':{columns:{order_id:'uuid',sku_id:'uuid',product_id:'text',name:'text',quantity:'integer',unit_minor:'bigint',offering_version:'integer'},primaryKey:['order_id','sku_id'],unique:[],rlsEnabled:true},
 };
+const orderNotesTable={columns:{id:'uuid',order_id:'uuid',note:'text',created_by:'uuid',created_at:'timestamp with time zone'},primaryKey:['id'],unique:[],rlsEnabled:true};
+schemaDefinitions['public.order_notes']=orderNotesTable;
 Object.assign(schemaDefinitions,commerceTables);
 const fail = (code) => { throw new Error(code); };
 const canonical = (value) => JSON.stringify(value, (_key, item) => item && typeof item === 'object' && !Array.isArray(item) ? Object.fromEntries(Object.entries(item).sort(([a], [b]) => a.localeCompare(b))) : item);
@@ -76,8 +78,10 @@ try {
   if (operationsApplied) expectedTables.push('public.waitlist_operations','public.customer_notes');
   const commerceApplied = applied.some(version => local.get(version).file.endsWith('_orders_and_catalog.sql'));
   if(commerceApplied) expectedTables.push(...Object.keys(commerceTables));
+  const orderOperationsApplied=applied.some(version=>local.get(version).file.endsWith('_order_operations.sql'));
+  if(orderOperationsApplied)expectedTables.push('public.order_notes');
   for (const table of expectedTables) {
-    if (canonical(remote.tables[table]) !== canonical(schemaDefinitions[table])) fail(Object.hasOwn(commerceTables,table) ? 'COMMERCE_SCHEMA_MISMATCH' : ['public.waitlist_operations','public.customer_notes'].includes(table) ? 'CUSTOMER_OPERATIONS_SCHEMA_MISMATCH' : table === 'public.waitlist_signups' ? 'WAITLIST_SCHEMA_MISMATCH' : table === 'public.staff_invites' ? 'STAFF_SCHEMA_MISMATCH' : table === 'public.media_assets' ? 'MEDIA_SCHEMA_MISMATCH' : table.startsWith('public.content_') ? 'CONTENT_SCHEMA_MISMATCH' : 'IDENTITY_SCHEMA_MISMATCH');
+    if (canonical(remote.tables[table]) !== canonical(schemaDefinitions[table])) fail(table==='public.order_notes' ? 'ORDER_OPERATIONS_SCHEMA_MISMATCH' : Object.hasOwn(commerceTables,table) ? 'COMMERCE_SCHEMA_MISMATCH' : ['public.waitlist_operations','public.customer_notes'].includes(table) ? 'CUSTOMER_OPERATIONS_SCHEMA_MISMATCH' : table === 'public.waitlist_signups' ? 'WAITLIST_SCHEMA_MISMATCH' : table === 'public.staff_invites' ? 'STAFF_SCHEMA_MISMATCH' : table === 'public.media_assets' ? 'MEDIA_SCHEMA_MISMATCH' : table.startsWith('public.content_') ? 'CONTENT_SCHEMA_MISMATCH' : 'IDENTITY_SCHEMA_MISMATCH');
   }
   if (canonical(Object.keys(remote.tables).sort()) !== canonical(expectedTables.sort())) fail('UNRECOGNIZED_SCHEMA_INVENTORY');
   const pending = [...local.keys()].filter((version) => !seen.has(version));

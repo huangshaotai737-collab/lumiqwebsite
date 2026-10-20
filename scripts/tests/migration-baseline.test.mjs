@@ -195,3 +195,24 @@ test('commerce inventory accepts all exact tables and rejects drift, missing tab
   input.tables['public.customer_orders'].columns.items_minor='numeric';assert.match((await run()).stderr,/COMMERCE_SCHEMA_MISMATCH/);
  }finally{await rm(fixture,{recursive:true,force:true});}
 });
+
+const orderNotesTable={columns:{id:'uuid',order_id:'uuid',note:'text',created_by:'uuid',created_at:'timestamp with time zone'},primaryKey:['id'],unique:[],rlsEnabled:true};
+test('order annotations inventory requires exact RLS table and rejects drift and absence',async()=>{
+ const fixture=await mkdtemp(path.join(tmpdir(),'lumiq-commerce-baseline-'));
+ try {
+  const input=manifest();input.migrations=[];
+  Object.assign(input.tables,identityTables,{'public.staff_invites':inviteTable},structuredClone(contentTables),{'public.media_assets':structuredClone(mediaTable)},structuredClone(operationsTables),structuredClone(commerceTables),{'public.order_notes':structuredClone(orderNotesTable)});
+  input.tables['public.content_drafts'].columns.base_release_id='uuid';
+  const {readdir}=await import('node:fs/promises');
+  for(const file of (await readdir(new URL('../../supabase/migrations',import.meta.url))).filter(file=>/^\d{14}_.*\.sql$/.test(file) && file <= '20261020190000_order_operations.sql').sort()) input.migrations.push({version:file.slice(0,14),sha256:createHash('sha256').update(await readFile(new URL(`../../supabase/migrations/${file}`,import.meta.url))).digest('hex')});
+  const target=path.join(fixture,'remote.json');
+  const run=async()=>{await writeFile(target,JSON.stringify(input));return spawnSync(process.execPath,[script,'--remote-manifest',target],{encoding:'utf8'});};
+  const result=await run();assert.equal(result.status,0,result.stderr);
+  for(const name of ['public.order_notes']) {
+   input.tables[name].columns.unknown='text';assert.match((await run()).stderr,/ORDER_OPERATIONS_SCHEMA_MISMATCH/);
+   input.tables[name]=structuredClone(orderNotesTable);delete input.tables[name];assert.match((await run()).stderr,/ORDER_OPERATIONS_SCHEMA_MISMATCH/);
+   input.tables[name]=structuredClone(orderNotesTable);input.tables[name].rlsEnabled=false;assert.match((await run()).stderr,/ORDER_OPERATIONS_SCHEMA_MISMATCH/);
+   input.tables[name]=structuredClone(orderNotesTable);
+  }
+ }finally{await rm(fixture,{recursive:true,force:true});}
+});

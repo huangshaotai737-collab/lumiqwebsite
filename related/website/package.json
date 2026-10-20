@@ -13,7 +13,8 @@
     "optimize-images": "node scripts/optimize-images.mjs",
     "check:i18n": "node scripts/check-i18n.mjs",
     "test:e2e:platform": "playwright test -c playwright.platform.config.ts",
-    "test:e2e:account": "playwright test -c playwright.account.config.ts"
+    "test:e2e:account": "playwright test -c playwright.account.config.ts",
+    "test:e2e:orders": "playwright test -c playwright.orders.config.ts"
   },
   "dependencies": {
     "@formatjs/icu-messageformat-parser": "3.5.17",

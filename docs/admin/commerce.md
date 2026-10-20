@@ -38,3 +38,21 @@ C4 在禁用或不可用时继续以候补名单为主要入口。顾客应阅�
 ## 本地验证
 
 数据库测试须与浏览器 fixture 顺序运行。`supabase test db supabase/tests/database/orders.test.sql` 使用事务并回滚。并发复现建议 `node scripts/test-order-concurrency.mjs --local-test-only`，只连接本地 lumiq-platform PostgreSQL，独立会话真正到达生产锁后才解除确定性 barrier；durable private backup 与 finally 恢复用于失败清理。不可变合成发布和审计历史保留；本任务创建的用户、订单、目录配置在结束后恢复/移除。后台浏览器使用 `npm --prefix related/admin run test:e2e:catalog`，独立 4264 代码副本，不占用原预览端口。
+
+## C4 顾客结账与运营界面
+
+`/{locale}/checkout` 从公开商业投影映射购物车 product ID 到真实 SKU，不使用 CMS 参考价。不可用项逐项提示；Go 不能独立下单，含 Go 的购物车须明确移除 Go 后继续，不能静默替换。混合币种和超出安全整数的小计禁止提交。批准的不可变条款与三个承诺直接显示，提交其 releaseId。商品小计与待确认的运费/税额/最终应付额分开，任何状态均没有真实扣款。
+
+顾客接口 `GET/POST /api/orders`、`GET /api/orders/:id`、`POST /api/orders/:id/cancel` 使用 `ApiResult`，私有 `no-store`。创建返回201；同请求复用返回200；冲突409。写入验证同源、当前有效已验证身份和数据库事务。可选 `x-lumiq-customer` 是旧界面的预期身份提示，必须与服务器实际身份一致；它不能授予身份。
+
+首次发送前将原始请求、幂等键和已展示商业投影保存在当前标签页的 sessionStorage，按实际用户 ID 隔离。结果不明保留原请求，刷新后锁定资料并重试同一键；成功后清理并跳到本人订单。确定的输入错误允许修正，确定的开关关闭引导候补名单。显式登出清除待重试资料；切换账号忽略并移除另一账号的资料；跨标签页身份变化只广播无个人资料的随机标记。旧结账页重新聚焦时重新验证身份，期间隐藏表单。浏览器储存不含访问令牌。C7 应在部署域名及实际浏览器上继续验证 sessionStorage、Cookie 与返回路径行为。
+
+`/{locale}/members/orders` 和详情从本人 API 读取，不把会员订单保存在共享缓存。前进/返回、聚焦及账号变更重新读取，失效请求结果不会覆盖新身份的显示。取消使用 C3 本人归属和状态事务；可重复取消且不可恢复原订单。
+
+后台 `/orders` 仅管理员和运营可搜索订单/会员 ID、按状态分页、查看历史金额、收件资料、条款版本和取消记录并追加内部备注。`listOrders(query)` 返回 `ApiResult<Page<Order>>`；`getOrderForStaff(id)` 仍返回无备注的 `ApiResult<Order>`。`getStaffOrderDetail(id)` 的独立 DTO 包含 shippingAddress、termsVersion、cancelledAt 和 `{id,note,createdAt}[]`；`addOrderNote({id,note})` 返回 `ApiResult<null>`。没有手工已付款、发货或员工取消按钮。
+
+追加迁移 `20261020190000_order_operations.sql` 添加 `public.order_notes`。它启用 RLS，对 anon/authenticated/service_role 没有直接表权限。四个安全定义者 RPC `list_staff_orders`、`get_staff_order`、`get_staff_order_detail`、`add_order_note` 仅 authenticated 可执行，内部按实时数据库员工状态授权。写备注使用团队锁7410404、订单 share 锁和同事务审计；审计仅存 noteId，不复制备注正文。顾客和标准员工 Order 投影明确不含内部备注。
+
+C6 匿名化/删除受控事务必须先按目标订单清理 `order_notes` 的正文，再处理地址、订单和资料；不得删除不可变审计/发布历史。当前没有开放直接用户删除或通用订单写入权限。
+
+本地顺序验收：官网 `npm --prefix related/website run test:e2e:orders`，后台 `npm --prefix related/admin run test:e2e:orders`，再单独运行订单 SQL 套件。显式配置分别使用隔离的4211/4266代码副本；不要与 SQL 数据填充用例并行。真实本地 Auth 用户、角色和订单仅用于合成测试，结束恢复原商业配置并删除自有备注/订单/用户，保留审计/发布历史。
