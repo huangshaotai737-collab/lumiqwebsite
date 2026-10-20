@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import './globals.css';
+import './admin-ui.css';
 
 export const metadata: Metadata = {
   title: 'LumiQ 管理后台',

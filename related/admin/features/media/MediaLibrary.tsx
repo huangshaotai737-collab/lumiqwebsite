@@ -14,7 +14,7 @@ export function MediaLibrary({ assets, profiles, total, page, pageSize, query }:
   }
   const lastPage = Math.max(1, Math.ceil(total / pageSize));
   const usageLabel = (key: string) => profiles.find(profile => profile.key === key)?.label || key;
-  return <><UploadForm profiles={profiles} /><section className="panel"><h2>全部素材</h2><p>在整个素材库中搜索文件名、素材 ID 或用途；用途筛选表示上传约束，实际引用以草稿和发布记录为准。服务端签名读取有效期 10 分钟，预览始终私有且不缓存。归档保留历史原件与不可变副本。</p>
+  return <div className="media-workspace"><UploadForm profiles={profiles} /><section className="panel"><h2>全部素材</h2><p>在整个素材库中搜索文件名、素材 ID 或用途；用途筛选表示上传约束，实际引用以草稿和发布记录为准。服务端签名读取有效期 10 分钟，预览始终私有且不缓存。归档保留历史原件与不可变副本。</p>
     <form action="/media" method="get" className="filters" key={JSON.stringify(query)}>
       <label>搜索文件名、ID 或用途<input name="q" maxLength={100} defaultValue={query.q} /></label>
       <label>上传用途<select name="usage" defaultValue={query.usage}><option value="">全部用途</option>{profiles.map(profile => <option key={profile.key} value={profile.key}>{profile.label}</option>)}</select></label>
@@ -34,5 +34,5 @@ export function MediaLibrary({ assets, profiles, total, page, pageSize, query }:
       {asset.previewUrl && (asset.mime.startsWith('video/') ? <video controls preload="metadata" src={asset.previewUrl} /> : <Image unoptimized width={260} height={180} style={{ height: 'auto' }} src={asset.previewUrl} alt={asset.fileName} loading="lazy" />)}
       {asset.status !== 'archived' && <button type="button" disabled={Boolean(busy)} onClick={() => archive(asset.id)}>归档 {asset.fileName}</button>}</li>)}</ul>}
     <nav aria-label="素材分页">{page > 1 && <Link href={mediaLibraryHref(query, page - 1)}>上一页</Link>} {page < lastPage && <Link href={mediaLibraryHref(query, page + 1)}>下一页</Link>}</nav>
-  </section></>;
+  </section></div>;
 }

@@ -37,11 +37,14 @@ test('login_is_accessible_by_keyboard_and_cannot_submit_without_configuration', 
 
 test('sidebar_collapses_without_exposing_unimplemented_modules', async ({ page }) => {
   await page.goto('/');
-  await expect(page.getByRole('button', { name: '展开导航' })).toHaveAttribute('aria-expanded', 'false');
-  await page.getByRole('button', { name: '展开导航' }).click();
-  await expect(page.getByRole('button', { name: '折叠导航' })).toHaveAttribute('aria-expanded', 'true');
-  await page.getByRole('button', { name: '折叠导航' }).click();
-  await expect(page.getByRole('button', { name: '展开导航' })).toHaveAttribute('aria-expanded', 'false');
+  const mobile = (page.viewportSize()?.width || 1440) <= 700;
+  const initial = page.getByRole('button', { name: mobile ? '展开导航' : '折叠导航', exact: true });
+  await expect(initial).toHaveAttribute('aria-expanded', mobile ? 'false' : 'true');
+  await initial.click();
+  const toggled = page.getByRole('button', { name: mobile ? '折叠导航' : '展开导航', exact: true });
+  await expect(toggled).toHaveAttribute('aria-expanded', mobile ? 'true' : 'false');
+  await toggled.click();
+  if (mobile) await page.getByRole('button', { name: '展开导航', exact: true }).click();
   await expect(page.getByRole('button', { name: '会员', exact: true })).toBeDisabled();
   await expect(page.getByRole('button', { name: '订单', exact: true })).toBeDisabled();
 });
