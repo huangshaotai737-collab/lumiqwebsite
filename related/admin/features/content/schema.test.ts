@@ -1,0 +1,86 @@
+import { describe, expect, it } from 'vitest';
+import { validateDraft } from './schema';
+import type { MediaSlot } from '@/lib/generated/platform/content';
+import { contentFields } from './fields';
+import snapshot from '../../tests/fixtures/content-snapshot.json';
+
+const copy = () => structuredClone(snapshot);
+
+describe('publish validation', () => {
+  it('accepts the complete imported snapshot', () => {
+    expect(validateDraft(copy()).ok).toBe(true);
+    expect(contentFields.find(field => field.path === 'settings.siteUrl')?.adminOnly).toBe(true);
+  });
+  it('normalizes readonly contact aliases from the sole canonical public settings source', () => {
+    const draft = copy(); draft.settings.contactText.en = 'Canonical contact text';
+    draft.messages.en.Contact.intro = 'An alias cannot override the setting';
+    const result = validateDraft(draft);
+    expect(result.ok).toBe(true);
+    if (result.ok) expect(result.snapshot.messages.en.Contact).toMatchObject({ intro: 'Canonical contact text' });
+    expect(draft.messages.en.Contact.intro).toBe('An alias cannot override the setting');
+  });
+  it('invalid_icu_blocks_publish', () => {
+    const brokenIcuSnapshot = copy();
+    expect(brokenIcuSnapshot.messages.en.Plans.days).toContain('{count}');
+    brokenIcuSnapshot.messages.en.Plans.days = brokenIcuSnapshot.messages.en.Plans.days.replace('{count}', '');
+    expect(validateDraft(brokenIcuSnapshot).ok).toBe(false);
+  });
+  it.each(['{count', '{count, plural, one {day}}', '{other} days', '<script>{count}</script>'])('rejects malformed or incompatible ICU: %s', value => {
+    const draft = copy(); draft.messages.en.Plans.days = value;
+    expect(validateDraft(draft).ok).toBe(false);
+  });
+  it.each(['javascript:alert(1)', 'data:text/html,test', '//evil.example/image.png', '/assets/../secret.png', 'https://evil.example/a.png', '/assets/%2e%2e/secret.png', '/assets/%252e%252e/secret.png', '/assets/%25252e%25252e/secret.png', '/assets/%2525252e%2525252e/secret.png', '/assets/a%2fb/../../secret.png', '/assets/a%5cb.png', '/assets/a?x=1', 'https://media.example@evil.example/a.png'])('rejects unsafe media URL: %s', value => {
+    const draft = copy(); Object.values(draft.media)[0].url = value;
+    expect(validateDraft(draft).ok).toBe(false);
+  });
+  it('trusts configured storage origins only, never snapshot settings', () => {
+    const draft = copy(); Object.values(draft.media)[0].url = 'https://media.example/storage/v1/object/public/a.png';
+    expect(validateDraft(draft).ok).toBe(false);
+    expect(validateDraft(draft, { allowedStorageOrigins: ['https://media.example'] }).ok).toBe(true);
+    draft.settings.siteUrl = 'https://media.example';
+    expect(validateDraft(draft).ok).toBe(false);
+  });
+  it('rejects mutable slot kinds, malformed product unions, empty arrays and message arrays', () => {
+    const kind = copy(); Object.values(kind.media)[0].kind = 'script' as 'image';
+    const missing = copy(); missing.products.ola.price = { kind: 'usd' } as never;
+    const rows = copy(); rows.plans[0].rows = [];
+    const messages = copy(); (messages.messages.en as Record<string, unknown>).Contact = [];
+    for (const draft of [kind, missing, rows, messages]) expect(validateDraft(draft).ok).toBe(false);
+  });
+  it('requires controlled media UUIDs to match the URL', () => {
+    const draft = copy(); const slot = Object.values(draft.media)[0] as MediaSlot;
+    slot.assetId = 'a1288990-47a1-4fb0-88e9-271d73596611'; slot.url = `/api/media/${slot.assetId}`;
+    expect(validateDraft(draft).ok).toBe(true);
+    slot.url = '/api/media/a1288990-47a1-4fb0-88e9-271d73596612';
+    expect(validateDraft(draft).ok).toBe(false);
+  });
+  it.each([null, {}, { ...snapshot, schemaVersion: 2 }, { ...snapshot, messages: {} }, { ...snapshot, products: {} }])('rejects incomplete or unknown versions', input => {
+    expect(validateDraft(input).ok).toBe(false);
+  });
+  it('rejects missing translations, arbitrary fields, price coercion and route edits', () => {
+    const missing = copy(); delete (missing.messages.ja.Plans as Record<string, unknown>).days;
+    const extra = { ...copy(), css: 'body{display:none}' };
+    const href = copy(); href.products.nest.href = '/products/orb';
+    const price = copy(); price.products.ola.price.amount = -1;
+    for (const input of [missing, extra, href, price]) expect(validateDraft(input).ok).toBe(false);
+  });
+  it('allows supported reference-price variants while preserving Ola Go bundling', () => {
+    expect(contentFields.find(field => field.path === 'products.nest.price.kind')?.editable).toBe(true);
+    const nest = copy(); nest.products.nest.price = { kind: 'usd', amount: 199.99 } as never;
+    expect(validateDraft(nest).ok).toBe(true);
+    const ola = copy(); ola.products.ola.price = { kind: 'pending' } as never;
+    expect(validateDraft(ola).ok).toBe(true);
+    const go = copy(); go.products['ola-go'].price = { kind: 'usd', amount: 1 } as never;
+    expect(validateDraft(go).ok).toBe(false);
+    for (const amount of [-1, Infinity, NaN, 1.001, Number.MAX_SAFE_INTEGER]) {
+      const draft = copy(); draft.products.ola.price.amount = amount;
+      expect(validateDraft(draft).ok).toBe(false);
+    }
+  });
+  it('rejects script protocols in public settings and oversized titles with field paths', () => {
+    const draft = copy(); draft.settings.siteUrl = 'javascript:alert(1)'; draft.messages.en.Contact.title = 'a'.repeat(81);
+    const result = validateDraft(draft);
+    expect(result.ok).toBe(false);
+    if (!result.ok) expect(result.issues.map(issue => issue.path)).toEqual(expect.arrayContaining(['settings.siteUrl', 'messages.en.Contact.title']));
+  });
+});
