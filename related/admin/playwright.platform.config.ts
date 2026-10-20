@@ -2,6 +2,8 @@ import { defineConfig, devices } from '@playwright/test';
 import { readFileSync } from 'node:fs';
 import { parseEnv } from 'node:util';
 import path from 'node:path';
+const media = process.argv.some(value => value.includes('media-library.spec')) || process.env.LUMIQ_MEDIA_E2E === '1';
+if (media) process.env.LUMIQ_MEDIA_E2E = '1';
 const content = process.argv.some(value => value.includes('content-editor.spec')) || process.env.LUMIQ_CONTENT_E2E === '1';
 if (content) process.env.LUMIQ_CONTENT_E2E = '1';
 const team =
@@ -9,7 +11,7 @@ const team =
   process.env.LUMIQ_TEAM_E2E === '1';
 if (team) process.env.LUMIQ_TEAM_E2E = '1';
 const auth =
-  content || team ||
+  media || content || team ||
   process.argv.some((value) => value.includes('staff-session.spec')) ||
   process.env.LUMIQ_AUTH_E2E === '1';
 if (auth) process.env.LUMIQ_AUTH_E2E = '1';
@@ -36,11 +38,13 @@ const credentials = {
     ? 'lumiq-synthetic-auth-e2e-shared-salt-20261020'
     : '',
   REQUEST_IP_HEADER: auth ? 'x-real-ip' : '',
+  MEDIA_STORAGE_MAX_BYTES: '52428800',
+  MEDIA_FFPROBE_PATH: '/opt/homebrew/bin/ffprobe',
   NEXT_TELEMETRY_DISABLED: '1',
 };
 export default defineConfig({
   testDir: './tests/e2e',
-  testMatch: content ? '**/content-editor.spec.ts' : team
+  testMatch: media ? '**/media-library.spec.ts' : content ? '**/content-editor.spec.ts' : team
     ? '**/team.spec.ts'
     : auth
       ? '**/staff-session.spec.ts'
@@ -51,7 +55,7 @@ export default defineConfig({
   reporter: 'list',
   timeout: 60_000,
   use: {
-    baseURL: content ? 'http://127.0.0.1:4259' : team
+    baseURL: media ? 'http://127.0.0.1:4260' : content ? 'http://127.0.0.1:4259' : team
       ? 'http://127.0.0.1:4257'
       : auth
         ? 'http://127.0.0.1:4253'
@@ -59,7 +63,10 @@ export default defineConfig({
     trace: 'retain-on-failure',
   },
   projects: [{ name: 'chromium', use: { ...devices['Desktop Chrome'] } }],
-  webServer: content ? {
+  webServer: media ? [
+    { command: 'node ../../scripts/start-team-admin-test.mjs', url: 'http://127.0.0.1:4260/login', reuseExistingServer: false, timeout: 120_000, env: { ...credentials, A4_TEST_PORT: '4260', APP_ORIGIN: 'http://127.0.0.1:4260' } },
+    { command: 'node ../../scripts/start-auth-website-test.mjs', url: 'http://127.0.0.1:4261/en/login', reuseExistingServer: false, timeout: 120_000, env: { ...credentials, LUMIQ_WEBSITE_TEST_PORT: '4261', APP_ORIGIN: 'http://127.0.0.1:4261' } },
+  ] : content ? {
     command: 'node ../../scripts/start-team-admin-test.mjs', url: 'http://127.0.0.1:4259/login', reuseExistingServer: false, timeout: 120_000,
     env: { ...credentials, A4_TEST_PORT: '4259', APP_ORIGIN: 'http://127.0.0.1:4259' },
   } : team

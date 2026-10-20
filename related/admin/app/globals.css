@@ -102,3 +102,11 @@ dl>div { display:flex; gap:24px; margin:10px 0; } dd { margin:0; }
 .content-path { font-size:12px; color:var(--muted); overflow-wrap:anywhere; font-weight:400; }
 .content-filters input { max-width:100%; }
 .content-fieldset { border:0; margin:0; padding:0; min-width:0; }
+
+.media-library { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: 20px; }
+.media-library li { border: 1px solid #d9dedc; border-radius: 12px; padding: 16px; min-width: 0; overflow-wrap: anywhere; }
+.media-library img, .media-library video { display: block; width: 100%; height: 180px; object-fit: contain; margin: 12px 0; }
+
+.media-upload label { display: grid; gap: 8px; margin: 12px 0; }
+.media-upload input, .media-upload select { width: 100%; min-width: 0; max-width: 100%; }
+.media-upload p { overflow-wrap: anywhere; }

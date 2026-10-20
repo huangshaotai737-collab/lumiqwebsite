@@ -9,6 +9,7 @@ import { enforceRateLimit } from '@/lib/http/rate-limit';
 import { HttpError } from '@/lib/http/result';
 import { validateDraft } from './schema';
 import { attestSnapshot } from './validation-attestation';
+import { prepareReleaseAssets } from '@/features/media/service';
 import initialSnapshot from './initial-snapshot.json';
 
 export type FieldIssue = { path: string; message: string };
@@ -106,6 +107,7 @@ export async function publishDraft(input: { id: UUID; expectedVersion: number })
     const { client, draft } = await readDraft(input.id);
     if (draft.version !== input.expectedVersion) throw new HttpError('CONFLICT', 409);
     const snapshot = checked(draft.snapshot);
+    await prepareReleaseAssets(input.id, { version: input.expectedVersion, snapshot });
     await attestSnapshot({ kind: 'draft', id: input.id, version: input.expectedVersion, snapshot, actorId: actor.userId });
     const published = await client.rpc('publish_content_draft', { id: input.id, expected_version: input.expectedVersion }); sqlError(published.error);
     return { releaseId: published.data! };

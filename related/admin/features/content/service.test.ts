@@ -5,6 +5,7 @@ import { createDraft, saveDraft, publishDraft, rollbackRelease } from './service
 const dependencies = vi.hoisted(() => ({
   requireStaff: vi.fn(), enforceRateLimit: vi.fn(), rpc: vi.fn(), attest: vi.fn(),
 }));
+vi.mock('@/features/media/service', () => ({ prepareReleaseAssets: vi.fn() }));
 vi.mock('server-only', () => ({}));
 vi.mock('@/lib/auth/require-staff', () => ({ requireStaff: dependencies.requireStaff }));
 vi.mock('@/lib/http/rate-limit', () => ({ enforceRateLimit: dependencies.enforceRateLimit }));

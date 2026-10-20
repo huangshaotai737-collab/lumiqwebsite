@@ -39,17 +39,23 @@ export type Database = {
                   ]
                 },"content_drafts": {
                   Row: {
-                    "created_at": string,"created_by": string,"id": string,"snapshot": NonNullable<Json>,"status": string,"updated_at": string,"updated_by": string,"version": number
+                    "base_release_id": string | null,"created_at": string,"created_by": string,"id": string,"snapshot": NonNullable<Json>,"status": string,"updated_at": string,"updated_by": string,"version": number
                   }
                   ComputedFields: never
                   Insert: {
-                    "created_at"?: string,"created_by": string,"id": string,"snapshot": NonNullable<Json>,"status"?: string,"updated_at"?: string,"updated_by": string,"version": number
+                    "base_release_id"?: string | null,"created_at"?: string,"created_by": string,"id": string,"snapshot": NonNullable<Json>,"status"?: string,"updated_at"?: string,"updated_by": string,"version": number
                   }
                   Update: {
-                    "created_at"?: string,"created_by"?: string,"id"?: string,"snapshot"?: NonNullable<Json>,"status"?: string,"updated_at"?: string,"updated_by"?: string,"version"?: number
+                    "base_release_id"?: string | null,"created_at"?: string,"created_by"?: string,"id"?: string,"snapshot"?: NonNullable<Json>,"status"?: string,"updated_at"?: string,"updated_by"?: string,"version"?: number
                   }
                   Relationships: [
-
+                    {
+      foreignKeyName: "content_drafts_base_release_id_fkey"
+      columns: ["base_release_id"]
+isOneToOne: false
+      referencedRelation: "content_releases"
+      referencedColumns: ["id"]
+    }
                   ]
                 },"content_publication": {
                   Row: {
@@ -96,6 +102,20 @@ isOneToOne: false
       referencedRelation: "content_releases"
       referencedColumns: ["id"]
     }
+                  ]
+                },"media_assets": {
+                  Row: {
+                    "advertised_size": number,"created_at": string,"created_by": string,"file_name": string,"id": string,"metadata": Json | null,"mime": string,"original_path": string,"release_path": string | null,"status": string,"usage_key": string
+                  }
+                  ComputedFields: never
+                  Insert: {
+                    "advertised_size": number,"created_at"?: string,"created_by": string,"file_name": string,"id"?: string,"metadata"?: Json | null,"mime": string,"original_path": string,"release_path"?: string | null,"status"?: string,"usage_key": string
+                  }
+                  Update: {
+                    "advertised_size"?: number,"created_at"?: string,"created_by"?: string,"file_name"?: string,"id"?: string,"metadata"?: Json | null,"mime"?: string,"original_path"?: string,"release_path"?: string | null,"status"?: string,"usage_key"?: string
+                  }
+                  Relationships: [
+
                   ]
                 },"profiles": {
                   Row: {
@@ -162,6 +182,9 @@ isOneToOne: false
             "accept_staff_invite":
 { Args: { "invite_id": string,"token_digest": string }; Returns: undefined
                            },
+"archive_media_asset":
+{ Args: { "asset_id": string }; Returns: undefined
+                           },
 "attest_content_snapshot":
 { Args: { "actor_id": string,"expected_version": number,"id": string,"normalized_snapshot": Json,"policy_version": string,"purpose": string }; Returns: undefined
                            },
@@ -171,10 +194,16 @@ isOneToOne: false
 "change_staff_membership":
 { Args: { "active": boolean,"role": string,"user_id": string }; Returns: undefined
                            },
+"complete_media_asset":
+{ Args: { "actor_id": string,"asset_id": string,"metadata": Json }; Returns: undefined
+                           },
 "consume_request_limit":
 { Args: { "scope": string,"subject_hash": string }; Returns: {
               "allowed": boolean,"retry_after_seconds": number
             }[]
+                           },
+"create_media_upload":
+{ Args: { "advertised_size": number,"file_name": string,"mime": string,"usage_key": string }; Returns: Json
                            },
 "create_staff_invite":
 { Args: { "email": string,"role": string,"token_digest": string }; Returns: string
@@ -188,6 +217,12 @@ isOneToOne: false
 "get_content_workspace":
 { Args: Record<PropertyKey, never>; Returns: Json
                            },
+"get_media_assets":
+{ Args: { "asset_id"?: string }; Returns: Json
+                           },
+"get_public_asset":
+{ Args: { "asset_id": string }; Returns: Json
+                           },
 "get_published_content":
 { Args: Record<PropertyKey, never>; Returns: Json
                            },
@@ -195,6 +230,9 @@ isOneToOne: false
 { Args: Record<PropertyKey, never>; Returns: {
               "active": boolean,"email": string,"role": string,"user_id": string
             }[]
+                           },
+"mark_media_copy":
+{ Args: { "actor_id": string,"asset_id": string }; Returns: undefined
                            },
 "mark_staff_invite_delivery":
 { Args: { "delivered": boolean,"invite_id": string }; Returns: undefined

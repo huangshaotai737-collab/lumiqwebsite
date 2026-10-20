@@ -86,7 +86,7 @@ test('staff migration inventory recognizes only exact staff invite schema and re
  const fixture=await mkdtemp(path.join(tmpdir(),'lumiq-team-baseline-'));
  try {
   const input=manifest();input.migrations=[];Object.assign(input.tables,identityTables,{'public.staff_invites':inviteTable});
-  for(const file of migrations.filter(file=>/^\d{14}_.*\.sql$/.test(file) && !file.endsWith('_content_releases.sql')).sort()) {
+  for(const file of migrations.filter(file=>/^\d{14}_.*\.sql$/.test(file) && !file.endsWith('_content_releases.sql') && !file.endsWith('_media_assets.sql')).sort()) {
    const contents=await readFile(new URL(`../../supabase/migrations/${file}`,import.meta.url));input.migrations.push({version:file.slice(0,14),sha256:createHash('sha256').update(contents).digest('hex')});
   }
   const target=path.join(fixture,'remote.json');
@@ -110,7 +110,7 @@ test('content inventory requires all exact tables and rejects drift, missing tab
  try {
   const input = manifest(); input.migrations = []; Object.assign(input.tables, identityTables, {'public.staff_invites':inviteTable},structuredClone(contentTables));
   const files = await import('node:fs/promises').then(fs=>fs.readdir(new URL('../../supabase/migrations',import.meta.url)));
-  for(const file of files.filter(file=>/^\d{14}_.*\.sql$/.test(file)).sort()) {
+  for(const file of files.filter(file=>/^\d{14}_.*\.sql$/.test(file) && !file.endsWith('_media_assets.sql')).sort()) {
    input.migrations.push({version:file.slice(0,14),sha256:createHash('sha256').update(await readFile(new URL(`../../supabase/migrations/${file}`,import.meta.url))).digest('hex')});
   }
   const target=path.join(fixture,'remote.json');
@@ -125,4 +125,20 @@ test('content inventory requires all exact tables and rejects drift, missing tab
   input.tables['public.unreviewed']={columns:{id:'uuid'}};
   assert.match((await run()).stderr,/UNRECOGNIZED_SCHEMA_INVENTORY/);
  } finally { await rm(fixture,{recursive:true,force:true}); }
+});
+
+const mediaTable = { columns: {id:'uuid',created_by:'uuid',file_name:'text',advertised_size:'bigint',mime:'text',usage_key:'text',original_path:'text',metadata:'jsonb',release_path:'text',status:'text',created_at:'timestamp with time zone'},primaryKey:['id'],unique:[['original_path'],['release_path']],rlsEnabled:true };
+test('media inventory recognizes exact columns and rejects missing, drifted and unknown fields', async () => {
+ const fixture=await mkdtemp(path.join(tmpdir(),'lumiq-media-baseline-'));
+ try {
+  const input=manifest(); input.migrations=[];Object.assign(input.tables,identityTables,{'public.staff_invites':inviteTable},structuredClone(contentTables),{'public.media_assets':structuredClone(mediaTable)});
+  const files=await import('node:fs/promises').then(fs=>fs.readdir(new URL('../../supabase/migrations',import.meta.url)));
+  for(const file of files.filter(file=>/^\d{14}_.*\.sql$/.test(file)).sort())input.migrations.push({version:file.slice(0,14),sha256:createHash('sha256').update(await readFile(new URL(`../../supabase/migrations/${file}`,import.meta.url))).digest('hex')});
+  input.tables['public.content_drafts'].columns.base_release_id='uuid';
+  const target=path.join(fixture,'remote.json');const run=async()=>{await writeFile(target,JSON.stringify(input));return spawnSync(process.execPath,[script,'--remote-manifest',target],{encoding:'utf8'});};
+  assert.equal((await run()).status,0,'exact media schema accepted');
+  input.tables['public.media_assets'].columns.advertised_size='integer';assert.match((await run()).stderr,/MEDIA_SCHEMA_MISMATCH/);
+  input.tables['public.media_assets']=structuredClone(mediaTable);input.tables['public.media_assets'].columns.browser_public='boolean';assert.match((await run()).stderr,/MEDIA_SCHEMA_MISMATCH/);
+  delete input.tables['public.media_assets'];assert.match((await run()).stderr,/MEDIA_SCHEMA_MISMATCH/);
+ }finally{await rm(fixture,{recursive:true,force:true});}
 });
