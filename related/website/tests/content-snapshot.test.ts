@@ -122,7 +122,7 @@ describe('content import', () => {
     const app = path.join(fixture, 'related/website');
     const root = path.resolve('../..');
     try {
-      const files = [...fieldManifest.sourceFiles, 'scripts/export-initial-content.mjs', 'scripts/verify-content-adapters.mjs', 'lib/content/source-adapters.json', 'lib/content/media-map.json', 'components/content/ContentImage.tsx', 'messages/en.json', 'messages/zh-hant.json', 'messages/ja.json', 'lib/content/initial-snapshot.json', 'lib/content/field-manifest.json'];
+      const files = [...fieldManifest.sourceFiles, 'scripts/export-initial-content.mjs', 'scripts/verify-content-adapters.mjs', 'scripts/content-media-bindings.mjs', 'lib/content/media-bindings.json', 'lib/content/source-adapters.json', 'lib/content/media-map.json', 'components/content/ContentImage.tsx', 'messages/en.json', 'messages/zh-hant.json', 'messages/ja.json', 'lib/content/initial-snapshot.json', 'lib/content/field-manifest.json'];
       for (const file of files) { mkdirSync(path.dirname(path.join(app, file)), { recursive: true }); cpSync(file, path.join(app, file)); }
       for (const file of ['contracts/content-icu.ts', 'contracts/content-policy.ts', 'related/admin/features/content/field-manifest.json', 'related/admin/features/content/initial-snapshot.json']) {
         mkdirSync(path.dirname(path.join(fixture, file)), { recursive: true }); cpSync(path.join(root, file), path.join(fixture, file));
@@ -141,6 +141,18 @@ describe('content import', () => {
       const contact = path.join(app, 'app/contact/page.tsx');
       writeFileSync(contact, readFileSync(contact, 'utf8').replace('cms.text("field_23cd241d015790f4")', '""'));
       const removed = run(); expect(removed.status).toBe(1); expect(removed.stderr).toContain('Refusing to discard');
+      cpSync('app/contact/page.tsx', contact);
+      for (const [file, before, after] of [
+        ['components/home/HomeFilms.tsx', 'cms.url(`/assets/films-20260908/${films[active]}.mp4`)', '"/missing-one-use.mp4"'],
+        ['app/products/tablet/page.tsx', 'alt: t("deviceAlt"),', ''],
+      ]) {
+        const target = path.join(app, file);
+        writeFileSync(target, readFileSync(target, 'utf8').replace(before, after));
+        const brokenBinding = run();
+        expect.soft(brokenBinding.status, file).toBe(1);
+        expect.soft(brokenBinding.stderr, file).toContain('Media binding');
+        cpSync(file, target);
+      }
     } finally { rmSync(fixture, { recursive: true, force: true }); }
   });
 
@@ -148,7 +160,7 @@ describe('content import', () => {
     const paths = ['lib/content/initial-snapshot.json', 'lib/content/field-manifest.json', '../../contracts/content-policy.ts'];
     const before = paths.map(path => readFileSync(path, 'utf8'));
     execFileSync(process.execPath, ['scripts/export-initial-content.mjs']);
-    execFileSync(process.execPath, ['scripts/export-initial-content.mjs', 'scripts/verify-content-adapters.mjs', 'lib/content/source-adapters.json', 'lib/content/media-map.json', 'components/content/ContentImage.tsx', '--check']);
+    execFileSync(process.execPath, ['scripts/export-initial-content.mjs', '--check']);
     expect(paths.map(path => readFileSync(path, 'utf8'))).toEqual(before);
   });
 });

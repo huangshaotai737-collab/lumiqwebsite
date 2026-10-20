@@ -15,12 +15,16 @@ const root = path.resolve(app, '../..');
 const check = process.argv.includes('--check');
 // After B4 the checked-in import is an immutable seed. Runtime source now refers to
 // canonical fields; re-evaluating it would destroy historical IDs and per-use alt.
+let adapterAware = false;
 try {
   await access(path.join(app,'lib/content/source-adapters.json'));
+  adapterAware = true;
+} catch(error) { if(error.code !== 'ENOENT') throw error; }
+if (adapterAware) {
   const {verifyContentAdapters} = await import('./verify-content-adapters.mjs');
   await verifyContentAdapters(app,root);
   process.exit(0);
-} catch(error) { if(error.code !== 'ENOENT') throw error; }
+}
 
 const locales = ['en', 'zh-hant', 'ja'];
 const pages = ['/', '/products', '/products/ola', '/products/ola-go', '/products/tablet', '/products/print', '/products/nest', '/story', '/about', '/contact', '/plans', '/prelaunch', '/members', '/faq', '/legal/privacy', '/legal/terms', '/legal/cookies', '/legal/child-safety'];

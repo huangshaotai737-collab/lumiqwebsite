@@ -1,6 +1,7 @@
 import {readFile} from 'node:fs/promises';
 import path from 'node:path';
 import {createHash} from 'node:crypto';
+import {contentMediaBindings} from './content-media-bindings.mjs';
 /** Verifies the reviewed source-to-snapshot handoff. Never reimports rendered CMS data. */
 export async function verifyContentAdapters(app,root) {
   const read=file=>readFile(path.join(app,file),'utf8');
@@ -26,5 +27,12 @@ export async function verifyContentAdapters(app,root) {
       if(!entry||!sources.get(entry.adapterFile)?.includes(entry.expression))throw Error(`Missing media adapter: ${id} ${use.file} ${use.locator}`);
     }
   }
-  console.log(`Content adapters verified: preserved ${manifest.fields.length} fields, ${Object.keys(seed.media).length} exact slots, ${ledger.media.length} media usages.`);
+  const bindings=JSON.parse(await read('lib/content/media-bindings.json'));
+  const adapterFiles=[...new Set(ledger.media.map(entry=>entry.adapterFile))].sort();
+  if(JSON.stringify(Object.keys(bindings).sort())!==JSON.stringify(adapterFiles))throw Error('Media binding files changed');
+  for(const file of adapterFiles) {
+    const actual=contentMediaBindings(file,sources.get(file),ledger.media.filter(entry=>entry.adapterFile===file).map(entry=>entry.expression));
+    if(JSON.stringify(actual)!==JSON.stringify(bindings[file]))throw Error(`Media binding changed: ${file}; review occurrence and per-use alt bindings`);
+  }
+  console.log(`Content adapters verified: preserved ${manifest.fields.length} fields, ${Object.keys(seed.media).length} exact slots, ${ledger.media.length} media ledger records; ${adapterFiles.length} files checked for exact occurrence counts and media/alt bindings.`);
 }
