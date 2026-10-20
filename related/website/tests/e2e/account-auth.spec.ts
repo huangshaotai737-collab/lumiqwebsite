@@ -179,3 +179,34 @@ test('expired_real_email_token_is_rejected_with_localized_feedback', async ({ pa
     await expect(page.getByRole('status').filter({ hasText: 'expired or has already been used' })).toBeVisible();
     expect((await context.request.get('/api/account/profile')).status()).toBe(401);
 });
+
+test('auth_rejections_show_actionable_form_feedback', async ({page}) => {
+    let error = 'INVALID_INPUT';
+    await page.route('**/api/auth/register', route => route.fulfill({
+        status:error === 'INVALID_INPUT' ? 400 : 503,
+        contentType:'application/json',
+        body:JSON.stringify({ok:false,error,requestId:'synthetic-form-feedback'}),
+    }));
+    await page.route('**/api/auth/reset', route => route.fulfill({
+        status:503, contentType:'application/json',
+        body:JSON.stringify({ok:false,error:'UNAVAILABLE',requestId:'synthetic-form-feedback'}),
+    }));
+    for (const locale of ['en','zh-hant','ja'] as const) {
+        const text = accountCopy[locale];
+        error = 'INVALID_INPUT';
+        await page.goto(`/${locale}/register`);
+        await page.getByLabel(text.email,{exact:true}).fill('synthetic@example.test');
+        await page.getByLabel(text.password,{exact:true}).fill('EightButWeak123');
+        await page.getByRole('button',{name:text.register,exact:true}).click();
+        await expect(page.getByRole('status').filter({hasText:text.invalid})).toBeVisible();
+        await expect(page.getByText(text.sent,{exact:true})).toHaveCount(0);
+        error = 'UNAVAILABLE';
+        await page.getByRole('button',{name:text.register,exact:true}).click();
+        await expect(page.getByRole('status').filter({hasText:text.unavailable})).toBeVisible();
+        await page.goto(`/${locale}/reset-password`);
+        await page.getByLabel(text.email,{exact:true}).fill('synthetic@example.test');
+        await page.getByRole('button',{name:text.sendReset,exact:true}).click();
+        await expect(page.getByRole('status').filter({hasText:text.unavailable})).toBeVisible();
+        await expect(page.getByText(text.sent,{exact:true})).toHaveCount(0);
+    }
+});
