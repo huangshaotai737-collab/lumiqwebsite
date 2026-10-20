@@ -1,6 +1,12 @@
 import type { ContentRule, ContentSnapshot, MessageTree, ContentValidationOptions, ContentValidationResult } from './content';
 
 const uuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+const controlledMediaPrefix = '/api/media/';
+function controlledMediaAssetId(value: string): string | null {
+  if (!value.startsWith(controlledMediaPrefix)) return null;
+  const assetId = value.slice(controlledMediaPrefix.length);
+  return uuid.test(assetId) ? assetId : null;
+}
 const ownObject = (value: unknown): value is Record<string, unknown> => !!value && typeof value === 'object' && !Array.isArray(value) && [Object.prototype, null].includes(Object.getPrototypeOf(value));
 
 /** Reject raw and percent-encoded traversal before URL normalization can hide it. */
@@ -17,7 +23,7 @@ export function safeContentUrl(value: string, media: boolean, origins: readonly 
   if (decoded.includes('%') || /[\\\u0000-\u0020\u007f]/.test(decoded) || decoded.split(/[/?#]/).some(segment => segment === '.' || segment === '..')) return false;
   if (value.startsWith('/') && !value.startsWith('//')) {
     if (!media) return true;
-    return /^\/assets\/[^?#]+$/.test(decoded) || /^\/api\/media\/[0-9a-f-]+$/i.test(decoded);
+    return /^\/assets\/[^?#]+$/.test(decoded) || (value === decoded && controlledMediaAssetId(value) !== null);
   }
   try {
     const url = new URL(value);
@@ -105,8 +111,9 @@ export function validateContentSnapshot(
   for (const [path, value] of values) {
     if (!/^media\.[^.]+\.url$/.test(path) || typeof value !== 'string') continue;
     const asset = values.get(path.replace(/\.url$/, '.assetId'));
-    if (value.startsWith('/api/media/')) {
-      if (typeof asset !== 'string' || !uuid.test(asset) || value !== `/api/media/${asset}`) issue(path, 'Controlled media URL must match its asset UUID');
+    const controlledAsset = controlledMediaAssetId(value);
+    if (controlledAsset !== null) {
+      if (typeof asset !== 'string' || controlledAsset !== asset) issue(path, 'Controlled media URL must match its asset UUID');
     } else if (asset !== null) issue(path, 'Asset UUID requires a controlled media URL');
   }
   if (issues.length) return { ok: false, issues };

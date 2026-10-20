@@ -19,6 +19,23 @@ describe('publish validation', () => {
     if (result.ok) expect(result.snapshot.messages.en.Contact).toMatchObject({ intro: 'Canonical contact text' });
     expect(draft.messages.en.Contact.intro).toBe('An alias cannot override the setting');
   });
+  it.each(['Contact {', 'Contact {name}', '<strong>Contact us</strong>'])('rejects incompatible canonical contact ICU before deriving aliases: %s', value => {
+    for (const locale of ['en', 'zh-hant', 'ja'] as const) {
+      const draft = copy(); draft.settings.contactText[locale] = value;
+      const result = validateDraft(draft);
+      expect(result.ok).toBe(false);
+      if (!result.ok) expect(result.issues.map(issue => issue.path)).toContain(`settings.contactText.${locale}`);
+    }
+  });
+  it.each(['Contact our team', "Contact '{' our team", "It's easy to contact us"])('successful contact normalization is idempotent and revalidates: %s', value => {
+    const draft = copy();
+    for (const locale of ['en', 'zh-hant', 'ja'] as const) draft.settings.contactText[locale] = value;
+    const result = validateDraft(draft);
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+    expect(validateDraft(result.snapshot)).toEqual(result);
+    for (const locale of ['en', 'zh-hant', 'ja'] as const) expect(result.snapshot.messages[locale].Contact).toMatchObject({ intro: value });
+  });
   it('invalid_icu_blocks_publish', () => {
     const brokenIcuSnapshot = copy();
     expect(brokenIcuSnapshot.messages.en.Plans.days).toContain('{count}');
@@ -32,6 +49,23 @@ describe('publish validation', () => {
   it.each(['javascript:alert(1)', 'data:text/html,test', '//evil.example/image.png', '/assets/../secret.png', 'https://evil.example/a.png', '/assets/%2e%2e/secret.png', '/assets/%252e%252e/secret.png', '/assets/%25252e%25252e/secret.png', '/assets/%2525252e%2525252e/secret.png', '/assets/a%2fb/../../secret.png', '/assets/a%5cb.png', '/assets/a?x=1', 'https://media.example@evil.example/a.png'])('rejects unsafe media URL: %s', value => {
     const draft = copy(); Object.values(draft.media)[0].url = value;
     expect(validateDraft(draft).ok).toBe(false);
+  });
+  it.each(['/api/media/abc', '/%61pi/media/abc', '/api%2fmedia%2fabc', '/%2561pi/media/abc', '/api/media/a1288990-47a1-4fb0-88e9-271d73596611?x=1'])('rejects malformed or encoded controlled URLs for slots and product images: %s', value => {
+    const media = copy(); Object.values(media.media)[0].url = value;
+    const product = copy(); product.products.ola.image = value;
+    expect(validateDraft(media).ok).toBe(false);
+    expect(validateDraft(product).ok).toBe(false);
+  });
+  it('accepts canonical UUID product images and rejects encoded slot/image prefixes even with matching UUIDs', () => {
+    const assetId = 'a1288990-47a1-4fb0-88e9-271d73596611';
+    const valid = copy(); valid.products.ola.image = `/api/media/${assetId}`;
+    expect(validateDraft(valid).ok).toBe(true);
+    for (const value of [`/%61pi/media/${assetId}`, `/api%2fmedia%2f${assetId}`]) {
+      const media = copy(); const slot = Object.values(media.media)[0] as MediaSlot; slot.url = value; slot.assetId = assetId;
+      const product = copy(); product.products.ola.image = value;
+      expect(validateDraft(media).ok).toBe(false);
+      expect(validateDraft(product).ok).toBe(false);
+    }
   });
   it('trusts configured storage origins only, never snapshot settings', () => {
     const draft = copy(); Object.values(draft.media)[0].url = 'https://media.example/storage/v1/object/public/a.png';

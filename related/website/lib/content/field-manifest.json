@@ -18261,6 +18261,24 @@
       }
     },
     {
+      "path": "messages.en.CmsStatic.field_4f1ba9da652781b3",
+      "pages": [
+        "global/navigation"
+      ],
+      "type": "string",
+      "maxLength": 80,
+      "icuSignature": null,
+      "mediaPurpose": null,
+      "adminOnly": false,
+      "editable": true,
+      "owner": "snapshot",
+      "initialValue": "日本語",
+      "source": {
+        "file": "components/SiteHeader.tsx",
+        "locator": "FunctionDeclaration:9/Block:3/FirstStatement:15/VariableDeclarationList:0/var:languages/ArrayLiteralExpression:2/ObjectLiteralExpression:2/prop:code/StringLiteral:1"
+      }
+    },
+    {
       "path": "messages.en.CmsStatic.field_508457dea05708c6",
       "pages": [
         "/"
@@ -18455,6 +18473,24 @@
       "source": {
         "file": "app/story/page.tsx",
         "locator": "FunctionDeclaration:8/Block:3/ReturnStatement:5/ParenthesizedExpression:0/JsxElement:0/JsxElement:10/JsxElement:2/JsxElement:2/JsxText:1"
+      }
+    },
+    {
+      "path": "messages.en.CmsStatic.field_88d310bbf9c719ef",
+      "pages": [
+        "global/navigation"
+      ],
+      "type": "string",
+      "maxLength": 80,
+      "icuSignature": null,
+      "mediaPurpose": null,
+      "adminOnly": false,
+      "editable": true,
+      "owner": "snapshot",
+      "initialValue": "繁中",
+      "source": {
+        "file": "components/SiteHeader.tsx",
+        "locator": "FunctionDeclaration:9/Block:3/FirstStatement:15/VariableDeclarationList:0/var:languages/ArrayLiteralExpression:2/ObjectLiteralExpression:1/prop:code/StringLiteral:1"
       }
     },
     {
@@ -18797,6 +18833,24 @@
       "source": {
         "file": "components/home/GlassCards.tsx",
         "locator": "FunctionDeclaration:16/Block:2/ReturnStatement:9/JsxElement:0/JsxExpression:10/BinaryExpression:0/JsxElement:2/JsxElement:2/JsxExpression:2/ConditionalExpression:0/JsxElement:4/JsxElement:2/JsxExpression:3/ConditionalExpression:0/StringLiteral:4"
+      }
+    },
+    {
+      "path": "messages.en.CmsStatic.field_dbf7fc4623365aca",
+      "pages": [
+        "global/navigation"
+      ],
+      "type": "string",
+      "maxLength": 80,
+      "icuSignature": null,
+      "mediaPurpose": null,
+      "adminOnly": false,
+      "editable": true,
+      "owner": "snapshot",
+      "initialValue": "EN",
+      "source": {
+        "file": "components/SiteHeader.tsx",
+        "locator": "FunctionDeclaration:9/Block:3/FirstStatement:15/VariableDeclarationList:0/var:languages/ArrayLiteralExpression:2/ObjectLiteralExpression:0/prop:code/StringLiteral:1"
       }
     },
     {
@@ -35945,6 +35999,24 @@
       }
     },
     {
+      "path": "messages.ja.CmsStatic.field_4f1ba9da652781b3",
+      "pages": [
+        "global/navigation"
+      ],
+      "type": "string",
+      "maxLength": 80,
+      "icuSignature": null,
+      "mediaPurpose": null,
+      "adminOnly": false,
+      "editable": true,
+      "owner": "snapshot",
+      "initialValue": "日本語",
+      "source": {
+        "file": "components/SiteHeader.tsx",
+        "locator": "FunctionDeclaration:9/Block:3/FirstStatement:15/VariableDeclarationList:0/var:languages/ArrayLiteralExpression:2/ObjectLiteralExpression:2/prop:code/StringLiteral:1"
+      }
+    },
+    {
       "path": "messages.ja.CmsStatic.field_508457dea05708c6",
       "pages": [
         "/"
@@ -36139,6 +36211,24 @@
       "source": {
         "file": "app/story/page.tsx",
         "locator": "FunctionDeclaration:8/Block:3/ReturnStatement:5/ParenthesizedExpression:0/JsxElement:0/JsxElement:10/JsxElement:2/JsxElement:2/JsxText:1"
+      }
+    },
+    {
+      "path": "messages.ja.CmsStatic.field_88d310bbf9c719ef",
+      "pages": [
+        "global/navigation"
+      ],
+      "type": "string",
+      "maxLength": 80,
+      "icuSignature": null,
+      "mediaPurpose": null,
+      "adminOnly": false,
+      "editable": true,
+      "owner": "snapshot",
+      "initialValue": "繁中",
+      "source": {
+        "file": "components/SiteHeader.tsx",
+        "locator": "FunctionDeclaration:9/Block:3/FirstStatement:15/VariableDeclarationList:0/var:languages/ArrayLiteralExpression:2/ObjectLiteralExpression:1/prop:code/StringLiteral:1"
       }
     },
     {
@@ -36481,6 +36571,24 @@
       "source": {
         "file": "components/home/GlassCards.tsx",
         "locator": "FunctionDeclaration:16/Block:2/ReturnStatement:9/JsxElement:0/JsxExpression:10/BinaryExpression:0/JsxElement:2/JsxElement:2/JsxExpression:2/ConditionalExpression:0/JsxElement:4/JsxElement:2/JsxExpression:3/ConditionalExpression:0/StringLiteral:4"
+      }
+    },
+    {
+      "path": "messages.ja.CmsStatic.field_dbf7fc4623365aca",
+      "pages": [
+        "global/navigation"
+      ],
+      "type": "string",
+      "maxLength": 80,
+      "icuSignature": null,
+      "mediaPurpose": null,
+      "adminOnly": false,
+      "editable": true,
+      "owner": "snapshot",
+      "initialValue": "EN",
+      "source": {
+        "file": "components/SiteHeader.tsx",
+        "locator": "FunctionDeclaration:9/Block:3/FirstStatement:15/VariableDeclarationList:0/var:languages/ArrayLiteralExpression:2/ObjectLiteralExpression:0/prop:code/StringLiteral:1"
       }
     },
     {
@@ -53629,6 +53737,24 @@
       }
     },
     {
+      "path": "messages.zh-hant.CmsStatic.field_4f1ba9da652781b3",
+      "pages": [
+        "global/navigation"
+      ],
+      "type": "string",
+      "maxLength": 80,
+      "icuSignature": null,
+      "mediaPurpose": null,
+      "adminOnly": false,
+      "editable": true,
+      "owner": "snapshot",
+      "initialValue": "日本語",
+      "source": {
+        "file": "components/SiteHeader.tsx",
+        "locator": "FunctionDeclaration:9/Block:3/FirstStatement:15/VariableDeclarationList:0/var:languages/ArrayLiteralExpression:2/ObjectLiteralExpression:2/prop:code/StringLiteral:1"
+      }
+    },
+    {
       "path": "messages.zh-hant.CmsStatic.field_508457dea05708c6",
       "pages": [
         "/"
@@ -53823,6 +53949,24 @@
       "source": {
         "file": "app/story/page.tsx",
         "locator": "FunctionDeclaration:8/Block:3/ReturnStatement:5/ParenthesizedExpression:0/JsxElement:0/JsxElement:10/JsxElement:2/JsxElement:2/JsxText:1"
+      }
+    },
+    {
+      "path": "messages.zh-hant.CmsStatic.field_88d310bbf9c719ef",
+      "pages": [
+        "global/navigation"
+      ],
+      "type": "string",
+      "maxLength": 80,
+      "icuSignature": null,
+      "mediaPurpose": null,
+      "adminOnly": false,
+      "editable": true,
+      "owner": "snapshot",
+      "initialValue": "繁中",
+      "source": {
+        "file": "components/SiteHeader.tsx",
+        "locator": "FunctionDeclaration:9/Block:3/FirstStatement:15/VariableDeclarationList:0/var:languages/ArrayLiteralExpression:2/ObjectLiteralExpression:1/prop:code/StringLiteral:1"
       }
     },
     {
@@ -54165,6 +54309,24 @@
       "source": {
         "file": "components/home/GlassCards.tsx",
         "locator": "FunctionDeclaration:16/Block:2/ReturnStatement:9/JsxElement:0/JsxExpression:10/BinaryExpression:0/JsxElement:2/JsxElement:2/JsxExpression:2/ConditionalExpression:0/JsxElement:4/JsxElement:2/JsxExpression:3/ConditionalExpression:0/StringLiteral:4"
+      }
+    },
+    {
+      "path": "messages.zh-hant.CmsStatic.field_dbf7fc4623365aca",
+      "pages": [
+        "global/navigation"
+      ],
+      "type": "string",
+      "maxLength": 80,
+      "icuSignature": null,
+      "mediaPurpose": null,
+      "adminOnly": false,
+      "editable": true,
+      "owner": "snapshot",
+      "initialValue": "EN",
+      "source": {
+        "file": "components/SiteHeader.tsx",
+        "locator": "FunctionDeclaration:9/Block:3/FirstStatement:15/VariableDeclarationList:0/var:languages/ArrayLiteralExpression:2/ObjectLiteralExpression:0/prop:code/StringLiteral:1"
       }
     },
     {
@@ -73228,7 +73390,7 @@
       ],
       "type": "string",
       "maxLength": 2000,
-      "icuSignature": null,
+      "icuSignature": "",
       "mediaPurpose": null,
       "adminOnly": true,
       "editable": true,
@@ -73244,7 +73406,7 @@
       ],
       "type": "string",
       "maxLength": 2000,
-      "icuSignature": null,
+      "icuSignature": "",
       "mediaPurpose": null,
       "adminOnly": true,
       "editable": true,
@@ -73260,7 +73422,7 @@
       ],
       "type": "string",
       "maxLength": 2000,
-      "icuSignature": null,
+      "icuSignature": "",
       "mediaPurpose": null,
       "adminOnly": true,
       "editable": true,

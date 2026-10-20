@@ -63,6 +63,36 @@ describe('content import', () => {
     }
   });
 
+  it('imports the actual navigation language display labels while keeping locale identities code-owned', () => {
+    const prefix = 'FunctionDeclaration:9/Block:3/FirstStatement:15/VariableDeclarationList:0/var:languages/ArrayLiteralExpression:2/';
+    const entries = [
+      { value: 'EN', locator: `${prefix}ObjectLiteralExpression:0/prop:code/StringLiteral:1` },
+      { value: '繁中', locator: `${prefix}ObjectLiteralExpression:1/prop:code/StringLiteral:1` },
+      { value: '日本語', locator: `${prefix}ObjectLiteralExpression:2/prop:code/StringLiteral:1` },
+    ];
+    for (const locale of ['en', 'zh-hant', 'ja'] as const) {
+      for (const entry of entries) {
+        const field = fieldManifest.fields.find(field => field.path.startsWith(`messages.${locale}.CmsStatic.`) && field.source?.file === 'components/SiteHeader.tsx' && field.source.locator === entry.locator);
+        expect(field).toMatchObject({ initialValue: entry.value, editable: true, maxLength: 80, pages: ['global/navigation'] });
+        const values = initialSnapshot.messages[locale].CmsStatic as Record<string, string>;
+        expect(field && values[field.path.split('.').at(-1)!]).toBe(entry.value);
+      }
+    }
+    expect(fieldManifest.fields.some(field => field.source?.file === 'components/SiteHeader.tsx' && field.source.locator.startsWith(prefix) && field.source.locator.includes('/prop:locale/'))).toBe(false);
+  });
+
+  it('parses normalized canonical contact settings repeatedly without introducing invalid ICU', () => {
+    const input = structuredClone(initialSnapshot);
+    input.settings.contactText.en = "Contact '{' our team";
+    const parsed = parseSnapshot(input);
+    expect(parsed.messages.en.Contact).toMatchObject({ intro: "Contact '{' our team" });
+    expect(parseSnapshot(parsed)).toEqual(parsed);
+    for (const value of ['Contact {', 'Contact {name}', '<strong>Contact us</strong>']) {
+      input.settings.contactText.en = value;
+      expect(() => parseSnapshot(input)).toThrow(/settings.contactText.en/);
+    }
+  });
+
   it('localized static cart strings and grammar preserve their original formatter behavior', () => {
     for (const locale of ['en', 'zh-hant', 'ja'] as const) {
       const original = getCartMessages(locale);
@@ -101,6 +131,9 @@ describe('content import', () => {
       symlinkSync(path.resolve('public/assets'), path.join(app, 'public/assets'));
       symlinkSync(path.resolve('node_modules'), path.join(app, 'node_modules'));
       const run = () => spawnSync(process.execPath, [path.join(app, 'scripts/export-initial-content.mjs'), '--check'], { encoding: 'utf8' });
+      expect(run().status).toBe(0);
+      const header = path.join(app, 'components/SiteHeader.tsx');
+      writeFileSync(header, readFileSync(header, 'utf8') + '\nconst internalCases = [{ code: "DO_NOT_IMPORT", locale: "DO_NOT_IMPORT_LOCALE" }];\n');
       expect(run().status).toBe(0);
       writeFileSync(path.join(app, 'lib/content/initial-snapshot.json'), '{}');
       const stale = run(); expect(stale.status).toBe(1); expect(stale.stderr).toContain('Stale content export');

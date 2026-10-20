@@ -195,11 +195,15 @@ for (const source of [...sources.values()].sort((a, b) => a.file.localeCompare(b
       const canonical = email === supportEmail ? 'settings.supportEmail' : match ? `messages.{locale}.CmsStatic.${match[0]}` : null;
       if (canonical) exclusions.push({ source: { file, locator: locator(node, ast) }, value: node.text, canonical, transform: 'mailto', reason: 'B4 derives the mailto href from its canonical contact address so text and destination stay consistent' });
     }
+    // SiteHeader renders languages[].code as text; locale remains a routing identity.
+    // Scope this exception to that exact binding rather than importing arbitrary code properties.
+    const navigationLanguageCode = ts.isStringLiteral(node) && file === 'components/SiteHeader.tsx' && ts.isPropertyAssignment(node.parent) && node.parent.name.getText(ast) === 'code' && ts.isObjectLiteralExpression(node.parent.parent) && ts.isArrayLiteralExpression(node.parent.parent.parent) && ts.isVariableDeclaration(node.parent.parent.parent.parent) && node.parent.parent.parent.parent.name.getText(ast) === 'languages';
     let value;
     if (ts.isJsxText(node)) value = node.text.split(/\r?\n/).map((line, index, lines) => (index ? line.trimStart() : line).replace(index === lines.length - 1 ? /$^/ : /\s+$/, '')).filter(Boolean).join(' ');
     else if (ts.isStringLiteral(node)) {
       const parent = node.parent;
-      if (ts.isJsxAttribute(parent) && displayAttributes.has(parent.name.getText(ast))) value = node.text;
+      if (navigationLanguageCode) value = node.text;
+      else if (ts.isJsxAttribute(parent) && displayAttributes.has(parent.name.getText(ast))) value = node.text;
       else if (ts.isPropertyAssignment(parent) && displayProperties.has(parent.name.getText(ast).replace(/["']/g, ''))) value = node.text;
       else if (ts.isJsxExpression(parent)) value = node.text;
       else if (ts.isConditionalExpression(parent)) {
@@ -238,7 +242,7 @@ for (const source of [...sources.values()].sort((a, b) => a.file.localeCompare(b
       if (canonical) exclusions.push({ source: { file, locator: sourceLocator }, value, canonical, reason: 'Already represented by the canonical snapshot field' });
       else {
         const id = `field_${hash(`${file}:${sourceLocator}`)}`;
-        sourceFields.set(id, { value, purpose: displayPurpose(node, ast), source: { file, locator: sourceLocator }, pages: [...source.pages].sort() });
+        sourceFields.set(id, { value, purpose: navigationLanguageCode ? 'label' : displayPurpose(node, ast), source: { file, locator: sourceLocator }, pages: [...source.pages].sort() });
       }
     }
     ts.forEachChild(node, collect);
@@ -292,6 +296,9 @@ function inventory(value, fieldPath = '') {
     // retain exact originals and validate as plain text (B4 uses direct text adapters).
     icu = segments[2] === 'CmsStatic' && !segments[3]?.startsWith('cart_') ? null : signature(value);
   }
+  // Canonical settings inherit the ICU consumer's signature before aliases are derived.
+  // Otherwise successful validation could emit an alias rejected on the next parse.
+  if (/^settings\.contactText\.(en|zh-hant|ja)$/.test(fieldPath)) icu = signature(messages[segments[2]].Contact.intro);
   fields.push({ path: fieldPath, pages: fieldPages, type, maxLength: typeof value === 'string' ? limit(fieldPath, value) : null, icuSignature: icu, mediaPurpose: segments[0] === 'media' ? snapshot.media[segments[1]]?.profile ?? null : null, adminOnly: segments[0] === 'settings', editable: !(fieldPath in settingAliases) && !fixed && !['object', 'array'].includes(type), owner: 'snapshot', ...(!['object', 'array'].includes(type) ? { initialValue: value } : {}), ...(fixed && !['object', 'array'].includes(type) ? { fixedValue: value } : {}), ...(source ? { source: { file: source.file, locator: source.locator, ...(source.expression ? { expression: source.expression } : {}) } } : {}) });
   if (value !== null && typeof value === 'object') for (const [key, child] of Object.entries(value)) inventory(child, `${fieldPath}.${key}`);
 }
