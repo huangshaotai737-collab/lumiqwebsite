@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import {readContentAdapter} from "@/lib/content/server-adapter";
 import {getLocale} from "next-intl/server";
 import "./globals.css";
 import "./product-detail-template.css";
@@ -16,21 +16,24 @@ import "./reduced-motion-layout.css";
 import "./mobile-visual-refinement.css";
 import {htmlLang, type Locale} from "@/i18n/routing";
 
-export const metadata: Metadata = {
+export async function generateMetadata() {
+  const cms = await readContentAdapter();
+  return {
   title: {
-    default: "Lumiq Studio — Where Stories Come Alive",
+    default: cms.text("field_e635317a912dfef3"),
     template: "%s",
   },
   description:
-    "Lumiq Studio creates AI-powered story and companion experiences — helping children read and imagine, while giving older adults a gentle presence for conversation, reminders, and connection.",
+    cms.text("field_e1113eff51ca8f33"),
   openGraph: {
     type: "website",
-    siteName: "Lumiq Studio",
+    siteName: cms.text("field_7d0c1e9cd75db1e9"),
   },
   twitter: {
     card: "summary",
   },
 };
+}
 
 export default async function RootLayout({
   children,

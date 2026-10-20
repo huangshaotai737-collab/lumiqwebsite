@@ -1,11 +1,11 @@
 "use client";
 
 import { createContext, useCallback, useContext, useEffect, useMemo, useReducer, useRef, useState, type ReactNode } from "react";
-import { useLocale } from "next-intl";
+import {useContentAdapter} from "@/components/content/useContentAdapter";
 import { usePathname } from "@/i18n/navigation";
 import { CART_STORAGE_KEY, cartReducer, parseCart, serializeCart, summarizeCart, type CartItem } from "@/lib/cart";
-import { PRODUCT_BY_ID, type ProductId } from "@/lib/products";
-import { getCartMessages } from "@/lib/cart-messages";
+import { type ProductId } from "@/lib/products";
+import {useCartCopy} from "@/components/content/useCartCopy";
 import CartDrawer from "./CartDrawer";
 
 type CartContextValue = {
@@ -29,7 +29,8 @@ export function useCart() {
 }
 
 export default function CartProvider({ children }: { children: ReactNode }) {
-  const locale = useLocale();
+  const cms = useContentAdapter();
+  const copy = useCartCopy();
   const pathname = usePathname();
   const [items, dispatch] = useReducer(cartReducer, []);
   const [ready, setReady] = useState(false);
@@ -123,9 +124,9 @@ export default function CartProvider({ children }: { children: ReactNode }) {
 
   const add = useCallback((id: ProductId, animate = true, trigger?: HTMLElement) => {
     dispatch({ type: "add", id });
-    setAnnouncement(getCartMessages(locale).added(PRODUCT_BY_ID[id].name));
+    setAnnouncement(copy.added(cms.snapshot.products[id].name));
     openCart(animate, trigger);
-  }, [locale, openCart]);
+  }, [cms.snapshot.products, copy, openCart]);
   const remove = useCallback((id: ProductId) => dispatch({ type: "remove", id }), []);
   const setQuantity = useCallback((id: ProductId, quantity: number) => dispatch({ type: "quantity", id, quantity }), []);
   const quantity = summarizeCart(items).quantity;

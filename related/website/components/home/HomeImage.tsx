@@ -1,5 +1,6 @@
 "use client";
 
+import {useContentAdapter} from "@/components/content/useContentAdapter";
 import Image, { type ImageProps } from "next/image";
 import { useEffect, useRef, useState } from "react";
 import images from "@/lib/home-image-manifest.json";
@@ -10,7 +11,9 @@ const emptyPreview = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAA
 
 /** Reserve the artwork with an inline preview before loading an upcoming scene.
  * A lazy src alone can race the opening's pin layout and fetch distant products. */
-export default function HomeImage(props: ImageProps) {
+export default function HomeImage(input: ImageProps) {
+  const cms = useContentAdapter();
+  const props = {...input, src: typeof input.src === "string" ? cms.url(input.src) : input.src};
   const asset = typeof props.src === "string" ? assets[props.src] : undefined;
   const preview = asset?.preview ?? emptyPreview;
   const image = useRef<HTMLImageElement>(null);
@@ -47,7 +50,7 @@ export default function HomeImage(props: ImageProps) {
     data-home-image
     data-home-image-state={failed ? "error" : requested ? "requested" : "preview"}
     src={showingPreview ? preview : props.src}
-    unoptimized={showingPreview || props.unoptimized}
+    unoptimized={showingPreview || props.unoptimized || cms.preview}
     loading={requested && !props.priority ? "eager" : props.loading}
     loader={!showingPreview && asset ? ({ width }) => `${asset.base}-${asset.widths.find(w => w >= width) ?? asset.widths.at(-1)}.webp` : props.loader}
     placeholder={asset?.preview as `data:image/${string}` | undefined}

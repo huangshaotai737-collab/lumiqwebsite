@@ -1,10 +1,13 @@
 "use client";
+import {useContentAdapter} from "@/components/content/useContentAdapter";
+import {useCartCopy} from "@/components/content/useCartCopy";
+import {isProductId} from "@/lib/cart";
 import Heading from "@/components/Heading";
 import AddToCartButton from "@/components/cart/AddToCartButton";
 
 
 import { useEffect, useRef, type CSSProperties, type ReactNode } from "react";
-import Image from "next/image";
+import Image from "@/components/content/ContentImage";
 import { preload } from "react-dom";
 import { Link } from "@/i18n/navigation";
 
@@ -163,6 +166,14 @@ export default function ProductDetailTemplate({
   finalBody,
   secondaryAction,
 }: ProductDetailTemplateProps) {
+  const cms = useContentAdapter();
+  const copy = useCartCopy();
+  if (isProductId(slug)) {
+    const product = cms.snapshot.products[slug];
+    productName = product.name;
+    priceLabel = product.price.kind === "usd" ? `USD ${product.price.amount}` : product.price.kind === "included" || slug === "nest" ? priceLabel : copy.pending;
+  }
+
   preload("/assets/fonts/barlow-condensed-semibold.ttf", {
     as: "font", type: "font/ttf", crossOrigin: "anonymous",
   });

@@ -1,19 +1,22 @@
 "use client";
-import { Link, usePathname, useRouter } from "@/i18n/navigation";
+import {useSitePathname} from "@/components/content/useSitePathname";
+import {useContentAdapter} from "@/components/content/useContentAdapter";
+import { Link, useRouter } from "@/i18n/navigation";
 import { useSearchParams } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
 import { Globe2, Menu, X } from "lucide-react";
 import type { Locale } from "@/i18n/routing";
-import Image from "next/image";
+import Image from "@/components/content/ContentImage";
 import CartTrigger from "@/components/cart/CartTrigger";
 
 export default function SiteHeader() {
+  const cms = useContentAdapter();
   const t = useTranslations("Common");
   const home = useTranslations("HomeRefresh");
   const members = useTranslations("Members");
   const locale = useLocale() as Locale;
-  const pathname = usePathname();
+  const pathname = useSitePathname();
   const router = useRouter();
   const searchParams = useSearchParams();
   const isHomepage = pathname === "/";
@@ -34,9 +37,9 @@ export default function SiteHeader() {
   ] as const;
 
   const languages: { locale: Locale; code: string; label: string }[] = [
-    { locale: "en", code: "EN", label: t("english") },
-    { locale: "zh-hant", code: "繁中", label: t("traditionalChinese") },
-    { locale: "ja", code: "日本語", label: t("japanese") },
+    { locale: "en", code: cms.text("field_dbf7fc4623365aca"), label: t("english") },
+    { locale: "zh-hant", code: cms.text("field_88d310bbf9c719ef"), label: t("traditionalChinese") },
+    { locale: "ja", code: cms.text("field_4f1ba9da652781b3"), label: t("japanese") },
   ];
   const activeLanguage =
     languages.find((item) => item.locale === locale) ?? languages[0];
@@ -141,8 +144,8 @@ export default function SiteHeader() {
       <div className="container nav-inner">
         <Link prefetch={false} href="/" className="nav-logo" onClick={closeMenu}>
           <Image
-            src="/assets/brand/lumiq-logo-transparent-dark.png"
-            alt={isHomepage ? "LUMIQ Studio" : "LumiQ Studio"}
+            src={cms.url("/assets/brand/lumiq-logo-transparent-dark.png")}
+            alt={isHomepage ? cms.text("field_430041fc9b25a88e") : cms.text("field_b805d448f3a55978")}
             className="nav-logo-img"
             width={360}
             height={96}
@@ -179,7 +182,7 @@ export default function SiteHeader() {
               aria-expanded={langOpen}
             >
               <Globe2 size={16} aria-hidden="true" /> {activeLanguage.code}{" "}
-              <span className="lang-caret">▾</span>
+              <span className="lang-caret">{cms.text("field_a11b193e1a6e95b8")}</span>
             </button>
             {langOpen && (
               <ul className="lang-menu" role="listbox">

@@ -1,3 +1,8 @@
+import {createContentAdapter} from "@/lib/content/adapter";
+import SiteContentProvider from "@/components/content/SiteContentProvider";
+import {readSiteContent} from "@/lib/content/preview";
+import {headers} from "next/headers";
+export const dynamic = "force-dynamic";
 import {hasLocale, NextIntlClientProvider} from "next-intl";
 import {getMessages, setRequestLocale} from "next-intl/server";
 import {notFound} from "next/navigation";
@@ -24,12 +29,15 @@ export default async function LocaleLayout({
 
   setRequestLocale(locale);
   const messages = await getMessages();
+  const snapshot = await readSiteContent();
+  const preview = Boolean((await headers()).get("x-lumiq-preview-draft"));
 
   return (
     <NextIntlClientProvider messages={messages}>
+      <SiteContentProvider snapshot={snapshot} preview={preview}>
       <CartProvider>
       <LocaleDocument locale={locale} />
-      <div className={`lumiq-root locale-${locale} flex min-h-screen flex-col`}>
+      <div style={createContentAdapter(snapshot,locale,preview).css()} className={`lumiq-root locale-${locale} flex min-h-screen flex-col`}>
         <div className="bg-layer" />
         <SiteHeader />
         <div className="flex-1">{children}</div>
@@ -37,6 +45,7 @@ export default async function LocaleLayout({
         <ScrollWords />
       </div>
       </CartProvider>
+      </SiteContentProvider>
     </NextIntlClientProvider>
   );
 }

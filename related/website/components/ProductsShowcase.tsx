@@ -1,11 +1,12 @@
 "use client";
+import {useContentAdapter} from "@/components/content/useContentAdapter";
 import Heading from "@/components/Heading";
 
 
 import { Link } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
-import Image from "next/image";
+import Image from "@/components/content/ContentImage";
 import dynamic from "next/dynamic";
 import {
   ArrowLeft,
@@ -19,13 +20,13 @@ import {
   ShieldCheck,
   Truck,
 } from "lucide-react";
-import { PRODUCT_BY_ID } from "@/lib/products";
 import { CarouselInput } from "@/lib/carousel-input";
 import {usePhoneLayout} from "@/components/home/usePhoneLayout";
 
 const GlassCardMaterial = dynamic(() => import("./GlassCardMaterial"), {ssr: false});
 
 export default function ProductsShowcase() {
+  const cms = useContentAdapter();
   const t = useTranslations("Products");
   const isPhone = usePhoneLayout();
   const rootRef = useRef<HTMLElement>(null);
@@ -38,42 +39,42 @@ export default function ProductsShowcase() {
   const products = [
     {
       id: "pal",
-      href: PRODUCT_BY_ID.ola.href,
-      img: PRODUCT_BY_ID.ola.image,
-      tag: "01",
-      name: "Lumiq Ola",
+      href: cms.snapshot.products.ola.href,
+      img: cms.snapshot.products.ola.image,
+      tag: cms.text("field_a9b1ebd2f71c2296"),
+      name: cms.value("products.ola.name"),
       copyIndex: 3,
     },
     {
       id: "ola-go",
-      href: PRODUCT_BY_ID["ola-go"].href,
-      img: PRODUCT_BY_ID["ola-go"].image,
-      tag: "02",
-      name: "Lumiq Ola Go",
+      href: cms.snapshot.products["ola-go"].href,
+      img: cms.snapshot.products["ola-go"].image,
+      tag: cms.text("field_38dba8e1bc5cd39b"),
+      name: cms.value("products.ola-go.name"),
       copyIndex: 4,
     },
     {
       id: "tablet",
-      href: PRODUCT_BY_ID.tablet.href,
-      img: PRODUCT_BY_ID.tablet.image,
-      tag: "03",
-      name: "Lumiq Tablet",
+      href: cms.snapshot.products.tablet.href,
+      img: cms.snapshot.products.tablet.image,
+      tag: cms.text("field_b3c03beee11b8ce9"),
+      name: cms.value("products.tablet.name"),
       copyIndex: 1,
     },
     {
       id: "book",
-      href: PRODUCT_BY_ID.print.href,
-      img: PRODUCT_BY_ID.print.image,
-      tag: "04",
-      name: "Lumiq Print",
+      href: cms.snapshot.products.print.href,
+      img: cms.snapshot.products.print.image,
+      tag: cms.text("field_73edd4defecf3c29"),
+      name: cms.value("products.print.name"),
       copyIndex: 2,
     },
     {
       id: "nest",
-      href: PRODUCT_BY_ID.nest.href,
-      img: PRODUCT_BY_ID.nest.image,
-      tag: "05",
-      name: "Lumiq Orb",
+      href: cms.snapshot.products.nest.href,
+      img: cms.snapshot.products.nest.image,
+      tag: cms.text("field_b4d4550ae11151e4"),
+      name: cms.value("products.nest.name"),
       copyIndex: 5,
     },
   ].map(({ copyIndex, ...product }) => ({
@@ -240,7 +241,6 @@ export default function ProductsShowcase() {
     el.style.setProperty("--py", "0px");
   };
 
-  const current = products[active];
 
   const selectProduct = (index: number) => {
     if (index === active || (!isPhone && !carouselInput.navigate(performance.now()))) return;
@@ -293,7 +293,7 @@ export default function ProductsShowcase() {
           onMouseLeave={onHeroLeave}
         >
           <Image
-            src="/assets/products/lumiq-ola-tablet-hero.webp"
+            src={cms.url("/assets/products/lumiq-ola-tablet-hero.webp")}
             alt={t("heroAlt")}
             width={1268}
             height={944}
@@ -365,7 +365,7 @@ export default function ProductsShowcase() {
         <div className="prod-carousel-shell">
         <nav className="prod-mobile-nav" aria-label={t('productsAria')}>
           <button type="button" onClick={() => stepProduct(-1)} aria-label={t('previous')}><ArrowLeft size={22} /></button>
-          <span className="prod-counter" aria-live="polite" aria-atomic="true">{String(active + 1).padStart(2, '0')} / 05</span>
+          <span className="prod-counter" aria-live="polite" aria-atomic="true">{String(active + 1).padStart(2, '0')} {cms.text("field_48ba3248da14b636")}</span>
           <button type="button" onClick={() => stepProduct(1)} aria-label={t('next')}><ArrowRight size={22} /></button>
         </nav>
         <div ref={stageRef} className="prod-carousel" style={{touchAction: 'pan-y pinch-zoom'}} onDragStart={event => event.preventDefault()}>
@@ -431,7 +431,7 @@ export default function ProductsShowcase() {
                     <button type="button" aria-label={t("previous")} tabIndex={selected ? 0 : -1} onClick={(event) => { event.stopPropagation(); stepProduct(-1); }}>
                       <ArrowLeft size={18} strokeWidth={1.8} />
                     </button>
-                    <span className="prod-counter">{p.tag} / 05</span>
+                    <span className="prod-counter">{p.tag} {cms.text("field_4e137c8eab6ae1ed")}</span>
                     <button type="button" aria-label={t("next")} tabIndex={selected ? 0 : -1} onClick={(event) => { event.stopPropagation(); stepProduct(1); }}>
                       <ArrowRight size={18} strokeWidth={1.8} />
                     </button>
@@ -462,10 +462,10 @@ export default function ProductsShowcase() {
           ))}
           <article className="prod-catalog-card prod-catalog-more">
             <div className="prod-catalog-image">
-              <Image src="/assets/brand/lumiq-logo-transparent-dark.png" alt="LumiQ" width={700} height={700}
+              <Image src={cms.url("/assets/brand/lumiq-logo-transparent-dark.png")} alt={cms.value("media.asset_e036cbcfe52d5970.alt")} width={700} height={700}
                 sizes="(max-width: 600px) 70vw, 260px" />
             </div>
-            <div className="prod-catalog-caption"><Heading as="h3">more</Heading></div>
+            <div className="prod-catalog-caption"><Heading as="h3">{cms.text("field_49f53ec0cc8f512b")}</Heading></div>
           </article>
         </div>
       </section>
@@ -503,7 +503,7 @@ export default function ProductsShowcase() {
       </section>
 
       <style>{`
-        .prod-page { --prod-flow-bg: url('/assets/subpage-backgrounds-20260915/generated-set-02/flow-02-diagonal-convergence.webp'); background-color: #fbfbfe; background-image: var(--prod-flow-bg); background-position: center; background-repeat: no-repeat; background-size: cover; background-attachment: fixed; color: var(--ink); padding-top: 6.5rem; line-height: 1.6; }
+        .prod-page { --prod-flow-bg: var(--cms-asset_e952cecf44ce1cc1, url('/assets/subpage-backgrounds-20260915/generated-set-02/flow-02-diagonal-convergence.webp')); background-color: #fbfbfe; background-image: var(--prod-flow-bg); background-position: center; background-repeat: no-repeat; background-size: cover; background-attachment: fixed; color: var(--ink); padding-top: 6.5rem; line-height: 1.6; }
         .prod-page .container { max-width: 1200px; }
 
         .prod-page > .prod-catalog { padding-top: 2rem; padding-bottom: clamp(5rem, 8vw, 8rem); scroll-margin-top: 7rem; }

@@ -1,9 +1,11 @@
 "use client";
+import {useContentAdapter} from "@/components/content/useContentAdapter";
 
 import { useTranslations } from "next-intl";
 import ProductDetailTemplate from "@/components/ProductDetailTemplate";
 
 export default function OlaGoProductPage() {
+  const cms = useContentAdapter();
   const t = useTranslations("OlaGo");
 
   const firstFeatures = ["reminders", "weather", "journal"] as const;
@@ -23,7 +25,7 @@ export default function OlaGoProductPage() {
       compactHeroPriceLabel
       ctaLabel={t("join")}
       heroImage={{
-        src: "/assets/products/lumiq-ola-go.png",
+        src: cms.url("/assets/products/lumiq-ola-go.png"),
         alt: t("alt"),
         fit: "contain",
       }}
@@ -32,7 +34,7 @@ export default function OlaGoProductPage() {
         title: t("relationshipTitle"),
         body: t("relationshipBody"),
         image: {
-          src: "/assets/western-scenes-20260908/ola-go-return-home-v3.webp",
+          src: cms.url("/assets/western-scenes-20260908/ola-go-return-home-v3.webp"),
           alt: t("alt"),
           fit: "cover",
           position: "center",
@@ -47,10 +49,10 @@ export default function OlaGoProductPage() {
         image: {
           src:
             index === 0
-              ? "/assets/western-scenes-20260908/ola-go-schoolbag-v2.webp"
+              ? cms.url("/assets/western-scenes-20260908/ola-go-schoolbag-v2.webp")
               : index === 1
-                ? "/assets/ola-go-detail/generated/ola-go-weather-walk-v2.png"
-                : "/assets/western-scenes-20260908/ola-go-bedside-journal-v3.webp",
+                ? cms.url("/assets/ola-go-detail/generated/ola-go-weather-walk-v2.png")
+                : cms.url("/assets/western-scenes-20260908/ola-go-bedside-journal-v3.webp"),
           alt: t("alt"),
         },
       }))}
@@ -63,7 +65,7 @@ export default function OlaGoProductPage() {
           body: t(`${key}Body`),
         })),
         image: {
-          src: "/assets/ola-go-detail/original-20260915/ola-go-three-quarter.png",
+          src: cms.url("/assets/ola-go-detail/original-20260915/ola-go-three-quarter.png"),
           alt: t("alt"),
           fit: "contain",
         },
@@ -77,7 +79,7 @@ export default function OlaGoProductPage() {
           body: t(`${key}Body`),
         })),
         image: {
-          src: "/assets/products/lumiq-ola-go.png",
+          src: cms.url("/assets/products/lumiq-ola-go.png"),
           alt: t("alt"),
           fit: "contain",
         },

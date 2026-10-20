@@ -1,9 +1,11 @@
 "use client";
+import {useContentAdapter} from "@/components/content/useContentAdapter";
 
 import { useTranslations } from "next-intl";
 import ProductDetailTemplate from "@/components/ProductDetailTemplate";
 
 export default function TabletPage() {
+  const cms = useContentAdapter();
   const t = useTranslations("Tablet");
 
   return (
@@ -19,7 +21,7 @@ export default function TabletPage() {
       priceLabel="USD 399"
       ctaLabel={t("buy")}
       heroImage={{
-        src: "/assets/tablet-detail/original-20260915/tablet-hero-original-transparent.png",
+        src: cms.url("/assets/tablet-detail/original-20260915/tablet-hero-original-transparent.png"),
         alt: t("deviceAlt"),
         fit: "contain",
       }}
@@ -28,7 +30,7 @@ export default function TabletPage() {
         title: t("immersed"),
         body: t("immersedBody"),
         image: {
-          src: "/assets/tablet-detail/generated/tablet-reading-lifestyle-v2.png",
+          src: cms.url("/assets/tablet-detail/generated/tablet-reading-lifestyle-v2.png"),
           alt: t("way1Title"),
         },
         bullets: [t("spec1"), t("spec2"), t("spec3"), t("spec4")],
@@ -41,7 +43,7 @@ export default function TabletPage() {
           title: t("passiveTitle"),
           body: t("passiveBody"),
           image: {
-            src: "/assets/tablet-detail/generated/tablet-passive-screen-time-v2.png",
+            src: cms.url("/assets/tablet-detail/generated/tablet-passive-screen-time-v2.png"),
             alt: t("passiveTitle"),
           },
         },
@@ -50,7 +52,7 @@ export default function TabletPage() {
           title: t("activeTitle"),
           body: t("activeBody"),
           image: {
-            src: "/assets/tablet-detail/generated/tablet-active-story-time-back-muted-20261001.png",
+            src: cms.url("/assets/tablet-detail/generated/tablet-active-story-time-back-muted-20261001.png"),
             alt: t("activeTitle"),
           },
         },
@@ -65,7 +67,7 @@ export default function TabletPage() {
           body: t(`way${number}Body`),
         })),
         image: {
-          src: "/assets/tablet-detail/five-ways/imagime-v1.jpg",
+          src: cms.url("/assets/tablet-detail/five-ways/imagime-v1.jpg"),
           alt: t("way2Title"),
         },
       }}
@@ -78,7 +80,7 @@ export default function TabletPage() {
           body: t(`power${number}Body`),
         })),
         image: {
-          src: "/assets/tablet-detail/original-20260915/tablet-three-quarter-transparent.png",
+          src: cms.url("/assets/tablet-detail/original-20260915/tablet-three-quarter-transparent.png"),
           alt: t("deviceAlt"),
           fit: "contain",
         },
@@ -92,7 +94,7 @@ export default function TabletPage() {
           body: t(`parent${number}Body`),
         })),
         image: {
-          src: "/assets/western-scenes-20260908/tablet-parent-controls-v2.webp",
+          src: cms.url("/assets/western-scenes-20260908/tablet-parent-controls-v2.webp"),
           alt: t("parentsTitle"),
         },
       }}

@@ -1,8 +1,10 @@
-import { useTranslations } from "next-intl";
+import {readContentAdapter} from "@/lib/content/server-adapter";
+import { getTranslations } from "next-intl/server";
 import ProductDetailTemplate from "@/components/ProductDetailTemplate";
 
-export default function PrintProductPage() {
-  const t = useTranslations("Book");
+export default async function PrintProductPage() {
+  const cms = await readContentAdapter();
+  const t = await getTranslations("Book");
 
   return (
     <ProductDetailTemplate
@@ -17,7 +19,7 @@ export default function PrintProductPage() {
       priceLabel="USD 69"
       ctaLabel={t("buy")}
       heroImage={{
-        src: "/assets/products/lumiq-print.png",
+        src: cms.url("/assets/products/lumiq-print.png"),
         alt: t("alt"),
         fit: "contain",
         unoptimized: true,
@@ -27,7 +29,7 @@ export default function PrintProductPage() {
         title: t("sectionTitle"),
         body: t("body"),
         image: {
-          src: "/assets/print-detail/consistent-20260907/gift.webp",
+          src: cms.url("/assets/print-detail/consistent-20260907/gift.webp"),
           alt: t("alt"),
           unoptimized: true,
         },
@@ -37,21 +39,21 @@ export default function PrintProductPage() {
       scenesTitle={t("detailsTitle")}
       scenes={[
         {
-          eyebrow: "01",
+          eyebrow: cms.text("field_fac072f6a017d02f"),
           title: t("titleEm"),
           body: t("lede"),
           image: {
-            src: "/assets/print-detail/consistent-20260907/craft.webp",
+            src: cms.url("/assets/print-detail/consistent-20260907/craft.webp"),
             alt: t("alt"),
             unoptimized: true,
           },
         },
         {
-          eyebrow: "02",
+          eyebrow: cms.text("field_9886e4c94096599d"),
           title: t("sectionTitle"),
           body: t("body"),
           image: {
-            src: "/assets/print-detail/consistent-20260907/reading.webp",
+            src: cms.url("/assets/print-detail/consistent-20260907/reading.webp"),
             alt: t("alt"),
             unoptimized: true,
           },
@@ -66,7 +68,7 @@ export default function PrintProductPage() {
           body: t(`s${number}Body`),
         })),
         image: {
-          src: "/assets/print-detail/consistent-20260907/pages.webp",
+          src: cms.url("/assets/print-detail/consistent-20260907/pages.webp"),
           alt: t("alt"),
           unoptimized: true,
         },
@@ -80,7 +82,7 @@ export default function PrintProductPage() {
           body: t(`s${number}Body`),
         })),
         image: {
-          src: "/assets/products/lumiq-print.png",
+          src: cms.url("/assets/products/lumiq-print.png"),
           alt: t("alt"),
           fit: "contain",
           unoptimized: true,

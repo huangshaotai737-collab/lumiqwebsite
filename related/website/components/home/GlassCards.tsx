@@ -1,4 +1,5 @@
 "use client";
+import {useContentAdapter} from "@/components/content/useContentAdapter";
 import Heading from "@/components/Heading";
 
 import { chapterImage } from "./HomeBackgrounds";
@@ -26,7 +27,9 @@ type CardPointer = { x: number; y: number; hovered: boolean };
  * Drei's useTexture rejects that decode and takes down the whole canvas. Keep a
  * neutral canvas texture on screen until the real asset is available instead.
  */
-function useSafeTexture(url: string, transparent = false): Texture {
+function useSafeTexture(originalUrl: string, transparent = false): Texture {
+  const cms = useContentAdapter();
+  const url = cms.url(originalUrl);
   const fallback = useMemo(() => {
     const canvas = document.createElement("canvas");
     canvas.width = canvas.height = 96;
@@ -223,6 +226,7 @@ function ViewportBackground({ texture, fixed }: { texture: Texture; fixed: boole
 function GlassCard({ geometry, index, product, offset, five, active, select, hover, sideView, content, buffer, pointer, reflected = false }: {
   geometry: ExtrudeGeometry; index: number; product: GlassProduct; offset: number; five: boolean; active: boolean; select: (index: number) => void; hover: (index: number | null) => void; sideView: boolean; content: boolean; buffer: Texture; pointer: CardPointer; reflected?: boolean;
 }) {
+  const cms = useContentAdapter();
   const group = useRef<Group>(null);
   const copySurface = useRef<HTMLDivElement>(null);
   const projected = useMemo(() => [new Vector3(), new Vector3(), new Vector3()], []);
@@ -300,12 +304,12 @@ function GlassCard({ geometry, index, product, offset, five, active, select, hov
           onClick={e => { if (!active) { e.preventDefault(); select(index); } }}
           aria-label={`${product.name}. ${product.body}. ${product.explore}`} /> :
           <button className="glass-product-hit" onClick={() => select(index)} aria-pressed={active}>
-            <span className="glass-accessible-label">{product.name} · {active ? "选中 · 70% 磨砂" : "未选中 · 38% 磨砂"}</span>
+            <span className="glass-accessible-label">{product.name} {cms.text("field_9df95ca6165be7d3")}{active ? cms.text("field_508457dea05708c6") : cms.text("field_d584df7212969e9c")}</span>
           </button>}
         {five && product.body && <div className={copyStyles.copy} data-card-copy data-no-word-reveal aria-hidden="true">
           <div className={copyStyles.title} data-card-title>{product.name}</div>
           {active && <p className={copyStyles.description}>{product.body}</p>}
-          <div className={copyStyles.action} data-card-action>{product.explore} ↗</div>
+          <div className={copyStyles.action} data-card-action>{product.explore} {cms.text("field_028813a441e9ed0f")}</div>
         </div>}
       </div>
     </Html>}
@@ -446,8 +450,9 @@ function CanvasReady({ products, onReady }: { products: GlassProduct[]; onReady:
 export function GlassCanvas({ selected, select, products = demoProducts, sideView = false, content = true, carousel = false, running = true, onReady }: {
   selected: number; select: (index: number) => void; products?: GlassProduct[]; sideView?: boolean; content?: boolean; carousel?: boolean; running?: boolean; onReady?: () => void;
 }) {
+  const cms = useContentAdapter();
   return <Canvas frameloop={running ? "always" : "never"} camera={{ position: [0, 1.3, 36], fov: 12, near: .1, far: 100 }} dpr={[1, 1.25]}
-    gl={{ antialias: true, alpha: true, toneMapping: NoToneMapping }} fallback={carousel ? null : <p>此样板需要启用 WebGL 的浏览器。</p>}>
+    gl={{ antialias: true, alpha: true, toneMapping: NoToneMapping }} fallback={carousel ? null : <p>{cms.text("field_33e42817ed9c66ca")}</p>}>
     {!carousel && <color attach="background" args={["#f5f3f9"]} />}
     <Suspense fallback={null}>{onReady && <CanvasReady products={products} onReady={onReady} />}<GlassScene selected={selected} select={select} sideView={sideView} content={content} products={products} carousel={carousel} /></Suspense>
   </Canvas>;

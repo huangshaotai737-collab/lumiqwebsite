@@ -1,4 +1,5 @@
 "use client";
+import {useContentAdapter} from "@/components/content/useContentAdapter";
 import Heading from "@/components/Heading";
 
 import { useMemo, useRef, useState } from "react";
@@ -7,6 +8,7 @@ import { Search, X } from "lucide-react";
 import {useTranslations} from "next-intl";
 
 export default function FaqPage() {
+  const cms = useContentAdapter();
   const t = useTranslations("Faq");
   const [open, setOpen] = useState<number | null>(0);
   const [query, setQuery] = useState("");
@@ -45,7 +47,7 @@ export default function FaqPage() {
           {t("title")}
         </Heading>
         <p style={{ fontSize: "1.15rem", color: "var(--ink-2)", lineHeight: 1.7, maxWidth: 640 }}>
-          {t("introBefore")} <a href="mailto:hello@lumiqstudio.com" className="faq-mail">hello@lumiqstudio.com</a> {t("introAfter")}
+          {t("introBefore")} <a href={"mailto:" + cms.value("messages.{locale}.CmsStatic.field_23cd241d015790f4")} className="faq-mail">{cms.value("messages.{locale}.CmsStatic.field_23cd241d015790f4")}</a> {t("introAfter")}
         </p>
       </section>
 
@@ -77,7 +79,7 @@ export default function FaqPage() {
             <div key={f.q} className="faq-row">
               <button className="faq-q" id={`faq-question-${idx}`} onClick={() => setOpen(isOpen ? null : idx)} aria-expanded={isOpen} aria-controls={`faq-answer-${idx}`}>
                 <span>{f.q}</span>
-                <span className={`faq-plus${isOpen ? " open" : ""}`} aria-hidden>+</span>
+                <span className={`faq-plus${isOpen ? " open" : ""}`} aria-hidden>{cms.text("field_746d580ff27ae9e6")}</span>
               </button>
               <div id={`faq-answer-${idx}`} role="region" aria-labelledby={`faq-question-${idx}`} aria-hidden={!isOpen} className={`faq-a${isOpen ? " open" : ""}`}>
                 <p>{f.a}</p>

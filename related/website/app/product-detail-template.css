@@ -6,53 +6,53 @@
   --pd-line: rgba(30, 27, 23, 0.14);
   --pd-stone: transparent;
   --pd-navy: #faf9fd;
-  --pd-bg-hero: url("/assets/ola-detail/backgrounds-20260915/01-hero.webp");
-  --pd-bg-story: url("/assets/ola-detail/backgrounds-20260915/02-story.webp");
-  --pd-bg-scenes: url("/assets/ola-detail/backgrounds-20260915/03-scenes.webp");
-  --pd-bg-feature: url("/assets/ola-detail/backgrounds-20260915/04-features.webp");
-  --pd-bg-dark: url("/assets/ola-detail/backgrounds-20260915/05-strengths.webp");
-  --pd-bg-extra: url("/assets/subpage-backgrounds-20260915/faq.webp");
-  --pd-bg-final: url("/assets/ola-detail/backgrounds-20260915/06-final.webp");
+  --pd-bg-hero: var(--cms-asset_5a52d37e181fb252, url("/assets/ola-detail/backgrounds-20260915/01-hero.webp"));
+  --pd-bg-story: var(--cms-asset_a3dc98ea847871b2, url("/assets/ola-detail/backgrounds-20260915/02-story.webp"));
+  --pd-bg-scenes: var(--cms-asset_b5a5817b8372b323, url("/assets/ola-detail/backgrounds-20260915/03-scenes.webp"));
+  --pd-bg-feature: var(--cms-asset_da896ce0780cca53, url("/assets/ola-detail/backgrounds-20260915/04-features.webp"));
+  --pd-bg-dark: var(--cms-asset_c90fbe22d7d3cb65, url("/assets/ola-detail/backgrounds-20260915/05-strengths.webp"));
+  --pd-bg-extra: var(--cms-asset_de6d7af49ce01a95, url("/assets/subpage-backgrounds-20260915/faq.webp"));
+  --pd-bg-final: var(--cms-asset_1ea544f965add638, url("/assets/ola-detail/backgrounds-20260915/06-final.webp"));
   overflow: hidden;
   background: #fff;
   color: var(--pd-ink);
 }
 
 .product-detail-light.pd-tablet {
-  --pd-bg-hero: url("/assets/ola-detail/backgrounds-20260915/02-story.webp");
-  --pd-bg-story: url("/assets/ola-detail/backgrounds-20260915/03-scenes.webp");
-  --pd-bg-scenes: url("/assets/ola-detail/backgrounds-20260915/04-features.webp");
-  --pd-bg-feature: url("/assets/ola-detail/backgrounds-20260915/05-strengths.webp");
-  --pd-bg-dark: url("/assets/ola-detail/backgrounds-20260915/06-final.webp");
-  --pd-bg-extra: url("/assets/subpage-backgrounds-20260915/story.webp");
-  --pd-bg-final: url("/assets/ola-detail/backgrounds-20260915/01-hero.webp");
+  --pd-bg-hero: var(--cms-asset_a3dc98ea847871b2, url("/assets/ola-detail/backgrounds-20260915/02-story.webp"));
+  --pd-bg-story: var(--cms-asset_b5a5817b8372b323, url("/assets/ola-detail/backgrounds-20260915/03-scenes.webp"));
+  --pd-bg-scenes: var(--cms-asset_da896ce0780cca53, url("/assets/ola-detail/backgrounds-20260915/04-features.webp"));
+  --pd-bg-feature: var(--cms-asset_c90fbe22d7d3cb65, url("/assets/ola-detail/backgrounds-20260915/05-strengths.webp"));
+  --pd-bg-dark: var(--cms-asset_1ea544f965add638, url("/assets/ola-detail/backgrounds-20260915/06-final.webp"));
+  --pd-bg-extra: var(--cms-asset_50409433ee3449d3, url("/assets/subpage-backgrounds-20260915/story.webp"));
+  --pd-bg-final: var(--cms-asset_5a52d37e181fb252, url("/assets/ola-detail/backgrounds-20260915/01-hero.webp"));
 }
 .product-detail-light.pd-ola-go {
-  --pd-bg-hero: url("/assets/ola-detail/backgrounds-20260915/03-scenes.webp");
-  --pd-bg-story: url("/assets/ola-detail/backgrounds-20260915/04-features.webp");
-  --pd-bg-scenes: url("/assets/ola-detail/backgrounds-20260915/05-strengths.webp");
-  --pd-bg-feature: url("/assets/ola-detail/backgrounds-20260915/06-final.webp");
-  --pd-bg-dark: url("/assets/ola-detail/backgrounds-20260915/01-hero.webp");
-  --pd-bg-extra: url("/assets/subpage-backgrounds-20260915/plans.webp");
-  --pd-bg-final: url("/assets/ola-detail/backgrounds-20260915/02-story.webp");
+  --pd-bg-hero: var(--cms-asset_b5a5817b8372b323, url("/assets/ola-detail/backgrounds-20260915/03-scenes.webp"));
+  --pd-bg-story: var(--cms-asset_da896ce0780cca53, url("/assets/ola-detail/backgrounds-20260915/04-features.webp"));
+  --pd-bg-scenes: var(--cms-asset_c90fbe22d7d3cb65, url("/assets/ola-detail/backgrounds-20260915/05-strengths.webp"));
+  --pd-bg-feature: var(--cms-asset_1ea544f965add638, url("/assets/ola-detail/backgrounds-20260915/06-final.webp"));
+  --pd-bg-dark: var(--cms-asset_5a52d37e181fb252, url("/assets/ola-detail/backgrounds-20260915/01-hero.webp"));
+  --pd-bg-extra: var(--cms-asset_a795af9e87d42422, url("/assets/subpage-backgrounds-20260915/plans.webp"));
+  --pd-bg-final: var(--cms-asset_a3dc98ea847871b2, url("/assets/ola-detail/backgrounds-20260915/02-story.webp"));
 }
 .product-detail-light.pd-print {
-  --pd-bg-hero: url("/assets/ola-detail/backgrounds-20260915/04-features.webp");
-  --pd-bg-story: url("/assets/ola-detail/backgrounds-20260915/05-strengths.webp");
-  --pd-bg-scenes: url("/assets/ola-detail/backgrounds-20260915/06-final.webp");
-  --pd-bg-feature: url("/assets/ola-detail/backgrounds-20260915/01-hero.webp");
-  --pd-bg-dark: url("/assets/ola-detail/backgrounds-20260915/02-story.webp");
-  --pd-bg-extra: url("/assets/subpage-backgrounds-20260915/faq.webp");
-  --pd-bg-final: url("/assets/ola-detail/backgrounds-20260915/03-scenes.webp");
+  --pd-bg-hero: var(--cms-asset_da896ce0780cca53, url("/assets/ola-detail/backgrounds-20260915/04-features.webp"));
+  --pd-bg-story: var(--cms-asset_c90fbe22d7d3cb65, url("/assets/ola-detail/backgrounds-20260915/05-strengths.webp"));
+  --pd-bg-scenes: var(--cms-asset_1ea544f965add638, url("/assets/ola-detail/backgrounds-20260915/06-final.webp"));
+  --pd-bg-feature: var(--cms-asset_5a52d37e181fb252, url("/assets/ola-detail/backgrounds-20260915/01-hero.webp"));
+  --pd-bg-dark: var(--cms-asset_a3dc98ea847871b2, url("/assets/ola-detail/backgrounds-20260915/02-story.webp"));
+  --pd-bg-extra: var(--cms-asset_de6d7af49ce01a95, url("/assets/subpage-backgrounds-20260915/faq.webp"));
+  --pd-bg-final: var(--cms-asset_b5a5817b8372b323, url("/assets/ola-detail/backgrounds-20260915/03-scenes.webp"));
 }
 .product-detail-light.pd-nest {
-  --pd-bg-hero: url("/assets/ola-detail/backgrounds-20260915/05-strengths.webp");
-  --pd-bg-story: url("/assets/ola-detail/backgrounds-20260915/06-final.webp");
-  --pd-bg-scenes: url("/assets/ola-detail/backgrounds-20260915/01-hero.webp");
-  --pd-bg-feature: url("/assets/ola-detail/backgrounds-20260915/02-story.webp");
-  --pd-bg-dark: url("/assets/ola-detail/backgrounds-20260915/03-scenes.webp");
-  --pd-bg-extra: url("/assets/subpage-backgrounds-20260915/story.webp");
-  --pd-bg-final: url("/assets/ola-detail/backgrounds-20260915/04-features.webp");
+  --pd-bg-hero: var(--cms-asset_c90fbe22d7d3cb65, url("/assets/ola-detail/backgrounds-20260915/05-strengths.webp"));
+  --pd-bg-story: var(--cms-asset_1ea544f965add638, url("/assets/ola-detail/backgrounds-20260915/06-final.webp"));
+  --pd-bg-scenes: var(--cms-asset_5a52d37e181fb252, url("/assets/ola-detail/backgrounds-20260915/01-hero.webp"));
+  --pd-bg-feature: var(--cms-asset_a3dc98ea847871b2, url("/assets/ola-detail/backgrounds-20260915/02-story.webp"));
+  --pd-bg-dark: var(--cms-asset_b5a5817b8372b323, url("/assets/ola-detail/backgrounds-20260915/03-scenes.webp"));
+  --pd-bg-extra: var(--cms-asset_50409433ee3449d3, url("/assets/subpage-backgrounds-20260915/story.webp"));
+  --pd-bg-final: var(--cms-asset_da896ce0780cca53, url("/assets/ola-detail/backgrounds-20260915/04-features.webp"));
 }
 
 .product-detail-light * { box-sizing: border-box; }

@@ -1,3 +1,4 @@
+import {readContentAdapter} from "@/lib/content/server-adapter";
 import Heading from "@/components/Heading";
 import Image from "@/components/home/HomeImage";
 import { getTranslations, getLocale } from "next-intl/server";
@@ -11,7 +12,7 @@ import {
   SlidersHorizontal,
 } from "lucide-react";
 import { Link } from "@/i18n/navigation";
-import { PRODUCT_BY_ID, type ProductId } from "@/lib/products";
+import { type ProductId } from "@/lib/products";
 import HomeBackgrounds from "@/components/home/HomeBackgrounds";
 import HomeMotion from "@/components/home/HomeMotion";
 import HomeGlassProducts from "@/components/home/HomeGlassProducts";
@@ -48,6 +49,7 @@ const principles = [
 ] as const;
 
 export default async function Home() {
+  const cms = await readContentAdapter();
   const t = await getTranslations("HomeRefresh");
   const locale = await getLocale();
   return (
@@ -82,10 +84,10 @@ export default async function Home() {
               <picture>
                 <source
                   media="(min-width: 768px)"
-                  srcSet="/assets/home-video/ola-scroll-v16-start-20260909.webp"
+                  srcSet={cms.url("/assets/home-video/ola-scroll-v16-start-20260909.webp")}
                 />
                 <Image
-                  src="/assets/mobile-backgrounds-20260914/hero-unified.webp"
+                  src={cms.url("/assets/mobile-backgrounds-20260914/hero-unified.webp")}
                   alt=""
                   fill
                   sizes="(max-width: 1199px) 100vw, 1px"
@@ -97,8 +99,7 @@ export default async function Home() {
             <div className="lh-wrap lh-hero-layout">
               <div className="lh-hero-copy">
                 <p className="lh-eyebrow">
-                  <span className="lh-dot" /> LUMIQ STUDIO
-                </p>
+                  <span className="lh-dot" /> {cms.text("field_595c7b9755eb3c39")}</p>
                 <Heading as="h1" id="hero-title">
                   <span className="lh-hero-line">{t("hero1")}</span>
                   <span className="lh-hero-line">{t("hero2")}</span>
@@ -140,10 +141,10 @@ export default async function Home() {
               </div>
               <div className="lh-mobile-ola-art">
                 <picture>
-                <source media="(min-width: 768px)" srcSet="/assets/home-video/ola-scroll-v16-end-20260909.webp" />
+                <source media="(min-width: 768px)" srcSet={cms.url("/assets/home-video/ola-scroll-v16-end-20260909.webp")} />
                 <Image
-                  src="/assets/mobile-backgrounds-20260914/ola-go-ui.webp"
-                  alt="LUMIQ OLA + Go"
+                  src={cms.url("/assets/mobile-backgrounds-20260914/ola-go-ui.webp")}
+                  alt={cms.value("media.asset_38c045ee1dd24e31.alt")}
                   width={941}
                   height={1672}
                   sizes="(max-width: 1199px) 100vw, 1px"
@@ -159,7 +160,7 @@ export default async function Home() {
                   >
                     <div className="lh-rhythm-photo">
                       <Image
-                        src={"/assets/home-video/" + key + ".webp"}
+                        src={cms.url("/assets/home-video/" + key + ".webp")}
                         alt={t(`rhythms.${key}.alt`)}
                         fill
                         sizes="(max-width: 520px) 42vw, (max-width: 1199px) 28vw, 320px"
@@ -188,7 +189,7 @@ export default async function Home() {
           </div>
           <HomeGlassProducts products={collection.map(id => ({
             name: t(`products.${id}.name`), body: t(`products.${id}.body`),
-            image: "/assets/" + artwork[id] + ".webp", href: `/${locale}${PRODUCT_BY_ID[id].href}`, explore: t("explore"),
+            image: cms.url("/assets/" + artwork[id] + ".webp"), href: `/${locale}${cms.snapshot.products[id].href}`, explore: t("explore"),
           }))} />
           <div className="lh-products-carousel">
           <div className="lh-products-viewport" id="home-products-rail">
@@ -200,14 +201,14 @@ export default async function Home() {
                 >
                   <Link
                     prefetch={false}
-                    href={PRODUCT_BY_ID[id].href}
+                    href={cms.snapshot.products[id].href}
                     className={"lh-product lh-product-" + id}
                   >
                     <div className="lh-product-art">
                       <div className="lh-product-float">
                         <Image
                           src={
-                            "/assets/" + artwork[id] + ".webp"
+                            cms.url("/assets/" + artwork[id] + ".webp")
                           }
                           alt={t(`products.${id}.name`)}
                           fill
@@ -256,7 +257,7 @@ export default async function Home() {
                 <ArrowLeft size={20} />
               </button>
               <span className="lh-products-count" aria-live="polite" aria-atomic="true">
-                <strong data-products-current>01</strong> / {String(collection.length).padStart(2, "0")}
+                <strong data-products-current>{cms.text("field_656dc81182778885")}</strong> {cms.text("field_a899a31fb0b3e230")}{String(collection.length).padStart(2, "0")}
               </span>
               <button
                 type="button"
@@ -292,7 +293,7 @@ export default async function Home() {
           <div className="lh-trust-room">
             <div className="lh-safety-photo">
               <Image
-                src="/assets/home-safety-20261002/story-world-family.jpg"
+                src={cms.url("/assets/home-safety-20261002/story-world-family.jpg")}
                 className="lh-safety-story-world"
                 alt={t("trustAlt")}
                 fill
@@ -378,7 +379,7 @@ export default async function Home() {
       >
         <div className="lh-join-art" aria-hidden="true">
           <Image
-            src="/assets/home-anchored-2026-09-07/join-crystal.webp"
+            src={cms.url("/assets/home-anchored-2026-09-07/join-crystal.webp")}
             alt=""
             fill
             quality={90}

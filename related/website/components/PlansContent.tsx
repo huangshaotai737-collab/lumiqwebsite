@@ -5,84 +5,12 @@ import Heading from "@/components/Heading";
 import { Link } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
-import Image from "next/image";
+import Image from "@/components/content/ContentImage";
 import RevealObserver from "@/components/RevealObserver";
-import { PRODUCT_BY_ID } from "@/lib/products";
+import {useContentAdapter} from "@/components/content/useContentAdapter";
 
 type Billing = "yearly" | "monthly";
 type Row = { label: string; values: (string | boolean)[] };
-
-const hardware = [
-  {
-    name: PRODUCT_BY_ID.tablet.name,
-    price: "399",
-    img: PRODUCT_BY_ID.tablet.image,
-    imageFit: "cover",
-    blurbKey: "tabletBlurb",
-    href: PRODUCT_BY_ID.tablet.href,
-  },
-  {
-    name: PRODUCT_BY_ID.ola.name,
-    price: "599",
-    img: PRODUCT_BY_ID.ola.image,
-    imageFit: "contain-ola",
-    blurbKey: "palBlurb",
-    href: PRODUCT_BY_ID.ola.href,
-  },
-  {
-    name: PRODUCT_BY_ID.print.name,
-    price: "69",
-    img: PRODUCT_BY_ID.print.image,
-    imageFit: "contain-print",
-    blurbKey: "printBlurb",
-    href: PRODUCT_BY_ID.print.href,
-  },
-  {
-    name: PRODUCT_BY_ID.nest.name,
-    price: null,
-    img: PRODUCT_BY_ID.nest.image,
-    imageFit: "cover",
-    blurbKey: "nestBlurb",
-    href: PRODUCT_BY_ID.nest.href,
-  },
-];
-
-const tabletCols = ["Free", "Lite", "Pro"];
-const tabletRows: Row[] = [
-  {
-    label: "monthlyFee",
-    values: ["—", "$6.99 yr / $7.99 mo", "$12.99 yr / $14.99 mo"],
-  },
-  { label: "freeTrial", values: ["—", "7 days", "7 days"] },
-  { label: "kidProfile", values: ["1", "1", "3"] },
-  { label: "classicalStory", values: ["50", "Unlimited", "Unlimited"] },
-  { label: "characters", values: ["—", "1", "3"] },
-  { label: "generation", values: ["—", "2", "5"] },
-  { label: "reimagined", values: ["—", "—", "5"] },
-  { label: "storyQuest", values: ["—", "3", "10"] },
-  { label: "original", values: ["—", "3", "10"] },
-  { label: "printAddon", values: ["$69", "$59", "$49"] },
-];
-
-const palCols = ["Free", "Lite", "Pro", "Ultra"];
-const palRows: Row[] = [
-  {
-    label: "monthlyFee",
-    values: [
-      "—",
-      "$16.99 yr / $19.99 mo",
-      "$26.99 yr / $29.99 mo",
-      "$35.99 yr / $39.99 mo",
-    ],
-  },
-  { label: "freeTrial", values: ["—", "7 days", "7 days", "7 days"] },
-  { label: "character", values: ["1", "2", "3", "4"] },
-  { label: "voice", values: [false, true, true, true] },
-  { label: "personality", values: [false, true, true, true] },
-  { label: "reminder", values: [false, true, true, true] },
-  { label: "connect", values: [true, true, true, true] },
-  { label: "dayLimit", values: ["2", "8", "12", "24"] },
-];
 
 const FEE_RE = /^\$([\d.]+) yr \/ \$([\d.]+) mo$/;
 
@@ -263,6 +191,16 @@ function PlanTable({
 }
 
 export default function PlansContent() {
+  const cms = useContentAdapter();
+  const tablet = cms.snapshot.plans.find(plan => plan.group === "tablet")!;
+  const pal = cms.snapshot.plans.find(plan => plan.group === "ola")!;
+  const tabletCols = tablet.tiers, palCols = pal.tiers;
+  const tabletRows = tablet.rows.map(row => ({label:row.id,values:row.values}));
+  const palRows = pal.rows.map(row => ({label:row.id,values:row.values}));
+  const hardware = (["tablet","ola","print","nest"] as const).map((id,index) => {
+    const product = cms.snapshot.products[id];
+    return {name:product.name,price:product.price.kind === "usd" ? String(product.price.amount) : null,img:cms.url(product.image),href:product.href,imageFit:["cover","contain-ola","contain-print","cover"][index],blurbKey:["tabletBlurb","palBlurb","printBlurb","nestBlurb"][index]};
+  });
   const t = useTranslations("Plans");
   const [billing, setBilling] = useState<Billing>("yearly");
   const labels: Labels = {

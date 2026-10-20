@@ -1,4 +1,5 @@
 "use client";
+import {useContentAdapter} from "@/components/content/useContentAdapter";
 import {homeMotionQuery} from "./responsiveLayout";
 
 import { useEffect, useRef, type ReactNode } from "react";
@@ -15,6 +16,7 @@ gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 /** Native scrolling drives the current opening at every desktop aspect ratio. */
 export default function HomeMotion({ children }: { children: ReactNode }) {
+  const cms = useContentAdapter();
   const root = useRef<HTMLElement>(null);
   useEffect(() => {
     window.dispatchEvent(new Event("lumiq:home-enter"));
@@ -26,7 +28,7 @@ export default function HomeMotion({ children }: { children: ReactNode }) {
       const releasePosition = root.current ? mountHomePosition(root.current) : () => {};
       const releaseImages = root.current ? preloadScenes(root.current) : () => {};
       const releaseOpening = root.current
-        ? mountOpeningVideo(root.current)
+        ? mountOpeningVideo(root.current, cms.slot("asset_a4b2063e90484449").url, [cms.slot("asset_76a5de3f207ca5bb").url,cms.slot("asset_d11e4e878cf13138").url], cms.preview)
         : () => {};
       // Opening layout is reserved before the horizontal product floor is measured.
       const releaseProducts = root.current
@@ -123,7 +125,7 @@ export default function HomeMotion({ children }: { children: ReactNode }) {
         releaseOpening();
       };
     },
-    { scope: root },
+    { scope: root, dependencies: [cms], revertOnUpdate: true },
   );
   return (
     <main ref={root} id="main-content" className="lh-home" data-home-state="open" tabIndex={-1}>

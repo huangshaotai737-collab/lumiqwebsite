@@ -1,4 +1,4 @@
-.members-page { padding: 132px 24px 88px; color: #152439; background: #f4f4fb url('/assets/subpage-backgrounds-20260918-clean/faq-flow-clean.webp') center / cover fixed; }
+.members-page { padding: 132px 24px 88px; color: #152439; background: #f4f4fb var(--cms-asset_1adb9be602d046aa, url('/assets/subpage-backgrounds-20260918-clean/faq-flow-clean.webp')) center / cover fixed; }
 .members-shell { max-width: 1220px; margin-inline: auto; }
 .members-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 24px; margin-bottom: 28px; }
 .members-heading h1 { font-size: clamp(32px, 3.5vw, 48px); line-height: 1.2; margin: 10px 0 14px; }

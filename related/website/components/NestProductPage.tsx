@@ -1,33 +1,35 @@
 "use client";
+import {useContentAdapter} from "@/components/content/useContentAdapter";
 
 import { useState } from "react";
 import { useTranslations } from "next-intl";
 import ProductDetailTemplate from "@/components/ProductDetailTemplate";
 
 export default function NestProductPage() {
+  const cms = useContentAdapter();
   const t = useTranslations("Nest");
   const finishes = [
     {
       id: "oak",
       name: t("oak"),
-      image: "/assets/web/nest15-oak-angle.webp",
-      front: "/assets/web/nest15-oak-front.webp",
+      image: cms.url("/assets/web/nest15-oak-angle.webp"),
+      front: cms.url("/assets/web/nest15-oak-front.webp"),
       note: t("oakNote"),
       swatch: "#c79a62",
     },
     {
       id: "walnut",
       name: t("walnut"),
-      image: "/assets/web/nest15-walnut-angle.webp",
-      front: "/assets/web/nest15-walnut-front.webp",
+      image: cms.url("/assets/web/nest15-walnut-angle.webp"),
+      front: cms.url("/assets/web/nest15-walnut-front.webp"),
       note: t("walnutNote"),
       swatch: "#4a2b20",
     },
     {
       id: "black",
       name: t("black"),
-      image: "/assets/web/nest15-black-angle.webp",
-      front: "/assets/web/nest15-black-front.webp",
+      image: cms.url("/assets/web/nest15-black-angle.webp"),
+      front: cms.url("/assets/web/nest15-black-front.webp"),
       note: t("blackNote"),
       swatch: "#17191d",
     },
@@ -83,7 +85,7 @@ export default function NestProductPage() {
         title: `${t("less")} ${t("more")}`,
         body: t("sharedBody"),
         image: {
-          src: "/assets/nest-detail/generated/nest-family-kitchen-v2.png",
+          src: cms.url("/assets/nest-detail/generated/nest-family-kitchen-v2.png"),
           alt: t("landscapeAlt"),
         },
         bullets: [t("shared1"), t("shared2"), t("shared3")],
@@ -109,7 +111,7 @@ export default function NestProductPage() {
           body: t(`f${number}Body`),
         })),
         image: {
-          src: "/assets/nest-detail/generated/nest-routine-closeup-v2.png",
+          src: cms.url("/assets/nest-detail/generated/nest-routine-closeup-v2.png"),
           alt: t("portraitAlt"),
         },
       }}
@@ -122,7 +124,7 @@ export default function NestProductPage() {
           body: t(`f${number}Body`),
         })),
         image: {
-          src: "/assets/web/nest15-rear.webp",
+          src: cms.url("/assets/web/nest15-rear.webp"),
           alt: t("portraitAlt"),
           fit: "contain",
         },

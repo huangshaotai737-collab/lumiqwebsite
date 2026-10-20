@@ -1,10 +1,13 @@
-import type {Metadata} from "next";
+import {readContentAdapter} from "@/lib/content/server-adapter";
 import NestProductPage from "@/components/NestProductPage";
 
-export const metadata: Metadata = {
-  title: "Lumiq Orb — Smart Family Calendar",
-  description: "A calm 15.6-inch family display for shared calendars, routines, weather, reminders, and everyday moments.",
+export async function generateMetadata() {
+  const cms = await readContentAdapter();
+  return {
+  title: cms.text("field_0371e492c69032cf"),
+  description: cms.text("field_a697abdfe99b8f83"),
 };
+}
 
 export default function NestPage() {
   return <NestProductPage />;

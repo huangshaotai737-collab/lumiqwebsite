@@ -14,5 +14,7 @@ export default async function ContentDraftPage({ params }: { params: Promise<{ i
   const [actor, draft] = data;
   const fields = contentFields.filter(field => field.editable && (actor.role === 'admin' || !field.adminOnly))
     .map(({ path, pages, type, maxLength, icuSignature, mediaPurpose }) => ({ path, pages, type, maxLength, icuSignature, mediaPurpose }));
-  return <ContentEditor initial={draft} fields={fields} admin={actor.role === 'admin'} legacyMedia={Object.fromEntries(Object.entries(initialSnapshot.media).map(([key, slot]) => [key, slot.url]))} />;
+  let websiteOrigin: string | null = null;
+  try { const configured = new URL(process.env.WEBSITE_ORIGIN || ''); if (['http:','https:'].includes(configured.protocol) && !configured.username && !configured.password && configured.pathname === '/' && !configured.search && !configured.hash) websiteOrigin=configured.origin; } catch { /* Missing deployment configuration disables the entry. */ }
+  return <ContentEditor websiteOrigin={websiteOrigin} initial={draft} fields={fields} admin={actor.role === 'admin'} legacyMedia={Object.fromEntries(Object.entries(initialSnapshot.media).map(([key, slot]) => [key, slot.url]))} />;
 }

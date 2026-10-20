@@ -165,7 +165,7 @@ html:has(.lh-home) {
   pointer-events: none;
   z-index: -1;
   inset: 0;
-  background: url("/assets/home-interactive/pearl-light.webp") center/cover
+  background: var(--cms-asset_b0fc987be9c43a11, url("/assets/home-interactive/pearl-light.webp")) center/cover
     no-repeat;
   mask-image: linear-gradient(180deg, #000 70%, transparent);
 }

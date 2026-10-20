@@ -47,7 +47,7 @@ test('lineup shows side previews and changes only from card interactions', async
 
   await stage.hover();
   const scrollBeforeCardWheel = await page.evaluate(() => window.scrollY);
-  await page.mouse.wheel(0, 120);
+  await page.mouse.wheel(120, 0);
   await expect(stage).not.toHaveAttribute('aria-labelledby', initial!);
   expect(await page.evaluate(() => window.scrollY)).toBe(scrollBeforeCardWheel);
 
@@ -97,7 +97,7 @@ test('the next card travels into the center with its product image fully visible
     };
     requestAnimationFrame(capture);
   }));
-  await page.mouse.wheel(0, 120);
+  await page.mouse.wheel(120, 0);
   await expect.poll(() => incoming!.evaluate((card) => card.classList.contains('prod-stage'))).toBe(true);
   const positions = await travelSamples;
   const after = await incoming!.boundingBox();

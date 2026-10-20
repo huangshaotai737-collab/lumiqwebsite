@@ -7,7 +7,7 @@ import type { ContentDraft, ContentResult, FieldIssue } from './service';
 import type { ContentSnapshot } from '@/lib/generated/platform/content';
 const groups = { messages: '三语文案', products: '产品', plans: '方案', media: '素材引用', settings: '系统设置' };
 const errors = { CONFLICT: '草稿版本冲突。当前输入已保留，请下载冲突副本，再载入最新草稿后合并。', FORBIDDEN: '当前账号无操作权限。', UNAUTHENTICATED: '登录已过期，请重新登录。', INVALID_INPUT: '内容校验未通过，请修正下列字段。', UNAVAILABLE: '服务暂不可用，当前输入已保留。', RATE_LIMITED: '操作过于频繁，请稍后重试。', NOT_FOUND: '草稿不存在。' };
-export function ContentEditor({ initial, fields, admin, legacyMedia }: { initial: ContentDraft; fields: EditorField[]; admin: boolean; legacyMedia: Record<string, string> }) {
+export function ContentEditor({ initial, fields, admin, legacyMedia, websiteOrigin }: { initial: ContentDraft; fields: EditorField[]; admin: boolean; legacyMedia: Record<string, string>; websiteOrigin?: string | null }) {
   const [snapshot, setSnapshot] = useState(initial.snapshot);
   // Freeze text-search matches while editing so an active field does not disappear mid-sentence.
   const [searchSnapshot, setSearchSnapshot] = useState(initial.snapshot);
@@ -86,8 +86,10 @@ export function ContentEditor({ initial, fields, admin, legacyMedia }: { initial
     <p>正文按文本保存，保留原有格式变量。保存草稿不会改变官网。</p>
     <div className="content-toolbar"><button className="primary-button" disabled={busy} onClick={() => operate('save')}>保存草稿</button>
       <button disabled={busy || dirty} onClick={() => operate('submit')}>提交审核</button>
+      {websiteOrigin ? <a href={`${websiteOrigin}/${locale}/preview/${initial.id}?page=${encodeURIComponent(selectedPage.startsWith('/') ? selectedPage : '/')}`} target="_blank" rel="noopener noreferrer">预览已保存草稿</a> : <span>官网预览地址尚未配置</span>}
       {admin && <button disabled={busy || dirty} onClick={() => operate('publish')}>发布当前版本</button>}
     </div>
+    <p>预览需要在官网独立登录有效员工账号；仅显示已保存版本。</p>
     <p role="status" aria-live="polite">{message}</p>
     {error && <section role="alert" className="notice"><p>{error}</p>{issues.length > 0 && <ul>{issues.map((issue, index) => <li key={`${issue.path}-${index}`}><button disabled={busy} onClick={() => locate(issue.path)} aria-label={`定位 ${issue.path}`}>{issue.path}</button>：{issue.message}</li>)}</ul>}</section>}
     {conflict && <div className="content-toolbar"><button onClick={download}>下载冲突副本</button><button disabled={busy} onClick={loadLatest}>载入最新草稿</button></div>}

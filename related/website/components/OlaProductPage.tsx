@@ -1,9 +1,11 @@
 "use client";
+import {useContentAdapter} from "@/components/content/useContentAdapter";
 
 import { useTranslations } from "next-intl";
 import ProductDetailTemplate from "@/components/ProductDetailTemplate";
 
 export default function OlaProductPage() {
+  const cms = useContentAdapter();
   const t = useTranslations("Pal");
 
   return (
@@ -19,7 +21,7 @@ export default function OlaProductPage() {
       priceLabel="USD 599"
       ctaLabel={t("buy")}
       heroImage={{
-        src: "/assets/web/ola-hero-front.webp",
+        src: cms.url("/assets/web/ola-hero-front.webp"),
         alt: t("deviceAlt"),
         fit: "contain",
         position: "center",
@@ -29,7 +31,7 @@ export default function OlaProductPage() {
         title: t("magic"),
         body: t("magicBody"),
         image: {
-          src: "/assets/western-scenes-20260908/ola-family-kitchen-v2.webp",
+          src: cms.url("/assets/western-scenes-20260908/ola-family-kitchen-v2.webp"),
           alt: t("adultsAlt"),
         },
         noteTitle: t("synced"),
@@ -44,7 +46,7 @@ export default function OlaProductPage() {
           body: t("kidsBody"),
           bullets: [t("kids1"), t("kids2"), t("kids3")],
           image: {
-            src: "/assets/western-scenes-20260908/ola-bedtime-story-v2.webp",
+            src: cms.url("/assets/western-scenes-20260908/ola-bedtime-story-v2.webp"),
             alt: t("kidsAlt"),
           },
         },
@@ -54,7 +56,7 @@ export default function OlaProductPage() {
           body: t("adultsBody"),
           bullets: [t("adults1"), t("adults2"), t("adults3")],
           image: {
-            src: "/assets/western-scenes-20260908/ola-senior-reminder-v2.webp",
+            src: cms.url("/assets/western-scenes-20260908/ola-senior-reminder-v2.webp"),
             alt: t("adultsAlt"),
           },
         },
@@ -67,7 +69,7 @@ export default function OlaProductPage() {
           body: t(`way${number}Body`),
         })),
         image: {
-          src: "/assets/home-products-refined-20260907/ola-repaired.webp",
+          src: cms.url("/assets/home-products-refined-20260907/ola-repaired.webp"),
           alt: t("deviceAlt"),
           fit: "contain",
         },
@@ -81,7 +83,7 @@ export default function OlaProductPage() {
           body: t(`sb${number}`),
         })),
         image: {
-          src: "/assets/ola-detail/original-20260915/ola-high-angle-crop.png",
+          src: cms.url("/assets/ola-detail/original-20260915/ola-high-angle-crop.png"),
           alt: t("deviceAlt"),
           fit: "contain",
         },

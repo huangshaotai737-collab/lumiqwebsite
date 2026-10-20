@@ -122,7 +122,7 @@ describe('content import', () => {
     const app = path.join(fixture, 'related/website');
     const root = path.resolve('../..');
     try {
-      const files = [...fieldManifest.sourceFiles, 'scripts/export-initial-content.mjs', 'messages/en.json', 'messages/zh-hant.json', 'messages/ja.json', 'lib/content/initial-snapshot.json', 'lib/content/field-manifest.json'];
+      const files = [...fieldManifest.sourceFiles, 'scripts/export-initial-content.mjs', 'scripts/verify-content-adapters.mjs', 'lib/content/source-adapters.json', 'lib/content/media-map.json', 'components/content/ContentImage.tsx', 'messages/en.json', 'messages/zh-hant.json', 'messages/ja.json', 'lib/content/initial-snapshot.json', 'lib/content/field-manifest.json'];
       for (const file of files) { mkdirSync(path.dirname(path.join(app, file)), { recursive: true }); cpSync(file, path.join(app, file)); }
       for (const file of ['contracts/content-icu.ts', 'contracts/content-policy.ts', 'related/admin/features/content/field-manifest.json', 'related/admin/features/content/initial-snapshot.json']) {
         mkdirSync(path.dirname(path.join(fixture, file)), { recursive: true }); cpSync(path.join(root, file), path.join(fixture, file));
@@ -139,7 +139,7 @@ describe('content import', () => {
       const stale = run(); expect(stale.status).toBe(1); expect(stale.stderr).toContain('Stale content export');
       cpSync('lib/content/initial-snapshot.json', path.join(app, 'lib/content/initial-snapshot.json'));
       const contact = path.join(app, 'app/contact/page.tsx');
-      writeFileSync(contact, readFileSync(contact, 'utf8').replace('hello@lumiqstudio.com', ''));
+      writeFileSync(contact, readFileSync(contact, 'utf8').replace('cms.text("field_23cd241d015790f4")', '""'));
       const removed = run(); expect(removed.status).toBe(1); expect(removed.stderr).toContain('Refusing to discard');
     } finally { rmSync(fixture, { recursive: true, force: true }); }
   });
@@ -148,7 +148,7 @@ describe('content import', () => {
     const paths = ['lib/content/initial-snapshot.json', 'lib/content/field-manifest.json', '../../contracts/content-policy.ts'];
     const before = paths.map(path => readFileSync(path, 'utf8'));
     execFileSync(process.execPath, ['scripts/export-initial-content.mjs']);
-    execFileSync(process.execPath, ['scripts/export-initial-content.mjs', '--check']);
+    execFileSync(process.execPath, ['scripts/export-initial-content.mjs', 'scripts/verify-content-adapters.mjs', 'lib/content/source-adapters.json', 'lib/content/media-map.json', 'components/content/ContentImage.tsx', '--check']);
     expect(paths.map(path => readFileSync(path, 'utf8'))).toEqual(before);
   });
 });

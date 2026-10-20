@@ -20,7 +20,7 @@
 .lumiq-root .prod-page { --stable-page-bg: var(--prod-flow-bg); }
 .lumiq-root main.product-detail-light {
   --stable-page-base: #fbfbfe;
-  --stable-page-bg: url('/assets/subpage-backgrounds-20260915/generated-set-02/flow-01-low-arc.webp');
+  --stable-page-bg: var(--cms-asset_51f05a7e73f89c59, url('/assets/subpage-backgrounds-20260915/generated-set-02/flow-01-low-arc.webp'));
   --pd-ink: #152439;
   --pd-muted: #526174;
   --pd-line: rgba(21,36,57,.18);
@@ -53,7 +53,7 @@
 }
 .lumiq-root .members-page {
   --stable-page-base: #fbfbfe;
-  --stable-page-bg: url('/assets/subpage-backgrounds-20260915/generated-set-02/flow-03-open-loop.webp');
+  --stable-page-bg: var(--cms-asset_28eedc556a91dfad, url('/assets/subpage-backgrounds-20260915/generated-set-02/flow-03-open-loop.webp'));
 }
 .lumiq-root .members-heading { color: #081321; }
 .lumiq-root .members-heading :is(h1,.members-eyebrow) { color: #152439; }
