@@ -30,7 +30,9 @@ it('requires exact role, UUID and boolean for staff mutations', () => {
 });
 it('returns only boolean integration status and never server secret values', () => {
   vi.stubEnv('SUPABASE_SECRET_KEY', 'secret-sentinel');
-  vi.stubEnv('RESEND_API_KEY', 'mail-sentinel');
+  vi.stubEnv('SMTP_HOST', 'host-sentinel');
+  vi.stubEnv('SMTP_USER', 'user-sentinel');
+  vi.stubEnv('SMTP_PASSWORD', 'password-sentinel');
   const status = configurationStatus();
   expect(
     Object.values(status).every((value) => typeof value === 'boolean'),

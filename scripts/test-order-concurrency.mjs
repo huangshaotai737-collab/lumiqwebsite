@@ -4,7 +4,7 @@ if (!process.argv.includes("--local-test-only"))
   throw new Error("LOCAL_TEST_ONLY_REQUIRED");
 const env = {
   ...process.env,
-  DOCKER_HOST: "unix:///Users/huangshaotai/.colima/lumiq-platform/docker.sock",
+  ...(process.env.DOCKER_HOST ? {DOCKER_HOST:process.env.DOCKER_HOST} : {}),
 };
 let result;
 try {

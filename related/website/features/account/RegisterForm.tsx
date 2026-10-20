@@ -1,5 +1,5 @@
 'use client';
-import {useState, type FormEvent} from 'react';
+import {useEffect, useState, type FormEvent} from 'react';
 import type {Locale} from '@/lib/generated/platform/core';
 import {accountCopy, accountError} from './copy';
 
@@ -8,6 +8,8 @@ export function RegisterForm({locale, configured, next}: {locale:Locale; configu
   const [message, setMessage] = useState(t.verify);
   const [pending, setPending] = useState(false);
 
+  const [ready, setReady] = useState(false);
+  useEffect(() => setReady(true), []);
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setPending(true);
@@ -26,11 +28,11 @@ export function RegisterForm({locale, configured, next}: {locale:Locale; configu
   }
 
   return (
-    <form className="members-panel account-form" onSubmit={submit}>
+    <form method="POST" className="members-panel account-form" onSubmit={submit}>
       <p role="status">{configured ? message : t.unavailable}</p>
       <label>{t.email}<input name="email" type="email" required maxLength={254} autoComplete="email"/></label>
       <label>{t.password}<input name="password" type="password" required minLength={8} maxLength={1024} autoComplete="new-password"/></label>
-      <button className="members-primary" disabled={!configured || pending}>{pending ? t.pending : t.register}</button>
+      <button className="members-primary" disabled={!ready || !configured || pending}>{pending ? t.pending : t.register}</button>
       <a href={`/${locale}/login`}>{t.signIn}</a>
       <a href={`/${locale}/reset-password`}>{t.reset}</a>
     </form>

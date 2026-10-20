@@ -8,11 +8,13 @@ const local = parseEnv(
     process.env.LUMIQ_TEST_ENV_FILE ||
       path.resolve(
         __dirname,
-        "../../../../.superpowers/sdd/2026-10-20-lumiq-admin-platform/a3.env",
+        "../../../../.lumiq-local/test.env",
       ),
     "utf8",
   ),
 );
+if (local.API_URL && local.API_URL !== 'http://127.0.0.1:54321') throw Error('Only synthetic local backend is allowed');
+
 const backend = createClient(local.API_URL!, local.SERVICE_ROLE_KEY!, {
   auth: { persistSession: false, autoRefreshToken: false },
 });
@@ -197,6 +199,15 @@ test("real signup, dedup, staff permissions, notes, versions, CSV and audit", as
   await page.getByRole("button", { name: "保存备注" }).click();
   await expect(page.getByText("备注已保存。", { exact: true })).toBeVisible();
   await expect(page.getByText("运营跟进备注", { exact: true })).toBeVisible();
+  let releaseNote!: () => void;
+  const noteGate=new Promise<void>(resolve=>{releaseNote=resolve;});
+  await page.route("**/api/customers/note",async route=>{await noteGate;await route.fulfill({status:503,contentType:'application/json',body:JSON.stringify({ok:false,error:'UNAVAILABLE'})});});
+  await page.getByLabel("新增内部备注（最多2000字）").fill("未提交的备注仍保留");
+  await page.getByRole("button",{name:"保存备注"}).click();
+  try {await expect(page.getByLabel("新增内部备注（最多2000字）")).toBeDisabled();}finally{releaseNote();}
+  await expect(page.getByText("保存失败，请检查权限或稍后重试。")).toBeVisible();
+  await expect(page.getByLabel("新增内部备注（最多2000字）")).toHaveValue("未提交的备注仍保留");
+  await page.unroute("**/api/customers/note");
   const memberToken = await createClient(local.API_URL!, local.ANON_KEY!, {
     auth: { persistSession: false },
   }).auth.signInWithPassword({ email: users.member.email, password });
@@ -265,16 +276,20 @@ test("real signup, dedup, staff permissions, notes, versions, CSV and audit", as
   ).toBeVisible();
   await expect(page.getByRole("cell", { name: email })).toBeVisible();
   await page.unroute("**/api/waitlist/list?**");
-  await page.route("**/api/waitlist/update", (route) =>
-    route.fulfill({
-      status: 503,
-      contentType: "application/json",
-      body: JSON.stringify({ ok: false, error: "UNAVAILABLE" }),
-    }),
-  );
+  let releaseSave!: () => void;
+  const saveGate = new Promise<void>(resolve => {releaseSave=resolve;});
+  await page.route("**/api/waitlist/update", async route => {
+    await saveGate;
+    await route.fulfill({status:503,contentType:"application/json",body:JSON.stringify({ok:false,error:"UNAVAILABLE"})});
+  });
   await page.getByLabel(`备注 ${email}`).fill("unsaved");
-  await page.getByRole("button", { name: "保存处理" }).click();
+  await page.getByRole("button", {name:"保存处理"}).click();
+  try {
+    await expect(page.getByLabel(`备注 ${email}`)).toBeDisabled();
+    await expect(page.getByLabel(`状态 ${email}`)).toBeDisabled();
+  } finally {releaseSave();}
   await expect(page.getByText("保存失败，请重试。")).toBeVisible();
+  await expect(page.getByLabel(`备注 ${email}`)).toHaveValue("unsaved");
   await page.unroute("**/api/waitlist/update");
   await login(page.context(), "admin");
   expect(

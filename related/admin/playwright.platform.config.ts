@@ -2,31 +2,25 @@ import { defineConfig, devices } from '@playwright/test';
 import { readFileSync } from 'node:fs';
 import { parseEnv } from 'node:util';
 import path from 'node:path';
-const media = process.argv.some(value => value.includes('media-library.spec')) || process.env.LUMIQ_MEDIA_E2E === '1';
-if (media) process.env.LUMIQ_MEDIA_E2E = '1';
-const content = process.argv.some(value => value.includes('content-editor.spec')) || process.env.LUMIQ_CONTENT_E2E === '1';
-if (content) process.env.LUMIQ_CONTENT_E2E = '1';
-const team =
-  process.argv.some((value) => value.includes('team.spec')) ||
-  process.env.LUMIQ_TEAM_E2E === '1';
-if (team) process.env.LUMIQ_TEAM_E2E = '1';
-const auth =
-  media || content || team ||
-  process.argv.some((value) => value.includes('staff-session.spec')) ||
-  process.env.LUMIQ_AUTH_E2E === '1';
-if (auth) process.env.LUMIQ_AUTH_E2E = '1';
+const suite = process.env.LUMIQ_PLATFORM_SUITE || 'shell';
+if (!['shell','auth','team','content','media'].includes(suite)) throw Error('Unknown platform suite');
+const media = suite === 'media', content = suite === 'content', team = suite === 'team';
+const auth = suite !== 'shell';
+if (auth) process.env.LUMIQ_AUTH_E2E='1';
 const local = auth
   ? parseEnv(
       readFileSync(
         process.env.LUMIQ_TEST_ENV_FILE ||
           path.resolve(
             __dirname,
-            '../../.superpowers/sdd/2026-10-20-lumiq-admin-platform/a3.env',
+            '../../.lumiq-local/test.env',
           ),
         'utf8',
       ),
     )
   : {};
+if (local.API_URL && local.API_URL !== 'http://127.0.0.1:54321') throw Error('Only synthetic local backend is allowed');
+
 const credentials = {
   NEXT_PUBLIC_SUPABASE_URL: auth ? local.API_URL! : '',
   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: auth ? local.ANON_KEY! : '',
@@ -39,7 +33,7 @@ const credentials = {
     : '',
   REQUEST_IP_HEADER: auth ? 'x-real-ip' : '',
   MEDIA_STORAGE_MAX_BYTES: '52428800',
-  MEDIA_FFPROBE_PATH: '/opt/homebrew/bin/ffprobe',
+  MEDIA_FFPROBE_PATH: process.env.MEDIA_FFPROBE_PATH || 'ffprobe',
   NEXT_TELEMETRY_DISABLED: '1',
 };
 export default defineConfig({
@@ -48,7 +42,7 @@ export default defineConfig({
     ? '**/team.spec.ts'
     : auth
       ? '**/staff-session.spec.ts'
-      : '**/shell.spec.ts',
+      : ['**/shell.spec.ts','**/admin-responsive.spec.ts'],
   fullyParallel: !auth,
   forbidOnly: Boolean(process.env.CI),
   retries: 0,
@@ -87,11 +81,11 @@ export default defineConfig({
     : auth
       ? [
           {
-            command: 'npx next dev --hostname 127.0.0.1 --port 4253',
+            command: 'node ../../scripts/start-team-admin-test.mjs',
             url: 'http://127.0.0.1:4253/login',
             reuseExistingServer: false,
             timeout: 120_000,
-            env: { ...credentials, APP_ORIGIN: 'http://127.0.0.1:4253' },
+            env: { ...credentials, A4_TEST_PORT: '4253', APP_ORIGIN: 'http://127.0.0.1:4253' },
           },
           {
             command: 'node ../../scripts/start-auth-website-test.mjs',
@@ -102,10 +96,10 @@ export default defineConfig({
           },
         ]
       : {
-          command: 'npm run dev',
+          command: 'node ../../scripts/start-team-admin-test.mjs',
           url: 'http://127.0.0.1:4250',
           reuseExistingServer: false,
           timeout: 120_000,
-          env: { ...credentials, APP_ORIGIN: '' },
+          env: { ...credentials, A4_TEST_PORT: '4250', APP_ORIGIN: '' },
         },
 });

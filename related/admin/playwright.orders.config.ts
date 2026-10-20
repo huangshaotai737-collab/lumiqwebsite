@@ -7,11 +7,13 @@ const local = parseEnv(
     process.env.LUMIQ_TEST_ENV_FILE ||
       path.resolve(
         __dirname,
-        "../../.superpowers/sdd/2026-10-20-lumiq-admin-platform/a3.env",
+        "../../.lumiq-local/test.env",
       ),
     "utf8",
   ),
 );
+if (local.API_URL && local.API_URL !== 'http://127.0.0.1:54321') throw Error('Only synthetic local backend is allowed');
+
 export default defineConfig({
   testDir: "./tests/e2e",
   testMatch: "order-operations.spec.ts",

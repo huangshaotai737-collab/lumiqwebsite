@@ -3,7 +3,9 @@ import { createClient } from '@supabase/supabase-js';
 import { readFileSync } from 'node:fs';
 import { parseEnv } from 'node:util';
 import path from 'node:path';
-const local = parseEnv(readFileSync(process.env.LUMIQ_TEST_ENV_FILE || path.resolve(__dirname,'../../../../.superpowers/sdd/2026-10-20-lumiq-admin-platform/a3.env'),'utf8'));
+const local = parseEnv(readFileSync(process.env.LUMIQ_TEST_ENV_FILE || path.resolve(__dirname,'../../../../.lumiq-local/test.env'),'utf8'));
+if (local.API_URL && local.API_URL !== 'http://127.0.0.1:54321') throw Error('Only synthetic local backend is allowed');
+
 const backend = createClient(local.API_URL!,local.SERVICE_ROLE_KEY!,{auth:{persistSession:false,autoRefreshToken:false}});
 const publicClient = () => createClient(local.API_URL!,local.ANON_KEY!,{auth:{persistSession:false,autoRefreshToken:false}});
 const password = `Synthetic-${crypto.randomUUID()}!`;
@@ -159,4 +161,11 @@ test('ssr_refreshes_and_persists_real_auth_cookies_then_rejects_expired_refresh'
   expect((await context.request.get('/api/session')).status()).toBe(401);
   await page.goto('/');
   await expect(page.getByRole('status')).toContainText('登录已过期');
+});
+
+test('permission-response counterexample rejects an injected success',async({page})=>{
+ await page.goto('/login');
+ if(process.env.LUMIQ_REGRESSION_FAULT==='unauthorized-success') await page.route('**/api/session',route=>route.fulfill({status:200,contentType:'application/json',body:JSON.stringify({ok:true,data:{role:'admin'}})}));
+ const status=await page.evaluate(async()=> (await fetch('/api/session',{cache:'no-store'})).status);
+ expect(status).toBe(401);
 });

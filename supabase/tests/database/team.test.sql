@@ -72,7 +72,7 @@ select lives_ok($$select public.change_staff_membership('40000000-0000-4000-8000
 reset role;
 select ok(not has_function_privilege('authenticated','public.bootstrap_staff_admin(text)','execute'),'clients cannot bootstrap');
 select ok(not has_function_privilege('service_role','private.append_audit(text,text,uuid,jsonb)','execute'),'service cannot forge audit');
-select is((select count(*)::int from public.audit_events where action='team.changed'),1,'role change audited once');
+select is((select count(*)::int from public.audit_events where action='team.changed' and actor_id='40000000-0000-4000-8000-000000000001' and entity_id='40000000-0000-4000-8000-000000000002'),1,'this role change audited once despite retained history');
 select set_config('request.jwt.claims','{"sub":"40000000-0000-4000-8000-000000000001","role":"authenticated"}',true);
 set local role authenticated;
 select public.create_staff_invite('team-other@example.test','editor',repeat('d',64)) as resend_old \gset

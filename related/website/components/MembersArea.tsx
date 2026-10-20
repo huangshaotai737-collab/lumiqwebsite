@@ -13,6 +13,7 @@ export default function MembersArea({locale, profile}: {locale:Locale; profile:A
   const cms = useContentAdapter();
   const t = accountCopy[locale];
   const [section, setSection] = useState<'profile' | 'devices'>('profile');
+  const [savedProfile, setSavedProfile] = useState(profile);
   const devices = [
     {id:'ola', name:cms.text("field_8bec1f33f31dd9ab"), image:cms.url("/assets/web/ola-hero-front.webp")},
     {id:'tablet', name:cms.text("field_f714cbe4c6f70453"), image:cms.url("/assets/web/lumiq-tablet.webp")},
@@ -32,7 +33,7 @@ export default function MembersArea({locale, profile}: {locale:Locale; profile:A
           <nav className="members-sidebar" aria-label={t.members}>
             <div className="members-avatar">
               <span aria-hidden><UserRound/></span>
-              <div><strong>{profile.ok ? profile.data.displayName || t.title : t.signIn}</strong><small>{t.profile}</small></div>
+              <div><strong>{savedProfile.ok ? savedProfile.data.displayName || t.title : t.signIn}</strong><small>{t.profile}</small></div>
             </div>
             {([{id:'profile', icon:UserRound}, {id:'devices', icon:Tablet}] as const).map(({id, icon:Icon}) => (
               <button key={id} type="button" aria-pressed={section === id} onClick={() => setSection(id)}>
@@ -44,7 +45,7 @@ export default function MembersArea({locale, profile}: {locale:Locale; profile:A
           <section className="members-content" aria-labelledby="members-section-title">
             <div className="members-section-head"><Heading as="h2" id="members-section-title">{t[section]}</Heading></div>
             {section === 'profile' ? (
-              <AccountPanel locale={locale} initial={profile}/>
+              <AccountPanel locale={locale} initial={savedProfile} onProfileSaved={data => setSavedProfile({ok:true,data})}/>
             ) : (
               <>
                 <aside className="members-disclosure">{t.notConnected}</aside>

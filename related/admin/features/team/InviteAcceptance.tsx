@@ -1,4 +1,5 @@
 'use client';
+import {useHydrated} from '@/lib/use-hydrated';
 import { useSyncExternalStore, useState, type FormEvent } from 'react';
 import Link from 'next/link';
 const subscribe = (callback: () => void) => {
@@ -22,6 +23,7 @@ export function InviteAcceptance() {
   );
   const [pending, setPending] = useState(false);
   const [verified, setVerified] = useState(false);
+  const ready = useHydrated();
   async function signin(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setPending(true);
@@ -78,7 +80,7 @@ export function InviteAcceptance() {
   }
   return (
     <>
-      <form className="login-form" onSubmit={signin}>
+      <form method="POST" className="login-form" onSubmit={signin}>
         <label htmlFor="recipient-email">受邀邮箱</label>
         <input
           id="recipient-email"
@@ -97,7 +99,7 @@ export function InviteAcceptance() {
           required
           maxLength={1024}
         />
-        <button className="primary-button" disabled={pending || !invitation}>
+        <button className="primary-button" disabled={!ready || pending || !invitation}>
           验证账号
         </button>
       </form>
@@ -108,7 +110,7 @@ export function InviteAcceptance() {
       </p>
       <button
         className="primary-button"
-        disabled={pending || !invitation || !verified}
+        disabled={!ready || pending || !invitation || !verified}
         onClick={accept}
       >
         接受邀请

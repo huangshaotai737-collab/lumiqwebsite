@@ -62,7 +62,7 @@ export function PrivacyAction({ initial }: { initial: PrivacyWorkspace }) {
       {!workspace.enabled && (
         <p role="status">保留规则尚未由品牌确认，匿名化与恢复操作已关闭。</p>
       )}
-      <form
+      <form method="POST"
         className="content-field"
         onSubmit={(e) => {
           e.preventDefault();
@@ -93,13 +93,13 @@ export function PrivacyAction({ initial }: { initial: PrivacyWorkspace }) {
           />
           我已核对客户及保留范围，了解此清理不可撤销。
         </label>
-        <button disabled={!workspace.enabled || pending || !confirmed}>
+        <button className="primary-button" disabled={!workspace.enabled || pending || !confirmed}>
           匿名化客户资料
         </button>
       </form>
       <p role="status">{message}</p>
       <h3>匿名化任务</h3>
-      <form
+      <form method="POST" className="content-field"
         onSubmit={async (e) => {
           e.preventDefault();
           try {
@@ -118,10 +118,10 @@ export function PrivacyAction({ initial }: { initial: PrivacyWorkspace }) {
             onChange={(e) => setSearch(e.target.value)}
           />
         </label>
-        <button disabled={pending}>查询 / 刷新</button>
+        <button className="primary-button" disabled={pending}>查询 / 刷新</button>
       </form>
-      <div className="table-scroll" tabIndex={0}>
-        <table>
+      <div className="table-scroll team-list-scroll" tabIndex={0}>
+        <table className="team-list-table privacy-table">
           <thead>
             <tr>
               <th>任务 / 客户</th>
@@ -134,27 +134,23 @@ export function PrivacyAction({ initial }: { initial: PrivacyWorkspace }) {
           <tbody>
             {workspace.jobs.items.map((j) => (
               <tr key={j.id}>
-                <td>
-                  {j.id}
-                  <br />
-                  {j.userId}
-                </td>
-                <td>
+                <td data-label="任务 / 客户"><details><summary>任务 {j.id.slice(0,8)}… · 客户 {j.userId.slice(0,8)}…</summary><p>任务：{j.id}</p><p>客户：{j.userId}</p></details></td>
+                <td data-label="状态">
                   {
                     { pending: "待处理", failed: "失败", completed: "已完成" }[
                       j.status
                     ]
                   }
                 </td>
-                <td>
+                <td data-label="认证步骤">
                   禁用：{j.authBanned ? "已验证" : "未完成"}
                   <br />
                   联系资料：{j.authCleared ? "已验证" : "未完成"}
                 </td>
-                <td>{j.failureStep || "—"}</td>
-                <td>
+                <td data-label="失败步骤">{j.failureStep ? ({auth_ban:"暂停客户登录失败，请检查认证服务。",auth_contact:"认证联系资料未清理完成，请检查服务商或人工处理范围。",application:"应用资料清理失败，请恢复任务重试。"} as Record<string,string>)[j.failureStep] || "步骤未完成，请由管理员核查。" : "—"}</td>
+                <td data-label="状态">
                   {j.status !== "completed" && (
-                    <button
+                    <button className="secondary-button"
                       disabled={!workspace.enabled || pending}
                       onClick={() => void write({ jobId: j.id })}
                     >
@@ -171,7 +167,7 @@ export function PrivacyAction({ initial }: { initial: PrivacyWorkspace }) {
       <p>
         第 {workspace.jobs.page} 页，共 {workspace.jobs.total} 条
       </p>
-      <button
+      <button className="secondary-button"
         disabled={pending || workspace.jobs.page === 1}
         onClick={() =>
           read(workspace.jobs.page - 1).catch(() =>
@@ -181,7 +177,7 @@ export function PrivacyAction({ initial }: { initial: PrivacyWorkspace }) {
       >
         上一页
       </button>
-      <button
+      <button className="secondary-button"
         disabled={
           pending ||
           workspace.jobs.page * workspace.jobs.pageSize >= workspace.jobs.total

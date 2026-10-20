@@ -1,5 +1,5 @@
 'use client';
-import {useState, type FormEvent} from 'react';
+import {useEffect, useState, type FormEvent} from 'react';
 import type {Locale, Profile, ShippingAddress, ApiResult} from '@/lib/generated/platform/core';
 import {notifyAccountChange} from './session-event';
 import {orderCopy} from '@/features/orders/copy';
@@ -7,7 +7,7 @@ import {accountCopy, accountError} from './copy';
 
 const emptyAddress: ShippingAddress = {name:'', country:'', region:'', city:'', postalCode:'', line1:'', line2:'', phone:''};
 
-export function AccountPanel({locale, initial}: {locale:Locale; initial:ApiResult<Profile>}) {
+export function AccountPanel({locale, initial, onProfileSaved}: {locale:Locale; initial:ApiResult<Profile>; onProfileSaved?:(profile:Profile)=>void}) {
   const t = accountCopy[locale];
   const [profile, setProfile] = useState(initial.ok ? initial.data : null);
   const [address, setAddress] = useState(initial.ok && initial.data.shippingAddress ? initial.data.shippingAddress : emptyAddress);
@@ -16,6 +16,8 @@ export function AccountPanel({locale, initial}: {locale:Locale; initial:ApiResul
   const [pending, setPending] = useState(false);
   const [expired, setExpired] = useState(false);
 
+  const [ready, setReady] = useState(false);
+  useEffect(() => setReady(true), []);
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (!profile) return;
@@ -27,7 +29,7 @@ export function AccountPanel({locale, initial}: {locale:Locale; initial:ApiResul
       });
       const result = await response.json();
       setMessage(result.ok ? t.saved : accountError(locale, result.error));
-      if (result.ok) setProfile(result.data);
+      if (result.ok) { setProfile(result.data); onProfileSaved?.(result.data); }
       else if (result.error === 'UNAUTHENTICATED' || result.error === 'FORBIDDEN') {
         setExpired(true);
         setProfile(null);
@@ -61,7 +63,7 @@ export function AccountPanel({locale, initial}: {locale:Locale; initial:ApiResul
   const labels = {name:t.recipient, country:t.country, region:t.region, city:t.city, postalCode:t.postalCode, line1:t.line1, line2:t.line2, phone:t.phone};
   const limits = {name:120, country:2, region:120, city:120, postalCode:32, line1:500, line2:500, phone:40};
   return (
-    <form className="members-panel" onSubmit={submit}>
+    <form method="POST" className="members-panel" onSubmit={submit}>
       <p>{t.signedIn}</p>
       <a href={`/${locale}/members/orders`}>{orderCopy[locale].orders}</a>
       <label>{t.name}<input name="displayName" maxLength={120} value={profile.displayName} autoComplete="nickname" onChange={event => setProfile({...profile, displayName:event.target.value})}/></label>
@@ -87,8 +89,8 @@ export function AccountPanel({locale, initial}: {locale:Locale; initial:ApiResul
       )}
       <p role="status" aria-live="polite">{message}</p>
       <div className="members-form-actions">
-        <button className="members-primary" disabled={pending}>{pending ? t.pending : t.save}</button>
-        <button type="button" disabled={pending} onClick={signOut}>{t.signOut}</button>
+        <button className="members-primary" disabled={!ready || pending}>{pending ? t.pending : t.save}</button>
+        <button type="button" disabled={!ready || pending} onClick={signOut}>{t.signOut}</button>
         <a href={`/${locale}/reset-password`}>{t.reset}</a>
       </div>
     </form>

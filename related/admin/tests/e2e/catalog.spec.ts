@@ -4,16 +4,19 @@ import { readFileSync } from "node:fs";
 import { execFileSync } from "node:child_process";
 import { parseEnv } from "node:util";
 import path from "node:path";
+import {cleanupCatalog} from "../../../../scripts/tests/support/catalog-cleanup.mjs";
 const local = parseEnv(
   readFileSync(
     process.env.LUMIQ_TEST_ENV_FILE ||
       path.resolve(
         __dirname,
-        "../../../../.superpowers/sdd/2026-10-20-lumiq-admin-platform/a3.env",
+        "../../../../.lumiq-local/test.env",
       ),
     "utf8",
   ),
 );
+if (local.API_URL && local.API_URL !== 'http://127.0.0.1:54321') throw Error('Only synthetic local backend is allowed');
+
 const backend = createClient(local.API_URL!, local.SERVICE_ROLE_KEY!, {
   auth: { persistSession: false },
 });
@@ -42,8 +45,7 @@ function sql(query: string) {
       encoding: "utf8",
       env: {
         ...process.env,
-        DOCKER_HOST:
-          "unix:///Users/huangshaotai/.colima/lumiq-platform/docker.sock",
+        ...(process.env.DOCKER_HOST ? {DOCKER_HOST:process.env.DOCKER_HOST} : {}),
       },
     },
   ).trim();
@@ -71,14 +73,16 @@ test.beforeAll(async () => {
   }
 });
 test.afterAll(async () => {
-  sql(
-    `delete from public.order_items where order_id in(select id from public.customer_orders where user_id='${users.member.id}');delete from public.customer_orders where user_id='${users.member.id}';update public.catalog_offerings c set currency=s.currency,unit_minor=s.unit_minor,confirmed=s.confirmed,enabled=s.enabled,version=s.version from private.c3_browser_offerings s where c.id=s.id;update public.commerce_settings c set orders_enabled=s.orders_enabled,approved_terms_release_id=s.approved_terms_release_id,approved_terms_fingerprint=s.approved_terms_fingerprint,version=s.version from private.c3_browser_settings s where c.singleton=s.singleton;drop table private.c3_browser_offerings,private.c3_browser_settings;`,
-  );
-  for (const user of Object.values(users)) {
-    const r = await backend.auth.admin.deleteUser(user.id);
-    if (r.error) throw new Error("fixture cleanup failed");
-  }
+  await cleanupCatalog({users,
+    deleteOrders: (id: string) => { sql(`delete from public.order_items where order_id in(select id from public.customer_orders where user_id='${id}');delete from public.customer_orders where user_id='${id}';`); },
+    restore: () => { sql(`do $$begin if to_regclass('private.c3_browser_offerings') is not null then
+      update public.catalog_offerings c set currency=s.currency,unit_minor=s.unit_minor,confirmed=s.confirmed,enabled=s.enabled,version=s.version from private.c3_browser_offerings s where c.id=s.id;
+      update public.commerce_settings c set orders_enabled=s.orders_enabled,approved_terms_release_id=s.approved_terms_release_id,approved_terms_fingerprint=s.approved_terms_fingerprint,version=s.version from private.c3_browser_settings s where c.singleton=s.singleton;
+      drop table private.c3_browser_offerings,private.c3_browser_settings; end if; end$$;`); },
+    deleteUser: async (id: string) => {const result=await backend.auth.admin.deleteUser(id);if(result.error)throw Error('fixture cleanup failed');},
+  });
 });
+
 test("admin confirms synthetic SKU with version/origin guards; actual customer JWT orders are idempotent", async ({
   page,
 }) => {

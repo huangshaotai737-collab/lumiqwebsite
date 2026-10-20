@@ -50,8 +50,7 @@ export function createOrderFixtures({
         encoding: "utf8",
         env: {
           ...process.env,
-          DOCKER_HOST:
-            "unix:///Users/huangshaotai/.colima/lumiq-platform/docker.sock",
+          ...(process.env.DOCKER_HOST ? {DOCKER_HOST:process.env.DOCKER_HOST} : {}),
         },
       },
     ).trim();

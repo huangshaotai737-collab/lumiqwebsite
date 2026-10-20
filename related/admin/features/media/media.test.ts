@@ -1,3 +1,5 @@
+import { execFileSync } from 'node:child_process';
+const installedProbe = process.env.MEDIA_FFPROBE_PATH || execFileSync('which', ['ffprobe'], { encoding: 'utf8' }).trim();
 import { describe, expect, it, vi } from 'vitest';
 import { validateUpload, inspectMedia } from './validate';
 vi.mock('server-only', () => ({}));
@@ -26,7 +28,7 @@ vi.mock('@/lib/auth/server', () => ({ createClient: async () => ({ rpc: deps.rpc
 vi.mock('@supabase/supabase-js', () => ({ createClient: () => ({ storage: { getBucket: deps.bucket, from: () => ({ createSignedUploadUrl: deps.sign, info: deps.info, download: deps.download }) } }) }));
 beforeEach(() => {
   vi.resetAllMocks();
-  process.env.MEDIA_FFPROBE_PATH = '/opt/homebrew/bin/ffprobe';
+  process.env.MEDIA_FFPROBE_PATH = installedProbe;
   process.env.MEDIA_STORAGE_MAX_BYTES = '52428800';
   process.env.NEXT_PUBLIC_SUPABASE_URL = 'http://127.0.0.1:54321'; process.env.SUPABASE_SERVICE_ROLE_KEY = 'synthetic';
   deps.staff.mockResolvedValue({ userId: '70000000-0000-4000-8000-000000000001', role: 'editor' });

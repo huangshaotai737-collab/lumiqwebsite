@@ -104,3 +104,9 @@ CSV 导出忽略分页，覆盖当前搜索与状态筛选范围；超过10000�
 官网真实报名需要同时配置原有服务端Supabase存储和 `APP_ORIGIN`、共享 `REQUEST_LIMIT_SALT` 及可信IP入口策略；报名默认每IP每15分钟5次，缺少限流配置或数据库不可用时失败关闭。原有限流清理任务也清理新增的报名与导出计数；导出1小时窗口最多保留到到期后下一次15分钟清理。生产配置与真实存储仍须独立验收。
 
 本地专用浏览器贯通：`npm --prefix related/admin run test:e2e:operations`（读取忽略的本地合成凭据，隔离运行4262/4263，不使用正式预览进程）；SQL测试：`supabase test db supabase/tests/database/customer-operations.test.sql`。所有迁移仍由根目录 `supabase/migrations/` 唯一管理。
+
+## 独立后台本地交付（2026-10-20）
+
+后台实现位于 `related/admin/`，三语官网仍位于 `related/website/`。用户已批准全部实施任务；本分支未推送、未上线、未开通支付。详见 [验收状态](docs/admin/acceptance.md)、[本地启动与私有账号位置](docs/admin/operations.md)、[部署阻断项](docs/admin/deployment.md)、[依赖安全状态](docs/admin/security-status.md) 和 [逐项决策记录](docs/admin/decisions.md)。
+
+本地官网4211、后台4270由 `node scripts/local-preview.mjs start|stop|status` 管理；凭据仅保存在忽略的 `.lumiq-local/preview-credentials.json`。请勿把破坏性 setup 命令当成重启。统一验收 `node scripts/verify-platform.mjs` 在交付预览已初始化或有用户数据时会拒绝执行SQL/浏览器 fixture；再次完整验收需新的可丢弃源码副本和独立 Docker 环境。

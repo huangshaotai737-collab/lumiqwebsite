@@ -1,5 +1,5 @@
 import {readContentAdapter} from "@/lib/content/server-adapter";
-import {getLocale} from "next-intl/server";
+import {siteRequestLocale} from "@/components/content/SiteContentBoundary";
 import "./globals.css";
 import "./product-detail-template.css";
 import "./navigation.css";
@@ -17,7 +17,7 @@ import "./mobile-visual-refinement.css";
 import {htmlLang, type Locale} from "@/i18n/routing";
 
 export async function generateMetadata() {
-  const cms = await readContentAdapter();
+  const cms = await readContentAdapter({publishedOnly:true});
   return {
   title: {
     default: cms.text("field_e635317a912dfef3"),
@@ -40,7 +40,7 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const locale = (await getLocale()) as Locale;
+  const locale = (await siteRequestLocale()) as Locale;
 
   return (
     <html lang={htmlLang[locale] ?? "en"} suppressHydrationWarning>

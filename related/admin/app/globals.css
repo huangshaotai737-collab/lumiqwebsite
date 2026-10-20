@@ -113,3 +113,8 @@ dl>div { display:flex; gap:24px; margin:10px 0; } dd { margin:0; }
 .operations-table textarea { width:100%; min-width:0; max-width:100%; font:inherit; resize:vertical; border:1px solid #c6d2d8; border-radius:8px; padding:10px; }
 .operations-note { white-space:pre-wrap; overflow-wrap:anywhere; }
 @media(min-width:701px) { .operations-table td[data-label="内部备注"] { min-width:200px; } }
+
+.secondary-button { min-height:44px; padding:8px 14px; border:1px solid var(--line); border-radius:8px; background:white; color:var(--ink); font:inherit; cursor:pointer; }
+.privacy-table details { overflow-wrap:anywhere; }
+.privacy-table summary { cursor:pointer; }
+@media(max-width:700px) { .operations-toolbar { display:grid; grid-template-columns:minmax(0,1fr); } .operations-toolbar button { width:100%; } }

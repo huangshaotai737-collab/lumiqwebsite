@@ -2,7 +2,7 @@
 create extension if not exists dblink with schema extensions;
 drop function if exists private.a4_concurrent_demote(uuid);
 delete from auth.users where id in ('44000000-0000-4000-8000-000000000001','44000000-0000-4000-8000-000000000002');
-select plan(3);
+select plan(4);
 insert into auth.users(id,email,email_confirmed_at,is_anonymous) values
  ('44000000-0000-4000-8000-000000000001','race-admin1@example.test',now(),false),
  ('44000000-0000-4000-8000-000000000002','race-admin2@example.test',now(),false);
@@ -18,8 +18,18 @@ end$$;
 revoke all on function private.a4_concurrent_demote(uuid) from public,anon,authenticated,service_role;
 select extensions.dblink_connect('a4_race1','host=supabase_db_lumiq-platform dbname=postgres user=postgres password=postgres');
 select extensions.dblink_connect('a4_race2','host=supabase_db_lumiq-platform dbname=postgres user=postgres password=postgres');
+select pg_advisory_lock(7410404);
 select extensions.dblink_send_query('a4_race1',$$select private.a4_concurrent_demote('44000000-0000-4000-8000-000000000001')$$);
 select extensions.dblink_send_query('a4_race2',$$select private.a4_concurrent_demote('44000000-0000-4000-8000-000000000002')$$);
+do $$declare deadline timestamptz:=clock_timestamp()+interval '10 seconds'; begin
+ loop
+  exit when (select count(*) from pg_locks where locktype='advisory' and objid=7410404 and not granted)=2;
+  if clock_timestamp()>deadline then raise exception 'both sessions did not reach the lock'; end if;
+  perform pg_sleep(0.02);
+ end loop;
+end$$;
+select is((select count(*)::int from pg_locks where locktype='advisory' and objid=7410404 and not granted),2,'both independent sessions overlap at authorization lock');
+select pg_advisory_unlock(7410404);
 create temporary table a4_race_outcomes(result text);
 insert into a4_race_outcomes select result from extensions.dblink_get_result('a4_race1') as t(result text);
 insert into a4_race_outcomes select result from extensions.dblink_get_result('a4_race2') as t(result text);

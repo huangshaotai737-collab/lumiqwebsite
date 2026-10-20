@@ -19,11 +19,13 @@ const local = parseEnv(
     process.env.LUMIQ_TEST_ENV_FILE ||
       path.resolve(
         __dirname,
-        "../../../../.superpowers/sdd/2026-10-20-lumiq-admin-platform/a3.env",
+        "../../../../.lumiq-local/test.env",
       ),
     "utf8",
   ),
 );
+if (local.API_URL && local.API_URL !== 'http://127.0.0.1:54321') throw Error('Only synthetic local backend is allowed');
+
 const limitSubjects: string[] = [];
 let originalAccessToken = "";
 const origin = "http://127.0.0.1:4267";
@@ -75,7 +77,14 @@ test.afterAll(async () => {
     );
   } finally {
     try {
-      await cleanup();
+      // A failure before anonymization leaves notes referencing the staff author.
+      // Delete only notes whose target and author are owned by this fixture.
+      const ids = Object.values(users).map((u) => "'" + u.id + "'").join(",");
+      try {
+        if (ids) sql(`delete from public.customer_notes where user_id in(${ids}) and created_by in(${ids})`);
+      } finally {
+        await cleanup();
+      }
     } finally {
       const subjects = [
         ...limitSubjects,
@@ -189,7 +198,7 @@ test("closed policy, actual Auth failure, durable resume, private-data erasure a
   expect((await member.from("customer_orders").select("*")).data).toEqual([]);
   await page.reload();
   await expect(
-    page.getByRole("cell", { name: "auth_contact", exact: true }),
+    page.getByRole("cell", { name: "认证联系资料未清理完成，请检查服务商或人工处理范围。", exact: true }),
   ).toBeVisible();
   await expect(
     page.getByRole("button", { name: "恢复任务", exact: true }),
@@ -288,7 +297,7 @@ test("closed policy, actual Auth failure, durable resume, private-data erasure a
     ),
   ).toBe(true);
   await page.screenshot({
-    path: "../../.superpowers/sdd/2026-10-20-lumiq-admin-platform/c6-evidence/privacy-mobile.png",
+    path: "../../.lumiq-local/evidence/c6/privacy-mobile.png",
     fullPage: true,
   });
   await page.goto("/");

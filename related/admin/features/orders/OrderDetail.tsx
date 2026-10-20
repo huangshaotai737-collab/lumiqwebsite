@@ -1,7 +1,12 @@
 "use client";
 import { useRef, useState, type FormEvent } from "react";
-import type { Order } from "@/lib/generated/platform/commerce";
+import { currencyMinorDigits, type Order } from "@/lib/generated/platform/commerce";
 import type { StaffOrderDetail } from "./service";
+function money(value: number, currency: string) {
+  const digits = currencyMinorDigits[currency as keyof typeof currencyMinorDigits];
+  if (digits === undefined) return `${currency} ${value}（最小单位）`;
+  return new Intl.NumberFormat('zh-CN', {style:'currency',currency,currencyDisplay:'code',minimumFractionDigits:digits,maximumFractionDigits:digits}).format(value / 10 ** digits);
+}
 export function OrderDetail({
   order,
   detail,
@@ -65,13 +70,12 @@ export function OrderDetail({
         <ul>
           {order.items.map((i) => (
             <li key={i.skuId}>
-              {i.name} × {i.quantity} · {order.currency} {i.unitMinor}
-              （单价最小单位）
+              {i.name} × {i.quantity} · {money(i.unitMinor, order.currency)}（单价）
             </li>
           ))}
         </ul>
         <p>
-          商品小计：{order.currency} {order.totals.itemsMinor}（最小单位）
+          商品小计：{money(order.totals.itemsMinor, order.currency)}
         </p>
         <p>运费、税额、最终应付总额：待确认</p>
         <h2>收件资料</h2>
@@ -121,7 +125,7 @@ export function OrderDetail({
                 onChange={(e) => setNote(e.target.value)}
               />
             </label>
-            <button>{pending ? "保存中…" : "保存备注"}</button>
+            <button className="primary-button">{pending ? "保存中…" : "保存备注"}</button>
           </fieldset>
         </form>
         <p role="status">{message}</p>

@@ -1,8 +1,10 @@
 'use client';
+import {useHydrated} from '@/lib/use-hydrated';
 import { useState, type FormEvent } from 'react';
 export function LoginForm({configured,next,notice}: {configured:boolean;next:string;notice:string}) {
   const [pending,setPending] = useState(false);
   const [message,setMessage] = useState(notice);
+  const ready = useHydrated();
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault(); setPending(true); setMessage('正在验证身份…');
     const fields = new FormData(event.currentTarget);
@@ -15,9 +17,9 @@ export function LoginForm({configured,next,notice}: {configured:boolean;next:str
     } catch {setMessage('网络连接失败，请重试。');}
     setPending(false);
   }
-  return <><p className="notice" id="login-status" role="status">{message}</p><form className="login-form" onSubmit={submit} aria-describedby="login-status">
+  return <><p className="notice" id="login-status" role="status">{message}</p><form method="POST" className="login-form" onSubmit={submit} aria-describedby="login-status">
     <label htmlFor="email">工作邮箱</label><input id="email" name="email" type="email" autoComplete="username" required maxLength={254} />
     <label htmlFor="password">密码</label><input id="password" name="password" type="password" autoComplete="current-password" required maxLength={1024} />
-    <button className="primary-button" type="submit" disabled={!configured || pending}>{pending ? '正在登录…' : '登录'}</button>
+    <button className="primary-button" type="submit" disabled={!ready || !configured || pending}>{pending ? '正在登录…' : '登录'}</button>
   </form></>;
 }

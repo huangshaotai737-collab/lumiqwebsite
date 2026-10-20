@@ -25,7 +25,9 @@ export default async function SiteContentBoundary({children, publishedOnly = fal
   const snapshot = publishedOnly ? (await readPublishedContent()).snapshot : await readSiteContent();
   const preview = !publishedOnly && Boolean((await headers()).get('x-lumiq-preview-draft'));
   return (
-    <NextIntlClientProvider locale={locale} messages={snapshot.messages[locale]}>
+    <NextIntlClientProvider locale={locale} messages={snapshot.messages[locale]}
+      formats={{}} now={new Date()} timeZone={Intl.DateTimeFormat().resolvedOptions().timeZone}>
+
       <SiteContentProvider snapshot={snapshot} preview={preview}>
         <CartProvider>
           <LocaleDocument locale={locale} />

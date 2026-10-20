@@ -7,14 +7,16 @@ import path from 'node:path';
 import sharp from 'sharp';
 import type {ContentSnapshot} from '../../lib/generated/platform/content';
 import seed from '../../lib/content/initial-snapshot.json';
-const local=parseEnv(readFileSync(process.env.LUMIQ_TEST_ENV_FILE || path.resolve(__dirname,'../../../../.superpowers/sdd/2026-10-20-lumiq-admin-platform/a3.env'),'utf8'));
+const local=parseEnv(readFileSync(process.env.LUMIQ_TEST_ENV_FILE || path.resolve(__dirname,'../../../../.lumiq-local/test.env'),'utf8'));
+if (local.API_URL && local.API_URL !== 'http://127.0.0.1:54321') throw Error('Only synthetic local backend is allowed');
+
 const backend=createClient(local.API_URL!,local.SERVICE_ROLE_KEY!,{auth:{persistSession:false,autoRefreshToken:false}});
 const publicBackend=createClient(local.API_URL!,local.ANON_KEY!,{auth:{persistSession:false,autoRefreshToken:false}});
 async function publishedReleaseId(){const {data,error}=await publicBackend.rpc('get_published_content');expect(error).toBeNull();expect(data?.releaseId).toMatch(/^[0-9a-f-]{36}$/);return data.releaseId as string;}
 const adminOrigin='http://127.0.0.1:4259', siteOrigin='http://127.0.0.1:4251';
 let userId:string,email:string,password:string,draftId:string;
 const draftTitle=`Private B4 ${Date.now()}`;
-async function capturePreview(page:import('@playwright/test').Page,name:string){const dir=path.resolve(__dirname,'../../../../.superpowers/sdd/2026-10-20-lumiq-admin-platform/task-8-evidence/preview');mkdirSync(dir,{recursive:true});await page.evaluate(()=>document.fonts.ready);await page.screenshot({path:path.join(dir,`${page.viewportSize()!.width}-${name}.png`),fullPage:true,animations:'disabled'});}
+async function capturePreview(page:import('@playwright/test').Page,name:string){const dir=path.resolve(__dirname,'../../../../.lumiq-local/evidence/task-8-evidence/preview');mkdirSync(dir,{recursive:true});await page.evaluate(()=>document.fonts.ready);await page.screenshot({path:path.join(dir,`${page.viewportSize()!.width}-${name}.png`),fullPage:true,animations:'disabled'});}
 test.describe.configure({mode:'serial'});
 test.beforeAll(async()=>{email=`b4-${crypto.randomUUID()}@example.test`;password=`Synthetic-${crypto.randomUUID()}!`;const {data,error}=await backend.auth.admin.createUser({email,password,email_confirm:true});if(error||!data.user)throw Error('Fixture create failed');userId=data.user.id;const r=await backend.from('staff_memberships').insert({user_id:userId,role:'admin',active:true});if(r.error)throw Error('Fixture role failed');});
 test.afterAll(async({browser})=>{if(!userId)return;
@@ -79,7 +81,21 @@ test('private_preview_never_leaks',async({context,page,browser})=>{
   expect(response?.headers()['cache-control']).toContain('no-store');expect(response?.headers()['x-robots-tag']).toContain('noindex');
   await page.setViewportSize({width:page.viewportSize()!.width<500?390:1440,height:900});await page.emulateMedia({reducedMotion:'reduce'});await capturePreview(page,'home-draft');
   await backend.from('staff_memberships').update({active:false}).eq('user_id',userId);
-  const revoked=await context.request.get(`/en/preview/${draftId}`);expect(await revoked.text()).not.toContain(`Unpublished ${draftTitle}`);
+  const errors: string[] = []; page.on('pageerror', error => errors.push(error.message));
+  for (const role of ['revoked', 'operations', 'invalid'] as const) {
+    await backend.from('staff_memberships').update({role:role === 'operations' ? 'operations' : 'admin',active:role !== 'revoked'}).eq('user_id',userId);
+    const target = role === 'invalid' ? crypto.randomUUID() : draftId;
+    for (const locale of ['en','zh-hant','ja'] as const) {
+      const denied = await page.goto(`/${locale}/preview/${target}`);
+      expect(denied?.status()).toBe(404);
+      await expect(page.locator('.lumiq-root')).toHaveCount(1);
+      await expect(page.locator('.site-nav')).toHaveCount(1);
+      await expect(page.getByRole('heading', {name: String((seed.messages[locale].NotFound as Record<string,string>).title).replace(/[。．.]/g,' ').trim(), exact:true})).toBeVisible();
+      await expect(page.getByText(`Unpublished ${draftTitle}`, {exact:true})).toHaveCount(0);
+    }
+  }
+  expect(errors).toEqual([]);
+  const healthy=await page.goto('/en');expect(healthy?.status()).toBe(200);await expect(page.locator('#hero-title')).toBeVisible();
   await anon.close();
 });
 

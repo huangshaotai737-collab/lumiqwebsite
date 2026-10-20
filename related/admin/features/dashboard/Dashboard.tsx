@@ -1,4 +1,14 @@
 import type { DashboardData } from "./service";
+const actions: Record<string,string> = {
+  'team.bootstrap':'初始化管理员', 'team.invited':'邀请员工', 'team.invite_created':'邀请员工', 'team.accepted':'接受员工邀请', 'team.changed':'更新员工权限',
+  'content.saved':'保存草稿', 'content.submitted':'提交审核', 'content.published':'发布内容', 'content.rolled_back':'回退内容',
+  'media.upload_created':'创建素材上传', 'system.media_validated':'完成素材校验', 'media.archived':'归档素材',
+  'customers.note_added':'添加会员备注', 'waitlist.updated':'更新报名处理', 'waitlist.exported':'导出报名',
+  'orders.created':'创建待付款订单', 'orders.cancelled':'取消订单', 'orders.note_added':'添加订单备注',
+  'customers.anonymization_requested':'申请客户匿名化', 'customers.anonymization_resumed':'恢复匿名化任务',
+  'customers.anonymization_failed':'匿名化任务失败', 'customers.anonymization_completed':'完成客户匿名化',
+  'settings.catalog_updated':'更新产品方案', 'settings.commerce_updated':'更新下单设置',
+};
 export function Dashboard({ data }: { data: DashboardData }) {
   const cards = [
     ["会员", data.customers, "/customers"],
@@ -29,7 +39,7 @@ export function Dashboard({ data }: { data: DashboardData }) {
                 {new Date(e.createdAt).toLocaleString("zh-CN", {
                   timeZone: "Asia/Shanghai",
                 })}{" "}
-                · {e.action} · {e.entityType} / {e.entityId}
+                · {actions[e.action] || "后台操作"} <details><summary>查看操作编号</summary><code>{e.action} · {e.entityId}</code></details>
               </li>
             ))}
           </ul>

@@ -9,11 +9,13 @@ const local = parseEnv(
     process.env.LUMIQ_TEST_ENV_FILE ||
       path.resolve(
         __dirname,
-        '../../../../.superpowers/sdd/2026-10-20-lumiq-admin-platform/a3.env',
+        '../../../../.lumiq-local/test.env',
       ),
     'utf8',
   ),
 );
+if (local.API_URL && local.API_URL !== 'http://127.0.0.1:54321') throw Error('Only synthetic local backend is allowed');
+
 const backend = createClient(local.API_URL!, local.SERVICE_ROLE_KEY!, {
   auth: { persistSession: false, autoRefreshToken: false },
 });
@@ -271,7 +273,7 @@ test('failed SMTP delivery never grants role; role/status change and safe settin
   await expect(page.getByText('team.changed').first()).toBeVisible();
   const evidence = path.resolve(
     __dirname,
-    '../../../../.superpowers/sdd/2026-10-20-lumiq-admin-platform/task-4-evidence',
+    '../../../../.lumiq-local/evidence/task-4-evidence',
   );
   mkdirSync(evidence, { recursive: true });
   await page.setViewportSize({ width: 1440, height: 1000 });
@@ -287,12 +289,13 @@ test('failed SMTP delivery never grants role; role/status change and safe settin
       () => document.documentElement.scrollWidth <= innerWidth,
     ),
   ).toBe(true);
-  await page
-    .getByRole('heading', { name: '员工', exact: true })
-    .scrollIntoViewIfNeeded();
-  await expect(
-    page.getByRole('button', { name: '保存权限' }).first(),
-  ).toBeInViewport();
+  const mobileSave = page.getByRole('button', { name: '保存权限' }).first();
+  await mobileSave.scrollIntoViewIfNeeded();
+  await expect(mobileSave).toBeInViewport();
+  const bounds = await mobileSave.boundingBox();
+  expect(bounds).not.toBeNull();
+  expect(bounds!.x).toBeGreaterThanOrEqual(0);
+  expect(bounds!.x + bounds!.width).toBeLessThanOrEqual(320);
   await page.screenshot({
     path: path.join(evidence, 'team-mobile-320.png'),
     fullPage: true,

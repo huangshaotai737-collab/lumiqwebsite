@@ -1,16 +1,21 @@
+import {capturePublication,cleanupPublicationOwner} from '../support/publication-fixture';
 import { expect, test, type BrowserContext, type Page } from '@playwright/test';
 import { createClient } from '@supabase/supabase-js';
 import { mkdirSync, readFileSync } from 'node:fs';
 import { parseEnv } from 'node:util';
 import path from 'node:path';
-const local = parseEnv(readFileSync(process.env.LUMIQ_TEST_ENV_FILE || path.resolve(__dirname, '../../../../.superpowers/sdd/2026-10-20-lumiq-admin-platform/a3.env'), 'utf8'));
+const local = parseEnv(readFileSync(process.env.LUMIQ_TEST_ENV_FILE || path.resolve(__dirname, '../../../../.lumiq-local/test.env'), 'utf8'));
+if (local.API_URL && local.API_URL !== 'http://127.0.0.1:54321') throw Error('Only synthetic local backend is allowed');
+
 const backend = createClient(local.API_URL!, local.SERVICE_ROLE_KEY!, { auth: { persistSession: false, autoRefreshToken: false } });
 const password = `Synthetic-${crypto.randomUUID()}!`;
 const origin = 'http://127.0.0.1:4259';
 const users: Record<string, { id: string; email: string }> = {};
 let draftId: string;
 test.describe.configure({ mode: 'serial' });
+let originalPublication:ReturnType<typeof capturePublication>|undefined;
 test.beforeAll(async () => {
+  originalPublication=capturePublication('content');
   for (const role of ['admin', 'editor', 'operations']) {
     const email = `b2-${Date.now()}-${role}@example.test`;
     const { data, error } = await backend.auth.admin.createUser({ email, password, email_confirm: true });
@@ -20,7 +25,7 @@ test.beforeAll(async () => {
     if (staff.error) throw new Error('synthetic staff setup failed');
   }
 });
-test.afterAll(async () => { for (const user of Object.values(users)) await backend.auth.admin.deleteUser(user.id); });
+test.afterAll(async () => { await cleanupPublicationOwner(originalPublication,Object.values(users).map(user=>async()=>{const result=await backend.auth.admin.deleteUser(user.id);if(result.error)throw result.error;})); });
 async function login(context: BrowserContext, role: string) {
   await context.setExtraHTTPHeaders({ 'x-real-ip': `2001:db8:${crypto.randomUUID().slice(0, 4)}::6` });
   expect((await context.request.post(`${origin}/api/auth/signin`, { headers: { origin }, data: { email: users[role].email, password } })).status()).toBe(200);
@@ -233,7 +238,7 @@ test('bad ICU and missing locales saved by raw RPC cannot be published; valid pu
   await page.getByLabel('字段分组').selectOption('products');
   await page.getByLabel('页面范围').selectOption('/products/ola');
   await page.getByLabel('搜索字段').fill('');
-  const evidence = path.resolve(__dirname, '../../../../.superpowers/sdd/2026-10-20-lumiq-admin-platform/task-6-evidence'); mkdirSync(evidence, { recursive: true });
+  const evidence = path.resolve(__dirname, '../../../../.lumiq-local/evidence/task-6-evidence'); mkdirSync(evidence, { recursive: true });
   for (const width of [320, 390, 1440]) {
     await page.setViewportSize({ width, height: width === 1440 ? 1000 : 900 });
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);

@@ -17,6 +17,6 @@ export const {
     process.env.LUMIQ_TEST_ENV_FILE ||
     path.resolve(
       __dirname,
-      "../../../../.superpowers/sdd/2026-10-20-lumiq-admin-platform/a3.env",
+      "../../../../.lumiq-local/test.env",
     ),
 });

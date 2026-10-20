@@ -1,3 +1,4 @@
+import {capturePublication,cleanupPublicationOwner} from '../support/publication-fixture';
 import { expect, test, type BrowserContext } from '@playwright/test';
 import { createClient } from '@supabase/supabase-js';
 import { mkdirSync, readFileSync } from 'node:fs';
@@ -7,7 +8,9 @@ import path from 'node:path';
 import initialSnapshot from '../../features/content/initial-snapshot.json';
 import type { ContentSnapshot } from '../../lib/generated/platform/content';
 import { syntheticImage, syntheticVideo } from '../../features/media/fixtures';
-const local = parseEnv(readFileSync(process.env.LUMIQ_TEST_ENV_FILE || path.resolve(__dirname, '../../../../.superpowers/sdd/2026-10-20-lumiq-admin-platform/a3.env'), 'utf8'));
+const local = parseEnv(readFileSync(process.env.LUMIQ_TEST_ENV_FILE || path.resolve(__dirname, '../../../../.lumiq-local/test.env'), 'utf8'));
+if (local.API_URL && local.API_URL !== 'http://127.0.0.1:54321') throw Error('Only synthetic local backend is allowed');
+
 const backend = createClient(local.API_URL!, local.SERVICE_ROLE_KEY!, { auth: { persistSession: false, autoRefreshToken: false } });
 const anon = createClient(local.API_URL!, local.ANON_KEY!, { auth: { persistSession: false } });
 const password = `Synthetic-${crypto.randomUUID()}!`; const origin = 'http://127.0.0.1:4260'; const website = 'http://127.0.0.1:4261';
@@ -15,17 +18,19 @@ const users: Record<string, { id: string; email: string }> = {};
 let imageId: string; let draftId: string; let releaseId: string; let snapshot: ContentSnapshot; // Full synthetic snapshot is modified through real server APIs.
 const uploadUrls = new Map<string, string>();
 const boundaryPrefix = `b3-picker-${crypto.randomUUID()}`;
-function fixtureSql(sql: string) { return execFileSync('docker',['exec','-i','supabase_db_lumiq-platform','psql','-X','-qAt','-v','ON_ERROR_STOP=1','-U','postgres'],{input:sql,env:{...process.env,DOCKER_HOST:'unix:///Users/huangshaotai/.colima/lumiq-platform/docker.sock'},encoding:'utf8'}); }
+function fixtureSql(sql: string) { return execFileSync('docker',['exec','-i','supabase_db_lumiq-platform','psql','-X','-qAt','-v','ON_ERROR_STOP=1','-U','postgres'],{input:sql,env:{...process.env,...(process.env.DOCKER_HOST ? {DOCKER_HOST:process.env.DOCKER_HOST} : {})},encoding:'utf8'}); }
 const usage = 'asset_012d3bf8af92d486';
 test.describe.configure({ mode: 'serial' });
+let originalPublication:ReturnType<typeof capturePublication>|undefined;
 test.beforeAll(async () => {
+  originalPublication=capturePublication('media');
   for (const role of ['admin','editor','operations']) {
     const email = `b3-${Date.now()}-${role}@example.test`; const created = await backend.auth.admin.createUser({ email, password, email_confirm: true });
     if (created.error || !created.data.user) throw new Error('synthetic account creation failed'); users[role] = { id: created.data.user.id, email };
     const staff = await backend.from('staff_memberships').insert({ user_id: created.data.user.id, role, active: true }); if (staff.error) throw new Error('staff setup failed');
   }
 });
-test.afterAll(async () => { fixtureSql(`delete from public.media_assets where original_path like '${boundaryPrefix}/%';`); await backend.storage.updateBucket('media-releases', { public: false, fileSizeLimit: 52428800 }); for (const user of Object.values(users)) await backend.auth.admin.deleteUser(user.id); });
+test.afterAll(async () => { await cleanupPublicationOwner(originalPublication,[async()=>fixtureSql(`delete from public.media_assets where original_path like '${boundaryPrefix}/%';`),async()=>{const result=await backend.storage.updateBucket('media-releases', { public: false, fileSizeLimit: 52428800 });if(result.error)throw result.error;},...Object.values(users).map(user=>async()=>{const result=await backend.auth.admin.deleteUser(user.id);if(result.error)throw result.error;})]); });
 async function login(context: BrowserContext, role: string) {
   await context.setExtraHTTPHeaders({ 'x-real-ip': `2001:db8:${crypto.randomUUID().slice(0,4)}::7` });
   expect((await context.request.post(`${origin}/api/auth/signin`, { headers: { origin }, data: { email: users[role].email, password } })).status()).toBe(200);
@@ -50,7 +55,7 @@ test('real staff upload and private no-store preview; no anonymous originals or 
   await expect(page.locator('.media-library img').first()).toHaveJSProperty('naturalWidth', 64); expect(await page.locator('.media-library img').first().getAttribute('src')).not.toContain('/_next/image');
   const privateOriginal = await anon.storage.from('media-originals').download(`${users.editor.id}/${imageId}`); expect(privateOriginal.error).not.toBeNull();
   expect((await context.request.get(`${website}/api/media/${imageId}`)).status()).toBe(404);
-  const evidence=path.resolve(__dirname,'../../../../.superpowers/sdd/2026-10-20-lumiq-admin-platform/task-7-evidence');mkdirSync(evidence,{recursive:true});
+  const evidence=path.resolve(__dirname,'../../../../.lumiq-local/evidence/task-7-evidence');mkdirSync(evidence,{recursive:true});
   await page.screenshot({path:path.join(evidence,'media-library-desktop.png'),fullPage:true});
   for(const width of [320,390]){await page.setViewportSize({width,height:900});expect(await page.evaluate(()=>Array.from(document.querySelectorAll('body *')).filter(node=>node.getBoundingClientRect().right>innerWidth+1).map(node=>({tag:node.tagName,class:node.className,width:node.getBoundingClientRect().width,right:node.getBoundingClientRect().right})).slice(-8))).toEqual([]);await page.screenshot({path:path.join(evidence,`media-library-${width}.png`),fullPage:true});}
   await page.getByLabel('素材用途').selectOption('asset_a6510e681604d2f9'); await expect(page.getByRole('note')).toContainText('MOV'); await expect(page.getByRole('button', { name: '上传并校验' })).toHaveCount(0);

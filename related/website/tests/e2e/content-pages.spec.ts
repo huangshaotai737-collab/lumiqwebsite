@@ -2,7 +2,7 @@ import {expect,test} from '@playwright/test';
 import {mkdirSync} from 'node:fs';
 import path from 'node:path';
 import manifest from '../../lib/content/field-manifest.json';
-const evidence=path.resolve(__dirname,'../../../../.superpowers/sdd/2026-10-20-lumiq-admin-platform/task-8-evidence/after');
+const evidence=path.resolve(__dirname,'../../../../.lumiq-local/evidence/task-8-evidence/after');
 for(const width of [390,1440])for(const route of manifest.pages.filter(page=>page.startsWith('/')))test(`manifest ${width} ${route}`,async({page})=>{
   await page.setViewportSize({width,height:900});await page.emulateMedia({reducedMotion:'reduce'});
   const errors:string[]=[];page.on('pageerror',error=>errors.push(error.message));

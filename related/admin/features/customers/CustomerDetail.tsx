@@ -71,9 +71,10 @@ export function CustomerDetail({
       <h2>{customer.displayName || "未填写姓名"}</h2>
       <p>{customer.email}</p>
       <p>注册时间：{new Date(customer.createdAt).toLocaleString("zh-CN")}</p>
-      <form onSubmit={save} className="content-field">
+      <form method="POST" onSubmit={save} className="content-field">
         <label htmlFor="customer-note">新增内部备注（最多2000字）</label>
         <textarea
+          disabled={pending}
           id="customer-note"
           maxLength={2000}
           rows={4}
@@ -99,7 +100,7 @@ export function CustomerDetail({
       ) : (
         <p>暂无内部备注。</p>
       )}
-      <button onClick={close}>关闭详情</button>
+      <button className="secondary-button" onClick={close}>关闭详情</button>
     </section>
   );
 }

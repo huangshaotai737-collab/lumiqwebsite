@@ -59,6 +59,7 @@ function WaitlistRow({
       </td>
       <td data-label="状态">
         <select
+          disabled={pending}
           aria-label={`状态 ${row.email}`}
           value={status}
           onChange={(event) =>
@@ -74,6 +75,7 @@ function WaitlistRow({
       </td>
       <td data-label="内部备注">
         <textarea
+          disabled={pending}
           aria-label={`备注 ${row.email}`}
           maxLength={2000}
           value={note}
@@ -206,7 +208,7 @@ export function WaitlistTable({ initial }: { initial: Page<WaitlistSummary> }) {
           筛选
         </button>
       </form>
-      <div className="content-toolbar">
+      <div className="content-toolbar operations-toolbar">
         <button disabled={pending || exporting} onClick={download}>
           {exporting ? "正在导出…" : "导出筛选结果，最多10000条"}
         </button>
@@ -244,7 +246,7 @@ export function WaitlistTable({ initial }: { initial: Page<WaitlistSummary> }) {
           </table>
         </div>
       )}
-      <div className="content-toolbar">
+      <div className="content-toolbar operations-toolbar">
         <button
           disabled={pending || data.page <= 1}
           onClick={() => load({ ...query, page: data.page - 1 })}

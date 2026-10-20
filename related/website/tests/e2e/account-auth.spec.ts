@@ -6,7 +6,9 @@ import path from 'node:path';
 import { execFileSync } from 'node:child_process';
 import { accountCopy } from '../../features/account/copy';
 import type { Locale } from '../../lib/generated/platform/core';
-const local = parseEnv(readFileSync(process.env.LUMIQ_TEST_ENV_FILE || path.resolve(__dirname, '../../../../.superpowers/sdd/2026-10-20-lumiq-admin-platform/a3.env'), 'utf8'));
+const local = parseEnv(readFileSync(process.env.LUMIQ_TEST_ENV_FILE || path.resolve(__dirname, '../../../../.lumiq-local/test.env'), 'utf8'));
+if (local.API_URL && local.API_URL !== 'http://127.0.0.1:54321') throw Error('Only synthetic local backend is allowed');
+
 const backend = createClient(local.API_URL!, local.SERVICE_ROLE_KEY!, { auth: { persistSession: false, autoRefreshToken: false } });
 const origin = 'http://127.0.0.1:4211', mail = 'http://127.0.0.1:54324';
 const created: string[] = [];
@@ -86,9 +88,10 @@ test('verified_email_PKCE_cookie_profile_owner_and_recovery', async ({ page, con
     await page.getByLabel('表示名').fill('C1 saved by form');
     await page.getByRole('button', { name: 'プロフィールを保存', exact: true }).click();
     await expect(page.getByRole('status').filter({ hasText: 'プロフィールを保存しました。' })).toBeVisible();
-    const evidence = path.resolve(__dirname, '../../../../.superpowers/sdd/2026-10-20-lumiq-admin-platform/task-9-evidence');
+    const evidence = path.resolve(__dirname, '../../../../.lumiq-local/evidence/task-9-evidence');
     mkdirSync(evidence, { recursive: true });
     await page.evaluate(()=>window.scrollTo(0,0));
+    await expect(page.locator('.members-avatar strong')).toHaveText('C1 saved by form');
     await page.screenshot({ path: path.join(evidence, `${page.viewportSize()!.width}-profile.png`), fullPage: true, animations: 'disabled' });
     await page.getByRole('button', { name: 'デバイス', exact: true }).click();
     await expect(page.getByText('デバイスサービスは未接続です。', { exact: false }).first()).toBeVisible();
@@ -173,7 +176,7 @@ test('expired_real_email_token_is_rejected_with_localized_feedback', async ({ pa
     const link = await mailLink(context, account.email);
     // Controlled synthetic local fixture: expire the timestamp Auth itself uses, without waiting an hour.
     expect(account.id).toMatch(/^[a-f0-9-]{36}$/);
-    execFileSync('/opt/homebrew/bin/docker', ['exec', 'supabase_db_lumiq-platform', 'psql', '-U', 'postgres', '-d', 'postgres', '-v', 'ON_ERROR_STOP=1', '-c', `update auth.users set confirmation_sent_at=now()-interval '2 hours' where id='${account.id}'`], { env: { ...process.env, DOCKER_HOST: 'unix:///Users/huangshaotai/.colima/lumiq-platform/docker.sock' }, stdio: 'pipe' });
+    execFileSync('docker', ['exec', 'supabase_db_lumiq-platform', 'psql', '-U', 'postgres', '-d', 'postgres', '-v', 'ON_ERROR_STOP=1', '-c', `update auth.users set confirmation_sent_at=now()-interval '2 hours' where id='${account.id}'`], { env: { ...process.env, ...(process.env.DOCKER_HOST ? {DOCKER_HOST:process.env.DOCKER_HOST} : {}) }, stdio: 'pipe' });
     await follow(page, link);
     await expect(page).toHaveURL(/\/en\/login\?error=expired/);
     await expect(page.getByRole('status').filter({ hasText: 'expired or has already been used' })).toBeVisible();
@@ -209,4 +212,35 @@ test('auth_rejections_show_actionable_form_feedback', async ({page}) => {
         await expect(page.getByRole('status').filter({hasText:text.unavailable})).toBeVisible();
         await expect(page.getByText(text.sent,{exact:true})).toHaveCount(0);
     }
+});
+
+test('register and recovery never put credentials into URLs before hydration',async({browser})=>{
+  const context=await browser.newContext({javaScriptEnabled:false}); const page=await context.newPage();
+  try {for(const route of ['register','reset-password']) {
+    await page.goto(`/en/${route}`);await expect(page.locator('form')).toHaveAttribute('method','POST');await page.locator('input[name=email]').fill('synthetic-unsubmitted@example.test');
+    if(route==='register')await page.locator('input[name=password]').fill('Synthetic-unsubmitted!');
+    await page.locator('input').last().press('Enter');
+    expect(new URL(page.url()).search).toBe('');await expect(page.locator('form')).toHaveAttribute('method','POST');
+    await expect(page.locator('form button')).toBeDisabled();
+  }}finally{await context.close();}
+});
+
+test('profile save persists, rather than merely reporting success',async({page,context})=>{
+ const email=`c7-save-${crypto.randomUUID()}@example.test`,password=`Synthetic-${crypto.randomUUID()}!`;
+ const created=await backend.auth.admin.createUser({email,password,email_confirm:true});if(created.error||!created.data.user)throw Error('Synthetic fixture failed');
+ const id=created.data.user.id;
+ try {
+  await context.setExtraHTTPHeaders({'x-real-ip':`2001:db8:${crypto.randomUUID().slice(0,4)}::7`});
+  expect((await context.request.post('/api/auth/signin',{headers:{origin},data:{email,password}})).status()).toBe(200);
+  await page.goto('/en/members');await page.getByLabel('Display name',{exact:true}).fill('C7 durable saved name');
+  if(process.env.LUMIQ_REGRESSION_FAULT==='fake-save') await page.route('**/api/account/profile',async route=>{
+    if(route.request().method()!=='PATCH')return route.continue();
+    const before=await context.request.get('/api/account/profile');const result=await before.json();
+    await route.fulfill({status:200,contentType:'application/json',body:JSON.stringify({ok:true,data:{...result.data,displayName:'C7 durable saved name'}})});
+  });
+  await page.getByRole('button',{name:'Save profile',exact:true}).click();
+  await expect(page.locator('.members-avatar strong')).toHaveText('C7 durable saved name');
+  const stored=await backend.from('profiles').select('display_name').eq('user_id',id).single();
+  expect(stored.data?.display_name).toBe('C7 durable saved name');
+ }finally{await backend.auth.admin.deleteUser(id);}
 });

@@ -11,9 +11,10 @@ test('unconfigured_admin_is_closed', async ({ page, request }) => {
   await expect(page.getByRole('table')).toHaveCount(0);
   await expect(page.getByTestId('member-data')).toHaveCount(0);
   await expect(page.getByTestId('order-data')).toHaveCount(0);
-  for (const route of ['/api/members', '/api/orders']) {
+  for (const route of ['/api/customers/list', '/api/orders']) {
     const response = await request.get(route);
-    expect(response.status()).toBe(404);
+    expect(response.status()).toBe(503);
+    expect(await response.json()).toMatchObject({ok:false,error:'UNAVAILABLE'});
   }
   expect(dataRequests).toEqual([]);
 });
