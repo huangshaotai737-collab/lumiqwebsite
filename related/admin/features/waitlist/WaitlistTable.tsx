@@ -144,7 +144,7 @@ export function WaitlistTable({ initial }: { initial: Page<WaitlistSummary> }) {
             page: String(query.page),
             pageSize: String(query.pageSize),
           }),
-        { cache: "no-store" },
+        { method: "POST", cache: "no-store" },
       );
       if (!response.ok) {
         const result = await response.json();

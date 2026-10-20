@@ -110,3 +110,5 @@ CSV 导出忽略分页，覆盖当前搜索与状态筛选范围；超过10000�
 后台实现位于 `related/admin/`，三语官网仍位于 `related/website/`。用户已批准全部实施任务；本分支未推送、未上线、未开通支付。详见 [验收状态](docs/admin/acceptance.md)、[本地启动与私有账号位置](docs/admin/operations.md)、[部署阻断项](docs/admin/deployment.md)、[依赖安全状态](docs/admin/security-status.md) 和 [逐项决策记录](docs/admin/decisions.md)。
 
 本地官网4211、后台4270由 `node scripts/local-preview.mjs start|stop|status` 管理；凭据仅保存在忽略的 `.lumiq-local/preview-credentials.json`。请勿把破坏性 setup 命令当成重启。统一验收 `node scripts/verify-platform.mjs` 在交付预览已初始化或有用户数据时会拒绝执行SQL/浏览器 fixture；再次完整验收需新的可丢弃源码副本和独立 Docker 环境。
+
+2026-10-21 已进行新一轮官网/后台走查，修复六项确认问题，保留一项视频轮播间歇性性能风险；完整缺陷、重跑结果与未覆盖范围见 [走查结论](docs/admin/audit-2026-10-21.md)。原实施记录继续保留，不将历史结果冒充本轮全量通过。修复仅在本地分支和本地预览，未推送或云端部署。

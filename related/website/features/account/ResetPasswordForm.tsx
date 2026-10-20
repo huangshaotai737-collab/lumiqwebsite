@@ -41,9 +41,10 @@ export function ResetPasswordForm({locale, configured, update, expired, expected
   return (
     <form method="POST" className="members-panel account-form" onSubmit={submit}>
       <p role="status">{configured ? message : t.unavailable}</p>
-      {update ? (
-        identity.profile && !done ? <label>{t.newPassword}<input key={identity.generation} name="password" type="password" required minLength={8} maxLength={1024} autoComplete="new-password"/></label> : <p>{t.expired}</p>
-      ) : (
+      {update ? (!done && !expired && (
+        identity.profile ? <label>{t.newPassword}<input key={identity.generation} name="password" type="password" required minLength={8} maxLength={1024} autoComplete="new-password"/></label> :
+          <p>{identity.status==='checking' ? t.pending : identity.status==='invalid' ? t.expired : t.unavailable}</p>
+      )) : (
         <label>{t.email}<input name="email" type="email" required maxLength={254} autoComplete="email"/></label>
       )}
       <button className="members-primary" disabled={!ready || !configured || pending || done || (update && (expired || !identity.profile))}>

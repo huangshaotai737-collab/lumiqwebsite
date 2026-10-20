@@ -668,3 +668,25 @@ export const trustedLegacyMedia: Readonly<Record<string,{url:string;kind:string;
     "readOnly": false
   }
 };
+export const trustedProductImages: Readonly<Record<string,{url:string;slotId:string}>> = {
+  "ola": {
+    "url": "/assets/web/ola-hero-front.webp",
+    "slotId": "asset_723302ce05f7b130"
+  },
+  "ola-go": {
+    "url": "/assets/web/lumiq-ola-go.webp",
+    "slotId": "asset_e72d00b15369d5bc"
+  },
+  "tablet": {
+    "url": "/assets/web/lumiq-tablet.webp",
+    "slotId": "asset_5fa455671b41fc69"
+  },
+  "print": {
+    "url": "/assets/web/lumiq-print.webp",
+    "slotId": "asset_7334168c1851117c"
+  },
+  "nest": {
+    "url": "/assets/web/nest15-oak-angle.webp",
+    "slotId": "asset_ee4b8b73451d2ca7"
+  }
+};

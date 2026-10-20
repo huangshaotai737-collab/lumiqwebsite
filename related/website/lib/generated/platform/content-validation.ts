@@ -1,5 +1,5 @@
 // Generated from contracts/ by scripts/sync-platform-contracts.mjs. Do not edit.
-import { trustedLegacyMedia } from './content-legacy-media';
+import { trustedLegacyMedia, trustedProductImages } from './content-legacy-media';
 import type { ContentRule, ContentSnapshot, MessageTree, ContentValidationOptions, ContentValidationResult } from './content';
 
 const uuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
@@ -104,6 +104,7 @@ export function validateContentSnapshot(
     if (field.path.endsWith('.contentStatus') && !['pending_brand_confirmation', 'confirmed'].includes(value)) issue(field.path, 'Unknown content status');
     if ((field.path.startsWith('media.') && field.path.endsWith('.url')) || /^products\.[^.]+\.image$/.test(field.path)) {
       if (!safeContentUrl(value, true, options.allowedStorageOrigins)) issue(field.path, 'Media URL is not allowed');
+      if (/^products\.[^.]+\.image$/.test(field.path) && value !== trustedProductImages[field.path.split('.')[1]]?.url) issue(field.path, 'Product image must use its canonical media slot');
     }
     if (field.path === 'settings.siteUrl') {
       if (!safeContentUrl(value, false) || !value.startsWith('https://')) issue(field.path, 'Expected a safe HTTPS site URL');

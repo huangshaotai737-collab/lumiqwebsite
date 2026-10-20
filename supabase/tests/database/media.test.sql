@@ -26,7 +26,7 @@ select set_config('request.jwt.claims','{"sub":"70000000-0000-4000-8000-00000000
 set local role authenticated;
 select public.save_content_draft('70000000-0000-4000-8000-000000000010',0,jsonb_build_object('settings','{}'::jsonb,'media',jsonb_build_object('asset_012d3bf8af92d486',jsonb_build_object('assetId',:'asset_id','url','/api/media/'||:'asset_id','kind','image','profile','public-content'))));
 reset role;
-select public.attest_content_snapshot('draft',id,version,snapshot,'legacy-slots-v2-20261020','70000000-0000-4000-8000-000000000001') from public.content_drafts where id='70000000-0000-4000-8000-000000000010';
+select public.attest_content_snapshot('draft',id,version,snapshot,'media-products-v3-20261021','70000000-0000-4000-8000-000000000001') from public.content_drafts where id='70000000-0000-4000-8000-000000000010';
 select coalesce(release_id::text,'empty') as previous_release from public.content_publication \gset
 set local role authenticated;
 select throws_ok($$select public.publish_content_draft('70000000-0000-4000-8000-000000000010',1)$$,'22023','INVALID_MEDIA','failed copy prevents publish before receipt consumption');
@@ -45,17 +45,17 @@ select lives_ok(format('select public.save_content_draft(%L,0,(public.get_conten
 select throws_ok(format('select public.save_content_draft(%L,0,jsonb_set(public.get_content_draft(%L)->%L,array[%L,%L,%L],to_jsonb(%L::text)))','70000000-0000-4000-8000-000000000012','70000000-0000-4000-8000-000000000010','snapshot','media','asset_012d3bf8af92d486','profile','film'),'22023','INVALID_MEDIA','forged archived profile cannot be inherited');
 reset role;
 select throws_ok(format('delete from public.media_assets where id=%L',:'asset_id'),'23503',null,'historically referenced asset deletion is blocked by FK');
-select public.attest_content_snapshot('draft',id,version,snapshot,'legacy-slots-v2-20261020','70000000-0000-4000-8000-000000000001') from public.content_drafts where id='70000000-0000-4000-8000-000000000011';
+select public.attest_content_snapshot('draft',id,version,snapshot,'media-products-v3-20261021','70000000-0000-4000-8000-000000000001') from public.content_drafts where id='70000000-0000-4000-8000-000000000011';
 set local role authenticated;
 select lives_ok($$select public.publish_content_draft('70000000-0000-4000-8000-000000000011',1)$$,'trusted baseline allows unchanged archive in ordinary publication');
 select public.save_content_draft('70000000-0000-4000-8000-000000000013',0,'{"settings":{},"media":{}}');
 reset role;
-select public.attest_content_snapshot('draft',id,version,snapshot,'legacy-slots-v2-20261020','70000000-0000-4000-8000-000000000001') from public.content_drafts where id='70000000-0000-4000-8000-000000000013';
+select public.attest_content_snapshot('draft',id,version,snapshot,'media-products-v3-20261021','70000000-0000-4000-8000-000000000001') from public.content_drafts where id='70000000-0000-4000-8000-000000000013';
 set local role authenticated;
 select public.publish_content_draft('70000000-0000-4000-8000-000000000013',1);
 select throws_ok(format('select public.save_content_draft(%L,0,(public.get_content_draft(%L)->%L))','70000000-0000-4000-8000-000000000014','70000000-0000-4000-8000-000000000010','snapshot'),'22023','INVALID_MEDIA','history alone cannot authorize archive into an unrelated draft');
 reset role;
-select public.attest_content_snapshot('release',id,0,snapshot,'legacy-slots-v2-20261020','70000000-0000-4000-8000-000000000001') from public.content_releases where id=:'released';
+select public.attest_content_snapshot('release',id,0,snapshot,'media-products-v3-20261021','70000000-0000-4000-8000-000000000001') from public.content_releases where id=:'released';
 set local role authenticated;
 select lives_ok(format('select public.rollback_content_release(%L)',:'released'),'archived released assets allow historical rollback');
 select throws_ok($$delete from public.media_assets$$,'42501',null,'referenced inventory cannot be deleted by browser');

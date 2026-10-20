@@ -1,0 +1,99 @@
+# Independent scoped repair review — 2026-10-21
+
+Base: `08572b62b62d239583a0157f58edb80a1b313970`. Reviewed root/media-agent working-tree repairs, including untracked source, two new append-only migrations, their tests and documentation. This is the first scoped pass; root will supply the final frontend/documentation/build delta separately.
+
+**Verdict:** B1/B2/B3/N1 and R1 are addressed in the examined code. No new Critical/Important defect was established in this repair diff. The desktop static-opening CSS correction is coherent with the retained RED and the existing separate artwork; its final built/runtime GREEN was still pending at this pass. Remaining qualifications below are not converted into approvals or a claim that every path was retested.
+
+**Final update:** the final-delta review appended below closes that CSS build/runtime evidence gap and confirms matching delivered artifacts. F1 remains an explicitly unresolved P3 performance risk.
+
+## Findings rechecked against actual code
+
+### B1 — Product-image provenance: addressed
+
+`contracts/content-validation.ts:106` now requires the original canonical per-product image alias, using the generated `trustedProductImages` mapping. This preserves the actual image replacement mechanism in the associated controlled `media` slot rather than accepting a new independent URL. `related/admin/features/content/EditorFields.tsx:31-33` now renders a picker for each product image and writes that canonical slot's asset ID/URL. I checked all five SQL aliases against the preserved initial snapshot: exact match.
+
+`supabase/migrations/20261021235000_audit_boundaries.sql:2-12` adds an unexposed invoker helper with empty search path and explicit revoked execution. Both existing media selection and publication/rollback validators call it before their slot checks (`:18`, `:53`). The controlled media copy, release-reference proof, archived-baseline and historical-reference checks remain in place. Changing a product string directly to an untracked `/api/media/<UUID>` is now refused by both the server validator and actual save RPC. The validation policy advances consistently in the new migration (`:114`) and server attestation to `media-products-v3-20261021`; generated app copies match canonical content code.
+
+The revised validator regression explicitly rejects the previously accepted untracked product URL. The retained SQL regression checks canonical aliases, invalid direct selection/publication and the actual save RPC. The separate final-fix SQL fixture continues to exercise controlled replacement, archived baseline and actual historical rollback. I inspected its use of the current policy value rather than mistaking the two older fixtures' updated policy literals for fresh execution of those full fixtures.
+
+**Compatibility limit:** the new alias rule also applies when parsing/rolling back old releases. The retained before-state contains two drafts and two releases, all with products and zero noncanonical image leaves, so this does not invalidate the demonstrated local history. A different target project containing previously legitimate noncanonical product image aliases needs explicit pre-migration inspection and a compatibility plan; I did not infer global compatibility from these four local snapshots.
+
+The initial review's separate stale-image suspicion remains withdrawn: `ContentImage` already resolves `cms.url`, so no unnecessary rendering-wrapper repair was made.
+
+### B2 — Direct order-RPC quota: addressed
+
+The replacement `public.create_customer_order` retains verified Auth/profile locks and strict normalized input; same-owner/key locking and stored-result recovery remain before any new quota. Ordering enabled, approved terms/version/fingerprint, locked SKU eligibility, single currency and safe subtotal checks retain their original precedence (`20261021235000_audit_boundaries.sql:71-100`).
+
+Only after those checks, SQL derives a namespaced per-actor subject and atomically calls the existing database counter (`:103-104`). Authenticated callers can no longer bypass it by calling the granted public function directly. The helper/counter table receives no new direct browser grants; the existing security-definer function executes the fixed internal policy with its established privileges. Existing table immutability/grants, audit transaction, order/item insertion and payment/delivery states remain unchanged. Counter upsert serializes concurrent counter changes; the patch adds no reverse team/commerce lock dependency.
+
+This bounds **successful new creations** to 60 per customer per minute. A failed or denied SQL transaction rolls back its counter work. Same-key recovery does not consume this database quota, and another verified customer has an independent subject. The retained SQL fixture explicitly covers the first 60 calls, refusal of call 61, exact-key recovery at quota, changed-payload conflict, canonical terms error ahead of quota, absence of an extra order and customer independence. These are useful transaction tests; they are not a newly executed concurrency/load benchmark.
+
+Website `features/orders/service.ts:39` maps `P0005` to `RATE_LIMITED`; `features/orders/http.ts:15` maps that result to HTTP 429. **No Retry-After header is actually returned by this DTO path:** the service catches `HttpError` and retains only error/requestId, while the response helper sets only Cache-Control. The passed `retryAfterSeconds=60` does not survive that projection. The approved/current public contract and consumer require 429/RATE_LIMITED, not an optional retry header, so this is not a required additional fix; the final report must not claim such a header exists. The distinct application request limiter also remains, so unlimited HTTP retries are not promised even though database idempotent recovery is preserved.
+
+### B3 — Export GET CSRF: addressed
+
+`related/admin/app/api/waitlist/export/route.ts` now exports only POST and checks `assertSameOrigin` before dispatch. The existing filter URL is retained and `WaitlistTable.tsx:147` now explicitly sends POST. A top-level cross-site GET can no longer create an export or debit quota; a foreign POST is rejected before the export service. Existing role validation, exact filtered range, bounded export, formula-safe CSV and atomic SQL quota/audit are unchanged.
+
+The new route regression checks absence of GET, rejection before mocked export dispatch and a same-origin filtered POST. No live customer export or quota mutation was performed by this reviewer.
+
+### N1 — Reset-password loading/success/expiry distinction: addressed
+
+`ResetPasswordForm.tsx:44-47` distinguishes done, explicit expired, checking, invalid and unavailable states, while rendering a password input only with the verified bound profile. On success it still removes the input, retains success feedback and notifies identity change without rendering the expired paragraph.
+
+The hook's status extension (`use-account-identity.ts:10`, `:17`, `:25-28`) preserves the existing immediate epoch invalidation/profile clearing and the active/current-token checks before accepting late reads. The catch updates unavailable status only for the active current generation. Cleanup captures the stable ref object and increments that same epoch; it does not reset a generation or adopt a foreign account. Existing mutation account binding is unchanged. No new identity or stale-response boundary regression was established.
+
+The strengthened existing account E2E assertion requires absence of the exact expired message after success. Retained browser evidence separately checks ordinary identity verification, injected temporary identity-read failure, same-user success, wrong-account refusal, stale reads/saves and credential clearing. This remains bounded local Chromium/Auth evidence.
+
+### R1 — Searchable asset inventory and actual reference view: addressed
+
+The new `list_media_library` RPC uses live admin/editor authorization, empty search path, explicit revoked PUBLIC/anon/service execution and a narrow authenticated grant (`20261021235900_media_library_lookup.sql:5-7`, `:49-50`). It introduces no direct inventory/reference-table grants, Storage policy or historical-snapshot permission.
+
+The single stable SQL statement searches the full matching inventory before 25-row pagination and exact count; user input is a bounded literal substring, never dynamic SQL/pattern expansion. It derives actual draft positions from current draft snapshots, and released positions from private release references joined to the corresponding immutable snapshot. Current publication uses the actual pointer. The projection contains asset display metadata, counts and bounded references only; it contains no Storage path, signed URL, staff identity or content snapshot. Current-publication refs are sorted first, even when older than five newer historical releases; detail truncation is explicitly reported.
+
+`library-query.ts:14-20` rejects ambiguous array-valued inputs and malformed search/status/reference/usage/page values. `service.ts:104-113` reauthorizes the staff member, calls the current-session RPC and retains the existing private-bucket/host checks and pending-preview refusal. The server page awaits searchParams and distinguishes invalid filters from unavailable reads. The UI has real combined filters, exact total, preserved pagination parameters, distinct no-match/out-of-range states, actual draft/release/current metadata, links to existing draft editing and honest five-reference truncation. Intended upload usage is clearly distinguished from actual usage.
+
+The rollback-only SQL regression covers the old asset beyond 200 rows, exact pages/counts, literal percent/underscore search, reference filters/counts/truncation/current-first ordering, minimized output, role refusals and continued editor denial of full historical snapshots. Unit/view regressions cover input/denial/error/pending/empty-result and rendered-reference behavior. Full-inventory/draft scans are not a high-volume performance qualification.
+
+### Static-opening artwork duplication: source correction coherent, final runtime evidence pending
+
+The old desktop rule in `home-brand-review.css:54-55` supplies background images while `reduced-motion-layout.css` separately makes the two artwork elements visible. The single added `background-image:none` is restricted to the existing desktop `data-static-opening` selector (`reduced-motion-layout.css:9`), leaving its actual artwork elements and animated opening selectors intact. The updated desktop test asserts both backgrounds are none alongside visible artwork, readable cards, width/overflow checks and a return to video mode.
+
+The retained `static-red.log` genuinely fails because `.lh-hero` still has the old image URL while expecting none. This supports the reported duplicate-artwork cause; I did not relabel it as a passing post-fix browser result. Root is rebuilding this later CSS increment and will supply its final delta/evidence.
+
+## Evidence and provenance independently checked
+
+- Read tracked diffs and all nine initially untracked implementation/test/doc files, the full two new migration bodies, new helper permission/call chains and changed consumers. Later documentation updates were read separately. The unrelated first-wheel/family/film investigation remains outside this scoped code review, as instructed.
+- Inspected `sql-green.log`: three rollback-owned files, 77 assertions, PASS. Inspected actual SQL fixture bodies; no database/fixture command was rerun by this reviewer.
+- Inspected retained website 161-test and admin 130-test logs, and the six-entry native build/type/lint manifest: all exits 0. These are root-executed evidence, not this reviewer's fresh runs. Retained admin lint contains one old test-only `_query` warning; current test source has already corrected that name/use. Do not call that retained log zero-warning.
+- Inspected retained after-fix browser results: 15 behavior passes, one staff-harness failure caused by a draft request lacking its required ID, and successful data equality. The separate corrected staff run passes its staff-workspace behavior and preservation. The initial failure remains visible rather than being rewritten into a single uninterrupted all-green run.
+- Independently compared both before/after browser preservation pairs byte-for-byte: equal. Only aggregate local alias compatibility counts were emitted from the retained private data; no Auth secrets/customer rows were printed. This does not prove preservation of every external system.
+- Both app generated database files are identical. Their difference from the 02:37 verified build mirror is whitespace only. The four changed generated content-policy/code copies end with exact canonical bytes; five SQL product aliases match initial canonical images.
+- Compared 17 changed production inputs against the build mirror: all substantive backend/account/media repairs matched. The later CSS line did not; therefore the 02:37 build is not evidence for that later CSS increment. Final source-hash/build verification remains root-owned and pending at this pass.
+
+## Separate documentation and limits
+
+The two initial stale statements were corrected: customer-data describes editing/submitted working drafts, and commerce acknowledges restricted admin/operations order reads. The added commerce paragraph honestly states successful-new-order quota semantics and does not claim failed transactions retain counters. New media-library documentation matches the inspected projection/filter/reference behavior. README/acceptance/security updates distinguish original evidence from this new audit instead of replacing history.
+
+No new live Auth/DB/Storage writes, runtime restarts, mirror refreshes, suite execution, subagents, commits, index changes, push/merge/deployment or external messages were performed. Only this ignored report was written. Production activation/SMTP/target migration/recovery/legal/payment/real-device/capacity gates and noncanonical external-history compatibility remain explicit. This first scoped verdict does not absorb the root's still-active frontend performance investigation or its final verification delta.
+
+## Final delta and delivery evidence — independently rechecked
+
+The final production increment beyond the first scoped pass is the already reviewed single `background-image:none` line. The frontend follow-up changes only the family test setup: it explicitly completes the stage's positioning with `behavior:'instant'` after hover, then captures scrollY. The same horizontal wheel, selected-family assertion and exact scrollY equality remain. No film component or film test was changed, skipped or given a larger timeout. I did not find an additional substantive production-code increment requiring a new backend finding.
+
+The retained no-wheel family control records scrollY 5066→5207; its instant control remains 5207→5207. The film timing probe records an 800ms timer created at 308ms, click at 309ms, timer firing at 1172ms, moving=false at 1173ms and disabled attributes removed around 1174ms; the later browser result returns at 5428.3ms with counter02. These are one probe's observations, not proof of a universal recovery bound or the root cause of every failure. `frontend-ui/focused-original.log` retains the actual 12-case result: 10 passed and 2 failed at first-counter 01→02. The frontend report discloses that the intermediate trace ZIP was overwritten. F1 therefore remains **P3 / unresolved**, as the public audit correctly states.
+
+`static-green.log` reports one passing desktop test. I rechecked that its body actually loops three locales × two widths, requires visible artwork and background-image:none for both static sections, checks card/readable-content/overflow bounds, then restores video mode. This is six static combinations inside one test, not six independent test cases or a real-device claim. `family-final.log` reports two passing horizontal-gesture cases, desktop and mobile projects. These final GREENs close the first-pass CSS evidence qualification without rewriting the earlier failed runs or claiming the original 74-case suite was rerun all-green.
+
+The final native six-entry `final-build/build-results.json` records both applications' build/typecheck/lint exit0, with their actual app cwd and commands. Both final lint logs contain no warning or error; the earlier test-only lint warning remains an earlier-run fact and is superseded for the final inputs. These are inspected root executions, not suites rerun by this reviewer.
+
+I independently hashed all **1,175** recorded source inputs against `source-input.json`: zero current-source mismatches. All **825** production files match their recorded hashes in each of the current source, verification mirror and delivered preview mirror: zero mismatches in all three. Recomputing SHA-256 of the recorded ordered maps also matches both aggregate manifest digests. The production digest is `9d19b25d858fe635f251263366970fb4208ec0d8ac5d6d8593d23d57438044f7`. This proves byte provenance for those declared inputs, not independent semantic review of every repeated data leaf.
+
+I read the actual BUILD_ID files, rather than trusting the manifest's equality flag: website verification/preview both `JkmWeAhPQHr5ZhfsM9Dmt`; admin verification/preview both `tcWTZviGV0pabW3X11a1w`. They match the source manifest and `delivery-refresh.json` artifact entries. The final CSS is therefore included in the matching rebuilt/delivered source and stock artifact provenance.
+
+`delivery-refresh.json` records businessDataEqual, configUnchanged, credentialsUnchanged and originalProcessesPresent, all true. I independently verified the current private configuration/credential hashes against its digests without displaying the values; both files remain mode0600. All three recorded original PIDs were still present. Fresh **read-only anonymous** HTTP checks returned200 for website4211, admin4270 and all three original4240/4241/4242 entrypoints. This reviewer made no service restart, artifact transfer or backend mutation. The business-data equality statement remains the retained root snapshot comparison, not a new direct database read by this reviewer.
+
+For consistency with the public report, I also checked aggregate evidence: `public-pages.json` has132 records with zero non200, overflow, page-error or bad-asset rows; `staff-walk.json` has18 API checks and90 layout records with zero overflow, and the actual harness asserts its collected pageerror list is empty. Both retained production dependency audit JSON files report zero vulnerabilities; the advisor log reports no issues. These bounded results do not erase F1 or certify the full development dependency graph, external infrastructure or real devices.
+
+Read the complete `docs/admin/audit-2026-10-21.md` draft against these source/evidence paths. Its six-fixed/one-open conclusion, initial failure counts, canonical-history limit, 429-without-Retry-After statement, separate picker/library search distinction and withdrawn ContentImage false positive are consistent with this review. No substantive false claim or missing product finding was established in that draft. The requested final delivery section was still awaiting root's append at this check; its new documentation bytes should receive their own final input-hash update rather than being falsely included in the already recorded 1,175-input digest.
+
+**Final scoped verdict:** B1/B2/B3/N1/R1 and the static desktop duplication correction are addressed for the demonstrated local delivery. No new Critical/Important repair regression was established. F1 stays P3/unresolved, and all explicit production, external-history, payment, capacity and real-device limitations remain. Only this report was changed by the reviewer.

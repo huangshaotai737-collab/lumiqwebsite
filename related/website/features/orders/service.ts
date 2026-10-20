@@ -36,9 +36,10 @@ function rpcError(error: { code?: string } | null) {
     "23514": ["INVALID_INPUT", 400],
     P0002: ["NOT_FOUND", 404],
     P0004: ["ORDERING_DISABLED", 409],
+    P0005: ["RATE_LIMITED", 429],
   };
   const fault = faults[error.code || ""] || ["UNAVAILABLE", 503];
-  throw new HttpError(fault[0], fault[1]);
+  throw new HttpError(fault[0], fault[1], error.code === "P0005" ? 60 : undefined);
 }
 export function createOrder(
   input: CreateOrderInput,

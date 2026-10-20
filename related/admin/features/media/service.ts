@@ -9,6 +9,7 @@ import { requireStaff } from '@/lib/auth/require-staff';
 import { enforceRateLimit } from '@/lib/http/rate-limit';
 import { HttpError } from '@/lib/http/result';
 import { inspectMedia, mediaProfiles, validateUpload, type UploadInput, type MediaMetadata } from './validate';
+import { parseMediaLibraryQuery, type MediaSearchParams, type MediaLibraryPage } from './library-query';
 type Asset = Database['public']['Tables']['media_assets']['Row'];
 const uuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 function trusted() {
@@ -100,11 +101,16 @@ export async function prepareReleaseAssets(draftId: UUID, expected?: { version: 
   }
 }
 export async function archiveAsset(assetId: UUID): Promise<ApiResult<null>> { return result(async () => { await writer(); identity(assetId); const client = await createClient(); const archived = await client.rpc('archive_media_asset', { asset_id: assetId }); sql(archived.error); return null; }); }
-export async function loadMediaLibrary() {
-  await requireStaff(['admin', 'editor']); const service = trusted(); const hostCap = await hostLimit(service);
-  const rows = await assets();
-  const previews = rows.map(asset => ({ id: asset.id, fileName: asset.file_name, usageKey: asset.usage_key, mime: asset.mime, size: asset.advertised_size, status: asset.status, previewUrl: asset.status === 'pending' ? null : `/api/media/preview?assetId=${asset.id}` }));
-  return { assets: previews, hostCap, profiles: Object.entries(mediaProfiles).map(([key, value]) => ({ key, kind: value.kind, profile: value.profile, label: `${'readOnlyReason' in value ? '透明人物（只读）' : value.complex ? (key === 'asset_a4b2063e90484449' ? '开场视频' : '滚动背景视频') : value.kind === 'video' ? '普通影片' : value.companions.length ? '配套封面' : '静态图片'} · ${value.legacyUrl.split('/').pop()!}`, maxBytes: Math.min(hostCap, value.kind === 'image' ? 20971520 : 52428800), mimes: value.mimes, companions: value.companions.map(key => mediaProfiles[key as keyof typeof mediaProfiles].legacyUrl.split('/').pop()!), reason: 'readOnlyReason' in value ? value.readOnlyReason : null, constraints: 'duration' in value ? `${value.width}:${value.height}；${value.duration === null ? '最长 600 秒' : value.duration + ' 秒（±1/24秒）'}；${value.codec}` : `${'width' in value ? `${value.width}:${value.height}；` : ''}JPEG / PNG / WebP` })) };
+export async function loadMediaLibrary(input: MediaSearchParams = {}) {
+  await requireStaff(['admin', 'editor']);
+  const query = parseMediaLibraryQuery(input, Object.keys(mediaProfiles));
+  const client = await createClient();
+  const response = await client.rpc('list_media_library', { search: query.q, usage_key: query.usage || undefined, asset_status: query.status || undefined, reference_state: query.reference || undefined, page: query.page });
+  sql(response.error);
+  const library = response.data as unknown as MediaLibraryPage;
+  const service = trusted(); const hostCap = await hostLimit(service);
+  const previews = library.items.map(asset => ({ ...asset, previewUrl: asset.status === 'pending' ? null : `/api/media/preview?assetId=${asset.id}` }));
+  return { assets: previews, total: library.total, page: library.page, pageSize: library.pageSize, query, hostCap, profiles: Object.entries(mediaProfiles).map(([key, value]) => ({ key, kind: value.kind, profile: value.profile, label: `${'readOnlyReason' in value ? '透明人物（只读）' : value.complex ? (key === 'asset_a4b2063e90484449' ? '开场视频' : '滚动背景视频') : value.kind === 'video' ? '普通影片' : value.companions.length ? '配套封面' : '静态图片'} · ${value.legacyUrl.split('/').pop()!}`, maxBytes: Math.min(hostCap, value.kind === 'image' ? 20971520 : 52428800), mimes: value.mimes, companions: value.companions.map(key => mediaProfiles[key as keyof typeof mediaProfiles].legacyUrl.split('/').pop()!), reason: 'readOnlyReason' in value ? value.readOnlyReason : null, constraints: 'duration' in value ? `${value.width}:${value.height}；${value.duration === null ? '最长 600 秒' : value.duration + ' 秒（±1/24秒）'}；${value.codec}` : `${'width' in value ? `${value.width}:${value.height}；` : ''}JPEG / PNG / WebP` })) };
 }
 
 export type MediaOption = { id: string; fileName: string };

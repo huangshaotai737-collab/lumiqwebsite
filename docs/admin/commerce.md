@@ -33,7 +33,7 @@ C4 在禁用或不可用时继续以候补名单为主要入口。顾客应阅�
 
 锁顺序：身份 Auth/Profile share → 会员/幂等键 advisory → 新请求商业 shared advisory `7411111` → settings share → publication share → SKU share（按 UUID 顺序）。管理员写入是团队 `7410404` → 商业 exclusive `7411111` → 相关行锁；多次 SKU/设置 RPC 放在同一管理员事务时也保持一致。B2 发布是团队 `7410404` → 发布 `7410606` → publication 行；订单不请求团队锁，因此不会形成逆向等待。取消只请求身份、会员/键锁和订单行锁。不同请求可并行取得商业 shared 锁。
 
-所有新订单固定为 pending_payment_setup / not_configured / not_scheduled。只保存 itemsMinor，小计不是最终扣款金额；shippingMinor、taxMinor、payableMinor 必须为 null。即使文案提到免运，也不据此填零。C5 付款前须补齐有效总价并取得顾客确认，本轮不收费、不扣库存。C6 运营/匿名化需专门的受控事务：当前没有给运营新增订单读取接口，订单归属 FK 会阻止直接删除 profile；不能删除或修改审计和发布历史来绕过匿名化流程。
+所有新订单固定为 pending_payment_setup / not_configured / not_scheduled。只保存 itemsMinor，小计不是最终扣款金额；shippingMinor、taxMinor、payableMinor 必须为 null。即使文案提到免运，也不据此填零。C5 付款前须补齐有效总价并取得顾客确认，本轮不收费、不扣库存。管理员和运营已可通过受限订单接口读取及备注订单。匿名化使用专门的受控事务，保留财务、审计和发布历史，不能通过删除历史绕过外键。
 
 ## 本地验证
 
@@ -64,3 +64,6 @@ C4 复审修复：只有 `create_customer_order` 返回可信的 SQLSTATE23505 �
 C5 已增加[支付关闭契约与准备入口](payment-integration.md)：后台管理员从系统设置查看材料顺序；官网 `POST /api/payments/checkout` 在同源、有效已验证身份、严格输入、共享限流与本人订单校验后仍返回503/PAYMENTS_NOT_CONFIGURED。五个 server-only 支付接口全部关闭，没有公开通知路由或真实交易。payment_attempts/payment_events/payment_refunds 是受限服务器预留表，唯一键去重且状态只允许 not_configured；C6 处理目标订单前须处理这些外键。浏览器成功回跳不能付款，最终报价与订阅均未实现。
 
 C6 已实现默认关闭的受控匿名化：先暂停客户访问，正式 Auth 管理 API 禁用并清理联系资料，再原子清理 profile、订单收件快照和内部备注；保留金融明细、订单/付款外键、审计与发布历史。失败任务可由当前管理员查看并恢复，具体范围、品牌保留规则门槛及独立会话并发验证见[客户资料清理说明](customer-data.md)。
+
+
+2026-10-21 自查补强：公开订单 RPC 在数据库中按已验证会员限制每分钟最多60笔成功的新订单创建，直接 Data API 同样受限；同一请求键的恢复优先于配额，条款和定价错误仍保留原有顺序。失败事务回滚，不宣称其计数仍持久化。官网另保留共享请求限流；数据库配额错误映射为 RATE_LIMITED/429。

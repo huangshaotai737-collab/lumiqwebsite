@@ -8,6 +8,8 @@ test('a horizontal trackpad swipe changes one family card without moving the pag
   const stage = cards.locator('.lh-family-stage');
   await stage.scrollIntoViewIfNeeded();
   await stage.hover();
+  // Hover can leave the page's CSS smooth scroll running after opening fallback.
+  await stage.evaluate(element => element.scrollIntoView({ block: 'center', behavior: 'instant' }));
   const beforeY = await page.evaluate(() => scrollY);
 
   // Chromium mobile emulation scales CDP wheel deltas by deviceScaleFactor.

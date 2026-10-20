@@ -515,6 +515,9 @@ isOneToOne: true
 "list_customer_orders":
 { Args: { "page"?: number,"page_size"?: number }; Returns: Json
                            },
+"list_media_library":
+{ Args: { "asset_status"?: string,"page"?: number,"reference_state"?: string,"search"?: string,"usage_key"?: string }; Returns: Json
+                           },
 "list_media_options":
 { Args: { "after_created_at"?: string,"after_id"?: string,"search"?: string,"usage_key": string }; Returns: Json
                            },

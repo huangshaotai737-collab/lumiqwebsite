@@ -57,10 +57,10 @@ describe('publish validation', () => {
     expect(validateDraft(media).ok).toBe(false);
     expect(validateDraft(product).ok).toBe(false);
   });
-  it('accepts canonical UUID product images and rejects encoded slot/image prefixes even with matching UUIDs', () => {
+  it('rejects untracked product image URLs and encoded slot/image prefixes even with matching UUIDs', () => {
     const assetId = 'a1288990-47a1-4fb0-88e9-271d73596611';
     const valid = copy(); valid.products.ola.image = `/api/media/${assetId}`;
-    expect(validateDraft(valid).ok).toBe(true);
+    expect(validateDraft(valid).ok).toBe(false);
     for (const value of [`/%61pi/media/${assetId}`, `/api%2fmedia%2f${assetId}`]) {
       const media = copy(); const slot = Object.values(media.media)[0] as MediaSlot; slot.url = value; slot.assetId = assetId;
       const product = copy(); product.products.ola.image = value;

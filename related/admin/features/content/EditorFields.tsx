@@ -2,6 +2,7 @@
 import { MediaPicker } from '@/features/media/MediaPicker';
 import type { ContentSnapshot, ProductPresentation } from '@/lib/generated/platform/content';
 import { fieldContext, fieldLabel, fieldValue, type EditorField } from './editor-labels';
+import {trustedProductImages} from '@/lib/generated/platform/content-legacy-media';
 export function replaceField(snapshot: ContentSnapshot, path: string, value: unknown): ContentSnapshot {
   const copy = structuredClone(snapshot);
   const keys = path.split('.');
@@ -27,6 +28,9 @@ export function FieldControl({ field, snapshot, change, invalidControlPaths, sel
     <small>仅用于展示，不影响订单金额。</small></>;
   } else if (field.path.endsWith('.contentStatus')) {
     control = <select {...properties} value={String(value)} onChange={event => change(field.path, event.target.value)}><option value="pending_brand_confirmation">待品牌确认</option><option value="confirmed">已确认</option></select>;
+  } else if (/^products\.[^.]+\.image$/.test(field.path)) {
+    const {slotId}=trustedProductImages[field.path.split('.')[1]]; const slot=snapshot.media[slotId];
+    control = <><MediaPicker usageKey={slotId} assetId={slot.assetId} controlProps={properties} onChange={assetId=>change(`media.${slotId}`,{...slot,assetId,url:assetId?`/api/media/${assetId}`:legacyMedia[slotId]})}/><small>产品图片与对应素材统一管理，预览和发布使用同一图片。</small></>;
   } else if (field.type === 'assetId') {
     const slotKey = field.path.split('.')[1]; const slot = snapshot.media[slotKey];
     control = <MediaPicker usageKey={slotKey} assetId={slot.assetId} controlProps={properties} onChange={assetId => change(`media.${slotKey}`, { ...slot, assetId, url: assetId ? `/api/media/${assetId}` : legacyMedia[slotKey] })} />;

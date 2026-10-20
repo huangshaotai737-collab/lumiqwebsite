@@ -113,6 +113,7 @@ test('verified_email_PKCE_cookie_profile_owner_and_recovery', async ({ page, con
     await page.getByLabel('新密碼', { exact: true }).fill(changed);
     await page.getByRole('button', { name: '儲存新密碼' }).click();
     await expect(page.getByRole('status').filter({ hasText: '密碼已更新' })).toBeVisible();
+    await expect(page.getByText(accountCopy['zh-hant'].expired, {exact:true})).toHaveCount(0);
     expect((await post(context, '/api/auth/signin', { email: account.email, password: account.password })).status()).toBe(401);
     expect((await post(context, '/api/auth/signin', { email: account.email, password: changed, locale: 'en' })).status()).toBe(200);
     await page.goto('/en/login');
