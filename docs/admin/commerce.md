@@ -60,3 +60,5 @@ C6 匿名化/删除受控事务必须先按目标订单清理 `order_notes` 的�
 C4 复审修复：只有 `create_customer_order` 返回可信的 SQLSTATE23505 且消息精确为 `terms changed` 时，服务端才映射为安全的 `TERMS_CHANGED`/HTTP409。该分支发生在当前身份与 owner/key 查找之后，证明新请求未提交；幂等键内容冲突仍是 `CONFLICT`，不会向浏览器发送数据库消息。界面仅在此确定结果下清除旧请求、刷新商业投影并要求重新接受新条款。传输/未知错误继续保留原请求与键。身份验证每个事件拥有独立递增代号，只有最新结果可重新显示表单，前进/返回恢复同样重新验证。
 
 批准文本按规范文档的固定顺序显示 eyebrow、标题、intro、draft、p1/h1/p2/h2/p3/h3/p4/h4/p5，再显示三个承诺，不依赖 JSONB 键顺序。两应用测试通过薄适配器注入自己的 SDK 和本地 env 路径，复用 `scripts/tests/support/order-fixtures.mjs`。共享生命周期在执行 SDK/SQL 前验证本地 URL；用持久私有备份保存配置与发布指针/时间戳，finally 尝试恢复和清理，仅保留不可变发布/审计历史。此模块仅用于本地测试，没有生产运行时跨应用导入。
+
+C5 已增加[支付关闭契约与准备入口](payment-integration.md)：后台管理员从系统设置查看材料顺序；官网 `POST /api/payments/checkout` 在同源、有效已验证身份、严格输入、共享限流与本人订单校验后仍返回503/PAYMENTS_NOT_CONFIGURED。五个 server-only 支付接口全部关闭，没有公开通知路由或真实交易。payment_attempts/payment_events/payment_refunds 是受限服务器预留表，唯一键去重且状态只允许 not_configured；C6 处理目标订单前须处理这些外键。浏览器成功回跳不能付款，最终报价与订阅均未实现。

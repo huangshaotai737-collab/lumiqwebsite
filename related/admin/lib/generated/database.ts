@@ -249,6 +249,66 @@ isOneToOne: false
       referencedColumns: ["id"]
     }
                   ]
+                },"payment_attempts": {
+                  Row: {
+                    "created_at": string,"id": string,"idempotency_key": string,"order_id": string,"status": string
+                  }
+                  ComputedFields: never
+                  Insert: {
+                    "created_at"?: string,"id"?: string,"idempotency_key": string,"order_id": string,"status"?: string
+                  }
+                  Update: {
+                    "created_at"?: string,"id"?: string,"idempotency_key"?: string,"order_id"?: string,"status"?: string
+                  }
+                  Relationships: [
+                    {
+      foreignKeyName: "payment_attempts_order_id_fkey"
+      columns: ["order_id"]
+isOneToOne: false
+      referencedRelation: "customer_orders"
+      referencedColumns: ["id"]
+    }
+                  ]
+                },"payment_events": {
+                  Row: {
+                    "amount_minor": number,"created_at": string,"currency": string,"event_id": string,"id": string,"order_id": string,"provider": string,"status": string,"transaction_id": string
+                  }
+                  ComputedFields: never
+                  Insert: {
+                    "amount_minor": number,"created_at"?: string,"currency": string,"event_id": string,"id"?: string,"order_id": string,"provider": string,"status"?: string,"transaction_id": string
+                  }
+                  Update: {
+                    "amount_minor"?: number,"created_at"?: string,"currency"?: string,"event_id"?: string,"id"?: string,"order_id"?: string,"provider"?: string,"status"?: string,"transaction_id"?: string
+                  }
+                  Relationships: [
+                    {
+      foreignKeyName: "payment_events_order_id_fkey"
+      columns: ["order_id"]
+isOneToOne: false
+      referencedRelation: "customer_orders"
+      referencedColumns: ["id"]
+    }
+                  ]
+                },"payment_refunds": {
+                  Row: {
+                    "amount_minor": number,"created_at": string,"id": string,"idempotency_key": string,"order_id": string,"status": string
+                  }
+                  ComputedFields: never
+                  Insert: {
+                    "amount_minor": number,"created_at"?: string,"id"?: string,"idempotency_key": string,"order_id": string,"status"?: string
+                  }
+                  Update: {
+                    "amount_minor"?: number,"created_at"?: string,"id"?: string,"idempotency_key"?: string,"order_id"?: string,"status"?: string
+                  }
+                  Relationships: [
+                    {
+      foreignKeyName: "payment_refunds_order_id_fkey"
+      columns: ["order_id"]
+isOneToOne: false
+      referencedRelation: "customer_orders"
+      referencedColumns: ["id"]
+    }
+                  ]
                 },"profiles": {
                   Row: {
                     "access_state": string,"display_name": string,"locale": string,"shipping_address": NonNullable<Json>,"user_id": string

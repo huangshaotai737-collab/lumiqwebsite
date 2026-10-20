@@ -216,3 +216,25 @@ test('order annotations inventory requires exact RLS table and rejects drift and
   }
  }finally{await rm(fixture,{recursive:true,force:true});}
 });
+
+const paymentTables = {"public.payment_attempts": {"columns": {"id": "uuid", "order_id": "uuid", "idempotency_key": "text", "status": "text", "created_at": "timestamp with time zone"}, "primaryKey": ["id"], "unique": [["order_id", "idempotency_key"]], "rlsEnabled": true}, "public.payment_events": {"columns": {"id": "uuid", "provider": "text", "event_id": "text", "transaction_id": "text", "order_id": "uuid", "amount_minor": "bigint", "currency": "text", "status": "text", "created_at": "timestamp with time zone"}, "primaryKey": ["id"], "unique": [["provider", "event_id"]], "rlsEnabled": true}, "public.payment_refunds": {"columns": {"id": "uuid", "order_id": "uuid", "amount_minor": "bigint", "idempotency_key": "text", "status": "text", "created_at": "timestamp with time zone"}, "primaryKey": ["id"], "unique": [["order_id", "idempotency_key"]], "rlsEnabled": true}};
+test('payment reservations require exact RLS schema, keys and inventory',async()=>{
+ const fixture=await mkdtemp(path.join(tmpdir(),'lumiq-payment-baseline-'));
+ try {
+  const input=manifest();input.migrations=[];
+  Object.assign(input.tables,identityTables,{'public.staff_invites':inviteTable},structuredClone(contentTables),{'public.media_assets':structuredClone(mediaTable)},structuredClone(operationsTables),structuredClone(commerceTables),{'public.order_notes':structuredClone(orderNotesTable)},structuredClone(paymentTables));
+  input.tables['public.content_drafts'].columns.base_release_id='uuid';
+  const {readdir}=await import('node:fs/promises');
+  for(const file of (await readdir(new URL('../../supabase/migrations',import.meta.url))).filter(file=>/^\d{14}_.*\.sql$/.test(file) && file <= '20261020200000_payment_contracts.sql').sort()) input.migrations.push({version:file.slice(0,14),sha256:createHash('sha256').update(await readFile(new URL(`../../supabase/migrations/${file}`,import.meta.url))).digest('hex')});
+  const target=path.join(fixture,'remote.json');
+  const run=async()=>{await writeFile(target,JSON.stringify(input));return spawnSync(process.execPath,[script,'--remote-manifest',target],{encoding:'utf8'});};
+  assert.equal((await run()).status,0);
+  for(const name of Object.keys(paymentTables)) {
+   for(const mutate of [t=>{t.columns.unknown='text'},t=>{t.rlsEnabled=false},t=>{t.unique=[]},t=>{t.columns.created_at='text'}]) {
+    mutate(input.tables[name]);assert.match((await run()).stderr,/PAYMENT_SCHEMA_MISMATCH/);input.tables[name]=structuredClone(paymentTables[name]);
+   }
+   delete input.tables[name];assert.match((await run()).stderr,/PAYMENT_SCHEMA_MISMATCH/);input.tables[name]=structuredClone(paymentTables[name]);
+  }
+  input.tables['public.unknown_payment_table']={};assert.match((await run()).stderr,/UNRECOGNIZED_SCHEMA_INVENTORY/);
+ }finally{await rm(fixture,{recursive:true,force:true});}
+});
