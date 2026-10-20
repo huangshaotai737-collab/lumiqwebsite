@@ -1,6 +1,7 @@
 import { expect, test, type BrowserContext } from '@playwright/test';
 import { createClient } from '@supabase/supabase-js';
 import { mkdirSync, readFileSync } from 'node:fs';
+import { execFileSync } from 'node:child_process';
 import { parseEnv } from 'node:util';
 import path from 'node:path';
 import initialSnapshot from '../../features/content/initial-snapshot.json';
@@ -13,6 +14,8 @@ const password = `Synthetic-${crypto.randomUUID()}!`; const origin = 'http://127
 const users: Record<string, { id: string; email: string }> = {};
 let imageId: string; let draftId: string; let releaseId: string; let snapshot: ContentSnapshot; // Full synthetic snapshot is modified through real server APIs.
 const uploadUrls = new Map<string, string>();
+const boundaryPrefix = `b3-picker-${crypto.randomUUID()}`;
+function fixtureSql(sql: string) { return execFileSync('docker',['exec','-i','supabase_db_lumiq-platform','psql','-X','-qAt','-v','ON_ERROR_STOP=1','-U','postgres'],{input:sql,env:{...process.env,DOCKER_HOST:'unix:///Users/huangshaotai/.colima/lumiq-platform/docker.sock'},encoding:'utf8'}); }
 const usage = 'asset_012d3bf8af92d486';
 test.describe.configure({ mode: 'serial' });
 test.beforeAll(async () => {
@@ -22,7 +25,7 @@ test.beforeAll(async () => {
     const staff = await backend.from('staff_memberships').insert({ user_id: created.data.user.id, role, active: true }); if (staff.error) throw new Error('staff setup failed');
   }
 });
-test.afterAll(async () => { await backend.storage.updateBucket('media-releases', { public: false, fileSizeLimit: 52428800 }); for (const user of Object.values(users)) await backend.auth.admin.deleteUser(user.id); });
+test.afterAll(async () => { fixtureSql(`delete from public.media_assets where original_path like '${boundaryPrefix}/%';`); await backend.storage.updateBucket('media-releases', { public: false, fileSizeLimit: 52428800 }); for (const user of Object.values(users)) await backend.auth.admin.deleteUser(user.id); });
 async function login(context: BrowserContext, role: string) {
   await context.setExtraHTTPHeaders({ 'x-real-ip': `2001:db8:${crypto.randomUUID().slice(0,4)}::7` });
   expect((await context.request.post(`${origin}/api/auth/signin`, { headers: { origin }, data: { email: users[role].email, password } })).status()).toBe(200);
@@ -76,7 +79,10 @@ test('failed_media_publish_stays_private and exact snapshot publication; archiva
   } finally { expect((await backend.storage.updateBucket('media-releases',{public:false,fileSizeLimit:52428800})).error).toBeNull(); }
   const published=await post(context,'/api/content/publish',{id:draftId,expectedVersion:version}); expect(published.status()).toBe(200); releaseId=(await published.json()).data.releaseId;
   const delivered=await context.request.get(`${website}/api/media/${imageId}`); expect(delivered.status()).toBe(200); expect(delivered.headers()['cache-control']).toContain('immutable'); expect(await delivered.body()).toEqual(syntheticImage);
-  const copied=await anon.storage.from('media-releases').download('releases/'+imageId); expect(copied.error).not.toBeNull();
+  const proof=await anon.rpc('get_public_asset',{asset_id:imageId}); expect(proof.error).toBeNull(); const releasePath=(proof.data as {path:string}).path;
+  expect(releasePath).toMatch(new RegExp(`^releases/${imageId}/[a-f0-9]{64}$`));
+  const existingCopy=await backend.storage.from('media-releases').download(releasePath);expect(existingCopy.error).toBeNull();expect(Buffer.from(await existingCopy.data!.arrayBuffer())).toEqual(syntheticImage);
+  const copied=await anon.storage.from('media-releases').download(releasePath); expect(copied.error).not.toBeNull();
   await page.goto(`/content/${draftId}`); await page.getByLabel('字段分组').selectOption('media'); await page.getByLabel('搜索字段').fill(`media.${usage}.assetId`); await expect(page.locator(`[id="field-media.${usage}.assetId"]`)).toHaveValue(imageId);
   expect((await post(context,'/api/media/archive',{assetId:imageId})).status()).toBe(200);
   expect((await context.request.get(`${website}/api/media/${imageId}`)).status()).toBe(200);
@@ -110,4 +116,24 @@ test('paired film/poster transaction prevents orphan exposure and delivers actua
   await expect.poll(()=>page.locator('video').evaluate(video=>(video as HTMLVideoElement).duration)).toBe(0.5);
   await page.locator('video').evaluate(video=>{(video as HTMLVideoElement).currentTime=0.25;});
   await expect.poll(()=>page.locator('video').evaluate(video=>(video as HTMLVideoElement).readyState)).toBeGreaterThanOrEqual(2);
+});
+
+test('older ready media remains discoverable and selectable beyond 200 newer attempts', async ({context,page,browser})=>{
+  await login(context,'admin');
+  const target=await upload(context,syntheticImage);expect((await post(context,'/api/media/complete',{assetId:target})).status()).toBe(200);
+  fixtureSql(`insert into public.media_assets(created_by,file_name,advertised_size,mime,usage_key,original_path,status,created_at)
+    select '${users.admin.id}','boundary-attempt-'||n,1,'image/png','${usage}','${boundaryPrefix}/attempt-'||n,case when n%2=0 then 'pending' else 'archived' end,now()+interval '1 day' from generate_series(1,201) n;
+    insert into public.media_assets(created_by,file_name,advertised_size,mime,usage_key,original_path,status,created_at)
+    select '${users.admin.id}','boundary-ready-'||n,1,'image/png','${usage}','${boundaryPrefix}/ready-'||n,'ready',now()+interval '1 day' from generate_series(1,26) n;`);
+  const created=await post(context,'/api/content/drafts',{id:crypto.randomUUID(),expectedVersion:0,snapshot:initialSnapshot});expect(created.status()).toBe(200);const draft=(await created.json()).data;
+  await page.goto(`/content/${draft.id}`);await page.getByLabel('字段分组').selectOption('media');await page.getByLabel('搜索字段').fill(`media.${usage}.assetId`);
+  const picker=page.locator(`[id="field-media.${usage}.assetId"]`);const field=page.locator('.content-field').filter({has:picker});
+  await field.getByRole('button',{name:'查找素材',exact:true}).click();
+  await expect(picker.locator(`option[value="${target}"]`)).toHaveCount(0);
+  await field.getByRole('button',{name:'下一页素材',exact:true}).click();await expect(picker.locator(`option[value="${target}"]`)).toHaveCount(1);
+  await picker.selectOption(target);await page.getByRole('button',{name:'保存草稿',exact:true}).click();await expect(page.getByRole('status').filter({hasText:'草稿已保存'})).toBeVisible();
+  const saved=await context.request.get(`${origin}/api/content/drafts?id=${draft.id}`);expect((await saved.json()).data.snapshot.media[usage].assetId).toBe(target);
+  await field.getByLabel('按文件名或编号查找素材').fill(target);await field.getByRole('button',{name:'查找素材',exact:true}).click();await expect(picker.locator(`option[value="${target}"]`)).toHaveCount(1);await expect(field.getByRole('button',{name:'下一页素材',exact:true})).toBeDisabled();
+  const options=await context.request.get(`${origin}/api/media/options?usageKey=${usage}&q=${target}`);expect(options.status()).toBe(200);expect(options.headers()['cache-control']).toContain('no-store');expect((await options.json()).data.items).toHaveLength(1);
+  const outsider=await browser.newContext();expect((await outsider.request.get(`${origin}/api/media/options?usageKey=${usage}`)).status()).toBe(401);await login(outsider,'operations');expect((await outsider.request.get(`${origin}/api/media/options?usageKey=${usage}`)).status()).toBe(403);await outsider.close();
 });

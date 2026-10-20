@@ -7,7 +7,7 @@ import type { ContentDraft, ContentResult, FieldIssue } from './service';
 import type { ContentSnapshot } from '@/lib/generated/platform/content';
 const groups = { messages: '三语文案', products: '产品', plans: '方案', media: '素材引用', settings: '系统设置' };
 const errors = { CONFLICT: '草稿版本冲突。当前输入已保留，请下载冲突副本，再载入最新草稿后合并。', FORBIDDEN: '当前账号无操作权限。', UNAUTHENTICATED: '登录已过期，请重新登录。', INVALID_INPUT: '内容校验未通过，请修正下列字段。', UNAVAILABLE: '服务暂不可用，当前输入已保留。', RATE_LIMITED: '操作过于频繁，请稍后重试。', NOT_FOUND: '草稿不存在。' };
-export function ContentEditor({ initial, fields, admin, mediaOptions, legacyMedia }: { initial: ContentDraft; fields: EditorField[]; admin: boolean; mediaOptions: { id: string; usageKey: string; fileName: string }[]; legacyMedia: Record<string, string> }) {
+export function ContentEditor({ initial, fields, admin, legacyMedia }: { initial: ContentDraft; fields: EditorField[]; admin: boolean; legacyMedia: Record<string, string> }) {
   const [snapshot, setSnapshot] = useState(initial.snapshot);
   // Freeze text-search matches while editing so an active field does not disappear mid-sentence.
   const [searchSnapshot, setSearchSnapshot] = useState(initial.snapshot);
@@ -97,7 +97,7 @@ export function ContentEditor({ initial, fields, admin, mediaOptions, legacyMedi
       {group === 'messages' && <label>文案语言<select value={locale} onChange={event => { setSearchSnapshot(snapshot); setLocale(event.target.value); setPage(0); }}><option value="en">英文</option><option value="zh-hant">繁体中文</option><option value="ja">日文</option></select></label>}
       <label>搜索字段<input placeholder="搜索当前文案、中文名称或字段路径" value={query} onChange={event => { setSearchSnapshot(snapshot); setQuery(event.target.value); setPage(0); }} /></label></div>
       <p>共 {filtered.length} 个字段，每页最多显示 40 项。</p>
-      {visible.map(field => <FieldControl key={`${field.path}:${version}`} field={field} snapshot={snapshot} selectedPage={selectedPage} mediaOptions={mediaOptions} legacyMedia={legacyMedia} change={change} invalidControlPaths={invalidControlPaths} />)}
+      {visible.map(field => <FieldControl key={`${field.path}:${version}`} field={field} snapshot={snapshot} selectedPage={selectedPage} legacyMedia={legacyMedia} change={change} invalidControlPaths={invalidControlPaths} />)}
       <div className="content-toolbar"><button disabled={page === 0} onClick={() => setPage(value => value - 1)}>上一页字段</button><span>第 {page + 1} 页</span><button disabled={(page + 1) * 40 >= filtered.length} onClick={() => setPage(value => value + 1)}>下一页字段</button></div>
       </fieldset>
     </section>

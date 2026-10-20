@@ -26,6 +26,10 @@
 
 官网 GET `/api/media/UUID` 独立构建、只使用服务器权限。先验证私有固定桶配置与 `get_public_asset` 的已发布历史引用证明，再读取 DB 固定 `releases/UUID/SHA256` 路径。草稿、未发布、复制失败或伪造 path 一律 404/no-store。有效资源返回可信 MIME、nosniff、不可变缓存及单段 Range/206/416，保持视频播放/拖动与下载行为。当前实现最多缓冲单个 50 MiB 对象，Range 也先读取完整对象；大规模视频流量应另行评估代理运行时内存与带宽，但不能通过公开桶绕过证明边界。
 
+## 素材检索
+
+最近素材库仍只列出最新 200 条记录。草稿的素材选择独立使用当前员工保护的 `/api/media/options?usageKey=asset_...&q=...`；数据库先筛选对应用途的 ready 素材，再每页返回最多 25 个 ID/文件名。可按文件名或编号搜索，使用 created_at/id 游标翻页，不受较新 pending/archived 上传尝试挤占。当前已选归档引用即使不在查询结果中也保留显示，数据库基线与发布守卫继续决定能否保留该引用。查询响应始终 private/no-store，不返回 Storage path、签名或私有元信息。
+
 ## 本地验证
 
 `npm --prefix related/admin run test:e2e -- media-library.spec.ts` 使用真实本地 Auth、Storage、Postgres 和 4260/4261 独立代码副本，合成蓝 PNG/JPEG/WebP、红 H264 视频，不读取或改写原应用环境/预览。单测需要本地已安装的 `/opt/homebrew/bin/ffprobe`；它是显式本地测试前提。运行后测试用户删除，发布过的合成历史/对象保留在本地，后续本地 reset 可清理；没有远端资源或真实用户。

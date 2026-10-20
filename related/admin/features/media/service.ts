@@ -107,9 +107,18 @@ export async function loadMediaLibrary() {
   return { assets: previews, hostCap, profiles: Object.entries(mediaProfiles).map(([key, value]) => ({ key, kind: value.kind, profile: value.profile, label: `${'readOnlyReason' in value ? '透明人物（只读）' : value.complex ? (key === 'asset_a4b2063e90484449' ? '开场视频' : '滚动背景视频') : value.kind === 'video' ? '普通影片' : value.companions.length ? '配套封面' : '静态图片'} · ${value.legacyUrl.split('/').pop()!}`, maxBytes: Math.min(hostCap, value.kind === 'image' ? 20971520 : 52428800), mimes: value.mimes, companions: value.companions.map(key => mediaProfiles[key as keyof typeof mediaProfiles].legacyUrl.split('/').pop()!), reason: 'readOnlyReason' in value ? value.readOnlyReason : null, constraints: 'duration' in value ? `${value.width}:${value.height}；${value.duration === null ? '最长 600 秒' : value.duration + ' 秒（±1/24秒）'}；${value.codec}` : `${'width' in value ? `${value.width}:${value.height}；` : ''}JPEG / PNG / WebP` })) };
 }
 
-export async function loadMediaOptions() {
-  await requireStaff(['admin', 'editor']);
-  return (await assets()).filter(asset => asset.status === 'ready').map(asset => ({ id: asset.id, usageKey: asset.usage_key, fileName: asset.file_name }));
+export type MediaOption = { id: string; fileName: string };
+export type MediaOptionCursor = { createdAt: string; id: string };
+export type MediaOptionPage = { items: MediaOption[]; nextCursor: MediaOptionCursor | null };
+export async function listMediaOptions(input: { usageKey: string; q: string; cursor?: MediaOptionCursor }): Promise<ApiResult<MediaOptionPage>> {
+  return result(async () => {
+    await requireStaff(['admin', 'editor']);
+    if (!input || typeof input.usageKey !== 'string' || !Object.hasOwn(mediaProfiles, input.usageKey) || typeof input.q !== 'string' || input.q.length > 100) throw new HttpError('INVALID_INPUT', 400);
+    if (input.cursor) { identity(input.cursor.id); if (typeof input.cursor.createdAt !== 'string' || input.cursor.createdAt.length > 40 || !Number.isFinite(Date.parse(input.cursor.createdAt))) throw new HttpError('INVALID_INPUT', 400); }
+    const client = await createClient();
+    const response = await client.rpc('list_media_options', { usage_key: input.usageKey, search: input.q, ...(input.cursor ? { after_created_at: input.cursor.createdAt, after_id: input.cursor.id } : {}) });
+    sql(response.error); return response.data as unknown as MediaOptionPage;
+  });
 }
 
 export async function previewAsset(assetId: string) {

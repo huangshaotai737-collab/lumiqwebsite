@@ -226,6 +226,9 @@ isOneToOne: false
 "get_published_content":
 { Args: Record<PropertyKey, never>; Returns: Json
                            },
+"list_media_options":
+{ Args: { "after_created_at"?: string,"after_id"?: string,"search"?: string,"usage_key": string }; Returns: Json
+                           },
 "list_staff":
 { Args: Record<PropertyKey, never>; Returns: {
               "active": boolean,"email": string,"role": string,"user_id": string

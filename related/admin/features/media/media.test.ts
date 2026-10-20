@@ -18,7 +18,7 @@ describe('trusted media inspection', () => {
 
 import { beforeEach } from 'vitest';
 import { syntheticImage, syntheticVideo, syntheticJpeg, syntheticWebp } from './fixtures';
-import { createUpload, completeUpload } from './service';
+import { createUpload, completeUpload, listMediaOptions } from './service';
 const deps = vi.hoisted(() => ({ staff: vi.fn(), rpc: vi.fn(), bucket: vi.fn(), sign: vi.fn(), info: vi.fn(), download: vi.fn() }));
 vi.mock('@/lib/auth/require-staff', () => ({ requireStaff: deps.staff }));
 vi.mock('@/lib/http/rate-limit', () => ({ enforceRateLimit: vi.fn() }));
@@ -109,4 +109,19 @@ it('never follows external MOV track references to HTTP during real probing', as
     } catch(error) { expect(error).toMatchObject({code:'INVALID_INPUT'}); } // Rejection is also safe; missing probe dependency is not a pass.
     expect(requests).toBe(0);
   } finally { await new Promise<void>(resolve=>server.close(()=>resolve())); }
+});
+
+describe('bounded media option queries',()=>{
+  it('passes one usage, literal search and complete cursor to the protected RPC',async()=>{
+    const cursor={createdAt:'2030-01-01T00:00:00.000Z',id:'80000000-0000-4000-8000-000000000010'};
+    deps.rpc.mockResolvedValue({data:{items:[{id:cursor.id,fileName:'older-ready.png'}],nextCursor:null},error:null});
+    expect(await listMediaOptions({usageKey:profile,q:'older',cursor})).toMatchObject({ok:true,data:{items:[{id:cursor.id}],nextCursor:null}});
+    expect(deps.rpc).toHaveBeenCalledWith('list_media_options',{usage_key:profile,search:'older',after_created_at:cursor.createdAt,after_id:cursor.id});
+    expect(deps.staff).toHaveBeenCalledWith(['admin','editor']);
+  });
+  it('rejects unknown usage, excessive search and malformed cursor before querying',async()=>{
+    for(const input of [{usageKey:'__proto__',q:''},{usageKey:profile,q:'x'.repeat(101)},{usageKey:profile,q:'',cursor:{createdAt:'not-a-date',id:'80000000-0000-4000-8000-000000000010'}},{usageKey:profile,q:'',cursor:{createdAt:'2030-01-01',id:'bad'}}])
+      expect(await listMediaOptions(input)).toMatchObject({ok:false,error:'INVALID_INPUT'});
+    expect(deps.rpc).not.toHaveBeenCalled();
+  });
 });

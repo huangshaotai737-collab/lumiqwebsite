@@ -86,7 +86,7 @@ test('staff migration inventory recognizes only exact staff invite schema and re
  const fixture=await mkdtemp(path.join(tmpdir(),'lumiq-team-baseline-'));
  try {
   const input=manifest();input.migrations=[];Object.assign(input.tables,identityTables,{'public.staff_invites':inviteTable});
-  for(const file of migrations.filter(file=>/^\d{14}_.*\.sql$/.test(file) && !file.endsWith('_content_releases.sql') && !file.endsWith('_media_assets.sql')).sort()) {
+  for(const file of migrations.filter(file=>/^\d{14}_.*\.sql$/.test(file) && file <= migrations.find(name=>name.endsWith('_staff_management.sql'))).sort()) {
    const contents=await readFile(new URL(`../../supabase/migrations/${file}`,import.meta.url));input.migrations.push({version:file.slice(0,14),sha256:createHash('sha256').update(contents).digest('hex')});
   }
   const target=path.join(fixture,'remote.json');
@@ -110,7 +110,7 @@ test('content inventory requires all exact tables and rejects drift, missing tab
  try {
   const input = manifest(); input.migrations = []; Object.assign(input.tables, identityTables, {'public.staff_invites':inviteTable},structuredClone(contentTables));
   const files = await import('node:fs/promises').then(fs=>fs.readdir(new URL('../../supabase/migrations',import.meta.url)));
-  for(const file of files.filter(file=>/^\d{14}_.*\.sql$/.test(file) && !file.endsWith('_media_assets.sql')).sort()) {
+  for(const file of files.filter(file=>/^\d{14}_.*\.sql$/.test(file) && file <= files.find(name=>name.endsWith('_content_releases.sql'))).sort()) {
    input.migrations.push({version:file.slice(0,14),sha256:createHash('sha256').update(await readFile(new URL(`../../supabase/migrations/${file}`,import.meta.url))).digest('hex')});
   }
   const target=path.join(fixture,'remote.json');
