@@ -60,7 +60,7 @@ cp related/website/lib/generated/database.ts related/admin/lib/generated/databas
 本地 Auth 白名单包含后台 4250 与官网 4211 的 `/auth/callback`；部署到其他域名或端口前核对跳转白名单。
 身份资料由 Auth 插入触发器创建；普通会员仅可读本人资料、修改姓名/语言/收件资料，不能自改 `access_state`、员工角色或在职状态。
 `private.current_staff_role()` 每次读取有效员工和有效资料状态，不采用用户 metadata 或令牌角色作为员工授权来源。
-审计只允许管理员读取完整列表；后续团队功能增加编辑/运营的本人分类读取。日志拒绝更新、删除和清空。
+审计允许管理员读取完整列表；内容编辑只读本人 content./media. 操作，运营只读本人 waitlist./orders./customers. 操作。日志拒绝更新、删除和清空。
 `private.append_audit()` 仅供已独立完成权限与对象校验的 postgres 所有者业务函数调用，须与业务操作同一事务执行；不向浏览器或 `service_role` 授予调用权。
 操作者由 `auth.uid()` 取得，普通会员订单也可由受保护业务函数记录；空操作者仅允许 `team.bootstrap` 或明确的 `system.*` 流程。
 动作采用 `content.`、`media.`、`team.`、`waitlist.`、`orders.`、`customers.`、`settings.` 前缀，摘要仅存必要变更，不写密码、令牌或多余个人信息。
@@ -89,4 +89,6 @@ node scripts/check-migration-baseline.mjs --remote-manifest /absolute/path/remot
 已执行身份迁移时，还须提供 `profiles`、`staff_memberships`、`audit_events` 的同结构描述（预期结构见检查器内定义）；后续新增业务表时同步扩充清单校验。
 检查器离线只读，不连接数据库、不执行 DDL；未知远端迁移、缺失校验和、迁移非连续前缀、未跟踪的候补名单或表结构漂移都会以非零退出。
 如原项目有表但没有完整迁移历史或原始 SQL 证据，必须先人工核对和补齐基线；检查通过也不自动授权任何远端 push/reset。
+员工邀请、首管理员 CLI、SMTP 配置与设置归属参见 [后台初始化说明](docs/admin/bootstrap.md)。团队邀请只在同一已确认邮箱显式接受后授权；系统配置状态不返回密钥，公开联系方式由后续版本化内容设置统一管理。
+已执行 staff_management 迁移时，基线清单还须包含 staff_invites 全部字段及 RLS/主键描述（精确结构见检查器）；未知表或字段漂移继续失败关闭。
 当前仅验证本地合成账号和数据，尚未验收生产数据库、正式邮件或真实候补名单存储。

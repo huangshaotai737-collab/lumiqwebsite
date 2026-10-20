@@ -14,6 +14,7 @@ const schemaDefinitions = {
   'public.staff_memberships': { columns: { user_id: 'uuid', role: 'text', active: 'boolean' }, primaryKey: ['user_id'], unique: [], rlsEnabled: true },
   'public.audit_events': { columns: { id: 'uuid', actor_id: 'uuid', action: 'text', entity_type: 'text', entity_id: 'uuid', summary: 'jsonb', created_at: 'timestamp with time zone' }, primaryKey: ['id'], unique: [], rlsEnabled: true },
 };
+schemaDefinitions['public.staff_invites'] = { columns: {id:'uuid',email:'text',role:'text',token_digest:'text',created_by:'uuid',created_at:'timestamp with time zone',expires_at:'timestamp with time zone',delivered_at:'timestamp with time zone',accepted_at:'timestamp with time zone',accepted_by:'uuid',revoked_at:'timestamp with time zone'},primaryKey:['id'],unique:[],rlsEnabled:true };
 const fail = (code) => { throw new Error(code); };
 const canonical = (value) => JSON.stringify(value, (_key, item) => item && typeof item === 'object' && !Array.isArray(item) ? Object.fromEntries(Object.entries(item).sort(([a], [b]) => a.localeCompare(b))) : item);
 
@@ -50,8 +51,10 @@ try {
   const identityApplied = applied.some((version) => local.get(version).file.endsWith('_admin_identity.sql'));
   const expectedTables = seen.has(baselineVersion) ? ['public.waitlist_signups'] : [];
   if (identityApplied) expectedTables.push('public.profiles', 'public.staff_memberships', 'public.audit_events');
+  const staffApplied = applied.some((version) => local.get(version).file.endsWith('_staff_management.sql'));
+  if(staffApplied) expectedTables.push('public.staff_invites');
   for (const table of expectedTables) {
-    if (canonical(remote.tables[table]) !== canonical(schemaDefinitions[table])) fail(table === 'public.waitlist_signups' ? 'WAITLIST_SCHEMA_MISMATCH' : 'IDENTITY_SCHEMA_MISMATCH');
+    if (canonical(remote.tables[table]) !== canonical(schemaDefinitions[table])) fail(table === 'public.waitlist_signups' ? 'WAITLIST_SCHEMA_MISMATCH' : table === 'public.staff_invites' ? 'STAFF_SCHEMA_MISMATCH' : 'IDENTITY_SCHEMA_MISMATCH');
   }
   if (canonical(Object.keys(remote.tables).sort()) !== canonical(expectedTables.sort())) fail('UNRECOGNIZED_SCHEMA_INVENTORY');
   const pending = [...local.keys()].filter((version) => !seen.has(version));

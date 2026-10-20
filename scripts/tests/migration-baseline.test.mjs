@@ -74,3 +74,28 @@ test('malformed and non-prefix migration histories fail closed', async () => {
   duplicate.migrations.push(duplicate.migrations[0]);
   assert.match((await check(duplicate)).stderr, /INVALID_REMOTE_MANIFEST/);
 });
+
+const identityTables = {
+ 'public.profiles':{columns:{user_id:'uuid',display_name:'text',locale:'text',shipping_address:'jsonb',access_state:'text'},primaryKey:['user_id'],unique:[],rlsEnabled:true},
+ 'public.staff_memberships':{columns:{user_id:'uuid',role:'text',active:'boolean'},primaryKey:['user_id'],unique:[],rlsEnabled:true},
+ 'public.audit_events':{columns:{id:'uuid',actor_id:'uuid',action:'text',entity_type:'text',entity_id:'uuid',summary:'jsonb',created_at:'timestamp with time zone'},primaryKey:['id'],unique:[],rlsEnabled:true},
+};
+const inviteTable={columns:{id:'uuid',email:'text',role:'text',token_digest:'text',created_by:'uuid',created_at:'timestamp with time zone',expires_at:'timestamp with time zone',delivered_at:'timestamp with time zone',accepted_at:'timestamp with time zone',accepted_by:'uuid',revoked_at:'timestamp with time zone'},primaryKey:['id'],unique:[],rlsEnabled:true};
+test('staff migration inventory recognizes only exact staff invite schema and rejects drift/missing columns',async()=>{
+ const migrations=await import('node:fs/promises').then(fs=>fs.readdir(new URL('../../supabase/migrations',import.meta.url)));
+ const fixture=await mkdtemp(path.join(tmpdir(),'lumiq-team-baseline-'));
+ try {
+  const input=manifest();input.migrations=[];Object.assign(input.tables,identityTables,{'public.staff_invites':inviteTable});
+  for(const file of migrations.filter(file=>/^\d{14}_.*\.sql$/.test(file)).sort()) {
+   const contents=await readFile(new URL(`../../supabase/migrations/${file}`,import.meta.url));input.migrations.push({version:file.slice(0,14),sha256:createHash('sha256').update(contents).digest('hex')});
+  }
+  const target=path.join(fixture,'remote.json');
+  const run=async()=>{await writeFile(target,JSON.stringify(input));return spawnSync(process.execPath,[script,'--remote-manifest',target],{encoding:'utf8'});};
+  assert.equal((await run()).status,0,'exact new staff schema is accepted');
+  input.tables['public.staff_invites']={...inviteTable,columns:{...inviteTable.columns,token_digest:'uuid'}};
+  assert.match((await run()).stderr,/STAFF_SCHEMA_MISMATCH/);
+  input.tables['public.staff_invites']={...inviteTable,columns:{...inviteTable.columns}};
+  delete input.tables['public.staff_invites'].columns.delivered_at;assert.match((await run()).stderr,/STAFF_SCHEMA_MISMATCH/);
+  delete input.tables['public.staff_invites'];assert.match((await run()).stderr,/STAFF_SCHEMA_MISMATCH/);
+ } finally {await rm(fixture,{recursive:true,force:true});}
+});

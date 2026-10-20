@@ -51,6 +51,20 @@ export type Database = {
                   Relationships: [
 
                   ]
+                },"staff_invites": {
+                  Row: {
+                    "accepted_at": string | null,"accepted_by": string | null,"created_at": string,"created_by": string,"delivered_at": string | null,"email": string,"expires_at": string,"id": string,"revoked_at": string | null,"role": string,"token_digest": string
+                  }
+                  ComputedFields: never
+                  Insert: {
+                    "accepted_at"?: string | null,"accepted_by"?: string | null,"created_at"?: string,"created_by": string,"delivered_at"?: string | null,"email": string,"expires_at"?: string,"id"?: string,"revoked_at"?: string | null,"role": string,"token_digest": string
+                  }
+                  Update: {
+                    "accepted_at"?: string | null,"accepted_by"?: string | null,"created_at"?: string,"created_by"?: string,"delivered_at"?: string | null,"email"?: string,"expires_at"?: string,"id"?: string,"revoked_at"?: string | null,"role"?: string,"token_digest"?: string
+                  }
+                  Relationships: [
+
+                  ]
                 },"staff_memberships": {
                   Row: {
                     "active": boolean,"role": string,"user_id": string
@@ -85,10 +99,30 @@ export type Database = {
             [_ in never]: never
           }
           Functions: {
-            "consume_request_limit":
+            "accept_staff_invite":
+{ Args: { "invite_id": string,"token_digest": string }; Returns: undefined
+                           },
+"bootstrap_staff_admin":
+{ Args: { "email": string }; Returns: string
+                           },
+"change_staff_membership":
+{ Args: { "active": boolean,"role": string,"user_id": string }; Returns: undefined
+                           },
+"consume_request_limit":
 { Args: { "scope": string,"subject_hash": string }; Returns: {
               "allowed": boolean,"retry_after_seconds": number
             }[]
+                           },
+"create_staff_invite":
+{ Args: { "email": string,"role": string,"token_digest": string }; Returns: string
+                           },
+"list_staff":
+{ Args: Record<PropertyKey, never>; Returns: {
+              "active": boolean,"email": string,"role": string,"user_id": string
+            }[]
+                           },
+"mark_staff_invite_delivery":
+{ Args: { "delivered": boolean,"invite_id": string }; Returns: undefined
                            }
           }
           Enums: {
