@@ -36,3 +36,57 @@ npm start
 这些历史资料仍可从清理前的提交 `af6637fb62fa62c9a5082612d3e625d5342112ae` 恢复，未重写或清除 Git 历史。旧进度记录中的历史路径可在该提交查看。
 
 候补名单生产存储仍需配置：参考 `related/website/.env.example` 和 Supabase 数据库迁移。未配置真实存储时，不能声称报名邮箱已保存。不得提交账号、令牌或真实环境变量。
+
+## 共用数据库与本地后台
+
+官网 `related/website/` 与独立后台 `related/admin/` 共用根目录 `supabase/` 的数据库迁移。
+历史 `20260826165924_create_waitlist_signups.sql` 已原样移至 `supabase/migrations/`，不要在官网目录另建迁移历史。
+数据库私有辅助函数放在 `private` schema；Data API 仅暴露 `public` 和 `graphql_public`，部署时必须保留这一边界。
+
+本地使用 Supabase CLI 2.121.0 和 Docker（PostgreSQL 17）：
+
+```sh
+supabase start
+supabase db reset --local
+supabase test db
+node --test scripts/tests/*.test.mjs
+# Destructive only to synthetic local lumiq-platform data; tests baseline → actual upgrade:
+node scripts/test-migration-preservation.mjs --local-test-only
+supabase gen types typescript --local > related/website/lib/generated/database.ts
+cp related/website/lib/generated/database.ts related/admin/lib/generated/database.ts
+```
+
+仅在本地运行 `db reset --local`。`seed.sql` 不创建默认员工或真实用户；邮件由本地 Mailpit 捕获（54324）。
+本地 Auth 白名单包含后台 4250 与官网 4211 的 `/auth/callback`；部署到其他域名或端口前核对跳转白名单。
+身份资料由 Auth 插入触发器创建；普通会员仅可读本人资料、修改姓名/语言/收件资料，不能自改 `access_state`、员工角色或在职状态。
+`private.current_staff_role()` 每次读取有效员工和有效资料状态，不采用用户 metadata 或令牌角色作为员工授权来源。
+审计只允许管理员读取完整列表；后续团队功能增加编辑/运营的本人分类读取。日志拒绝更新、删除和清空。
+`private.append_audit()` 仅供已独立完成权限与对象校验的 postgres 所有者业务函数调用，须与业务操作同一事务执行；不向浏览器或 `service_role` 授予调用权。
+操作者由 `auth.uid()` 取得，普通会员订单也可由受保护业务函数记录；空操作者仅允许 `team.bootstrap` 或明确的 `system.*` 流程。
+动作采用 `content.`、`media.`、`team.`、`waitlist.`、`orders.`、`customers.`、`settings.` 前缀，摘要仅存必要变更，不写密码、令牌或多余个人信息。
+
+任何远端操作前，先只读导出迁移历史、每个已执行 SQL 文件的 SHA-256 及 `public` 业务表结构清单，人工核实环境和备份，再运行：
+
+```sh
+node scripts/check-migration-baseline.mjs --remote-manifest /absolute/path/remote-baseline.json
+```
+
+清单格式如下（SHA-256 必须来自实际执行的迁移原文，不能用本地文件冒充远端证据）：
+
+```json
+{
+  "migrations": [{"version": "20260826165924", "sha256": "<64 lowercase hex characters>"}],
+  "tables": {
+    "public.waitlist_signups": {
+      "columns": {"id": "uuid", "email": "text", "source": "text", "consent_version": "text", "created_at": "timestamp with time zone"},
+      "primaryKey": ["id"], "unique": [["email"]], "rlsEnabled": true
+    }
+  }
+}
+```
+
+清单需包含全部 `public` 业务表；`columns` 使用 PostgreSQL `format_type` 的类型名，`primaryKey`/`unique` 不重复包含主键，字段顺序按约束定义。
+已执行身份迁移时，还须提供 `profiles`、`staff_memberships`、`audit_events` 的同结构描述（预期结构见检查器内定义）；后续新增业务表时同步扩充清单校验。
+检查器离线只读，不连接数据库、不执行 DDL；未知远端迁移、缺失校验和、迁移非连续前缀、未跟踪的候补名单或表结构漂移都会以非零退出。
+如原项目有表但没有完整迁移历史或原始 SQL 证据，必须先人工核对和补齐基线；检查通过也不自动授权任何远端 push/reset。
+当前仅验证本地合成账号和数据，尚未验收生产数据库、正式邮件或真实候补名单存储。
