@@ -8,13 +8,17 @@
     "build": "next build",
     "typecheck": "tsc --noEmit",
     "lint": "eslint .",
-    "test": "node --test ../../scripts/tests/admin-boundary.test.mjs ../../scripts/tests/contracts-sync.test.mjs",
-    "test:e2e": "playwright test -c playwright.platform.config.ts"
+    "test": "node --test ../../scripts/tests/admin-boundary.test.mjs ../../scripts/tests/contracts-sync.test.mjs && vitest run",
+    "test:e2e": "playwright test -c playwright.platform.config.ts",
+    "test:boundaries": "node --test ../../scripts/tests/admin-boundary.test.mjs ../../scripts/tests/contracts-sync.test.mjs"
   },
   "dependencies": {
+    "@supabase/ssr": "0.12.7",
+    "@supabase/supabase-js": "2.118.0",
     "next": "16.4.2",
     "react": "19.3.1",
-    "react-dom": "19.3.1"
+    "react-dom": "19.3.1",
+    "server-only": "0.0.1"
   },
   "devDependencies": {
     "@playwright/test": "1.64.1",

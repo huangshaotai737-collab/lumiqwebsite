@@ -13,7 +13,7 @@ test('unconfigured_admin_is_closed', async ({ page, request }) => {
   await expect(page.getByTestId('order-data')).toHaveCount(0);
   for (const route of ['/api/members', '/api/orders']) {
     const response = await request.get(route);
-    expect(response.status()).toBeGreaterThanOrEqual(400);
+    expect(response.status()).toBe(404);
   }
   expect(dataRequests).toEqual([]);
 });

@@ -14,7 +14,7 @@ const modules = [
   ['系统设置', '设'],
 ] as const;
 
-export function AdminShell({ children }: Readonly<{ children: React.ReactNode }>) {
+export function AdminShell({ children, status = '管理访问已关闭' }: Readonly<{ children: React.ReactNode; status?: string }>) {
   const [collapsed, setCollapsed] = useState(true);
 
   return (
@@ -46,7 +46,7 @@ export function AdminShell({ children }: Readonly<{ children: React.ReactNode }>
       <div className="workspace">
         <header className="topbar">
           <p><strong>LumiQ 官网管理</strong>内容与运营工作区</p>
-          <span className="status-pill">管理访问已关闭</span>
+          <span className="status-pill">{status}</span>
         </header>
         <main id="workspace" className="workspace-content" tabIndex={-1}>{children}</main>
       </div>

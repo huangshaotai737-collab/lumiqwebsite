@@ -85,7 +85,11 @@ export type Database = {
             [_ in never]: never
           }
           Functions: {
-            [_ in never]: never
+            "consume_request_limit":
+{ Args: { "scope": string,"subject_hash": string }; Returns: {
+              "allowed": boolean,"retry_after_seconds": number
+            }[]
+                           }
           }
           Enums: {
             [_ in never]: never
