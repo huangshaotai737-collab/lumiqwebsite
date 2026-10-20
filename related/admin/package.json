@@ -14,7 +14,8 @@
     "test:e2e:operations": "playwright test -c playwright.operations.config.ts",
     "test:e2e:catalog": "playwright test -c playwright.catalog.config.ts",
     "test:e2e:payments": "playwright test -c playwright.payments.config.ts",
-    "test:e2e:orders": "playwright test -c playwright.orders.config.ts"
+    "test:e2e:orders": "playwright test -c playwright.orders.config.ts",
+    "test:e2e:privacy": "playwright test -c playwright.privacy.config.ts"
   },
   "dependencies": {
     "@formatjs/icu-messageformat-parser": "3.5.17",

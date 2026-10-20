@@ -183,6 +183,26 @@ isOneToOne: false
       referencedColumns: ["user_id"]
     }
                   ]
+                },"customer_privacy_jobs": {
+                  Row: {
+                    "acting_admin": string | null,"attempts": number,"auth_banned": boolean,"auth_cleared": boolean,"completed_at": string | null,"created_at": string,"failure_step": string | null,"id": string,"initiated_by": string,"lease_token": string | null,"lease_until": string | null,"policy_revision": string,"reason": string,"status": string,"updated_at": string,"user_id": string
+                  }
+                  ComputedFields: never
+                  Insert: {
+                    "acting_admin"?: string | null,"attempts"?: number,"auth_banned"?: boolean,"auth_cleared"?: boolean,"completed_at"?: string | null,"created_at"?: string,"failure_step"?: string | null,"id"?: string,"initiated_by": string,"lease_token"?: string | null,"lease_until"?: string | null,"policy_revision": string,"reason": string,"status"?: string,"updated_at"?: string,"user_id": string
+                  }
+                  Update: {
+                    "acting_admin"?: string | null,"attempts"?: number,"auth_banned"?: boolean,"auth_cleared"?: boolean,"completed_at"?: string | null,"created_at"?: string,"failure_step"?: string | null,"id"?: string,"initiated_by"?: string,"lease_token"?: string | null,"lease_until"?: string | null,"policy_revision"?: string,"reason"?: string,"status"?: string,"updated_at"?: string,"user_id"?: string
+                  }
+                  Relationships: [
+                    {
+      foreignKeyName: "customer_privacy_jobs_user_id_fkey"
+      columns: ["user_id"]
+isOneToOne: true
+      referencedRelation: "profiles"
+      referencedColumns: ["user_id"]
+    }
+                  ]
                 },"media_assets": {
                   Row: {
                     "advertised_size": number,"created_at": string,"created_by": string,"file_name": string,"id": string,"metadata": Json | null,"mime": string,"original_path": string,"release_path": string | null,"status": string,"usage_key": string
@@ -400,6 +420,9 @@ isOneToOne: true
 "add_order_note":
 { Args: { "note": string,"order_id": string }; Returns: undefined
                            },
+"anonymize_customer_data":
+{ Args: { "job_id": string,"token": string }; Returns: Json
+                           },
 "archive_media_asset":
 { Args: { "asset_id": string }; Returns: undefined
                            },
@@ -414,6 +437,12 @@ isOneToOne: true
                            },
 "change_staff_membership":
 { Args: { "active": boolean,"role": string,"user_id": string }; Returns: undefined
+                           },
+"checkpoint_customer_privacy_auth":
+{ Args: { "job_id": string,"step": string,"token": string }; Returns: undefined
+                           },
+"claim_customer_privacy_job":
+{ Args: { "actor_id": string,"job_id": string }; Returns: Json
                            },
 "complete_media_asset":
 { Args: { "actor_id": string,"asset_id": string,"metadata": Json }; Returns: undefined
@@ -435,6 +464,12 @@ isOneToOne: true
 "export_waitlist_operations":
 { Args: { "search"?: string,"status"?: string }; Returns: Json
                            },
+"fail_customer_privacy_job":
+{ Args: { "failure_step": string,"job_id": string,"token": string }; Returns: Json
+                           },
+"get_admin_dashboard":
+{ Args: Record<PropertyKey, never>; Returns: Json
+                           },
 "get_catalog_workspace":
 { Args: Record<PropertyKey, never>; Returns: Json
                            },
@@ -449,6 +484,9 @@ isOneToOne: true
                            },
 "get_customer_order":
 { Args: { "order_id": string }; Returns: Json
+                           },
+"get_customer_privacy_workspace":
+{ Args: { "page"?: number,"page_size"?: number,"search"?: string }; Returns: Json
                            },
 "get_media_assets":
 { Args: { "asset_id"?: string }; Returns: Json
@@ -499,6 +537,9 @@ isOneToOne: true
                            },
 "publish_content_draft":
 { Args: { "expected_version": number,"id": string }; Returns: string
+                           },
+"request_customer_anonymization":
+{ Args: { "reason": string,"user_id": string }; Returns: Json
                            },
 "rollback_content_release":
 { Args: { "release_id": string }; Returns: string

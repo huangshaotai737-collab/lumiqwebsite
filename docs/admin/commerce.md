@@ -62,3 +62,5 @@ C4 复审修复：只有 `create_customer_order` 返回可信的 SQLSTATE23505 �
 批准文本按规范文档的固定顺序显示 eyebrow、标题、intro、draft、p1/h1/p2/h2/p3/h3/p4/h4/p5，再显示三个承诺，不依赖 JSONB 键顺序。两应用测试通过薄适配器注入自己的 SDK 和本地 env 路径，复用 `scripts/tests/support/order-fixtures.mjs`。共享生命周期在执行 SDK/SQL 前验证本地 URL；用持久私有备份保存配置与发布指针/时间戳，finally 尝试恢复和清理，仅保留不可变发布/审计历史。此模块仅用于本地测试，没有生产运行时跨应用导入。
 
 C5 已增加[支付关闭契约与准备入口](payment-integration.md)：后台管理员从系统设置查看材料顺序；官网 `POST /api/payments/checkout` 在同源、有效已验证身份、严格输入、共享限流与本人订单校验后仍返回503/PAYMENTS_NOT_CONFIGURED。五个 server-only 支付接口全部关闭，没有公开通知路由或真实交易。payment_attempts/payment_events/payment_refunds 是受限服务器预留表，唯一键去重且状态只允许 not_configured；C6 处理目标订单前须处理这些外键。浏览器成功回跳不能付款，最终报价与订阅均未实现。
+
+C6 已实现默认关闭的受控匿名化：先暂停客户访问，正式 Auth 管理 API 禁用并清理联系资料，再原子清理 profile、订单收件快照和内部备注；保留金融明细、订单/付款外键、审计与发布历史。失败任务可由当前管理员查看并恢复，具体范围、品牌保留规则门槛及独立会话并发验证见[客户资料清理说明](customer-data.md)。

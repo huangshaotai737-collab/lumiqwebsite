@@ -238,3 +238,19 @@ test('payment reservations require exact RLS schema, keys and inventory',async()
   input.tables['public.unknown_payment_table']={};assert.match((await run()).stderr,/UNRECOGNIZED_SCHEMA_INVENTORY/);
  }finally{await rm(fixture,{recursive:true,force:true});}
 });
+
+const privacyTable={columns:{id:'uuid',user_id:'uuid',initiated_by:'uuid',policy_revision:'text',reason:'text',status:'text',auth_banned:'boolean',auth_cleared:'boolean',failure_step:'text',attempts:'integer',lease_token:'uuid',lease_until:'timestamp with time zone',acting_admin:'uuid',created_at:'timestamp with time zone',updated_at:'timestamp with time zone',completed_at:'timestamp with time zone'},primaryKey:['id'],unique:[['user_id']],rlsEnabled:true};
+test('privacy jobs require exact columns, unique subject, RLS and known inventory',async()=>{
+ const fixture=await mkdtemp(path.join(tmpdir(),'lumiq-privacy-baseline-'));
+ try {
+  const input=manifest();input.migrations=[];
+  Object.assign(input.tables,identityTables,{'public.staff_invites':inviteTable},structuredClone(contentTables),{'public.media_assets':structuredClone(mediaTable)},structuredClone(operationsTables),structuredClone(commerceTables),{'public.order_notes':structuredClone(orderNotesTable)},structuredClone(paymentTables),{'public.customer_privacy_jobs':structuredClone(privacyTable)});
+  input.tables['public.content_drafts'].columns.base_release_id='uuid';
+  const {readdir}=await import('node:fs/promises');
+  for(const file of (await readdir(new URL('../../supabase/migrations',import.meta.url))).filter(file=>/^\d{14}_.*\.sql$/.test(file) && file <= '20261020210000_customer_privacy.sql').sort())input.migrations.push({version:file.slice(0,14),sha256:createHash('sha256').update(await readFile(new URL(`../../supabase/migrations/${file}`,import.meta.url))).digest('hex')});
+  const target=path.join(fixture,'remote.json');const run=async()=>{await writeFile(target,JSON.stringify(input));return spawnSync(process.execPath,[script,'--remote-manifest',target],{encoding:'utf8'});};
+  const result=await run();assert.equal(result.status,0,result.stderr);
+  for(const mutate of [t=>{t.columns.unknown='text'},t=>{t.rlsEnabled=false},t=>{t.unique=[]},t=>{delete t.columns.auth_cleared}]){mutate(input.tables['public.customer_privacy_jobs']);assert.match((await run()).stderr,/PRIVACY_SCHEMA_MISMATCH/);input.tables['public.customer_privacy_jobs']=structuredClone(privacyTable);}
+  delete input.tables['public.customer_privacy_jobs'];assert.match((await run()).stderr,/PRIVACY_SCHEMA_MISMATCH/);input.tables['public.customer_privacy_jobs']=privacyTable;input.tables['public.unknown']={};assert.match((await run()).stderr,/UNRECOGNIZED_SCHEMA_INVENTORY/);
+ }finally{await rm(fixture,{recursive:true,force:true});}
+});

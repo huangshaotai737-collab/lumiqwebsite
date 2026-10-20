@@ -22,4 +22,4 @@ VerifiedPaymentEvent 包含 eventId、transactionId、orderId、amountMinor、cu
 
 anon/authenticated（包含所有员工）无直接表权限。service_role 仅保留 SELECT/INSERT 的服务器存储权限，无 UPDATE/DELETE；本轮没有运行时写入者。三表状态约束仅允许 not_configured，不能插入成功事件/交易/退款，即使服务器角色也不能通过这些表绕过 customer_orders 的独立 not_configured/空最终价约束。没有为了“预留”而开放付款状态写 RPC。未来启用须另行审核迁移、授权与真实 verifier，不靠设置环境变量解锁。
 
-C6 清理/匿名化必须在清理目标订单前处理其 payment_events/payment_refunds/payment_attempts 外键记录，保留不可变审计/发布历史；本轮正常路径不会产生这些记录。
+C6 受控匿名化保留订单、payment_events/payment_refunds/payment_attempts 及其外键，只清理收件快照与客户/订单内部备注，不删除不可变审计/发布历史。保留规则默认未确认，完整范围与失败恢复见[客户资料清理说明](customer-data.md)。本轮正常路径不会产生付款记录。
