@@ -19,7 +19,7 @@ export default async function middleware(incoming: NextRequest) {
     headers.set('x-lumiq-preview-path',incoming.nextUrl.pathname + incoming.nextUrl.search);
   }
   const request = new NextRequest(incoming,{headers});
-  const response = preview || /^\/(en|zh-hant|ja)\/(members|login)(\/|$)/.test(request.nextUrl.pathname)
+  const response = preview || /^\/(en|zh-hant|ja)\/(members|login|register|reset-password)(\/|$)/.test(request.nextUrl.pathname)
     ? await refreshSession(request,localize) : localize(request);
   if(preview) { response.headers.set('Cache-Control','private, no-store, max-age=0'); response.headers.set('X-Robots-Tag','noindex, nofollow'); }
   return response;

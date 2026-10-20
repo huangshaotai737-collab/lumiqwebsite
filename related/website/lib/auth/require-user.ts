@@ -11,3 +11,9 @@ export async function requireUser(): Promise<{userId: UUID; emailVerified: boole
   if (profileError) throw new HttpError('UNAVAILABLE',503);
   return {...authorizeUser(user.id,profile),emailVerified:Boolean(user.email_confirmed_at)};
 }
+/** Order writes must use this gate; local previews and unconfirmed Auth users have no entitlement. */
+export async function requireVerifiedUser():Promise<{userId:UUID;emailVerified:true}>{
+ const user=await requireUser();
+ if(!user.emailVerified)throw new HttpError('FORBIDDEN',403);
+ return {...user,emailVerified:true};
+}

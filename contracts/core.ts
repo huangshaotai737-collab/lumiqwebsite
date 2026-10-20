@@ -33,3 +33,6 @@ export type AuditSummary = {
   entityId: UUID;
   createdAt: string;
 };
+
+export type ShippingAddress = {name:string;country:string;region:string;city:string;postalCode:string;line1:string;line2:string;phone:string};
+export type Profile = {userId:UUID;displayName:string;locale:Locale;shippingAddress:ShippingAddress|null};

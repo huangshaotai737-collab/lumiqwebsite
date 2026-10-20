@@ -234,12 +234,6 @@
         "property": "src",
         "source": "{device.image}",
         "alt": "{device.name}"
-      },
-      {
-        "kind": "Image",
-        "property": "src",
-        "source": "{cover}",
-        "alt": "{t(\"coverPreview\")}"
       }
     ]
   },

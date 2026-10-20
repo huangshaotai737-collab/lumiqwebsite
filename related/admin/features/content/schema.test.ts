@@ -7,6 +7,7 @@ import snapshot from './initial-snapshot.json';
 const copy = () => structuredClone(snapshot);
 
 describe('publish validation', () => {
+  it('hides retired local-account demo fields while keeping active product slots editable',()=>{expect(contentFields.some(field=>field.path.startsWith('messages.en.Members.'))).toBe(false);expect(contentFields.some(field=>field.path==='messages.en.CmsStatic.field_8bec1f33f31dd9ab')).toBe(true);expect(contentFields.some(field=>field.path==='media.asset_5fa455671b41fc69.url')).toBe(true);});
   it('accepts the complete imported snapshot', () => {
     expect(validateDraft(copy()).ok).toBe(true);
     expect(contentFields.find(field => field.path === 'settings.siteUrl')?.adminOnly).toBe(true);

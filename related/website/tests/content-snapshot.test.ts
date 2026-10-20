@@ -122,9 +122,9 @@ describe('content import', () => {
     const app = path.join(fixture, 'related/website');
     const root = path.resolve('../..');
     try {
-      const files = [...fieldManifest.sourceFiles, 'scripts/export-initial-content.mjs', 'scripts/verify-content-adapters.mjs', 'scripts/content-media-bindings.mjs', 'lib/content/media-bindings.json', 'lib/content/source-adapters.json', 'lib/content/media-map.json', 'components/content/ContentImage.tsx', 'messages/en.json', 'messages/zh-hant.json', 'messages/ja.json', 'lib/content/initial-snapshot.json', 'lib/content/field-manifest.json'];
+      const files = [...fieldManifest.sourceFiles, 'scripts/export-initial-content.mjs', 'scripts/verify-content-adapters.mjs', 'scripts/content-media-bindings.mjs', 'lib/content/media-bindings.json', 'lib/content/retired-account-fields.json', 'lib/content/source-adapters.json', 'lib/content/media-map.json', 'components/content/ContentImage.tsx', 'messages/en.json', 'messages/zh-hant.json', 'messages/ja.json', 'lib/content/initial-snapshot.json', 'lib/content/field-manifest.json'];
       for (const file of files) { mkdirSync(path.dirname(path.join(app, file)), { recursive: true }); cpSync(file, path.join(app, file)); }
-      for (const file of ['contracts/content-icu.ts', 'contracts/content-policy.ts', 'related/admin/features/content/field-manifest.json', 'related/admin/features/content/initial-snapshot.json']) {
+      for (const file of ['contracts/content-icu.ts', 'contracts/content-policy.ts', 'related/admin/features/content/field-manifest.json', 'related/admin/features/content/initial-snapshot.json', 'related/admin/features/content/retired-account-fields.json']) {
         mkdirSync(path.dirname(path.join(fixture, file)), { recursive: true }); cpSync(path.join(root, file), path.join(fixture, file));
       }
       mkdirSync(path.join(app, 'public'), { recursive: true });
@@ -132,6 +132,16 @@ describe('content import', () => {
       symlinkSync(path.resolve('node_modules'), path.join(app, 'node_modules'));
       const run = () => spawnSync(process.execPath, [path.join(app, 'scripts/export-initial-content.mjs'), '--check'], { encoding: 'utf8' });
       expect(run().status).toBe(0);
+      const retirementFile=path.join(app,'lib/content/retired-account-fields.json');
+      const retirement=JSON.parse(readFileSync(retirementFile,'utf8'));
+      writeFileSync(retirementFile,JSON.stringify({...retirement,fields:retirement.fields.slice(1)}));
+      expect(run().status).toBe(1);
+      cpSync('lib/content/retired-account-fields.json',retirementFile);
+      const forged=structuredClone(retirement);
+      forged.fields[0].source.locator='forged-locator';
+      writeFileSync(retirementFile,JSON.stringify(forged));
+      const badRetirement=run();expect(badRetirement.status).toBe(1);expect(badRetirement.stderr).toContain('Wrong retired source locator');
+      cpSync('lib/content/retired-account-fields.json',retirementFile);
       const header = path.join(app, 'components/SiteHeader.tsx');
       writeFileSync(header, readFileSync(header, 'utf8') + '\nconst internalCases = [{ code: "DO_NOT_IMPORT", locale: "DO_NOT_IMPORT_LOCALE" }];\n');
       expect(run().status).toBe(0);

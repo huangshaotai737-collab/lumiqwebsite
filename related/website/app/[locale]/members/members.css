@@ -61,3 +61,11 @@
 .members-status { min-height: 22px; margin-top: 20px; color: #315369; font-size: 14px; line-height: 1.6; }
 @media (max-width: 1000px) { .members-layout { grid-template-columns: 1fr; gap: 16px; } .members-sidebar { display: flex; flex-wrap: wrap; gap: 6px; padding: 12px; } .members-avatar { width: 100%; margin: 0 0 6px; padding-bottom: 12px; } .members-sidebar button { width: auto; flex: 1 1 auto; justify-content: center; padding: 10px; font-size: 14px; } .members-sidebar button svg:last-child { display: none; } .members-help { display: none; } }
 @media (max-width: 600px) { .members-page { padding: 104px 16px 56px; background-attachment: scroll; } .members-heading { flex-direction: column; gap: 16px; margin-bottom: 20px; } .lumiq-root .members-content { padding: 20px; border-radius: 20px; } .members-device-grid { grid-template-columns: 1fr; } .members-section-head > span { display: none; } .members-sidebar button { flex: 1 1 calc(33% - 6px); flex-direction: column; gap: 7px; font-size: 12px; } .members-disclosure { font-size: 13px; padding: 12px; } .members-heading h1 { font-size: 32px; } .members-empty { padding-inline: 0; } }
+
+.account-form {max-width:480px;margin:32px auto;}
+.account-address {display:grid;gap:18px;border:1px solid rgba(80,100,100,.16);border-radius:18px;padding:20px;min-width:0;}
+.account-address legend {padding:0 8px;}
+.account-address label {min-width:0;}
+.members-panel input,.members-panel textarea,.members-panel select {max-width:100%;box-sizing:border-box;}
+.members-panel input[type=checkbox] {width:auto;}
+.members-form-actions {flex-wrap:wrap;}
