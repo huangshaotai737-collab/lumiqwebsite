@@ -95,10 +95,12 @@ test('cross_origin_writes_are_403_and_signout_clears_session',async({context,pag
   expect((await context.request.get('/api/session')).status()).toBe(401);
 });
 test('reject_external_auth_redirect_and_handle_expired_callback',async({context,page})=> {
-  for(const next of ['https://evil.example','//evil.example']) {
+  for(const next of ['https://evil.example','//evil.example','/safe/..//evil.example','/safe/%2e%2e//evil.example','/safe/.%2e//evil.example','/safe/%2E.//evil.example']) {
     const response = await login(context,staffEmail,ipAddress(14),next);
     expect(response.status()).toBe(200);
-    expect((await response.json()).data.next).toBe('/');
+    const result = await response.json();
+    expect(result.data.next).toBe('/');
+    expect(new URL(result.data.next,'http://127.0.0.1:4253').origin).toBe('http://127.0.0.1:4253');
   }
   await page.goto('/auth/callback?next=https://evil.example');
   await expect(page).toHaveURL(/\/login\?error=expired$/);

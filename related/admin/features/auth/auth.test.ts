@@ -46,3 +46,15 @@ it('closes writes when the shared digest salt is missing or too short', async ()
     await expect(consumeRateLimit('signin','203.0.113.1')).rejects.toMatchObject({code:'UNAVAILABLE',status:503});
   }
 });
+
+it.each([
+  '/safe/..//evil.example',
+  '/safe/%2e%2e//evil.example',
+  '/safe/.%2e//evil.example',
+  '/safe/%2E.//evil.example',
+])('rejects a network-path return created by normalization: %s', (input) => {
+  const origin = 'https://admin.example';
+  const next = safeReturnPath(input, '/');
+  expect(new URL(next, origin).origin).toBe(origin);
+  expect(next).toBe('/');
+});

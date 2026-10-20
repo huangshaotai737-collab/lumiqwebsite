@@ -25,7 +25,11 @@ export function safeReturnPath(value: unknown, fallback = '/'): string {
     if (!decoded.startsWith('/') || decoded.startsWith('//') || /[\\\x00-\x20\x7f]/.test(decoded)) return fallback;
     const base = 'https://return.invalid';
     const url = new URL(value, base);
-    return url.origin === base ? url.pathname + url.search + url.hash : fallback;
+    // Literal/encoded dot segments can normalize a local input into //host.
+    // Recheck the final path before it is reused as a relative redirect URL.
+    const normalizedPath = decodeURIComponent(url.pathname);
+    if (url.origin !== base || !normalizedPath.startsWith('/') || normalizedPath.startsWith('//')) return fallback;
+    return url.pathname + url.search + url.hash;
   } catch { return fallback; }
 }
 
