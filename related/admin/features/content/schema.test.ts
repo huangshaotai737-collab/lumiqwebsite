@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { validateDraft } from './schema';
 import type { MediaSlot } from '@/lib/generated/platform/content';
 import { contentFields } from './fields';
-import snapshot from '../../tests/fixtures/content-snapshot.json';
+import snapshot from './initial-snapshot.json';
 
 const copy = () => structuredClone(snapshot);
 

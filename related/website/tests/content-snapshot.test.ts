@@ -124,7 +124,7 @@ describe('content import', () => {
     try {
       const files = [...fieldManifest.sourceFiles, 'scripts/export-initial-content.mjs', 'messages/en.json', 'messages/zh-hant.json', 'messages/ja.json', 'lib/content/initial-snapshot.json', 'lib/content/field-manifest.json'];
       for (const file of files) { mkdirSync(path.dirname(path.join(app, file)), { recursive: true }); cpSync(file, path.join(app, file)); }
-      for (const file of ['contracts/content-icu.ts', 'contracts/content-policy.ts', 'related/admin/features/content/field-manifest.json', 'related/admin/tests/fixtures/content-snapshot.json']) {
+      for (const file of ['contracts/content-icu.ts', 'contracts/content-policy.ts', 'related/admin/features/content/field-manifest.json', 'related/admin/features/content/initial-snapshot.json']) {
         mkdirSync(path.dirname(path.join(fixture, file)), { recursive: true }); cpSync(path.join(root, file), path.join(fixture, file));
       }
       mkdirSync(path.join(app, 'public'), { recursive: true });

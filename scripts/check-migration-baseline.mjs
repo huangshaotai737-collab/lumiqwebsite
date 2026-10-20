@@ -15,6 +15,11 @@ const schemaDefinitions = {
   'public.audit_events': { columns: { id: 'uuid', actor_id: 'uuid', action: 'text', entity_type: 'text', entity_id: 'uuid', summary: 'jsonb', created_at: 'timestamp with time zone' }, primaryKey: ['id'], unique: [], rlsEnabled: true },
 };
 schemaDefinitions['public.staff_invites'] = { columns: {id:'uuid',email:'text',role:'text',token_digest:'text',created_by:'uuid',created_at:'timestamp with time zone',expires_at:'timestamp with time zone',delivered_at:'timestamp with time zone',accepted_at:'timestamp with time zone',accepted_by:'uuid',revoked_at:'timestamp with time zone'},primaryKey:['id'],unique:[],rlsEnabled:true };
+Object.assign(schemaDefinitions, {
+ 'public.content_drafts': { columns: {id:'uuid',version:'integer',snapshot:'jsonb',status:'text',created_by:'uuid',updated_by:'uuid',created_at:'timestamp with time zone',updated_at:'timestamp with time zone'},primaryKey:['id'],unique:[],rlsEnabled:true },
+ 'public.content_releases': { columns: {id:'uuid',snapshot:'jsonb',draft_id:'uuid',draft_version:'integer',rollback_of:'uuid',created_by:'uuid',created_at:'timestamp with time zone'},primaryKey:['id'],unique:[],rlsEnabled:true },
+ 'public.content_publication': { columns: {singleton:'boolean',release_id:'uuid',updated_at:'timestamp with time zone'},primaryKey:['singleton'],unique:[],rlsEnabled:true },
+});
 const fail = (code) => { throw new Error(code); };
 const canonical = (value) => JSON.stringify(value, (_key, item) => item && typeof item === 'object' && !Array.isArray(item) ? Object.fromEntries(Object.entries(item).sort(([a], [b]) => a.localeCompare(b))) : item);
 
@@ -53,8 +58,10 @@ try {
   if (identityApplied) expectedTables.push('public.profiles', 'public.staff_memberships', 'public.audit_events');
   const staffApplied = applied.some((version) => local.get(version).file.endsWith('_staff_management.sql'));
   if(staffApplied) expectedTables.push('public.staff_invites');
+  const contentApplied = applied.some(version => local.get(version).file.endsWith('_content_releases.sql'));
+  if (contentApplied) expectedTables.push('public.content_drafts','public.content_releases','public.content_publication');
   for (const table of expectedTables) {
-    if (canonical(remote.tables[table]) !== canonical(schemaDefinitions[table])) fail(table === 'public.waitlist_signups' ? 'WAITLIST_SCHEMA_MISMATCH' : table === 'public.staff_invites' ? 'STAFF_SCHEMA_MISMATCH' : 'IDENTITY_SCHEMA_MISMATCH');
+    if (canonical(remote.tables[table]) !== canonical(schemaDefinitions[table])) fail(table === 'public.waitlist_signups' ? 'WAITLIST_SCHEMA_MISMATCH' : table === 'public.staff_invites' ? 'STAFF_SCHEMA_MISMATCH' : table.startsWith('public.content_') ? 'CONTENT_SCHEMA_MISMATCH' : 'IDENTITY_SCHEMA_MISMATCH');
   }
   if (canonical(Object.keys(remote.tables).sort()) !== canonical(expectedTables.sort())) fail('UNRECOGNIZED_SCHEMA_INVENTORY');
   const pending = [...local.keys()].filter((version) => !seen.has(version));

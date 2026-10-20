@@ -1,0 +1,191 @@
+import { expect, test, type BrowserContext } from '@playwright/test';
+import { createClient } from '@supabase/supabase-js';
+import { mkdirSync, readFileSync } from 'node:fs';
+import { parseEnv } from 'node:util';
+import path from 'node:path';
+const local = parseEnv(readFileSync(process.env.LUMIQ_TEST_ENV_FILE || path.resolve(__dirname, '../../../../.superpowers/sdd/2026-10-20-lumiq-admin-platform/a3.env'), 'utf8'));
+const backend = createClient(local.API_URL!, local.SERVICE_ROLE_KEY!, { auth: { persistSession: false, autoRefreshToken: false } });
+const password = `Synthetic-${crypto.randomUUID()}!`;
+const origin = 'http://127.0.0.1:4259';
+const users: Record<string, { id: string; email: string }> = {};
+let draftId: string;
+test.describe.configure({ mode: 'serial' });
+test.beforeAll(async () => {
+  for (const role of ['admin', 'editor', 'operations']) {
+    const email = `b2-${Date.now()}-${role}@example.test`;
+    const { data, error } = await backend.auth.admin.createUser({ email, password, email_confirm: true });
+    if (error || !data.user) throw new Error('synthetic account creation failed');
+    users[role] = { id: data.user.id, email };
+    const staff = await backend.from('staff_memberships').insert({ user_id: data.user.id, role, active: true });
+    if (staff.error) throw new Error('synthetic staff setup failed');
+  }
+});
+test.afterAll(async () => { for (const user of Object.values(users)) await backend.auth.admin.deleteUser(user.id); });
+async function login(context: BrowserContext, role: string) {
+  await context.setExtraHTTPHeaders({ 'x-real-ip': `2001:db8:${crypto.randomUUID().slice(0, 4)}::6` });
+  expect((await context.request.post(`${origin}/api/auth/signin`, { headers: { origin }, data: { email: users[role].email, password } })).status()).toBe(200);
+}
+async function post(context: BrowserContext, url: string, data: unknown) {
+  return context.request.post(`${origin}${url}`, { headers: { origin }, data });
+}
+async function draft(context: BrowserContext) { return (await (await context.request.get(`${origin}/api/content/drafts?id=${draftId}`)).json()).data; }
+test('admin initializes workspace; field errors keep input and expose exact field location', async ({ page, context, browser }) => {
+  const editor = await browser.newContext(); await login(editor, 'editor');
+  const published = await createClient(local.API_URL!, local.ANON_KEY!, { auth: { persistSession: false } }).rpc('get_published_content');
+  expect((await post(editor, '/api/content/drafts', { action: 'create' })).status()).toBe(published.data ? 200 : 403);
+  await editor.close();
+  expect((await context.request.get(`${origin}/api/content/drafts?id=${crypto.randomUUID()}`)).status()).toBe(401);
+  await login(context, 'admin');
+  await page.goto('/content');
+  await page.getByRole('button', { name: '新建草稿', exact: true }).click();
+  await expect(page).toHaveURL(/\/content\/[0-9a-f-]+$/);
+  draftId = new URL(page.url()).pathname.split('/').pop()!;
+  await expect(page.getByLabel('页面范围')).toBeVisible({ timeout: 2000 });
+  await page.getByLabel('页面范围').selectOption('/products/ola');
+  await page.getByLabel('搜索字段').fill('products.ola.name');
+  await page.getByLabel('字段分组').selectOption('products');
+  const name = page.locator('[id="field-products.ola.name"]');
+  await expect(page.getByText('产品名称', { exact: true })).toBeVisible();
+  await name.fill('<script>invalid</script>');
+  await page.getByRole('button', { name: '保存草稿', exact: true }).click();
+  await expect(page.locator('main').getByRole('alert')).toContainText('products.ola.name');
+  await expect(name).toHaveValue('<script>invalid</script>');
+  await page.getByRole('button', { name: '定位 products.ola.name', exact: true }).click();
+  await expect(name).toBeFocused();
+  await name.fill('B2 合成测试 Ola');
+  await page.getByRole('button', { name: '保存草稿', exact: true }).click();
+  await expect(page.getByRole('status')).toContainText('草稿已保存');
+  await page.getByLabel('搜索字段').fill('产品名称');
+  await expect(name).toBeVisible();
+  await page.getByLabel('搜索字段').fill('B2 合成测试 Ola');
+  await expect(name).toBeVisible();
+  await page.getByLabel('页面范围').selectOption('/contact');
+  await page.getByLabel('字段分组').selectOption('messages');
+  await page.getByLabel('文案语言').selectOption('ja');
+  await page.getByLabel('搜索字段').fill('');
+  await expect(page.locator('.content-field').first()).toContainText('日文');
+  await expect(page.locator('.content-field').first()).toContainText('联系');
+  await page.getByLabel('页面范围').selectOption('all');
+  await page.getByLabel('字段分组').selectOption('products');
+  await page.getByLabel('搜索字段').fill('products.nest.price.kind');
+  await page.locator('[id="field-products.nest.price.kind"]').selectOption('usd');
+  const amount = page.getByLabel('参考金额（美元）', { exact: true });
+  await amount.fill('not-a-number');
+  await expect(amount).toHaveValue('not-a-number');
+  await page.getByRole('button', { name: '保存草稿', exact: true }).click();
+  await expect(page.locator('main').getByRole('alert')).toContainText('products.nest.price');
+  await expect(amount).toHaveValue('not-a-number');
+  await page.locator('[id="field-products.nest.price.kind"]').selectOption('pending');
+  await page.getByRole('button', { name: '保存草稿', exact: true }).click();
+  await expect(page.getByRole('status')).toContainText('草稿已保存');
+});
+test('concurrent_draft_save_conflicts and draft_never_changes_public_release', async ({ context }) => {
+  await login(context, 'admin');
+  expect((await context.request.post(`${origin}/api/content/drafts`, { data: { action: 'create' } })).status()).toBe(403);
+  const current = await draft(context);
+  const anonymous = createClient(local.API_URL!, local.ANON_KEY!, { auth: { persistSession: false } });
+  const before = await anonymous.rpc('get_published_content');
+  const results = await Promise.all(['A', 'B'].map(async name => {
+    const snapshot = structuredClone(current.snapshot); snapshot.products.ola.name = `Concurrent ${name}`;
+    return (await post(context, '/api/content/drafts', { id: draftId, expectedVersion: current.version, snapshot })).json();
+  }));
+  expect(results.filter(result => result.ok)).toHaveLength(1);
+  expect(results.filter(result => !result.ok)).toEqual([expect.objectContaining({ error: 'CONFLICT' })]);
+  expect((await anonymous.rpc('get_published_content')).data).toEqual(before.data);
+});
+test('stale browser retains input and offers a downloadable conflict copy', async ({ page, context }) => {
+  await login(context, 'admin'); await page.goto(`/content/${draftId}`);
+  await page.getByLabel('字段分组').selectOption('products'); await page.getByLabel('搜索字段').fill('products.ola.name');
+  await page.locator('[id="field-products.ola.name"]').fill('My unsaved conflict copy');
+  const current = await draft(context); current.snapshot.products.ola.name = 'Other window saved';
+  expect((await post(context, '/api/content/drafts', { id: draftId, expectedVersion: current.version, snapshot: current.snapshot })).status()).toBe(200);
+  await page.getByRole('button', { name: '保存草稿', exact: true }).click();
+  await expect(page.locator('main').getByRole('alert')).toContainText('冲突');
+  await expect(page.locator('[id="field-products.ola.name"]')).toHaveValue('My unsaved conflict copy');
+  const download = page.waitForEvent('download');
+  await page.getByRole('button', { name: '下载冲突副本', exact: true }).click();
+  expect((await download).suggestedFilename()).toContain('conflict');
+  await page.getByRole('button', { name: '载入最新草稿', exact: true }).click();
+  await expect(page.getByRole('status')).toContainText('已载入最新草稿');
+  const retainedDownload = page.waitForEvent('download');
+  await page.getByRole('button', { name: '下载冲突副本', exact: true }).click();
+  const retained = await retainedDownload;
+  const copy = JSON.parse(readFileSync((await retained.path())!, 'utf8'));
+  expect(copy.snapshot.products.ola.name).toBe('My unsaved conflict copy');
+  expect(copy.expectedVersion).toBe(current.version);
+});
+test('editor settings bypass and operations drafts access are denied by server and direct RPC', async ({ browser }) => {
+  const context = await browser.newContext(); await login(context, 'editor');
+  const current = await draft(context);
+  current.snapshot.settings.supportEmail = 'bypass@example.test';
+  expect((await post(context, '/api/content/drafts', { id: draftId, expectedVersion: current.version, snapshot: current.snapshot })).status()).toBe(403);
+  expect((await post(context, '/api/content/publish', { id: draftId, expectedVersion: current.version })).status()).toBe(403);
+  const direct = createClient(local.API_URL!, local.ANON_KEY!, { auth: { persistSession: false } });
+  await direct.auth.signInWithPassword({ email: users.editor.email, password });
+  expect((await direct.rpc('publish_content_draft', { id: draftId, expected_version: current.version })).error?.code).toBe('42501');
+  expect((await direct.rpc('save_content_draft', { id: draftId, expected_version: current.version, snapshot: current.snapshot })).error?.code).toBe('42501');
+  const page = await context.newPage(); await page.goto(`/content/${draftId}`);
+  expect(await page.getByRole('option', { name: '系统设置' }).count()).toBe(0);
+  const valid = await draft(context); valid.snapshot.products.ola.name = 'Editor ordinary content';
+  const saved = await post(context, '/api/content/drafts', { id: draftId, expectedVersion: valid.version, snapshot: valid.snapshot });
+  expect(saved.status()).toBe(200);
+  const submitted = await post(context, '/api/content/drafts', { action: 'submit', id: draftId, expectedVersion: (await saved.json()).data.version });
+  expect(submitted.status()).toBe(200); expect((await draft(context)).status).toBe('submitted');
+  await context.close();
+  const ops = await browser.newContext(); await login(ops, 'operations');
+  expect((await ops.request.get(`${origin}/api/content/drafts?id=${draftId}`)).status()).toBe(403);
+  await ops.close();
+});
+test('bad ICU and missing locales saved by raw RPC cannot be published; valid publish and rollback create history', async ({ page, context }) => {
+  await login(context, 'admin');
+  const current = await draft(context);
+  const direct = createClient(local.API_URL!, local.ANON_KEY!, { auth: { persistSession: false } });
+  await direct.auth.signInWithPassword({ email: users.admin.email, password });
+  const invalid = structuredClone(current.snapshot); invalid.settings.contactText.en = 'Broken {'; delete invalid.messages.ja;
+  const raw = await direct.rpc('save_content_draft', { id: draftId, expected_version: current.version, snapshot: invalid });
+  expect(raw.error).toBeNull();
+  expect((await direct.rpc('publish_content_draft', { id: draftId, expected_version: raw.data.version })).error?.message).toBe('VALIDATION_REQUIRED');
+  const rejected = await post(context, '/api/content/publish', { id: draftId, expectedVersion: raw.data.version });
+  expect(rejected.status()).toBe(400); expect((await rejected.json()).issues.length).toBeGreaterThan(0);
+  const restored = await post(context, '/api/content/drafts', { id: draftId, expectedVersion: raw.data.version, snapshot: current.snapshot });
+  expect(restored.status()).toBe(200);
+  await page.goto(`/content/${draftId}`);
+  await page.getByRole('button', { name: '提交审核', exact: true }).click();
+  await expect(page.getByRole('status')).toContainText('已提交审核');
+  await page.getByRole('button', { name: '发布当前版本', exact: true }).click();
+  await expect(page.getByRole('status')).toContainText('60 秒');
+  const first = (await direct.rpc('get_published_content')).data;
+  expect(first.snapshot.products.ola.name).toBe(current.snapshot.products.ola.name);
+  await page.getByLabel('字段分组').selectOption('settings');
+  await page.getByLabel('搜索字段').fill('settings.supportEmail');
+  await page.getByLabel('客服邮箱', { exact: true }).fill('admin-settings@example.test');
+  await page.getByRole('button', { name: '保存草稿', exact: true }).click();
+  await expect(page.getByRole('status')).toContainText('草稿已保存');
+  await page.getByRole('button', { name: '发布当前版本', exact: true }).click();
+  await expect(page.getByRole('status')).toContainText('60 秒');
+  expect((await direct.rpc('get_published_content')).data.snapshot.settings.supportEmail).toBe('admin-settings@example.test');
+  await page.goto('/content');
+  const row = page.getByRole('row').filter({ hasText: first.releaseId });
+  await row.getByRole('button', { name: '回滚至此版本' }).click();
+  await expect(page.getByRole('status')).toContainText('60 秒');
+  const rolled = (await direct.rpc('get_published_content')).data;
+  expect(rolled.releaseId).not.toBe(first.releaseId);
+  expect(rolled.snapshot).toEqual(first.snapshot);
+  const events = await direct.from('audit_events').select('action').eq('actor_id', users.admin.id);
+  expect(events.data).toEqual(expect.arrayContaining([{ action: 'content.published' }, { action: 'content.rolled_back' }]));
+  await page.goto(`/content/${draftId}`);
+  await page.getByLabel('字段分组').selectOption('products');
+  await page.getByLabel('页面范围').selectOption('/products/ola');
+  await page.getByLabel('搜索字段').fill('');
+  const evidence = path.resolve(__dirname, '../../../../.superpowers/sdd/2026-10-20-lumiq-admin-platform/task-6-evidence'); mkdirSync(evidence, { recursive: true });
+  for (const width of [320, 390, 1440]) {
+    await page.setViewportSize({ width, height: width === 1440 ? 1000 : 900 });
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+    await page.evaluate(() => window.scrollTo(0, 0));
+    await page.screenshot({ path: path.join(evidence, width === 1440 ? 'content-editor-desktop.png' : `content-editor-mobile-${width}.png`) });
+    if (width !== 1440) {
+      await page.locator('.content-field').first().scrollIntoViewIfNeeded();
+      await page.screenshot({ path: path.join(evidence, `content-editor-mobile-${width}-fields.png`) });
+    }
+  }
+});

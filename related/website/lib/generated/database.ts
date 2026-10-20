@@ -37,6 +37,66 @@ export type Database = {
                   Relationships: [
 
                   ]
+                },"content_drafts": {
+                  Row: {
+                    "created_at": string,"created_by": string,"id": string,"snapshot": NonNullable<Json>,"status": string,"updated_at": string,"updated_by": string,"version": number
+                  }
+                  ComputedFields: never
+                  Insert: {
+                    "created_at"?: string,"created_by": string,"id": string,"snapshot": NonNullable<Json>,"status"?: string,"updated_at"?: string,"updated_by": string,"version": number
+                  }
+                  Update: {
+                    "created_at"?: string,"created_by"?: string,"id"?: string,"snapshot"?: NonNullable<Json>,"status"?: string,"updated_at"?: string,"updated_by"?: string,"version"?: number
+                  }
+                  Relationships: [
+
+                  ]
+                },"content_publication": {
+                  Row: {
+                    "release_id": string | null,"singleton": boolean,"updated_at": string
+                  }
+                  ComputedFields: never
+                  Insert: {
+                    "release_id"?: string | null,"singleton"?: boolean,"updated_at"?: string
+                  }
+                  Update: {
+                    "release_id"?: string | null,"singleton"?: boolean,"updated_at"?: string
+                  }
+                  Relationships: [
+                    {
+      foreignKeyName: "content_publication_release_id_fkey"
+      columns: ["release_id"]
+isOneToOne: false
+      referencedRelation: "content_releases"
+      referencedColumns: ["id"]
+    }
+                  ]
+                },"content_releases": {
+                  Row: {
+                    "created_at": string,"created_by": string,"draft_id": string | null,"draft_version": number | null,"id": string,"rollback_of": string | null,"snapshot": NonNullable<Json>
+                  }
+                  ComputedFields: never
+                  Insert: {
+                    "created_at"?: string,"created_by": string,"draft_id"?: string | null,"draft_version"?: number | null,"id"?: string,"rollback_of"?: string | null,"snapshot": NonNullable<Json>
+                  }
+                  Update: {
+                    "created_at"?: string,"created_by"?: string,"draft_id"?: string | null,"draft_version"?: number | null,"id"?: string,"rollback_of"?: string | null,"snapshot"?: NonNullable<Json>
+                  }
+                  Relationships: [
+                    {
+      foreignKeyName: "content_releases_draft_id_fkey"
+      columns: ["draft_id"]
+isOneToOne: false
+      referencedRelation: "content_drafts"
+      referencedColumns: ["id"]
+    },{
+      foreignKeyName: "content_releases_rollback_of_fkey"
+      columns: ["rollback_of"]
+isOneToOne: false
+      referencedRelation: "content_releases"
+      referencedColumns: ["id"]
+    }
+                  ]
                 },"profiles": {
                   Row: {
                     "access_state": string,"display_name": string,"locale": string,"shipping_address": NonNullable<Json>,"user_id": string
@@ -102,6 +162,9 @@ export type Database = {
             "accept_staff_invite":
 { Args: { "invite_id": string,"token_digest": string }; Returns: undefined
                            },
+"attest_content_snapshot":
+{ Args: { "actor_id": string,"expected_version": number,"id": string,"normalized_snapshot": Json,"policy_version": string,"purpose": string }; Returns: undefined
+                           },
 "bootstrap_staff_admin":
 { Args: { "email": string }; Returns: string
                            },
@@ -116,6 +179,18 @@ export type Database = {
 "create_staff_invite":
 { Args: { "email": string,"role": string,"token_digest": string }; Returns: string
                            },
+"get_content_draft":
+{ Args: { "id": string }; Returns: Json
+                           },
+"get_content_release":
+{ Args: { "id": string }; Returns: Json
+                           },
+"get_content_workspace":
+{ Args: Record<PropertyKey, never>; Returns: Json
+                           },
+"get_published_content":
+{ Args: Record<PropertyKey, never>; Returns: Json
+                           },
 "list_staff":
 { Args: Record<PropertyKey, never>; Returns: {
               "active": boolean,"email": string,"role": string,"user_id": string
@@ -123,6 +198,18 @@ export type Database = {
                            },
 "mark_staff_invite_delivery":
 { Args: { "delivered": boolean,"invite_id": string }; Returns: undefined
+                           },
+"publish_content_draft":
+{ Args: { "expected_version": number,"id": string }; Returns: string
+                           },
+"rollback_content_release":
+{ Args: { "release_id": string }; Returns: string
+                           },
+"save_content_draft":
+{ Args: { "expected_version": number,"id": string,"snapshot": Json }; Returns: Json
+                           },
+"submit_content_draft":
+{ Args: { "expected_version": number,"id": string }; Returns: Json
                            }
           }
           Enums: {

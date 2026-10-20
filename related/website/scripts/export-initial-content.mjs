@@ -325,7 +325,7 @@ const outputs = [
   [path.join(app, 'lib/content/field-manifest.json'), json(manifest)],
   [path.join(root, 'contracts/content-policy.ts'), policySource],
   [path.join(root, 'related/admin/features/content/field-manifest.json'), json(manifest)],
-  [path.join(root, 'related/admin/tests/fixtures/content-snapshot.json'), json(snapshot)],
+  [path.join(root, 'related/admin/features/content/initial-snapshot.json'), json(snapshot)],
 ];
 let stale = false;
 for (const [file, expected] of outputs) {

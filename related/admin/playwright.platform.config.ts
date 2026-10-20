@@ -2,12 +2,14 @@ import { defineConfig, devices } from '@playwright/test';
 import { readFileSync } from 'node:fs';
 import { parseEnv } from 'node:util';
 import path from 'node:path';
+const content = process.argv.some(value => value.includes('content-editor.spec')) || process.env.LUMIQ_CONTENT_E2E === '1';
+if (content) process.env.LUMIQ_CONTENT_E2E = '1';
 const team =
   process.argv.some((value) => value.includes('team.spec')) ||
   process.env.LUMIQ_TEAM_E2E === '1';
 if (team) process.env.LUMIQ_TEAM_E2E = '1';
 const auth =
-  team ||
+  content || team ||
   process.argv.some((value) => value.includes('staff-session.spec')) ||
   process.env.LUMIQ_AUTH_E2E === '1';
 if (auth) process.env.LUMIQ_AUTH_E2E = '1';
@@ -38,7 +40,7 @@ const credentials = {
 };
 export default defineConfig({
   testDir: './tests/e2e',
-  testMatch: team
+  testMatch: content ? '**/content-editor.spec.ts' : team
     ? '**/team.spec.ts'
     : auth
       ? '**/staff-session.spec.ts'
@@ -49,7 +51,7 @@ export default defineConfig({
   reporter: 'list',
   timeout: 60_000,
   use: {
-    baseURL: team
+    baseURL: content ? 'http://127.0.0.1:4259' : team
       ? 'http://127.0.0.1:4257'
       : auth
         ? 'http://127.0.0.1:4253'
@@ -57,7 +59,10 @@ export default defineConfig({
     trace: 'retain-on-failure',
   },
   projects: [{ name: 'chromium', use: { ...devices['Desktop Chrome'] } }],
-  webServer: team
+  webServer: content ? {
+    command: 'node ../../scripts/start-team-admin-test.mjs', url: 'http://127.0.0.1:4259/login', reuseExistingServer: false, timeout: 120_000,
+    env: { ...credentials, A4_TEST_PORT: '4259', APP_ORIGIN: 'http://127.0.0.1:4259' },
+  } : team
     ? [4257, 4258].map((port) => ({
         command: 'node ../../scripts/start-team-admin-test.mjs',
         url: `http://127.0.0.1:${port}/login`,

@@ -85,3 +85,19 @@ dl>div { display:flex; gap:24px; margin:10px 0; } dd { margin:0; }
   .team-list-table select, .team-list-table .primary-button { width: 100%; }
   .team-list-table td p { min-width: 0; margin: 6px 0 0; }
 }
+.content-toolbar { display:flex; flex-wrap:wrap; align-items:center; gap:12px; margin:16px 0; }
+.content-toolbar button,.content-field button,.notice button { min-height:44px; padding:8px 12px; border:1px solid var(--line); border-radius:8px; }
+.content-toolbar .primary-button { margin:0; }
+.content-filters { display:flex; flex-wrap:wrap; gap:16px; }
+.content-filters label { display:grid; gap:6px; min-width:0; }
+.content-filters input,.content-field textarea,.content-field input:not([type="checkbox"]) { display:block; width:100%; min-width:0; font:inherit; padding:10px 12px; border:1px solid #c6d2d8; border-radius:8px; color:var(--ink); background:white; }
+.content-field { display:grid; gap:8px; margin:24px 0; min-width:0; }
+.content-field label { overflow-wrap:anywhere; font-size:14px; font-weight:600; }
+.content-field textarea { resize:vertical; }
+.content-field small { color:var(--muted); }
+.content-field [aria-invalid="true"] { border-color:#a52a2a; }
+.content-field input[type="checkbox"] { width:24px; height:24px; }
+.notice,.panel li { overflow-wrap:anywhere; }
+@media(max-width:700px) { .content-filters { display:grid; } .content-toolbar button { flex:1 1 120px; } .content-field { margin:20px 0; } .panel { padding:18px; } }
+.content-path { font-size:12px; color:var(--muted); overflow-wrap:anywhere; font-weight:400; }
+.content-filters input { max-width:100%; }

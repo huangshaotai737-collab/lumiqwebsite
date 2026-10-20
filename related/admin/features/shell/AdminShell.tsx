@@ -24,6 +24,7 @@ export function AdminShell({
   const pathname = usePathname();
   const links = role
     ? [
+        ...(role === 'admin' || role === 'editor' ? [['官网内容', '文', '/content']] : []),
         ...(role === 'admin'
           ? [
               ['团队与权限', '组', '/team'],

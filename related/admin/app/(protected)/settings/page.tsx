@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { requireStaff } from '@/lib/auth/require-staff';
 import { configurationStatus } from '@/features/team/service';
 export default async function SettingsPage() {
@@ -35,9 +36,9 @@ export default async function SettingsPage() {
       <section className="panel">
         <h2>官网地址与客服信息</h2>
         <p>
-          联系方式由官网内容设置统一管理，需经过草稿、发布与回滚。内容设置编辑器尚未开放，当前为只读状态。
+          联系方式由官网内容设置统一管理。请在内容草稿的“系统设置”分组编辑，保存后由管理员发布；历史版本可回滚。
         </p>
-        <span aria-disabled="true">内容设置（待开放）</span>
+        <Link href="/content">前往内容设置</Link>
       </section>
       <section className="panel" id="payment-materials">
         <h2>支付接入准备</h2>
