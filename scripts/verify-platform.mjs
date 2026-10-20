@@ -51,7 +51,7 @@ stages.database=async()=>{
 };
 stages.checks=async()=>{
  const tests=(await readdir(path.join(root,'scripts/tests'))).filter(f=>f.endsWith('.test.mjs')).map(f=>`scripts/tests/${f}`);
- await command('root-tests','node',['--test',...tests]);
+ await command('root-tests','node',['--test','--test-concurrency=1',...tests]);
  for(const app of ['admin','website']) {
   const cwd=path.join(mirror,'related',app);
   for(const check of ['test','typecheck','lint'])await command(`${app}-${check}`,'npm',['run',check],cwd);

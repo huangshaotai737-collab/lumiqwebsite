@@ -16,7 +16,7 @@ if(mode==='grandchild'){
    writeFileSync(`${directory}/ready.json`,'{}');
    await delay(500);owner.throwIfCancelled();
    writeFileSync(`${directory}/unexpected`,'started');
-  }else if(mode==='inspection-error'){process.env.PATH=directory;}else if(mode==='spawn-error')await owner.execute(`${directory}/missing`,[],{stdio:'ignore'});
+  }else if(mode==='empty-inspection'){writeFileSync(`${directory}/ps`,'#!/bin/sh\nexit 0\n',{mode:0o700});process.env.PATH=directory;}else if(mode==='inspection-error'){process.env.PATH=directory;}else if(mode==='spawn-error')await owner.execute(`${directory}/missing`,[],{stdio:'ignore'});
   else await owner.execute(process.execPath,[import.meta.filename,'stage',directory],{stdio:'ignore'});
  });}catch(error){process.exitCode=error.exitCode||1;}
 }

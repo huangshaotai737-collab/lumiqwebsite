@@ -17,7 +17,7 @@ for(const signal of ['SIGTERM','SIGINT'])test(`${signal} stops and reaps stage a
   await until(()=>existsSync(`${directory}/ready.json`));pids=JSON.parse(readFileSync(`${directory}/ready.json`,'utf8'));await delay(100);
   supervisor.kill(signal);supervisor.kill(signal); // Double signal must not release twice.
   assert.throws(()=>acquireRunLock(`${directory}/lock`),/Another verifier/);
-  assert.equal(await completion,130);assert.equal(alive(pids.stage),false);assert.equal(alive(pids.grandchild),false);
+  assert.equal(await completion,130,existsSync(`${directory}/lock/teardown.json`)?readFileSync(`${directory}/lock/teardown.json`,'utf8'):'no teardown diagnostic');assert.equal(alive(pids.stage),false);assert.equal(alive(pids.grandchild),false);
   const successor=acquireRunLock(`${directory}/lock`);await delay(100);assert.throws(()=>acquireRunLock(`${directory}/lock`),/Another verifier/);successor();
  }finally{supervisor.kill('SIGKILL');for(const pid of Object.values(pids||{}))try{process.kill(pid,'SIGKILL');}catch{}rmSync(directory,{recursive:true,force:true});}
 });
@@ -34,8 +34,8 @@ test('spawn failure is reaped before ownership is released',{timeout:12000},asyn
  finally{rmSync(directory,{recursive:true,force:true});}
 });
 
-test('failed process inspection conservatively retains the ownership lock',{timeout:12000},async()=>{
+for(const mode of ['inspection-error','empty-inspection'])test(`${mode}: failed or empty inspection conservatively retains the ownership lock`,{timeout:12000},async()=>{
  const directory=mkdtempSync(path.join(os.tmpdir(),'lumiq-inspection-error-'));
- try{const child=spawn(process.execPath,[fixture.pathname,'inspection-error',directory],{stdio:'ignore'});assert.equal(await new Promise(resolve=>child.once('close',resolve)),1);assert.throws(()=>acquireRunLock(`${directory}/lock`),/Another verifier/);}
+ try{const child=spawn(process.execPath,[fixture.pathname,mode,directory],{stdio:'ignore'});assert.equal(await new Promise(resolve=>child.once('close',resolve)),1);assert.throws(()=>acquireRunLock(`${directory}/lock`),/Another verifier/);}
  finally{rmSync(directory,{recursive:true,force:true});}
 });
