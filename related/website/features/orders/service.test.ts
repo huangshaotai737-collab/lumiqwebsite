@@ -189,3 +189,18 @@ it("public catalog works anonymously and never converts failed reads to an avail
     error: "UNAVAILABLE",
   });
 });
+
+it("only the trusted stale-terms SQL pair gets the deterministic recovery code", async () => {
+  state.user = { id: sku, email_confirmed_at: "2026-10-20" };
+  for (const [code, message, expected] of [
+    ["23505", "terms changed", "TERMS_CHANGED"],
+    ["23505", "idempotency request conflict", "CONFLICT"],
+    ["23505", "terms changed private suffix", "CONFLICT"],
+    ["XX000", "terms changed", "UNAVAILABLE"],
+  ]) {
+    state.rpc.mockResolvedValueOnce({ data: null, error: { code, message } });
+    const result = await createOrder(input);
+    expect(result).toMatchObject({ ok: false, error: expected });
+    expect(JSON.stringify(result)).not.toContain(message);
+  }
+});

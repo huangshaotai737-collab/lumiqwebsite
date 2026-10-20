@@ -189,6 +189,7 @@ export function responseFor<T>(value: ApiResult<T>) {
     NOT_FOUND: 404,
     PAYMENTS_NOT_CONFIGURED: 503,
     ORDERING_DISABLED: 409,
+    TERMS_CHANGED:409,
   };
   const headers: Record<string, string> = {
     'Cache-Control': 'private, no-store, max-age=0',

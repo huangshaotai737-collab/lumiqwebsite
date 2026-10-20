@@ -14,7 +14,7 @@ const local = parseEnv(
 );
 export default defineConfig({
   testDir: "./tests/e2e",
-  testMatch: "customer-orders.spec.ts",
+  testMatch: ["customer-orders.spec.ts", "customer-order-recovery.spec.ts"],
   fullyParallel: false,
   workers: 1,
   retries: 0,

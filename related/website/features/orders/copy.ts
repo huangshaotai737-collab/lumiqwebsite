@@ -1,6 +1,8 @@
 import type { Locale } from "@/lib/generated/platform/core";
 export const orderCopy = {
   en: {
+    termsChanged:
+      "The approved terms changed. No order was created. Review the refreshed terms and accept them again before submitting.",
     invalid:
       "Check the recipient details and use a valid two-letter country code.",
     mixed:
@@ -44,6 +46,8 @@ export const orderCopy = {
       "Safe retry storage is unavailable. Enable session storage before submitting.",
   },
   "zh-hant": {
+    termsChanged:
+      "已核准條款已更新，此請求未建立訂單。請閱讀更新後的條款，重新同意後再提交。",
     invalid: "請檢查收件資料，並使用有效的兩碼國家代碼。",
     mixed: "每筆訂單僅可使用一種幣種，請調整購物車。",
     checkout: "結帳",
@@ -78,6 +82,8 @@ export const orderCopy = {
     storage: "安全重試儲存無法使用，請啟用工作階段儲存後再提交。",
   },
   ja: {
+    termsChanged:
+      "承認済みの規約が変更され、このリクエストで注文は作成されませんでした。更新された規約を確認し、再度同意して送信してください。",
     invalid: "配送先を確認し、有効な2文字の国コードを入力してください。",
     mixed: "1 つの注文は単一通貨のみです。カートを変更してください。",
     checkout: "チェックアウト",

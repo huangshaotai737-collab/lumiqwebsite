@@ -88,3 +88,11 @@
   outline: 2px solid #1c615b;
   outline-offset: 3px;
 }
+
+.lumiq-root .orders-terms aside {
+  border: 1px solid #e0cfaa;
+  border-radius: 8px;
+  background: #fff9eb;
+  padding: 14px;
+  margin: 16px 0;
+}

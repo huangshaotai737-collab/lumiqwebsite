@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useRef, useState, type FormEvent } from "react";
+import { useRouter } from "next/navigation";
 import { useCart } from "@/components/cart/CartProvider";
 import type {
   ApiResult,
@@ -37,6 +38,10 @@ export function CheckoutForm({
   profile: Profile | null;
   catalog: ApiResult<OrderingCatalog>;
 }) {
+  const router = useRouter();
+  const [staleTermsVersion, setStaleTermsVersion] = useState<string | null>(
+    null,
+  );
   const t = orderCopy[locale],
     a = accountCopy[locale],
     cart = useCart();
@@ -111,14 +116,16 @@ export function CheckoutForm({
   }, [storageKey, t.storage, locale]);
   useEffect(() => {
     let active = true;
+    let generation = 0;
     async function check() {
       if (!userId) return;
+      const current = ++generation;
       setIdentityValid(false);
       try {
         const r = await (
           await fetch("/api/account/profile", { cache: "no-store" })
         ).json();
-        if (!active) return;
+        if (!active || current !== generation) return;
         if (r.ok && r.data.userId === userId) {
           setIdentityValid(true);
           return;
@@ -128,16 +135,25 @@ export function CheckoutForm({
           window.location.reload();
         } else setMessage(t.failed);
       } catch {
-        if (active) setMessage(t.failed);
+        if (active && current === generation) setMessage(t.failed);
       }
     }
     const changed = (event: StorageEvent) => {
       if (event.key === accountRevisionKey) void check();
     };
+    const hide = () => {
+      generation++;
+      setIdentityValid(false);
+    };
+    window.addEventListener("pagehide", hide);
+    window.addEventListener("pageshow", check);
     window.addEventListener("focus", check);
     window.addEventListener("storage", changed);
     return () => {
       active = false;
+      generation++;
+      window.removeEventListener("pagehide", hide);
+      window.removeEventListener("pageshow", check);
       window.removeEventListener("focus", check);
       window.removeEventListener("storage", changed);
     };
@@ -167,11 +183,29 @@ export function CheckoutForm({
     currencies.size !== 1 ||
     !rows.length ||
     !Number.isSafeInteger(subtotal);
-  const available = Boolean(data?.orderingEnabled && data.terms && !blocked);
+  const catalogFresh =
+    !staleTermsVersion ||
+    Boolean(
+      catalog.ok &&
+        catalog.data.terms &&
+        catalog.data.terms.releaseId !== staleTermsVersion,
+    );
+  const available = Boolean(
+    catalogFresh && data?.orderingEnabled && data.terms && !blocked,
+  );
   const terms = data?.terms?.locales[locale];
   async function submit(event: FormEvent) {
     event.preventDefault();
-    if (busy.current || !userId || !ready) return;
+    if (
+      busy.current ||
+      !userId ||
+      !ready ||
+      storageFault ||
+      closed ||
+      !identityValid ||
+      (!saved && !accepted)
+    )
+      return;
     const request =
       saved ||
       (available && data?.terms
@@ -219,7 +253,16 @@ export function CheckoutForm({
         );
         return;
       }
-      if (
+      if (result.error === "TERMS_CHANGED") {
+        // The exact C3 error proves this request did not commit; ambiguous failures never enter here.
+        sessionStorage.removeItem(storageKey);
+        setSaved(null);
+        setSavedCatalog(null);
+        setAccepted(false);
+        setStaleTermsVersion(request.termsVersion);
+        setMessage(t.termsChanged);
+        router.refresh();
+      } else if (
         result.error === "INVALID_INPUT" ||
         result.error === "ORDERING_DISABLED"
       ) {
@@ -358,16 +401,19 @@ export function CheckoutForm({
             <p>
               {t.version}: {data!.terms!.releaseId}
             </p>
+            <p>{terms.eyebrow}</p>
             <h2>{terms.terms.title}</h2>
-            {Object.entries(terms.terms)
-              .filter(([key]) => key !== "title")
-              .map(([key, value]) =>
-                key.startsWith("h") ? (
-                  <h3 key={key}>{value}</h3>
-                ) : (
-                  <p key={key}>{value}</p>
-                ),
-              )}
+            <p>{terms.terms.intro}</p>
+            <aside role="note">{terms.draft}</aside>
+            {(
+              ["p1", "h1", "p2", "h2", "p3", "h3", "p4", "h4", "p5"] as const
+            ).map((key) =>
+              key.startsWith("h") ? (
+                <h3 key={key}>{terms.terms[key]}</h3>
+              ) : (
+                <p key={key}>{terms.terms[key]}</p>
+              ),
+            )}
             <p>{terms.shipping}</p>
             <p>{terms.returns}</p>
             <p>{terms.warranty}</p>
@@ -377,7 +423,7 @@ export function CheckoutForm({
           <input
             type="checkbox"
             checked={accepted}
-            disabled={pending || !!saved}
+            disabled={pending || !!saved || !catalogFresh}
             required
             onChange={(e) => setAccepted(e.target.checked)}
           />

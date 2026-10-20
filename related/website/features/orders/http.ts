@@ -11,6 +11,7 @@ export function orderResponse<T>(result: ApiResult<T>, status = 200) {
             NOT_FOUND: 404,
             CONFLICT: 409,
             ORDERING_DISABLED: 409,
+            TERMS_CHANGED: 409,
             RATE_LIMITED: 429,
           } as Record<string, number>
         )[result.error] || 503,

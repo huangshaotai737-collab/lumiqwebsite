@@ -20,7 +20,8 @@ export type PlatformError =
   | 'UNAVAILABLE'
   | 'NOT_FOUND'
   | 'PAYMENTS_NOT_CONFIGURED'
-  | 'ORDERING_DISABLED';
+  | 'ORDERING_DISABLED'
+  | 'TERMS_CHANGED';
 
 export type ApiResult<T> =
   | { ok: true; data: T }

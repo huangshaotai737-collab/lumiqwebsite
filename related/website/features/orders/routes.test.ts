@@ -111,3 +111,19 @@ describe("customer HTTP contract", () => {
     ).toBe(400);
   });
 });
+
+it("deterministic stale terms is a safe no-store409", async () => {
+  mocks.create.mockResolvedValue({
+    ok: false,
+    error: "TERMS_CHANGED",
+    requestId: "safe",
+  });
+  const response = await POST(request());
+  expect(response.status).toBe(409);
+  expect(response.headers.get("cache-control")).toContain("no-store");
+  expect(await response.json()).toEqual({
+    ok: false,
+    error: "TERMS_CHANGED",
+    requestId: "safe",
+  });
+});

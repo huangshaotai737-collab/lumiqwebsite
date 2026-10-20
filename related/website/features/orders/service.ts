@@ -49,6 +49,12 @@ export function createOrder(
     await enforceRateLimit("write", userId);
     const client = await createClient();
     const response = await client.rpc("create_customer_order", { request });
+    // C3 emits this exact pair only for a new, uncommitted request after owner/key lookup.
+    if (
+      response.error?.code === "23505" &&
+      response.error.message === "terms changed"
+    )
+      throw new HttpError("TERMS_CHANGED", 409);
     rpcError(response.error);
     if (!response.data) throw new HttpError("UNAVAILABLE", 503);
     return response.data as unknown as CreateOrderResult;
