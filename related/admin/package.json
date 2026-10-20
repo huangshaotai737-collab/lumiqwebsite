@@ -1,0 +1,29 @@
+{
+  "name": "lumiq-admin",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --hostname 127.0.0.1 --port 4250",
+    "start": "next start --hostname 127.0.0.1 --port 4250",
+    "build": "next build",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint .",
+    "test": "node --test ../../scripts/tests/admin-boundary.test.mjs ../../scripts/tests/contracts-sync.test.mjs",
+    "test:e2e": "playwright test -c playwright.platform.config.ts"
+  },
+  "dependencies": {
+    "next": "16.4.2",
+    "react": "19.3.1",
+    "react-dom": "19.3.1"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.64.1",
+    "@types/node": "26.6.5",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "eslint": "9.39.5",
+    "eslint-config-next": "16.4.2",
+    "typescript": "5.9.3",
+    "vitest": "5.0.5"
+  }
+}
