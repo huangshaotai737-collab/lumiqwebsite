@@ -99,7 +99,7 @@ export function updateCommerceSettings(
 }
 export function getCatalogWorkspace(): Promise<ApiResult<CatalogWorkspace>> {
   return operationsResult(async () => {
-    await requireStaff(["admin"]);
+    await requireStaff(["admin", "operations"]);
     const client = await createClient();
     const response = await client.rpc("get_catalog_workspace");
     operationsRpcError(response.error);

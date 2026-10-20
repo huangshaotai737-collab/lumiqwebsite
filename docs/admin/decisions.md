@@ -79,3 +79,55 @@ Ruling: C7 retains and discloses the Node22.23.3 stream-cancellation TypeError d
 Ruling: C7 persistent local preview uses a supervisor-owned loopback ingress on public4211/4270, forwarding to owned private Next4212/4271, because real browsers do not send the trusted client-IP header required by production auth/write handlers. Bind only127.0.0.1 and overwrite the app-consumed IP headers from the accepted socket, preserve public Origin/Host/callback behavior, reject port collisions and track process ownership. Verify ordinary browser login/write without injected test headers and restart. Production deployment must separately provide trusted ingress stripping/overwrite, not infer it from stock Next. Cost if wrong: correct proxy trust/stream/lifecycle semantics and repeat real-browser acceptance; never weaken production identity/rate/Origin checks to make a local demo work.
 
 Ruling: C7 process cancellation and stage completion must fail closed when descendant teardown cannot be established; polling alone is not proof. Preserve owned process-group identity after the leader exits, and use a conservative detection/containment boundary for newly orphaned or separately detached processes. An unattributed process is not an authorized automatic kill target: retain the stale lock and report the uncertainty for manual inspection, never unlock merely because the sampled parent tree is empty. Keep token-safe idempotent release and no automatic stale-lock removal. This addresses the actual early-parent-exit counterexamples without pretending portable polling provides universal containment. Cost if wrong: a conservative false-positive lock may require manual inspection or a stronger disposable process/container boundary; unrelated processes and customer data must not be killed or reset for convenience.
+
+Ruling: Final review D1: leave production cloud/domain/HTTPS/trusted ingress unapproved and unexecuted; local ingress is only local proof. Cost if wrong: perform target topology and deployment acceptance before exposure.
+
+Ruling: Final review D2: keep Auth/Mailpit and invitation delivery claims local; target SMTP, DNS, quotas and recipient delivery remain separate gates. Cost if wrong: configure and verify actual delivery before launch.
+
+Ruling: Final review D3: retain local migration/preservation evidence without calling it target database/Auth/Storage recovery proof. Cost if wrong: run and correct the target backup/restore and migration rehearsal before rollout.
+
+Ruling: Final review D4: real signatures/merchant/order matching, refunds, subscriptions, settlement and reconciliation remain outside this interfaces-only cycle; payment stays disabled. Cost if wrong: complete reviewed provider integration and end-to-end financial acceptance before enabling it.
+
+Ruling: Final review D5: Taiwan terms/privacy/shipping/provider materials are preparation, not legal approval or merchant eligibility; commercial/privacy gates stay closed. Cost if wrong: obtain owner/legal/provider confirmation and revise the affected text/configuration.
+
+Ruling: Final review D6: report only actually executed browser/emulation/software-renderer coverage, with iOS/Android/Firefox/WebKit/hardware/touch performance unverified. Cost if wrong: execute that real-device/browser matrix and fix measured defects.
+
+Ruling: Final review D7: preserve the Japanese readiness-timeout qualification and make no WebGL startup/animation SLA from nine captures. Cost if wrong: define and measure a performance budget on target devices before promising it.
+
+Ruling: Final review D8: retain bounded50MiB full-object media buffering for the authorized local workload and disclose Range inefficiency; target concurrency/memory/bandwidth remain deployment gates. Cost if wrong: add streaming/range optimization and capacity tests for the actual host.
+
+Ruling: Final review D9: local rate/media controls are not Internet-scale body/resource-exhaustion certification; trusted ingress body limits and resource qualification are required before exposure. Cost if wrong: enforce and test those limits before deployment rather than claiming resilience from functional tests.
+
+Ruling: Final review D10: universal POSIX containment is not claimed; retain Ruling39 conservative group/baseline/no-kill/stale-lock behavior. Cost if wrong: use a quiet genuinely disposable process/container boundary for stronger isolation.
+
+Ruling: Final review D11: retain dated lockfile audit/advisory evidence, including unpatched development-only braces, without inventing a fresh external advisory refresh at every review. Cost if wrong: re-audit/update compatible dependencies before deployment and investigate new findings.
+
+Ruling: Final review D12: the Node cancellation mechanism remains an inference from a minimal reproduction, not request-level root-cause proof. Cost if wrong: instrument an actual failing request and apply a verified compatible runtime/framework fix.
+
+Ruling: Final review D13: independent waitlist consent, exports, backups and provider logs remain outside application anonymization; no worldwide-erasure claim. Cost if wrong: implement the data owner’s separate retention/erasure processes for those systems.
+
+Ruling: Final review D14: linked-provider/MFA states stay unsupported and fail closed for automated erasure. Cost if wrong: add reviewed provider-specific/manual handling before enabling those states.
+
+Ruling: Final review D15: preserve independent website/admin sessions and separate login rather than infer cross-domain SSO. Cost if wrong: design and verify a separate explicit SSO integration.
+
+Ruling: Final review D16: a previously issued fixed-path upload capability may last its bounded provider lifetime after issuer revocation; objects stay private and finalization/publication recheck current authority. Cost if wrong: add provider-supported capability cancellation/shorter issuance policy; never treat upload alone as published authority.
+
+Ruling: Final review D17: an invitation issued by a valid admin is a durable bounded prior grant until explicit revocation/expiry, not automatically cancelled by later issuer-role change. Target identity/token/delivery/expiry checks remain mandatory. Cost if wrong: adopt an owner-approved issuer-lifetime policy and invalidate/reissue pending invitations transactionally.
+
+Ruling: Final review D18: keep exact retired-demo CMS history and code-owned real-account copy; do not restore fake controls or invent a new CMS schema this cycle. Cost if wrong: explicitly map selected real-account copy into CMS in a later reviewed change.
+
+Ruling: Final review D19: structural generated-data/hash/preservation checks do not mean each duplicated leaf was manually reviewed. Cost if wrong: inspect the affected generator/consumer and add specific semantic coverage for a concrete gap.
+
+Ruling: Final review D20: retain failed full runs, qualified phased evidence, historical139 provenance limits and unexecuted CI status; never synthesize missing historical hashes/fullPASS. Cost if wrong: invalidate stale results and perform fresh verification in a genuinely disposable environment.
+
+Ruling: Final review D21: defer a new database JSON-shape schema for users deliberately corrupting only their own allowed profile columns; normal writes validate, operations detail does not render shipping JSON, and order submissions validate their own address. Cost if wrong: add database shape constraints/sanitization before any new downstream consumer assumes that shape.
+
+Ruling: Final review D22: defer unrelated SQL formatting, repetitive-wrapper redesign and incidental UI polish; the final wave fixes concrete defects. Cost if wrong: address measured maintenance/usability problems incrementally with focused review.
+
+Ruling: Final fix wave uses append-only corrective migrations, never rewrites already applied history. The draft card counts both legitimate editing/submitted working-draft rows, matching the content workspace rather than an impossible status or released-version total; operations still gets null. Cost if wrong: refine the clearly labelled metric in another forward migration and its positive-count role tests.
+
+Ruling: Final identity fix must bind profile/password mutations to the server-verified identity that opened the form; caller identity may only restrict the current Auth actor, never choose a foreign target. Retained parent/form data must clear on identity uncertainty/change and async generations must reject older completions. Cost if wrong: tighten that boundary and rerun actual two-tab/late-response tests; wrong-account writes are not acceptable.
+
+Ruling: Final media fix treats null-ID media as an exact per-slot trusted legacy reference, with compatible proven immutable history; replacements require finalized controlled assets and unsupported paired groups remain read-only. Server validation and DB selection/publication must enforce it, not only editor controls. Cost if wrong: correct trusted legacy mapping/history checks while keeping original presentation and fail-closed publication.
+
+Ruling: Final validation keeps the delivered-preview default verifier refusal intact. Only explicitly owned, unique synthetic accounts/rows and rolled-back transaction fixtures may be used for these focused new regressions on the task-owned local project, with durable before/created-ID records, independent exact cleanup and preserved existing staff/content/config/history/defaults. No broad reset or population suite may run over delivery data; use a genuinely separate disposable environment if a test cannot meet that boundary. Cost if wrong: stop the fixture, preserve evidence and restore only its proven owned changes; never delete user data for a clean test count.

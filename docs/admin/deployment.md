@@ -36,3 +36,8 @@
 公开下单初始关闭；五个 SKU 币种和价格为 NULL，未确认、未启用。支付适配器始终返回 `PAYMENTS_NOT_CONFIGURED`，没有通知入口、真实交易或付费订阅。支付接通材料见 [payment-integration.md](payment-integration.md) 与 [台湾主体支付准备清单](../superpowers/specs/2026-10-20-lumiq-payments-readiness.md)。不得把技术预留视为商户准入或结算可用。
 
 隐私策略保持 disabled / unconfirmed（false / NULL）。仅管理员可请求/恢复任务；生产保留范围必须由数据负责人确认后由数据库 owner 配置。第三方身份提供者/MFA 等未支持范围需人工处理；备份、服务商日志、独立报名、历史导出不在应用匿名化范围，详见 [customer-data.md](customer-data.md)。
+
+
+### 最终修复迁移与策略版本
+
+上线前仍须按既有备份/迁移清单要求审核并应用追加迁移 `20261020223000_final_review_boundaries.sql`，同时部署两站的规范合约副本及后台校验策略 `legacy-slots-v2-20261020`。旧后台策略凭据在新数据库策略下会失败关闭；不要把应用升级与数据库策略升级分离为长期状态。空 assetId 的媒体引用由不可由客户端修改的槽位原始映射验证；已发布受控素材的同槽位归档继承和已证明历史回退保持支持。不得通过 caller flag 或任意历史出现记录放宽原始媒体限制。运行时应收集限频内容回退告警；本地成功不代替生产告警管道验收。

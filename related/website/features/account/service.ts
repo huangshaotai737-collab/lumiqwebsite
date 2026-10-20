@@ -1,8 +1,9 @@
 import 'server-only';
 import { createClient } from '@/lib/auth/server';
 import { requireUser } from '@/lib/auth/require-user';
+import { assertAccountBinding } from './identity-binding';
 import { HttpError } from '@/lib/http/result';
-import type { ApiResult, Locale, Profile, ShippingAddress } from '@/lib/generated/platform/core';
+import type { AccountIdentityBinding, ApiResult, Locale, Profile, ShippingAddress } from '@/lib/generated/platform/core';
 // ISO 3166-1 alpha-2 assigned country/territory codes; aliases such as UK are excluded.
 const countries = new Set('AD AE AF AG AI AL AM AO AQ AR AS AT AU AW AX AZ BA BB BD BE BF BG BH BI BJ BL BM BN BO BQ BR BS BT BV BW BY BZ CA CC CD CF CG CH CI CK CL CM CN CO CR CU CV CW CX CY CZ DE DJ DK DM DO DZ EC EE EG EH ER ES ET FI FJ FK FM FO FR GA GB GD GE GF GG GH GI GL GM GN GP GQ GR GS GT GU GW GY HK HM HN HR HT HU ID IE IL IM IN IO IQ IR IS IT JE JM JO JP KE KG KH KI KM KN KP KR KW KY KZ LA LB LC LI LK LR LS LT LU LV LY MA MC MD ME MF MG MH MK ML MM MN MO MP MQ MR MS MT MU MV MW MX MY MZ NA NC NE NF NG NI NL NO NP NR NU NZ OM PA PE PF PG PH PK PL PM PN PR PS PT PW PY QA RE RO RS RU RW SA SB SC SD SE SG SH SI SJ SK SL SM SN SO SR SS ST SV SX SY SZ TC TD TF TG TH TJ TK TL TM TN TO TR TT TV TW TZ UA UG UM US UY UZ VA VC VE VG VI VN VU WF WS YE YT ZA ZM ZW'.split(' '));
 export type ProfileInput = {
@@ -57,9 +58,11 @@ export async function getOwnProfile(): Promise<ApiResult<Profile>> {
         return profile(data);
     });
 }
-export async function updateOwnProfile(input: ProfileInput): Promise<ApiResult<Profile>> {
+export async function updateOwnProfile(input: ProfileInput & AccountIdentityBinding): Promise<ApiResult<Profile>> {
     return result(async () => {
-        const { userId } = await requireUser(), value = validateProfileInput(input), client = await createClient();
+        const { userId } = await requireUser();
+        assertAccountBinding(input, userId);
+        const value = validateProfileInput(input), client = await createClient();
         const { data, error } = await client.from('profiles').update({ display_name: value.displayName, locale: value.locale, shipping_address: value.shippingAddress ? { ...value.shippingAddress } : {} }).eq('user_id', userId).select('user_id,display_name,locale,shipping_address').maybeSingle();
         if (error || !data)
             throw new HttpError('UNAVAILABLE', 503);

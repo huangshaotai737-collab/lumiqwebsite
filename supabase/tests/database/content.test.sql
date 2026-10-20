@@ -21,7 +21,7 @@ select throws_ok($$select public.attest_content_snapshot('draft','60000000-0000-
 select throws_ok($$select public.save_content_draft('60000000-0000-4000-8000-000000000010',0,'{}')$$,'23505','CONFLICT','stale version conflicts');
 reset role;
 -- The narrow service attestation is a trust boundary, not a SQL replacement for FormatJS.
-select public.attest_content_snapshot('draft',id,version,snapshot,'b1-v1-22cec87','60000000-0000-4000-8000-000000000001') from public.content_drafts where id='60000000-0000-4000-8000-000000000010';
+select public.attest_content_snapshot('draft',id,version,snapshot,'legacy-slots-v2-20261020','60000000-0000-4000-8000-000000000001') from public.content_drafts where id='60000000-0000-4000-8000-000000000010';
 set local role authenticated;
 select throws_ok($$select public.publish_content_draft('60000000-0000-4000-8000-000000000010',2)$$,'23505','CONFLICT','receipt never bypasses draft version check');
 reset role;
@@ -41,9 +41,9 @@ update private.content_validation_receipts set purpose='draft',policy_version='o
 set local role authenticated;
 select throws_ok($$select public.publish_content_draft('60000000-0000-4000-8000-000000000010',1)$$,'22023','VALIDATION_REQUIRED','receipt is bound to current DB policy');
 reset role;
-select throws_ok($$select public.attest_content_snapshot('draft','60000000-0000-4000-8000-000000000010',1,'{}','b1-v1-22cec87','60000000-0000-4000-8000-000000000001')$$,'23505','CONFLICT','trusted attestation cannot silently normalize or rewrite stored snapshot');
+select throws_ok($$select public.attest_content_snapshot('draft','60000000-0000-4000-8000-000000000010',1,'{}','legacy-slots-v2-20261020','60000000-0000-4000-8000-000000000001')$$,'23505','CONFLICT','trusted attestation cannot silently normalize or rewrite stored snapshot');
 select throws_ok($$select public.attest_content_snapshot('draft','60000000-0000-4000-8000-000000000010',1,'{}','browser-policy','60000000-0000-4000-8000-000000000001')$$,'22023','VALIDATION_POLICY_MISMATCH','active policy cannot be caller-selected');
-update private.content_validation_receipts set policy_version='b1-v1-22cec87';
+update private.content_validation_receipts set policy_version='legacy-slots-v2-20261020';
 set local role authenticated;
 select public.publish_content_draft('60000000-0000-4000-8000-000000000010',1) as release_id \gset
 select throws_ok($$select public.publish_content_draft('60000000-0000-4000-8000-000000000010',1)$$,'22023','VALIDATION_REQUIRED','publication consumes its receipt atomically');
@@ -62,14 +62,14 @@ select set_config('request.jwt.claims','{"sub":"60000000-0000-4000-8000-00000000
 set local role authenticated;
 select throws_ok($$select public.publish_content_draft('60000000-0000-4000-8000-000000000010',2)$$,'22023','VALIDATION_REQUIRED','saving a new version invalidates previous attestation');
 reset role;
-select public.attest_content_snapshot('release',id,0,snapshot,'b1-v1-22cec87','60000000-0000-4000-8000-000000000001') from public.content_releases where id=:'release_id';
+select public.attest_content_snapshot('release',id,0,snapshot,'legacy-slots-v2-20261020','60000000-0000-4000-8000-000000000001') from public.content_releases where id=:'release_id';
 set local role authenticated;
 select public.rollback_content_release(:'release_id') as rollback_id \gset
 select isnt(:'rollback_id'::text,:'release_id'::text,'rollback creates a new release');
 reset role;
 select is((select count(*)::int from public.content_releases where created_by='60000000-0000-4000-8000-000000000001'),2,'old release survives rollback unchanged');
 select is((select snapshot from public.content_releases where id=:'release_id'),(select snapshot from public.content_releases where id=:'rollback_id'),'rollback copies exact immutable target');
-select public.attest_content_snapshot('draft',id,version,snapshot,'b1-v1-22cec87','60000000-0000-4000-8000-000000000001') from public.content_drafts where id='60000000-0000-4000-8000-000000000010';
+select public.attest_content_snapshot('draft',id,version,snapshot,'legacy-slots-v2-20261020','60000000-0000-4000-8000-000000000001') from public.content_drafts where id='60000000-0000-4000-8000-000000000010';
 create function pg_temp.fail_content_audit() returns trigger language plpgsql as $$begin raise exception 'audit unavailable'; end$$;
 create trigger content_test_audit_failure before insert on public.audit_events for each row execute function pg_temp.fail_content_audit();
 set local role authenticated;

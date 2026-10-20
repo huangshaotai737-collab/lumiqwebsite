@@ -78,10 +78,10 @@ test('verified_email_PKCE_cookie_profile_owner_and_recovery', async ({ page, con
     expect(rows.error).toBeNull();
     expect(rows.data).toHaveLength(0);
     const address = { name: 'Synthetic recipient', country: 'JP', region: 'Tokyo', city: 'Tokyo', postalCode: '100', line1: 'Building A\nFloor 2', line2: 'Room 3', phone: '+81 000' };
-    const update = await context.request.patch('/api/account/profile', { headers: { origin }, data: { userId: other.data.user!.id, displayName: 'C1 member', locale: 'ja', shippingAddress: address, internalNotes: 'should not persist', access_state: 'suspended' } });
+    const update = await context.request.patch('/api/account/profile', { headers: { origin }, data: { expectedUserId:account.id, userId: other.data.user!.id, displayName: 'C1 member', locale: 'ja', shippingAddress: address, internalNotes: 'should not persist', access_state: 'suspended' } });
     expect(update.status()).toBe(200);
     expect((await update.json()).data).toEqual({ userId: account.id, displayName: 'C1 member', locale: 'ja', shippingAddress: address });
-    expect((await context.request.patch('/api/account/profile', { headers: { origin }, data: { displayName: 'C1', locale: 'en', shippingAddress: { ...address, country: 'ZZ' } } })).status()).toBe(400);
+    expect((await context.request.patch('/api/account/profile', { headers: { origin }, data: { expectedUserId:account.id, displayName: 'C1', locale: 'en', shippingAddress: { ...address, country: 'ZZ' } } })).status()).toBe(400);
     await page.reload();
     await expect(page.getByLabel('表示名')).toHaveValue('C1 member');
     await expect(page.getByLabel('住所1', { exact: true })).toHaveValue('Building A\nFloor 2');

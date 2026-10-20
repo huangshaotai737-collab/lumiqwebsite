@@ -12,7 +12,7 @@ vi.mock("@/lib/auth/server", () => ({
 }));
 vi.mock("@/lib/http/rate-limit", () => ({ enforceRateLimit: vi.fn() }));
 import { HttpError } from "@/lib/http/result";
-import { setCatalogOffering } from "./service";
+import { getCatalogWorkspace, setCatalogOffering } from "./service";
 const input = {
   skuId: "11000000-0000-4000-8000-000000000001",
   currency: "USD",
@@ -66,4 +66,11 @@ it("maps optimistic conflicts", async () => {
     ok: false,
     error: "CONFLICT",
   });
+});
+
+it('operations can inspect private disabled and unconfirmed catalog',async()=>{
+ state.role='operations';
+ const data={offerings:[{...input,enabled:false,confirmed:false}],settings:{ordersEnabled:false}};
+ state.rpc.mockResolvedValue({data,error:null});
+ expect(await getCatalogWorkspace()).toEqual({ok:true,data});
 });

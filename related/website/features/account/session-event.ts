@@ -1,5 +1,6 @@
 export const accountRevisionKey = "lumiq-account-revision";
 export function notifyAccountChange(clearCheckout = false) {
+  window.dispatchEvent(new Event(accountRevisionKey));
   try {
     if (clearCheckout)
       for (const key of Object.keys(sessionStorage))

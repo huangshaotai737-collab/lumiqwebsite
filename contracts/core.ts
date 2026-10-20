@@ -37,3 +37,6 @@ export type AuditSummary = {
 
 export type ShippingAddress = {name:string;country:string;region:string;city:string;postalCode:string;line1:string;line2:string;phone:string};
 export type Profile = {userId:UUID;displayName:string;locale:Locale;shippingAddress:ShippingAddress|null};
+
+/** Caller-supplied restriction; never an authority or a mutation target. */
+export type AccountIdentityBinding = { expectedUserId: UUID };

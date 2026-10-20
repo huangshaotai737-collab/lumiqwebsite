@@ -1,3 +1,4 @@
+import {assertAccountBinding} from '@/features/account/identity-binding';
 import {createClient} from '@/lib/auth/server';
 import {requireUser} from '@/lib/auth/require-user';
 import {assertSameOrigin} from '@/lib/http/origin';
@@ -31,6 +32,7 @@ export async function PATCH(request: Request) {
       throw new HttpError('FORBIDDEN', 403);
     }
     const input = await jsonInput(request);
+    assertAccountBinding(input, identity.userId);
     if (typeof input?.password !== 'string' || input.password.length < 8 || input.password.length > 1024) {
       throw new HttpError('INVALID_INPUT', 400);
     }

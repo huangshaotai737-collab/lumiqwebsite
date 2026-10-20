@@ -1,4 +1,5 @@
 // Generated from contracts/ by scripts/sync-platform-contracts.mjs. Do not edit.
+import { trustedLegacyMedia } from './content-legacy-media';
 import type { ContentRule, ContentSnapshot, MessageTree, ContentValidationOptions, ContentValidationResult } from './content';
 
 const uuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
@@ -112,6 +113,8 @@ export function validateContentSnapshot(
   for (const [path, value] of values) {
     if (!/^media\.[^.]+\.url$/.test(path) || typeof value !== 'string') continue;
     const asset = values.get(path.replace(/\.url$/, '.assetId'));
+    const legacy = trustedLegacyMedia[path.split('.')[1]];
+    if (!legacy || (asset === null && value !== legacy.url) || (asset !== null && legacy.readOnly)) issue(path, 'Media replacement requires a supported controlled asset');
     const controlledAsset = controlledMediaAssetId(value);
     if (controlledAsset !== null) {
       if (typeof asset !== 'string' || controlledAsset !== asset) issue(path, 'Controlled media URL must match its asset UUID');

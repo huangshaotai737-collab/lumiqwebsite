@@ -2,6 +2,7 @@
 import {useContentAdapter} from '@/components/content/useContentAdapter';
 import Heading from '@/components/Heading';
 import Image from '@/components/content/ContentImage';
+import {useAccountIdentity} from '@/features/account/use-account-identity';
 import {useState} from 'react';
 import {Link} from '@/i18n/navigation';
 import {Tablet, UserRound, ShieldCheck, ChevronRight, ArrowUpRight} from 'lucide-react';
@@ -13,7 +14,9 @@ export default function MembersArea({locale, profile}: {locale:Locale; profile:A
   const cms = useContentAdapter();
   const t = accountCopy[locale];
   const [section, setSection] = useState<'profile' | 'devices'>('profile');
-  const [savedProfile, setSavedProfile] = useState(profile);
+  const identity = useAccountIdentity();
+  const savedProfile:ApiResult<Profile> = identity.profile ? {ok:true,data:identity.profile} : {ok:false,error:'UNAUTHENTICATED',requestId:'identity-check'};
+  void profile;
   const devices = [
     {id:'ola', name:cms.text("field_8bec1f33f31dd9ab"), image:cms.url("/assets/web/ola-hero-front.webp")},
     {id:'tablet', name:cms.text("field_f714cbe4c6f70453"), image:cms.url("/assets/web/lumiq-tablet.webp")},
@@ -45,7 +48,7 @@ export default function MembersArea({locale, profile}: {locale:Locale; profile:A
           <section className="members-content" aria-labelledby="members-section-title">
             <div className="members-section-head"><Heading as="h2" id="members-section-title">{t[section]}</Heading></div>
             {section === 'profile' ? (
-              <AccountPanel locale={locale} initial={savedProfile} onProfileSaved={data => setSavedProfile({ok:true,data})}/>
+              <AccountPanel key={`${identity.generation}:${identity.profile?.userId || 'unknown'}`} locale={locale} initial={savedProfile} generation={identity.generation} isCurrent={identity.current} onInvalidIdentity={identity.invalidate} onProfileSaved={data => identity.save(data,identity.generation)}/>
             ) : (
               <>
                 <aside className="members-disclosure">{t.notConnected}</aside>

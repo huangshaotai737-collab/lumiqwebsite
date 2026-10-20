@@ -68,10 +68,10 @@ describe('publish validation', () => {
       expect(validateDraft(product).ok).toBe(false);
     }
   });
-  it('trusts configured storage origins only, never snapshot settings', () => {
+  it('storage origins cannot authorize replacing a null-ID legacy slot', () => {
     const draft = copy(); Object.values(draft.media)[0].url = 'https://media.example/storage/v1/object/public/a.png';
     expect(validateDraft(draft).ok).toBe(false);
-    expect(validateDraft(draft, { allowedStorageOrigins: ['https://media.example'] }).ok).toBe(true);
+    expect(validateDraft(draft, { allowedStorageOrigins: ['https://media.example'] }).ok).toBe(false);
     draft.settings.siteUrl = 'https://media.example';
     expect(validateDraft(draft).ok).toBe(false);
   });

@@ -15,16 +15,15 @@ async function ResetPage({params, searchParams}: {
   const {locale} = await params;
   if (locale !== 'en' && locale !== 'zh-hant' && locale !== 'ja') notFound();
   const query = await searchParams;
-  let signedIn = false;
+  let userId:string|null = null;
   try {
-    await requireUser();
-    signedIn = true;
+    userId = (await requireUser()).userId;
   } catch { /* A missing session leaves password update disabled. */ }
   return (
     <main className="members-page">
       <div className="members-shell">
         <h1>{accountCopy[locale].reset}</h1>
-        <ResetPasswordForm locale={locale} configured={authConfigured()} update={query.mode === 'update'} expired={Boolean(query.error) || (query.mode === 'update' && !signedIn)}/>
+        <ResetPasswordForm locale={locale} configured={authConfigured()} expectedUserId={userId} update={query.mode === 'update'} expired={Boolean(query.error) || (query.mode === 'update' && !userId)}/>
       </div>
     </main>
   );

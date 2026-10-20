@@ -49,3 +49,38 @@ it('maps distinct usages of one broad profile and keeps canonical per-use alt te
   expect(publicContent.text('field_430041fc9b25a88e')).toBe('Header-specific logo text');
   expect(publicContent.url('/assets/home-video/ola-scroll-v16-start-20260909.webp')).toBe(initialSnapshot.media.asset_76a5de3f207ca5bb.url);
 });
+
+// Regression: a safe-looking URL must not replace a trusted legacy slot.
+it('rejects a null-ID Safari legacy swap while accepting the original', async () => {
+  const {parseSnapshot}=await import('@/lib/content/parse');
+  expect(() => parseSnapshot(initialSnapshot)).not.toThrow();
+  const changed=structuredClone(initialSnapshot);
+  changed.media.asset_6f36183e6da5cc73.url='/assets/films-20260908/welcome-home.mp4';
+  expect(() => parseSnapshot(changed)).toThrow();
+});
+it('reports repeated fallback safely without flooding and preserves last good', async () => {
+  const warn=vi.spyOn(console,'warn').mockImplementation(()=>{});
+  vi.useFakeTimers();
+  try {
+    let fail=false;
+    const reader=createPublishedReader(async()=>{if(fail)throw Error('SECRET email@example.test upstream');return {releaseId,snapshot:initialSnapshot};});
+    await reader();fail=true;
+    for(let i=0;i<20;i++) expect((await reader()).source).toBe('last-good');
+    expect(warn).toHaveBeenCalledTimes(1);
+    expect(JSON.stringify(warn.mock.calls)).not.toMatch(/SECRET|email@example|messages/);
+    vi.advanceTimersByTime(61000);await reader();expect(warn).toHaveBeenCalledTimes(2);
+  } finally {warn.mockRestore();vi.useRealTimers();}
+});
+
+it('unconfigured local content is quiet, configured missing/invalid releases report safe categories',async()=>{
+ const warn=vi.spyOn(console,'warn').mockImplementation(()=>{});
+ try {
+  expect((await createPublishedReader(async()=>null,()=>false)()).source).toBe('bundled');
+  expect(warn).not.toHaveBeenCalled();
+  await createPublishedReader(async()=>null)();
+  expect(warn.mock.calls[0][1]).toMatchObject({reason:'missing-release',source:'bundled',releaseId:null});
+  await createPublishedReader(async()=>({releaseId,snapshot:{private:'SECRET'}}))();
+  expect(warn.mock.calls[1][1]).toMatchObject({reason:'invalid-snapshot',releaseId});
+  expect(JSON.stringify(warn.mock.calls)).not.toContain('SECRET');
+ }finally{warn.mockRestore();}
+});

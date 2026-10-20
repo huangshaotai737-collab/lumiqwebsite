@@ -25,6 +25,7 @@ export function Dashboard({ data }: { data: DashboardData }) {
             <section className="panel" key={label}>
               <h2>{label}</h2>
               <p>{count}</p>
+              {url === "/content" && <small>编辑中与已提交审核的工作草稿总数。</small>}
               <a href={url}>查看{label}</a>
             </section>
           ))}

@@ -232,7 +232,23 @@ function CommerceEditor({ initial }: { initial: CatalogWorkspace }) {
   );
 }
 
-export function CatalogEditor({ initial }: { initial: CatalogWorkspace }) {
+export function CatalogEditor({ initial, readOnly = false }: { initial: CatalogWorkspace; readOnly?: boolean }) {
+  if (readOnly) return <>
+    <p className="notice">运营只读：实际 SKU、价格、确认状态及订单提交配置。修改与条款批准仅限管理员。</p>
+    {initial.offerings.map(offering=><section className="panel" key={offering.skuId}>
+      <h2>{offering.name}</h2>
+      <p>SKU：{offering.skuId}</p>
+      <p>{offering.confirmed ? "商业价格已确认" : "商业价格待确认"} · {offering.enabled ? "SKU 已启用" : "SKU 未启用"}</p>
+      <p>币种：{offering.currency || "未配置"} · 单价（币种最小单位整数）：{offering.unitMinor ?? "未配置"}</p>
+      {offering.productId === "ola-go" && <p>随 Ola 配套展示，不独立收费，不开放单独下单。</p>}
+    </section>)}
+    <section className="panel"><h2>订单提交配置</h2>
+      <p>全局开关：{initial.settings.ordersEnabled ? "已开放" : "已关闭"}</p>
+      <p>条款：{initial.termsCurrent ? "当前有效" : "尚未批准或已变化，订单提交暂停"}</p>
+      <p>已批准版本：{initial.settings.termsReleaseId || "尚未批准"}</p>
+      <p>当前发布版本：{initial.publishedReleaseId || "尚未发布"}</p>
+    </section>
+  </>;
   return (
     <>
       <div className="notice">

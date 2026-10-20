@@ -7,7 +7,7 @@ import {accountCopy, accountError} from './copy';
 
 const emptyAddress: ShippingAddress = {name:'', country:'', region:'', city:'', postalCode:'', line1:'', line2:'', phone:''};
 
-export function AccountPanel({locale, initial, onProfileSaved}: {locale:Locale; initial:ApiResult<Profile>; onProfileSaved?:(profile:Profile)=>void}) {
+export function AccountPanel({locale, initial, onProfileSaved, generation, isCurrent, onInvalidIdentity}: {locale:Locale; initial:ApiResult<Profile>; generation:number; isCurrent:(generation:number)=>boolean; onInvalidIdentity:()=>void; onProfileSaved?:(profile:Profile)=>void}) {
   const t = accountCopy[locale];
   const [profile, setProfile] = useState(initial.ok ? initial.data : null);
   const [address, setAddress] = useState(initial.ok && initial.data.shippingAddress ? initial.data.shippingAddress : emptyAddress);
@@ -20,22 +20,24 @@ export function AccountPanel({locale, initial, onProfileSaved}: {locale:Locale; 
   useEffect(() => setReady(true), []);
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    if (!profile) return;
+    if (!profile || !isCurrent(generation)) return;
     setPending(true);
     try {
       const response = await fetch('/api/account/profile', {
         method:'PATCH', headers:{'Content-Type':'application/json'}, cache:'no-store',
-        body:JSON.stringify({displayName:profile.displayName, locale:profile.locale, shippingAddress:enabled ? address : null}),
+        body:JSON.stringify({expectedUserId:profile.userId, displayName:profile.displayName, locale:profile.locale, shippingAddress:enabled ? address : null}),
       });
       const result = await response.json();
+      if (!isCurrent(generation)) return;
       setMessage(result.ok ? t.saved : accountError(locale, result.error));
       if (result.ok) { setProfile(result.data); onProfileSaved?.(result.data); }
       else if (result.error === 'UNAUTHENTICATED' || result.error === 'FORBIDDEN') {
+        onInvalidIdentity();
         setExpired(true);
         setProfile(null);
       }
-    } catch { setMessage(t.unavailable); }
-    setPending(false);
+    } catch { if (isCurrent(generation)) setMessage(t.unavailable); }
+    if (isCurrent(generation)) setPending(false);
   }
 
   async function signOut() {
