@@ -11,7 +11,8 @@
     "test": "node --test ../../scripts/tests/admin-boundary.test.mjs ../../scripts/tests/contracts-sync.test.mjs && vitest run",
     "test:e2e": "playwright test -c playwright.platform.config.ts",
     "test:boundaries": "node --test ../../scripts/tests/admin-boundary.test.mjs ../../scripts/tests/contracts-sync.test.mjs",
-    "test:e2e:operations": "playwright test -c playwright.operations.config.ts"
+    "test:e2e:operations": "playwright test -c playwright.operations.config.ts",
+    "test:e2e:catalog": "playwright test -c playwright.catalog.config.ts"
   },
   "dependencies": {
     "@formatjs/icu-messageformat-parser": "3.5.17",

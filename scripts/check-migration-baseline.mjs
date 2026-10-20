@@ -23,6 +23,13 @@ Object.assign(schemaDefinitions, {
 schemaDefinitions['public.media_assets'] = { columns: {id:'uuid',created_by:'uuid',file_name:'text',advertised_size:'bigint',mime:'text',usage_key:'text',original_path:'text',metadata:'jsonb',release_path:'text',status:'text',created_at:'timestamp with time zone'},primaryKey:['id'],unique:[['original_path'],['release_path']],rlsEnabled:true };
 schemaDefinitions['public.waitlist_operations'] = {columns:{signup_id:'uuid',status:'text',note:'text',version:'integer'},primaryKey:['signup_id'],unique:[],rlsEnabled:true};
 schemaDefinitions['public.customer_notes'] = {columns:{id:'uuid',user_id:'uuid',note:'text',created_by:'uuid',created_at:'timestamp with time zone'},primaryKey:['id'],unique:[],rlsEnabled:true};
+const commerceTables = {
+ 'public.catalog_offerings':{columns:{id:'uuid',product_id:'text',name:'text',currency:'text',unit_minor:'bigint',confirmed:'boolean',enabled:'boolean',version:'integer'},primaryKey:['id'],unique:[['product_id']],rlsEnabled:true},
+ 'public.commerce_settings':{columns:{singleton:'boolean',orders_enabled:'boolean',approved_terms_release_id:'uuid',approved_terms_fingerprint:'text',version:'integer'},primaryKey:['singleton'],unique:[],rlsEnabled:true},
+ 'public.customer_orders':{columns:{id:'uuid',user_id:'uuid',idempotency_key:'text',request_digest:'text',status:'text',payment_status:'text',fulfillment_status:'text',currency:'text',items_minor:'bigint',shipping_minor:'bigint',tax_minor:'bigint',payable_minor:'bigint',shipping_address:'jsonb',terms_release_id:'uuid',created_at:'timestamp with time zone'},primaryKey:['id'],unique:[['user_id','idempotency_key']],rlsEnabled:true},
+ 'public.order_items':{columns:{order_id:'uuid',sku_id:'uuid',product_id:'text',name:'text',quantity:'integer',unit_minor:'bigint',offering_version:'integer'},primaryKey:['order_id','sku_id'],unique:[],rlsEnabled:true},
+};
+Object.assign(schemaDefinitions,commerceTables);
 const fail = (code) => { throw new Error(code); };
 const canonical = (value) => JSON.stringify(value, (_key, item) => item && typeof item === 'object' && !Array.isArray(item) ? Object.fromEntries(Object.entries(item).sort(([a], [b]) => a.localeCompare(b))) : item);
 
@@ -67,8 +74,10 @@ try {
   if (mediaApplied) { expectedTables.push('public.media_assets'); schemaDefinitions['public.content_drafts'].columns.base_release_id = 'uuid'; }
   const operationsApplied = applied.some(version => local.get(version).file.endsWith('_customer_operations.sql'));
   if (operationsApplied) expectedTables.push('public.waitlist_operations','public.customer_notes');
+  const commerceApplied = applied.some(version => local.get(version).file.endsWith('_orders_and_catalog.sql'));
+  if(commerceApplied) expectedTables.push(...Object.keys(commerceTables));
   for (const table of expectedTables) {
-    if (canonical(remote.tables[table]) !== canonical(schemaDefinitions[table])) fail(['public.waitlist_operations','public.customer_notes'].includes(table) ? 'CUSTOMER_OPERATIONS_SCHEMA_MISMATCH' : table === 'public.waitlist_signups' ? 'WAITLIST_SCHEMA_MISMATCH' : table === 'public.staff_invites' ? 'STAFF_SCHEMA_MISMATCH' : table === 'public.media_assets' ? 'MEDIA_SCHEMA_MISMATCH' : table.startsWith('public.content_') ? 'CONTENT_SCHEMA_MISMATCH' : 'IDENTITY_SCHEMA_MISMATCH');
+    if (canonical(remote.tables[table]) !== canonical(schemaDefinitions[table])) fail(Object.hasOwn(commerceTables,table) ? 'COMMERCE_SCHEMA_MISMATCH' : ['public.waitlist_operations','public.customer_notes'].includes(table) ? 'CUSTOMER_OPERATIONS_SCHEMA_MISMATCH' : table === 'public.waitlist_signups' ? 'WAITLIST_SCHEMA_MISMATCH' : table === 'public.staff_invites' ? 'STAFF_SCHEMA_MISMATCH' : table === 'public.media_assets' ? 'MEDIA_SCHEMA_MISMATCH' : table.startsWith('public.content_') ? 'CONTENT_SCHEMA_MISMATCH' : 'IDENTITY_SCHEMA_MISMATCH');
   }
   if (canonical(Object.keys(remote.tables).sort()) !== canonical(expectedTables.sort())) fail('UNRECOGNIZED_SCHEMA_INVENTORY');
   const pending = [...local.keys()].filter((version) => !seen.has(version));

@@ -28,6 +28,7 @@ export function AdminShell({
         ...(role === 'admin' || role === 'operations' ? [['会员', '人', '/customers'], ['候补名单', '单', '/waitlist']] : []),
         ...(role === 'admin'
           ? [
+              ['产品与方案', '品', '/catalog'],
               ['团队与权限', '组', '/team'],
               ['系统设置', '设', '/settings'],
             ]

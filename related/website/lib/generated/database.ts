@@ -37,6 +37,40 @@ export type Database = {
                   Relationships: [
 
                   ]
+                },"catalog_offerings": {
+                  Row: {
+                    "confirmed": boolean,"currency": string | null,"enabled": boolean,"id": string,"name": string,"product_id": string,"unit_minor": number | null,"version": number
+                  }
+                  ComputedFields: never
+                  Insert: {
+                    "confirmed"?: boolean,"currency"?: string | null,"enabled"?: boolean,"id"?: string,"name": string,"product_id": string,"unit_minor"?: number | null,"version"?: number
+                  }
+                  Update: {
+                    "confirmed"?: boolean,"currency"?: string | null,"enabled"?: boolean,"id"?: string,"name"?: string,"product_id"?: string,"unit_minor"?: number | null,"version"?: number
+                  }
+                  Relationships: [
+
+                  ]
+                },"commerce_settings": {
+                  Row: {
+                    "approved_terms_fingerprint": string | null,"approved_terms_release_id": string | null,"orders_enabled": boolean,"singleton": boolean,"version": number
+                  }
+                  ComputedFields: never
+                  Insert: {
+                    "approved_terms_fingerprint"?: string | null,"approved_terms_release_id"?: string | null,"orders_enabled"?: boolean,"singleton"?: boolean,"version"?: number
+                  }
+                  Update: {
+                    "approved_terms_fingerprint"?: string | null,"approved_terms_release_id"?: string | null,"orders_enabled"?: boolean,"singleton"?: boolean,"version"?: number
+                  }
+                  Relationships: [
+                    {
+      foreignKeyName: "commerce_settings_approved_terms_release_id_fkey"
+      columns: ["approved_terms_release_id"]
+isOneToOne: false
+      referencedRelation: "content_releases"
+      referencedColumns: ["id"]
+    }
+                  ]
                 },"content_drafts": {
                   Row: {
                     "base_release_id": string | null,"created_at": string,"created_by": string,"id": string,"snapshot": NonNullable<Json>,"status": string,"updated_at": string,"updated_by": string,"version": number
@@ -123,6 +157,32 @@ isOneToOne: false
       referencedColumns: ["user_id"]
     }
                   ]
+                },"customer_orders": {
+                  Row: {
+                    "created_at": string,"currency": string,"fulfillment_status": string,"id": string,"idempotency_key": string,"items_minor": number,"payable_minor": number | null,"payment_status": string,"request_digest": string,"shipping_address": NonNullable<Json>,"shipping_minor": number | null,"status": string,"tax_minor": number | null,"terms_release_id": string,"user_id": string
+                  }
+                  ComputedFields: never
+                  Insert: {
+                    "created_at"?: string,"currency": string,"fulfillment_status"?: string,"id"?: string,"idempotency_key": string,"items_minor": number,"payable_minor"?: number | null,"payment_status"?: string,"request_digest": string,"shipping_address": NonNullable<Json>,"shipping_minor"?: number | null,"status"?: string,"tax_minor"?: number | null,"terms_release_id": string,"user_id": string
+                  }
+                  Update: {
+                    "created_at"?: string,"currency"?: string,"fulfillment_status"?: string,"id"?: string,"idempotency_key"?: string,"items_minor"?: number,"payable_minor"?: number | null,"payment_status"?: string,"request_digest"?: string,"shipping_address"?: NonNullable<Json>,"shipping_minor"?: number | null,"status"?: string,"tax_minor"?: number | null,"terms_release_id"?: string,"user_id"?: string
+                  }
+                  Relationships: [
+                    {
+      foreignKeyName: "customer_orders_terms_release_id_fkey"
+      columns: ["terms_release_id"]
+isOneToOne: false
+      referencedRelation: "content_releases"
+      referencedColumns: ["id"]
+    },{
+      foreignKeyName: "customer_orders_user_id_fkey"
+      columns: ["user_id"]
+isOneToOne: false
+      referencedRelation: "profiles"
+      referencedColumns: ["user_id"]
+    }
+                  ]
                 },"media_assets": {
                   Row: {
                     "advertised_size": number,"created_at": string,"created_by": string,"file_name": string,"id": string,"metadata": Json | null,"mime": string,"original_path": string,"release_path": string | null,"status": string,"usage_key": string
@@ -136,6 +196,32 @@ isOneToOne: false
                   }
                   Relationships: [
 
+                  ]
+                },"order_items": {
+                  Row: {
+                    "name": string,"offering_version": number,"order_id": string,"product_id": string,"quantity": number,"sku_id": string,"unit_minor": number
+                  }
+                  ComputedFields: never
+                  Insert: {
+                    "name": string,"offering_version": number,"order_id": string,"product_id": string,"quantity": number,"sku_id": string,"unit_minor": number
+                  }
+                  Update: {
+                    "name"?: string,"offering_version"?: number,"order_id"?: string,"product_id"?: string,"quantity"?: number,"sku_id"?: string,"unit_minor"?: number
+                  }
+                  Relationships: [
+                    {
+      foreignKeyName: "order_items_order_id_fkey"
+      columns: ["order_id"]
+isOneToOne: false
+      referencedRelation: "customer_orders"
+      referencedColumns: ["id"]
+    },{
+      foreignKeyName: "order_items_sku_id_fkey"
+      columns: ["sku_id"]
+isOneToOne: false
+      referencedRelation: "catalog_offerings"
+      referencedColumns: ["id"]
+    }
                   ]
                 },"profiles": {
                   Row: {
@@ -234,6 +320,9 @@ isOneToOne: true
 "bootstrap_staff_admin":
 { Args: { "email": string }; Returns: string
                            },
+"cancel_customer_order":
+{ Args: { "order_id": string }; Returns: Json
+                           },
 "change_staff_membership":
 { Args: { "active": boolean,"role": string,"user_id": string }; Returns: undefined
                            },
@@ -245,6 +334,9 @@ isOneToOne: true
               "allowed": boolean,"retry_after_seconds": number
             }[]
                            },
+"create_customer_order":
+{ Args: { "request": Json }; Returns: Json
+                           },
 "create_media_upload":
 { Args: { "advertised_size": number,"file_name": string,"mime": string,"usage_key": string }; Returns: Json
                            },
@@ -253,6 +345,9 @@ isOneToOne: true
                            },
 "export_waitlist_operations":
 { Args: { "search"?: string,"status"?: string }; Returns: Json
+                           },
+"get_catalog_workspace":
+{ Args: Record<PropertyKey, never>; Returns: Json
                            },
 "get_content_draft":
 { Args: { "id": string }; Returns: Json
@@ -263,8 +358,14 @@ isOneToOne: true
 "get_content_workspace":
 { Args: Record<PropertyKey, never>; Returns: Json
                            },
+"get_customer_order":
+{ Args: { "order_id": string }; Returns: Json
+                           },
 "get_media_assets":
 { Args: { "asset_id"?: string }; Returns: Json
+                           },
+"get_ordering_catalog":
+{ Args: Record<PropertyKey, never>; Returns: Json
                            },
 "get_public_asset":
 { Args: { "asset_id": string }; Returns: Json
@@ -277,6 +378,9 @@ isOneToOne: true
                            },
 "list_customer_operations":
 { Args: { "page"?: number,"page_size"?: number,"search"?: string }; Returns: Json
+                           },
+"list_customer_orders":
+{ Args: { "page"?: number,"page_size"?: number }; Returns: Json
                            },
 "list_media_options":
 { Args: { "after_created_at"?: string,"after_id"?: string,"search"?: string,"usage_key": string }; Returns: Json
@@ -304,8 +408,14 @@ isOneToOne: true
 "save_content_draft":
 { Args: { "expected_version": number,"id": string,"snapshot": Json }; Returns: Json
                            },
+"set_catalog_offering":
+{ Args: { "confirmed": boolean,"currency": string,"enabled": boolean,"expected_version": number,"sku_id": string,"unit_minor": number }; Returns: undefined
+                           },
 "submit_content_draft":
 { Args: { "expected_version": number,"id": string }; Returns: Json
+                           },
+"update_commerce_settings":
+{ Args: { "expected_version": number,"orders_enabled": boolean,"terms_release_id": string }; Returns: undefined
                            },
 "update_waitlist_operations":
 { Args: { "expected_version": number,"id": string,"note": string,"status": string }; Returns: undefined

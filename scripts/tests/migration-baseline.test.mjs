@@ -167,3 +167,31 @@ test('customer operations inventory accepts exact schema and rejects drift/missi
   }
  }finally{await rm(fixture,{recursive:true,force:true});}
 });
+
+const commerceTables = {
+ 'public.catalog_offerings':{columns:{id:'uuid',product_id:'text',name:'text',currency:'text',unit_minor:'bigint',confirmed:'boolean',enabled:'boolean',version:'integer'},primaryKey:['id'],unique:[['product_id']],rlsEnabled:true},
+ 'public.commerce_settings':{columns:{singleton:'boolean',orders_enabled:'boolean',approved_terms_release_id:'uuid',approved_terms_fingerprint:'text',version:'integer'},primaryKey:['singleton'],unique:[],rlsEnabled:true},
+ 'public.customer_orders':{columns:{id:'uuid',user_id:'uuid',idempotency_key:'text',request_digest:'text',status:'text',payment_status:'text',fulfillment_status:'text',currency:'text',items_minor:'bigint',shipping_minor:'bigint',tax_minor:'bigint',payable_minor:'bigint',shipping_address:'jsonb',terms_release_id:'uuid',created_at:'timestamp with time zone'},primaryKey:['id'],unique:[['user_id','idempotency_key']],rlsEnabled:true},
+ 'public.order_items':{columns:{order_id:'uuid',sku_id:'uuid',product_id:'text',name:'text',quantity:'integer',unit_minor:'bigint',offering_version:'integer'},primaryKey:['order_id','sku_id'],unique:[],rlsEnabled:true},
+};
+
+test('commerce inventory accepts all exact tables and rejects drift, missing tables and unknown fields',async()=>{
+ const fixture=await mkdtemp(path.join(tmpdir(),'lumiq-commerce-baseline-'));
+ try {
+  const input=manifest();input.migrations=[];
+  Object.assign(input.tables,identityTables,{'public.staff_invites':inviteTable},structuredClone(contentTables),{'public.media_assets':structuredClone(mediaTable)},structuredClone(operationsTables),structuredClone(commerceTables));
+  input.tables['public.content_drafts'].columns.base_release_id='uuid';
+  const {readdir}=await import('node:fs/promises');
+  for(const file of (await readdir(new URL('../../supabase/migrations',import.meta.url))).filter(file=>/^\d{14}_.*\.sql$/.test(file) && file <= '20261020181500_orders_and_catalog.sql').sort()) input.migrations.push({version:file.slice(0,14),sha256:createHash('sha256').update(await readFile(new URL(`../../supabase/migrations/${file}`,import.meta.url))).digest('hex')});
+  const target=path.join(fixture,'remote.json');
+  const run=async()=>{await writeFile(target,JSON.stringify(input));return spawnSync(process.execPath,[script,'--remote-manifest',target],{encoding:'utf8'});};
+  const result=await run();assert.equal(result.status,0,result.stderr);
+  for(const name of Object.keys(commerceTables)) {
+   input.tables[name].columns.unknown='text';assert.match((await run()).stderr,/COMMERCE_SCHEMA_MISMATCH/);
+   input.tables[name]=structuredClone(commerceTables[name]);delete input.tables[name];assert.match((await run()).stderr,/COMMERCE_SCHEMA_MISMATCH/);
+   input.tables[name]=structuredClone(commerceTables[name]);input.tables[name].rlsEnabled=false;assert.match((await run()).stderr,/COMMERCE_SCHEMA_MISMATCH/);
+   input.tables[name]=structuredClone(commerceTables[name]);
+  }
+  input.tables['public.customer_orders'].columns.items_minor='numeric';assert.match((await run()).stderr,/COMMERCE_SCHEMA_MISMATCH/);
+ }finally{await rm(fixture,{recursive:true,force:true});}
+});
