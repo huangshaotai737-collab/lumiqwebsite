@@ -22,6 +22,8 @@ node scripts/local-preview.mjs stop
 
 本地入口4211/4270由任务自己的 loopback 代理提供，覆盖客户端的转发身份头并从 socket 取得 x-real-ip，内部 Next 使用4212/4271；这让真实浏览器登录/写入满足既有可信入口约束，不是生产代理验收。
 
+私有 `.lumiq-local/preview-config.json` 持久化两站的 `NEXT_PUBLIC_SUPABASE_URL`、`NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`、服务端 `SUPABASE_SERVICE_ROLE_KEY`，以及官网报名存储必需的 `SUPABASE_URL`。本机两个 URL 必须明确为同一已验证的 `http://127.0.0.1:54321`；启动器拒绝缺失或不匹配的保存值，不会从调用 shell 补入其他项目端点。其余运行变量包括 `REQUEST_LIMIT_SALT`、`REQUEST_IP_HEADER`、媒体路径/限额和邀请 SMTP 配置，详见 [deployment.md](deployment.md)。
+
 stop 只停止启动器验证过的本任务进程组，不操作原4240/4241/4242预览。端口被其他程序占用会报错，不自动杀进程。运行目录 `.lumiq-local/preview/related/{website,admin}` 拥有独立已安装依赖、生产构建和素材；其生命周期不依赖临时 SDD 文件。配置、日志与测试历史备份均在 `.lumiq-local/`，不要将其公开。
 
 `setup --reset-synthetic-local` 是破坏性的合成环境初始化，不是重启命令。本次交付只在核实本任务 loopback、容器 project 标签、无非测试账号并先保存原合成历史后执行。存在交付配置后 setup 会拒绝再次运行，即使带显式 reset 参数也不能覆盖用户后续编辑。源代码更新后必须在隔离环境重新验证并按部署流程更新构建，不能只修改运行目录掩盖源码。
@@ -44,4 +46,4 @@ stop 只停止启动器验证过的本任务进程组，不操作原4240/4241/42
 
 重新完整验证需要**新的可丢弃 checkout 和独立 Docker 环境**，其中不得连接交付预览的数据卷/容器；仅复制一份源码不能隔离现有 Docker 数据。CI 每次创建独立临时数据库，完成后 `supabase stop --no-backup` 清理。选定的纯 `--stage=contracts`、`checks`、`build` 可以在不操作数据库 fixture 的情况下运行。
 
-验证器的原子运行锁防止另一条验证命令刷新正在执行的测试镜像。进程被强制中断后若锁仍存在，先核对 `.lumiq-local/verification.lock/owner.json` 的进程已退出，再手动清理该锁。`--stage=browsers --browser-from=某个owner` 仅用于明确记录的受影响后续阶段，不表示此前阶段自动通过。
+验证器的原子运行锁防止另一条验证命令刷新正在执行的测试镜像。SIGTERM/SIGINT 会先停止并回收本次阶段及其后代，等待正在进行的准备操作结束，再释放带所有权 token 的锁；重复信号不会释放后继运行的锁。SIGKILL 或无法证明清理完成会保留锁。若锁仍存在，先核对 `.lumiq-local/verification.lock/owner.json` 和对应阶段后代均已退出，再手动清理该锁。`--stage=browsers --browser-from=某个owner` 仅用于明确记录的受影响后续阶段，不表示此前阶段自动通过。

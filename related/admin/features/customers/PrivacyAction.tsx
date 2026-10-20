@@ -148,7 +148,7 @@ export function PrivacyAction({ initial }: { initial: PrivacyWorkspace }) {
                   联系资料：{j.authCleared ? "已验证" : "未完成"}
                 </td>
                 <td data-label="失败步骤">{j.failureStep ? ({auth_ban:"暂停客户登录失败，请检查认证服务。",auth_contact:"认证联系资料未清理完成，请检查服务商或人工处理范围。",application:"应用资料清理失败，请恢复任务重试。"} as Record<string,string>)[j.failureStep] || "步骤未完成，请由管理员核查。" : "—"}</td>
-                <td data-label="状态">
+                <td data-label="操作">
                   {j.status !== "completed" && (
                     <button className="secondary-button"
                       disabled={!workspace.enabled || pending}

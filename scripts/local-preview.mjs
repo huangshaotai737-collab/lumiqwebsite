@@ -41,7 +41,7 @@ else if(command==='start'){
   const result=await backend.from('staff_memberships').insert({user_id:data.user.id,role,active:true});if(result.error)throw Error('Local staff membership failed');
   credentials.accounts.push({role,email,password});
  }
- const previewEnv={NEXT_PUBLIC_SUPABASE_URL:config.API_URL,NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY:config.ANON_KEY,SUPABASE_SERVICE_ROLE_KEY:config.SERVICE_ROLE_KEY,SUPABASE_SECRET_KEY:'',REQUEST_LIMIT_SALT:`local-preview-${crypto.randomUUID()}`,REQUEST_IP_HEADER:'x-real-ip',MEDIA_STORAGE_MAX_BYTES:'52428800',MEDIA_FFPROBE_PATH:env.MEDIA_FFPROBE_PATH,SMTP_HOST:'127.0.0.1',SMTP_PORT:'54325',STAFF_INVITE_FROM:'LumiQ Local <staff@example.test>',NEXT_TELEMETRY_DISABLED:'1'};
+ const previewEnv={SUPABASE_URL:config.API_URL,NEXT_PUBLIC_SUPABASE_URL:config.API_URL,NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY:config.ANON_KEY,SUPABASE_SERVICE_ROLE_KEY:config.SERVICE_ROLE_KEY,SUPABASE_SECRET_KEY:'',REQUEST_LIMIT_SALT:`local-preview-${crypto.randomUUID()}`,REQUEST_IP_HEADER:'x-real-ip',MEDIA_STORAGE_MAX_BYTES:'52428800',MEDIA_FFPROBE_PATH:env.MEDIA_FFPROBE_PATH,SMTP_HOST:'127.0.0.1',SMTP_PORT:'54325',STAFF_INVITE_FROM:'LumiQ Local <staff@example.test>',NEXT_TELEMETRY_DISABLED:'1'};
  await privateJson('preview-config.json',{env:previewEnv});await privateJson('preview-credentials.json',credentials);
  for(const app of ['admin','website'])await run('npm',['run','build'],path.join(localRoot,'preview','related',app),{...env,...previewEnv,APP_ORIGIN:app==='admin'?'http://127.0.0.1:4270':'http://127.0.0.1:4211',WEBSITE_ORIGIN:'http://127.0.0.1:4211'});
  console.log('Local preview configured; start with node scripts/local-preview.mjs start');

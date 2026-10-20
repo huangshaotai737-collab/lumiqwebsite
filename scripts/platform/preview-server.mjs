@@ -1,3 +1,4 @@
+import {previewEnvironment} from './preview-environment.mjs';
 import {createLocalIngress} from './preview-ingress.mjs';
 import {spawn} from 'node:child_process';
 import {readFile} from 'node:fs/promises';
@@ -5,7 +6,7 @@ import path from 'node:path';
 import net from 'node:net';
 import {localRoot,localEnvironment} from './local.mjs';
 const settings=JSON.parse(await readFile(path.join(localRoot,'preview-config.json'),'utf8'));
-const children=[];const env={...localEnvironment(),...settings.env};
+const children=[];const env=previewEnvironment(settings,localEnvironment());
 const ingresses=[];
 for(const [app,port,publicPort] of [['website',4212,4211],['admin',4271,4270]]) {
  const cwd=path.join(localRoot,'preview','related',app);

@@ -16,6 +16,7 @@
 ## 配置与外部前提
 
 - 两站：`NEXT_PUBLIC_SUPABASE_URL`、`NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`、服务端 `SUPABASE_SERVICE_ROLE_KEY`（或已支持的服务端 secret）、各自精确 `APP_ORIGIN`。服务端密钥只限服务端；绝不能放入 NEXT_PUBLIC 变量或前端 bundle。
+- 官网候补报名存储还必须设置服务端 `SUPABASE_URL`，与该部署的 `NEXT_PUBLIC_SUPABASE_URL` 指向同一受控项目；此适配器要求 `SUPABASE_SERVICE_ROLE_KEY`。不能依赖启动 shell 恰好提供端点。
 - 限流：两站共同的高熵 `REQUEST_LIMIT_SALT`；生产可信代理覆盖/清除客户端提交的 `x-real-ip`，再设置 `REQUEST_IP_HEADER=x-real-ip`。需要独立验证代理拓扑，不能把本地请求头测试当作生产信任链验证。部署时验证 pg_cron/限流过期清理。
 - 后台草稿入口：`WEBSITE_ORIGIN` 指向受控官网。官网和后台分别登录，没有跨站共享 session 的假设。Auth 域名与 `/auth/callback` 白名单精确配置；正式 HTTPS 下 cookies 必须 secure。生产注册确认和重置邮件由 Supabase Auth SMTP 设置承担。
 - 员工邀请 SMTP：`SMTP_HOST`、`SMTP_PORT`、可选认证 `SMTP_USER` / `SMTP_PASSWORD` 与发件人 `STAFF_INVITE_FROM`。正式 SMTP、发件域 DNS、可投递性、限额均未验证。本地邮件仅由 Mailpit 接收，见 [auth-email-setup.md](auth-email-setup.md)。

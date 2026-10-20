@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 // Local/CI only. Database population tests run strictly before browser fixtures.
 import path from 'node:path';
-import {execFileSync,spawn} from 'node:child_process';
+import {execFileSync} from 'node:child_process';
 import {mkdir,writeFile,readFile,readdir,copyFile} from 'node:fs/promises';
 import {createHash} from 'node:crypto';
-import {acquireRunLock} from './platform/run-lock.mjs';
+import {withStageOwnership} from './platform/stage-owner.mjs';
 import {root,localRoot,captureLocal,prepareMirror,assertTestBoundary} from './platform/local.mjs';
 if (Number(process.versions.node.split('.')[0])<22) throw Error('Node 22 or later is required');
 const selected=process.argv.find(v=>v.startsWith('--stage='))?.slice(8);
@@ -12,15 +12,15 @@ const browserFrom=process.argv.find(v=>v.startsWith('--browser-from='))?.slice(1
 if(browserFrom && selected!=='browsers') throw Error('--browser-from requires --stage=browsers; earlier results are not implied');
 if(process.argv.some(v=>v.startsWith('--')&&!v.startsWith('--stage=')&&!v.startsWith('--browser-from='))) throw Error('Unknown verification option');
 await mkdir(localRoot,{recursive:true,mode:0o700});
-const releaseLock=acquireRunLock(path.join(localRoot,'verification.lock'));
-process.on('exit',releaseLock);
-for(const signal of ['SIGTERM','SIGINT'])process.on(signal,()=>{releaseLock();process.exit(130);});
+try {await withStageOwnership(path.join(localRoot,'verification.lock'),async owner=>{
+const mirrorOptions={checkCancelled:()=>owner.throwIfCancelled(),execute:async(cmd,args,cwd,env)=>{const code=await owner.execute(cmd,args,{cwd,env,stdio:'inherit'});if(code!==0)throw Error('Runtime dependency installation failed');}};
 const {env}=await captureLocal();
+owner.throwIfCancelled();
 if(!selected || ['database','browsers','counterexamples'].includes(selected))await assertTestBoundary(env);
 const mirror=path.join(localRoot,'verification'),evidence=path.join(localRoot,'evidence','verification');
 await mkdir(evidence,{recursive:true});
 const files=execFileSync('git',['ls-files','--cached','--others','--exclude-standard','-z'],{cwd:root,encoding:'utf8'}).split('\0').filter(file=>/^(related\/|scripts\/|contracts\/|supabase\/|\.github\/)/.test(file)).sort();
-const hash=createHash('sha256'),inputFiles={};for(const file of files){const content=await readFile(path.join(root,file));hash.update(file);hash.update(content);inputFiles[file]=createHash('sha256').update(content).digest('hex');}
+const hash=createHash('sha256'),inputFiles={};for(const file of files){const content=await readFile(path.join(root,file));owner.throwIfCancelled();hash.update(file);hash.update(content);inputFiles[file]=createHash('sha256').update(content).digest('hex');}
 const scopeHash=accept=>{const digest=createHash('sha256');for(const file of files)if(accept(file)){digest.update(file+'\0'+inputFiles[file]+'\n');}return digest.digest('hex');};
 const inputScopes={database:scopeHash(file=>file.startsWith('supabase/')||file.startsWith('scripts/')),contracts:scopeHash(file=>/^(contracts\/|related\/|scripts\/|supabase\/)/.test(file)),adminApp:scopeHash(file=>file.startsWith('related/admin/')||file.startsWith('contracts/')||file.startsWith('scripts/')),websiteApp:scopeHash(file=>file.startsWith('related/website/')||file.startsWith('contracts/')||file.startsWith('scripts/'))};
 const report={inputFiles,inputScopes,commit:execFileSync('git',['rev-parse','HEAD'],{cwd:root,encoding:'utf8'}).trim(),sourceSha256:hash.digest('hex'),node:process.version,platform:process.platform,startedAt:new Date().toISOString(),selected:selected||'all',browserFrom:browserFrom||null,stages:[]};
@@ -28,14 +28,14 @@ async function checkpoint(){await writeFile(path.join(evidence,selected?`targete
 async function command(name,cmd,args,cwd=mirror,extra={}){
  console.log(`START ${name}`);const log=await import('node:fs').then(fs=>fs.createWriteStream(path.join(evidence,`${name}.log`)));
  const start=Date.now();let exitCode;
- try {exitCode=await new Promise((resolve,reject)=>{const child=spawn(cmd,args,{cwd,env:{...env,...extra},stdio:['ignore','pipe','pipe']});child.stdout.pipe(log,{end:false});child.stderr.pipe(log,{end:false});child.on('error',reject);child.on('exit',resolve);});}
+ try {exitCode=await owner.execute(cmd,args,{cwd,env:{...env,...extra},stdio:['ignore','pipe','pipe'],onSpawn:child=>{child.stdout.pipe(log,{end:false});child.stderr.pipe(log,{end:false});}});}
  finally{log.end();}
  report.stages.push({name,exitCode,durationMs:Date.now()-start});await checkpoint();
  console.log(`${exitCode===0?'PASS':'FAIL'} ${name} (${Math.round((Date.now()-start)/1000)}s)`);
  if(exitCode!==0)throw Error(`Stage ${name} failed; see .lumiq-local/evidence/verification/${name}.log`);
 }
 const stages={};
-stages.install=async()=>{await prepareMirror(mirror);};
+stages.install=async()=>{await prepareMirror(mirror,mirrorOptions);};
 stages.contracts=async()=>{
  await command('contracts','node',['scripts/sync-platform-contracts.mjs','--check']);
  await command('content-export','node',['scripts/export-initial-content.mjs','--check'],path.join(mirror,'related/website'));
@@ -80,7 +80,8 @@ stages.browsers=async()=>{
 stages.counterexamples=async()=>{await command('counterexamples','node',['scripts/platform/counterexamples.mjs'],root);};
 if(selected&&!Object.hasOwn(stages,selected))throw Error(`Unknown stage ${selected}`);
 try {
- if(selected&&selected!=='install')await prepareMirror(mirror,{install:false});
- for(const [name,operation] of Object.entries(stages))if(!selected||selected===name){await operation();}
+ if(selected&&selected!=='install')await prepareMirror(mirror,{...mirrorOptions,install:false});
+ for(const [name,operation] of Object.entries(stages))if(!selected||selected===name){owner.throwIfCancelled();await operation();}
  report.finishedAt=new Date().toISOString();report.status='PASS';await checkpoint();console.log('PASS platform verification');
-}catch(error){report.status='FAIL';report.error=error.message;await checkpoint();console.error(error.message);process.exitCode=1;}
+}catch(error){report.status='FAIL';report.error=error.message;await checkpoint();console.error(error.message);throw error;}
+});}catch(error){console.error(error.message);process.exitCode=error.exitCode||1;}

@@ -37,18 +37,22 @@ export async function run(command,args,cwd=root,env=localEnvironment()) {
   });
 }
 // Preserve repository-relative test imports while giving each app a real independent install.
-export async function prepareMirror(destination, {install=true}={}) {
+export async function prepareMirror(destination, {install=true,execute=run,checkCancelled=()=>{}}={}) {
   if (!destination.startsWith(localRoot+path.sep)) throw Error('Owned local runtime required');
+  checkCancelled();
   await mkdir(destination,{recursive:true});
   for (const directory of ['related/admin','related/website','scripts','contracts','supabase']) {
+    checkCancelled();
     const source=path.join(root,directory), target=path.join(destination,directory);
     await mkdir(target,{recursive:true});
-    for (const entry of await readdir(target)) if (entry !== 'node_modules' && !entry.startsWith('.next')) await rm(path.join(target,entry),{recursive:true,force:true});
+    for (const entry of await readdir(target)) {checkCancelled();if (entry !== 'node_modules' && !entry.startsWith('.next')) await rm(path.join(target,entry),{recursive:true,force:true});}
     // Fresh code, keeping only independently installed dependencies and build caches.
     await cp(source,target,{recursive:true,force:true,filter:file=>!path.relative(source,file).split(path.sep).some(part=>part==='node_modules'||part.startsWith('.next')||part.startsWith('.env')||['.temp','.branches','test-results','playwright-report','coverage','artifacts','qa'].includes(part))});
   }
+  checkCancelled();
   await cp(path.join(root,'.gitattributes'),path.join(destination,'.gitattributes'));
-  if (install) for (const app of ['admin','website']) await run('npm',['ci','--cache',path.join(localRoot,'npm-cache')],path.join(destination,'related',app));
+  if (install) for (const app of ['admin','website']) await execute('npm',['ci','--cache',path.join(localRoot,'npm-cache')],path.join(destination,'related',app));
+  checkCancelled();
   await writeFile(path.join(destination,'.owned-lumiq-runtime'),'synthetic local only\n');
 }
 
