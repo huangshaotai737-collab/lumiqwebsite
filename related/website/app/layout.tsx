@@ -20,6 +20,8 @@ import "./brand-plans.css";
 import "./brand-olago.css";
 import "./brand-home.css";
 import "./brand-refinement.css";
+import "./noto-sans-tc.css";
+import "./brand-polish-20261022.css";
 import {htmlLang, type Locale} from "@/i18n/routing";
 
 export async function generateMetadata() {
@@ -49,7 +51,7 @@ export default async function RootLayout({
   const locale = (await siteRequestLocale()) as Locale;
 
   return (
-    <html lang={htmlLang[locale] ?? "en"} suppressHydrationWarning>
+    <html lang={htmlLang[locale] ?? "en"} data-scroll-behavior="smooth" suppressHydrationWarning>
       <head>
         <link rel="preload" href="/assets/fonts/manrope-latin.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
       </head>

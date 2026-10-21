@@ -12,6 +12,8 @@
 
 ## 本地运行
 
+当前开发分支的官网已使用 Next.js 16.4.2，需 Node >=20.9，推荐 Node 22；后台项目独立。2026-10-22 本机品牌收尾及验证见 [实施记录](docs/brand-revision-2026-10-22.md)，尚未推送或部署。
+
 ```sh
 git lfs install
 git clone https://github.com/arphasmarthome/lumiqwebsite.git

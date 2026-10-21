@@ -269,7 +269,7 @@ export default function ProductsShowcase() {
       <section className="container prod-hero">
         <div className="prod-hero-text reveal">
           <span className="prod-kicker">{t("kicker")}</span>
-          <Heading as="h1" className="serif">
+          <Heading as="h1" className="serif" preservePunctuation>
             {t("title1")}
             <br />
             <em>{t("title2")}</em>

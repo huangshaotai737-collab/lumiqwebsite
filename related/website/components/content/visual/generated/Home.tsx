@@ -286,6 +286,35 @@ export default function Home() {
         <HomeExperiences />
       </section>
       <section
+        id="family"
+        className="lh-family lh-section"
+        aria-labelledby="family-title"
+        data-home-section
+      >
+        <div className="lh-family-scroll">
+          <div className="lh-family-anchor">
+            <div className="lh-wrap lh-family-heading">
+              <div>
+                <p className="lh-eyebrow">{t("familyKicker")}</p>
+                <Heading as="h2" id="family-title">
+                  {t("familyTitle")}
+                  <br />
+                  <span className="lh-muted">{t("familyAccent")}</span>
+                </Heading>
+              </div>
+              <div className="lh-section-intro">
+                <p>{t("familyBody")}</p>
+                <Link prefetch={false} href="/story" className="lh-text-link">
+                  {t("ourStory")}
+                  <ArrowRight size={18} />
+                </Link>
+              </div>
+            </div>
+            <HomeFamily />
+          </div>
+        </div>
+      </section>
+      <section
         id="safety"
         className="lh-safety lh-section"
         aria-labelledby="safety-title"
@@ -341,35 +370,6 @@ export default function Home() {
                 ))}
               </div>
             </div>
-          </div>
-        </div>
-      </section>
-      <section
-        id="family"
-        className="lh-family lh-section"
-        aria-labelledby="family-title"
-        data-home-section
-      >
-        <div className="lh-family-scroll">
-          <div className="lh-family-anchor">
-            <div className="lh-wrap lh-family-heading">
-              <div>
-                <p className="lh-eyebrow">{t("familyKicker")}</p>
-                <Heading as="h2" id="family-title">
-                  {t("familyTitle")}
-                  <br />
-                  <span className="lh-muted">{t("familyAccent")}</span>
-                </Heading>
-              </div>
-              <div className="lh-section-intro">
-                <p>{t("familyBody")}</p>
-                <Link prefetch={false} href="/story" className="lh-text-link">
-                  {t("ourStory")}
-                  <ArrowRight size={18} />
-                </Link>
-              </div>
-            </div>
-            <HomeFamily />
           </div>
         </div>
       </section>

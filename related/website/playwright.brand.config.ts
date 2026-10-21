@@ -9,7 +9,7 @@ if (origin.protocol !== 'http:' || origin.hostname !== '127.0.0.1' || origin.use
 
 export default defineConfig({
   testDir: './tests/e2e',
-  testMatch: 'streamed-content-hydration.spec.ts',
+  testMatch: ['streamed-content-hydration.spec.ts','hydration-host-replay.spec.ts','brand-polish-layout.spec.ts'],
   fullyParallel: false,
   workers: 1,
   retries: 0,

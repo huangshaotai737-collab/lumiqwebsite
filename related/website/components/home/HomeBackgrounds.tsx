@@ -81,8 +81,8 @@ export default function HomeBackgrounds() {
       chapter("home-films-hold", "#films", 10);
       chapter("home-room-anchor", "#experiences", 15);
       // These timelines reveal the complete reading layout after their initial shrink.
-      chapter("home-trust-anchor", "#safety", 20, .88 / 1.4);
-      chapter("home-family-chapters", "#family", 25, .36 / 1.2);
+      chapter("home-family-chapters", "#family", 20, .36 / 1.2);
+      chapter("home-trust-anchor", "#safety", 25, .88 / 1.4);
       chapter("home-join-anchor", "#join", 30);
       add(end, 30);
       movie.dataset.scrollStart = String(start);

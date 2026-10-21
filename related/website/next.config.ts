@@ -9,6 +9,7 @@ const nextConfig: NextConfig = {
     // Self-hosted QA can bypass cold-transform abort hangs; Vercel keeps its optimizer.
     unoptimized: process.env.LUMIQ_STATIC_IMAGES === "1",
     qualities: [75, 90, 95],
+    minimumCacheTTL: 60,
   },
 };
 

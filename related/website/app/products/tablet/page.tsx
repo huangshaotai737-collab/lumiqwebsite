@@ -11,6 +11,7 @@ export default function TabletPage() {
   const cms = useContentAdapter();
   const t = useTranslations("Tablet");
   const brand = useTranslations("BrandTablet");
+  const faq = useTranslations("BrandFaq");
 
   return (
     <ProductDetailTemplate
@@ -76,6 +77,10 @@ export default function TabletPage() {
         },
       }}
       afterFeatures={<>
+        <nav className="tablet-faq-links">
+          <Link href="/faq#faq-question-9">{faq("q10")} <span aria-hidden="true">↗</span></Link>
+          <Link href="/faq#faq-question-11">{faq("q12")} <span aria-hidden="true">↗</span></Link>
+        </nav>
         <aside className="tablet-data-note" aria-labelledby="tablet-data-title">
           <h3 id="tablet-data-title">{brand('privacy.title')}</h3>
           <p>{brand('privacy.body')}</p>

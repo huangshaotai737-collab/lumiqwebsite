@@ -8,6 +8,11 @@ export type BrandRevisionPatchEntry = {path: string; before: string | number | b
 
 export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
+    "path": "media.asset_e036cbcfe52d5970.alt",
+    "before": "LumiQ",
+    "after": "LUMIQ"
+  },
+  {
     "path": "messages.en.About.p1",
     "before": "LumiqStudio is the storytelling and learning division of <strong>Arpha</strong> — a smart home brand with over 15 years of experience creating technology that brings safety, convenience, and connection into everyday life.",
     "after": "LUMIQ Studio is the storytelling and learning division of <strong>Arpha</strong> — a smart home brand with over 15 years of experience creating technology that brings safety, convenience, and connection into everyday life."

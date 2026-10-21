@@ -29,6 +29,12 @@ describe('brand revision content compatibility', () => {
     expect(seed).toEqual(before);
     expect(applyBrandRevision(updated.snapshot).conflicts).toEqual([]);
   });
+  it('updates the old official-logo alternative text without replacing custom edits',()=>{
+    const input=parseSnapshot(structuredClone(seed));
+    expect(applyBrandRevision(input).snapshot.media.asset_e036cbcfe52d5970.alt).toBe('LUMIQ');
+    input.media.asset_e036cbcfe52d5970.alt='Custom official logo description';
+    expect(applyBrandRevision(input).snapshot.media.asset_e036cbcfe52d5970.alt).toBe('Custom official logo description');
+  });
   it('preserves custom CMS edits instead of silently overwriting them',()=>{
     const input=parseSnapshot(seed);
     input.products.tablet.name='Custom tablet';
