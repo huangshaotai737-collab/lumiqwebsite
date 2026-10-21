@@ -21,6 +21,11 @@ button, a, input, select, textarea { touch-action: manipulation; }
 .brand-copy { white-space: nowrap; }
 .brand-dot { color: #70a6ff; }
 .sidebar .brand small { display: block; color: #a0afc9; font-size: 11px; font-weight: 450; letter-spacing: 1.4px; margin-top: 7px; }
+.sidebar .brand-official { flex: 1; flex-direction: column; align-items: flex-start; gap: 6px; }
+.brand-logo { display: block; width: 144px; max-width: 100%; height: auto; }
+.sidebar .brand-official small { margin-top: 0; }
+.admin-shell[data-collapsed="true"] .sidebar .brand-official { flex: 0 0 100%; width: 100%; align-items: center; }
+.admin-shell[data-collapsed="true"] .brand-caption { display: none; }
 .sidebar .collapse-button { position: static; display: grid; place-items: center; width: 30px; min-height: 34px; flex: 0 0 30px; margin: 0 0 0 auto; border: 1px solid #35435d; color: #c0cde2; background: #19263d; border-radius: 7px; }
 .sidebar .collapse-button:hover { background: #253650; color: #fff; }
 .sidebar .mobile-toggle { display: none; }
@@ -179,6 +184,7 @@ dd { min-width: 0; overflow-wrap: anywhere; }
   .sidebar { position: relative; height: auto; padding: 14px 18px; overflow: visible; }
   .sidebar-heading, .admin-shell[data-collapsed="true"] .sidebar-heading { margin: 0; min-height: 40px; flex-wrap: nowrap; justify-content: space-between; }
   .sidebar .brand { font-size: 23px; }
+  .admin-shell[data-collapsed="true"] .sidebar .brand-official { flex: 1; width: auto; align-items: flex-start; }
   .sidebar .brand small { display: none; }
   .sidebar .desktop-toggle { display: none; }
   .sidebar .mobile-toggle { display: grid; width: 38px; min-height: 38px; }

@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { useState } from 'react';
 import { usePathname } from 'next/navigation';
 import type { StaffRole } from '@/lib/generated/platform/core';
@@ -35,7 +36,7 @@ export function AdminShell({ children, status = '管理访问已关闭', role }:
     <a className="skip-link" href="#workspace">跳至工作区</a>
     <aside className="sidebar" aria-label="管理导航">
       <div className="sidebar-heading">
-        <span className="brand"><span className="brand-symbol"><AdminIcon name="layers"/></span><span className="brand-copy">LumiQ<span className="brand-dot">.</span><small>官网管理后台</small></span></span>
+        <span className="brand brand-official"><Image src="/brand/lumiq-logo-white-transparent-v2.png" alt="LUMIQ Studio" width={4096} height={1551} sizes="144px" priority className="brand-logo"/><small className="brand-caption">官网管理后台</small></span>
         <button className="collapse-button desktop-toggle" type="button" aria-label={collapsed ? '展开导航' : '折叠导航'} aria-expanded={!collapsed} aria-controls="admin-navigation" onClick={() => setCollapsed(value => !value)}><AdminIcon name="chevron"/></button>
         <button className="collapse-button mobile-toggle" type="button" aria-label={mobileOpen ? '折叠导航' : '展开导航'} aria-expanded={mobileOpen} aria-controls="admin-navigation" onClick={() => setMobileOpen(value => !value)}><AdminIcon name="menu"/></button>
       </div>
