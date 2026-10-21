@@ -65,7 +65,7 @@ export default function VisualCanvas({initial,locale,page,channel,adminOrigin,fi
    const target=element.closest<HTMLElement>('a,button,input,textarea,select')||element;
    if(live.current.mode==='edit'){
     event.preventDefault();event.stopImmediatePropagation();const found=choose(element);
-    if(found){box(found.element);send('select',{paths:found.paths.slice(0,40)});}else{box(null);send('status',{message:'此处由布局或动效管理，可在下方“背景素材 / 全部内容”查看。'});}
+    if(found){box(found.element);send('select',{paths:found.paths.slice(0,40)});}else{box(null);send('status',{message:'此处暂不支持点选编辑，可在下方“全部内容与更多设置”中查看。'});}
     return;
    }
    const anchor=target.closest('a');

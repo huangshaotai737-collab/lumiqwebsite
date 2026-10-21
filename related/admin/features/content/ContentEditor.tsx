@@ -5,11 +5,10 @@ import { FieldControl, replaceField } from './EditorFields';
 import { fieldIssueTarget, matchesField, pageLabel, type EditorField } from './editor-labels';
 import type { ContentDraft, ContentResult, FieldIssue } from './service';
 import type { ContentSnapshot } from '@/lib/generated/platform/content';
-import {backgroundField,canvasFields,canvasValue,visualPages} from '@/lib/generated/platform/visual-editor';
+import {canvasValue,visualPages} from '@/lib/generated/platform/visual-editor';
 import {editHistory,newHistory,redoHistory,undoHistory} from './editor-history';
 import {fieldLabel,fieldContext} from './editor-labels';
 import VisualPreview from './VisualPreview';
-import VisualBackground from './VisualBackground';
 const groups = { messages: '三语文案', products: '产品', plans: '方案', media: '素材引用', settings: '系统设置' };
 const errors = { CONFLICT: '草稿版本冲突。当前输入已保留，请下载冲突副本，再载入最新草稿后合并。', FORBIDDEN: '当前账号无操作权限。', UNAUTHENTICATED: '登录已过期，请重新登录。', INVALID_INPUT: '内容校验未通过，请修正下列字段。', UNAVAILABLE: '服务暂不可用，当前输入已保留。', RATE_LIMITED: '操作过于频繁，请稍后重试。', NOT_FOUND: '草稿不存在。' };
 export function ContentEditor({ initial, fields, admin, legacyMedia, websiteOrigin }: { initial: ContentDraft; fields: EditorField[]; admin: boolean; legacyMedia: Record<string, string>; websiteOrigin?: string | null }) {
@@ -34,7 +33,6 @@ export function ContentEditor({ initial, fields, admin, legacyMedia, websiteOrig
   const [history,setHistory]=useState(newHistory);
   const [epoch,setEpoch]=useState(0);
   const [allOpen,setAllOpen]=useState(false);
-  const [backgroundsOpen,setBackgroundsOpen]=useState(false);
   const [previewHash,setPreviewHash]=useState('');
   const [previewDevice,setPreviewDevice]=useState<'desktop'|'tablet'|'mobile'>('desktop');
   const [previewMode,setPreviewMode]=useState<'edit'|'browse'>('edit');
@@ -126,7 +124,7 @@ export function ContentEditor({ initial, fields, admin, legacyMedia, websiteOrig
   return <>
     <div className="visual-editor-heading"><div><Link href="/content">返回内容工作区</Link><h1>编辑官网内容</h1></div><span className="visual-draft-badge">{dirty?'有未保存修改':'草稿工作区'}</span></div>
     <p>版本 {version} · {status === 'submitted' ? '已提交审核' : '编辑中'}{dirty ? ' · 有未保存修改' : ''}</p>
-    <p>点击预览中的文字或图片，在下方修改并即时查看。保存草稿不会改变官网。</p>
+    <p>点击预览中的文字、插图或商品图，在下方修改并即时查看。保存草稿不会改变官网。</p>
     <div className="content-toolbar"><button className="primary-button" disabled={busy} onClick={() => operate('save')}>保存草稿</button>
       <button disabled={busy||!history.past.length} onClick={()=>travel('undo')}>撤销</button><button disabled={busy||!history.future.length} onClick={()=>travel('redo')}>重做</button>
       <button disabled={busy || dirty} onClick={() => operate('submit')}>提交审核</button>
@@ -143,16 +141,12 @@ export function ContentEditor({ initial, fields, admin, legacyMedia, websiteOrig
       onSelect={selectPaths}/>
     <section ref={selectionPanel} className="visual-selection panel" aria-label="选中内容" aria-busy={busy}>
       <div className="visual-section-heading"><div><small>当前编辑</small><h2>{selection.length?'选中内容':'从网页中选择内容'}</h2></div>{selection.length>0&&<button type="button" onClick={()=>setSelection([])}>取消选择</button>}</div>
-      {selection.length===0?<p>在上方点选标题、段落或图片，这里只展示对应的编辑项。背景、视频和全部字段可在下方展开。</p>:
+      {selection.length===0?<p>在上方点选标题、段落、插图或商品图，这里只展示对应的编辑项。更多字段可在下方“全部内容与更多设置”中查看。</p>:
         selection.length>1?<><p>此处有相同或共用文案，请选择要修改的项目。</p><div className="visual-candidates">{selection.map(path=>{const field=fields.find(f=>f.path===path)!;return <button key={path} disabled={busy} onClick={()=>setSelection([path])}><strong>{fieldLabel(field,snapshot)}</strong><span>{fieldContext(field,snapshot,selectedPage)}</span><small>{path}</small></button>;})}</div></>:
         (()=>{const field=fields.find(f=>f.path===selection[0])!;return <fieldset disabled={busy} className="content-fieldset"><FieldControl key={`${field.path}:${version}:${epoch}`} field={field} snapshot={snapshot} selectedPage={selectedPage} legacyMedia={legacyMedia} change={change} invalidControlPaths={invalidControlPaths}/>
           {field.pages.length>1&&<p className="visual-shared-note">共用内容：修改会同步用于 {field.pages.map(pageLabel).join('、')}。</p>}
           <button type="button" onClick={()=>{const path=field.type==='assetId'?field.path.split('.').slice(0,2).join('.'):field.path;change(path,canvasValue(saved.current,path));setEpoch(value=>value+1);}}>恢复已保存值</button></fieldset>;})()}
     </section>
-    <details open={backgroundsOpen} onToggle={event=>setBackgroundsOpen(event.currentTarget.open)} className="visual-settings panel"><summary><span>背景与视频素材</span><small>主动进入后修改，避免在网页中误选</small></summary>
-      {backgroundsOpen&&<div className="visual-backgrounds">{canvasFields(fields,locale,(visualPages as readonly string[]).includes(selectedPage)?selectedPage:'/').filter(field=>field.type==='assetId'&&backgroundField(snapshot,field)&&!selection.includes(field.path)).map(field=><fieldset key={`${field.path}:${version}:${epoch}`} disabled={busy} className="content-fieldset"><VisualBackground field={field} snapshot={snapshot} websiteOrigin={websiteOrigin} selectedPage={selectedPage} legacyMedia={legacyMedia} change={change} invalidControlPaths={invalidControlPaths}/></fieldset>)}</div>}
-      <p>动画时序、滚动逻辑和页面结构由开发维护，此处仅替换已有用途的素材。</p>
-    </details>
     <details open={allOpen} onToggle={event=>setAllOpen(event.currentTarget.open)} className="visual-all-fields panel"><summary><span>全部内容与更多设置</span><small>完整字段、搜索及校验定位仍然保留</small></summary>
     {allOpen&&<section className="panel" aria-label="内容字段" aria-busy={busy}>
       <fieldset className="content-fieldset" aria-label="内容编辑控件" disabled={busy}>
@@ -160,7 +154,7 @@ export function ContentEditor({ initial, fields, admin, legacyMedia, websiteOrig
       {group === 'messages' && <label>文案语言<select aria-label="文案语言" value={locale} onChange={event => { setSearchSnapshot(snapshot); setLocale(event.target.value); setPage(0); }}><option value="en">英文</option><option value="zh-hant">繁体中文</option><option value="ja">日文</option></select></label>}
       <label>搜索字段<input aria-label="搜索字段" placeholder="搜索当前文案、中文名称或字段路径" value={query} onChange={event => { setSearchSnapshot(snapshot); setQuery(event.target.value); setPage(0); }} /></label></div>
       <p>共 {filtered.length} 个字段，每页最多显示 40 项。</p>
-      {visible.filter(field=>(selection.length!==1||field.path!==selection[0])&&!(backgroundsOpen&&field.type==='assetId'&&backgroundField(snapshot,field)&&canvasFields([field],locale,(visualPages as readonly string[]).includes(selectedPage)?selectedPage:'/').length)).map(field => <FieldControl key={`${field.path}:${version}:${epoch}`} field={field} snapshot={snapshot} selectedPage={selectedPage} legacyMedia={legacyMedia} change={change} invalidControlPaths={invalidControlPaths} />)}
+      {visible.filter(field=>selection.length!==1||field.path!==selection[0]).map(field => <FieldControl key={`${field.path}:${version}:${epoch}`} field={field} snapshot={snapshot} selectedPage={selectedPage} legacyMedia={legacyMedia} change={change} invalidControlPaths={invalidControlPaths} />)}
       <div className="content-toolbar"><button disabled={page === 0} onClick={() => setPage(value => value - 1)}>上一页字段</button><span>第 {page + 1} 页</span><button disabled={(page + 1) * 40 >= filtered.length} onClick={() => setPage(value => value + 1)}>下一页字段</button></div>
       </fieldset>
     </section>}
