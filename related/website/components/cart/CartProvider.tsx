@@ -2,6 +2,7 @@
 
 import { createContext, useCallback, useContext, useEffect, useMemo, useReducer, useRef, useState, type ReactNode } from "react";
 import {useContentAdapter} from "@/components/content/useContentAdapter";
+import {useVisualPreview} from '@/components/content/SiteContentProvider';
 import { usePathname } from "@/i18n/navigation";
 import { CART_STORAGE_KEY, cartReducer, parseCart, serializeCart, summarizeCart, type CartItem } from "@/lib/cart";
 import { type ProductId } from "@/lib/products";
@@ -29,6 +30,7 @@ export function useCart() {
 }
 
 export default function CartProvider({ children }: { children: ReactNode }) {
+  const visual = useVisualPreview();
   const cms = useContentAdapter();
   const copy = useCartCopy();
   const pathname = usePathname();
@@ -44,6 +46,7 @@ export default function CartProvider({ children }: { children: ReactNode }) {
   const previousPathRef = useRef(pathname);
 
   useEffect(() => {
+    if (visual) { setReady(true); return; }
     try {
       dispatch({ type: "restore", items: parseCart(window.localStorage.getItem(CART_STORAGE_KEY)) });
     } catch { setStorageAvailable(false); }
@@ -55,15 +58,15 @@ export default function CartProvider({ children }: { children: ReactNode }) {
     };
     window.addEventListener("storage", sync);
     return () => window.removeEventListener("storage", sync);
-  }, []);
+  }, [visual]);
 
   useEffect(() => {
-    if (!ready) return;
+    if (!ready || visual) return;
     try {
       window.localStorage.setItem(CART_STORAGE_KEY, serializeCart(items));
       setStorageAvailable(true);
     } catch { setStorageAvailable(false); }
-  }, [items, ready]);
+  }, [items, ready, visual]);
 
   useEffect(() => {
     if (!isOpen) return;

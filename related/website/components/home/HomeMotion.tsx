@@ -1,6 +1,7 @@
 "use client";
 import {useContentAdapter} from "@/components/content/useContentAdapter";
 import {homeMotionQuery} from "./responsiveLayout";
+import {useVisualPreview} from '@/components/content/SiteContentProvider';
 
 import { useEffect, useRef, type ReactNode } from "react";
 import { useGSAP } from "@gsap/react";
@@ -17,6 +18,8 @@ gsap.registerPlugin(useGSAP, ScrollTrigger);
 /** Native scrolling drives the current opening at every desktop aspect ratio. */
 export default function HomeMotion({ children }: { children: ReactNode }) {
   const cms = useContentAdapter();
+  const visual = useVisualPreview();
+  const motionDependency = visual ? [cms.slot('asset_a4b2063e90484449').url,cms.slot('asset_76a5de3f207ca5bb').url,cms.slot('asset_d11e4e878cf13138').url].join('|') : cms;
   const root = useRef<HTMLElement>(null);
   useEffect(() => {
     window.dispatchEvent(new Event("lumiq:home-enter"));
@@ -125,7 +128,7 @@ export default function HomeMotion({ children }: { children: ReactNode }) {
         releaseOpening();
       };
     },
-    { scope: root, dependencies: [cms], revertOnUpdate: true },
+    { scope: root, dependencies: [motionDependency], revertOnUpdate: true },
   );
   return (
     <main ref={root} id="main-content" className="lh-home" data-home-state="open" tabIndex={-1}>

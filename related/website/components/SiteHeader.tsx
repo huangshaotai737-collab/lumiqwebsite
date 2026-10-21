@@ -1,6 +1,7 @@
 "use client";
 import {useSitePathname} from "@/components/content/useSitePathname";
 import {useContentAdapter} from "@/components/content/useContentAdapter";
+import {useVisualPreview} from '@/components/content/SiteContentProvider';
 import { Link, useRouter } from "@/i18n/navigation";
 import { useSearchParams } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
@@ -12,6 +13,7 @@ import CartTrigger from "@/components/cart/CartTrigger";
 
 export default function SiteHeader() {
   const cms = useContentAdapter();
+  const visual = useVisualPreview();
   const t = useTranslations("Common");
   const home = useTranslations("HomeRefresh");
   const members = useTranslations("Members");
@@ -120,6 +122,7 @@ export default function SiteHeader() {
       : pathname === href || pathname.startsWith(`${href}/`);
 
   const switchLanguage = (nextLocale: Locale) => {
+    if(visual){window.dispatchEvent(new CustomEvent('lumiq:visual-language',{detail:nextLocale}));setLangOpen(false);setMenuOpen(false);return;}
     const query = searchParams.toString();
     const hash = typeof window === "undefined" ? "" : window.location.hash;
     router.replace(`${pathname}${query ? `?${query}` : ""}${hash}`, {

@@ -55,6 +55,7 @@ test('admin initializes workspace; field errors keep input and expose exact fiel
   await page.getByRole('button', { name: '新建草稿', exact: true }).click();
   await expect(page).toHaveURL(/\/content\/[0-9a-f-]+$/);
   draftId = new URL(page.url()).pathname.split('/').pop()!;
+  await page.locator('.visual-all-fields > summary').click();
   await expect(page.getByLabel('页面范围')).toBeVisible({ timeout: 2000 });
   await page.getByLabel('页面范围').selectOption('/products/ola');
   await page.getByLabel('搜索字段').fill('products.ola.name');
@@ -107,7 +108,7 @@ for (const action of ['save', 'submit'] as const) {
     await login(context, 'admin');
     const created = await post(context, '/api/content/drafts', { action: 'create' });
     expect(created.status()).toBe(200); const ownId = (await created.json()).data.id;
-    await page.goto(`/content/${ownId}`);
+    await page.goto(`/content/${ownId}`); await page.locator('.visual-all-fields > summary').click();
     await page.getByLabel('字段分组').selectOption('products');
     await page.getByLabel('搜索字段').fill('products.ola.name');
     const name = page.locator('[id="field-products.ola.name"]');
@@ -148,7 +149,7 @@ test('concurrent_draft_save_conflicts and draft_never_changes_public_release', a
   expect((await anonymous.rpc('get_published_content')).data).toEqual(before.data);
 });
 test('stale browser retains input and offers a downloadable conflict copy', async ({ page, context }) => {
-  await login(context, 'admin'); await page.goto(`/content/${draftId}`);
+  await login(context, 'admin'); await page.goto(`/content/${draftId}`); await page.locator('.visual-all-fields > summary').click();
   await page.getByLabel('字段分组').selectOption('products'); await page.getByLabel('搜索字段').fill('products.ola.name');
   await page.locator('[id="field-products.ola.name"]').fill('My unsaved conflict copy');
   const current = await draft(context); current.snapshot.products.ola.name = 'Other window saved';
@@ -185,7 +186,7 @@ test('editor settings bypass and operations drafts access are denied by server a
   await direct.auth.signInWithPassword({ email: users.editor.email, password });
   expect((await direct.rpc('publish_content_draft', { id: draftId, expected_version: current.version })).error?.code).toBe('42501');
   expect((await direct.rpc('save_content_draft', { id: draftId, expected_version: current.version, snapshot: current.snapshot })).error?.code).toBe('42501');
-  const page = await context.newPage(); await page.goto(`/content/${draftId}`);
+  const page = await context.newPage(); await page.goto(`/content/${draftId}`); await page.locator('.visual-all-fields > summary').click();
   expect(await page.getByRole('option', { name: '系统设置' }).count()).toBe(0);
   const valid = await draft(context); valid.snapshot.products.ola.name = 'Editor ordinary content';
   const saved = await post(context, '/api/content/drafts', { id: draftId, expectedVersion: valid.version, snapshot: valid.snapshot });
@@ -210,7 +211,7 @@ test('bad ICU and missing locales saved by raw RPC cannot be published; valid pu
   expect(rejected.status()).toBe(400); expect((await rejected.json()).issues.length).toBeGreaterThan(0);
   const restored = await post(context, '/api/content/drafts', { id: draftId, expectedVersion: raw.data.version, snapshot: current.snapshot });
   expect(restored.status()).toBe(200);
-  await page.goto(`/content/${draftId}`);
+  await page.goto(`/content/${draftId}`); await page.locator('.visual-all-fields > summary').click();
   await page.getByRole('button', { name: '提交审核', exact: true }).click();
   await expect(page.getByRole('status')).toContainText('已提交审核');
   await page.getByRole('button', { name: '发布当前版本', exact: true }).click();
@@ -234,7 +235,7 @@ test('bad ICU and missing locales saved by raw RPC cannot be published; valid pu
   expect(rolled.snapshot).toEqual(first.snapshot);
   const events = await direct.from('audit_events').select('action').eq('actor_id', users.admin.id);
   expect(events.data).toEqual(expect.arrayContaining([{ action: 'content.published' }, { action: 'content.rolled_back' }]));
-  await page.goto(`/content/${draftId}`);
+  await page.goto(`/content/${draftId}`); await page.locator('.visual-all-fields > summary').click();
   await page.getByLabel('字段分组').selectOption('products');
   await page.getByLabel('页面范围').selectOption('/products/ola');
   await page.getByLabel('搜索字段').fill('');

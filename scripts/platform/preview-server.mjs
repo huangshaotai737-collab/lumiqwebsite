@@ -10,7 +10,7 @@ const children=[];const env=previewEnvironment(settings,localEnvironment());
 const ingresses=[];
 for(const [app,port,publicPort] of [['website',4212,4211],['admin',4271,4270]]) {
  const cwd=path.join(localRoot,'preview','related',app);
- children.push(spawn(process.execPath,[path.join(cwd,'node_modules/next/dist/bin/next'),'start','--hostname','127.0.0.1','--port',String(port)],{cwd,env:{...env,APP_ORIGIN:`http://127.0.0.1:${publicPort}`,WEBSITE_ORIGIN:'http://127.0.0.1:4211'},stdio:'inherit'}));
+ children.push(spawn(process.execPath,[path.join(cwd,'node_modules/next/dist/bin/next'),'start','--hostname','127.0.0.1','--port',String(port)],{cwd,env:{...env,APP_ORIGIN:`http://127.0.0.1:${publicPort}`,ADMIN_ORIGIN:'http://127.0.0.1:4270',WEBSITE_ORIGIN:'http://127.0.0.1:4211'},stdio:'inherit'}));
  ingresses.push(createLocalIngress(port).listen(publicPort,'127.0.0.1'));
 }
 const relay=net.createServer(socket=>{

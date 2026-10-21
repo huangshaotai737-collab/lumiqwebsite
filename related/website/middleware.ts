@@ -2,6 +2,7 @@ import createMiddleware from 'next-intl/middleware';
 import { NextRequest, NextResponse } from 'next/server';
 import { routing } from './i18n/routing';
 import { refreshSession } from './lib/auth/refresh';
+import {previewOrigin} from './lib/generated/platform/visual-editor';
 const localize = createMiddleware(routing);
 export default async function middleware(incoming: NextRequest) {
   if(incoming.nextUrl.pathname === '/_next/image') {
@@ -21,7 +22,10 @@ export default async function middleware(incoming: NextRequest) {
   const request = new NextRequest(incoming,{headers});
   const response = preview || /^\/(en|zh-hant|ja)\/(members|checkout|login|register|reset-password)(\/|$)/.test(request.nextUrl.pathname)
     ? await refreshSession(request,localize) : localize(request);
-  if(preview) { response.headers.set('Cache-Control','private, no-store, max-age=0'); response.headers.set('X-Robots-Tag','noindex, nofollow'); }
+  if(preview) {
+    response.headers.set('Cache-Control','private, no-store, max-age=0'); response.headers.set('X-Robots-Tag','noindex, nofollow');
+    if(incoming.nextUrl.searchParams.has('editor')){const parent=previewOrigin(process.env.ADMIN_ORIGIN);response.headers.set('Content-Security-Policy',`frame-ancestors ${parent?`'self' ${parent}`:"'none'"}`);}
+  }
   return response;
 }
 // Root Auth callbacks must reach their route handler rather than next-intl.

@@ -1,5 +1,7 @@
 "use client";
 import {useContentAdapter} from "@/components/content/useContentAdapter";
+import {useVisualPreview} from '@/components/content/SiteContentProvider';
+import {visualMediaDependency} from '@/lib/content/visual-dependency';
 import {homeMotionQuery} from "./responsiveLayout";
 
 import { useEffect, useRef, useState } from "react";
@@ -12,6 +14,9 @@ export const chapterImage = (name: string) => `/assets/chapter-backgrounds-20260
 
 export default function HomeBackgrounds() {
   const cms = useContentAdapter();
+  const visual = useVisualPreview();
+  const mediaDependency = visualMediaDependency(cms,visual,backgroundVideoSource);
+  const resolvedVideoSource = cms.url(backgroundVideoSource);
   const [host, setHost] = useState<Element | null>(null);
   const fallback = useRef<HTMLDivElement>(null);
   const video = useRef<HTMLVideoElement>(null);
@@ -33,7 +38,7 @@ export default function HomeBackgrounds() {
       frame = 0;
       // Load the approved light movie only as its first chapter approaches.
       if (motion.matches && !document.hidden && scrollY >= start - innerHeight * .75 && !movie.getAttribute("src")) {
-        movie.src = cms.url(backgroundVideoSource);
+        movie.src = resolvedVideoSource;
         movie.load();
       }
       // Seeking can temporarily lower readyState. Keep the last decoded frame visible.
@@ -117,7 +122,7 @@ export default function HomeBackgrounds() {
       movie.pause(); movie.removeAttribute("src"); movie.load();
       if (root) delete root.dataset.flowBackground;
     };
-  }, [host, cms]);
+  }, [host, mediaDependency, resolvedVideoSource]);
   return host ? createPortal(<div className="lh-fixed-backgrounds" aria-hidden="true">
     <video ref={video} data-background-video muted playsInline preload="auto" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", opacity: 0 }} />
     <div data-background-fallback ref={fallback} style={{ backgroundImage: `url('${cms.url(chapterImage("products"))}')` }} />

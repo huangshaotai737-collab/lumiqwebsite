@@ -1,5 +1,7 @@
 "use client";
 import {useContentAdapter} from "@/components/content/useContentAdapter";
+import {useVisualPreview} from '@/components/content/SiteContentProvider';
+import {visualMediaDependency} from '@/lib/content/visual-dependency';
 import {homeWideQuery} from "./responsiveLayout";
 import {usePhoneLayout} from "./usePhoneLayout";
 import MobileFilmCarousel from "./MobileFilmCarousel";
@@ -16,9 +18,11 @@ const films = ["everyday-companion", "worlds-together", "welcome-home"] as const
 
 export default function HomeFilms() {
   const cms = useContentAdapter();
+  const visual = useVisualPreview();
   const t = useTranslations("HomeFilms");
   const isPhone = usePhoneLayout();
   const [active, setActive] = useState(0);
+  const mediaDependency = visualMediaDependency(cms,visual,`/assets/films-20260908/${films[active]}.mp4`);
   const [mediaRequested, setMediaRequested] = useState(false);
   const [playing, setPlaying] = useState(false);
   const [playbackError, setPlaybackError] = useState(false);
@@ -99,7 +103,7 @@ export default function HomeFilms() {
       element.pause(); observer.disconnect(); document.removeEventListener("visibilitychange", onHidden);
       element.removeEventListener("error", onFailure); source?.removeEventListener("error", onFailure);
     };
-  }, [active, mediaRequested, isPhone, cms]);
+  }, [active, mediaRequested, isPhone, mediaDependency]);
   useEffect(() => {
     const clip = character.current;
     const host = characterHost.current;

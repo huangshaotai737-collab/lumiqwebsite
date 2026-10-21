@@ -88,7 +88,7 @@ test('failed_media_publish_stays_private and exact snapshot publication; archiva
   expect(releasePath).toMatch(new RegExp(`^releases/${imageId}/[a-f0-9]{64}$`));
   const existingCopy=await backend.storage.from('media-releases').download(releasePath);expect(existingCopy.error).toBeNull();expect(Buffer.from(await existingCopy.data!.arrayBuffer())).toEqual(syntheticImage);
   const copied=await anon.storage.from('media-releases').download(releasePath); expect(copied.error).not.toBeNull();
-  await page.goto(`/content/${draftId}`); await page.getByLabel('字段分组').selectOption('media'); await page.getByLabel('搜索字段').fill(`media.${usage}.assetId`); await expect(page.locator(`[id="field-media.${usage}.assetId"]`)).toHaveValue(imageId);
+  await page.goto(`/content/${draftId}`); await page.locator('.visual-all-fields > summary').click(); await page.getByLabel('字段分组').selectOption('media'); await page.getByLabel('搜索字段').fill(`media.${usage}.assetId`); await expect(page.locator(`[id="field-media.${usage}.assetId"]`)).toHaveValue(imageId);
   expect((await post(context,'/api/media/archive',{assetId:imageId})).status()).toBe(200);
   expect((await context.request.get(`${website}/api/media/${imageId}`)).status()).toBe(200);
   const newDraft=await post(context,'/api/content/drafts',{action:'create'}); expect(newDraft.status()).toBe(200);
@@ -131,7 +131,7 @@ test('older ready media remains discoverable and selectable beyond 200 newer att
     insert into public.media_assets(created_by,file_name,advertised_size,mime,usage_key,original_path,status,created_at)
     select '${users.admin.id}','boundary-ready-'||n,1,'image/png','${usage}','${boundaryPrefix}/ready-'||n,'ready',now()+interval '1 day' from generate_series(1,26) n;`);
   const created=await post(context,'/api/content/drafts',{id:crypto.randomUUID(),expectedVersion:0,snapshot:initialSnapshot});expect(created.status()).toBe(200);const draft=(await created.json()).data;
-  await page.goto(`/content/${draft.id}`);await page.getByLabel('字段分组').selectOption('media');await page.getByLabel('搜索字段').fill(`media.${usage}.assetId`);
+  await page.goto(`/content/${draft.id}`); await page.locator('.visual-all-fields > summary').click();await page.getByLabel('字段分组').selectOption('media');await page.getByLabel('搜索字段').fill(`media.${usage}.assetId`);
   const picker=page.locator(`[id="field-media.${usage}.assetId"]`);const field=page.locator('.content-field').filter({has:picker});
   await field.getByRole('button',{name:'查找素材',exact:true}).click();
   await expect(picker.locator(`option[value="${target}"]`)).toHaveCount(0);

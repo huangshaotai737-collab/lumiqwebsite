@@ -1,5 +1,7 @@
 "use client";
 import {useContentAdapter} from "@/components/content/useContentAdapter";
+import {useVisualPreview} from '@/components/content/SiteContentProvider';
+import {visualMediaDependency} from '@/lib/content/visual-dependency';
 
 import {useEffect, useRef, useState} from 'react';
 import {useTranslations} from 'next-intl';
@@ -12,6 +14,8 @@ export default function MobileFilmCarousel({films, active, onChange}: {
   onChange: (index: number) => void;
 }) {
   const cms = useContentAdapter();
+  const visual = useVisualPreview();
+  const mediaDependency = visualMediaDependency(cms,visual,`/assets/films-20260908/${films[active]}.mp4`);
   const t = useTranslations('HomeFilms');
   const track = useRef<HTMLDivElement>(null);
   const video = useRef<HTMLVideoElement>(null);
@@ -96,7 +100,7 @@ export default function MobileFilmCarousel({films, active, onChange}: {
     setFailed(false);
     if (requested) clip?.load();
     return () => {clip?.pause();};
-  }, [active, requested, cms]);
+  }, [active, requested, mediaDependency]);
 
   const toggle = async () => {
     const clip = video.current;
