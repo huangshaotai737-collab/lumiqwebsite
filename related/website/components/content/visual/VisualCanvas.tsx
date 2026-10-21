@@ -12,10 +12,11 @@ import SiteFooter from '@/components/SiteFooter';
 import ScrollWords from '@/components/ScrollWords';
 import VisualPage from './renderers';
 import {trustedProductImages} from '@/lib/generated/platform/content-legacy-media';
+import {withBrandContent} from '@/lib/generated/platform/brand-content';
 import '@/app/[locale]/members/members.css';
 
 export default function VisualCanvas({initial,locale,page,channel,adminOrigin,fields}:{initial:ContentSnapshot;locale:Locale;page:string;channel:string;adminOrigin:string;fields:CanvasField[]}){
- const [snapshot,setSnapshot]=useState(initial),[mode,setMode]=useState('edit');
+ const [snapshot,setSnapshot]=useState(()=>withBrandContent(initial)),[mode,setMode]=useState('edit');
  const [appliedRevision,setAppliedRevision]=useState(-1);
  const [outline,setOutline]=useState<{left:number;top:number;width:number;height:number}|null>(null);
  const [note,setNote]=useState('');const selected=useRef<HTMLElement|null>(null);
@@ -39,7 +40,7 @@ export default function VisualCanvas({initial,locale,page,channel,adminOrigin,fi
    if(data.type==='lumiq.visual.update'&&Number.isSafeInteger(data.revision)&&data.revision>=revision&&data.snapshot?.schemaVersion===1&&data.snapshot.messages?.[locale]&&data.snapshot.products&&data.snapshot.media&&Array.isArray(data.snapshot.plans)&&data.snapshot.settings){
     revision=data.revision;
     // Canonical contact copy is mirrored exactly as the existing save normalizer does.
-    const value=structuredClone(data.snapshot) as ContentSnapshot;
+    const value=withBrandContent(structuredClone(data.snapshot) as ContentSnapshot);
     for(const language of ['en','zh-hant','ja'] as const)if(value.messages[language].Contact)(value.messages[language].Contact as Record<string,string>).intro=value.settings.contactText[language];
     for(const id of Object.keys(value.products) as (keyof typeof value.products)[])value.products[id].image=value.media[trustedProductImages[id].slotId].url;
     setSnapshot(value);setMode(data.mode==='browse'?'browse':'edit');setAppliedRevision(data.revision);send('status',{message:'临时修改已同步，尚未发布。'});

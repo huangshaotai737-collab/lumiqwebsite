@@ -14,6 +14,12 @@ import "./mobile-experience.css";
 import "./mobile-polish.css";
 import "./reduced-motion-layout.css";
 import "./mobile-visual-refinement.css";
+import "./brand-tablet.css";
+import "./brand-orb.css";
+import "./brand-plans.css";
+import "./brand-olago.css";
+import "./brand-home.css";
+import "./brand-refinement.css";
 import {htmlLang, type Locale} from "@/i18n/routing";
 
 export async function generateMetadata() {

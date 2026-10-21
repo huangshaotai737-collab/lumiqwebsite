@@ -9,12 +9,13 @@ import {canvasValue,visualPages} from '@/lib/generated/platform/visual-editor';
 import {editHistory,newHistory,redoHistory,undoHistory} from './editor-history';
 import {fieldLabel,fieldContext} from './editor-labels';
 import VisualPreview from './VisualPreview';
+import {withBrandContent} from '@/lib/generated/platform/brand-content';
 const groups = { messages: '三语文案', products: '产品', plans: '方案', media: '素材引用', settings: '系统设置' };
 const errors = { CONFLICT: '草稿版本冲突。当前输入已保留，请下载冲突副本，再载入最新草稿后合并。', FORBIDDEN: '当前账号无操作权限。', UNAUTHENTICATED: '登录已过期，请重新登录。', INVALID_INPUT: '内容校验未通过，请修正下列字段。', UNAVAILABLE: '服务暂不可用，当前输入已保留。', RATE_LIMITED: '操作过于频繁，请稍后重试。', NOT_FOUND: '草稿不存在。' };
 export function ContentEditor({ initial, fields, admin, legacyMedia, websiteOrigin }: { initial: ContentDraft; fields: EditorField[]; admin: boolean; legacyMedia: Record<string, string>; websiteOrigin?: string | null }) {
-  const [snapshot, setSnapshot] = useState(initial.snapshot);
+  const [snapshot, setSnapshot] = useState(()=>withBrandContent(initial.snapshot));
   // Freeze text-search matches while editing so an active field does not disappear mid-sentence.
-  const [searchSnapshot, setSearchSnapshot] = useState(initial.snapshot);
+  const [searchSnapshot, setSearchSnapshot] = useState(()=>withBrandContent(initial.snapshot));
   const [version, setVersion] = useState(initial.version);
   const [status, setStatus] = useState(initial.status);
   const [group, setGroup] = useState('messages');
@@ -36,7 +37,7 @@ export function ContentEditor({ initial, fields, admin, legacyMedia, websiteOrig
   const [previewHash,setPreviewHash]=useState('');
   const [previewDevice,setPreviewDevice]=useState<'desktop'|'tablet'|'mobile'>('desktop');
   const [previewMode,setPreviewMode]=useState<'edit'|'browse'>('edit');
-  const saved=useRef(initial.snapshot);
+  const saved=useRef(withBrandContent(initial.snapshot));
   const busyRef = useRef(false);
   const selectionPanel=useRef<HTMLElement>(null);
   const availablePages = useMemo(() => [...new Set(fields.flatMap(field => field.pages))].sort(), [fields]);
@@ -112,8 +113,9 @@ export function ContentEditor({ initial, fields, admin, legacyMedia, websiteOrig
       const response = await fetch(`/api/content/drafts?id=${initial.id}`, { cache: 'no-store' }); const result = await response.json();
       if (!result.ok) { setError('载入失败，当前输入已保留。'); return; }
       setConflict(previous => previous ? { ...previous, acceptEdits: false } : null);
-      setSnapshot(result.data.snapshot); setSearchSnapshot(result.data.snapshot); setVersion(result.data.version); setStatus(result.data.status); setDirty(false); setError(''); setIssues([]); setMessage('已载入最新草稿。冲突副本仍可下载。');
-      saved.current=result.data.snapshot;setHistory(newHistory());setEpoch(value=>value+1);
+      const loaded=withBrandContent(result.data.snapshot);
+      setSnapshot(loaded); setSearchSnapshot(loaded); setVersion(result.data.version); setStatus(result.data.status); setDirty(false); setError(''); setIssues([]); setMessage('已载入最新草稿。冲突副本仍可下载。');
+      saved.current=loaded;setHistory(newHistory());setEpoch(value=>value+1);
     } catch { setError(errors.UNAVAILABLE); }
     finally { busyRef.current = false; setBusy(false); }
   }

@@ -5,7 +5,7 @@ import {previewPages} from '@/lib/content/preview-pages';
 import VisualCanvas from '@/components/content/visual/VisualCanvas';
 import {previewOrigin,visualChannel} from '@/lib/generated/platform/visual-editor';
 import {requireStaff} from '@/lib/auth/require-staff';
-import {fieldManifest} from '@/lib/content/inventory';
+import {activeContentFields} from '@/lib/content/inventory';
 import type {Locale} from '@/lib/generated/platform/core';
 export const dynamic='force-dynamic';
 export const metadata={robots:{index:false,follow:false}};
@@ -18,7 +18,7 @@ export default async function PreviewPage({params,searchParams}:{params:Promise<
     const adminOrigin=previewOrigin(process.env.ADMIN_ORIGIN);
     if(typeof query.editor!=='string'||!visualChannel.test(query.editor)||!adminOrigin)notFound();
     const actor=await requireStaff(['admin','editor']);
-    const fields=fieldManifest.fields.filter(field=>field.editable&&(actor.role==='admin'||!field.adminOnly)).map(({path,pages,type,mediaPurpose})=>({path,pages,type,mediaPurpose}));
+    const fields=activeContentFields.filter(field=>field.editable&&(actor.role==='admin'||!field.adminOnly)).map(({path,pages,type,mediaPurpose})=>({path,pages,type,mediaPurpose}));
     return <VisualCanvas initial={snapshot} locale={locale as Locale} page={page} channel={query.editor} adminOrigin={adminOrigin} fields={fields}/>;
   }
   const {default:Page}=await previewPages[page as keyof typeof previewPages]();

@@ -1,7 +1,7 @@
 import 'server-only';
 import { cache } from 'react';
 import { createClient } from '@supabase/supabase-js';
-import { initialSnapshot } from './initial-snapshot';
+import { currentSnapshot } from './current-snapshot';
 import { parseSnapshot } from './parse';
 import type { ContentSnapshot } from '@/lib/generated/platform/content';
 import type { UUID } from '@/lib/generated/platform/core';
@@ -29,7 +29,7 @@ export function createPublishedReader(load: () => Promise<unknown>, configured: 
         lastWarning = Date.now();
         console.warn('[lumiq-content-fallback]', {reason, source:lastGood ? 'last-good' : 'bundled', releaseId:attemptedReleaseId, lastGoodReleaseId:lastGood?.releaseId || null});
       }
-      return lastGood ? {...lastGood, source: 'last-good'} : {releaseId:null,snapshot:initialSnapshot,source:'bundled'};
+      return lastGood ? {...lastGood, source: 'last-good'} : {releaseId:null,snapshot:currentSnapshot,source:'bundled'};
     }
   };
 }

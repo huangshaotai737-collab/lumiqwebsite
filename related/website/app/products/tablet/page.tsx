@@ -3,10 +3,14 @@ import {useContentAdapter} from "@/components/content/useContentAdapter";
 
 import { useTranslations } from "next-intl";
 import ProductDetailTemplate from "@/components/ProductDetailTemplate";
+import TabletGrowthMap from "@/components/TabletGrowthMap";
+import {Link} from '@/i18n/navigation';
+import "@/app/brand-tablet.css";
 
 export default function TabletPage() {
   const cms = useContentAdapter();
   const t = useTranslations("Tablet");
+  const brand = useTranslations("BrandTablet");
 
   return (
     <ProductDetailTemplate
@@ -14,9 +18,9 @@ export default function TabletPage() {
       accent="#d86d3d"
       accentSoft="#f2ded2"
       backLabel={t("all")}
-      productName="Lumiq Tablet"
-      title={`${t("titleBefore")} ${t("titleEm")}`}
-      lede={t("lede")}
+      productName={brand("hero.eyebrow")}
+      title={brand("hero.title")}
+      lede={brand("hero.body")}
       conceptNotice={t("conceptNotice")}
       priceLabel="USD 399"
       ctaLabel={t("buy")}
@@ -31,7 +35,7 @@ export default function TabletPage() {
         body: t("immersedBody"),
         image: {
           src: cms.url("/assets/tablet-detail/generated/tablet-reading-lifestyle-v2.png"),
-          alt: t("way1Title"),
+          alt: brand("stories.story1Title"),
         },
         bullets: [t("spec1"), t("spec2"), t("spec3"), t("spec4")],
       }}
@@ -58,19 +62,28 @@ export default function TabletPage() {
         },
       ]}
       features={{
-        eyebrow: t("spotlights"),
-        title: t("waysTitle"),
-        intro: t("spotlightsBody"),
-        items: [1, 2, 3, 4, 5].map((number) => ({
-          eyebrow: t(`way${number}Pill`),
-          title: t(`way${number}Title`),
-          body: t(`way${number}Body`),
+        eyebrow: brand("stories.eyebrow"),
+        title: brand("stories.title"),
+        intro: brand("stories.body"),
+        items: [1, 2, 3, 4].map((number) => ({
+          eyebrow: brand(`stories.story${number}Eyebrow`),
+          title: brand(`stories.story${number}Title`),
+          body: brand(`stories.story${number}Body`),
         })),
         image: {
           src: cms.url("/assets/tablet-detail/five-ways/imagime-v1.jpg"),
-          alt: t("way2Title"),
+          alt: brand("stories.story2Title"),
         },
       }}
+      afterFeatures={<>
+        <aside className="tablet-data-note" aria-labelledby="tablet-data-title">
+          <h3 id="tablet-data-title">{brand('privacy.title')}</h3>
+          <p>{brand('privacy.body')}</p>
+          <Link href="/legal/privacy">{brand('privacy.link')}</Link>
+        </aside>
+        <TabletGrowthMap />
+      </>}
+      hideDarkSection
       darkSection={{
         eyebrow: t("powers"),
         title: t("powersTitle"),
@@ -86,16 +99,16 @@ export default function TabletPage() {
         },
       }}
       extraSection={{
-        eyebrow: t("parents"),
-        title: t("parentsTitle"),
-        intro: t("parentsBody"),
+        eyebrow: brand("parents.eyebrow"),
+        title: brand("parents.title"),
+        intro: brand("parents.body"),
         items: [1, 2, 3, 4, 5].map((number) => ({
-          title: t(`parent${number}Title`),
-          body: t(`parent${number}Body`),
+          title: brand(`parents.item${number}Title`),
+          body: brand(`parents.item${number}Body`),
         })),
         image: {
           src: cms.url("/assets/western-scenes-20260908/tablet-parent-controls-v2.webp"),
-          alt: t("parentsTitle"),
+          alt: brand("parents.title"),
         },
       }}
       finalTitle={t("whyTitle")}

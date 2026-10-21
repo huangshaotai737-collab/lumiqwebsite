@@ -72,6 +72,8 @@ type ProductDetailTemplateProps = {
   finalTitle: string;
   finalBody: string;
   secondaryAction?: { href: string; label: string };
+  afterFeatures?: ReactNode;
+  hideDarkSection?: boolean;
 };
 
 function ProductImage({
@@ -165,6 +167,8 @@ export default function ProductDetailTemplate({
   finalTitle,
   finalBody,
   secondaryAction,
+  afterFeatures,
+  hideDarkSection = false,
 }: ProductDetailTemplateProps) {
   const cms = useContentAdapter();
   const copy = useCartCopy();
@@ -209,7 +213,7 @@ export default function ProductDetailTemplate({
               {backLabel}
             </Link>
             <div className="pd-hero-display-title" aria-hidden="true">
-              {productName.toUpperCase()}
+              {productName}
             </div>
             <Heading as="h1">
               <span className="pd-product-name">{productName}</span>
@@ -332,7 +336,9 @@ export default function ProductDetailTemplate({
         </div>
       </section>
 
-      <section className="pd-floor pd-dark-floor">
+      {afterFeatures}
+
+      {!hideDarkSection && <section className="pd-floor pd-dark-floor">
         <div className="pd-shell pd-dark-layout">
           <div className="pd-dark-copy">
             <SectionHeading
@@ -351,7 +357,7 @@ export default function ProductDetailTemplate({
             </figure>
           )}
         </div>
-      </section>
+      </section>}
 
       {extraSection && (
         <section className="pd-floor pd-extra-floor">

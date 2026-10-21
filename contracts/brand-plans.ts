@@ -1,0 +1,66 @@
+/** Public, editable plan-preview copy. These strings never enable billing. */
+export type BrandPlansTree = { [key: string]: string | BrandPlansTree };
+export type BrandPlansLocale = 'en' | 'zh-hant' | 'ja';
+
+export const brandPlansMessages: Record<BrandPlansLocale, BrandPlansTree> = {
+  en: {
+    productTabs: 'Compare subscription options',
+    tabs: { one: 'LumiqOne', tablet: 'LumiqTablet', ola: 'LumiqOla' },
+    previewLabel: 'Prelaunch preview',
+    previewNotice: 'Current prices and subscription options are previews. Final pricing, included features, billing and cancellation terms will be confirmed before ordering opens. Joining the waitlist does not place an order or charge you.',
+    trialNotice: 'Paid plans preview a 7-day free trial. Trial-end billing details will be available before anyone subscribes. Joining the waitlist does not start a trial or a paid plan.',
+    annualTotal: '{amount} total per year',
+    perYear: '/ yr',
+    included: 'Included',
+    notIncluded: 'Not included',
+    hardware: { msrp: 'MSRP preview', vip: 'VIP preview from', tabletMsrp: '559', olaMsrp: '799' },
+    tierDescriptions: {
+      tabletFree: 'Free · Discover interactive reading', tabletLite: 'Lite · More stories and creative play', tabletPro: 'Pro · The full story and creation preview',
+      olaFree: 'Free · Everyday conversation', olaPro: 'Pro · More personal companionship', one: 'Tablet Pro + Ola Pro in one plan',
+    },
+    one: { kicker: 'LumiqOne · Combined plan', title: 'Stories and companionship, together.', intro: 'Includes LumiqTablet Pro for children and parents, plus LumiqOla Pro for adults and older adults.', name: 'LumiqOne', tablet: 'LumiqTablet Pro', ola: 'LumiqOla Pro', trial: '7 days', tabletIncluded: 'Included', olaIncluded: 'Included' },
+    tablet: { audience: 'Interactive reading for children and parents.', connect: 'Connect to LumiqOla', connection: 'Included' },
+    ola: { audience: 'An AI companion for adults and older adults.', activeDetection: 'Active detection', minutesPerMonth: '{count} minutes / month', freeDetection: 'Not included', proDetection: 'Included' },
+    prices: { one: { monthly: '35.99', yearly: '359.99' } },
+  },
+  'zh-hant': {
+    productTabs: '比較訂閱方案',
+    tabs: { one: 'LumiqOne', tablet: 'LumiqTablet', ola: 'LumiqOla' },
+    previewLabel: '上市前預覽',
+    previewNotice: '目前價格與訂閱方案均為預覽。我們會在開放訂購前確認最終價格、方案內容、計費與取消條款。加入候補名單不會成立訂單或產生費用。',
+    trialNotice: '付費方案預計提供 7 天免費試用；試用結束後的計費細節將於訂閱前公布。加入候補名單不會啟動試用或付費方案。',
+    annualTotal: '每年實付 {amount}',
+    perYear: '/ 年',
+    included: '包含',
+    notIncluded: '不包含',
+    hardware: { msrp: '建議售價預覽', vip: 'VIP 預覽價起', tabletMsrp: '559', olaMsrp: '799' },
+    tierDescriptions: {
+      tabletFree: 'Free 免費方案 · 體驗互動閱讀', tabletLite: 'Lite 輕享方案 · 更多故事與創作', tabletPro: 'Pro 進階方案 · 完整故事與創作預覽',
+      olaFree: 'Free 免費方案 · 日常對話', olaPro: 'Pro 進階方案 · 更貼近你的陪伴', one: '一個方案包含 Tablet Pro 與 Ola Pro',
+    },
+    one: { kicker: 'LumiqOne · 整合方案', title: '故事與陪伴，一起享有。', intro: '包含適合孩子與家長的 LumiqTablet Pro，以及適合成人與長者的 LumiqOla Pro。', name: 'LumiqOne', tablet: 'LumiqTablet Pro', ola: 'LumiqOla Pro', trial: '7 天', tabletIncluded: '包含', olaIncluded: '包含' },
+    tablet: { audience: '適合孩子與家長的故事內容與互動閱讀。', connect: '連接 LumiqOla', connection: '包含' },
+    ola: { audience: '適合成人與長者的 AI 陪伴方案。', activeDetection: '主動偵測', minutesPerMonth: '每月 {count} 分鐘', freeDetection: '不包含', proDetection: '包含' },
+    prices: { one: { monthly: '35.99', yearly: '359.99' } },
+  },
+  ja: {
+    productTabs: 'サブスクリプションを比較',
+    tabs: { one: 'LumiqOne', tablet: 'LumiqTablet', ola: 'LumiqOla' },
+    previewLabel: '発売前プレビュー',
+    previewNotice: '現在の価格とサブスクリプションはプレビューです。最終価格、プラン内容、請求および解約条件は注文受付前にご案内します。ウェイトリストへの登録によって注文や請求が発生することはありません。',
+    trialNotice: '有料プランでは7日間の無料体験を予定しています。体験終了後の請求条件はお申し込み前にご案内します。ウェイトリスト登録では無料体験や有料プランは開始されません。',
+    annualTotal: '年間の支払総額 {amount}',
+    perYear: '/ 年',
+    included: '含まれます',
+    notIncluded: '含まれません',
+    hardware: { msrp: '希望小売価格プレビュー', vip: 'VIP プレビュー価格', tabletMsrp: '559', olaMsrp: '799' },
+    tierDescriptions: {
+      tabletFree: 'Free 無料プラン · インタラクティブ読書を体験', tabletLite: 'Lite ライトプラン · 物語と創作をもっと', tabletPro: 'Pro プロプラン · 物語と創作のフルプレビュー',
+      olaFree: 'Free 無料プラン · 日常の会話', olaPro: 'Pro プロプラン · より身近なコンパニオン', one: 'Tablet Pro と Ola Pro をひとつに',
+    },
+    one: { kicker: 'LumiqOne · セットプラン', title: '物語とコンパニオンを、ひとつに。', intro: '子どもと保護者向けの LumiqTablet Pro と、大人とシニア向けの LumiqOla Pro が含まれます。', name: 'LumiqOne', tablet: 'LumiqTablet Pro', ola: 'LumiqOla Pro', trial: '7日間', tabletIncluded: '含まれます', olaIncluded: '含まれます' },
+    tablet: { audience: '子どもと保護者のための物語とインタラクティブ読書。', connect: 'LumiqOla と接続', connection: '含まれます' },
+    ola: { audience: '大人とシニアのための AI コンパニオン。', activeDetection: 'アクティブ検知', minutesPerMonth: '毎月{count}分', freeDetection: '含まれません', proDetection: '含まれます' },
+    prices: { one: { monthly: '35.99', yearly: '359.99' } },
+  },
+};

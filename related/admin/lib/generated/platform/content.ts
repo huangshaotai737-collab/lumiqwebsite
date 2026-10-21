@@ -45,6 +45,10 @@ export type ContentField = {
   fixedValue?: string | number | boolean | null;
   source?: { file: string; locator: string; expression?: string };
 };
-export type ContentRule = Pick<ContentField, 'path' | 'type' | 'maxLength' | 'icuSignature' | 'fixedValue'>;
+export type ContentRule = Pick<ContentField, 'path' | 'type' | 'maxLength' | 'icuSignature' | 'fixedValue'> & {
+  /** An additive namespace may be absent in historical releases. If present,
+   * every field in that namespace is validated with the current full policy. */
+  optionalGroup?: string;
+};
 export type ContentValidationOptions = { allowedStorageOrigins?: readonly string[] };
 export type ContentValidationResult = { ok: true; snapshot: ContentSnapshot } | { ok: false; issues: { path: string; message: string }[] };

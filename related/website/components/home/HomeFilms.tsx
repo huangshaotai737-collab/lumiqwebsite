@@ -5,7 +5,6 @@ import {visualMediaDependency} from '@/lib/content/visual-dependency';
 import {homeWideQuery} from "./responsiveLayout";
 import {usePhoneLayout} from "./usePhoneLayout";
 import MobileFilmCarousel from "./MobileFilmCarousel";
-import Heading from "@/components/Heading";
 
 
 import { useCallback, useEffect, useRef, useState, type CSSProperties } from "react";
@@ -119,8 +118,10 @@ export default function HomeFilms() {
       host.dataset.visible = String(showing);
       if (!clip) return;
       if (!showing) clip.pause();
-      else if (!clip.ended) void clip.play().catch(() => {
-        if (!disposed && showing && clip.error) setCharacterFailed(true);
+      else if (!clip.ended) void clip.play().catch((error: unknown) => {
+        // A blocked autoplay or unsupported source can reject without video.error.
+        // Keep the approved still visible when the animation cannot start.
+        if (!disposed && showing && !(error instanceof DOMException && error.name === "AbortError")) setCharacterFailed(true);
       });
     };
     const placeCharacter = () => {
@@ -177,7 +178,7 @@ export default function HomeFilms() {
   return (
     <div className="lh-films" role="region" aria-roledescription={t("carousel")} aria-labelledby="films-title">
       <header className="lh-films-heading">
-        <div><p className="lh-eyebrow">{t("eyebrow")}</p><Heading as="h2" id="films-title">{t("heading")}</Heading></div>
+        <h2 id="films-title">{t("heading")}</h2>
       </header>
       {isPhone ? <MobileFilmCarousel films={films} active={active} onChange={setActive} /> : <>
       <div className="lh-films-layout">
@@ -220,7 +221,7 @@ export default function HomeFilms() {
       </div>
       <div ref={characterHost} className="lh-film-character" data-alpha-video={Boolean(characterFormat && !characterFailed)} aria-hidden="true">
       {characterFormat && !characterFailed ? <video key={characterFormat} ref={character} muted playsInline preload="none" poster={mediaRequested ? cms.url("/assets/character-20261012/poster-clean.png") : undefined} onError={() => setCharacterFailed(true)}>
-        <source src={cms.url(`/assets/character-20261012/ola-girl-clean-alpha${characterFormat === "hevc" ? "-safari.mov" : ".webm"}`)} type={characterFormat === "hevc" ? 'video/quicktime; codecs="hvc1"' : "video/webm"} />
+        <source src={cms.url(`/assets/character-20261012/ola-girl-clean-alpha${characterFormat === "hevc" ? "-safari.mov" : ".webm"}`)} type={characterFormat === "hevc" ? 'video/quicktime; codecs="hvc1"' : "video/webm"} onError={() => setCharacterFailed(true)} />
       </video> : <Image src={cms.url("/assets/character-20261012/settled-clean.png")} alt="" fill unoptimized sizes="100vw" />}
       </div>
       </>}

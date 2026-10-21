@@ -10,7 +10,7 @@ import { HttpError } from '@/lib/http/result';
 import { validateDraft } from './schema';
 import { attestSnapshot } from './validation-attestation';
 import { prepareReleaseAssets } from '@/features/media/service';
-import initialSnapshot from './initial-snapshot.json';
+import {currentSnapshot} from './current-snapshot';
 
 export type FieldIssue = { path: string; message: string };
 export type ContentResult<T> = ApiResult<T> & { issues?: FieldIssue[] };
@@ -80,7 +80,7 @@ export async function createDraft(): Promise<ContentResult<{ id: UUID; version: 
   const published = await client.rpc('get_published_content'); sqlError(published.error);
   const current = published.data as unknown as { snapshot: ContentSnapshot } | null;
   if (!current && actor.role !== 'admin') throw new HttpError('FORBIDDEN', 403);
-  const saved = await saveDraft({ id: randomUUID(), expectedVersion: 0, snapshot: (current?.snapshot || initialSnapshot) as ContentSnapshot });
+  const saved = await saveDraft({ id: randomUUID(), expectedVersion: 0, snapshot: (current?.snapshot || currentSnapshot) as ContentSnapshot });
   if (!saved.ok) throw new HttpError(saved.error, saved.error === 'FORBIDDEN' ? 403 : 503);
   return saved.data;
  });

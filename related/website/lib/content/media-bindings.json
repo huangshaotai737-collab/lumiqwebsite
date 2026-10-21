@@ -156,7 +156,7 @@
         "kind": "object",
         "property": "src",
         "source": "cms.url(\"/assets/tablet-detail/generated/tablet-reading-lifestyle-v2.png\")",
-        "alt": "t(\"way1Title\")"
+        "alt": "brand(\"stories.story1Title\")"
       },
       {
         "kind": "object",
@@ -174,7 +174,7 @@
         "kind": "object",
         "property": "src",
         "source": "cms.url(\"/assets/tablet-detail/five-ways/imagime-v1.jpg\")",
-        "alt": "t(\"way2Title\")"
+        "alt": "brand(\"stories.story2Title\")"
       },
       {
         "kind": "object",
@@ -186,7 +186,7 @@
         "kind": "object",
         "property": "src",
         "source": "cms.url(\"/assets/western-scenes-20260908/tablet-parent-controls-v2.webp\")",
-        "alt": "t(\"parentsTitle\")"
+        "alt": "brand(\"parents.title\")"
       }
     ]
   },
@@ -251,34 +251,34 @@
     },
     "uses": [
       {
-        "kind": "object",
+        "kind": "Image",
         "property": "src",
-        "source": "selected.image",
-        "alt": "t(\"altFinish\", { name: selected.name })"
+        "source": "{selected.image}",
+        "alt": "{t(\"finishes.alt\", { name: selected.name, productName })}"
       },
       {
-        "kind": "object",
+        "kind": "Image",
         "property": "src",
-        "source": "cms.url(\"/assets/nest-detail/generated/nest-family-kitchen-v2.png\")",
-        "alt": "t(\"landscapeAlt\")"
+        "source": "{selected.front}",
+        "alt": "{t(\"finishes.alt\", { name: selected.name, productName })}"
       },
       {
-        "kind": "object",
+        "kind": "Image",
         "property": "src",
-        "source": "item.front",
-        "alt": "t(\"altFinish\", { name: item.name })"
+        "source": "{cms.url(\"/assets/nest-detail/generated/nest-family-kitchen-v2.png\")}",
+        "alt": "{t(\"images.familyAlt\", { productName })}"
       },
       {
-        "kind": "object",
+        "kind": "Image",
         "property": "src",
-        "source": "cms.url(\"/assets/nest-detail/generated/nest-routine-closeup-v2.png\")",
-        "alt": "t(\"portraitAlt\")"
+        "source": "{cms.url(\"/assets/nest-detail/generated/nest-routine-closeup-v2.png\")}",
+        "alt": "{t(\"images.closeupAlt\", { productName })}"
       },
       {
-        "kind": "object",
+        "kind": "Image",
         "property": "src",
-        "source": "cms.url(\"/assets/web/nest15-rear.webp\")",
-        "alt": "t(\"portraitAlt\")"
+        "source": "{cms.url(\"/assets/web/nest15-rear.webp\")}",
+        "alt": "{t(\"images.rearAlt\", { productName })}"
       }
     ]
   },
@@ -441,14 +441,14 @@
       {
         "kind": "Image",
         "property": "src",
-        "source": "{product.img}",
-        "alt": "\"\""
+        "source": "{cms.url(\"/assets/brand/lumiq-logo-transparent-dark.png\")}",
+        "alt": "{cms.value(\"media.asset_e036cbcfe52d5970.alt\")}"
       },
       {
         "kind": "Image",
         "property": "src",
-        "source": "{cms.url(\"/assets/brand/lumiq-logo-transparent-dark.png\")}",
-        "alt": "{cms.value(\"media.asset_e036cbcfe52d5970.alt\")}"
+        "source": "{product.img}",
+        "alt": "\"\""
       }
     ]
   },

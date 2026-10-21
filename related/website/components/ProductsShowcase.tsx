@@ -28,6 +28,7 @@ const GlassCardMaterial = dynamic(() => import("./GlassCardMaterial"), {ssr: fal
 export default function ProductsShowcase() {
   const cms = useContentAdapter();
   const t = useTranslations("Products");
+  const brand = useTranslations("BrandProducts");
   const isPhone = usePhoneLayout();
   const rootRef = useRef<HTMLElement>(null);
   const heroMediaRef = useRef<HTMLDivElement>(null);
@@ -91,11 +92,12 @@ export default function ProductsShowcase() {
       sub: t(`f${index + 1}Sub`),
     }),
   );
-  const promises = [Truck, RotateCcw, BadgeCheck, Lock].map((Icon, index) => ({
-    Icon,
-    title: t(`pr${index + 1}Title`),
-    sub: t(`pr${index + 1}Sub`),
-  }));
+  const promises = [
+    {Icon:Truck,title:brand('shippingTitle'),sub:brand('shippingBody')},
+    {Icon:RotateCcw,title:brand('returnsTitle'),sub:brand('returnsBody')},
+    {Icon:BadgeCheck,title:t('pr3Title'),sub:brand('warrantyBody')},
+    {Icon:Lock,title:brand('waitlistTitle'),sub:brand('waitlistBody')},
+  ];
 
   useEffect(() => {
     if (!rootRef.current) return;
@@ -259,11 +261,7 @@ export default function ProductsShowcase() {
       {/* Announcement bar */}
       <div className="prod-topbar" role="note">
         <div className="prod-topbar-inner">
-          <span>{t("shipping")}</span>
-          <span className="prod-topbar-dot" aria-hidden />
-          <span>{t("returns")}</span>
-          <span className="prod-topbar-dot" aria-hidden />
-          <span>{t("warranty")}</span>
+          <span>{brand('preview')}</span>
         </div>
       </div>
 
@@ -445,28 +443,18 @@ export default function ProductsShowcase() {
       </section>
 
       <section id="all-products" className="container prod-catalog" aria-labelledby="catalog-heading">
-        <Heading as="h2" id="catalog-heading">{t('catalogTitle')}</Heading>
-        <div className="prod-catalog-grid">
-          {products.map(product => (
-            <Link key={product.id} href={product.href} className="prod-catalog-card" prefetch={false}>
-              <div className="prod-catalog-image">
-                <Image src={product.img} alt="" width={700} height={700}
-                  sizes="(max-width: 600px) 80vw, 330px" />
-              </div>
-              <div className="prod-catalog-caption">
-                <Heading as="h3">{product.name}</Heading>
-                <p className="prod-catalog-description">{product.desc}</p>
-                <span className="prod-catalog-explore">{t('catalogExplore')}</span>
-              </div>
-            </Link>
-          ))}
-          <article className="prod-catalog-card prod-catalog-more">
-            <div className="prod-catalog-image">
-              <Image src={cms.url("/assets/brand/lumiq-logo-transparent-dark.png")} alt={cms.value("media.asset_e036cbcfe52d5970.alt")} width={700} height={700}
-                sizes="(max-width: 600px) 70vw, 260px" />
-            </div>
-            <div className="prod-catalog-caption"><Heading as="h3">{cms.text("field_49f53ec0cc8f512b")}</Heading></div>
-          </article>
+        <div className="prod-comparison-heading">
+          <Heading as="h2" id="catalog-heading">{brand('comparison')}</Heading>
+          <Image src={cms.url("/assets/brand/lumiq-logo-transparent-dark.png")} alt={cms.value("media.asset_e036cbcfe52d5970.alt")} width={180} height={70} />
+          <p>{cms.text("field_49f53ec0cc8f512b")}</p>
+        </div>
+        <div className="prod-comparison-list">
+          {products.map(product=><article className="prod-comparison-row" key={product.id}>
+            <Image src={product.img} alt="" width={160} height={160} sizes="(max-width:600px) 64px, 80px" />
+            <div><Heading as="h3">{product.name}</Heading><p>{brand(`audiences.${product.id==='pal'?'ola':product.id==='book'?'print':product.id}`)}</p></div>
+            <div className="prod-comparison-purpose"><span>{brand('purpose')}</span><p>{product.desc}</p></div>
+            <div><span className="prod-comparison-status">{brand('upcoming')}</span><Link href={product.href} prefetch={false}>{brand('explore')} <ArrowRight size={16} aria-hidden /></Link></div>
+          </article>)}
         </div>
       </section>
 

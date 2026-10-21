@@ -1,0 +1,32 @@
+/* Brand review: readable, compact comparisons without changing the product rail. */
+.lumiq-root .pending-link-list a {display:block;max-width:max-content;line-height:1.6;margin-bottom:.6rem;}
+.lumiq-root .pending-link-list a:hover {text-decoration:underline;text-underline-offset:4px;}
+.lumiq-root .prod-comparison-heading {display:flex;flex-wrap:wrap;align-items:center;gap:1rem 2rem;margin-bottom:1.5rem;}
+.lumiq-root .prod-comparison-heading h2 {flex:1;min-width:220px;margin:0;}
+.lumiq-root .prod-comparison-heading img {width:130px;height:50px;object-fit:contain;}
+.lumiq-root .prod-comparison-heading>p {flex-basis:100%;margin:0;color:#42546a;font-size:16px;}
+.lumiq-root .prod-comparison-row {display:grid;grid-template-columns:80px minmax(140px,1fr) minmax(0,2fr) minmax(130px,1fr);gap:24px;align-items:center;padding:24px 0;border-bottom:1px solid #52617433;}
+.lumiq-root .prod-comparison-row>img {width:80px;height:80px;object-fit:contain;}
+.lumiq-root .prod-comparison-row h3 {font-size:20px;line-height:1.3;overflow-wrap:anywhere;margin:0 0 6px;}
+.lumiq-root .prod-comparison-row p {margin:0;color:#3e5067;font-size:16px;line-height:1.6;}
+.lumiq-root .prod-comparison-purpose>span,.lumiq-root .prod-comparison-status {font-size:14px;color:#526174;}
+.lumiq-root .prod-comparison-row a {display:flex;align-items:center;gap:8px;min-height:44px;font-size:16px;color:#192c42;}
+.lumiq-root .prod-page .prod-tab-num {display:grid;place-items:center;width:34px;height:34px;margin-bottom:8px;border:1px solid currentColor;border-radius:8px;font-style:normal;}
+.lumiq-root .prod-page :is(.prod-index,.prod-peek-caption small) {font-style:normal;}
+.lumiq-root .prod-page .prod-panel-body {text-align:center;}
+.lumiq-root .prod-page .prod-specs {text-align:left;}
+.lumiq-root .prod-page .prod-topbar-inner {text-align:center;white-space:normal;font-size:15px;line-height:1.6;}
+.lumiq-root .story-page .story-hero-copy h1 em {color:#42546a;background:none;-webkit-text-fill-color:currentColor;}
+.lumiq-root .story-page .story-hero-copy>p {background:#fbfbfecc;border-radius:12px;padding:12px;color:#34465d;}
+.lumiq-root .tablet-data-note {margin:0 auto 48px;max-width:1180px;padding:24px;background:#f8fafc;border:1px solid #52617433;border-radius:18px;color:#34465d;}
+.lumiq-root .tablet-data-note h3 {margin:0 0 10px;font-size:22px;}
+.lumiq-root .tablet-data-note p {margin:0;font-size:16px;line-height:1.6;}
+.lumiq-root .tablet-data-note a {display:inline-flex;min-height:44px;align-items:center;text-decoration:underline;text-underline-offset:4px;font-size:16px;}
+@media(max-width:767px){
+ .lumiq-root .prod-comparison-row {grid-template-columns:64px minmax(0,1fr);gap:12px 16px;padding:20px 0;}
+ .lumiq-root .prod-comparison-row>img {width:64px;height:64px;}
+ .lumiq-root .prod-comparison-purpose,.lumiq-root .prod-comparison-row>div:last-child {grid-column:2;}
+ .lumiq-root .prod-comparison-row h3 {font-size:20px;}
+ .lumiq-root .prod-page :is(.prod-feat small,.prod-specs li,.prod-promise-item small) {font-size:16px!important;line-height:1.6;}
+ .lumiq-root .tablet-data-note {margin:0 20px 36px;padding:20px;}
+}

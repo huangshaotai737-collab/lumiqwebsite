@@ -8,16 +8,19 @@ import Heading from "@/components/Heading";
 import { Link } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
 import Image from "@/components/content/ContentImage";
+import {safeContentUrl} from '@/lib/generated/platform/content-validation';
 
 export default function SiteFooter() {
   const cms = useContentAdapter();
   const t = useTranslations("Footer");
+  const brand = useTranslations('BrandFooter');
+  const socialUrl=(key:string)=>{const url=brand(key);return url.startsWith('https://')&&safeContentUrl(url,false)?url:undefined;};
   const isHomepage = useSitePathname() === "/";
 
   // One set of destinations, with columns on desktop and native accordions on phones.
   const groups = [
     {id: "products", title: t("products"), content: <ul>
-      {productCatalogue(cms.snapshot).map(product => <li key={product.id}><Link prefetch={false} href={product.href}>{isHomepage ? product.name.replace(/lumiq/gi, "LUMIQ") : product.name}</Link></li>)}
+      {productCatalogue(cms.snapshot).map(product => <li key={product.id}><Link prefetch={false} href={product.href}>{product.name}</Link></li>)}
       <li><Link prefetch={false} href="/plans">{t("plansPricing")}</Link></li>
     </ul>},
     {id: "company", title: t("company"), content: <ul>
@@ -32,8 +35,10 @@ export default function SiteFooter() {
       <li><Link prefetch={false} href="/legal/child-safety">{t("childSafety")}</Link></li>
     </ul>},
     {id: "follow", title: t("follow"), content: <div className="pending-link-list">
-      <span>{cms.text("field_389fc243fbdfc7f9")}</span><span>{cms.text("field_1fa422a74ad018b8")}</span><span>{cms.text("field_3b5f5243c3798ce2")}</span>
-      <small>{t("linksPending")}</small>
+      <a href={socialUrl('instagramUrl')} target="_blank" rel="noopener noreferrer">{cms.text("field_389fc243fbdfc7f9")}</a>
+      <a href={socialUrl('facebookUrl')} target="_blank" rel="noopener noreferrer">{brand('facebook')}</a>
+      <a href={socialUrl('tiktokUrl')} target="_blank" rel="noopener noreferrer">{cms.text("field_1fa422a74ad018b8")}</a>
+      <a href={socialUrl('youtubeUrl')} target="_blank" rel="noopener noreferrer">{cms.text("field_3b5f5243c3798ce2")}</a>
     </div>},
   ];
 

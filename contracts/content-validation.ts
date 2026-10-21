@@ -81,6 +81,7 @@ export function validateContentSnapshot(
   for (const path of values.keys()) if (!expected.has(path)) issue(path, 'Unexpected content field');
   for (const field of fields) {
     const value = values.get(field.path);
+    if (field.optionalGroup && !values.has(field.optionalGroup)) continue;
     if (!values.has(field.path)) { issue(field.path, 'Required content field'); continue; }
     if (field.type === 'object' || field.type === 'array') {
       if (field.type === 'array' ? !Array.isArray(value) : !ownObject(value)) issue(field.path, `Expected ${field.type}`);

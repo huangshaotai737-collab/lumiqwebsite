@@ -1,188 +1,111 @@
 "use client";
+
 import Heading from "@/components/Heading";
-
-
 import { Link } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
-import { useState } from "react";
+import { useRef, useState, type KeyboardEvent } from "react";
 import Image from "@/components/content/ContentImage";
 import RevealObserver from "@/components/RevealObserver";
-import {useContentAdapter} from "@/components/content/useContentAdapter";
+import { useContentAdapter } from "@/components/content/useContentAdapter";
+import { parsePlanPrice, type PlanPrice } from "@/lib/plan-price";
 
 type Billing = "yearly" | "monthly";
-type Row = { label: string; values: (string | boolean)[] };
-
-const FEE_RE = /^\$([\d.]+) yr \/ \$([\d.]+) mo$/;
-
+type ProductTab = "one" | "tablet" | "ola";
+type Price = PlanPrice;
+type PlanValue = string | boolean | Price;
+type Row = { id: string; label: string; values: PlanValue[] };
+type Column = { id: string; name: string; description: string; free: boolean };
 type Labels = Record<string, string>;
+const PRODUCT_TABS: ProductTab[] = ["one", "tablet", "ola"];
 
-function cell(v: string | boolean, billing: Billing, labels: Labels) {
-  if (v === true)
-    return <span style={{ color: "var(--gold)", fontWeight: 600 }}>✓</span>;
-  if (v === false) return <span style={{ color: "var(--ink-4)" }}>—</span>;
-  const m = typeof v === "string" ? v.match(FEE_RE) : null;
-  if (m) {
-    const price = billing === "yearly" ? m[1] : m[2];
+function cell(value: PlanValue, billing: Billing, labels: Labels) {
+  if (typeof value === "boolean") {
     return (
-      <span className="fee-cell">
-        <strong className="serif">${price}</strong> {labels.perMonth}
-        <em>
-          {billing === "yearly" ? labels.billedYearly : labels.billedMonthly}
-        </em>
+      <span className={value ? "plan-included" : "plan-unavailable"}>
+        <span aria-hidden="true">{value ? "✓" : "—"}</span>
+        <span className="plan-sr-only">{value ? labels.included : labels.notIncluded}</span>
       </span>
     );
   }
-  if (v === "Unlimited") return <span>{labels.unlimited}</span>;
-  const days = typeof v === "string" ? v.match(/^(\d+) days$/) : null;
-  return <span>{days ? labels.days.replace("__COUNT__", days[1]) : v}</span>;
+  const price = typeof value === "object" ? value : parsePlanPrice(value);
+  if (price) {
+    const amount = `$${price[billing]}`;
+    return (
+      <span className="fee-cell">
+        <span className="plan-fee-amount"><strong className="serif">{amount}</strong> {billing === "yearly" ? labels.perYear : labels.perMonth}</span>
+        <em>{billing === "yearly" ? labels.annualTotal.replace("__AMOUNT__", amount) : labels.billedMonthly}</em>
+      </span>
+    );
+  }
+  if (value === "Unlimited") return <span>{labels.unlimited}</span>;
+  const days = typeof value === "string" ? value.match(/^(\d+) days$/) : null;
+  const minutes = typeof value === "string" ? value.match(/^(\d+) min \/ month$/) : null;
+  return <span>{days ? labels.days.replace("__COUNT__", days[1]) : minutes ? labels.minutesPerMonth.replace("__COUNT__", minutes[1]) : typeof value === "string" ? value : ""}</span>;
 }
 
-function BillingToggle({
-  billing,
-  setBilling,
-  labels,
-}: {
-  billing: Billing;
-  setBilling: (b: Billing) => void;
-  labels: Labels;
-}) {
+function BillingToggle({ billing, setBilling, labels }: { billing: Billing; setBilling: (value: Billing) => void; labels: Labels }) {
   return (
     <div className="billing-toggle" role="group" aria-label={labels.billing}>
-      <button
-        type="button"
-        className={billing === "yearly" ? "on" : ""}
-        aria-pressed={billing === "yearly"}
-        onClick={() => setBilling("yearly")}
-      >
+      <button type="button" className={billing === "yearly" ? "on" : ""} aria-pressed={billing === "yearly"} onClick={() => setBilling("yearly")}>
         {labels.yearly} <span className="billing-save">{labels.save}</span>
       </button>
-      <button
-        type="button"
-        className={billing === "monthly" ? "on" : ""}
-        aria-pressed={billing === "monthly"}
-        onClick={() => setBilling("monthly")}
-      >
+      <button type="button" className={billing === "monthly" ? "on" : ""} aria-pressed={billing === "monthly"} onClick={() => setBilling("monthly")}>
         {labels.monthly}
       </button>
     </div>
   );
 }
 
-function PlanTable({
-  cols,
-  rows,
-  billing,
-  labels,
-  featured = "Pro",
-}: {
-  cols: string[];
-  rows: Row[];
-  billing: Billing;
-  labels: Labels;
-  featured?: string;
-}) {
+function PlanTable({ id, columns, rows, billing, labels, caption, featured = "Pro" }: { id: string; columns: Column[]; rows: Row[]; billing: Billing; labels: Labels; caption: string; featured?: string }) {
+  const priceRow = rows.find(row => row.id === "monthlyFee");
+  const featureRows = rows.filter(row => row.id !== "monthlyFee");
   return (
     <>
       <div className="pal-table-wrap">
         <table className="pal-table">
+          <caption className="plan-sr-only">{caption}</caption>
           <thead>
             <tr>
               <th scope="col">{labels.subscription}</th>
-              {cols.map((c) => (
-                <th scope="col" key={c} className={c === featured ? "is-featured" : ""}>
-                  {c === featured && (
-                    <span className="pop-tag">{labels.popular}</span>
-                  )}
-                  {c}
+              {columns.map(column => (
+                <th scope="col" key={column.id} className={column.id === featured ? "is-featured" : ""}>
+                  {column.id === featured && <span className="pop-tag">{labels.popular}</span>}
+                  {column.name}
+                  <span className="plan-tier-description">{column.description}</span>
                 </th>
               ))}
             </tr>
           </thead>
           <tbody>
-            {rows.map((row) => (
-              <tr key={row.label}>
+            {rows.map(row => (
+              <tr key={row.id}>
                 <th scope="row">{row.label}</th>
-                {row.values.map((v, i) => (
-                  <td
-                    key={i}
-                    className={cols[i] === featured ? "is-featured" : ""}
-                  >
-                    {cell(v, billing, labels)}
-                  </td>
+                {row.values.map((value, index) => (
+                  <td key={columns[index].id} className={columns[index].id === featured ? "is-featured" : ""}>{cell(value, billing, labels)}</td>
                 ))}
               </tr>
             ))}
             <tr className="cta-row">
-              <th scope="row"></th>
-              {cols.map((c) => (
-                <td key={c} className={c === featured ? "is-featured" : ""}>
-                  {c === "Free" ? null : (
-                    <Link
-                      href="/prelaunch"
-                      className={`btn plan-choose${c === featured ? " is-dark" : ""}`}
-                    >
-                      {labels.choose.replace("__NAME__", c)}
-                    </Link>
-                  )}
+              <th scope="row"><span className="plan-sr-only">{labels.choose}</span></th>
+              {columns.map(column => (
+                <td key={column.id} className={column.id === featured ? "is-featured" : ""}>
+                  {!column.free && <Link href="/prelaunch" className={`btn plan-choose${column.id === featured ? " is-dark" : ""}`}>{labels.choose.replace("__NAME__", column.name)}</Link>}
                 </td>
               ))}
             </tr>
           </tbody>
         </table>
       </div>
-
       <div className="pal-cards">
-        {cols.map((col, ci) => (
-          <article
-            key={col}
-            className={`tier-card${col === featured ? " featured" : ""}`}
-          >
-            <span className="kicker" style={{ color: "var(--gold)" }}>
-              {col}
-            </span>
-            <div
-              className="serif"
-              style={{ fontSize: "1.5rem", margin: ".25rem 0 1rem" }}
-            >
-              {cell(rows[0].values[ci], billing, labels)}
-            </div>
-            <ul style={{ flex: 1, marginBottom: "1.5rem" }}>
-              {rows.slice(1).map((row) => (
-                <li
-                  key={row.label}
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    gap: "1rem",
-                    padding: ".5rem 0",
-                    borderBottom: "1px solid var(--border)",
-                    fontSize: ".9rem",
-                  }}
-                >
-                  <span
-                    style={{
-                      color: "var(--ink-3)",
-                    }}
-                  >
-                    {row.label}
-                  </span>
-                  <span>{cell(row.values[ci], billing, labels)}</span>
-                </li>
-              ))}
+        {columns.map((column, index) => (
+          <article key={column.id} className={`tier-card${column.id === featured ? " featured" : ""}`} aria-labelledby={`${id}-${column.id}-title`}>
+            <Heading as="h3" id={`${id}-${column.id}-title`} className="kicker plan-tier-title">{column.name}</Heading>
+            <p className="plan-tier-description">{column.description}</p>
+            {priceRow && <div className="plan-card-price serif">{cell(priceRow.values[index], billing, labels)}</div>}
+            <ul className="plan-list">
+              {featureRows.map(row => <li key={row.id}><span>{row.label}</span><span>{cell(row.values[index], billing, labels)}</span></li>)}
             </ul>
-            {col !== "Free" && (
-              <Link
-                href="/prelaunch"
-                className="btn"
-                style={{
-                  background: "var(--ink)",
-                  color: "white",
-                  textAlign: "center",
-                }}
-              >
-                {labels.choose.replace("__NAME__", col)}
-              </Link>
-            )}
+            {!column.free && <Link href="/prelaunch" className="btn plan-choose is-dark">{labels.choose.replace("__NAME__", column.name)}</Link>}
           </article>
         ))}
       </div>
@@ -192,250 +115,95 @@ function PlanTable({
 
 export default function PlansContent() {
   const cms = useContentAdapter();
-  const tablet = cms.snapshot.plans.find(plan => plan.group === "tablet")!;
-  const pal = cms.snapshot.plans.find(plan => plan.group === "ola")!;
-  const tabletCols = tablet.tiers, palCols = pal.tiers;
-  const tabletRows = tablet.rows.map(row => ({label:row.id,values:row.values}));
-  const palRows = pal.rows.map(row => ({label:row.id,values:row.values}));
-  const hardware = (["tablet","ola","print","nest"] as const).map((id,index) => {
-    const product = cms.snapshot.products[id];
-    return {name:product.name,price:product.price.kind === "usd" ? String(product.price.amount) : null,img:cms.url(product.image),href:product.href,imageFit:["cover","contain-ola","contain-print","cover"][index],blurbKey:["tabletBlurb","palBlurb","printBlurb","nestBlurb"][index]};
-  });
   const t = useTranslations("Plans");
+  const brand = useTranslations("BrandPlans");
+  const all = useTranslations();
   const [billing, setBilling] = useState<Billing>("yearly");
+  const [activeTab, setActiveTab] = useState<ProductTab>("one");
+  const tabRefs = useRef<Partial<Record<ProductTab, HTMLButtonElement | null>>>({});
+  const tablet = cms.snapshot.plans.find(plan => plan.group === "tablet")!;
+  const ola = cms.snapshot.plans.find(plan => plan.group === "ola")!;
   const labels: Labels = {
-    ...Object.fromEntries(
-      [
-        "billing",
-        "yearly",
-        "monthly",
-        "save",
-        "perMonth",
-        "billedYearly",
-        "billedMonthly",
-        "subscription",
-        "popular",
-        "unlimited",
-      ].map((key) => [key, t(key)]),
-    ),
+    ...Object.fromEntries(["billing", "yearly", "monthly", "save", "perMonth", "billedYearly", "billedMonthly", "subscription", "popular", "unlimited"].map(key => [key, t(key)])),
     choose: t("choose", { name: "__NAME__" }),
     days: t("days", { count: "__COUNT__" }),
+    perYear: brand("perYear"),
+    annualTotal: brand("annualTotal", { amount: "__AMOUNT__" }),
+    minutesPerMonth: brand("ola.minutesPerMonth", { count: "__COUNT__" }),
+    included: brand("included"),
+    notIncluded: brand("notIncluded"),
   };
-  const tabletRowsLocalized = tabletRows.map((row) => ({
-    ...row,
-    label: t(row.label),
-  }));
-  const palRowsLocalized = palRows.map((row) => ({
-    ...row,
-    label: t(row.label),
-  }));
+  const tabletColumns = tablet.tiers.map((name, index) => ({ id: ["Free", "Lite", "Pro"][index], name, description: brand(`tierDescriptions.${["tabletFree", "tabletLite", "tabletPro"][index]}`), free: index === 0 }));
+  // Stable source indexes retain existing editable CMS values and plan identities.
+  const olaIndexes = [0, 2];
+  const olaColumns = olaIndexes.map((index, displayIndex) => ({ id: displayIndex === 0 ? "Free" : "Pro", name: ola.tiers[index], description: brand(`tierDescriptions.${displayIndex === 0 ? "olaFree" : "olaPro"}`), free: displayIndex === 0 }));
+  const tabletRows: Row[] = tablet.rows.filter(row => !["reimagined", "storyQuest"].includes(row.id)).map(row => ({ id: row.id, label: all(row.labelKey), values: row.values }));
+  tabletRows.push({ id: "connectOla", label: brand("tablet.connect"), values: tabletColumns.map(() => brand("tablet.connection")) });
+  const olaRows: Row[] = ola.rows.filter(row => ["monthlyFee", "freeTrial", "character", "dayLimit"].includes(row.id)).map(row => ({ id: row.id, label: all(row.labelKey), values: olaIndexes.map(index => row.values[index]) }));
+  olaRows.push({ id: "activeDetection", label: brand("ola.activeDetection"), values: [brand("ola.freeDetection"), brand("ola.proDetection")] });
+  const oneColumns: Column[] = [{ id: "one", name: brand("one.name"), description: brand("tierDescriptions.one"), free: false }];
+  const oneRows: Row[] = [
+    { id: "monthlyFee", label: t("monthlyFee"), values: [{ monthly: brand("prices.one.monthly"), yearly: brand("prices.one.yearly") }] },
+    { id: "freeTrial", label: t("freeTrial"), values: [brand("one.trial")] },
+    { id: "tablet", label: brand("one.tablet"), values: [brand("one.tabletIncluded")] },
+    { id: "ola", label: brand("one.ola"), values: [brand("one.olaIncluded")] },
+  ];
+  const hardware = (["tablet", "ola", "print", "nest"] as const).map((id, index) => {
+    const product = cms.snapshot.products[id];
+    return { id, name: product.name, price: product.price.kind === "usd" ? String(product.price.amount) : null, img: cms.url(product.image), href: product.href, imageFit: ["cover", "contain-ola", "contain-print", "cover"][index], blurbKey: ["tabletBlurb", "palBlurb", "printBlurb", "nestBlurb"][index], msrp: id === "tablet" ? brand("hardware.tabletMsrp") : id === "ola" ? brand("hardware.olaMsrp") : null };
+  });
+  function handleTabKey(event: KeyboardEvent<HTMLButtonElement>, tab: ProductTab) {
+    const index = PRODUCT_TABS.indexOf(tab);
+    const next = event.key === "ArrowRight" ? PRODUCT_TABS[(index + 1) % PRODUCT_TABS.length] : event.key === "ArrowLeft" ? PRODUCT_TABS[(index - 1 + PRODUCT_TABS.length) % PRODUCT_TABS.length] : event.key === "Home" ? PRODUCT_TABS[0] : event.key === "End" ? PRODUCT_TABS[PRODUCT_TABS.length - 1] : null;
+    if (!next) return;
+    event.preventDefault();
+    setActiveTab(next);
+    tabRefs.current[next]?.focus();
+  }
+  const panels = [
+    { id: "one" as const, kicker: brand("one.kicker"), title: brand("one.title"), audience: brand("one.intro"), columns: oneColumns, rows: oneRows, featured: "one" },
+    { id: "tablet" as const, kicker: t("tabletKicker"), title: t("tabletTitle"), audience: brand("tablet.audience"), columns: tabletColumns, rows: tabletRows, featured: "Pro" },
+    { id: "ola" as const, kicker: t("palKicker"), title: t("palTitle"), audience: brand("ola.audience"), columns: olaColumns, rows: olaRows, featured: "Pro" },
+  ];
 
   return (
-    <main
-      className="editorial-page plans-page"
-      style={{ paddingTop: "6rem", color: "var(--ink)" }}
-    >
+    <main className="editorial-page plans-page brand-plans-page">
       <RevealObserver />
-
-      <section
-        className="container reveal"
-        style={{ padding: "2rem 2rem 4rem", maxWidth: 1100 }}
-      >
+      <section className="container plans-intro">
         <span className="kicker">{t("eyebrow")}</span>
-        <Heading as="h1"
-          className="lq-h1 serif"
-          style={{ margin: "1rem 0 1.25rem", maxWidth: 760 }}
-        >
-          {t("title")}
-        </Heading>
-        <p className="lq-body" style={{ color: "var(--ink-2)", maxWidth: 560 }}>
-          {t("intro")}
-        </p>
+        <Heading as="h1" className="lq-h1 serif">{t("title")}</Heading>
+        <p className="lq-body">{t("intro")}</p>
+        <p className="plans-preview-notice"><strong>{brand("previewLabel")}</strong> {brand("previewNotice")}</p>
       </section>
-
-      <section className="container reveal" style={{ padding: "0 2rem 5rem" }}>
+      <section className="container reveal plans-hardware" aria-label={t("title")}>
         <div className="hw-grid">
-          {hardware.map((h) => (
-            <article key={h.name} className="hw-card">
-              <div
-                className={`hw-img${h.imageFit !== "cover" ? ` hw-img-${h.imageFit}` : ""}`}
-              >
-                <Image
-                  src={h.img}
-                  alt={h.name}
-                  width={900}
-                  height={900}
-                  sizes="(max-width: 820px) 100vw, 33vw"
-                />
+          {hardware.map(item => (
+            <article key={item.id} className="hw-card" data-product={item.id}>
+              <div className={`hw-img${item.imageFit !== "cover" ? ` hw-img-${item.imageFit}` : ""}`}><Image src={item.img} alt={item.name} width={900} height={900} sizes="(max-width: 640px) 100vw, (max-width: 1100px) 50vw, 25vw" /></div>
+              <Heading as="h2" className="serif hw-name">{item.name}</Heading>
+              <p className="hw-copy">{t(item.blurbKey)}</p>
+              {item.msrp && <p className="hw-msrp">{brand("hardware.msrp")} <span>USD {item.msrp}</span></p>}
+              <div className={`hw-price serif${item.price === null ? " hw-price-pending" : ""}`}>
+                {item.price === null ? t("pricePending") : <>{item.msrp && <span className="hw-price-label">{brand("hardware.vip")}</span>}<span className="hw-currency">USD</span> {item.price}</>}
               </div>
-              <Heading as="h3"
-                className="serif"
-                style={{
-                  fontSize: "var(--lq-h3)",
-                  margin: ".25rem 0 .35rem",
-                }}
-              >
-                {h.name}
-              </Heading>
-              <p
-                style={{
-                  color: "var(--ink-3)",
-                  fontSize: ".95rem",
-                  marginBottom: "1.25rem",
-                }}
-              >
-                {t(h.blurbKey)}
-              </p>
-              <div
-                className={`hw-price serif${h.price === null ? " hw-price-pending" : ""}`}
-              >
-                {h.price === null ? (
-                  t("pricePending")
-                ) : (
-                  <>
-                    <span
-                      style={{
-                        fontSize: ".6em",
-                        color: "var(--gold)",
-                        marginRight: ".4rem",
-                        letterSpacing: ".08em",
-                      }}
-                    >
-                      USD
-                    </span>
-                    {h.price}
-                  </>
-                )}
-              </div>
-              <div className="hw-actions">
-                <Link
-                  href="/prelaunch"
-                  className="btn btn-navy hw-reserve"
-                >
-                  {t("reserve")}
-                </Link>
-                <Link href={h.href} className="hw-more">
-                  {t("learn")}
-                </Link>
-              </div>
+              <div className="hw-actions"><Link href="/prelaunch" className="btn btn-navy hw-reserve">{t("reserve")}</Link><Link href={item.href} className="hw-more">{t("learn")}</Link></div>
             </article>
           ))}
         </div>
       </section>
-
-      <section
-        className="container reveal"
-        style={{ padding: "0 2rem 2rem", textAlign: "center" }}
-      >
-        <BillingToggle
-          billing={billing}
-          setBilling={setBilling}
-          labels={labels}
-        />
-      </section>
-
-      <section
-        className="container lq-section reveal"
-        style={{ padding: "1rem 2rem 5rem" }}
-      >
-        <div
-          style={{
-            textAlign: "center",
-            maxWidth: 720,
-            margin: "0 auto 2.5rem",
-          }}
-        >
-          <span className="kicker" style={{ justifyContent: "center" }}>
-            {t("tabletKicker")}
-          </span>
-          <Heading as="h2" className="lq-h2 serif">{t("tabletTitle")}</Heading>
+      <section className="container plans-comparison">
+        <div className="plans-product-tabs" role="tablist" aria-label={brand("productTabs")}>
+          {PRODUCT_TABS.map(tab => <button key={tab} ref={node => { tabRefs.current[tab] = node; }} id={`plans-tab-${tab}`} type="button" role="tab" aria-controls={`plans-panel-${tab}`} aria-selected={activeTab === tab} tabIndex={activeTab === tab ? 0 : -1} className={activeTab === tab ? "on" : ""} onClick={() => setActiveTab(tab)} onKeyDown={event => handleTabKey(event, tab)}>{brand(`tabs.${tab}`)}</button>)}
         </div>
-        <PlanTable
-          cols={tabletCols}
-          rows={tabletRowsLocalized}
-          billing={billing}
-          labels={labels}
-        />
+        <div className="plans-billing"><BillingToggle billing={billing} setBilling={setBilling} labels={labels} /></div>
+        {panels.map(panel => (
+          <div key={panel.id} id={`plans-panel-${panel.id}`} role="tabpanel" aria-labelledby={`plans-tab-${panel.id}`} hidden={activeTab !== panel.id} tabIndex={0} className="plans-product-panel">
+            <div className="plans-panel-heading"><span className="kicker">{panel.kicker}</span><Heading as="h2" className="lq-h2 serif">{panel.title}</Heading><p>{panel.audience}</p></div>
+            <PlanTable id={panel.id} columns={panel.columns} rows={panel.rows} billing={billing} labels={labels} caption={`${panel.title} — ${billing === "yearly" ? labels.billedYearly : labels.billedMonthly}`} featured={panel.featured} />
+          </div>
+        ))}
+        <p className="plans-trial-notice">{brand("trialNotice")}</p>
       </section>
-
-      <section
-        className="container lq-section reveal"
-        style={{ padding: "0 2rem 6rem" }}
-      >
-        <div
-          style={{
-            textAlign: "center",
-            maxWidth: 720,
-            margin: "0 auto 2.5rem",
-          }}
-        >
-          <span className="kicker" style={{ justifyContent: "center" }}>
-            {t("palKicker")}
-          </span>
-          <Heading as="h2" className="lq-h2 serif">{t("palTitle")}</Heading>
-        </div>
-        <PlanTable
-          cols={palCols}
-          rows={palRowsLocalized}
-          billing={billing}
-          labels={labels}
-        />
-      </section>
-
-      <style>{`
-        .hw-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1.5rem; }
-        .hw-card { min-width: 0; background: #fff; border: 1px solid var(--border); border-radius: 20px; padding: 1.25rem 1.25rem 1.75rem; display: flex; flex-direction: column; transition: transform .4s, box-shadow .4s, border-color .4s; }
-        .hw-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); border-color: var(--border-h); }
-        .hw-img { aspect-ratio: 4/3; border-radius: 14px; overflow: hidden; margin-bottom: 1.25rem; background: rgba(255,255,255,.68); }
-        .hw-img img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .8s ease; }
-        .hw-img-contain-ola img, .hw-img-contain-print img { object-fit: contain; }
-        .hw-img-contain-ola img { transform: scale(1.02); }
-        .hw-img-contain-print img { transform: scale(1.08); }
-        .hw-card:hover .hw-img img { transform: scale(1.05); }
-        .hw-card:hover .hw-img-contain-ola img { transform: scale(1.02); }
-        .hw-card:hover .hw-img-contain-print img { transform: scale(1.08); }
-        .hw-price.serif { color: var(--ink); font-size: clamp(1.5rem, 2.4vw, 1.85rem); margin-bottom: 1.25rem; }
-        .hw-price.serif.hw-price-pending { font-size: clamp(.95rem, 1.4vw, 1.05rem); line-height: 1.35; white-space: nowrap; }
-        .hw-actions { display: flex; align-items: center; gap: .4rem; flex-wrap: nowrap; min-width: 0; margin-top: auto; }
-        .hw-reserve { flex: 0 1 auto; min-width: 0; min-height: 44px; padding: .55rem .6rem; font-size: .76rem; white-space: nowrap; }
-        .hw-more { display: inline-flex; align-items: center; flex: 0 0 auto; min-height: 44px; color: var(--ink-2); font-size: .78rem; font-weight: 500; white-space: nowrap; border-bottom: 1px solid var(--ink-4); transition: color .25s, border-color .25s; }
-        .hw-more:hover { color: var(--ink); border-color: var(--ink); }
-
-        .billing-toggle { display: inline-flex; border: 1px solid var(--border-h); border-radius: 999px; padding: 4px; background: #fff; }
-        .billing-toggle button { border: 0; background: transparent; font: inherit; font-size: .9rem; font-weight: 500; color: var(--ink-3); padding: .55rem 1.4rem; border-radius: 999px; cursor: pointer; transition: background .3s, color .3s; display: inline-flex; align-items: center; gap: .5rem; }
-        .billing-toggle button.on { background: var(--ink); color: #fff; }
-        .billing-save { font-size: .6875rem; font-weight: 600; letter-spacing: .04em; color: var(--gold); }
-        .billing-toggle button.on .billing-save { color: #E8CE8F; }
-
-        .fee-cell { display: inline-flex; flex-direction: column; line-height: 1.25; }
-        .fee-cell strong { font-size: 1.15rem; font-weight: 600; }
-        .fee-cell em { font-style: normal; font-size: .7rem; color: var(--ink-3); letter-spacing: .04em; }
-        .is-featured .fee-cell em { color: var(--ink-3); }
-
-        .tier-card { background: #fff; color: var(--ink); border: 1px solid var(--border); border-radius: 16px; padding: 2rem 1.75rem; display: flex; flex-direction: column; }
-        .tier-card.featured { background: #f5f7ff; color: var(--ink); border-color: #b8c7de; }
-        .tier-card.featured .fee-cell em { color: var(--ink-3); }
-
-        .pal-table-wrap { display: block; overflow-x: auto; border: 1px solid var(--border); border-radius: 16px; }
-        .pal-table { width: 100%; border-collapse: collapse; background: #fff; }
-        .pal-table th, .pal-table td { padding: 1rem 1.1rem; text-align: center; border-bottom: 1px solid var(--border); font-size: .95rem; vertical-align: middle; }
-        .pal-table thead th { font-family: var(--font-serif); font-size: 1.1rem; border-bottom: 1px solid var(--border-h); position: relative; padding-top: 1.4rem; padding-bottom: 1.4rem; }
-        .pal-table tbody th { text-align: left; color: var(--ink-2); font-weight: 500; }
-        .pal-table tbody tr:not(.cta-row):hover th, .pal-table tbody tr:not(.cta-row):hover td { background: rgba(240,245,252,.6); }
-        .pal-table .is-featured { background: rgba(240,245,252,.6); }
-        .pal-table thead .is-featured { background: #f5f7ff; color: var(--ink); }
-        .pop-tag { display: block; font-family: var(--font-sans); font-size: .55rem; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; color: #805832; margin-bottom: .3rem; }
-        .pal-table .cta-row th, .pal-table .cta-row td { border-bottom: none; padding-top: 1.25rem; padding-bottom: 1.5rem; }
-        .plan-choose { background: transparent; color: var(--ink); border: 1px solid var(--ink); padding: .5rem 1rem; font-size: .85rem; }
-        .plan-choose:hover { background: var(--ink); color: #fff; transform: translateY(-2px); }
-        .plan-choose.is-dark { background: var(--ink); color: #fff; border-color: var(--ink); }
-        .plan-choose.is-dark:hover { background: #000; }
-
-        .pal-cards { display: none; }
-        @media (max-width: 1100px) { .hw-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-        @media (max-width: 640px) { .hw-grid { grid-template-columns: 1fr; } .hw-reserve, .hw-more { font-size: .9rem; } .hw-reserve { padding-inline: 1rem; } }
-        @media (max-width: 760px) { .pal-table-wrap { display: none; } .pal-cards { display: grid; gap: 1.5rem; grid-template-columns: 1fr; } }
-      `}</style>
     </main>
   );
 }

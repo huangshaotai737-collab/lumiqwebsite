@@ -5,7 +5,7 @@ import type { ContentSnapshot } from '@/lib/generated/platform/content';
 import { HttpError } from '@/lib/http/result';
 
 // Must advance with the DB-owned policy in a reviewed migration when validation changes.
-export const CONTENT_VALIDATION_POLICY = 'media-products-v3-20261021';
+export const CONTENT_VALIDATION_POLICY = 'brand-content-v4-20261021';
 export async function attestSnapshot(input: {
   kind: 'draft' | 'release'; id: string; version: number;
   snapshot: ContentSnapshot; actorId: string;

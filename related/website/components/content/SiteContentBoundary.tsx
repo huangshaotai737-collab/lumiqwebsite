@@ -12,6 +12,7 @@ import LocaleDocument from '@/components/LocaleDocument';
 import SiteHeader from '@/components/SiteHeader';
 import SiteFooter from '@/components/SiteFooter';
 import ScrollWords from '@/components/ScrollWords';
+import {withBrandContent} from '@/lib/generated/platform/brand-content';
 
 export async function siteRequestLocale() {
   const requested = (await headers()).get('x-next-intl-locale');
@@ -22,7 +23,7 @@ export async function siteRequestLocale() {
  * the entire visible shell and renderer, including media CSS and cart prices. */
 export default async function SiteContentBoundary({children, publishedOnly = false}: {children: ReactNode; publishedOnly?: boolean}) {
   const locale = await siteRequestLocale();
-  const snapshot = publishedOnly ? (await readPublishedContent()).snapshot : await readSiteContent();
+  const snapshot = withBrandContent(publishedOnly ? (await readPublishedContent()).snapshot : await readSiteContent());
   const preview = !publishedOnly && Boolean((await headers()).get('x-lumiq-preview-draft'));
   return (
     <NextIntlClientProvider locale={locale} messages={snapshot.messages[locale]}
