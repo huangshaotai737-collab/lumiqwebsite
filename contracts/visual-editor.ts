@@ -31,13 +31,18 @@ export function backgroundField(snapshot:unknown,field:CanvasField):boolean {
  return slot?.profile==='background'||slot?.kind==='video';
 }
 /** Return all exact candidates. Ambiguous copy is never silently bound to a field. */
-export function canvasCandidates(fields:readonly CanvasField[],snapshot:unknown,locale:string,page:string,target:{text?:string;src?:string}):string[] {
+export function canvasCandidates(fields:readonly CanvasField[],snapshot:unknown,locale:string,page:string,target:{text?:string;textNodes?:readonly string[];src?:string}):string[] {
  const relevant=canvasFields(fields,locale,page).filter(field=>!backgroundField(snapshot,field));
  if(target.src){
   const src=mediaPath(target.src);
   return relevant.filter(field=>field.path.startsWith('media.')&&field.path.endsWith('.assetId')&&mediaPath(String(canvasValue(snapshot,field.path.replace(/\.assetId$/,'.url'))||''))===src).map(field=>field.path);
  }
- const text=normalizeCanvasText(target.text||'');
- if(!text)return [];
- return relevant.filter(field=>field.type==='string'&&!field.path.startsWith('media.')&&!field.path.endsWith('.image')&&typeof canvasValue(snapshot,field.path)==='string'&&normalizeCanvasText(String(canvasValue(snapshot,field.path)))===text).map(field=>field.path);
+ const match=(raw:string)=>{
+  const text=normalizeCanvasText(raw);if(!text)return [];
+  return relevant.filter(field=>field.type==='string'&&!field.path.startsWith('media.')&&!field.path.endsWith('.image')&&typeof canvasValue(snapshot,field.path)==='string'&&normalizeCanvasText(String(canvasValue(snapshot,field.path)))===text).map(field=>field.path);
+ };
+ const whole=match(target.text||'');
+ // A heading may combine separate translation fields through a line break or styled span.
+ // Match only complete direct text nodes; arbitrary substring guesses can select unrelated copy.
+ return whole.length?whole:[...new Set((target.textNodes||[]).flatMap(match))];
 }

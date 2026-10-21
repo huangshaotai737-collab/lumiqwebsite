@@ -16,6 +16,16 @@ describe('visual editor selection and trust boundary',()=>{
  it('normalizes rich tags and heading punctuation without evaluating HTML',()=>{
   expect(normalizeCanvasText('A <strong>quiet</strong> home.')).toBe('A quiet home');
  });
+ it('selects a standalone title text node when its heading also contains a styled subtitle',()=>{
+  const titleFields=[{path:'messages.en.Home.title',pages:['/'],type:'string'},{path:'messages.en.Other.title',pages:['/'],type:'string'}];
+  const value={...snapshot,messages:{...snapshot.messages,en:{Home:{title:'同一個家，'},Other:{title:'各自的生活節奏。'}}}};
+  expect(canvasCandidates(titleFields,value,'en','/',{text:'同一個家，各自的生活節奏',textNodes:['同一個家，']})).toEqual(['messages.en.Home.title']);
+  expect(canvasCandidates(titleFields,value,'en','/',{text:'同一個家，各自的生活節奏',textNodes:['同一個家，','各自的生活節奏']})).toEqual(['messages.en.Home.title','messages.en.Other.title']);
+ });
+ it('keeps whole-field matches first and does not use arbitrary substring matches',()=>{
+  expect(canvasCandidates(fields,snapshot,'en','/',{text:'Hello world',textNodes:['Hello']})).toEqual(['messages.en.Home.title','messages.en.Other.title']);
+  expect(canvasCandidates(fields,snapshot,'en','/',{text:'A sentence containing Hello world',textNodes:['A sentence containing Hello world']})).toEqual([]);
+ });
  it('matches optimized image references and excludes background/video slots',()=>{
   const names=Object.keys(seed.media); const id=names.find(k=>seed.media[k as keyof typeof seed.media].profile!=='background'&&seed.media[k as keyof typeof seed.media].kind==='image')!;
   const bg=names.find(k=>seed.media[k as keyof typeof seed.media].profile==='background')!;

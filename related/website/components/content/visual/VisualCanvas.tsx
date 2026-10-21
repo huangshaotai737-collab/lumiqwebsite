@@ -49,7 +49,7 @@ export default function VisualCanvas({initial,locale,page,channel,adminOrigin,fi
   const choose=(target:HTMLElement)=>{
    for(let element:HTMLElement|null=target;element&&element!==document.body;element=element.parentElement){
     if(element.closest('[data-visual-ui]'))return null;
-    const paths=canvasCandidates(fields,live.current.snapshot,locale,page,element instanceof HTMLImageElement?{src:element.currentSrc||element.src}:{text:element.textContent||''});
+    const paths=canvasCandidates(fields,live.current.snapshot,locale,page,element instanceof HTMLImageElement?{src:element.currentSrc||element.src}:{text:element.textContent||'',textNodes:Array.from(element.childNodes).filter(node=>node.nodeType===Node.TEXT_NODE).map(node=>node.textContent||'')});
     if(paths.length)return {element,paths};
     if(element instanceof HTMLImageElement)return null;
    }
