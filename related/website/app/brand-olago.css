@@ -1,5 +1,5 @@
 /* The avatar feature is isolated to OlaGo; its existing product template stays in place. */
-.lumiq-root .product-detail-light.pd-ola-go .olago-avatar-floor { padding-block: clamp(64px, 7vw, 100px); background: rgba(238, 232, 222, .7); }
+.lumiq-root .product-detail-light.pd-ola-go .olago-avatar-floor { padding-block: clamp(64px, 7vw, 100px); }
 .lumiq-root .pd-ola-go .olago-avatar-heading { max-width: 720px; margin-inline: auto; text-align: center; }
 .lumiq-root .pd-ola-go .olago-avatar-heading h2 { margin-top: 14px; font-size: clamp(32px, 3vw, 46px); line-height: 1.2; }
 .lumiq-root .pd-ola-go .olago-avatar-heading > p:last-child { margin-top: 20px; color: var(--pd-muted); font-size: 17px; line-height: 1.7; }

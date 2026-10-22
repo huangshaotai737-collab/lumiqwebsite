@@ -22,25 +22,7 @@
 .lumiq-root main :is(.pd-section-heading, .lh-room-heading, .lh-family-heading,
   .lh-join-copy, .prod-hero-text) h2 { text-wrap: balance; }
 
-/* Stable pale underlay keeps existing background lines behind readable copy.
-   The original image/video assets remain available for the brand's new master. */
-.lumiq-root main:is(.product-detail-light, .prod-page, .plans-page, .story-page)::before {
-  background-image: linear-gradient(#faf9f3d9, #f9f8f4dc), var(--stable-page-bg, var(--single-page-bg, none));
-}
-.lumiq-root main.lh-home :is(.lh-ola-copy, .lh-room-heading) {
-  position: relative;
-  isolation: isolate;
-}
-.lumiq-root main.lh-home :is(.lh-ola-copy, .lh-room-heading)::before {
-  content: ""; position: absolute; inset: -20px; z-index: -1;
-  border-radius: 28px; background: #fbfaf5ed; pointer-events: none;
-}
-.lumiq-root main.lh-home :is(.lh-family-heading, .lh-join-copy) {
-  border-radius: 24px; background: #fbfaf5e8; padding: 24px;
-}
-.lumiq-root main.lh-home .lh-trust-notes {
-  background: #fbfaf5ed; border-radius: 24px; padding: 24px;
-}
+/* Keep the approved page backgrounds visible. Do not add reading masks. */
 .lumiq-root main.lh-home :is(.lh-consent, .lh-form-message),
 .lumiq-root main.prod-page .prod-story-invite-copy p,
 .lumiq-root main.members-page :is(.members-disclosure, .members-help, .members-hint, .members-status) {
@@ -89,8 +71,6 @@
     .lh-room-heading, .lh-safety-copy, .lh-family-heading, .lh-join-copy) h2 {
     font-size: clamp(30px, 8vw, 40px) !important; line-height: 1.22;
   }
-  .lumiq-root main.lh-home :is(.lh-ola-copy, .lh-room-heading)::before { inset: -12px; border-radius: 20px; }
-  .lumiq-root main.lh-home :is(.lh-family-heading, .lh-join-copy) { padding: 16px; border-radius: 20px; }
   .lumiq-root main.lh-home .lh-products .lh-product {
     height: auto; min-height: 0; padding: 18px; gap: 0;
   }
