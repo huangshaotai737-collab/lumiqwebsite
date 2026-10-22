@@ -34,6 +34,7 @@ import "@/app/home-loading.css";
 import "@/app/home-pearl-background.css";
 import "@/app/home-brand-review.css";
 import "@/app/responsive-layout.css";
+import "@/app/home-safety-principles.css";
 
 const collection: ProductId[] = ["tablet", "ola", "ola-go", "nest", "print"];
 const artwork: Record<ProductId, string> = {
@@ -352,7 +353,7 @@ export default function Home() {
                     className="lh-principle"
                   >
                     <span className="lh-principle-top" aria-hidden="true">
-                      <Icon size={22} strokeWidth={1.3} />
+                      <Icon size={44} strokeWidth={1.6} />
                     </span>
                     <Heading as="h3">{t(`trust.${key}.title`)}</Heading>
                     <p>
@@ -361,11 +362,6 @@ export default function Home() {
                         {t(`trust.${key}.body`)}
                       </span>
                     </p>
-                    <ArrowUpRight
-                      className="lh-principle-arrow"
-                      size={19}
-                      aria-hidden="true"
-                    />
                   </Link>
                 ))}
               </div>
