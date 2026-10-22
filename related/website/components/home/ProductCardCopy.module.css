@@ -7,14 +7,17 @@
   padding: 0;
   color: #233448;
   transform-origin: 0 0;
+  visibility: hidden;
 }
+
+.surface[data-projected="true"] { visibility: visible; }
 
 .copy {
   position: absolute;
-  inset: 260px 12px 21px;
+  inset: 252px 16px 27px;
   display: flex;
   flex-direction: column;
-  align-items: stretch;
+  align-items: center;
   min-width: 0;
   pointer-events: none;
 }
@@ -23,14 +26,13 @@
   position: static;
   width: 100%;
   margin: 0;
-  font: 600 43px/1.2 var(--font-sans, Arial, sans-serif);
+  font: 600 36px/1.2 var(--font-sans, Arial, sans-serif);
   text-align: center;
   white-space: nowrap;
 }
 
 .surface[data-active="true"] .title { font-size: 32px; }
-.surface[data-active="true"] .copy { top: 224px; }
-.surface[data-active="false"] .copy { left: 4px; right: 4px; }
+.surface[data-active="true"] .copy { inset: 216px 18px 28px; }
 
 .copy .description {
   position: static;
@@ -39,9 +41,9 @@
   width: 100%;
   min-width: 0;
   max-width: none;
-  margin: 8px 0 0;
+  margin: 6px 0 0;
   padding: 0;
-  font: 400 22px/1.4 var(--font-sans, Arial, sans-serif);
+  font: 400 20px/1.35 var(--font-sans, Arial, sans-serif);
   text-align: center;
   white-space: normal;
   text-wrap: wrap;
@@ -53,9 +55,9 @@
   width: 100%;
   margin-top: auto;
   padding-top: 8px;
-  font: 600 38px/1.25 var(--font-sans, Arial, sans-serif);
+  font: 600 32px/1.25 var(--font-sans, Arial, sans-serif);
   letter-spacing: -.025em;
-  text-align: right;
+  text-align: center;
   white-space: nowrap;
 }
 
@@ -72,8 +74,8 @@
 }
 
 .surface[data-active="true"] :global(.glass-product-hit) {
-  inset: auto 12px 18px;
-  height: 44px;
+  inset: auto 18px 26px;
+  height: 48px;
 }
 
 .surface :global(.glass-product-hit):focus-visible {

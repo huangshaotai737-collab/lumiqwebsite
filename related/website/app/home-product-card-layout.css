@@ -1,0 +1,104 @@
+/* The HTML fallback and touch rail use one stable image / copy / action grid.
+   It also keeps the five-card composition readable while WebGL loads or fails. */
+.lumiq-root main.lh-home .lh-products .lh-product {
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto auto;
+  align-items: stretch;
+}
+
+.lumiq-root main.lh-home .lh-products .lh-product-copy {
+  width: 100%;
+  min-width: 0;
+  text-align: center;
+}
+
+.lumiq-root main.lh-home .lh-products .lh-product-copy h3 {
+  text-align: center;
+  overflow-wrap: anywhere;
+}
+
+.lumiq-root main.lh-home .lh-products .lh-products-viewport .lh-product-copy p {
+  width: 100%;
+  max-width: none;
+  min-height: 0;
+  margin: 8px auto 0;
+  text-align: center;
+  overflow-wrap: anywhere;
+}
+
+.lumiq-root main.lh-home .lh-products .lh-products-viewport .lh-product-bottom {
+  justify-self: center;
+  align-self: end;
+  justify-content: center;
+  width: 100%;
+  min-height: 44px;
+  margin: 14px auto 0;
+  padding: 0;
+  text-align: center;
+  border: 0;
+  white-space: nowrap;
+}
+
+@media (min-width: 1200px) {
+  .lumiq-root main.lh-home .lh-products:not([data-glass-3d]) .lh-product-slot[data-active="true"] .lh-product,
+  .lumiq-root main.lh-home .lh-products:not([data-glass-3d]) .lh-product-slot:not([data-offset]):first-child .lh-product {
+    padding: 28px 26px 30px;
+  }
+
+  .lumiq-root main.lh-home .lh-products:not([data-glass-3d]) .lh-product-slot:not([data-active="true"]) .lh-product {
+    padding: 18px 14px 20px;
+  }
+
+  .lumiq-root main.lh-home .lh-products:not([data-glass-3d]) .lh-product-art {
+    min-height: 0;
+    margin-bottom: 12px;
+  }
+
+  .lumiq-root main.lh-home .lh-products:not([data-glass-3d]) .lh-product-copy p {
+    font-size: 16px !important;
+    line-height: 1.45;
+  }
+
+  .lumiq-root main.lh-home .lh-products:not([data-glass-3d]) .lh-product-slot:not([data-active="true"]) .lh-product-bottom {
+    font-size: 15px !important;
+  }
+}
+
+@media (max-width: 1199px) {
+  .lumiq-root main.lh-home .lh-products .lh-products-track {
+    padding-inline: max(24px, calc((100vw - min(84vw, 360px)) / 2));
+  }
+
+  .lumiq-root main.lh-home .lh-products .lh-product-slot {
+    flex: 0 0 min(84vw, 360px);
+    width: min(84vw, 360px);
+  }
+
+  .lumiq-root main.lh-home .lh-products .lh-product {
+    height: auto;
+    min-height: 490px;
+    padding: 26px 24px 28px;
+  }
+
+  .lumiq-root main.lh-home .lh-products .lh-product-art {
+    height: 220px;
+    min-height: 0;
+    margin: 0 0 18px;
+  }
+
+  .lumiq-root main.lh-home .lh-products .lh-product-copy {
+    align-self: start;
+  }
+}
+
+@media (max-width: 767px) {
+  .lumiq-root main.lh-home .lh-products .lh-product {
+    min-height: 455px;
+    padding: 24px 22px 26px;
+  }
+
+  .lumiq-root main.lh-home .lh-products .lh-product-art {
+    height: min(45vw, 190px);
+    margin-bottom: 16px;
+  }
+}

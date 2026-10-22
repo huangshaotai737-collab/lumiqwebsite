@@ -21,28 +21,28 @@
     position: relative; display: block; width: 100%; height: 100%; padding: 0; perspective: 1600px;
   }
   .lumiq-root main.lh-home .lh-products:not([data-glass-3d]) .lh-product-slot {
-    --card-x: 0; --card-width: 3.8; --card-height: 5.5;
+    --card-x: 0; --card-width: 4.3; --card-height: 6.2;
     position: absolute; top: auto; bottom: calc(var(--carousel-height) * .22); left: 50%;
     width: calc(var(--fallback-unit) * var(--card-width)); height: calc(var(--fallback-unit) * var(--card-height));
     transform: translateX(calc(-50% + var(--fallback-unit) * var(--card-x)));
     opacity: 1; pointer-events: auto; z-index: 1;
   }
-  .lumiq-root main.lh-home .lh-products:not([data-glass-3d]) .lh-product-slot:nth-child(2) { --card-x: 3.8; --card-width: 2.2; --card-height: 3.2; }
-  .lumiq-root main.lh-home .lh-products:not([data-glass-3d]) .lh-product-slot:nth-child(3) { --card-x: 6.6; --card-width: 2.1; --card-height: 3; }
-  .lumiq-root main.lh-home .lh-products:not([data-glass-3d]) .lh-product-slot:nth-child(4) { --card-x: -6.6; --card-width: 2.1; --card-height: 3; }
-  .lumiq-root main.lh-home .lh-products:not([data-glass-3d]) .lh-product-slot:nth-child(5) { --card-x: -3.8; --card-width: 2.2; --card-height: 3.2; }
-  .lumiq-root main.lh-home .lh-products:not([data-glass-3d]) .lh-product-slot[data-offset='0'] { --card-x: 0; --card-width: 3.8; --card-height: 5.5; z-index: 3; }
-  .lumiq-root main.lh-home .lh-products:not([data-glass-3d]) .lh-product-slot[data-offset='-1'] { --card-x: -3.8; --card-width: 2.2; --card-height: 3.2; }
-  .lumiq-root main.lh-home .lh-products:not([data-glass-3d]) .lh-product-slot[data-offset='1'] { --card-x: 3.8; --card-width: 2.2; --card-height: 3.2; }
-  .lumiq-root main.lh-home .lh-products:not([data-glass-3d]) .lh-product-slot[data-offset='-2'] { --card-x: -6.6; --card-width: 2.1; --card-height: 3; }
-  .lumiq-root main.lh-home .lh-products:not([data-glass-3d]) .lh-product-slot[data-offset='2'] { --card-x: 6.6; --card-width: 2.1; --card-height: 3; }
+  .lumiq-root main.lh-home .lh-products:not([data-glass-3d]) .lh-product-slot:nth-child(2) { --card-x: 4.15; --card-width: 2.65; --card-height: 3.8; }
+  .lumiq-root main.lh-home .lh-products:not([data-glass-3d]) .lh-product-slot:nth-child(3) { --card-x: 7; --card-width: 2.45; --card-height: 3.5; }
+  .lumiq-root main.lh-home .lh-products:not([data-glass-3d]) .lh-product-slot:nth-child(4) { --card-x: -7; --card-width: 2.45; --card-height: 3.5; }
+  .lumiq-root main.lh-home .lh-products:not([data-glass-3d]) .lh-product-slot:nth-child(5) { --card-x: -4.15; --card-width: 2.65; --card-height: 3.8; }
+  .lumiq-root main.lh-home .lh-products:not([data-glass-3d]) .lh-product-slot[data-offset='0'] { --card-x: 0; --card-width: 4.3; --card-height: 6.2; z-index: 3; }
+  .lumiq-root main.lh-home .lh-products:not([data-glass-3d]) .lh-product-slot[data-offset='-1'] { --card-x: -4.15; --card-width: 2.65; --card-height: 3.8; }
+  .lumiq-root main.lh-home .lh-products:not([data-glass-3d]) .lh-product-slot[data-offset='1'] { --card-x: 4.15; --card-width: 2.65; --card-height: 3.8; }
+  .lumiq-root main.lh-home .lh-products:not([data-glass-3d]) .lh-product-slot[data-offset='-2'] { --card-x: -7; --card-width: 2.45; --card-height: 3.5; }
+  .lumiq-root main.lh-home .lh-products:not([data-glass-3d]) .lh-product-slot[data-offset='2'] { --card-x: 7; --card-width: 2.45; --card-height: 3.5; }
   .lumiq-root main.lh-home .lh-products:not([data-glass-3d]) .lh-product {
-    height: 100%; padding: 12px; border-radius: 20px;
+    height: 100%; padding: 18px 16px 20px; border-radius: 24px;
   }
   .lumiq-root main.lh-home .lh-products:not([data-glass-3d]) .lh-product-art { flex: 1; min-height: 0; margin: 0 0 8px; }
-  .lumiq-root main.lh-home .lh-products:not([data-glass-3d]) .lh-product h3 { font-size: 16px; line-height: 1.3; }
+  .lumiq-root main.lh-home .lh-products:not([data-glass-3d]) .lh-product h3 { font-size: 18px; line-height: 1.3; }
   .lumiq-root main.lh-home .lh-products:not([data-glass-3d]) .lh-product-copy p { display: none; min-height: 0; font-size: 16px; line-height: 1.5; }
-  .lumiq-root main.lh-home .lh-products:not([data-glass-3d]) :is(.lh-product-slot[data-active=true], .lh-product-slot:not([data-offset]):first-child) h3 { font-size: 22px; }
+  .lumiq-root main.lh-home .lh-products:not([data-glass-3d]) :is(.lh-product-slot[data-active=true], .lh-product-slot:not([data-offset]):first-child) h3 { font-size: 26px; }
   .lumiq-root main.lh-home .lh-products:not([data-glass-3d]) :is(.lh-product-slot[data-active=true], .lh-product-slot:not([data-offset]):first-child) .lh-product-copy p { display: block; }
   .lumiq-root main.lh-home .lh-products:not([data-glass-3d]) .lh-product-bottom { flex-shrink: 0; margin-top: 10px; padding-top: 8px; gap: 4px; font-size: 16px; line-height: 1.4; }
   .lumiq-root main.lh-home .lh-products:not([data-glass-3d]) .lh-product-bottom > span:first-child { min-width: 0; }

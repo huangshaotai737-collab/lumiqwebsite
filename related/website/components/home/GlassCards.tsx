@@ -4,7 +4,7 @@ import Heading from "@/components/Heading";
 
 import { chapterImage } from "./HomeBackgrounds";
 
-import { Suspense, useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { Suspense, useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Environment, Html, Lightformer, MeshTransmissionMaterial, useFBO } from "@react-three/drei";
@@ -230,11 +230,13 @@ function GlassCard({ geometry, index, product, offset, five, active, select, hov
   const group = useRef<Group>(null);
   const copySurface = useRef<HTMLDivElement>(null);
   const projected = useMemo(() => [new Vector3(), new Vector3(), new Vector3()], []);
-  const targetX = five ? Math.sign(offset) * ([0, 3.8, 6.6][Math.abs(offset)] ?? 6.6) : offset * 3.55;
-  const targetScale = five ? [1.2, .7, .66][Math.abs(offset)] : active ? 1 : .9;
+  const targetX = five ? Math.sign(offset) * ([0, 4.15, 7][Math.abs(offset)] ?? 7) : offset * 3.55;
+  const targetScale = five ? [1.36, .83, .76][Math.abs(offset)] : active ? 1 : .9;
   const opacity = five && !active ? .7 : 1;
   const initialX = useRef(targetX);
+  const initialScale = useRef(targetScale);
   const previousOffset = useRef(offset);
+  useLayoutEffect(() => { group.current?.scale.setScalar(initialScale.current); }, []);
   useFrame(({camera, size}, delta) => {
     if (!group.current) return;
     const angle = sideView ? .82 : offset > 0 ? -.28 : .28;
@@ -267,6 +269,9 @@ function GlassCard({ geometry, index, product, offset, five, active, select, hov
       const a=(x.x-origin.x)*size.width/200, b=-(x.y-origin.y)*size.height/200;
       const c=(y.x-origin.x)*size.width/200, d=-(y.y-origin.y)*size.height/200;
       copySurface.current.style.transform=`matrix(${a},${b},${c},${d},${-142.5*a-210*c},${-142.5*b-210*d})`;
+      // The first projected frame is ready before DOM copy becomes visible.
+      // Otherwise Html briefly paints unscaled text at its default position.
+      if (!copySurface.current.dataset.projected) copySurface.current.dataset.projected = "true";
     }
   });
   // Keep the beveled bottom on the reflecting floor at either card scale.

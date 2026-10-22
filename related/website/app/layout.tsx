@@ -22,6 +22,7 @@ import "./brand-home.css";
 import "./brand-refinement.css";
 import "./noto-sans-tc.css";
 import "./brand-polish-20261022.css";
+import "./home-product-card-layout.css";
 import {htmlLang, type Locale} from "@/i18n/routing";
 
 export async function generateMetadata() {

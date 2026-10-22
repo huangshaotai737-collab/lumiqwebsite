@@ -23,7 +23,8 @@ test('phone information stays readable and product cards fit a reading view', as
     const card=cards.nth(index);
     await card.scrollIntoViewIfNeeded();
     const box=await card.boundingBox();
-    expect(box!.height).toBeLessThanOrEqual(430);
+    expect(box!.height).toBeGreaterThanOrEqual(455);
+    expect(box!.height).toBeLessThanOrEqual(600);
     const text=await card.locator('.lh-product-copy').boundingBox();
     const action=await card.locator('.lh-product-bottom').boundingBox();
     expect(text!.y+text!.height).toBeLessThanOrEqual(action!.y+1);
@@ -56,7 +57,7 @@ test('home finishes its examples before trust and the waitlist', async ({page})=
 
 test('approved product heading keeps its punctuation',async ({page})=>{
   await page.goto('/en/products');
-  await expect(page.locator('.prod-hero h1')).toHaveText(/Interaction\.\s*Reimagined\./);
+  await expect(page.locator('.prod-hero h1')).toHaveText(/Stories for children\.\s*Company for adults\./);
 });
 
 test('phone Tablet keeps brief feature cards with direct detailed FAQ topics', async ({page})=>{
