@@ -345,7 +345,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.en.HomeRefresh.products.ola-go.body",
     "before": "Your pocket companion, included with OLA.",
-    "after": "Your pocket companion, included with LumiqOla."
+    "after": "A portable companion concept for adults and older adults."
   },
   {
     "path": "messages.en.HomeRefresh.products.ola-go.name",
@@ -390,12 +390,12 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.en.HomeRefresh.roomLabels.ola.subtitle",
     "before": "that grows",
-    "after": "grows with you"
+    "after": "at home"
   },
   {
     "path": "messages.en.HomeRefresh.roomLabels.ola.title",
     "before": "Companionship",
-    "after": "COMPANIONSHIP"
+    "after": "Conversation"
   },
   {
     "path": "messages.en.HomeRefresh.roomLabels.print.subtitle",
@@ -420,7 +420,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.en.HomeRefresh.roomUses.ola",
     "before": "Companionship that grows",
-    "after": "COMPANIONSHIP grows with you"
+    "after": "Conversation at home"
   },
   {
     "path": "messages.en.HomeRefresh.roomUses.ola-go",
@@ -740,7 +740,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.en.OlaGo.lede",
     "before": "Lumiq Ola Go is the portable companion concept designed to travel with Lumiq Ola.",
-    "after": "LumiqOlaGo is the portable companion to LumiqOla."
+    "after": "A portable companion concept for adults and older adults, planned to work with LumiqOla."
   },
   {
     "path": "messages.en.OlaGo.locationBody",
@@ -800,7 +800,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.en.Pal.adults",
     "before": "For Adults & Elderly",
-    "after": "For Adults & Older Adults"
+    "after": "For older adults"
   },
   {
     "path": "messages.en.Pal.adults1",
@@ -840,17 +840,17 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.en.Pal.kidsAlt",
     "before": "Lumiq Ola concept for kids",
-    "after": "LumiqOla concept for kids"
+    "after": "Current concept photo of a parent and child with LumiqOla"
   },
   {
     "path": "messages.en.Pal.kidsBody",
     "before": "Designed to pair with Lumiq Tablet so stories can extend into the room.",
-    "after": "Designed to pair with LumiqTablet so stories can extend into the room."
+    "after": "A proposed character presence for everyday conversation and quiet moments at home."
   },
   {
     "path": "messages.en.Pal.lede",
     "before": "A concept interactive holographic companion for stories, conversation and gentle everyday support.",
-    "after": "Brings stories to life, joins the conversation, brings interactive avatars into view, and offers gentle support through the day."
+    "after": "An AI companion concept for adults and older adults, centered on conversation and everyday reminders."
   },
   {
     "path": "messages.en.Pal.magic",
@@ -860,7 +860,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.en.Pal.magicBody",
     "before": "Lumiq Ola is designed to respond to stories and support conversations with characters. Final capabilities are pending confirmation.",
-    "after": "Interact with custom avatars through the intelligent voice service."
+    "after": "LumiqOla is designed for adult conversation and gentle reminders. Final device capabilities are still being confirmed."
   },
   {
     "path": "messages.en.Pal.sb3",
@@ -880,12 +880,12 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.en.Pal.synced",
     "before": "Designed to pair with Lumiq Tablet",
-    "after": "Designed to pair with LumiqTablet"
+    "after": "Stories for children live on LumiqTablet"
   },
   {
     "path": "messages.en.Pal.syncedBody",
     "before": "Cross-device progress and adaptation remain concept specifications.",
-    "after": "Designed to respond to stories and support conversations with characters."
+    "after": "LumiqTablet is the children’s reading experience. Any story connection with Ola remains a concept under review."
   },
   {
     "path": "messages.en.Pal.twoLives",
@@ -895,17 +895,17 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.en.Pal.way2Body",
     "before": "As the story changes, new interactions and abilities appear. Talk with the characters in the room.",
-    "after": "As the story changes, new interactions and abilities appear. Talk with the characters in your favorite story."
+    "after": "An expressive character could give everyday conversation a familiar face. Final interactions remain under review."
   },
   {
     "path": "messages.en.Pal.way3Body",
     "before": "Character conversations, story coaching, and dreamtime companions — rolling out over time.",
-    "after": "More characters, more conversation context, more avatars — rolling out over time."
+    "after": "Further conversation and reminder features are planned; availability will be confirmed before launch."
   },
   {
     "path": "messages.en.Pal.waysTitle",
     "before": "Three ways Lumiq Ola may join the story",
-    "after": "3 ways LumiqOla helps you"
+    "after": "Three ways Ola could fit into daily life"
   },
   {
     "path": "messages.en.Plans.character",
@@ -1065,7 +1065,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.en.Products.p4Desc",
     "before": "A portable companion concept included with Lumiq Ola; final connectivity and safety features remain unconfirmed.",
-    "after": "LumiqOlaGo is the portable companion to LumiqOla."
+    "after": "A portable companion concept for adults and older adults, planned with LumiqOla. Connectivity and safety features remain unconfirmed."
   },
   {
     "path": "messages.en.Products.p4Pill",
@@ -1115,7 +1115,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.en.Products.title1",
     "before": "AI. Interaction.",
-    "after": "Interaction."
+    "after": "Stories for children."
   },
   {
     "path": "messages.en.Products.warranty",
@@ -1650,7 +1650,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.ja.HomeRefresh.products.ola-go.body",
     "before": "OLA に付属する、ポケットサイズの仲間。",
-    "after": "LumiqOla に付属する、ポケットサイズの仲間。"
+    "after": "大人とシニア向けの携帯型コンパニオンの構想。"
   },
   {
     "path": "messages.ja.HomeRefresh.products.ola-go.name",
@@ -1700,12 +1700,12 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.ja.HomeRefresh.roomLabels.ola.subtitle",
     "before": "育っていく",
-    "after": "あなたとともに成長する"
+    "after": "家でゆっくり"
   },
   {
     "path": "messages.ja.HomeRefresh.roomLabels.ola.title",
     "before": "つながりが",
-    "after": "寄り添う存在が"
+    "after": "日々の会話"
   },
   {
     "path": "messages.ja.HomeRefresh.roomLabels.print.subtitle",
@@ -1725,7 +1725,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.ja.HomeRefresh.roomUses.ola",
     "before": "育まれるつながり",
-    "after": "寄り添う存在があなたとともに成長する"
+    "after": "家での会話"
   },
   {
     "path": "messages.ja.HomeRefresh.roomUses.ola-go",
@@ -2035,7 +2035,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.ja.OlaGo.lede",
     "before": "Lumiq Ola Go は Lumiq Ola と一緒に持ち歩くポータブル・コンセプトです。",
-    "after": "LumiqOlaGo は LumiqOla のポータブル・コンパニオンです。"
+    "after": "大人とシニア向けに、LumiqOla と組み合わせる携帯型コンパニオンの構想です。"
   },
   {
     "path": "messages.ja.OlaGo.locationBody",
@@ -2130,17 +2130,17 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.ja.Pal.kidsAlt",
     "before": "子ども向け Lumiq Ola",
-    "after": "子ども向け LumiqOla"
+    "after": "保護者と子どもが LumiqOla を使う現在のコンセプト写真"
   },
   {
     "path": "messages.ja.Pal.kidsBody",
     "before": "Lumiq Tablet と連携し、物語が画面を飛び出して部屋の中に広がります。",
-    "after": "LumiqTablet と連携し、物語が画面を飛び出して部屋の中に広がります。"
+    "after": "キャラクターと音声でやり取りする構想。大人の何気ない時間に寄り添います。機能は確認中です。"
   },
   {
     "path": "messages.ja.Pal.lede",
     "before": "お子さまに応えるインタラクティブなホログラフィック・コンパニオンであり、大切な大人にもそっと寄り添う存在です。",
-    "after": "物語を生き生きと伝え、会話に加わり、交流できるアバターとともに日々を穏やかに支えます。"
+    "after": "大人とシニアの日々の会話やリマインダーを中心にした、AI コンパニオンの構想です。"
   },
   {
     "path": "messages.ja.Pal.magic",
@@ -2150,7 +2150,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.ja.Pal.magicBody",
     "before": "Lumiq Ola は読んでいる物語に反応し、子どもが登場人物と話したり、触れ合ったり、質問したりできます。キャラクターへの理解を新しい次元へ導きます。",
-    "after": "インテリジェントな音声サービスを通して、カスタムアバターと交流できます。"
+    "after": "LumiqOla は大人の会話や穏やかなリマインダーを目指しています。最終的な機能は確認中です。"
   },
   {
     "path": "messages.ja.Pal.sb3",
@@ -2170,12 +2170,12 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.ja.Pal.synced",
     "before": "Lumiq Tablet と同期",
-    "after": "LumiqTablet と同期"
+    "after": "子どもの物語は LumiqTablet で"
   },
   {
     "path": "messages.ja.Pal.syncedBody",
     "before": "進捗、キャラクターの学習、適応をデバイス間で同期します。",
-    "after": "物語に反応し、キャラクターとの会話を楽しめるように設計されています。"
+    "after": "LumiqTablet は子どもの読書体験です。Ola との物語連携は、確認中の構想です。"
   },
   {
     "path": "messages.ja.Pal.twoLives",
@@ -2185,17 +2185,17 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.ja.Pal.way2Body",
     "before": "物語の変化に合わせて新しい反応や能力が現れ、部屋の中のキャラクターと会話できます。",
-    "after": "物語の変化に合わせて新しい反応や能力が現れ、お気に入りの物語のキャラクターと会話できます。"
+    "after": "親しみのあるキャラクターと日々の会話を。最終的な対話方法は確認中です。"
   },
   {
     "path": "messages.ja.Pal.way3Body",
     "before": "キャラクターとの会話、物語のコーチング、夢の時間のコンパニオンを順次提供します。",
-    "after": "キャラクター、会話の文脈、アバターを、これから順次追加していきます。"
+    "after": "会話とリマインダーに関する追加機能は計画中です。提供時期は発売前にお知らせします。"
   },
   {
     "path": "messages.ja.Pal.waysTitle",
     "before": "Lumiq Ola が物語に加わる3つの方法",
-    "after": "LumiqOla が毎日を支える3つの方法"
+    "after": "Ola が日々に寄り添う三つの構想"
   },
   {
     "path": "messages.ja.Plans.character",
@@ -2350,7 +2350,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.ja.Products.p4Desc",
     "before": "Lumiq Ola に付属するポータブル構想。通信と安全機能は確認待ちです。",
-    "after": "LumiqOlaGo は LumiqOla のポータブル・コンパニオンです。"
+    "after": "大人とシニア向けに LumiqOla と組み合わせる携帯型コンパニオンの構想。通信と安全機能は未確定です。"
   },
   {
     "path": "messages.ja.Products.p4Pill",
@@ -2400,7 +2400,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.ja.Products.title1",
     "before": "AI。インタラクション。",
-    "after": "インタラクション。"
+    "after": "子どもには物語を。"
   },
   {
     "path": "messages.ja.Products.warranty",
@@ -2925,7 +2925,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.zh-hant.HomeRefresh.products.ola-go.body",
     "before": "隨 OLA 提供的口袋夥伴。",
-    "after": "隨 LumiqOla 提供的口袋夥伴。"
+    "after": "面向成人與長輩的可攜式陪伴概念。"
   },
   {
     "path": "messages.zh-hant.HomeRefresh.products.ola-go.name",
@@ -2975,7 +2975,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.zh-hant.HomeRefresh.roomLabels.ola.subtitle",
     "before": "一起成長",
-    "after": "隨你一起成長"
+    "after": "在家發生"
   },
   {
     "path": "messages.zh-hant.HomeRefresh.roomLabels.print.subtitle",
@@ -3000,7 +3000,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.zh-hant.HomeRefresh.roomUses.ola",
     "before": "一起成長的陪伴",
-    "after": "陪伴隨你一起成長"
+    "after": "在家聊聊日常"
   },
   {
     "path": "messages.zh-hant.HomeRefresh.roomUses.ola-go",
@@ -3320,7 +3320,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.zh-hant.OlaGo.lede",
     "before": "Lumiq Ola Go 是設計與 Lumiq Ola 一起出門的可攜式陪伴概念。",
-    "after": "LumiqOlaGo 是 LumiqOla 的隨身夥伴。"
+    "after": "面向成人與長輩的隨身夥伴概念，規劃與 LumiqOla 搭配使用。"
   },
   {
     "path": "messages.zh-hant.OlaGo.locationBody",
@@ -3415,17 +3415,17 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.zh-hant.Pal.kidsAlt",
     "before": "兒童使用 Lumiq Ola",
-    "after": "兒童使用 LumiqOla"
+    "after": "目前展示家長與孩子使用 LumiqOla 的概念照片"
   },
   {
     "path": "messages.zh-hant.Pal.kidsBody",
     "before": "與 Lumiq Tablet 配對，讓故事走出螢幕、進入房間。",
-    "after": "與 LumiqTablet 配對，讓故事走出螢幕、進入房間。"
+    "after": "以角色與語音互動的概念，陪伴成人的日常時刻；實際功能仍待確認。"
   },
   {
     "path": "messages.zh-hant.Pal.lede",
     "before": "用於故事、對話與日常支援的互動式全息陪伴概念。",
-    "after": "讓故事更生動、加入對話、呈現可互動的虛擬角色，並在日常中提供溫柔支持。"
+    "after": "為成人與長輩構思的 AI 夥伴，著重日常對話與提醒。"
   },
   {
     "path": "messages.zh-hant.Pal.magic",
@@ -3435,7 +3435,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.zh-hant.Pal.magicBody",
     "before": "Lumiq Ola 的故事反應與角色對話仍屬概念，最終能力有待確認。",
-    "after": "透過智慧語音服務，與自訂虛擬角色互動。"
+    "after": "LumiqOla 以成人的日常對話與溫和提醒為方向；最終裝置功能仍待確認。"
   },
   {
     "path": "messages.zh-hant.Pal.sb3",
@@ -3455,12 +3455,12 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.zh-hant.Pal.synced",
     "before": "設計與 Lumiq Tablet 配對",
-    "after": "設計與 LumiqTablet 配對"
+    "after": "孩子的故事，留在 LumiqTablet"
   },
   {
     "path": "messages.zh-hant.Pal.syncedBody",
     "before": "跨裝置進度與適應功能仍屬概念規格。",
-    "after": "設計用於回應故事，並支援與角色對話。"
+    "after": "LumiqTablet 是孩子的閱讀體驗。與 Ola 的故事聯動仍屬待確認概念。"
   },
   {
     "path": "messages.zh-hant.Pal.twoLives",
@@ -3470,17 +3470,17 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.zh-hant.Pal.way2Body",
     "before": "故事變化時，新的互動與能力隨之出現，讓你與房間裡的角色對話。",
-    "after": "隨著故事變化，新的互動與能力陸續出現，讓你與喜愛故事中的角色對話。"
+    "after": "讓熟悉的角色參與日常對話；最終互動方式仍待確認。"
   },
   {
     "path": "messages.zh-hant.Pal.way3Body",
     "before": "角色對話、故事指導與夢鄉夥伴等功能將陸續推出。",
-    "after": "更多角色、更豐富的對話脈絡與更多虛擬角色，將陸續推出。"
+    "after": "更多對話與提醒功能仍在規劃，推出時間會在上市前確認。"
   },
   {
     "path": "messages.zh-hant.Pal.waysTitle",
     "before": "Lumiq Ola 參與故事的三種方式",
-    "after": "LumiqOla 幫助你的 3 種方式"
+    "after": "Ola 陪伴日常的三種構想"
   },
   {
     "path": "messages.zh-hant.Plans.character",
@@ -3630,7 +3630,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.zh-hant.Products.p4Desc",
     "before": "隨 Lumiq Ola 提供的可攜式陪伴概念，連線與安全功能仍有待確認。",
-    "after": "LumiqOlaGo 是 LumiqOla 的隨身夥伴。"
+    "after": "規劃與 LumiqOla 搭配的隨身夥伴概念，面向成人與長輩；連線與安全功能仍待確認。"
   },
   {
     "path": "messages.zh-hant.Products.p4Pill",
@@ -3680,7 +3680,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.zh-hant.Products.title1",
     "before": "AI，互動。",
-    "after": "互動。"
+    "after": "孩子的閱讀。"
   },
   {
     "path": "messages.zh-hant.Products.warranty",
@@ -4056,5 +4056,515 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
     "path": "products.tablet.shortName",
     "before": "Tablet",
     "after": "LumiqTablet"
+  },
+  {
+    "path": "messages.en.Products.title2",
+    "before": "Reimagined.",
+    "after": "Company for adults."
+  },
+  {
+    "path": "messages.en.Products.lead",
+    "before": "Future-ready AI devices that interact, learn, and grow with your family — designed to end in stories, not scrolling.",
+    "after": "LumiqTablet gives children and parents a place to read together. LumiqOla and OlaGo are companion concepts for adults and older adults, built around conversation and everyday reminders."
+  },
+  {
+    "path": "messages.en.Products.p1Sub",
+    "before": "A Tablet Built for Wonder",
+    "after": "Reading together starts here"
+  },
+  {
+    "path": "messages.en.Products.p1Desc",
+    "before": "A distraction-free reading device engineered purely for stories, interaction, and imagination — no feeds, no noise, no ads.",
+    "after": "An interactive reading tablet for children, with stories and choices that parents can share."
+  },
+  {
+    "path": "messages.en.Products.p3Sub",
+    "before": "Holographic Companion",
+    "after": "For adults and older adults"
+  },
+  {
+    "path": "messages.en.Products.p3Desc",
+    "before": "A magical bedside companion that syncs with the tablet to bring stories into the room — and keeps the whole family close.",
+    "after": "An AI companion concept for adults and older adults, centered on conversation and everyday reminders."
+  },
+  {
+    "path": "messages.en.Products.p3S1",
+    "before": "3D holographic display",
+    "after": "Character projection concept"
+  },
+  {
+    "path": "messages.en.Products.p3S2",
+    "before": "Interact with storybook characters",
+    "after": "Everyday conversation"
+  },
+  {
+    "path": "messages.en.Products.p3S3",
+    "before": "Conversation & reminders",
+    "after": "Reminders under review"
+  },
+  {
+    "path": "messages.en.Products.p3S4",
+    "before": "Custom avatars",
+    "after": "Personal character concept"
+  },
+  {
+    "path": "messages.en.Products.p4Sub",
+    "before": "A Little Companion for the Road",
+    "after": "Company to take along"
+  },
+  {
+    "path": "messages.en.HomePlans.p2Desc",
+    "before": "A personal holographic companion for stories, conversation, reminders and gentle everyday support across every generation of the family.",
+    "after": "A portable and at-home companion concept for adults and older adults, focused on conversation and everyday reminders."
+  },
+  {
+    "path": "messages.en.HomeRefresh.heroBody",
+    "before": "Thoughtful companions for learning, imagination and everyday family life.",
+    "after": "Interactive stories for children and parents. Conversation and everyday companionship for adults and older adults."
+  },
+  {
+    "path": "messages.en.HomeRefresh.olaBody",
+    "before": "A personal AI companion with a familiar face. Here for conversations, little reminders and moments of discovery — at every age.",
+    "after": "An AI companion concept for adults and older adults, designed around conversation and everyday reminders at home."
+  },
+  {
+    "path": "messages.en.HomeRefresh.products.tablet.type",
+    "before": "For curious minds",
+    "after": "For children and parents"
+  },
+  {
+    "path": "messages.en.HomeRefresh.products.tablet.body",
+    "before": "A world of stories, discovery and creative play.",
+    "after": "Read interactive stories together and let children shape what happens next."
+  },
+  {
+    "path": "messages.en.HomeRefresh.products.ola.type",
+    "before": "For a personal connection",
+    "after": "For adults and older adults"
+  },
+  {
+    "path": "messages.en.HomeRefresh.products.ola.body",
+    "before": "An expressive companion for your everyday.",
+    "after": "A familiar character for conversation and gentle everyday reminders."
+  },
+  {
+    "path": "messages.en.HomeRefresh.products.ola-go.type",
+    "before": "For wherever you go",
+    "after": "For adults on the move"
+  },
+  {
+    "path": "messages.en.HomeRefresh.experienceBody",
+    "before": "From everyday moments to special memories, LUMIQ weaves together learning, play and togetherness.",
+    "after": "Children can explore stories with their parents. Adults and older adults can explore conversation and everyday companionship."
+  },
+  {
+    "path": "messages.en.Pal.everyAge",
+    "before": "A companion, at every age.",
+    "after": "Made for adults and older adults."
+  },
+  {
+    "path": "messages.en.Pal.kids",
+    "before": "For Kids",
+    "after": "For adults"
+  },
+  {
+    "path": "messages.en.Pal.kidsTitle",
+    "before": "Story Extension",
+    "after": "Conversation at home"
+  },
+  {
+    "path": "messages.en.Pal.kids1",
+    "before": "Concept character projection",
+    "after": "Character projection concept"
+  },
+  {
+    "path": "messages.en.Pal.kids2",
+    "before": "Proposed voice and light reactions",
+    "after": "Voice interaction concept"
+  },
+  {
+    "path": "messages.en.Pal.kids3",
+    "before": "Concept gentle bedtime mode",
+    "after": "Ambient light concept"
+  },
+  {
+    "path": "messages.en.Pal.adultsTitle",
+    "before": "Care & Companion",
+    "after": "A familiar presence"
+  },
+  {
+    "path": "messages.en.Pal.way1Title",
+    "before": "Smart Assistant",
+    "after": "Everyday conversation"
+  },
+  {
+    "path": "messages.en.Pal.way1Body",
+    "before": "Ask questions, get gentle, kid-safe answers — like Alexa, but built for bedtime and curiosity.",
+    "after": "Ask a question or start a conversation. Response details remain in development."
+  },
+  {
+    "path": "messages.en.Pal.way2Title",
+    "before": "Ambient Story Sync",
+    "after": "Personal character interaction"
+  },
+  {
+    "path": "messages.en.Pal.strengthsIntro",
+    "before": "Concept directions for a calm presence on the side table; final companion and care claims require confirmation.",
+    "after": "Concept directions for adults and older adults; final companion and care claims require confirmation."
+  },
+  {
+    "path": "messages.en.Pal.sb1",
+    "before": "A soft voice in the room — quietly there for quiet moments, and never alone at night.",
+    "after": "A gentle voice for quiet moments at home, alongside family and other everyday support."
+  },
+  {
+    "path": "messages.en.Pal.sb5",
+    "before": "Ambient light and soft soundscapes that help drift off, and gentle company until morning.",
+    "after": "Ambient light and soft white prompts accompany you until morning."
+  },
+  {
+    "path": "messages.zh-hant.Products.title2",
+    "before": "重新想像。",
+    "after": "成人的陪伴。"
+  },
+  {
+    "path": "messages.zh-hant.Products.lead",
+    "before": "與家人一起互動、學習和成長的未來型 AI 裝置；體驗以故事作結，而不是無止境滑動。",
+    "after": "LumiqTablet 讓孩子與家長一起讀故事；LumiqOla 和 OlaGo 面向成人與長輩，著重日常對話與提醒。"
+  },
+  {
+    "path": "messages.zh-hant.Products.p1Sub",
+    "before": "為奇想而生的平板",
+    "after": "陪孩子一起讀故事"
+  },
+  {
+    "path": "messages.zh-hant.Products.p1Desc",
+    "before": "專為故事、互動與想像打造的無干擾閱讀裝置——沒有資訊流、噪音與廣告。",
+    "after": "為孩子設計的互動閱讀平板，家長也能一起讀、一起選擇故事走向。"
+  },
+  {
+    "path": "messages.zh-hant.Products.p3Sub",
+    "before": "全息陪伴裝置",
+    "after": "陪伴成人與長輩"
+  },
+  {
+    "path": "messages.zh-hant.Products.p3Desc",
+    "before": "與平板同步的魔法床頭夥伴，讓故事走進房間，也讓一家人保持靠近。",
+    "after": "面向成人與長輩的 AI 夥伴概念，著重日常對話與提醒。"
+  },
+  {
+    "path": "messages.zh-hant.Products.p3S1",
+    "before": "3D 全息顯示",
+    "after": "角色投影概念"
+  },
+  {
+    "path": "messages.zh-hant.Products.p3S2",
+    "before": "與故事書中的角色互動",
+    "after": "日常對話"
+  },
+  {
+    "path": "messages.zh-hant.Products.p3S3",
+    "before": "對話與提醒",
+    "after": "提醒功能待確認"
+  },
+  {
+    "path": "messages.zh-hant.Products.p3S4",
+    "before": "自訂虛擬角色",
+    "after": "個人化角色概念"
+  },
+  {
+    "path": "messages.zh-hant.Products.p4Sub",
+    "before": "一路同行的小夥伴",
+    "after": "把陪伴帶在身邊"
+  },
+  {
+    "path": "messages.zh-hant.HomePlans.p2Desc",
+    "before": "個人化全息夥伴，為各世代家庭成員帶來故事、對話、提醒與溫柔的日常支援。",
+    "after": "為成人與長輩構思的居家與隨身夥伴，著重對話和日常提醒。"
+  },
+  {
+    "path": "messages.zh-hant.HomeRefresh.heroBody",
+    "before": "為學習、想像與日常陪伴而設計，與每個家庭一同成長。",
+    "after": "孩子與家長一起走進故事；成人與長輩，也有日常對話與陪伴。"
+  },
+  {
+    "path": "messages.zh-hant.HomeRefresh.olaBody",
+    "before": "有熟悉面孔的個人 AI 夥伴，陪你聊天、提醒日常小事，一起探索生活中的新發現。",
+    "after": "面向成人與長輩的 AI 夥伴概念，陪你聊聊日常，也提醒生活中的小事。"
+  },
+  {
+    "path": "messages.zh-hant.HomeRefresh.products.tablet.type",
+    "before": "獻給好奇的心",
+    "after": "給孩子與家長共讀"
+  },
+  {
+    "path": "messages.zh-hant.HomeRefresh.products.tablet.body",
+    "before": "讓故事、探索與創作，在手中展開。",
+    "after": "一起讀互動故事，讓孩子選擇故事接下來怎麼走。"
+  },
+  {
+    "path": "messages.zh-hant.HomeRefresh.products.ola.type",
+    "before": "獻給專屬的陪伴",
+    "after": "陪伴成人與長輩"
+  },
+  {
+    "path": "messages.zh-hant.HomeRefresh.products.ola.body",
+    "before": "生動的個人夥伴，陪你度過每一天。",
+    "after": "有熟悉的角色陪你說話，也提醒日常小事。"
+  },
+  {
+    "path": "messages.zh-hant.HomeRefresh.products.ola-go.type",
+    "before": "陪你走得更遠",
+    "after": "成人的隨身夥伴"
+  },
+  {
+    "path": "messages.zh-hant.HomeRefresh.experienceBody",
+    "before": "從日常片刻到珍貴回憶，LUMIQ 將學習、玩樂與相聚時光交織在一起。",
+    "after": "孩子與家長一起讀故事；成人與長輩可以在日常對話中，感受另一種陪伴。"
+  },
+  {
+    "path": "messages.zh-hant.HomeRefresh.roomLabels.ola.title",
+    "before": "陪伴",
+    "after": "日常對話"
+  },
+  {
+    "path": "messages.zh-hant.Pal.everyAge",
+    "before": "每個年齡都有陪伴。",
+    "after": "為成人與長輩而設計。"
+  },
+  {
+    "path": "messages.zh-hant.Pal.kids",
+    "before": "適合孩子",
+    "after": "成人日常"
+  },
+  {
+    "path": "messages.zh-hant.Pal.kidsTitle",
+    "before": "故事延伸",
+    "after": "在家聊聊天"
+  },
+  {
+    "path": "messages.zh-hant.Pal.kids1",
+    "before": "把角色投影到空中",
+    "after": "角色投影概念"
+  },
+  {
+    "path": "messages.zh-hant.Pal.kids2",
+    "before": "聲音與燈光隨故事反應",
+    "after": "語音互動概念"
+  },
+  {
+    "path": "messages.zh-hant.Pal.kids3",
+    "before": "溫柔的睡前模式",
+    "after": "氛圍燈光概念"
+  },
+  {
+    "path": "messages.zh-hant.Pal.adults",
+    "before": "適合成人與長者",
+    "after": "長輩日常"
+  },
+  {
+    "path": "messages.zh-hant.Pal.adultsTitle",
+    "before": "照護與陪伴",
+    "after": "熟悉的陪伴"
+  },
+  {
+    "path": "messages.zh-hant.Pal.way1Title",
+    "before": "智慧助理",
+    "after": "日常對話"
+  },
+  {
+    "path": "messages.zh-hant.Pal.way1Body",
+    "before": "提出問題，得到溫柔且適合孩子的回答——像 Alexa，但專為睡前與好奇心打造。",
+    "after": "聊聊身邊的事，或提出一個問題；實際回應方式仍在開發中。"
+  },
+  {
+    "path": "messages.zh-hant.Pal.way2Title",
+    "before": "環境故事同步",
+    "after": "角色互動"
+  },
+  {
+    "path": "messages.zh-hant.Pal.strengthsIntro",
+    "before": "獻給我們所愛的成人與長者——邊桌上的安定陪伴，讓日常柔和一點、安全一點，不再孤單。",
+    "after": "為成人與長輩構思的陪伴方式；照護與連線能力仍待確認。"
+  },
+  {
+    "path": "messages.zh-hant.Pal.sb1",
+    "before": "房間裡的柔和聲音，安靜陪伴每個寧靜時刻，夜裡也不再孤單。",
+    "after": "在家裡安靜的時刻，有個聲音陪你聊聊，也陪家人照看日常。"
+  },
+  {
+    "path": "messages.zh-hant.Pal.sb5",
+    "before": "環境燈光和柔和聲景幫助入睡，溫柔陪伴直到早晨。",
+    "after": "氛圍燈光與柔和的白色提示，陪伴你直到清晨。"
+  },
+  {
+    "path": "messages.ja.Products.title2",
+    "before": "その先を想像する。",
+    "after": "大人には寄り添いを。"
+  },
+  {
+    "path": "messages.ja.Products.lead",
+    "before": "家族と関わり、学び、ともに成長する未来志向の AI デバイス。スクロールではなく、物語で終わるように設計しています。",
+    "after": "LumiqTablet は子どもと保護者が一緒に読むための製品。LumiqOla と OlaGo は、大人とシニアの会話や日々のリマインダーを中心にしたコンセプトです。"
+  },
+  {
+    "path": "messages.ja.Products.p1Sub",
+    "before": "驚きのためのタブレット",
+    "after": "親子で物語を読む"
+  },
+  {
+    "path": "messages.ja.Products.p1Desc",
+    "before": "物語、インタラクション、想像力のためだけに作られた、集中を妨げない読書デバイス。フィードもノイズも広告もありません。",
+    "after": "子どものためのインタラクティブな読書タブレット。保護者と一緒に読み、物語の展開を選べます。"
+  },
+  {
+    "path": "messages.ja.Products.p3Sub",
+    "before": "ホログラフィック・コンパニオン",
+    "after": "大人とシニアのために"
+  },
+  {
+    "path": "messages.ja.Products.p3Desc",
+    "before": "タブレットと同期して物語を部屋へ運び、家族を近くにつなぐ魔法のベッドサイド・コンパニオン。",
+    "after": "大人とシニアの日々の会話やリマインダーを中心に考えた、AI コンパニオンの構想です。"
+  },
+  {
+    "path": "messages.ja.Products.p3S1",
+    "before": "3D ホログラフィック表示",
+    "after": "キャラクター投影の構想"
+  },
+  {
+    "path": "messages.ja.Products.p3S2",
+    "before": "絵本のキャラクターと交流",
+    "after": "日々の会話"
+  },
+  {
+    "path": "messages.ja.Products.p3S3",
+    "before": "会話とリマインダー",
+    "after": "確認中のリマインダー機能"
+  },
+  {
+    "path": "messages.ja.Products.p3S4",
+    "before": "カスタムアバター",
+    "after": "パーソナルキャラクターの構想"
+  },
+  {
+    "path": "messages.ja.Products.p4Sub",
+    "before": "外出にも小さなコンパニオンを",
+    "after": "外出先にも寄り添いを"
+  },
+  {
+    "path": "messages.ja.HomePlans.p2Desc",
+    "before": "物語、会話、リマインダー、日々のやさしい支援を、家族のあらゆる世代に届けるパーソナル・コンパニオン。",
+    "after": "大人とシニアの会話や日々のリマインダーを中心にした、家庭用・携帯型コンパニオンの構想です。"
+  },
+  {
+    "path": "messages.ja.HomeRefresh.heroBody",
+    "before": "学び、想像、日々の寄り添い。家族の毎日のために、心を込めたテクノロジーを。",
+    "after": "子どもと保護者には一緒に読む物語を。大人とシニアには会話と日々の寄り添いを。"
+  },
+  {
+    "path": "messages.ja.HomeRefresh.olaBody",
+    "before": "なじみのある顔を持つ、個人向け AI パートナー。会話や日々のリマインダー、小さな発見を、さまざまな世代へ。",
+    "after": "大人とシニアの会話や日々のリマインダーを中心に考えた、AI コンパニオンの構想です。"
+  },
+  {
+    "path": "messages.ja.HomeRefresh.products.tablet.type",
+    "before": "好奇心のために",
+    "after": "子どもと保護者の読書に"
+  },
+  {
+    "path": "messages.ja.HomeRefresh.products.tablet.body",
+    "before": "物語、発見、創造的な遊びの世界へ。",
+    "after": "一緒に物語を読み、子ども自身が次の展開を選べます。"
+  },
+  {
+    "path": "messages.ja.HomeRefresh.products.ola.type",
+    "before": "あなたとのつながり",
+    "after": "大人とシニアのために"
+  },
+  {
+    "path": "messages.ja.HomeRefresh.products.ola.body",
+    "before": "表情豊かなパートナーを、毎日のそばに。",
+    "after": "親しみのあるキャラクターと会話し、日々の予定を思い出すための構想。"
+  },
+  {
+    "path": "messages.ja.HomeRefresh.products.ola-go.type",
+    "before": "どこへ行くときも",
+    "after": "大人の携帯型パートナー"
+  },
+  {
+    "path": "messages.ja.HomeRefresh.experienceBody",
+    "before": "日々の何気ない瞬間から特別な思い出まで、LUMIQ は学び、遊び、ともに過ごす時間をつないでいきます。",
+    "after": "子どもと保護者は一緒に物語を読み、大人とシニアは日々の会話や寄り添いを楽しめます。"
+  },
+  {
+    "path": "messages.ja.Pal.everyAge",
+    "before": "あらゆる世代に、寄り添う存在。",
+    "after": "大人とシニアのために。"
+  },
+  {
+    "path": "messages.ja.Pal.kids",
+    "before": "子ども向け",
+    "after": "大人の日常"
+  },
+  {
+    "path": "messages.ja.Pal.kidsTitle",
+    "before": "物語を部屋へ",
+    "after": "家での会話"
+  },
+  {
+    "path": "messages.ja.Pal.kids1",
+    "before": "キャラクターを空中に映し出す",
+    "after": "キャラクター投影の構想"
+  },
+  {
+    "path": "messages.ja.Pal.kids2",
+    "before": "声と光が物語に反応",
+    "after": "音声対話の構想"
+  },
+  {
+    "path": "messages.ja.Pal.kids3",
+    "before": "やさしい就寝モード",
+    "after": "環境光の構想"
+  },
+  {
+    "path": "messages.ja.Pal.adults",
+    "before": "大人・シニア向け",
+    "after": "シニアの日常"
+  },
+  {
+    "path": "messages.ja.Pal.adultsTitle",
+    "before": "ケアとコンパニオン",
+    "after": "親しみのある存在"
+  },
+  {
+    "path": "messages.ja.Pal.way1Title",
+    "before": "スマートアシスタント",
+    "after": "日々の会話"
+  },
+  {
+    "path": "messages.ja.Pal.way1Body",
+    "before": "質問すると、子どもに安全でやさしい答えを返します。就寝前と好奇心のために作られた Alexa のような存在です。",
+    "after": "身近なことを話したり、質問したり。実際の応答方法は開発中です。"
+  },
+  {
+    "path": "messages.ja.Pal.way2Title",
+    "before": "アンビエント・ストーリー同期",
+    "after": "キャラクターとの対話"
+  },
+  {
+    "path": "messages.ja.Pal.strengthsIntro",
+    "before": "大切な大人とシニアへ。サイドテーブルから穏やかに寄り添い、毎日を少しやさしく、安全に、孤独のないものにします。",
+    "after": "大人とシニアのためのコンセプトです。見守りや通信の機能は確認中です。"
+  },
+  {
+    "path": "messages.ja.Pal.sb1",
+    "before": "静かな時間にそっと寄り添う部屋の中のやさしい声。夜もひとりではありません。",
+    "after": "家で過ごす静かな時間に、やさしい声で会話を。家族とのつながりも大切にします。"
+  },
+  {
+    "path": "messages.ja.Pal.sb5",
+    "before": "環境光とやさしい音が眠りを助け、朝までそっと寄り添います。",
+    "after": "環境光とやわらかな白い合図が、朝まで寄り添います。"
   }
 ];

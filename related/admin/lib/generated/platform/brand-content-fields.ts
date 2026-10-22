@@ -74,7 +74,7 @@ export const brandContentFields: readonly (ContentField & {optionalGroup:string}
     "editable": true,
     "owner": "snapshot",
     "optionalGroup": "messages.en.BrandFaq",
-    "initialValue": "Lumiq is designed for families. Children can explore stories and creative play, while parents and grandparents can take part in shared experiences, routines, and memories."
+    "initialValue": "LumiqTablet is for children to explore stories with their parents. LumiqOla and OlaGo are companion concepts for adults and older adults. LumiqOrb brings shared routines into one place for the household."
   },
   {
     "path": "messages.en.BrandFaq.q3",
@@ -434,7 +434,7 @@ export const brandContentFields: readonly (ContentField & {optionalGroup:string}
     "editable": true,
     "owner": "snapshot",
     "optionalGroup": "messages.en.BrandFaq",
-    "initialValue": "Ola brings an interactive character into the home. OlaGo is designed to carry that familiar character experience with you when you go out. Connection and offline-use details will be confirmed before launch."
+    "initialValue": "Ola is an at-home companion concept for adults and older adults. OlaGo is its planned portable partner for the same audience. Connection and offline-use details will be confirmed before launch."
   },
   {
     "path": "messages.en.BrandFaq.q15",
@@ -598,7 +598,7 @@ export const brandContentFields: readonly (ContentField & {optionalGroup:string}
     "editable": true,
     "owner": "snapshot",
     "optionalGroup": "messages.zh-hant.BrandFaq",
-    "initialValue": "LUMIQ 為家庭而設計。孩子可以探索故事與創意遊戲，父母和祖父母也能參與共同體驗、日常安排與回憶。"
+    "initialValue": "LumiqTablet 讓孩子和家長一起讀故事；LumiqOla 與 OlaGo 則是面向成人和長輩的陪伴概念。LumiqOrb 讓全家的日常安排在同一處看得見。"
   },
   {
     "path": "messages.zh-hant.BrandFaq.q3",
@@ -958,7 +958,7 @@ export const brandContentFields: readonly (ContentField & {optionalGroup:string}
     "editable": true,
     "owner": "snapshot",
     "optionalGroup": "messages.zh-hant.BrandFaq",
-    "initialValue": "Ola 將互動角色帶進家中；OlaGo 則規劃讓熟悉的角色體驗陪你出門。連線與離線使用的詳細資訊會在上市前確認。"
+    "initialValue": "Ola 是面向成人與長輩的居家陪伴概念；OlaGo 規劃成為同一受眾的隨身夥伴。連線與離線使用方式會在上市前確認。"
   },
   {
     "path": "messages.zh-hant.BrandFaq.q15",
@@ -1122,7 +1122,7 @@ export const brandContentFields: readonly (ContentField & {optionalGroup:string}
     "editable": true,
     "owner": "snapshot",
     "optionalGroup": "messages.ja.BrandFaq",
-    "initialValue": "LUMIQ は家族のために設計されています。子どもは物語や創造的な遊びを楽しみ、保護者や祖父母も体験、日々の暮らし、思い出を共有できます。"
+    "initialValue": "LumiqTablet は子どもと保護者が一緒に物語を読むための製品です。LumiqOla と OlaGo は大人とシニア向けのコンパニオン構想。LumiqOrb は家族の予定を一か所で共有するための製品です。"
   },
   {
     "path": "messages.ja.BrandFaq.q3",
@@ -1482,7 +1482,7 @@ export const brandContentFields: readonly (ContentField & {optionalGroup:string}
     "editable": true,
     "owner": "snapshot",
     "optionalGroup": "messages.ja.BrandFaq",
-    "initialValue": "Ola は家の中に対話するキャラクターを届けます。OlaGo は、その親しみのあるキャラクター体験を外へ持ち出せるよう設計されています。接続とオフライン利用の詳細は発売前に確認します。"
+    "initialValue": "Ola は大人とシニア向けの家庭用コンパニオン構想です。OlaGo は同じ対象に向けた携帯型パートナーとして計画しています。接続とオフライン利用の詳細は発売前に確認します。"
   },
   {
     "path": "messages.ja.BrandFaq.q15",
