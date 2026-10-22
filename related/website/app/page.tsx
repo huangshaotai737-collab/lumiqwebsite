@@ -338,7 +338,6 @@ export default async function Home() {
                 <br />
                 <span className="lh-muted">{t("safetyAccent")}</span>
               </Heading>
-              <p className="lh-lead">{t("safetyBody")}</p>
             </div>
             <div className="lh-wrap lh-trust-notes">
               <p className="lh-trust-caption">{t("safetySeal")}</p>
