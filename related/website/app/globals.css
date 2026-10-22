@@ -84,11 +84,7 @@
 @keyframes lumiq-scaleXIn { from { transform: scaleX(0); } to { transform: scaleX(1); } }
 @keyframes lumiq-spin { from { transform: rotate(0); } to { transform: rotate(360deg); } }
 
-.lumiq-root .reveal { opacity: 1; transform: none; transition: opacity .6s ease, transform .6s cubic-bezier(0.25,0.46,0.45,0.94); }
-.lumiq-root .reveal[data-reveal-pending] { opacity: 0; transform: translateY(24px); }
-.lumiq-root .reveal.visible { opacity: 1; transform: translateY(0); }
-.lumiq-root .d1 { transition-delay: 0.1s; } .lumiq-root .d2 { transition-delay: 0.2s; }
-.lumiq-root .d3 { transition-delay: 0.3s; } .lumiq-root .d4 { transition-delay: 0.4s; }
+.lumiq-root .reveal { opacity: 1; transform: none; }
 
 .lumiq-root .bg-layer {
   position: absolute; inset: 0; z-index: -1;

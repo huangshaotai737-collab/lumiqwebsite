@@ -66,7 +66,7 @@ export default function HomeFilms() {
     if (!target) return;
     const observer = new IntersectionObserver(entries => {
       if (entries.some(entry => entry.isIntersecting)) { setMediaRequested(true); observer.disconnect(); }
-    }, { rootMargin: "600px 0px" });
+    }, { rootMargin: "1200px 0px" });
     observer.observe(target);
     return () => observer.disconnect();
   }, [isPhone]);

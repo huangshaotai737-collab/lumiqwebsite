@@ -40,9 +40,14 @@
 }
 
 @media (min-width: 1200px) {
+  .lumiq-root main.lh-home .lh-products:not([data-glass-3d]) .lh-product {
+    grid-template-rows: 60% auto minmax(0, 1fr);
+  }
+
   .lumiq-root main.lh-home .lh-products:not([data-glass-3d]) .lh-product-slot[data-active="true"] .lh-product,
   .lumiq-root main.lh-home .lh-products:not([data-glass-3d]) .lh-product-slot:not([data-offset]):first-child .lh-product {
-    padding: 28px 26px 30px;
+    grid-template-rows: 52% auto minmax(0, 1fr);
+    padding: 28px 26px 60px;
   }
 
   .lumiq-root main.lh-home .lh-products:not([data-glass-3d]) .lh-product-slot:not([data-active="true"]) .lh-product {

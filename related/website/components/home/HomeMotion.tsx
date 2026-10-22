@@ -62,8 +62,8 @@ export default function HomeMotion({ children }: { children: ReactNode }) {
               },
             },
           );
-          // ScrollWords owns whole-text entry at every viewport size. Avoid a
-          // second ancestor transform consuming the entrance before it is visible.
+          // Refresh layout measurements after fonts settle; reading copy stays
+          // in its final position during every scroll frame.
           let alive = true;
           document.fonts.ready.then(() => {
             if (alive) ScrollTrigger.refresh();

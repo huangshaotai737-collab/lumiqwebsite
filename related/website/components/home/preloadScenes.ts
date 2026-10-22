@@ -14,7 +14,7 @@ export function preloadScenes(root: HTMLElement) {
       activate(entry.target);
       observer.unobserve(entry.target);
     }
-  }, { rootMargin: "600px 0px" });
+  }, { rootMargin: "1200px 0px" });
   root.querySelectorAll("[data-home-section]").forEach(section => observer.observe(section));
   return () => observer.disconnect();
 }

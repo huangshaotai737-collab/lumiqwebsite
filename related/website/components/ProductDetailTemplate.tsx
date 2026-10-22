@@ -6,7 +6,7 @@ import Heading from "@/components/Heading";
 import AddToCartButton from "@/components/cart/AddToCartButton";
 
 
-import { useEffect, useRef, type CSSProperties, type ReactNode } from "react";
+import { type CSSProperties, type ReactNode } from "react";
 import Image from "@/components/content/ContentImage";
 import { preload } from "react-dom";
 import { Link } from "@/i18n/navigation";
@@ -181,30 +181,15 @@ export default function ProductDetailTemplate({
   preload("/assets/fonts/barlow-condensed-semibold.ttf", {
     as: "font", type: "font/ttf", crossOrigin: "anonymous",
   });
-  const heroRef = useRef<HTMLElement>(null);
   const style = {
     "--pd-accent": accent,
     "--pd-accent-soft": accentSoft,
   } as CSSProperties;
 
-  useEffect(() => {
-    if (!heroRef.current) return;
-
-    const hero = heroRef.current;
-    const observer = new IntersectionObserver(
-      ([entry]) => hero.classList.toggle("is-entered", entry.isIntersecting),
-      { threshold: 0.25 },
-    );
-
-    observer.observe(hero);
-    return () => observer.disconnect();
-  }, [slug]);
-
   return (
     <main className={`product-detail-light pd-${slug}`} style={style}>
       <section
-        ref={heroRef}
-        className="pd-hero-floor is-entered"
+        className="pd-hero-floor"
         data-no-word-reveal=""
       >
         <div className="pd-shell pd-hero-grid">

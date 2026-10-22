@@ -159,22 +159,6 @@ export default function ProductsShowcase() {
   }, []);
 
   useEffect(() => {
-    if (!rootRef.current) return;
-    const obs = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) entry.target.classList.add("visible");
-        });
-      },
-      { threshold: 0.12, rootMargin: "0px 0px -40px 0px" },
-    );
-    rootRef.current
-      .querySelectorAll(".reveal")
-      .forEach((el) => obs.observe(el));
-    return () => obs.disconnect();
-  }, []);
-
-  useEffect(() => {
     const stage = stageRef.current;
     if (!stage) return;
     const nav = document.querySelector<HTMLElement>(".site-nav");
