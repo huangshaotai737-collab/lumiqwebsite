@@ -1,6 +1,6 @@
 # LumiQ 项目接力规则
 
-开始工作前阅读 README.md、当前进度.md、新Codex接力说明.md 与迁移与协作.md。
+开始工作前阅读 README.md、docs/review-2026-10-22.md 与 docs/brand-revision-2026-10-22.md。交接信息统一以这些文件为准。
 
 - 正式网站：main 分支的 related/website/。
 - Vercel 项目：lumiqwebsite；部署根目录 related/website；启用 Git LFS。

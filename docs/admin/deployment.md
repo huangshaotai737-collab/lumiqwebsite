@@ -33,7 +33,7 @@
 
 正式域名/HTTPS/可信入口、云端数据库与 RLS 冒烟、SMTP、备份恢复、存储限额与资源预算、告警与运维责任人、商业价格/条款/退换货承诺确认、隐私保留策略及人工擦除范围均需正式验收。
 
-公开下单初始关闭；五个 SKU 币种和价格为 NULL，未确认、未启用。支付适配器始终返回 `PAYMENTS_NOT_CONFIGURED`，没有通知入口、真实交易或付费订阅。支付接通材料见 [payment-integration.md](payment-integration.md) 与 [台湾主体支付准备清单](../superpowers/specs/2026-10-20-lumiq-payments-readiness.md)。不得把技术预留视为商户准入或结算可用。
+公开下单初始关闭；五个 SKU 币种和价格为 NULL，未确认、未启用。支付适配器始终返回 `PAYMENTS_NOT_CONFIGURED`，没有通知入口、真实交易或付费订阅。支付接通材料见 [payment-integration.md](payment-integration.md) 与 [台湾主体支付准备清单](https://github.com/huangshaotai737-collab/lumiqwebsite/blob/cc11b0a124f59a0955ede33e084b960be3dfff11/docs/superpowers/specs/2026-10-20-lumiq-payments-readiness.md)。不得把技术预留视为商户准入或结算可用。
 
 隐私策略保持 disabled / unconfirmed（false / NULL）。仅管理员可请求/恢复任务；生产保留范围必须由数据负责人确认后由数据库 owner 配置。第三方身份提供者/MFA 等未支持范围需人工处理；备份、服务商日志、独立报名、历史导出不在应用匿名化范围，详见 [customer-data.md](customer-data.md)。
 

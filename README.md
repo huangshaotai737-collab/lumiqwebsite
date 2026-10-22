@@ -1,10 +1,10 @@
 # LumiQ 官网
 
-正式网站代码位于 `related/website/`，生产分支为 `main`。
+官网位于 `related/website/`，独立控制中台位于 `related/admin/`，两站共用根目录的合约与数据库迁移。生产分支为 `main`。
 
 ## 最新官网与后台检查版本（2026-10-22）
 
-最新版官网、独立后台、共用合约及数据库迁移统一位于 [`codex/admin-platform-design-20261020`](https://github.com/huangshaotai737-collab/lumiqwebsite/tree/codex/admin-platform-design-20261020) 审核分支。检查人员请先阅读 [运行与检查交接](docs/review-2026-10-22.md)。下面的历史交付记录保留其当时状态；本次 GitHub 审核交付不代表生产部署或真实支付验收。
+最新版官网、独立后台、共用合约及数据库迁移统一位于 [`codex/admin-platform-design-20261020`](https://github.com/huangshaotai737-collab/lumiqwebsite/tree/codex/admin-platform-design-20261020) 审核分支。检查人员请先阅读 [运行与检查交接](docs/review-2026-10-22.md)。源码检查交付不代表生产部署或真实支付验收。
 
 - Vercel 项目：`lumiqwebsite`
 - Project ID：`prj_kojNA8sErpfLjpXGo1jfimbVUSCF`
@@ -35,13 +35,11 @@ npm start
 
 推送 `main` 会触发生产构建。如果项目没有现存部署，使用 Vercel 的 Deployments → ⋯ → Create Deployment → main；不要使用 Redeploy。
 
-## 2026-09-29 部署清理
+## 本地目录精简（2026-10-22）
 
-已从当前分支移除网站目录之外的历史生成文件、设计试稿、原始素材、浏览器截图、旧提案项目、聊天导出和打包工具。所有网站源代码、运行资源、测试和数据库迁移均保留。
+当前目录保留官网、控制中台及其运行资源，包含 18 组响应式图片和必要字体许可。未引用的旧图片与视频、历史截图、过期生成脚本和重复交接文件已移除。运行条件与当前进展统一在本文件及 [最新检查交接](docs/review-2026-10-22.md) 维护。
 
-这些历史资料仍可从清理前的提交 `af6637fb62fa62c9a5082612d3e625d5342112ae` 恢复，未重写或清除 Git 历史。旧进度记录中的历史路径可在该提交查看。
-
-候补名单生产存储仍需配置：参考 `related/website/.env.example` 和 Supabase 数据库迁移。未配置真实存储时，不能声称报名邮箱已保存。不得提交账号、令牌或真实环境变量。
+数据库迁移、CMS 初始快照、字段 ID、媒体绑定及两站各自需要的共用合约副本保留完整。需要查看旧记录或素材时，可从清理前提交 `cc11b0a124f59a0955ede33e084b960be3dfff11` 恢复。
 
 ## 共用数据库与本地后台
 
@@ -111,14 +109,10 @@ CSV 导出忽略分页，覆盖当前搜索与状态筛选范围；超过10000�
 
 本地专用浏览器贯通：`npm --prefix related/admin run test:e2e:operations`（读取忽略的本地合成凭据，隔离运行4262/4263，不使用正式预览进程）；SQL测试：`supabase test db supabase/tests/database/customer-operations.test.sql`。所有迁移仍由根目录 `supabase/migrations/` 唯一管理。
 
-## 独立后台本地交付（2026-10-20）
+## 官网与控制中台
 
-后台实现位于 `related/admin/`，三语官网仍位于 `related/website/`。用户已批准全部实施任务；本分支未推送、未上线、未开通支付。详见 [验收状态](docs/admin/acceptance.md)、[本地启动与私有账号位置](docs/admin/operations.md)、[部署阻断项](docs/admin/deployment.md)、[依赖安全状态](docs/admin/security-status.md) 和 [逐项决策记录](docs/admin/decisions.md)。
+后台功能与使用入口见 [后台说明](docs/admin/README.md)。本地官网 4211、后台 4270 由 `node scripts/local-preview.mjs start|stop|status` 管理；首次使用需要按 [初始化说明](docs/admin/bootstrap.md) 配置数据库和账号。新下载的源码不包含原机器的凭据、草稿或业务数据。
 
-本地官网4211、后台4270由 `node scripts/local-preview.mjs start|stop|status` 管理；凭据仅保存在忽略的 `.lumiq-local/preview-credentials.json`。请勿把破坏性 setup 命令当成重启。统一验收 `node scripts/verify-platform.mjs` 在交付预览已初始化或有用户数据时会拒绝执行SQL/浏览器 fixture；再次完整验收需新的可丢弃源码副本和独立 Docker 环境。
+统一验收 `node scripts/verify-platform.mjs` 在交付预览已初始化或有用户数据时会拒绝执行 SQL／浏览器 fixture；再次完整验收需新的可丢弃源码副本和独立 Docker 环境。
 
-官网内容工作区新增嵌入网页点选编辑、未保存内容实时预览、设备／语言切换及插图、商品图替换；完整字段与原发布权限保留。配置、使用方式与本轮验证范围见 [可视化编辑说明](docs/admin/visual-editor-2026-10-21.md)。
-
-2026-10-21 已进行新一轮官网/后台走查，修复六项确认问题，保留一项视频轮播间歇性性能风险；完整缺陷、重跑结果与未覆盖范围见 [走查结论](docs/admin/audit-2026-10-21.md)。原实施记录继续保留，不将历史结果冒充本轮全量通过。修复仅在本地分支和本地预览，未推送或云端部署。
-
-同日按品牌修改清单完成首轮内容与布局调整：Orb、Tablet 成长地图、OlaGo、方案、17 题 FAQ、三语文案与后台编辑字段同步。明确完成项、缺失素材和本轮验证边界见 [品牌清单实施记录](docs/brand-revision-2026-10-21.md)。本机校验策略升级为 `brand-content-v4-20261021`；未来部署须配套执行新增迁移，不能只替换后台构建。
+当前内容编辑支持嵌入网页点选、临时实时预览、设备／语言切换及插图、商品图替换，见 [可视化编辑说明](docs/admin/visual-editor-2026-10-21.md)。全站保留用户确认的原背景；品牌缺失材料、生产配置和真实设备待验收项见 [品牌收尾记录](docs/brand-revision-2026-10-22.md) 与 [部署说明](docs/admin/deployment.md)。

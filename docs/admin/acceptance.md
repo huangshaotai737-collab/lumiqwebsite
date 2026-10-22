@@ -59,7 +59,7 @@
 
 验证默认永不 reset，已交付 preview-config 即使停止也会阻止所有可变 fixture 阶段；已有账号/业务行、非初始发布或未还原备份也拒绝。一次性显式合成初始化先核实本地项目并私下备份历史，存在交付配置后同样拒绝再次 setup。新一轮完整验证需要真正独立 Docker 环境，不能复用用户后续编辑的数据。
 
-生产阻断项、媒体50MiB缓冲限制、可信入口/共享盐、SMTP、首管理员、备份恢复与回退见[部署交接](deployment.md)；未修补开发依赖 braces、运行时流取消警告和数据库性能建议见[安全状态](security-status.md)。支付所需主体、签约、回调与材料清单见[付款准备](../superpowers/specs/2026-10-20-lumiq-payments-readiness.md)。全部架构裁决与改错成本逐条保留在[决策记录](decisions.md)，不依赖待删除的 SDD 临时目录。
+生产阻断项、媒体50MiB缓冲限制、可信入口/共享盐、SMTP、首管理员、备份恢复与回退见[部署交接](deployment.md)；未修补开发依赖 braces、运行时流取消警告和数据库性能建议见[安全状态](security-status.md)。支付所需主体、签约、回调与材料清单见[付款准备](https://github.com/huangshaotai737-collab/lumiqwebsite/blob/cc11b0a124f59a0955ede33e084b960be3dfff11/docs/superpowers/specs/2026-10-20-lumiq-payments-readiness.md)。全部架构裁决与改错成本逐条保留在[决策记录](decisions.md)，不依赖待删除的 SDD 临时目录。
 
 ## 最终预览实测与输入记录
 
@@ -100,7 +100,7 @@ Node22.23.3：真实同组提前退出+SIGTERM、独立组提前退出、未知�
 
 ## 最终独立复核与交付裁决
 
-最终功能提交 `920d7d69ff5365e48f602154d62b0fee94e98a2c` 的独立复核确认：I1账号切换写入/资料残留、I2草稿统计、I3运营只读商品、M1原始素材来源校验、M2回退日志均已解决，修复范围内未发现新增 Critical/Important。完整[全分支审查](reviews/2026-10-20-whole-branch.md)、[单轮修复报告](reviews/2026-10-20-fix-report.md)和[独立复审](reviews/2026-10-20-scoped-rereview.md)已保存在仓库，不依赖临时 SDD。
+最终功能提交 `920d7d69ff5365e48f602154d62b0fee94e98a2c` 的独立复核确认：I1账号切换写入/资料残留、I2草稿统计、I3运营只读商品、M1原始素材来源校验、M2回退日志均已解决，修复范围内未发现新增 Critical/Important。完整[全分支审查](https://github.com/huangshaotai737-collab/lumiqwebsite/blob/cc11b0a124f59a0955ede33e084b960be3dfff11/docs/admin/reviews/2026-10-20-whole-branch.md)、[单轮修复报告](https://github.com/huangshaotai737-collab/lumiqwebsite/blob/cc11b0a124f59a0955ede33e084b960be3dfff11/docs/admin/reviews/2026-10-20-fix-report.md)和[独立复审](https://github.com/huangshaotai737-collab/lumiqwebsite/blob/cc11b0a124f59a0955ede33e084b960be3dfff11/docs/admin/reviews/2026-10-20-scoped-rereview.md)可通过清理前提交的历史链接查阅，不依赖临时 SDD。
 
 保留一处明确待修 Minor N1：密码修改成功后，页面会额外显示链接过期/重新索取的矛盾说明；身份加载时也可能短暂显示该说明。实际密码修改、原密码失效、新密码可用及跨账号拒绝均有真实 Auth 证据。按本轮固定单次最终修复/复审上限暂停该文案修正，后续应区分加载、完成、过期状态并补充“成功时没有过期说明”的断言；没有宣称界面零问题。
 

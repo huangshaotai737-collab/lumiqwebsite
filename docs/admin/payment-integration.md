@@ -1,6 +1,6 @@
 # 支付关闭契约与接入准备
 
-后台管理员 `/settings#payment-preparation-checklist` 提供准备入口。完整主体、渠道官方来源与核实日期见[支付接入准备清单](../superpowers/specs/2026-10-20-lumiq-payments-readiness.md)，订单及金额约束见[商业接口说明](commerce.md)。本页只说明本轮工程边界；候选渠道不代表已获商户批准。
+后台管理员 `/settings#payment-preparation-checklist` 提供准备入口。完整主体、渠道官方来源与核实日期见[支付接入准备清单](https://github.com/huangshaotai737-collab/lumiqwebsite/blob/cc11b0a124f59a0955ede33e084b960be3dfff11/docs/superpowers/specs/2026-10-20-lumiq-payments-readiness.md)，订单及金额约束见[商业接口说明](commerce.md)。本页只说明本轮工程边界；候选渠道不代表已获商户批准。
 
 台湾主体先确认公司、负责人、收款账户和首批售卖 SKU，再向候选渠道确认商户资格、销售地区、计价/结算币种及审核资料；补齐正式 HTTPS 域名、客服、服务/隐私条款、配送、税费及退款政策；商户审核通过后准备沙箱账户与凭据并联调，沙箱验收后才准备正式凭据和品牌方安排的正式验收。证件由品牌方直接提交平台，凭据通过服务器部署配置管理。已同步的准备清单列有 PayPal、绿界与其他候选资格注意事项，适用性以实际获批产品为准。本轮不开户、不创建交易、不调用渠道 SDK/API。付费订阅、自动续费及真实退款未实现。
 
