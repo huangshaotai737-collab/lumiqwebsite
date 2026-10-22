@@ -72,6 +72,22 @@ test('desktop fallback gives all five products room before and without WebGL', a
     await page.locator('#products').scrollIntoViewIfNeeded();
     await expect(page.locator('#products')).not.toHaveAttribute('data-glass-3d', '');
     await expectCardContentFits(page, true);
+    const edges = await page.locator('#products .lh-product-slot').evaluateAll(slots => slots.map(slot => {
+      const card = slot.querySelector<HTMLElement>('.lh-product')!;
+      const style = getComputedStyle(card);
+      return {
+        borderWidth: parseFloat(style.borderTopWidth),
+        reflected: !['', 'none'].includes(style.getPropertyValue('-webkit-box-reflect')),
+        rim: getComputedStyle(card, '::after').content,
+        halo: getComputedStyle(slot, '::before').content,
+      };
+    }));
+    for (const edge of edges) {
+      expect(edge.borderWidth).toBeLessThanOrEqual(1);
+      expect(edge.reflected).toBe(false);
+      expect(edge.rim).toBe('none');
+      expect(edge.halo).toBe('none');
+    }
   }
 });
 

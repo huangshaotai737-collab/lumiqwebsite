@@ -15,14 +15,14 @@
      layout. nth-child positions also cover the server render before JS starts. */
   .lumiq-root main.lh-home .lh-products:not([data-glass-3d]) .lh-products-viewport {
     --fallback-unit: min(calc(var(--carousel-height) / 8.8), calc(100vw / 16.8));
-    margin: 0; padding: 0; overflow: clip; scroll-snap-type: none; mask-image: none;
+    margin: 0; padding: 0; overflow: visible; scroll-snap-type: none; mask-image: none;
   }
   .lumiq-root main.lh-home .lh-products:not([data-glass-3d]) .lh-products-track {
     position: relative; display: block; width: 100%; height: 100%; padding: 0; perspective: 1600px;
   }
   .lumiq-root main.lh-home .lh-products:not([data-glass-3d]) .lh-product-slot {
     --card-x: 0; --card-width: 4.3; --card-height: 6.2;
-    position: absolute; top: auto; bottom: calc(var(--carousel-height) * .22); left: 50%;
+    position: absolute; top: auto; bottom: calc(var(--carousel-height) * .38); left: 50%;
     width: calc(var(--fallback-unit) * var(--card-width)); height: calc(var(--fallback-unit) * var(--card-height));
     transform: translateX(calc(-50% + var(--fallback-unit) * var(--card-x)));
     opacity: 1; pointer-events: auto; z-index: 1;
@@ -38,6 +38,21 @@
   .lumiq-root main.lh-home .lh-products:not([data-glass-3d]) .lh-product-slot[data-offset='2'] { --card-x: 7; --card-width: 2.45; --card-height: 3.5; }
   .lumiq-root main.lh-home .lh-products:not([data-glass-3d]) .lh-product {
     height: 100%; padding: 18px 16px 20px; border-radius: 24px;
+  }
+  /* The HTML cards paint first on refresh. Keep their edge as quiet as the
+     WebGL cards so the old animated rim and reflected white shadow cannot
+     flash when the completed scene takes over. */
+  .lumiq-root main.lh-home .lh-products:not([data-glass-3d]) .lh-product-slot .lh-product {
+    border: 1px solid rgb(255 255 255 / 58%);
+    background: rgb(255 255 255 / 13%);
+    box-shadow: inset 0 0 0 1px rgb(255 255 255 / 22%), 0 15px 35px rgb(63 56 93 / 10%);
+    -webkit-box-reflect: initial;
+    transition: none;
+  }
+  .lumiq-root main.lh-home .lh-products:not([data-glass-3d]) .lh-product::after,
+  .lumiq-root main.lh-home .lh-products:not([data-glass-3d]) .lh-product-slot::before {
+    content: none;
+    animation: none;
   }
   .lumiq-root main.lh-home .lh-products:not([data-glass-3d]) .lh-product-art { flex: 1; min-height: 0; margin: 0 0 8px; }
   .lumiq-root main.lh-home .lh-products:not([data-glass-3d]) .lh-product h3 { font-size: 18px; line-height: 1.3; }
