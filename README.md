@@ -2,6 +2,10 @@
 
 正式网站代码位于 `related/website/`，生产分支为 `main`。
 
+## 最新官网与后台检查版本（2026-10-22）
+
+最新版官网、独立后台、共用合约及数据库迁移统一位于 [`codex/admin-platform-design-20261020`](https://github.com/huangshaotai737-collab/lumiqwebsite/tree/codex/admin-platform-design-20261020) 审核分支。检查人员请先阅读 [运行与检查交接](docs/review-2026-10-22.md)。下面的历史交付记录保留其当时状态；本次 GitHub 审核交付不代表生产部署或真实支付验收。
+
 - Vercel 项目：`lumiqwebsite`
 - Project ID：`prj_kojNA8sErpfLjpXGo1jfimbVUSCF`
 - 生产地址：https://lumiqwebsite.vercel.app/en
@@ -12,11 +16,11 @@
 
 ## 本地运行
 
-当前开发分支的官网已使用 Next.js 16.4.2，需 Node >=20.9，推荐 Node 22；后台项目独立。2026-10-22 本机品牌收尾及验证见 [实施记录](docs/brand-revision-2026-10-22.md)，尚未推送或部署。
+当前审核分支两站均使用 Next.js 16.4.2，使用 Node 22；后台项目独立。2026-10-22 品牌收尾见 [实施记录](docs/brand-revision-2026-10-22.md)，最新源码检查与验证边界见 [检查交接](docs/review-2026-10-22.md)。
 
 ```sh
 git lfs install
-git clone https://github.com/arphasmarthome/lumiqwebsite.git
+git clone --branch codex/admin-platform-design-20261020 https://github.com/huangshaotai737-collab/lumiqwebsite.git
 cd lumiqwebsite
 git lfs pull
 cd related/website

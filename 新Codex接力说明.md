@@ -1,6 +1,6 @@
 # 新 Codex 接力说明
 
-2026-10-22 当前本地版本及待材料边界见 [品牌收尾记录](docs/brand-revision-2026-10-22.md)。官网依赖已升级 Next 16.4.2，使用 Node 22 和最新锁文件；不要复用旧 node_modules。未推送、未部署；缺失项等用户补充后再继续。
+2026-10-22 最新官网及后台 GitHub 审核交付见 [检查交接](docs/review-2026-10-22.md)，分支为 `codex/admin-platform-design-20261020`。两站依赖均为 Next 16.4.2，使用 Node 22 和各自锁文件。待材料边界继续以 [品牌收尾记录](docs/brand-revision-2026-10-22.md) 及其后续背景恢复指令为准。缺失项等用户补充后再继续；GitHub 源码审核交付不代表生产部署或支付开通。
 
 先读 README.md、当前进度.md 与迁移与协作.md。真实网站在 related/website/。
 
