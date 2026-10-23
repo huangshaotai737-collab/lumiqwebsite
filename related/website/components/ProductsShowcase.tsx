@@ -1,11 +1,12 @@
 "use client";
+import {useContentAdapter} from "@/components/content/useContentAdapter";
 import Heading from "@/components/Heading";
 
 
 import { Link } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
-import { useEffect, useRef, useState } from "react";
-import Image from "next/image";
+import { useCallback, useEffect, useRef, useState } from "react";
+import Image from "@/components/content/ContentImage";
 import dynamic from "next/dynamic";
 import {
   ArrowLeft,
@@ -19,14 +20,15 @@ import {
   ShieldCheck,
   Truck,
 } from "lucide-react";
-import { PRODUCT_BY_ID } from "@/lib/products";
 import { CarouselInput } from "@/lib/carousel-input";
 import {usePhoneLayout} from "@/components/home/usePhoneLayout";
 
 const GlassCardMaterial = dynamic(() => import("./GlassCardMaterial"), {ssr: false});
 
 export default function ProductsShowcase() {
+  const cms = useContentAdapter();
   const t = useTranslations("Products");
+  const brand = useTranslations("BrandProducts");
   const isPhone = usePhoneLayout();
   const rootRef = useRef<HTMLElement>(null);
   const heroMediaRef = useRef<HTMLDivElement>(null);
@@ -34,46 +36,52 @@ export default function ProductsShowcase() {
   const [carouselInput] = useState(() => new CarouselInput());
   const pointerOverCardRef = useRef(false);
   const [active, setActive] = useState(0);
+  const activeRef = useRef(0);
+  const pendingRef = useRef<number | null>(null);
+  const phaseRef = useRef<"idle" | "out" | "in">("idle");
+  const switchTimerRef = useRef<number | null>(null);
+  const revealFrameRef = useRef<number | null>(null);
+  const [switching, setSwitching] = useState(false);
   const [stageFullyVisible, setStageFullyVisible] = useState(false);
   const products = [
     {
       id: "pal",
-      href: PRODUCT_BY_ID.ola.href,
-      img: PRODUCT_BY_ID.ola.image,
-      tag: "01",
-      name: "Lumiq Ola",
+      href: cms.snapshot.products.ola.href,
+      img: cms.snapshot.products.ola.image,
+      tag: cms.text("field_a9b1ebd2f71c2296"),
+      name: cms.value("products.ola.name"),
       copyIndex: 3,
     },
     {
       id: "ola-go",
-      href: PRODUCT_BY_ID["ola-go"].href,
-      img: PRODUCT_BY_ID["ola-go"].image,
-      tag: "02",
-      name: "Lumiq Ola Go",
+      href: cms.snapshot.products["ola-go"].href,
+      img: cms.snapshot.products["ola-go"].image,
+      tag: cms.text("field_38dba8e1bc5cd39b"),
+      name: cms.value("products.ola-go.name"),
       copyIndex: 4,
     },
     {
       id: "tablet",
-      href: PRODUCT_BY_ID.tablet.href,
-      img: PRODUCT_BY_ID.tablet.image,
-      tag: "03",
-      name: "Lumiq Tablet",
+      href: cms.snapshot.products.tablet.href,
+      img: cms.snapshot.products.tablet.image,
+      tag: cms.text("field_b3c03beee11b8ce9"),
+      name: cms.value("products.tablet.name"),
       copyIndex: 1,
     },
     {
       id: "book",
-      href: PRODUCT_BY_ID.print.href,
-      img: PRODUCT_BY_ID.print.image,
-      tag: "04",
-      name: "Lumiq Print",
+      href: cms.snapshot.products.print.href,
+      img: cms.snapshot.products.print.image,
+      tag: cms.text("field_73edd4defecf3c29"),
+      name: cms.value("products.print.name"),
       copyIndex: 2,
     },
     {
       id: "nest",
-      href: PRODUCT_BY_ID.nest.href,
-      img: PRODUCT_BY_ID.nest.image,
-      tag: "05",
-      name: "Lumiq Orb",
+      href: cms.snapshot.products.nest.href,
+      img: cms.snapshot.products.nest.image,
+      tag: cms.text("field_b4d4550ae11151e4"),
+      name: cms.value("products.nest.name"),
       copyIndex: 5,
     },
   ].map(({ copyIndex, ...product }) => ({
@@ -90,26 +98,64 @@ export default function ProductsShowcase() {
       sub: t(`f${index + 1}Sub`),
     }),
   );
-  const promises = [Truck, RotateCcw, BadgeCheck, Lock].map((Icon, index) => ({
-    Icon,
-    title: t(`pr${index + 1}Title`),
-    sub: t(`pr${index + 1}Sub`),
-  }));
+  const promises = [
+    {Icon:Truck,title:brand('shippingTitle'),sub:brand('shippingBody')},
+    {Icon:RotateCcw,title:brand('returnsTitle'),sub:brand('returnsBody')},
+    {Icon:BadgeCheck,title:t('pr3Title'),sub:brand('warrantyBody')},
+    {Icon:Lock,title:brand('waitlistTitle'),sub:brand('waitlistBody')},
+  ];
 
-  useEffect(() => {
-    if (!rootRef.current) return;
-    const obs = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) entry.target.classList.add("visible");
+  const changeProduct = useCallback((target: number | ((current: number) => number), instant = false) => {
+    const current = pendingRef.current ?? activeRef.current;
+    const requested = typeof target === "function" ? target(current) : target;
+    const next = (requested + products.length) % products.length;
+    if (next === current) return;
+    if (instant) {
+      if (switchTimerRef.current !== null) window.clearTimeout(switchTimerRef.current);
+      if (revealFrameRef.current !== null) window.cancelAnimationFrame(revealFrameRef.current);
+      switchTimerRef.current = revealFrameRef.current = null;
+      pendingRef.current = null;
+      phaseRef.current = "idle";
+      activeRef.current = next;
+      setActive(next);
+      setSwitching(false);
+      return;
+    }
+    if (phaseRef.current === "out") {
+      pendingRef.current = next;
+      return;
+    }
+    if (phaseRef.current === "in") {
+      activeRef.current = next;
+      setActive(next);
+      return;
+    }
+    pendingRef.current = next;
+    phaseRef.current = "out";
+    setSwitching(true);
+    const exitDuration = window.matchMedia("(prefers-reduced-motion: reduce)").matches ? 100 : 170;
+    switchTimerRef.current = window.setTimeout(() => {
+      const destination = pendingRef.current;
+      pendingRef.current = null;
+      switchTimerRef.current = null;
+      if (destination === null) return;
+      activeRef.current = destination;
+      setActive(destination);
+      phaseRef.current = "in";
+      // Commit the new positions while the cards are invisible, then reveal.
+      revealFrameRef.current = window.requestAnimationFrame(() => {
+        revealFrameRef.current = window.requestAnimationFrame(() => {
+          revealFrameRef.current = null;
+          phaseRef.current = "idle";
+          setSwitching(false);
         });
-      },
-      { threshold: 0.12, rootMargin: "0px 0px -40px 0px" },
-    );
-    rootRef.current
-      .querySelectorAll(".reveal")
-      .forEach((el) => obs.observe(el));
-    return () => obs.disconnect();
+      });
+    }, exitDuration);
+  }, [products.length]);
+
+  useEffect(() => () => {
+    if (switchTimerRef.current !== null) window.clearTimeout(switchTimerRef.current);
+    if (revealFrameRef.current !== null) window.cancelAnimationFrame(revealFrameRef.current);
   }, []);
 
   useEffect(() => {
@@ -184,7 +230,7 @@ export default function ProductsShowcase() {
       const unit = event.deltaMode === 1 ? 16 : event.deltaMode === 2 ? window.innerHeight : 1;
       const direction = carouselInput.wheel(delta * unit, event.timeStamp, performance.now());
       if (!direction) return;
-      setActive((currentIndex) => (currentIndex + direction + products.length) % products.length);
+      changeProduct(index => index + direction);
     };
     window.addEventListener("pointermove", onPointerMove, { passive: true });
     let start: {x: number; y: number; id: number} | null = null;
@@ -202,7 +248,7 @@ export default function ProductsShowcase() {
       if (Math.abs(dx) < 48 || Math.abs(dx) <= Math.abs(dy) * 1.4) return;
       suppressClickUntil = performance.now() + 400;
       if (!carouselInput.navigate(performance.now())) return;
-      setActive(index => (index + (dx < 0 ? 1 : -1) + products.length) % products.length);
+      changeProduct(index => index + (dx < 0 ? 1 : -1));
     };
     const onCancel = () => { start = null; };
     const onClick = (event: MouseEvent) => {
@@ -221,7 +267,7 @@ export default function ProductsShowcase() {
       carousel.removeEventListener('click', onClick, true);
       carousel.removeEventListener("wheel", onWheel, true);
     };
-  }, [products.length, carouselInput]);
+  }, [carouselInput, changeProduct]);
 
   const onHeroMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const el = heroMediaRef.current;
@@ -240,18 +286,15 @@ export default function ProductsShowcase() {
     el.style.setProperty("--py", "0px");
   };
 
-  const current = products[active];
 
-  const selectProduct = (index: number) => {
-    if (index === active || (!isPhone && !carouselInput.navigate(performance.now()))) return;
-    setActive((index + products.length) % products.length);
+  const selectProduct = (index: number, instant = false) => {
+    if (!instant && !isPhone && !carouselInput.navigate(performance.now())) return;
+    changeProduct(index, instant);
   };
 
-  const stepProduct = (direction: 1 | -1) => {
-    if (!isPhone && !carouselInput.navigate(performance.now())) return;
-    setActive((currentIndex) =>
-      (currentIndex + direction + products.length) % products.length,
-    );
+  const stepProduct = (direction: 1 | -1, instant = false) => {
+    if (!instant && !isPhone && !carouselInput.navigate(performance.now())) return;
+    changeProduct(index => index + direction, instant);
   };
 
   return (
@@ -259,11 +302,7 @@ export default function ProductsShowcase() {
       {/* Announcement bar */}
       <div className="prod-topbar" role="note">
         <div className="prod-topbar-inner">
-          <span>{t("shipping")}</span>
-          <span className="prod-topbar-dot" aria-hidden />
-          <span>{t("returns")}</span>
-          <span className="prod-topbar-dot" aria-hidden />
-          <span>{t("warranty")}</span>
+          <span>{brand('preview')}</span>
         </div>
       </div>
 
@@ -271,7 +310,7 @@ export default function ProductsShowcase() {
       <section className="container prod-hero">
         <div className="prod-hero-text reveal">
           <span className="prod-kicker">{t("kicker")}</span>
-          <Heading as="h1" className="serif">
+          <Heading as="h1" className="serif" preservePunctuation>
             {t("title1")}
             <br />
             <em>{t("title2")}</em>
@@ -293,7 +332,7 @@ export default function ProductsShowcase() {
           onMouseLeave={onHeroLeave}
         >
           <Image
-            src="/assets/products/lumiq-ola-tablet-hero.webp"
+            src={cms.url("/assets/products/lumiq-ola-tablet-hero.webp")}
             alt={t("heroAlt")}
             width={1268}
             height={944}
@@ -342,14 +381,14 @@ export default function ProductsShowcase() {
               aria-selected={i === active}
               tabIndex={i === active ? 0 : -1}
               className={`prod-tab${i === active ? " on" : ""}`}
-              onClick={() => selectProduct(i)}
+              onClick={(event) => selectProduct(i, event.detail === 0)}
               onKeyDown={(event) => {
                 const next = event.key === "ArrowRight" ? (i + 1) % products.length
                   : event.key === "ArrowLeft" ? (i + products.length - 1) % products.length
                   : event.key === "Home" ? 0 : event.key === "End" ? products.length - 1 : null;
                 if (next === null) return;
                 event.preventDefault();
-                selectProduct(next);
+                selectProduct(next, true);
                 const target = document.getElementById(`product-tab-${products[next].id}`);
                 target?.focus({ preventScroll: true });
                 target?.scrollIntoView({ block: "nearest", inline: "nearest", behavior: "instant" });
@@ -364,11 +403,11 @@ export default function ProductsShowcase() {
 
         <div className="prod-carousel-shell">
         <nav className="prod-mobile-nav" aria-label={t('productsAria')}>
-          <button type="button" onClick={() => stepProduct(-1)} aria-label={t('previous')}><ArrowLeft size={22} /></button>
-          <span className="prod-counter" aria-live="polite" aria-atomic="true">{String(active + 1).padStart(2, '0')} / 05</span>
-          <button type="button" onClick={() => stepProduct(1)} aria-label={t('next')}><ArrowRight size={22} /></button>
+          <button type="button" onClick={(event) => stepProduct(-1, event.detail === 0)} aria-label={t('previous')}><ArrowLeft size={22} /></button>
+          <span className="prod-counter" aria-live="polite" aria-atomic="true">{String(active + 1).padStart(2, '0')} {cms.text("field_48ba3248da14b636")}</span>
+          <button type="button" onClick={(event) => stepProduct(1, event.detail === 0)} aria-label={t('next')}><ArrowRight size={22} /></button>
         </nav>
-        <div ref={stageRef} className="prod-carousel" style={{touchAction: 'pan-y pinch-zoom'}} onDragStart={event => event.preventDefault()}>
+        <div ref={stageRef} className="prod-carousel" data-switching={switching ? "true" : undefined} style={{touchAction: 'pan-y pinch-zoom'}} onDragStart={event => event.preventDefault()}>
           {products.map((p, i) => {
             const distance = (i - active + products.length) % products.length;
             const slot = ["center", "next", "far-next", "far-previous", "previous"][distance];
@@ -387,11 +426,11 @@ export default function ProductsShowcase() {
                 aria-hidden={!selected && !preview ? true : undefined}
                 data-carousel-ready={selected ? (stageFullyVisible ? "true" : "false") : undefined}
                 tabIndex={selected || preview ? 0 : -1}
-                onClick={preview ? () => selectProduct(i) : undefined}
+                onClick={preview ? (event) => selectProduct(i, event.detail === 0) : undefined}
                 onKeyDown={preview ? (event) => {
                   if (event.key === "Enter" || event.key === " ") {
                     event.preventDefault();
-                    selectProduct(i);
+                    selectProduct(i, true);
                   }
                 } : undefined}
               >
@@ -428,11 +467,11 @@ export default function ProductsShowcase() {
                     </Link>
                   </div>
                   <div className="prod-stage-nav">
-                    <button type="button" aria-label={t("previous")} tabIndex={selected ? 0 : -1} onClick={(event) => { event.stopPropagation(); stepProduct(-1); }}>
+                    <button type="button" aria-label={t("previous")} tabIndex={selected ? 0 : -1} onClick={(event) => { event.stopPropagation(); stepProduct(-1, event.detail === 0); }}>
                       <ArrowLeft size={18} strokeWidth={1.8} />
                     </button>
-                    <span className="prod-counter">{p.tag} / 05</span>
-                    <button type="button" aria-label={t("next")} tabIndex={selected ? 0 : -1} onClick={(event) => { event.stopPropagation(); stepProduct(1); }}>
+                    <span className="prod-counter">{p.tag} {cms.text("field_4e137c8eab6ae1ed")}</span>
+                    <button type="button" aria-label={t("next")} tabIndex={selected ? 0 : -1} onClick={(event) => { event.stopPropagation(); stepProduct(1, event.detail === 0); }}>
                       <ArrowRight size={18} strokeWidth={1.8} />
                     </button>
                   </div>
@@ -445,28 +484,18 @@ export default function ProductsShowcase() {
       </section>
 
       <section id="all-products" className="container prod-catalog" aria-labelledby="catalog-heading">
-        <Heading as="h2" id="catalog-heading">{t('catalogTitle')}</Heading>
-        <div className="prod-catalog-grid">
-          {products.map(product => (
-            <Link key={product.id} href={product.href} className="prod-catalog-card" prefetch={false}>
-              <div className="prod-catalog-image">
-                <Image src={product.img} alt="" width={700} height={700}
-                  sizes="(max-width: 600px) 80vw, 330px" />
-              </div>
-              <div className="prod-catalog-caption">
-                <Heading as="h3">{product.name}</Heading>
-                <p className="prod-catalog-description">{product.desc}</p>
-                <span className="prod-catalog-explore">{t('catalogExplore')}</span>
-              </div>
-            </Link>
-          ))}
-          <article className="prod-catalog-card prod-catalog-more">
-            <div className="prod-catalog-image">
-              <Image src="/assets/brand/lumiq-logo-transparent-dark.png" alt="LumiQ" width={700} height={700}
-                sizes="(max-width: 600px) 70vw, 260px" />
-            </div>
-            <div className="prod-catalog-caption"><Heading as="h3">more</Heading></div>
-          </article>
+        <div className="prod-comparison-heading">
+          <Heading as="h2" id="catalog-heading">{brand('comparison')}</Heading>
+          <Image src={cms.url("/assets/brand/lumiq-logo-transparent-dark.png")} alt={cms.value("media.asset_e036cbcfe52d5970.alt")} width={180} height={70} />
+          <p>{cms.text("field_49f53ec0cc8f512b")}</p>
+        </div>
+        <div className="prod-comparison-list">
+          {products.map(product=><article className="prod-comparison-row" key={product.id}>
+            <Image src={product.img} alt="" width={160} height={160} sizes="(max-width:600px) 64px, 80px" />
+            <div><Heading as="h3">{product.name}</Heading><p>{brand(`audiences.${product.id==='pal'?'ola':product.id==='book'?'print':product.id}`)}</p></div>
+            <div className="prod-comparison-purpose"><span>{brand('purpose')}</span><p>{product.desc}</p></div>
+            <div><span className="prod-comparison-status">{brand('upcoming')}</span><Link href={product.href} prefetch={false}>{brand('explore')} <ArrowRight size={16} aria-hidden /></Link></div>
+          </article>)}
         </div>
       </section>
 
@@ -503,7 +532,7 @@ export default function ProductsShowcase() {
       </section>
 
       <style>{`
-        .prod-page { --prod-flow-bg: url('/assets/subpage-backgrounds-20260915/generated-set-02/flow-02-diagonal-convergence.webp'); background-color: #fbfbfe; background-image: var(--prod-flow-bg); background-position: center; background-repeat: no-repeat; background-size: cover; background-attachment: fixed; color: var(--ink); padding-top: 6.5rem; line-height: 1.6; }
+        .prod-page { --prod-flow-bg: var(--cms-asset_e952cecf44ce1cc1, url('/assets/subpage-backgrounds-20260915/generated-set-02/flow-02-diagonal-convergence.webp')); background-color: #fbfbfe; background-image: var(--prod-flow-bg); background-position: center; background-repeat: no-repeat; background-size: cover; background-attachment: fixed; color: var(--ink); padding-top: 6.5rem; line-height: 1.6; }
         .prod-page .container { max-width: 1200px; }
 
         .prod-page > .prod-catalog { padding-top: 2rem; padding-bottom: clamp(5rem, 8vw, 8rem); scroll-margin-top: 7rem; }
@@ -573,28 +602,29 @@ export default function ProductsShowcase() {
         .prod-tab-name { display: block; font-family: var(--font-serif); font-size: 1.375rem; margin-top: 0.35rem; }
         .prod-tab-sub { display: block; font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; margin-top: 0.35rem; }
 
-        .prod-carousel { --center-width: min(70%, 1125px); --side-width: calc((100% - var(--center-width)) / 2 - .75rem); position: relative; width: calc(100vw - 3rem); height: clamp(560px, calc(100vh - 7.25rem), 700px); margin-left: 50%; transform: translateX(-50%); perspective: 1800px; }
-        .prod-slide { position: absolute; top: 50%; left: 50%; z-index: 0; isolation: isolate; width: var(--center-width); height: 100%; overflow: visible; border: 0; border-radius: 38px; background: transparent; color: var(--ink); box-shadow: none; -webkit-backdrop-filter: none; backdrop-filter: none; transform: translate(-50%,-50%) rotateY(0deg); transition: left .68s cubic-bezier(.22,1,.36,1), width .68s cubic-bezier(.22,1,.36,1), height .68s cubic-bezier(.22,1,.36,1), opacity .4s ease; }
+        .prod-carousel { --center-width: min(70%, 1125px, calc(100% - 350px)); --side-width: calc((100% - var(--center-width)) / 2 - .75rem); --carousel-gutter: clamp(1.5rem, 3.5vw, 4.5rem); position: relative; width: calc(100vw - var(--carousel-gutter) - var(--carousel-gutter)); height: clamp(560px, calc(100vh - 7.25rem), 700px); margin-left: 50%; transform: translateX(-50%); perspective: 1800px; }
+        .prod-slide { position: absolute; top: 50%; left: 50%; z-index: 0; isolation: isolate; width: var(--center-width); height: 100%; overflow: visible; border: 0; border-radius: 38px; background: transparent; color: var(--ink); box-shadow: none; -webkit-backdrop-filter: none; backdrop-filter: none; transform: translate(-50%,-50%) rotateY(0deg); transition: opacity 220ms cubic-bezier(.23,1,.32,1); }
         .prod-slide[data-slot="center"] { left: 50%; z-index: 2; width: var(--center-width); height: 100%; opacity: 1; }
         .prod-slide[data-slot="previous"], .prod-slide[data-slot="far-previous"] { left: calc(var(--side-width) / 2); width: var(--side-width); height: 76%; transform: translate(-50%,-50%) rotateY(5deg); }
         .prod-slide[data-slot="next"], .prod-slide[data-slot="far-next"] { left: calc(100% - var(--side-width) / 2); width: var(--side-width); height: 76%; transform: translate(-50%,-50%) rotateY(-5deg); }
         .prod-slide[data-slot="previous"], .prod-slide[data-slot="next"] { z-index: 1; opacity: .68; cursor: pointer; }
         .prod-slide[data-slot^="far-"] { opacity: 0; pointer-events: none; }
+        .prod-carousel[data-switching="true"] .prod-slide:is([data-slot="center"], [data-slot="previous"], [data-slot="next"]) { opacity: 0; pointer-events: none; transition-duration: 170ms; }
         .prod-stage:focus-visible, .prod-peek:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
         .prod-peek:hover, .prod-peek:focus-visible { opacity: .9; }
-        .prod-stage-media { position: absolute; z-index: 1; left: .5rem; top: .75rem; width: calc(100% - 1rem); height: 75%; overflow: hidden; transition: left .68s cubic-bezier(.22,1,.36,1), top .68s cubic-bezier(.22,1,.36,1), width .68s cubic-bezier(.22,1,.36,1), height .68s cubic-bezier(.22,1,.36,1); }
+        .prod-stage-media { position: absolute; z-index: 1; left: .5rem; top: .75rem; width: calc(100% - 1rem); height: 75%; overflow: hidden; }
         .prod-stage .prod-stage-media { left: clamp(1rem, 1.8vw, 1.65rem); top: clamp(1rem, 1.8vw, 1.65rem); width: calc(44% - 1rem); height: calc(100% - clamp(2rem, 3.6vw, 3.3rem)); }
-        .prod-stage-media img { display: block; width: 100%; height: 100%; object-fit: contain; padding: clamp(.5rem, 1.2vw, 1rem); filter: drop-shadow(0 14px 18px rgba(35,42,64,.12)); transition: transform .68s cubic-bezier(.22,1,.36,1); }
+        .prod-stage-media img { display: block; width: 100%; height: 100%; object-fit: contain; padding: clamp(.5rem, 1.2vw, 1rem); filter: drop-shadow(0 14px 18px rgba(35,42,64,.12)); transition: transform 220ms cubic-bezier(.23,1,.32,1); }
         .prod-stage .prod-stage-media img { padding: clamp(1rem, 3vw, 2.25rem); }
         .prod-stage .prod-stage-media img.nest { padding: clamp(1.25rem, 3vw, 2.5rem); }
         .prod-stage .prod-stage-media:hover img { transform: scale(1.025); }
-        .prod-peek-caption { position: absolute; z-index: 2; left: 1rem; right: 1rem; bottom: 1.25rem; display: flex; flex-direction: column; font-size: clamp(.8rem, 1.3vw, 1.1rem); font-weight: 600; line-height: 1.3; white-space: nowrap; opacity: 1; transition: opacity .2s ease; }
+        .prod-peek-caption { position: absolute; z-index: 2; left: clamp(1.25rem, 2.2vw, 2.5rem); right: clamp(1.25rem, 2.2vw, 2.5rem); bottom: clamp(1.75rem, 2.5vw, 2.5rem); display: flex; flex-direction: column; font-size: clamp(.8rem, 1.3vw, 1.1rem); font-weight: 600; line-height: 1.3; text-wrap: wrap; overflow-wrap: anywhere; opacity: 1; }
         .prod-peek-caption small { margin-bottom: .25rem; color: var(--ink-3); font-size: .75rem; font-weight: 500; }
-        .prod-peek--next .prod-peek-caption { align-items: flex-end; }
+        .prod-peek--next .prod-peek-caption { align-items: flex-end; text-align: right; }
         .prod-stage .prod-peek-caption, .prod-slide[data-slot^="far-"] .prod-peek-caption { opacity: 0; }
 
-        .prod-stage-panel { position: absolute; z-index: 3; top: 0; left: 49%; width: 50%; height: 100%; min-width: 0; display: flex; flex-direction: column; justify-content: center; padding: clamp(.25rem, .7vw, .75rem) clamp(.25rem, 1.5vw, 1.5rem) clamp(.25rem, .7vw, .75rem) 0; opacity: 0; pointer-events: none; transition: opacity .3s ease; }
-        .prod-stage .prod-stage-panel { opacity: 1; pointer-events: auto; transition-delay: .18s; }
+        .prod-stage-panel { position: absolute; z-index: 3; top: 0; left: 49%; width: 50%; height: 100%; min-width: 0; display: flex; flex-direction: column; justify-content: center; padding: clamp(.25rem, .7vw, .75rem) clamp(.25rem, 1.5vw, 1.5rem) clamp(.25rem, .7vw, .75rem) 0; opacity: 0; pointer-events: none; }
+        .prod-stage .prod-stage-panel { opacity: 1; pointer-events: auto; }
         .prod-index { display: block; font-size: clamp(2.75rem, 4vw, 4rem); line-height: .9; color: var(--lilac-2); }
         .prod-pill { display: inline-block; font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold); margin: 0.55rem 0 0.65rem; }
         .prod-panel-body h3 { font-size: clamp(1.9rem, 3vw, 2.6rem); line-height: 1.1; margin: 0; }
@@ -664,7 +694,9 @@ export default function ProductsShowcase() {
           .prod-page > .prod-story-invite .prod-story-invite-inner { padding-top: 4.5rem; padding-bottom: 4.5rem; }
         }
         @media (prefers-reduced-motion: reduce) {
-          .prod-hero-media img, .prod-stage-media img, .prod-story-link svg, .prod-slide { transition: none; animation: none; }
+          .prod-hero-media img, .prod-stage-media img, .prod-story-link svg { transition: none; animation: none; }
+          .prod-slide { transition: opacity 120ms cubic-bezier(.23,1,.32,1); animation: none; }
+          .prod-carousel[data-switching="true"] .prod-slide:is([data-slot="center"], [data-slot="previous"], [data-slot="next"]) { transition-duration: 100ms; }
         }
       `}</style>
     </main>

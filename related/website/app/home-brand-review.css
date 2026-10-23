@@ -51,6 +51,6 @@
   .lh-opening[data-static-opening] .lh-opening-stage { height:auto; }
   .lh-opening[data-static-opening] .lh-video-layer { display:none; }
   .lh-opening[data-static-opening] :is(.lh-hero,.lh-ola) { position:relative; height:auto; min-height:100svh; background-size:cover; background-position:center; }
-  .lh-opening[data-static-opening] .lh-hero { background-image:url('/assets/home-video/ola-scroll-v16-start-20260909.webp'); }
-  .lh-opening[data-static-opening] .lh-ola { background-image:url('/assets/home-video/ola-scroll-v16-end-20260909.webp'); }
+  .lh-opening[data-static-opening] .lh-hero { background-image:var(--cms-asset_76a5de3f207ca5bb, url('/assets/home-video/ola-scroll-v16-start-20260909.webp')); }
+  .lh-opening[data-static-opening] .lh-ola { background-image:var(--cms-asset_d11e4e878cf13138, url('/assets/home-video/ola-scroll-v16-end-20260909.webp')); }
 }

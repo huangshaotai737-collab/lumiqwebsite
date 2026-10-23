@@ -1,0 +1,98 @@
+/* Finish the approved reading hierarchy without replacing product artwork or
+   changing pending product claims. Labels carrying information use body size. */
+.lumiq-root {
+  --lq-label-size: 16px;
+  --lq-caption-size: 16px;
+  --lq-support-size: 16px;
+}
+.lumiq-root.locale-zh-hant {
+  --font-heading: "Lumiq Manrope", "Lumiq Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+  --font-sans: "Lumiq Manrope", "Lumiq Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+}
+.lumiq-root main :is(.pd-eyebrow, .pd-row-eyebrow, .pd-concept-note,
+  .prod-kicker, .prod-pill, .prod-counter, .prod-comparison-status,
+  .prod-comparison-purpose > span, .draft-notice, .draft-notice-compact,
+  .lh-eyebrow, .lh-consent, .lh-form-message, .lh-room-mobile-links span) {
+  font-size: 16px !important;
+  line-height: 1.6;
+  color: #485361;
+}
+.lumiq-root main :is(.pd-section-heading, .lh-room-heading, .lh-family-heading,
+  .lh-join-copy, .prod-hero-text) { text-wrap: pretty; }
+.lumiq-root main :is(.pd-section-heading, .lh-room-heading, .lh-family-heading,
+  .lh-join-copy, .prod-hero-text) h2 { text-wrap: balance; }
+
+/* Keep the approved page backgrounds visible. Do not add reading masks. */
+.lumiq-root main.lh-home :is(.lh-consent, .lh-form-message),
+.lumiq-root main.prod-page .prod-story-invite-copy p,
+.lumiq-root main.members-page :is(.members-disclosure, .members-help, .members-hint, .members-status) {
+  font-size: 16px !important; line-height: 1.6;
+}
+.lumiq-root main :is(.pd-primary-action, .plan-choose, .hw-reserve, .lh-button) {
+  border-radius: 999px; min-height: 44px; line-height: 1.5;
+}
+.lumiq-root main .tablet-faq-links { display: none; }
+
+/* Both renderers keep their cards; the shared controls now follow the artwork. */
+.lumiq-root main.lh-home .lh-products .lh-products-footer {
+  position: relative; inset: auto; height: auto; min-height: 48px;
+  width: auto; margin: 12px auto 0; padding-inline: 20px;
+  justify-content: center; pointer-events: auto;
+}
+.lumiq-root main.lh-home .lh-products .lh-products-controls {
+  position: static; inset: auto; height: 48px; padding: 0;
+  transform: none; justify-content: center; align-items: center; gap: 24px;
+  pointer-events: auto;
+}
+.lumiq-root main.lh-home .lh-products .lh-products-count {
+  display: inline; font-size: 16px; color: #485361; white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+.lumiq-root main.lh-home .lh-products :is(.lh-products-progress, .lh-products-hint) { display: none; }
+.lumiq-root main.lh-home .lh-products .lh-products-controls button {
+  width: 44px; height: 44px; color: #25384b; background: #fff;
+  border: 1px solid #25384b33; box-shadow: 0 3px 12px #26384b0b;
+}
+
+@media (min-width: 1200px) {
+  .lumiq-root main.lh-home { --lh-h2: clamp(40px, 4vw, 64px); --lh-body: 19px; }
+  .lumiq-root main.lh-home :is(.lh-products-heading, .lh-films-heading, .lh-family-heading, .lh-room-heading, .lh-safety-copy, .lh-join-copy) h2 {
+    font-size: var(--lh-h2); line-height: 1.18;
+  }
+}
+@media (max-width: 1199px) {
+  .lumiq-root main.lh-home .lh-products .lh-product { height: auto; min-height: 390px; }
+}
+@media (max-width: 767px) {
+  .lumiq-root main .tablet-faq-links { display: flex; flex-direction: column; gap: 8px; width: min(100% - 40px, 720px); margin: 0 auto 28px; }
+  .lumiq-root main .tablet-faq-links a { display: flex; justify-content: space-between; align-items: center; gap: 12px; min-height: 44px; padding: 10px 16px; border: 1px solid #25384b26; border-radius: 16px; background: #fff; font-size: 16px; line-height: 1.5; color: #25384b; }
+  .lumiq-root { --lq-label-size: 16px; --lq-caption-size: 16px; --lq-support-size: 16px; }
+  .lumiq-root main.lh-home :is(.lh-ola-copy, .lh-products-heading, .lh-films-heading,
+    .lh-room-heading, .lh-safety-copy, .lh-family-heading, .lh-join-copy) h2 {
+    font-size: clamp(30px, 8vw, 40px) !important; line-height: 1.22;
+  }
+  .lumiq-root main.lh-home .lh-products .lh-product {
+    height: auto; min-height: 0; padding: 18px; gap: 0;
+  }
+  .lumiq-root main.lh-home .lh-products .lh-product-art { height: 170px; flex: 0 0 170px; }
+  .lumiq-root main.lh-home .lh-products .lh-product-copy { flex: 1; }
+  .lumiq-root main.lh-home .lh-products .lh-product-type { font-size: 14px !important; }
+  .lumiq-root main.lh-home .lh-products .lh-product-copy h3 { font-size: 22px; line-height: 1.3; }
+  .lumiq-root main.lh-home .lh-products .lh-product-copy p { margin-top: 8px; font-size: 16px !important; line-height: 1.5; }
+  .lumiq-root main.lh-home .lh-products .lh-product-bottom { margin-top: 12px; min-height: 44px; }
+  .lumiq-root main.product-detail-light.pd-tablet .pd-index-row { padding-block: 18px; gap: 12px; grid-template-columns: 28px minmax(0, 1fr); }
+  .lumiq-root main.product-detail-light.pd-tablet .pd-index-row h3 { font-size: 21px; line-height: 1.35; }
+  .lumiq-root main.product-detail-light.pd-tablet .pd-index-row p { margin-top: 6px; }
+  .lumiq-root main.product-detail-light.pd-tablet :is(.pd-feature-visual, .pd-extra-visual) { max-height: 260px; aspect-ratio: 4 / 3; }
+  .lumiq-root main.pd-tablet .tablet-growth-skills { gap: 12px; }
+  .lumiq-root main.pd-tablet .tablet-growth-skill { padding: 16px; gap: 12px; }
+  .lumiq-root main.pd-tablet .tablet-growth-number { width: 32px; height: 32px; flex-basis: 32px; font-size: 16px; border-radius: 10px; }
+  .lumiq-root main.pd-tablet .tablet-growth-skill h3 { font-size: 21px; }
+  .lumiq-root .footer .foot-brand-details p { font-size: 16px; line-height: 1.6; }
+}
+@media (min-width: 390px) and (max-width: 767px) {
+  .lumiq-root main.pd-tablet .tablet-growth-skills { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .lumiq-root main.pd-tablet .tablet-growth-skill { display: block; padding: 14px; border-top: 3px solid var(--tablet-skill-color); }
+  .lumiq-root main.pd-tablet .tablet-growth-number { margin-bottom: 10px; }
+  .lumiq-root main.pd-tablet .tablet-growth-skill h3 { font-size: 20px; }
+}

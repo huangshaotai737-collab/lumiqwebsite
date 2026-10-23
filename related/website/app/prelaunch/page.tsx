@@ -1,4 +1,5 @@
 "use client";
+import {useContentAdapter} from "@/components/content/useContentAdapter";
 import Heading from "@/components/Heading";
 
 import {Link} from "@/i18n/navigation";
@@ -8,6 +9,7 @@ import { useRef, useState } from "react";
 type SubmissionStatus = "idle" | "submitting" | "success" | "error";
 
 export default function PrelaunchPage() {
+  const cms = useContentAdapter();
   const t = useTranslations("Prelaunch");
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<SubmissionStatus>("idle");
@@ -135,7 +137,7 @@ export default function PrelaunchPage() {
         </p>
         {status === "error" && (
           <p style={{ margin: ".75rem auto", fontSize: ".9rem" }}>
-            <a href="mailto:hello@lumiqstudio.com" style={{ color: "var(--ink)", textDecoration: "underline", textUnderlineOffset: 4 }}>{t("contactInstead")}</a>
+            <a href={"mailto:" + cms.value("messages.{locale}.CmsStatic.field_23cd241d015790f4")} style={{ color: "var(--ink)", textDecoration: "underline", textUnderlineOffset: 4 }}>{t("contactInstead")}</a>
           </p>
         )}
         <p style={{ maxWidth: 520, margin: ".6rem auto 0", color: "var(--ink-3)", fontSize: ".78rem", lineHeight: 1.6 }}>

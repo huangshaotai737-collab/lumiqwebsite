@@ -84,11 +84,7 @@
 @keyframes lumiq-scaleXIn { from { transform: scaleX(0); } to { transform: scaleX(1); } }
 @keyframes lumiq-spin { from { transform: rotate(0); } to { transform: rotate(360deg); } }
 
-.lumiq-root .reveal { opacity: 1; transform: none; transition: opacity .6s ease, transform .6s cubic-bezier(0.25,0.46,0.45,0.94); }
-.lumiq-root .reveal[data-reveal-pending] { opacity: 0; transform: translateY(24px); }
-.lumiq-root .reveal.visible { opacity: 1; transform: translateY(0); }
-.lumiq-root .d1 { transition-delay: 0.1s; } .lumiq-root .d2 { transition-delay: 0.2s; }
-.lumiq-root .d3 { transition-delay: 0.3s; } .lumiq-root .d4 { transition-delay: 0.4s; }
+.lumiq-root .reveal { opacity: 1; transform: none; }
 
 .lumiq-root .bg-layer {
   position: absolute; inset: 0; z-index: -1;
@@ -497,35 +493,35 @@
 .editorial-page h1, .editorial-page h2, .editorial-page h3 { text-wrap: balance; word-break: keep-all; overflow-wrap: anywhere; }
 .editorial-page,
 .subpage {
-  --page-bg-1: url('/assets/subpage-backgrounds-20260915/generated-set-02/flow-01-low-arc.webp');
-  --page-bg-2: url('/assets/subpage-backgrounds-20260915/products.webp');
-  --page-bg-3: url('/assets/subpage-backgrounds-20260915/generated-set-02/flow-02-diagonal-convergence.webp');
-  --page-bg-4: url('/assets/subpage-backgrounds-20260915/about.webp');
-  --page-bg-5: url('/assets/subpage-backgrounds-20260915/generated-set-02/flow-03-open-loop.webp');
-  --page-bg-6: url('/assets/subpage-backgrounds-20260915/media.webp');
+  --page-bg-1: var(--cms-asset_51f05a7e73f89c59, url('/assets/subpage-backgrounds-20260915/generated-set-02/flow-01-low-arc.webp'));
+  --page-bg-2: var(--cms-asset_e589e6544320d14c, url('/assets/subpage-backgrounds-20260915/products.webp'));
+  --page-bg-3: var(--cms-asset_e952cecf44ce1cc1, url('/assets/subpage-backgrounds-20260915/generated-set-02/flow-02-diagonal-convergence.webp'));
+  --page-bg-4: var(--cms-asset_31eae4e275048ff0, url('/assets/subpage-backgrounds-20260915/about.webp'));
+  --page-bg-5: var(--cms-asset_28eedc556a91dfad, url('/assets/subpage-backgrounds-20260915/generated-set-02/flow-03-open-loop.webp'));
+  --page-bg-6: var(--cms-asset_0d34c384acd4d56d, url('/assets/subpage-backgrounds-20260915/media.webp'));
   background: #fbfbfe;
 }
 :is(.story-page, .contact-page, .terms-page) {
-  --page-bg-1: url('/assets/subpage-backgrounds-20260915/story.webp');
-  --page-bg-2: url('/assets/subpage-backgrounds-20260915/generated-set-02/flow-03-open-loop.webp');
-  --page-bg-3: url('/assets/subpage-backgrounds-20260915/contact.webp');
-  --page-bg-4: url('/assets/subpage-backgrounds-20260915/generated-set-02/flow-01-low-arc.webp');
-  --page-bg-5: url('/assets/subpage-backgrounds-20260915/terms.webp');
-  --page-bg-6: url('/assets/subpage-backgrounds-20260915/generated-set-02/flow-02-diagonal-convergence.webp');
+  --page-bg-1: var(--cms-asset_50409433ee3449d3, url('/assets/subpage-backgrounds-20260915/story.webp'));
+  --page-bg-2: var(--cms-asset_28eedc556a91dfad, url('/assets/subpage-backgrounds-20260915/generated-set-02/flow-03-open-loop.webp'));
+  --page-bg-3: var(--cms-asset_d91f09496c0e79ea, url('/assets/subpage-backgrounds-20260915/contact.webp'));
+  --page-bg-4: var(--cms-asset_51f05a7e73f89c59, url('/assets/subpage-backgrounds-20260915/generated-set-02/flow-01-low-arc.webp'));
+  --page-bg-5: var(--cms-asset_3a001e1c42f920d1, url('/assets/subpage-backgrounds-20260915/terms.webp'));
+  --page-bg-6: var(--cms-asset_e952cecf44ce1cc1, url('/assets/subpage-backgrounds-20260915/generated-set-02/flow-02-diagonal-convergence.webp'));
 }
 :is(.plans-page, .media-page, .cookies-page) {
-  --page-bg-1: url('/assets/subpage-backgrounds-20260915/generated-set-02/flow-02-diagonal-convergence.webp');
-  --page-bg-2: url('/assets/subpage-backgrounds-20260915/plans.webp');
-  --page-bg-3: url('/assets/subpage-backgrounds-20260915/media.webp');
-  --page-bg-4: url('/assets/subpage-backgrounds-20260915/generated-set-02/flow-03-open-loop.webp');
-  --page-bg-5: url('/assets/subpage-backgrounds-20260915/cookies.webp');
-  --page-bg-6: url('/assets/subpage-backgrounds-20260915/generated-set-02/flow-01-low-arc.webp');
+  --page-bg-1: var(--cms-asset_e952cecf44ce1cc1, url('/assets/subpage-backgrounds-20260915/generated-set-02/flow-02-diagonal-convergence.webp'));
+  --page-bg-2: var(--cms-asset_a795af9e87d42422, url('/assets/subpage-backgrounds-20260915/plans.webp'));
+  --page-bg-3: var(--cms-asset_0d34c384acd4d56d, url('/assets/subpage-backgrounds-20260915/media.webp'));
+  --page-bg-4: var(--cms-asset_28eedc556a91dfad, url('/assets/subpage-backgrounds-20260915/generated-set-02/flow-03-open-loop.webp'));
+  --page-bg-5: var(--cms-asset_d2d12ceec8d371d0, url('/assets/subpage-backgrounds-20260915/cookies.webp'));
+  --page-bg-6: var(--cms-asset_51f05a7e73f89c59, url('/assets/subpage-backgrounds-20260915/generated-set-02/flow-01-low-arc.webp'));
 }
-.story-page { --single-page-bg: url('/assets/subpage-backgrounds-20260918-clean/story-flow-clean.webp'); }
-.plans-page { --single-page-bg: url('/assets/subpage-backgrounds-20260918-clean/plans-flow-clean.webp'); }
-.media-page { --single-page-bg: url('/assets/subpage-backgrounds-20260918-clean/media-flow-clean.webp'); }
-.faq-page { --single-page-bg: url('/assets/subpage-backgrounds-20260918-clean/faq-flow-clean.webp'); }
-.prelaunch-page { --single-page-bg: url('/assets/subpage-backgrounds-20260918-clean/prelaunch-flow-clean.webp'); }
+.story-page { --single-page-bg: var(--cms-asset_6091ade8c5c35bfa, url('/assets/subpage-backgrounds-20260918-clean/story-flow-clean.webp')); }
+.plans-page { --single-page-bg: var(--cms-asset_9facedc76c2b867d, url('/assets/subpage-backgrounds-20260918-clean/plans-flow-clean.webp')); }
+.media-page { --single-page-bg: var(--cms-asset_0c270be51d793f7b, url('/assets/subpage-backgrounds-20260918-clean/media-flow-clean.webp')); }
+.faq-page { --single-page-bg: var(--cms-asset_1adb9be602d046aa, url('/assets/subpage-backgrounds-20260918-clean/faq-flow-clean.webp')); }
+.prelaunch-page { --single-page-bg: var(--cms-asset_037b5083d4367575, url('/assets/subpage-backgrounds-20260918-clean/prelaunch-flow-clean.webp')); }
 :is(.story-page, .plans-page, .media-page, .faq-page, .prelaunch-page) {
   background-color: #fbfbfe;
   background-image: var(--single-page-bg);
@@ -536,12 +532,12 @@
 }
 :is(.story-page, .plans-page, .media-page, .faq-page, .prelaunch-page) > section::before { display: none; }
 :is(.faq-page, .prelaunch-page, .child-safety-page) {
-  --page-bg-1: url('/assets/subpage-backgrounds-20260915/generated-set-02/flow-03-open-loop.webp');
-  --page-bg-2: url('/assets/subpage-backgrounds-20260915/faq.webp');
-  --page-bg-3: url('/assets/subpage-backgrounds-20260915/generated-set-02/flow-01-low-arc.webp');
-  --page-bg-4: url('/assets/subpage-backgrounds-20260915/prelaunch.webp');
-  --page-bg-5: url('/assets/subpage-backgrounds-20260915/generated-set-02/flow-02-diagonal-convergence.webp');
-  --page-bg-6: url('/assets/subpage-backgrounds-20260915/child-safety.webp');
+  --page-bg-1: var(--cms-asset_28eedc556a91dfad, url('/assets/subpage-backgrounds-20260915/generated-set-02/flow-03-open-loop.webp'));
+  --page-bg-2: var(--cms-asset_de6d7af49ce01a95, url('/assets/subpage-backgrounds-20260915/faq.webp'));
+  --page-bg-3: var(--cms-asset_51f05a7e73f89c59, url('/assets/subpage-backgrounds-20260915/generated-set-02/flow-01-low-arc.webp'));
+  --page-bg-4: var(--cms-asset_ec014a3fa141a91f, url('/assets/subpage-backgrounds-20260915/prelaunch.webp'));
+  --page-bg-5: var(--cms-asset_e952cecf44ce1cc1, url('/assets/subpage-backgrounds-20260915/generated-set-02/flow-02-diagonal-convergence.webp'));
+  --page-bg-6: var(--cms-asset_faca783fe64e017d, url('/assets/subpage-backgrounds-20260915/child-safety.webp'));
 }
 .editorial-page > section,
 .subpage > section {

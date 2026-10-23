@@ -47,12 +47,13 @@ test('lineup shows side previews and changes only from card interactions', async
 
   await stage.hover();
   const scrollBeforeCardWheel = await page.evaluate(() => window.scrollY);
-  await page.mouse.wheel(0, 120);
+  await page.mouse.wheel(120, 0);
   await expect(stage).not.toHaveAttribute('aria-labelledby', initial!);
   expect(await page.evaluate(() => window.scrollY)).toBe(scrollBeforeCardWheel);
 
   const afterCardWheel = await stage.getAttribute('aria-labelledby');
-  await expect.poll(async () => (await stage.boundingBox())?.width ?? 0).toBeGreaterThan(950);
+  const carouselWidth = (await page.locator('.prod-carousel').boundingBox())!.width;
+  await expect.poll(async () => (await stage.boundingBox())?.width ?? 0).toBeGreaterThan(carouselWidth * .68);
   await expect.poll(() => stage.evaluate((element) =>
     element.getAnimations().some((animation) => animation.playState === 'running'),
   )).toBe(false);
@@ -66,8 +67,16 @@ test('lineup shows side previews and changes only from card interactions', async
   await expect(stage).toHaveAttribute('aria-labelledby', afterCardWheel!);
 });
 
-test('the next card travels into the center with its product image fully visible at the side', async ({page}, info) => {
+test('side captions have breathing room and cards fade before changing places', async ({page}, info) => {
   test.skip(info.project.name !== 'desktop', 'desktop card animation');
+  // The glass material uses several canvases; isolate the CSS transition from
+  // software-rendered WebGL so frame-by-frame timing stays meaningful in CI.
+  await page.addInitScript(() => {
+    const original = HTMLCanvasElement.prototype.getContext;
+    HTMLCanvasElement.prototype.getContext = function(this: HTMLCanvasElement, type: string, ...args: unknown[]) {
+      return type.startsWith('webgl') ? null : Reflect.apply(original, this, [type, ...args]);
+    } as typeof original;
+  });
   await page.setViewportSize({width: 1856, height: 1000});
   await page.goto('/en/products#lineup');
 
@@ -75,35 +84,56 @@ test('the next card travels into the center with its product image fully visible
   await stage.scrollIntoViewIfNeeded();
   await expect(stage).toHaveAttribute('data-carousel-ready', 'true');
 
-  const incoming = await page.locator('.prod-peek--next').elementHandle();
-  expect(incoming).not.toBeNull();
-  const before = await incoming!.boundingBox();
-  const stageBefore = await stage.boundingBox();
-  const sideImage = await incoming!.waitForElementState('visible').then(() => incoming!.$('img'));
-  const imageBefore = await sideImage?.boundingBox();
-  expect(before).not.toBeNull();
-  expect(stageBefore).not.toBeNull();
-  expect(imageBefore).not.toBeNull();
-  expect(imageBefore!.x).toBeGreaterThanOrEqual(stageBefore!.x + stageBefore!.width);
+  for (const width of [1024, 1200, 1440, 1856]) {
+    await page.setViewportSize({width, height: 1000});
+    for (const side of ['previous', 'next']) {
+      const inset = await page.locator(`.prod-slide[data-slot="${side}"]`).evaluate(card => {
+        const box = card.getBoundingClientRect();
+        const label = card.querySelector<HTMLElement>('.prod-peek-caption')!;
+        const caption = label.getBoundingClientRect();
+        return {outerLeft: box.left, outerRight: innerWidth - box.right,
+          left: caption.left - box.left, right: box.right - caption.right,
+          bottom: box.bottom - caption.bottom, captionWidth: label.clientWidth,
+          captionScrollWidth: label.scrollWidth};
+      });
+      expect(inset.outerLeft).toBeGreaterThan(20);
+      expect(inset.outerRight).toBeGreaterThan(20);
+      expect(inset.left).toBeGreaterThan(width >= 1400 ? 24 : 20);
+      expect(inset.right).toBeGreaterThan(width >= 1400 ? 24 : 20);
+      expect(inset.bottom).toBeGreaterThan(26);
+      expect(inset.captionScrollWidth).toBeLessThanOrEqual(inset.captionWidth + 1);
+    }
+  }
+  await stage.scrollIntoViewIfNeeded();
 
-  await stage.hover();
-  const travelSamples = incoming!.evaluate((card) => new Promise<number[]>((resolve) => {
-    const positions: number[] = [];
-    const started = performance.now();
+  const incoming = page.locator('.prod-slide[data-product-id="ola-go"]');
+  const before = (await incoming.boundingBox())!;
+  const transition = await incoming.evaluate(card => getComputedStyle(card).transitionProperty);
+  expect(transition).toBe('opacity');
+  const samplesPromise = incoming.evaluate(card => new Promise<Array<{slot: string | undefined; x: number; width: number; opacity: number}>>(resolve => {
+    const samples: Array<{slot: string | undefined; x: number; width: number; opacity: number}> = [];
+    const start = performance.now();
     const capture = () => {
-      positions.push(card.getBoundingClientRect().x);
-      if (performance.now() - started < 1200) requestAnimationFrame(capture);
-      else resolve(positions);
+      const box = card.getBoundingClientRect();
+      samples.push({slot: (card as HTMLElement).dataset.slot, x: box.x, width: box.width,
+        opacity: Number(getComputedStyle(card).opacity)});
+      if (performance.now() - start < 700) requestAnimationFrame(capture);
+      else resolve(samples);
     };
     requestAnimationFrame(capture);
   }));
-  await page.mouse.wheel(0, 120);
-  await expect.poll(() => incoming!.evaluate((card) => card.classList.contains('prod-stage'))).toBe(true);
-  const positions = await travelSamples;
-  const after = await incoming!.boundingBox();
-  expect(after).not.toBeNull();
-  expect(positions.some((x) => x < before!.x - 20 && x > after!.x + 20), 'incoming card should occupy positions between side and center').toBe(true);
-  expect(after!.width).toBeGreaterThan(before!.width * 2);
+  await incoming.click();
+  const samples = await samplesPromise;
+  const sideFrames = samples.filter(frame => frame.slot === 'next');
+  const centerFrames = samples.filter(frame => frame.slot === 'center');
+  expect(sideFrames.some(frame => frame.opacity < .25), 'old arrangement fades away before its position changes').toBe(true);
+  expect(sideFrames.every(frame => Math.abs(frame.x - before.x) < 2 && Math.abs(frame.width - before.width) < 2), 'card stays in place while fading out').toBe(true);
+  expect(centerFrames.some(frame => frame.opacity < .15), 'new arrangement begins while invisible').toBe(true);
+  expect(centerFrames.at(-1)!.opacity).toBeGreaterThan(.95);
+  await expect(incoming).toHaveAttribute('data-slot', 'center');
+  await expect(page.locator('.prod-carousel')).not.toHaveAttribute('data-switching', 'true');
+  const after = (await incoming.boundingBox())!;
+  expect(after.width).toBeGreaterThan(before.width * 2);
 });
 
 test('compact cards leave room for side arrows that cycle all five products', async ({page}, info) => {

@@ -81,6 +81,3 @@
   .lumiq-root .product-detail-light .pd-hero-visual { grid-row: 1; --pd-product-shift: 0%; --pd-product-y: 0%; }
   .lumiq-root .product-detail-light.pd-ola .pd-hero-visual { --pd-product-shift: 0%; }
 }
-/* Reading text never changes position after appearing. */
-.lumiq-root .product-detail-light .pd-hero-floor.is-entered :is(.pd-back-link,.pd-product-tagline,.pd-hero-lede,.pd-concept-note,.pd-hero-options,.pd-price-row,.pd-hero-display-title),
-.lumiq-root .product-detail-light .pd-hero-floor.is-entered .pd-hero-copy h1 { animation: none; opacity: 1; transform: none; }

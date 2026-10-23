@@ -1,0 +1,77 @@
+// Generated from contracts/ by scripts/sync-platform-contracts.mjs. Do not edit.
+type BrandOlaGoMessageTree = { [key: string]: string | BrandOlaGoMessageTree };
+
+export const brandOlaGoMessages: Record<"en" | "zh-hant" | "ja", BrandOlaGoMessageTree> = {
+  en: {
+    avatar: {
+      eyebrow: "Your avatar, on the go",
+      title: "A little care for your avatar",
+      body: "Make feeding, cleaning, and sharing your avatar part of your day.",
+      feedTitle: "Feed your avatar",
+      feedBody: "Feed your avatar to keep it happy.",
+      cleanTitle: "Clean your avatar",
+      cleanBody: "Keep your avatar clean as part of its daily care.",
+      exchangeTitle: "Exchange avatars with friends",
+      exchangeBody: "Share and exchange avatars with friends.",
+    },
+    support: {
+      eyebrow: "Everyday support",
+      title: "Small things that help you along",
+      body: "Care for your avatar, keep a useful note, or draw attention with an audible SOS alert.",
+      careTitle: "Take care of your avatar",
+      careBody: "Feed and clean your avatar so it stays happy and healthy.",
+      memoTitle: "Voice memo",
+      memoBody: "Get transcripts of your recordings, with notes that can sync with your calendar for reminders.",
+      sosTitle: "SOS",
+      sosBody: "Activate a louder beep to draw attention to your situation.",
+    },
+  },
+  "zh-hant": {
+    avatar: {
+      eyebrow: "帶著角色，一起出發",
+      title: "給你的角色，一點日常照顧",
+      body: "把餵食、清潔與分享角色，融入每一天。",
+      feedTitle: "餵食你的角色",
+      feedBody: "記得餵食，讓你的角色保持好心情。",
+      cleanTitle: "清潔你的角色",
+      cleanBody: "將清潔融入日常照顧，讓角色保持乾淨。",
+      exchangeTitle: "和朋友交換角色",
+      exchangeBody: "與朋友分享、交換各自的角色。",
+    },
+    support: {
+      eyebrow: "日常的貼心支援",
+      title: "讓生活更順手的小幫助",
+      body: "照顧角色、留下實用的備忘，也能透過 SOS 提示音引起周遭注意。",
+      careTitle: "照顧你的角色",
+      careBody: "餵食並清潔你的角色，讓它保持開心、健康。",
+      memoTitle: "語音備忘",
+      memoBody: "將錄音轉成逐字稿，讓筆記能與日曆同步，設定需要的提醒。",
+      sosTitle: "SOS",
+      sosBody: "啟動較響亮的提示音，讓周遭的人注意到你的狀況。",
+    },
+  },
+  ja: {
+    avatar: {
+      eyebrow: "アバターと一緒に出かけよう",
+      title: "アバターに、毎日の小さなお世話を",
+      body: "ごはんやお掃除、友だちとのシェアを、毎日の楽しみに。",
+      feedTitle: "アバターにごはんを",
+      feedBody: "ごはんをあげて、アバターをごきげんに。",
+      cleanTitle: "アバターをきれいに",
+      cleanBody: "毎日のお世話にお掃除を取り入れて、アバターを清潔に保てます。",
+      exchangeTitle: "友だちとアバターを交換",
+      exchangeBody: "友だちとアバターをシェアしたり、交換したりできます。",
+    },
+    support: {
+      eyebrow: "毎日のちょっとしたサポート",
+      title: "日々を支える、小さなお手伝い",
+      body: "アバターのお世話や便利なメモに。SOS の通知音で周囲の注意を引くこともできます。",
+      careTitle: "アバターのお世話",
+      careBody: "ごはんとお掃除で、アバターを元気でごきげんに保てます。",
+      memoTitle: "音声メモ",
+      memoBody: "録音を文字に起こしてメモに。カレンダーと同期し、必要なリマインダーにつなげられます。",
+      sosTitle: "SOS",
+      sosBody: "大きめの通知音を鳴らして、自分の状況に周囲の注意を引くことができます。",
+    },
+  },
+};

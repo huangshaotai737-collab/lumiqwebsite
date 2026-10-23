@@ -13,17 +13,23 @@ export default function HomeGlassProducts({ products }: { products: GlassProduct
   const [enabled, setEnabled] = useState(false);
   const [running, setRunning] = useState(false);
   const [selected, setSelected] = useState(0);
+  const handoffTimer = useRef<number | null>(null);
   useEffect(() => {
     const element = host.current!;
     const section = element.closest<HTMLElement>(".lh-products")!;
     const desktop = matchMedia(homeWideQuery);
     let near = false;
     let supported: boolean | undefined;
+    const cancelHandoff = () => {
+      if (handoffTimer.current !== null) window.clearTimeout(handoffTimer.current);
+      handoffTimer.current = null;
+      section.removeAttribute("data-glass-revealing");
+    };
     const sync = () => setSelected(Number(section.dataset.activeProduct || 0));
     const configure = () => {
       // The CSS slot is reserved from the first render, but normal product links
       // remain visible until the renderer has its first complete scene.
-      if (!desktop.matches) { setEnabled(false); section.removeAttribute("data-glass-3d"); return; }
+      if (!desktop.matches) { cancelHandoff(); setEnabled(false); section.removeAttribute("data-glass-3d"); return; }
       if (!near) return;
       if (supported === undefined) {
         const canvas = document.createElement("canvas");
@@ -34,6 +40,7 @@ export default function HomeGlassProducts({ products }: { products: GlassProduct
       setEnabled(supported);
     };
     const failed = () => {
+      cancelHandoff();
       supported = false;
       setEnabled(false);
       section.removeAttribute("data-glass-3d");
@@ -45,15 +52,23 @@ export default function HomeGlassProducts({ products }: { products: GlassProduct
       near = entry.isIntersecting;
       setRunning(near);
       configure();
-    }, { rootMargin: "600px 0px" });
+    }, { rootMargin: "1200px 0px" });
     visibility.observe(section); desktop.addEventListener("change", configure); sync();
-    return () => { element.removeEventListener("webglcontextlost", failed, true); observer.disconnect(); visibility.disconnect(); desktop.removeEventListener("change", configure); section.removeAttribute("data-glass-3d"); };
+    return () => { cancelHandoff(); element.removeEventListener("webglcontextlost", failed, true); observer.disconnect(); visibility.disconnect(); desktop.removeEventListener("change", configure); section.removeAttribute("data-glass-3d"); };
   }, []);
   const ready = () => {
-    // A pending frame must not re-enable the canvas after a mobile resize/unmount.
-    if (matchMedia(homeWideQuery).matches && host.current?.querySelector("canvas")) {
-      host.current.closest(".lh-products")?.setAttribute("data-glass-3d", "");
-    }
+    // The finished scene fades over the still-clickable HTML cards. A pending
+    // frame must not re-enable it after a mobile resize or unmount.
+    const section = host.current?.closest<HTMLElement>(".lh-products");
+    if (!section || !matchMedia(homeWideQuery).matches || !host.current?.querySelector("canvas") ||
+      section.hasAttribute("data-glass-3d") || section.hasAttribute("data-glass-revealing")) return;
+    section.setAttribute("data-glass-revealing", "");
+    handoffTimer.current = window.setTimeout(() => {
+      handoffTimer.current = null;
+      if (!host.current?.isConnected || !matchMedia(homeWideQuery).matches) return;
+      section.setAttribute("data-glass-3d", "");
+      section.removeAttribute("data-glass-revealing");
+    }, matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : 320);
   };
   const select = (index: number) => host.current?.dispatchEvent(new CustomEvent("lumiq:product-select", { bubbles: true, detail: index }));
   return <div ref={host} className="lh-glass-products" onKeyDown={e => {

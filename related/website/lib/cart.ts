@@ -1,3 +1,4 @@
+import type {ProductPresentation} from "./generated/platform/content";
 import { PRODUCT_BY_ID, type ProductId } from "./products";
 export type CartItem = { id: ProductId; quantity: number };
 export type CartAction = { type: "add" | "remove"; id: ProductId } | { type: "quantity"; id: ProductId; quantity: number } | { type: "restore"; items: CartItem[] };
@@ -48,9 +49,9 @@ export function serializeCart(items: CartItem[]): string {
   return JSON.stringify({ version: 1, items: items.map(({ id, quantity }) => ({ id, quantity })) });
 }
 
-export function summarizeCart(items: CartItem[]) {
+export function summarizeCart(items: CartItem[], products: Record<ProductId, Pick<ProductPresentation,"price">> = PRODUCT_BY_ID) {
   return items.reduce((summary, item) => {
-    const price = PRODUCT_BY_ID[item.id].price;
+    const price = products[item.id].price;
     summary.quantity += item.quantity;
     if (price.kind === "usd") {
       summary.referenceTotal += price.amount * item.quantity;

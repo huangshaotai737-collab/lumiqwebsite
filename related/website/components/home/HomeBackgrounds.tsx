@@ -1,4 +1,7 @@
 "use client";
+import {useContentAdapter} from "@/components/content/useContentAdapter";
+import {useVisualPreview} from '@/components/content/SiteContentProvider';
+import {visualMediaDependency} from '@/lib/content/visual-dependency';
 import {homeMotionQuery} from "./responsiveLayout";
 
 import { useEffect, useRef, useState } from "react";
@@ -10,6 +13,10 @@ export const backgroundVideoSource = "/assets/background-variants-20260911/versi
 export const chapterImage = (name: string) => `/assets/chapter-backgrounds-20260910/${name}.webp`;
 
 export default function HomeBackgrounds() {
+  const cms = useContentAdapter();
+  const visual = useVisualPreview();
+  const mediaDependency = visualMediaDependency(cms,visual,backgroundVideoSource);
+  const resolvedVideoSource = cms.url(backgroundVideoSource);
   const [host, setHost] = useState<Element | null>(null);
   const fallback = useRef<HTMLDivElement>(null);
   const video = useRef<HTMLVideoElement>(null);
@@ -31,7 +38,7 @@ export default function HomeBackgrounds() {
       frame = 0;
       // Load the approved light movie only as its first chapter approaches.
       if (motion.matches && !document.hidden && scrollY >= start - innerHeight * .75 && !movie.getAttribute("src")) {
-        movie.src = backgroundVideoSource;
+        movie.src = resolvedVideoSource;
         movie.load();
       }
       // Seeking can temporarily lower readyState. Keep the last decoded frame visible.
@@ -74,8 +81,8 @@ export default function HomeBackgrounds() {
       chapter("home-films-hold", "#films", 10);
       chapter("home-room-anchor", "#experiences", 15);
       // These timelines reveal the complete reading layout after their initial shrink.
-      chapter("home-trust-anchor", "#safety", 20, .88 / 1.4);
-      chapter("home-family-chapters", "#family", 25, .36 / 1.2);
+      chapter("home-family-chapters", "#family", 20, .36 / 1.2);
+      chapter("home-trust-anchor", "#safety", 25, .88 / 1.4);
       chapter("home-join-anchor", "#join", 30);
       add(end, 30);
       movie.dataset.scrollStart = String(start);
@@ -115,9 +122,9 @@ export default function HomeBackgrounds() {
       movie.pause(); movie.removeAttribute("src"); movie.load();
       if (root) delete root.dataset.flowBackground;
     };
-  }, [host]);
+  }, [host, mediaDependency, resolvedVideoSource]);
   return host ? createPortal(<div className="lh-fixed-backgrounds" aria-hidden="true">
     <video ref={video} data-background-video muted playsInline preload="auto" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", opacity: 0 }} />
-    <div data-background-fallback ref={fallback} style={{ backgroundImage: `url('${chapterImage("products")}')` }} />
+    <div data-background-fallback ref={fallback} style={{ backgroundImage: `url('${cms.url(chapterImage("products"))}')` }} />
   </div>, host) : null;
 }

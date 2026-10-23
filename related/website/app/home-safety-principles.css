@@ -1,0 +1,88 @@
+/* Pair each trust principle with one prominent icon and one copy block. */
+.lumiq-root main.lh-home .lh-safety .lh-principles {
+  column-gap: clamp(24px, 2.6vw, 44px);
+  row-gap: clamp(28px, 3vw, 48px);
+}
+
+.lumiq-root main.lh-home .lh-safety .lh-principle {
+  display: grid;
+  grid-template-columns: 48px minmax(0, 1fr);
+  grid-template-rows: auto auto;
+  align-content: start;
+  column-gap: clamp(14px, 1.2vw, 20px);
+  min-width: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 8px;
+  background: none;
+  box-shadow: none;
+  transform: none;
+  transition: none;
+}
+
+.lumiq-root main.lh-home .lh-safety .lh-principle:hover {
+  border: 0;
+  background: none;
+  box-shadow: none;
+  transform: none;
+}
+
+.lumiq-root main.lh-home .lh-safety .lh-principle:focus-visible {
+  outline: 2px solid #53687d;
+  outline-offset: 8px;
+}
+
+.lumiq-root main.lh-home .lh-safety .lh-principle-top {
+  grid-column: 1;
+  grid-row: 1 / span 2;
+  width: 48px;
+  height: 48px;
+  margin: 0;
+  color: #4e6379;
+}
+
+.lumiq-root main.lh-home .lh-safety .lh-principle-top svg {
+  width: 44px;
+  height: 44px;
+}
+
+.lumiq-root main.lh-home .lh-safety .lh-principle h3 {
+  grid-column: 2;
+  grid-row: 1;
+  min-height: 0;
+  margin: 0 0 8px;
+}
+
+.lumiq-root main.lh-home .lh-safety .lh-principle p {
+  grid-column: 2;
+  grid-row: 2;
+  margin: 0;
+}
+
+.lumiq-root main.lh-home .lh-safety .lh-principle:is(:hover, :focus-visible) h3 {
+  text-decoration: underline;
+  text-decoration-thickness: .07em;
+  text-underline-offset: .14em;
+}
+
+@media (max-width: 767px) {
+  .lumiq-root main.lh-home .lh-safety .lh-principles {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 28px;
+  }
+
+  .lumiq-root main.lh-home .lh-safety .lh-principle {
+    grid-template-columns: 42px minmax(0, 1fr);
+    column-gap: 16px;
+  }
+
+  .lumiq-root main.lh-home .lh-safety .lh-principle-top {
+    width: 42px;
+    height: 42px;
+  }
+
+  .lumiq-root main.lh-home .lh-safety .lh-principle-top svg {
+    width: 40px;
+    height: 40px;
+  }
+}

@@ -71,10 +71,10 @@
   transform-origin: center;
 }
 .lh-video-start-poster {
-  background-image: url("/assets/home-video/ola-scroll-v16-start-20260909.webp");
+  background-image: var(--cms-asset_76a5de3f207ca5bb, url("/assets/home-video/ola-scroll-v16-start-20260909.webp"));
 }
 .lh-video-end-poster {
-  background-image: url("/assets/home-video/ola-scroll-v16-end-20260909.webp");
+  background-image: var(--cms-asset_d11e4e878cf13138, url("/assets/home-video/ola-scroll-v16-end-20260909.webp"));
   opacity: 0;
 }
 .lh-opening-video { opacity: 0; }

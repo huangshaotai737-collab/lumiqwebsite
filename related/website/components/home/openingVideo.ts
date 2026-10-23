@@ -9,7 +9,7 @@ export const openingVideoQuery =
   homeMotionQuery;
 
 /** One continuous shot, held at its approved first frame until the user scrolls. */
-export function mountOpeningVideo(root: HTMLElement) {
+export function mountOpeningVideo(root: HTMLElement, source = openingVideoSource, posters?: string[], preview = false) {
   const opening = root.querySelector<HTMLElement>(".lh-opening")!;
   const stage = opening.querySelector<HTMLElement>(".lh-opening-stage")!;
   const video = opening.querySelector<HTMLVideoElement>(".lh-opening-video")!;
@@ -288,7 +288,7 @@ export function mountOpeningVideo(root: HTMLElement) {
       scroll.update();
       update();
     });
-    void preloadOpening(openingVideoSource, controller.signal).then(blob => {
+    void preloadOpening(source, controller.signal, posters, preview).then(blob => {
       if (!mounted || failed || controller.signal.aborted) return;
       ownedSource = URL.createObjectURL(blob);
       video.src = ownedSource;

@@ -6,6 +6,7 @@
   .lumiq-root main.lh-home .lh-opening[data-static-opening] .lh-video-layer { display: none; }
   .lumiq-root main.lh-home .lh-opening[data-static-opening] :is(.lh-hero, .lh-ola) {
     position: relative; inset: auto; height: auto; min-height: 0; pointer-events: auto;
+    background-image: none;
   }
   .lumiq-root main.lh-home .lh-opening[data-static-opening] :is(.lh-hero-layout, .lh-ola-layout) {
     position: relative; width: calc(100% - var(--opening-gutter) * 2);

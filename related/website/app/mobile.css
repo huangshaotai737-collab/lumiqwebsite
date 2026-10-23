@@ -84,12 +84,12 @@
     mask-image: linear-gradient(transparent, #000 10%, #000 87%, transparent);
   }
   .lumiq-root .lh-home :is(#top, #ola)::before { display: none; }
-  .lumiq-root .lh-home #products { --mobile-chapter-art: url('/assets/mobile-backgrounds-20260914/products.webp'); }
-  .lumiq-root .lh-home #films { --mobile-chapter-art: url('/assets/mobile-backgrounds-20260914/films.webp'); }
-  .lumiq-root .lh-home #experiences { --mobile-chapter-art: url('/assets/mobile-backgrounds-20260914/experiences.webp'); }
-  .lumiq-root .lh-home #safety { --mobile-chapter-art: url('/assets/mobile-backgrounds-20260914/safety.webp'); }
-  .lumiq-root .lh-home #family { --mobile-chapter-art: url('/assets/mobile-backgrounds-20260914/family.webp'); }
-  .lumiq-root .lh-home #join { --mobile-chapter-art: url('/assets/mobile-backgrounds-20260914/join.webp'); }
+  .lumiq-root .lh-home #products { --mobile-chapter-art: var(--cms-asset_d1ad8dd5bdfbf760, url('/assets/mobile-backgrounds-20260914/products.webp')); }
+  .lumiq-root .lh-home #films { --mobile-chapter-art: var(--cms-asset_b7165aed3c49a200, url('/assets/mobile-backgrounds-20260914/films.webp')); }
+  .lumiq-root .lh-home #experiences { --mobile-chapter-art: var(--cms-asset_74cd3fba98989129, url('/assets/mobile-backgrounds-20260914/experiences.webp')); }
+  .lumiq-root .lh-home #safety { --mobile-chapter-art: var(--cms-asset_7145d3296daddfe8, url('/assets/mobile-backgrounds-20260914/safety.webp')); }
+  .lumiq-root .lh-home #family { --mobile-chapter-art: var(--cms-asset_446a063b14b8e927, url('/assets/mobile-backgrounds-20260914/family.webp')); }
+  .lumiq-root .lh-home #join { --mobile-chapter-art: var(--cms-asset_9a83c769ddc9caef, url('/assets/mobile-backgrounds-20260914/join.webp')); }
   .lumiq-root .site-nav .nav-logo { flex-shrink: 0; overflow: visible; }
   .lumiq-root .site-nav .nav-logo img { object-fit: contain; }
   .lumiq-root .lh-home .lh-hero-layout { padding-top: 102px; padding-bottom: 16px; }

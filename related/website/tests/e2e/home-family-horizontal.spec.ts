@@ -3,14 +3,18 @@ import { expect, test } from '@playwright/test';
 test('a horizontal trackpad swipe changes one family card without moving the page', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 900 });
   await page.goto('/en');
-  await expect(page.locator('.lh-loader')).toHaveAttribute('data-state', 'hidden', { timeout: 30_000 });
+  await expect(page.locator('#products')).toHaveAttribute('data-enhanced', 'true');
   const cards = page.locator('.lh-family-chapters');
   const stage = cards.locator('.lh-family-stage');
   await stage.scrollIntoViewIfNeeded();
   await stage.hover();
+  // Hover can leave the page's CSS smooth scroll running after opening fallback.
+  await stage.evaluate(element => element.scrollIntoView({ block: 'center', behavior: 'instant' }));
   const beforeY = await page.evaluate(() => scrollY);
 
-  await page.mouse.wheel(120, 0);
+  // Chromium mobile emulation scales CDP wheel deltas by deviceScaleFactor.
+  // Deliver the same 120 CSS-pixel gesture at both DPR1 and DPR3.
+  await page.mouse.wheel(120 * await page.evaluate(() => devicePixelRatio), 0);
 
   await expect(cards).toHaveAttribute('data-active-family', '1');
   expect(await page.evaluate(() => scrollY)).toBe(beforeY);
@@ -19,7 +23,7 @@ test('a horizontal trackpad swipe changes one family card without moving the pag
 test('dragging the family card right selects the previous card', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 900 });
   await page.goto('/en');
-  await expect(page.locator('.lh-loader')).toHaveAttribute('data-state', 'hidden', { timeout: 30_000 });
+  await expect(page.locator('#products')).toHaveAttribute('data-enhanced', 'true');
   const cards = page.locator('.lh-family-chapters');
   const stage = cards.locator('.lh-family-stage');
   await stage.scrollIntoViewIfNeeded();
@@ -39,7 +43,7 @@ test('dragging the family card right selects the previous card', async ({ page }
 test('clicking the left preview on the first card wraps to the last card', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 900 });
   await page.goto('/en');
-  await expect(page.locator('.lh-loader')).toHaveAttribute('data-state', 'hidden', { timeout: 30_000 });
+  await expect(page.locator('#products')).toHaveAttribute('data-enhanced', 'true');
   const cards = page.locator('.lh-family-chapters');
   await cards.locator('.lh-family-stage').scrollIntoViewIfNeeded();
 
@@ -51,7 +55,7 @@ test('clicking the left preview on the first card wraps to the last card', async
 test('clicking the right preview on the last card wraps to the first card', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 900 });
   await page.goto('/en');
-  await expect(page.locator('.lh-loader')).toHaveAttribute('data-state', 'hidden', { timeout: 30_000 });
+  await expect(page.locator('#products')).toHaveAttribute('data-enhanced', 'true');
   const cards = page.locator('.lh-family-chapters');
   await cards.locator('#family-tab-evening').click();
   await expect(cards).toHaveAttribute('data-active-family', '2');

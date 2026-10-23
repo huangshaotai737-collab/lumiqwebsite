@@ -1,15 +1,16 @@
 import Heading from "@/components/Heading";
 import Link from "next/link";
-import {hasLocale} from "next-intl";
-import {getLocale, getTranslations} from "next-intl/server";
-import {routing} from "@/i18n/routing";
+import {createTranslator} from "next-intl";
+import SiteContentBoundary, {siteRequestLocale} from "@/components/content/SiteContentBoundary";
+import {readPublishedContent} from "@/lib/content/read";
 
 export default async function LocaleNotFound() {
-  const requestedLocale = await getLocale();
-  const locale = hasLocale(routing.locales, requestedLocale) ? requestedLocale : routing.defaultLocale;
-  const t = await getTranslations({locale, namespace: "NotFound"});
+  const locale = await siteRequestLocale();
+  const {snapshot} = await readPublishedContent();
+  const t = createTranslator({locale, messages: snapshot.messages[locale], namespace: "NotFound"});
 
   return (
+    <SiteContentBoundary publishedOnly>
     <div className="flex min-h-screen items-center justify-center px-4" style={{background: "#fff"}}>
       <div style={{maxWidth: 460, textAlign: "center"}}>
         <span style={{fontSize: ".75rem", fontWeight: 600, letterSpacing: ".12em", color: "var(--gold)"}}>{t("eyebrow")}</span>
@@ -22,5 +23,6 @@ export default async function LocaleNotFound() {
         </div>
       </div>
     </div>
+    </SiteContentBoundary>
   );
 }

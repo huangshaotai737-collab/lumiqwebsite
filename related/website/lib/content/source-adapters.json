@@ -1,0 +1,3237 @@
+{
+  "static": [
+    {
+      "file": "components/home/GlassCards.tsx",
+      "sourceLocator": "FunctionDeclaration:16/Block:2/ReturnStatement:9/JsxElement:0/JsxExpression:10/BinaryExpression:0/JsxElement:2/JsxElement:2/JsxExpression:2/ConditionalExpression:0/JsxElement:4/JsxElement:2/JsxText:2",
+      "path": "messages.{locale}.CmsStatic.field_9df95ca6165be7d3",
+      "expression": "cms.text(\"field_9df95ca6165be7d3\")"
+    },
+    {
+      "file": "components/home/GlassCards.tsx",
+      "sourceLocator": "FunctionDeclaration:16/Block:2/ReturnStatement:9/JsxElement:0/JsxExpression:10/BinaryExpression:0/JsxElement:2/JsxElement:2/JsxExpression:2/ConditionalExpression:0/JsxElement:4/JsxElement:2/JsxExpression:3/ConditionalExpression:0/StringLiteral:2",
+      "path": "messages.{locale}.CmsStatic.field_508457dea05708c6",
+      "expression": "cms.text(\"field_508457dea05708c6\")"
+    },
+    {
+      "file": "components/home/GlassCards.tsx",
+      "sourceLocator": "FunctionDeclaration:16/Block:2/ReturnStatement:9/JsxElement:0/JsxExpression:10/BinaryExpression:0/JsxElement:2/JsxElement:2/JsxExpression:2/ConditionalExpression:0/JsxElement:4/JsxElement:2/JsxExpression:3/ConditionalExpression:0/StringLiteral:4",
+      "path": "messages.{locale}.CmsStatic.field_d584df7212969e9c",
+      "expression": "cms.text(\"field_d584df7212969e9c\")"
+    },
+    {
+      "file": "components/home/GlassCards.tsx",
+      "sourceLocator": "FunctionDeclaration:16/Block:2/ReturnStatement:9/JsxElement:0/JsxExpression:10/BinaryExpression:0/JsxElement:2/JsxElement:2/JsxExpression:4/BinaryExpression:0/JsxElement:2/JsxElement:6/JsxText:2",
+      "path": "messages.{locale}.CmsStatic.field_028813a441e9ed0f",
+      "expression": "cms.text(\"field_028813a441e9ed0f\")"
+    },
+    {
+      "file": "components/home/GlassCards.tsx",
+      "sourceLocator": "FunctionDeclaration:21/Block:3/ReturnStatement:0/JsxElement:0/JsxOpeningElement:0/JsxAttributes:1/attr:fallback/JsxExpression:1/ConditionalExpression:0/JsxElement:4/JsxText:1",
+      "path": "messages.{locale}.CmsStatic.field_33e42817ed9c66ca",
+      "expression": "cms.text(\"field_33e42817ed9c66ca\")"
+    },
+    {
+      "file": "components/cart/CartDrawer.tsx",
+      "sourceLocator": "FunctionDeclaration:10/Block:4/ReturnStatement:5/ParenthesizedExpression:0/JsxElement:0/JsxElement:2/JsxElement:2/JsxElement:2/JsxElement:1/JsxText:1",
+      "path": "messages.{locale}.CmsStatic.field_031f92cca3852a5b",
+      "expression": "cms.text(\"field_031f92cca3852a5b\")"
+    },
+    {
+      "file": "app/products/nest/page.tsx",
+      "sourceLocator": "FirstStatement:2/VariableDeclarationList:1/var:metadata/ObjectLiteralExpression:2/prop:title/StringLiteral:1",
+      "path": "messages.{locale}.CmsStatic.field_0371e492c69032cf",
+      "expression": "cms.text(\"field_0371e492c69032cf\")"
+    },
+    {
+      "file": "app/products/nest/page.tsx",
+      "sourceLocator": "FirstStatement:2/VariableDeclarationList:1/var:metadata/ObjectLiteralExpression:2/prop:description/StringLiteral:1",
+      "path": "messages.{locale}.CmsStatic.field_a697abdfe99b8f83",
+      "expression": "cms.text(\"field_a697abdfe99b8f83\")"
+    },
+    {
+      "file": "app/products/page.tsx",
+      "sourceLocator": "FirstStatement:2/VariableDeclarationList:1/var:metadata/ObjectLiteralExpression:2/prop:title/StringLiteral:1",
+      "path": "messages.{locale}.CmsStatic.field_111b161da5642d3e",
+      "expression": "cms.text(\"field_111b161da5642d3e\")"
+    },
+    {
+      "file": "app/products/page.tsx",
+      "sourceLocator": "FirstStatement:2/VariableDeclarationList:1/var:metadata/ObjectLiteralExpression:2/prop:description/StringLiteral:1",
+      "path": "messages.{locale}.CmsStatic.field_214766da1c1b9375",
+      "expression": "cms.text(\"field_214766da1c1b9375\")"
+    },
+    {
+      "file": "components/SiteFooter.tsx",
+      "sourceLocator": "FunctionDeclaration:6/Block:3/FirstStatement:2/VariableDeclarationList:0/var:groups/ArrayLiteralExpression:1/ObjectLiteralExpression:3/prop:content/JsxElement:1/JsxElement:2/JsxText:1",
+      "path": "messages.{locale}.CmsStatic.field_389fc243fbdfc7f9",
+      "expression": "cms.text(\"field_389fc243fbdfc7f9\")"
+    },
+    {
+      "file": "components/SiteFooter.tsx",
+      "sourceLocator": "FunctionDeclaration:6/Block:3/FirstStatement:2/VariableDeclarationList:0/var:groups/ArrayLiteralExpression:1/ObjectLiteralExpression:3/prop:content/JsxElement:1/JsxElement:3/JsxText:1",
+      "path": "messages.{locale}.CmsStatic.field_1fa422a74ad018b8",
+      "expression": "cms.text(\"field_1fa422a74ad018b8\")"
+    },
+    {
+      "file": "components/SiteFooter.tsx",
+      "sourceLocator": "FunctionDeclaration:6/Block:3/FirstStatement:2/VariableDeclarationList:0/var:groups/ArrayLiteralExpression:1/ObjectLiteralExpression:3/prop:content/JsxElement:1/JsxElement:4/JsxText:1",
+      "path": "messages.{locale}.CmsStatic.field_3b5f5243c3798ce2",
+      "expression": "cms.text(\"field_3b5f5243c3798ce2\")"
+    },
+    {
+      "file": "components/SiteFooter.tsx",
+      "sourceLocator": "FunctionDeclaration:6/Block:3/ReturnStatement:3/ParenthesizedExpression:0/JsxElement:0/JsxElement:2/JsxElement:2/JsxElement:2/JsxElement:2/JsxSelfClosingElement:2/JsxAttributes:1/attr:alt/JsxExpression:1/ConditionalExpression:0/StringLiteral:2",
+      "path": "messages.{locale}.CmsStatic.field_f9f5468863713928",
+      "expression": "cms.text(\"field_f9f5468863713928\")"
+    },
+    {
+      "file": "components/SiteFooter.tsx",
+      "sourceLocator": "FunctionDeclaration:6/Block:3/ReturnStatement:3/ParenthesizedExpression:0/JsxElement:0/JsxElement:2/JsxElement:2/JsxElement:2/JsxElement:2/JsxSelfClosingElement:2/JsxAttributes:1/attr:alt/JsxExpression:1/ConditionalExpression:0/StringLiteral:4",
+      "path": "messages.{locale}.CmsStatic.field_a291c2c8ec1af322",
+      "expression": "cms.text(\"field_a291c2c8ec1af322\")"
+    },
+    {
+      "file": "app/story/page.tsx",
+      "sourceLocator": "FunctionDeclaration:8/Block:3/FirstStatement:2/VariableDeclarationList:0/var:years/ArrayLiteralExpression:1/StringLiteral:0",
+      "path": "messages.{locale}.CmsStatic.field_dc11cabae4312bcd",
+      "expression": "cms.text(\"field_dc11cabae4312bcd\")"
+    },
+    {
+      "file": "app/story/page.tsx",
+      "sourceLocator": "FunctionDeclaration:8/Block:3/FirstStatement:2/VariableDeclarationList:0/var:years/ArrayLiteralExpression:1/StringLiteral:1",
+      "path": "messages.{locale}.CmsStatic.field_1fc4604260fe5b69",
+      "expression": "cms.text(\"field_1fc4604260fe5b69\")"
+    },
+    {
+      "file": "app/story/page.tsx",
+      "sourceLocator": "FunctionDeclaration:8/Block:3/FirstStatement:2/VariableDeclarationList:0/var:years/ArrayLiteralExpression:1/StringLiteral:2",
+      "path": "messages.{locale}.CmsStatic.field_2739b97c8be23bf8",
+      "expression": "cms.text(\"field_2739b97c8be23bf8\")"
+    },
+    {
+      "file": "app/story/page.tsx",
+      "sourceLocator": "FunctionDeclaration:8/Block:3/ReturnStatement:5/ParenthesizedExpression:0/JsxElement:0/JsxElement:6/JsxElement:2/JsxElement:2/JsxText:1",
+      "path": "messages.{locale}.CmsStatic.field_2c27e6c9d0a3a5b1",
+      "expression": "cms.text(\"field_2c27e6c9d0a3a5b1\")"
+    },
+    {
+      "file": "app/story/page.tsx",
+      "sourceLocator": "FunctionDeclaration:8/Block:3/ReturnStatement:5/ParenthesizedExpression:0/JsxElement:0/JsxElement:10/JsxElement:2/JsxElement:2/JsxText:1",
+      "path": "messages.{locale}.CmsStatic.field_88472b6b27cb174f",
+      "expression": "cms.text(\"field_88472b6b27cb174f\")"
+    },
+    {
+      "file": "app/contact/page.tsx",
+      "sourceLocator": "FunctionDeclaration:4/Block:3/FirstStatement:1/VariableDeclarationList:0/var:channels/ArrayLiteralExpression:1/ObjectLiteralExpression:0/prop:email/StringLiteral:1",
+      "path": "messages.{locale}.CmsStatic.field_23cd241d015790f4",
+      "expression": "cms.text(\"field_23cd241d015790f4\")"
+    },
+    {
+      "file": "app/contact/page.tsx",
+      "sourceLocator": "FunctionDeclaration:4/Block:3/FirstStatement:1/VariableDeclarationList:0/var:channels/ArrayLiteralExpression:1/ObjectLiteralExpression:1/prop:email/StringLiteral:1",
+      "path": "settings.supportEmail",
+      "expression": "cms.value(\"settings.supportEmail\")"
+    },
+    {
+      "file": "app/contact/page.tsx",
+      "sourceLocator": "FunctionDeclaration:4/Block:3/FirstStatement:1/VariableDeclarationList:0/var:channels/ArrayLiteralExpression:1/ObjectLiteralExpression:2/prop:email/StringLiteral:1",
+      "path": "messages.{locale}.CmsStatic.field_3c5de26aeecac7ba",
+      "expression": "cms.text(\"field_3c5de26aeecac7ba\")"
+    },
+    {
+      "file": "app/contact/page.tsx",
+      "sourceLocator": "FunctionDeclaration:4/Block:3/FirstStatement:1/VariableDeclarationList:0/var:channels/ArrayLiteralExpression:1/ObjectLiteralExpression:3/prop:email/StringLiteral:1",
+      "path": "messages.{locale}.CmsStatic.field_b560ef7d1f4e4007",
+      "expression": "cms.text(\"field_b560ef7d1f4e4007\")"
+    },
+    {
+      "file": "app/contact/page.tsx",
+      "sourceLocator": "FunctionDeclaration:4/Block:3/ReturnStatement:2/ParenthesizedExpression:0/JsxElement:0/JsxElement:8/JsxText:1",
+      "path": "messages.{locale}.CmsStatic.field_ac77db89fd52c5f8",
+      "expression": "cms.text(\"field_ac77db89fd52c5f8\")"
+    },
+    {
+      "file": "components/home/HomeFilms.tsx",
+      "sourceLocator": "FunctionDeclaration:11/Block:3/ReturnStatement:26/ParenthesizedExpression:0/JsxElement:0/JsxExpression:4/ConditionalExpression:0/JsxFragment:4/JsxElement:2/JsxElement:2/JsxExpression:2/CallExpression:0/ArrowFunction:1/Block:2/ReturnStatement:2/JsxElement:0/JsxExpression:2/ConditionalExpression:0/JsxElement:4/JsxExpression:6/BinaryExpression:0/JsxElement:2/JsxText:2",
+      "path": "messages.{locale}.CmsStatic.field_a75a773c2f6e5622",
+      "expression": "cms.text(\"field_a75a773c2f6e5622\")"
+    },
+    {
+      "file": "components/home/HomeFilms.tsx",
+      "sourceLocator": "FunctionDeclaration:11/Block:3/ReturnStatement:26/ParenthesizedExpression:0/JsxElement:0/JsxExpression:4/ConditionalExpression:0/JsxFragment:4/JsxElement:2/JsxElement:4/JsxElement:4/JsxElement:2/JsxText:1",
+      "path": "messages.{locale}.CmsStatic.field_8012c8a7ba06bfe5",
+      "expression": "cms.text(\"field_8012c8a7ba06bfe5\")"
+    },
+    {
+      "file": "components/home/HomeFilms.tsx",
+      "sourceLocator": "FunctionDeclaration:11/Block:3/ReturnStatement:26/ParenthesizedExpression:0/JsxElement:0/JsxExpression:4/ConditionalExpression:0/JsxFragment:4/JsxElement:2/JsxElement:4/JsxElement:4/JsxElement:3/JsxText:1",
+      "path": "messages.{locale}.CmsStatic.field_28cae631213153ae",
+      "expression": "cms.text(\"field_28cae631213153ae\")"
+    },
+    {
+      "file": "components/ProductsShowcase.tsx",
+      "sourceLocator": "FunctionDeclaration:12/Block:3/FirstStatement:9/VariableDeclarationList:0/var:products/CallExpression:1/PropertyAccessExpression:0/ArrayLiteralExpression:0/ObjectLiteralExpression:0/prop:tag/StringLiteral:1",
+      "path": "messages.{locale}.CmsStatic.field_a9b1ebd2f71c2296",
+      "expression": "cms.text(\"field_a9b1ebd2f71c2296\")"
+    },
+    {
+      "file": "components/ProductsShowcase.tsx",
+      "sourceLocator": "FunctionDeclaration:12/Block:3/FirstStatement:9/VariableDeclarationList:0/var:products/CallExpression:1/PropertyAccessExpression:0/ArrayLiteralExpression:0/ObjectLiteralExpression:0/prop:name/StringLiteral:1",
+      "path": "products.ola.name",
+      "expression": "cms.value(\"products.ola.name\")"
+    },
+    {
+      "file": "components/ProductsShowcase.tsx",
+      "sourceLocator": "FunctionDeclaration:12/Block:3/FirstStatement:9/VariableDeclarationList:0/var:products/CallExpression:1/PropertyAccessExpression:0/ArrayLiteralExpression:0/ObjectLiteralExpression:1/prop:tag/StringLiteral:1",
+      "path": "messages.{locale}.CmsStatic.field_38dba8e1bc5cd39b",
+      "expression": "cms.text(\"field_38dba8e1bc5cd39b\")"
+    },
+    {
+      "file": "components/ProductsShowcase.tsx",
+      "sourceLocator": "FunctionDeclaration:12/Block:3/FirstStatement:9/VariableDeclarationList:0/var:products/CallExpression:1/PropertyAccessExpression:0/ArrayLiteralExpression:0/ObjectLiteralExpression:1/prop:name/StringLiteral:1",
+      "path": "products.ola-go.name",
+      "expression": "cms.value(\"products.ola-go.name\")"
+    },
+    {
+      "file": "components/ProductsShowcase.tsx",
+      "sourceLocator": "FunctionDeclaration:12/Block:3/FirstStatement:9/VariableDeclarationList:0/var:products/CallExpression:1/PropertyAccessExpression:0/ArrayLiteralExpression:0/ObjectLiteralExpression:2/prop:tag/StringLiteral:1",
+      "path": "messages.{locale}.CmsStatic.field_b3c03beee11b8ce9",
+      "expression": "cms.text(\"field_b3c03beee11b8ce9\")"
+    },
+    {
+      "file": "components/ProductsShowcase.tsx",
+      "sourceLocator": "FunctionDeclaration:12/Block:3/FirstStatement:9/VariableDeclarationList:0/var:products/CallExpression:1/PropertyAccessExpression:0/ArrayLiteralExpression:0/ObjectLiteralExpression:2/prop:name/StringLiteral:1",
+      "path": "products.tablet.name",
+      "expression": "cms.value(\"products.tablet.name\")"
+    },
+    {
+      "file": "components/ProductsShowcase.tsx",
+      "sourceLocator": "FunctionDeclaration:12/Block:3/FirstStatement:9/VariableDeclarationList:0/var:products/CallExpression:1/PropertyAccessExpression:0/ArrayLiteralExpression:0/ObjectLiteralExpression:3/prop:tag/StringLiteral:1",
+      "path": "messages.{locale}.CmsStatic.field_73edd4defecf3c29",
+      "expression": "cms.text(\"field_73edd4defecf3c29\")"
+    },
+    {
+      "file": "components/ProductsShowcase.tsx",
+      "sourceLocator": "FunctionDeclaration:12/Block:3/FirstStatement:9/VariableDeclarationList:0/var:products/CallExpression:1/PropertyAccessExpression:0/ArrayLiteralExpression:0/ObjectLiteralExpression:3/prop:name/StringLiteral:1",
+      "path": "products.print.name",
+      "expression": "cms.value(\"products.print.name\")"
+    },
+    {
+      "file": "components/ProductsShowcase.tsx",
+      "sourceLocator": "FunctionDeclaration:12/Block:3/FirstStatement:9/VariableDeclarationList:0/var:products/CallExpression:1/PropertyAccessExpression:0/ArrayLiteralExpression:0/ObjectLiteralExpression:4/prop:tag/StringLiteral:1",
+      "path": "messages.{locale}.CmsStatic.field_b4d4550ae11151e4",
+      "expression": "cms.text(\"field_b4d4550ae11151e4\")"
+    },
+    {
+      "file": "components/ProductsShowcase.tsx",
+      "sourceLocator": "FunctionDeclaration:12/Block:3/FirstStatement:9/VariableDeclarationList:0/var:products/CallExpression:1/PropertyAccessExpression:0/ArrayLiteralExpression:0/ObjectLiteralExpression:4/prop:name/StringLiteral:1",
+      "path": "products.nest.name",
+      "expression": "cms.value(\"products.nest.name\")"
+    },
+    {
+      "file": "components/ProductsShowcase.tsx",
+      "sourceLocator": "FunctionDeclaration:12/Block:3/ReturnStatement:20/ParenthesizedExpression:0/JsxElement:0/JsxElement:16/JsxElement:6/JsxElement:2/JsxElement:4/JsxText:2",
+      "path": "messages.{locale}.CmsStatic.field_48ba3248da14b636",
+      "expression": "cms.text(\"field_48ba3248da14b636\")"
+    },
+    {
+      "file": "components/ProductsShowcase.tsx",
+      "sourceLocator": "FunctionDeclaration:12/Block:3/ReturnStatement:20/ParenthesizedExpression:0/JsxElement:0/JsxElement:16/JsxElement:6/JsxElement:4/JsxExpression:2/CallExpression:0/ArrowFunction:1/Block:3/ReturnStatement:4/ParenthesizedExpression:0/JsxElement:0/JsxElement:8/JsxElement:4/JsxElement:4/JsxText:2",
+      "path": "messages.{locale}.CmsStatic.field_4e137c8eab6ae1ed",
+      "expression": "cms.text(\"field_4e137c8eab6ae1ed\")"
+    },
+    {
+      "file": "components/ProductsShowcase.tsx",
+      "sourceLocator": "FunctionDeclaration:12/Block:3/ReturnStatement:20/ParenthesizedExpression:0/JsxElement:0/JsxElement:18/JsxElement:4/JsxElement:4/JsxElement:2/JsxSelfClosingElement:2/JsxAttributes:1/attr:alt/StringLiteral:1",
+      "path": "media.asset_e036cbcfe52d5970.alt",
+      "expression": "cms.value(\"media.asset_e036cbcfe52d5970.alt\")"
+    },
+    {
+      "file": "components/ProductsShowcase.tsx",
+      "sourceLocator": "FunctionDeclaration:12/Block:3/ReturnStatement:20/ParenthesizedExpression:0/JsxElement:0/JsxElement:18/JsxElement:4/JsxElement:4/JsxElement:4/JsxElement:1/JsxText:1",
+      "path": "messages.{locale}.CmsStatic.field_49f53ec0cc8f512b",
+      "expression": "cms.text(\"field_49f53ec0cc8f512b\")"
+    },
+    {
+      "file": "components/home/MobileFilmCarousel.tsx",
+      "sourceLocator": "FunctionDeclaration:5/Block:4/ReturnStatement:14/JsxElement:0/JsxElement:2/JsxExpression:2/CallExpression:0/ArrowFunction:1/JsxElement:3/JsxElement:2/JsxExpression:2/ConditionalExpression:0/JsxFragment:2/JsxExpression:6/BinaryExpression:0/JsxElement:2/JsxText:2",
+      "path": "messages.{locale}.CmsStatic.field_3e2795a1de57d032",
+      "expression": "cms.text(\"field_3e2795a1de57d032\")"
+    },
+    {
+      "file": "components/home/MobileFilmCarousel.tsx",
+      "sourceLocator": "FunctionDeclaration:5/Block:4/ReturnStatement:14/JsxElement:0/JsxElement:4/JsxElement:4/JsxText:2",
+      "path": "messages.{locale}.CmsStatic.field_e70b6b741eccd461",
+      "expression": "cms.text(\"field_e70b6b741eccd461\")"
+    },
+    {
+      "file": "components/SiteHeader.tsx",
+      "sourceLocator": "FunctionDeclaration:9/Block:3/FirstStatement:15/VariableDeclarationList:0/var:languages/ArrayLiteralExpression:2/ObjectLiteralExpression:0/prop:code/StringLiteral:1",
+      "path": "messages.{locale}.CmsStatic.field_dbf7fc4623365aca",
+      "expression": "cms.text(\"field_dbf7fc4623365aca\")"
+    },
+    {
+      "file": "components/SiteHeader.tsx",
+      "sourceLocator": "FunctionDeclaration:9/Block:3/FirstStatement:15/VariableDeclarationList:0/var:languages/ArrayLiteralExpression:2/ObjectLiteralExpression:1/prop:code/StringLiteral:1",
+      "path": "messages.{locale}.CmsStatic.field_88d310bbf9c719ef",
+      "expression": "cms.text(\"field_88d310bbf9c719ef\")"
+    },
+    {
+      "file": "components/SiteHeader.tsx",
+      "sourceLocator": "FunctionDeclaration:9/Block:3/FirstStatement:15/VariableDeclarationList:0/var:languages/ArrayLiteralExpression:2/ObjectLiteralExpression:2/prop:code/StringLiteral:1",
+      "path": "messages.{locale}.CmsStatic.field_4f1ba9da652781b3",
+      "expression": "cms.text(\"field_4f1ba9da652781b3\")"
+    },
+    {
+      "file": "components/SiteHeader.tsx",
+      "sourceLocator": "FunctionDeclaration:9/Block:3/ReturnStatement:24/ParenthesizedExpression:0/JsxElement:0/JsxElement:4/JsxElement:2/JsxSelfClosingElement:2/JsxAttributes:1/attr:alt/JsxExpression:1/ConditionalExpression:0/StringLiteral:2",
+      "path": "messages.{locale}.CmsStatic.field_430041fc9b25a88e",
+      "expression": "cms.text(\"field_430041fc9b25a88e\")"
+    },
+    {
+      "file": "components/SiteHeader.tsx",
+      "sourceLocator": "FunctionDeclaration:9/Block:3/ReturnStatement:24/ParenthesizedExpression:0/JsxElement:0/JsxElement:4/JsxElement:2/JsxSelfClosingElement:2/JsxAttributes:1/attr:alt/JsxExpression:1/ConditionalExpression:0/StringLiteral:4",
+      "path": "messages.{locale}.CmsStatic.field_b805d448f3a55978",
+      "expression": "cms.text(\"field_b805d448f3a55978\")"
+    },
+    {
+      "file": "components/SiteHeader.tsx",
+      "sourceLocator": "FunctionDeclaration:9/Block:3/ReturnStatement:24/ParenthesizedExpression:0/JsxElement:0/JsxElement:4/JsxElement:6/JsxElement:4/JsxElement:2/JsxElement:7/JsxText:1",
+      "path": "messages.{locale}.CmsStatic.field_a11b193e1a6e95b8",
+      "expression": "cms.text(\"field_a11b193e1a6e95b8\")"
+    },
+    {
+      "file": "components/MembersArea.tsx",
+      "sourceLocator": "FirstStatement:8/VariableDeclarationList:0/var:devices/AsExpression:1/ArrayLiteralExpression:0/ObjectLiteralExpression:0/prop:name/StringLiteral:1",
+      "path": "messages.{locale}.CmsStatic.field_8bec1f33f31dd9ab",
+      "expression": "cms.text(\"field_8bec1f33f31dd9ab\")"
+    },
+    {
+      "file": "components/MembersArea.tsx",
+      "sourceLocator": "FirstStatement:8/VariableDeclarationList:0/var:devices/AsExpression:1/ArrayLiteralExpression:0/ObjectLiteralExpression:1/prop:name/StringLiteral:1",
+      "path": "messages.{locale}.CmsStatic.field_f714cbe4c6f70453",
+      "expression": "cms.text(\"field_f714cbe4c6f70453\")"
+    },
+    {
+      "file": "components/MembersArea.tsx",
+      "sourceLocator": "FunctionDeclaration:14/Block:3/ReturnStatement:13/JsxElement:0/JsxElement:2/JsxElement:2/JsxElement:2/JsxElement:1/JsxText:1",
+      "path": "messages.{locale}.CmsStatic.field_43a7027bcf6a8e50",
+      "expression": "cms.text(\"field_43a7027bcf6a8e50\")"
+    },
+    {
+      "file": "components/MembersArea.tsx",
+      "sourceLocator": "FunctionDeclaration:14/Block:3/ReturnStatement:13/JsxElement:0/JsxElement:2/JsxElement:6/JsxElement:2/JsxElement:2/JsxElement:1/JsxExpression:1/ConditionalExpression:0/StringLiteral:4",
+      "path": "messages.{locale}.CmsStatic.field_a095354d062e27fe",
+      "expression": "cms.text(\"field_a095354d062e27fe\")"
+    },
+    {
+      "file": "components/MembersArea.tsx",
+      "sourceLocator": "FunctionDeclaration:14/Block:3/ReturnStatement:13/JsxElement:0/JsxElement:2/JsxElement:6/JsxElement:4/JsxExpression:4/BinaryExpression:0/JsxFragment:2/JsxExpression:2/ConditionalExpression:0/JsxFragment:4/JsxElement:2/JsxExpression:1/CallExpression:0/ArrowFunction:1/JsxElement:2/JsxElement:4/JsxElement:3/JsxText:2",
+      "path": "messages.{locale}.CmsStatic.field_4965a16a4f0c7dbc",
+      "expression": "cms.text(\"field_4965a16a4f0c7dbc\")"
+    },
+    {
+      "file": "components/MembersArea.tsx",
+      "sourceLocator": "FunctionDeclaration:14/Block:3/ReturnStatement:13/JsxElement:0/JsxElement:2/JsxElement:6/JsxElement:4/JsxExpression:4/BinaryExpression:0/JsxFragment:2/JsxExpression:2/ConditionalExpression:0/JsxFragment:4/JsxExpression:4/BinaryExpression:0/JsxElement:2/JsxElement:2/JsxElement:1/JsxText:2",
+      "path": "messages.{locale}.CmsStatic.field_94e6b5dbd328efb4",
+      "expression": "cms.text(\"field_94e6b5dbd328efb4\")"
+    },
+    {
+      "file": "components/MembersArea.tsx",
+      "sourceLocator": "FunctionDeclaration:14/Block:3/ReturnStatement:13/JsxElement:0/JsxElement:2/JsxElement:6/JsxElement:4/JsxExpression:10/BinaryExpression:0/JsxElement:2/JsxElement:2/JsxElement:3/JsxText:1",
+      "path": "messages.{locale}.CmsStatic.field_bd4d2b3e3e5a92f6",
+      "expression": "cms.text(\"field_bd4d2b3e3e5a92f6\")"
+    },
+    {
+      "file": "app/page.tsx",
+      "sourceLocator": "FunctionDeclaration:28/Block:4/ReturnStatement:2/ParenthesizedExpression:0/JsxElement:0/JsxElement:4/JsxElement:2/JsxElement:6/JsxElement:4/JsxElement:2/JsxElement:2/JsxText:3",
+      "path": "messages.{locale}.CmsStatic.field_595c7b9755eb3c39",
+      "expression": "cms.text(\"field_595c7b9755eb3c39\")"
+    },
+    {
+      "file": "app/page.tsx",
+      "sourceLocator": "FunctionDeclaration:28/Block:4/ReturnStatement:2/ParenthesizedExpression:0/JsxElement:0/JsxElement:4/JsxElement:2/JsxElement:8/JsxElement:2/JsxElement:4/JsxElement:2/JsxSelfClosingElement:4/JsxAttributes:1/attr:alt/StringLiteral:1",
+      "path": "media.asset_38c045ee1dd24e31.alt",
+      "expression": "cms.value(\"media.asset_38c045ee1dd24e31.alt\")"
+    },
+    {
+      "file": "app/page.tsx",
+      "sourceLocator": "FunctionDeclaration:28/Block:4/ReturnStatement:2/ParenthesizedExpression:0/JsxElement:0/JsxElement:6/JsxElement:2/JsxElement:6/JsxElement:4/JsxElement:6/JsxElement:4/JsxElement:2/JsxText:1",
+      "path": "messages.{locale}.CmsStatic.field_656dc81182778885",
+      "expression": "cms.text(\"field_656dc81182778885\")"
+    },
+    {
+      "file": "app/page.tsx",
+      "sourceLocator": "FunctionDeclaration:28/Block:4/ReturnStatement:2/ParenthesizedExpression:0/JsxElement:0/JsxElement:6/JsxElement:2/JsxElement:6/JsxElement:4/JsxElement:6/JsxElement:4/JsxText:3",
+      "path": "messages.{locale}.CmsStatic.field_a899a31fb0b3e230",
+      "expression": "cms.text(\"field_a899a31fb0b3e230\")"
+    },
+    {
+      "file": "app/faq/page.tsx",
+      "sourceLocator": "FunctionDeclaration:6/Block:3/ReturnStatement:7/ParenthesizedExpression:0/JsxElement:0/JsxElement:4/JsxElement:6/JsxElement:4/JsxOpeningElement:0/JsxAttributes:1/attr:href/StringLiteral:1",
+      "path": "messages.{locale}.CmsStatic.field_23cd241d015790f4",
+      "expression": "\"mailto:\" + cms.value(\"messages.{locale}.CmsStatic.field_23cd241d015790f4\")"
+    },
+    {
+      "file": "app/faq/page.tsx",
+      "sourceLocator": "FunctionDeclaration:6/Block:3/ReturnStatement:7/ParenthesizedExpression:0/JsxElement:0/JsxElement:4/JsxElement:6/JsxElement:4/JsxText:1",
+      "path": "messages.{locale}.CmsStatic.field_23cd241d015790f4",
+      "expression": "cms.value(\"messages.{locale}.CmsStatic.field_23cd241d015790f4\")"
+    },
+    {
+      "file": "app/faq/page.tsx",
+      "sourceLocator": "FunctionDeclaration:6/Block:3/ReturnStatement:7/ParenthesizedExpression:0/JsxElement:0/JsxElement:6/JsxExpression:6/CallExpression:0/ArrowFunction:1/Block:2/ReturnStatement:2/ParenthesizedExpression:0/JsxElement:0/JsxElement:2/JsxElement:4/JsxText:1",
+      "path": "messages.{locale}.CmsStatic.field_746d580ff27ae9e6",
+      "expression": "cms.text(\"field_746d580ff27ae9e6\")"
+    },
+    {
+      "file": "app/plans/page.tsx",
+      "sourceLocator": "FirstStatement:2/VariableDeclarationList:1/var:metadata/ObjectLiteralExpression:2/prop:title/StringLiteral:1",
+      "path": "messages.{locale}.CmsStatic.field_7f1cd295aab7ea9c",
+      "expression": "cms.text(\"field_7f1cd295aab7ea9c\")"
+    },
+    {
+      "file": "app/plans/page.tsx",
+      "sourceLocator": "FirstStatement:2/VariableDeclarationList:1/var:metadata/ObjectLiteralExpression:2/prop:description/StringLiteral:1",
+      "path": "messages.{locale}.CmsStatic.field_77f016e56034e4f2",
+      "expression": "cms.text(\"field_77f016e56034e4f2\")"
+    },
+    {
+      "file": "app/layout.tsx",
+      "sourceLocator": "FirstStatement:17/VariableDeclarationList:1/var:metadata/ObjectLiteralExpression:2/prop:title/ObjectLiteralExpression:1/prop:default/StringLiteral:1",
+      "path": "messages.{locale}.CmsStatic.field_e635317a912dfef3",
+      "expression": "cms.text(\"field_e635317a912dfef3\")"
+    },
+    {
+      "file": "app/layout.tsx",
+      "sourceLocator": "FirstStatement:17/VariableDeclarationList:1/var:metadata/ObjectLiteralExpression:2/prop:description/StringLiteral:1",
+      "path": "messages.{locale}.CmsStatic.field_e1113eff51ca8f33",
+      "expression": "cms.text(\"field_e1113eff51ca8f33\")"
+    },
+    {
+      "file": "app/layout.tsx",
+      "sourceLocator": "FirstStatement:17/VariableDeclarationList:1/var:metadata/ObjectLiteralExpression:2/prop:openGraph/ObjectLiteralExpression:1/prop:siteName/StringLiteral:1",
+      "path": "messages.{locale}.CmsStatic.field_7d0c1e9cd75db1e9",
+      "expression": "cms.text(\"field_7d0c1e9cd75db1e9\")"
+    },
+    {
+      "file": "components/cart/CartTrigger.tsx",
+      "sourceLocator": "FunctionDeclaration:5/Block:4/ReturnStatement:2/JsxElement:0/JsxExpression:4/ConditionalExpression:0/JsxElement:2/JsxExpression:1/ConditionalExpression:0/StringLiteral:2",
+      "path": "messages.{locale}.CmsStatic.field_9655987c15b2fe51",
+      "expression": "cms.text(\"field_9655987c15b2fe51\")"
+    },
+    {
+      "file": "components/PrintProductPage.tsx",
+      "sourceLocator": "FunctionDeclaration:2/Block:3/ReturnStatement:1/ParenthesizedExpression:0/JsxSelfClosingElement:0/JsxAttributes:1/attr:scenes/JsxExpression:1/ArrayLiteralExpression:0/ObjectLiteralExpression:0/prop:eyebrow/StringLiteral:1",
+      "path": "messages.{locale}.CmsStatic.field_fac072f6a017d02f",
+      "expression": "cms.text(\"field_fac072f6a017d02f\")"
+    },
+    {
+      "file": "components/PrintProductPage.tsx",
+      "sourceLocator": "FunctionDeclaration:2/Block:3/ReturnStatement:1/ParenthesizedExpression:0/JsxSelfClosingElement:0/JsxAttributes:1/attr:scenes/JsxExpression:1/ArrayLiteralExpression:0/ObjectLiteralExpression:1/prop:eyebrow/StringLiteral:1",
+      "path": "messages.{locale}.CmsStatic.field_9886e4c94096599d",
+      "expression": "cms.text(\"field_9886e4c94096599d\")"
+    },
+    {
+      "file": "lib/metadata.ts",
+      "sourceLocator": "FunctionDeclaration:7/Block:6/ReturnStatement:6/ObjectLiteralExpression:0/prop:openGraph/ObjectLiteralExpression:1/prop:siteName/StringLiteral:1",
+      "path": "messages.{locale}.CmsStatic.field_ff38d2e683aca082",
+      "expression": "cms.text(\"field_ff38d2e683aca082\")"
+    },
+    {
+      "file": "app/prelaunch/page.tsx",
+      "sourceLocator": "FunctionDeclaration:6/Block:3/ReturnStatement:6/ParenthesizedExpression:0/JsxElement:0/JsxElement:4/JsxExpression:12/BinaryExpression:0/ParenthesizedExpression:2/JsxElement:0/JsxElement:2/JsxOpeningElement:0/JsxAttributes:1/attr:href/StringLiteral:1",
+      "path": "messages.{locale}.CmsStatic.field_23cd241d015790f4",
+      "expression": "\"mailto:\" + cms.value(\"messages.{locale}.CmsStatic.field_23cd241d015790f4\")"
+    }
+  ],
+  "preserved": {
+    "related/website/lib/content/initial-snapshot.json": "0860669fac96aa1870663ee75f84ba00d5136f5f96b8b62367608d68bf9535d2",
+    "related/website/lib/content/field-manifest.json": "d0eaded8a31616ccad08fdd674e99c7c0161899e1295f46ce95d4136f3136833",
+    "contracts/content-policy.ts": "de91c90edbebebfd8ecebad360c3bcb1b9e7e4871b2ab1d3f233fec6a6b3f338",
+    "related/admin/features/content/field-manifest.json": "d0eaded8a31616ccad08fdd674e99c7c0161899e1295f46ce95d4136f3136833",
+    "related/admin/features/content/initial-snapshot.json": "0860669fac96aa1870663ee75f84ba00d5136f5f96b8b62367608d68bf9535d2"
+  },
+  "media": [
+    {
+      "slot": "asset_012d3bf8af92d486",
+      "file": "components/home/HomeFamily.tsx",
+      "sourceLocator": "FunctionDeclaration:5/Block:3/ReturnStatement:15/ParenthesizedExpression:0/JsxElement:0/JsxElement:4/JsxExpression:2/CallExpression:0/ArrowFunction:1/Block:2/ReturnStatement:3/ParenthesizedExpression:0/JsxElement:0/JsxExpression:2/ConditionalExpression:0/JsxElement:2/JsxSelfClosingElement:2/JsxAttributes:1/attr:src/JsxExpression:1/TemplateExpression:0",
+      "originalExpression": "`/assets/western-scenes-20260908/${key}.webp`",
+      "altExpression": "\"\"",
+      "originalAlt": "",
+      "adapterFile": "components/home/HomeFamily.tsx",
+      "expression": "cms.url(`/assets/western-scenes-20260908/${key}.webp`)"
+    },
+    {
+      "slot": "asset_012d3bf8af92d486",
+      "file": "components/home/HomeFamily.tsx",
+      "sourceLocator": "FunctionDeclaration:5/Block:3/ReturnStatement:15/ParenthesizedExpression:0/JsxElement:0/JsxElement:4/JsxExpression:2/CallExpression:0/ArrowFunction:1/Block:2/ReturnStatement:3/ParenthesizedExpression:0/JsxElement:0/JsxExpression:2/ConditionalExpression:0/JsxSelfClosingElement:4/JsxAttributes:1/attr:src/JsxExpression:1/TemplateExpression:0",
+      "originalExpression": "`/assets/western-scenes-20260908/${key}.webp`",
+      "altExpression": "{t(`familyMoments.${key}`)}",
+      "originalAlt": "",
+      "adapterFile": "components/home/HomeFamily.tsx",
+      "expression": "cms.url(`/assets/western-scenes-20260908/${key}.webp`)"
+    },
+    {
+      "slot": "asset_037b5083d4367575",
+      "file": "app/globals.css",
+      "sourceLocator": "Block:980/ExpressionStatement:1/CallExpression:0/StringLiteral:1",
+      "originalExpression": "'/assets/subpage-backgrounds-20260918-clean/prelaunch-flow-clean.webp'",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/globals.css",
+      "expression": "--cms-asset_037b5083d4367575"
+    },
+    {
+      "slot": "asset_037b5083d4367575",
+      "file": "app/globals.css",
+      "sourceLocator": "css:url:037b5083d4367575",
+      "originalExpression": "url('/assets/subpage-backgrounds-20260918-clean/prelaunch-flow-clean.webp",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/globals.css",
+      "expression": "--cms-asset_037b5083d4367575"
+    },
+    {
+      "slot": "asset_05056f38e42fe55d",
+      "file": "components/NestProductPage.tsx",
+      "sourceLocator": "FunctionDeclaration:4/Block:3/FirstStatement:1/VariableDeclarationList:0/var:finishes/AsExpression:1/ArrayLiteralExpression:0/ObjectLiteralExpression:0/prop:front/StringLiteral:1",
+      "originalExpression": "\"/assets/web/nest15-oak-front.webp\"",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "components/NestProductPage.tsx",
+      "expression": "cms.url(\"/assets/web/nest15-oak-front.webp\")"
+    },
+    {
+      "slot": "asset_05a64ae32028cee9",
+      "file": "app/page.tsx",
+      "sourceLocator": "FunctionDeclaration:28/Block:4/ReturnStatement:2/ParenthesizedExpression:0/JsxElement:0/JsxElement:4/JsxElement:2/JsxElement:6/JsxElement:2/JsxElement:2/JsxSelfClosingElement:4/JsxAttributes:1/attr:src/StringLiteral:1",
+      "originalExpression": "\"/assets/mobile-backgrounds-20260914/hero-unified.webp\"",
+      "altExpression": "\"\"",
+      "originalAlt": "",
+      "adapterFile": "app/page.tsx",
+      "expression": "cms.url(\"/assets/mobile-backgrounds-20260914/hero-unified.webp\")"
+    },
+    {
+      "slot": "asset_0c270be51d793f7b",
+      "file": "app/globals.css",
+      "sourceLocator": "Block:976/ExpressionStatement:1/CallExpression:0/StringLiteral:1",
+      "originalExpression": "'/assets/subpage-backgrounds-20260918-clean/media-flow-clean.webp'",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/globals.css",
+      "expression": "--cms-asset_0c270be51d793f7b"
+    },
+    {
+      "slot": "asset_0c270be51d793f7b",
+      "file": "app/globals.css",
+      "sourceLocator": "css:url:0c270be51d793f7b",
+      "originalExpression": "url('/assets/subpage-backgrounds-20260918-clean/media-flow-clean.webp",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/globals.css",
+      "expression": "--cms-asset_0c270be51d793f7b"
+    },
+    {
+      "slot": "asset_0d34c384acd4d56d",
+      "file": "app/globals.css",
+      "sourceLocator": "Block:966/ExpressionStatement:11/CallExpression:0/StringLiteral:1",
+      "originalExpression": "'/assets/subpage-backgrounds-20260915/media.webp'",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/globals.css",
+      "expression": "--cms-asset_0d34c384acd4d56d"
+    },
+    {
+      "slot": "asset_0d34c384acd4d56d",
+      "file": "app/globals.css",
+      "sourceLocator": "Block:970/ExpressionStatement:5/CallExpression:0/StringLiteral:1",
+      "originalExpression": "'/assets/subpage-backgrounds-20260915/media.webp'",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/globals.css",
+      "expression": "--cms-asset_0d34c384acd4d56d"
+    },
+    {
+      "slot": "asset_0d34c384acd4d56d",
+      "file": "app/globals.css",
+      "sourceLocator": "css:url:0d34c384acd4d56d",
+      "originalExpression": "url('/assets/subpage-backgrounds-20260915/media.webp",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/globals.css",
+      "expression": "--cms-asset_0d34c384acd4d56d"
+    },
+    {
+      "slot": "asset_0d34c384acd4d56d",
+      "file": "app/globals.css",
+      "sourceLocator": "css:url:0d34c384acd4d56d",
+      "originalExpression": "url('/assets/subpage-backgrounds-20260915/media.webp",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/globals.css",
+      "expression": "--cms-asset_0d34c384acd4d56d"
+    },
+    {
+      "slot": "asset_137d79f5442fc11a",
+      "file": "app/products/tablet/page.tsx",
+      "sourceLocator": "FunctionDeclaration:3/Block:3/ReturnStatement:1/ParenthesizedExpression:0/JsxSelfClosingElement:0/JsxAttributes:1/attr:heroImage/JsxExpression:1/ObjectLiteralExpression:0/prop:src/StringLiteral:1",
+      "originalExpression": "\"/assets/tablet-detail/original-20260915/tablet-hero-original-transparent.png\"",
+      "altExpression": "t(\"deviceAlt\")",
+      "originalAlt": "",
+      "adapterFile": "app/products/tablet/page.tsx",
+      "expression": "cms.url(\"/assets/tablet-detail/original-20260915/tablet-hero-original-transparent.png\")"
+    },
+    {
+      "slot": "asset_1469a0e144ef7e2a",
+      "file": "components/home/HomeFilms.tsx",
+      "sourceLocator": "FunctionDeclaration:11/Block:3/ReturnStatement:26/ParenthesizedExpression:0/JsxElement:0/JsxExpression:4/ConditionalExpression:0/JsxFragment:4/JsxElement:2/JsxElement:2/JsxExpression:2/CallExpression:0/ArrowFunction:1/Block:2/ReturnStatement:2/JsxElement:0/JsxExpression:2/ConditionalExpression:0/JsxElement:4/JsxElement:2/JsxSelfClosingElement:2/JsxAttributes:1/attr:src/JsxExpression:1/ConditionalExpression:0/TemplateExpression:2",
+      "originalExpression": "`/assets/films-20260908/${films[active]}.mp4`",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "components/home/HomeFilms.tsx",
+      "expression": "cms.url(`/assets/films-20260908/${films[active]}.mp4`)"
+    },
+    {
+      "slot": "asset_1469a0e144ef7e2a",
+      "file": "components/home/HomeFilms.tsx",
+      "sourceLocator": "FunctionDeclaration:11/Block:3/ReturnStatement:26/ParenthesizedExpression:0/JsxElement:0/JsxExpression:4/ConditionalExpression:0/JsxFragment:4/JsxElement:2/JsxElement:2/JsxExpression:2/CallExpression:0/ArrowFunction:1/Block:2/ReturnStatement:2/JsxElement:0/JsxExpression:2/ConditionalExpression:0/JsxElement:4/JsxElement:2/JsxElement:4/JsxOpeningElement:0/JsxAttributes:1/attr:href/JsxExpression:1/TemplateExpression:0",
+      "originalExpression": "`/assets/films-20260908/${films[active]}.mp4`",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "components/home/HomeFilms.tsx",
+      "expression": "cms.url(`/assets/films-20260908/${films[active]}.mp4`)"
+    },
+    {
+      "slot": "asset_1469a0e144ef7e2a",
+      "file": "components/home/HomeFilms.tsx",
+      "sourceLocator": "FunctionDeclaration:11/Block:3/ReturnStatement:26/ParenthesizedExpression:0/JsxElement:0/JsxExpression:4/ConditionalExpression:0/JsxFragment:4/JsxElement:2/JsxElement:2/JsxExpression:2/CallExpression:0/ArrowFunction:1/Block:2/ReturnStatement:2/JsxElement:0/JsxExpression:2/ConditionalExpression:0/JsxElement:4/JsxExpression:6/BinaryExpression:0/JsxElement:2/JsxOpeningElement:0/JsxAttributes:1/attr:href/JsxExpression:1/TemplateExpression:0",
+      "originalExpression": "`/assets/films-20260908/${films[active]}.mp4`",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "components/home/HomeFilms.tsx",
+      "expression": "cms.url(`/assets/films-20260908/${films[active]}.mp4`)"
+    },
+    {
+      "slot": "asset_1469a0e144ef7e2a",
+      "file": "components/home/MobileFilmCarousel.tsx",
+      "sourceLocator": "FunctionDeclaration:5/Block:4/ReturnStatement:14/JsxElement:0/JsxElement:2/JsxExpression:2/CallExpression:0/ArrowFunction:1/JsxElement:3/JsxElement:2/JsxExpression:2/ConditionalExpression:0/JsxFragment:2/JsxElement:2/JsxSelfClosingElement:2/JsxAttributes:1/attr:src/JsxExpression:1/ConditionalExpression:0/TemplateExpression:2",
+      "originalExpression": "`/assets/films-20260908/${film}.mp4`",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "components/home/MobileFilmCarousel.tsx",
+      "expression": "cms.url(`/assets/films-20260908/${film}.mp4`)"
+    },
+    {
+      "slot": "asset_1469a0e144ef7e2a",
+      "file": "components/home/MobileFilmCarousel.tsx",
+      "sourceLocator": "FunctionDeclaration:5/Block:4/ReturnStatement:14/JsxElement:0/JsxElement:2/JsxExpression:2/CallExpression:0/ArrowFunction:1/JsxElement:3/JsxElement:2/JsxExpression:2/ConditionalExpression:0/JsxFragment:2/JsxExpression:6/BinaryExpression:0/JsxElement:2/JsxOpeningElement:0/JsxAttributes:1/attr:href/JsxExpression:1/TemplateExpression:0",
+      "originalExpression": "`/assets/films-20260908/${film}.mp4`",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "components/home/MobileFilmCarousel.tsx",
+      "expression": "cms.url(`/assets/films-20260908/${film}.mp4`)"
+    },
+    {
+      "slot": "asset_1adb9be602d046aa",
+      "file": "app/[locale]/members/members.css",
+      "sourceLocator": "Block:1/ExpressionStatement:9/CallExpression:0/StringLiteral:1",
+      "originalExpression": "'/assets/subpage-backgrounds-20260918-clean/faq-flow-clean.webp'",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/[locale]/members/members.css",
+      "expression": "--cms-asset_1adb9be602d046aa"
+    },
+    {
+      "slot": "asset_1adb9be602d046aa",
+      "file": "app/[locale]/members/members.css",
+      "sourceLocator": "css:url:1adb9be602d046aa",
+      "originalExpression": "url('/assets/subpage-backgrounds-20260918-clean/faq-flow-clean.webp",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/[locale]/members/members.css",
+      "expression": "--cms-asset_1adb9be602d046aa"
+    },
+    {
+      "slot": "asset_1adb9be602d046aa",
+      "file": "app/globals.css",
+      "sourceLocator": "Block:978/ExpressionStatement:1/CallExpression:0/StringLiteral:1",
+      "originalExpression": "'/assets/subpage-backgrounds-20260918-clean/faq-flow-clean.webp'",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/globals.css",
+      "expression": "--cms-asset_1adb9be602d046aa"
+    },
+    {
+      "slot": "asset_1adb9be602d046aa",
+      "file": "app/globals.css",
+      "sourceLocator": "css:url:1adb9be602d046aa",
+      "originalExpression": "url('/assets/subpage-backgrounds-20260918-clean/faq-flow-clean.webp",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/globals.css",
+      "expression": "--cms-asset_1adb9be602d046aa"
+    },
+    {
+      "slot": "asset_1b417ae97c567ba5",
+      "file": "components/home/HomeBackgrounds.tsx",
+      "sourceLocator": "FirstStatement:6/VariableDeclarationList:1/var:chapterImage/ArrowFunction:1/TemplateExpression:2",
+      "originalExpression": "`/assets/chapter-backgrounds-20260910/${name}.webp`",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "components/home/HomeBackgrounds.tsx",
+      "expression": "cms.url(chapterImage(\"products\"))"
+    },
+    {
+      "slot": "asset_1bc081eeeeb864c8",
+      "file": "components/NestProductPage.tsx",
+      "sourceLocator": "FunctionDeclaration:4/Block:3/FirstStatement:1/VariableDeclarationList:0/var:finishes/AsExpression:1/ArrayLiteralExpression:0/ObjectLiteralExpression:2/prop:image/StringLiteral:1",
+      "originalExpression": "\"/assets/web/nest15-black-angle.webp\"",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "components/NestProductPage.tsx",
+      "expression": "cms.url(\"/assets/web/nest15-black-angle.webp\")"
+    },
+    {
+      "slot": "asset_1ea544f965add638",
+      "file": "app/product-detail-template.css",
+      "sourceLocator": "Block:1/ExpressionStatement:32/CallExpression:0/StringLiteral:1",
+      "originalExpression": "\"/assets/ola-detail/backgrounds-20260915/06-final.webp\"",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/product-detail-template.css",
+      "expression": "--cms-asset_1ea544f965add638"
+    },
+    {
+      "slot": "asset_1ea544f965add638",
+      "file": "app/product-detail-template.css",
+      "sourceLocator": "Block:3/ExpressionStatement:9/CallExpression:0/StringLiteral:1",
+      "originalExpression": "\"/assets/ola-detail/backgrounds-20260915/06-final.webp\"",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/product-detail-template.css",
+      "expression": "--cms-asset_1ea544f965add638"
+    },
+    {
+      "slot": "asset_1ea544f965add638",
+      "file": "app/product-detail-template.css",
+      "sourceLocator": "Block:5/ExpressionStatement:7/CallExpression:0/StringLiteral:1",
+      "originalExpression": "\"/assets/ola-detail/backgrounds-20260915/06-final.webp\"",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/product-detail-template.css",
+      "expression": "--cms-asset_1ea544f965add638"
+    },
+    {
+      "slot": "asset_1ea544f965add638",
+      "file": "app/product-detail-template.css",
+      "sourceLocator": "Block:7/ExpressionStatement:5/CallExpression:0/StringLiteral:1",
+      "originalExpression": "\"/assets/ola-detail/backgrounds-20260915/06-final.webp\"",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/product-detail-template.css",
+      "expression": "--cms-asset_1ea544f965add638"
+    },
+    {
+      "slot": "asset_1ea544f965add638",
+      "file": "app/product-detail-template.css",
+      "sourceLocator": "Block:9/ExpressionStatement:3/CallExpression:0/StringLiteral:1",
+      "originalExpression": "\"/assets/ola-detail/backgrounds-20260915/06-final.webp\"",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/product-detail-template.css",
+      "expression": "--cms-asset_1ea544f965add638"
+    },
+    {
+      "slot": "asset_1ea544f965add638",
+      "file": "app/product-detail-template.css",
+      "sourceLocator": "css:url:1ea544f965add638",
+      "originalExpression": "url(\"/assets/ola-detail/backgrounds-20260915/06-final.webp",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/product-detail-template.css",
+      "expression": "--cms-asset_1ea544f965add638"
+    },
+    {
+      "slot": "asset_1ea544f965add638",
+      "file": "app/product-detail-template.css",
+      "sourceLocator": "css:url:1ea544f965add638",
+      "originalExpression": "url(\"/assets/ola-detail/backgrounds-20260915/06-final.webp",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/product-detail-template.css",
+      "expression": "--cms-asset_1ea544f965add638"
+    },
+    {
+      "slot": "asset_1ea544f965add638",
+      "file": "app/product-detail-template.css",
+      "sourceLocator": "css:url:1ea544f965add638",
+      "originalExpression": "url(\"/assets/ola-detail/backgrounds-20260915/06-final.webp",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/product-detail-template.css",
+      "expression": "--cms-asset_1ea544f965add638"
+    },
+    {
+      "slot": "asset_1ea544f965add638",
+      "file": "app/product-detail-template.css",
+      "sourceLocator": "css:url:1ea544f965add638",
+      "originalExpression": "url(\"/assets/ola-detail/backgrounds-20260915/06-final.webp",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/product-detail-template.css",
+      "expression": "--cms-asset_1ea544f965add638"
+    },
+    {
+      "slot": "asset_1ea544f965add638",
+      "file": "app/product-detail-template.css",
+      "sourceLocator": "css:url:1ea544f965add638",
+      "originalExpression": "url(\"/assets/ola-detail/backgrounds-20260915/06-final.webp",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/product-detail-template.css",
+      "expression": "--cms-asset_1ea544f965add638"
+    },
+    {
+      "slot": "asset_20f8d29a9929cb10",
+      "file": "app/products/tablet/page.tsx",
+      "sourceLocator": "FunctionDeclaration:3/Block:3/ReturnStatement:1/ParenthesizedExpression:0/JsxSelfClosingElement:0/JsxAttributes:1/attr:darkSection/JsxExpression:1/ObjectLiteralExpression:0/prop:image/ObjectLiteralExpression:1/prop:src/StringLiteral:1",
+      "originalExpression": "\"/assets/tablet-detail/original-20260915/tablet-three-quarter-transparent.png\"",
+      "altExpression": "t(\"deviceAlt\")",
+      "originalAlt": "",
+      "adapterFile": "app/products/tablet/page.tsx",
+      "expression": "cms.url(\"/assets/tablet-detail/original-20260915/tablet-three-quarter-transparent.png\")"
+    },
+    {
+      "slot": "asset_210077b6875ebb01",
+      "file": "app/home-films.css",
+      "sourceLocator": "Block:44/ExpressionStatement:2/CallExpression:0/StringLiteral:1",
+      "originalExpression": "'/assets/films-20260908/welcome-home.jpg'",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/home-films.css",
+      "expression": "--cms-asset_210077b6875ebb01"
+    },
+    {
+      "slot": "asset_210077b6875ebb01",
+      "file": "app/home-films.css",
+      "sourceLocator": "css:url:210077b6875ebb01",
+      "originalExpression": "url('/assets/films-20260908/welcome-home.jpg",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/home-films.css",
+      "expression": "--cms-asset_210077b6875ebb01"
+    },
+    {
+      "slot": "asset_210077b6875ebb01",
+      "file": "components/home/HomeFilms.tsx",
+      "sourceLocator": "FunctionDeclaration:11/Block:3/ReturnStatement:26/ParenthesizedExpression:0/JsxElement:0/JsxExpression:4/ConditionalExpression:0/JsxFragment:4/JsxElement:2/JsxElement:2/JsxExpression:2/CallExpression:0/ArrowFunction:1/Block:2/ReturnStatement:2/JsxElement:0/JsxExpression:2/ConditionalExpression:0/JsxElement:2/JsxSelfClosingElement:2/JsxAttributes:1/attr:src/JsxExpression:1/TemplateExpression:0",
+      "originalExpression": "`/assets/films-20260908/${films[index]}.jpg`",
+      "altExpression": "\"\"",
+      "originalAlt": "",
+      "adapterFile": "components/home/HomeFilms.tsx",
+      "expression": "cms.url(`/assets/films-20260908/${films[index]}.jpg`)"
+    },
+    {
+      "slot": "asset_210077b6875ebb01",
+      "file": "components/home/HomeFilms.tsx",
+      "sourceLocator": "FunctionDeclaration:11/Block:3/ReturnStatement:26/ParenthesizedExpression:0/JsxElement:0/JsxExpression:4/ConditionalExpression:0/JsxFragment:4/JsxElement:2/JsxElement:2/JsxExpression:2/CallExpression:0/ArrowFunction:1/Block:2/ReturnStatement:2/JsxElement:0/JsxExpression:2/ConditionalExpression:0/JsxElement:4/JsxElement:2/JsxOpeningElement:0/JsxAttributes:1/attr:poster/JsxExpression:1/ConditionalExpression:0/TemplateExpression:2",
+      "originalExpression": "`/assets/films-20260908/${films[active]}.jpg`",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "components/home/HomeFilms.tsx",
+      "expression": "cms.url(`/assets/films-20260908/${films[active]}.jpg`)"
+    },
+    {
+      "slot": "asset_210077b6875ebb01",
+      "file": "components/home/MobileFilmCarousel.tsx",
+      "sourceLocator": "FunctionDeclaration:5/Block:4/ReturnStatement:14/JsxElement:0/JsxElement:2/JsxExpression:2/CallExpression:0/ArrowFunction:1/JsxElement:3/JsxElement:2/JsxExpression:2/ConditionalExpression:0/JsxFragment:2/JsxElement:2/JsxOpeningElement:0/JsxAttributes:1/attr:poster/JsxExpression:1/TemplateExpression:0",
+      "originalExpression": "`/assets/films-20260908/${film}.jpg`",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "components/home/MobileFilmCarousel.tsx",
+      "expression": "cms.url(`/assets/films-20260908/${film}.jpg`)"
+    },
+    {
+      "slot": "asset_210077b6875ebb01",
+      "file": "components/home/MobileFilmCarousel.tsx",
+      "sourceLocator": "FunctionDeclaration:5/Block:4/ReturnStatement:14/JsxElement:0/JsxElement:2/JsxExpression:2/CallExpression:0/ArrowFunction:1/JsxElement:3/JsxElement:2/JsxExpression:2/ConditionalExpression:0/JsxElement:4/JsxSelfClosingElement:2/JsxAttributes:1/attr:src/JsxExpression:1/TemplateExpression:0",
+      "originalExpression": "`/assets/films-20260908/${film}.jpg`",
+      "altExpression": "\"\"",
+      "originalAlt": "",
+      "adapterFile": "components/home/MobileFilmCarousel.tsx",
+      "expression": "cms.url(`/assets/films-20260908/${film}.jpg`)"
+    },
+    {
+      "slot": "asset_2339b5208d7612f7",
+      "file": "app/page.tsx",
+      "sourceLocator": "css:url:2339b5208d7612f7",
+      "originalExpression": "home-interactive/go",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/page.tsx",
+      "expression": "cms.url(\"/assets/\" + artwork[id] + \".webp\")"
+    },
+    {
+      "slot": "asset_2339b5208d7612f7",
+      "file": "components/home/GlassCards.tsx",
+      "sourceLocator": "FirstStatement:11/VariableDeclarationList:0/var:demoProducts/ArrayLiteralExpression:2/ObjectLiteralExpression:0/prop:image/StringLiteral:1",
+      "originalExpression": "\"/assets/home-interactive/go.webp\"",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "components/home/GlassCards.tsx",
+      "expression": "cms.url(originalUrl)"
+    },
+    {
+      "slot": "asset_27170c74f4cc762f",
+      "file": "app/products/tablet/page.tsx",
+      "sourceLocator": "FunctionDeclaration:3/Block:3/ReturnStatement:1/ParenthesizedExpression:0/JsxSelfClosingElement:0/JsxAttributes:1/attr:story/JsxExpression:1/ObjectLiteralExpression:0/prop:image/ObjectLiteralExpression:1/prop:src/StringLiteral:1",
+      "originalExpression": "\"/assets/tablet-detail/generated/tablet-reading-lifestyle-v2.png\"",
+      "altExpression": "t(\"way1Title\")",
+      "originalAlt": "",
+      "adapterFile": "app/products/tablet/page.tsx",
+      "expression": "cms.url(\"/assets/tablet-detail/generated/tablet-reading-lifestyle-v2.png\")"
+    },
+    {
+      "slot": "asset_27bcf70b57b916d5",
+      "file": "app/products/tablet/page.tsx",
+      "sourceLocator": "FunctionDeclaration:3/Block:3/ReturnStatement:1/ParenthesizedExpression:0/JsxSelfClosingElement:0/JsxAttributes:1/attr:scenes/JsxExpression:1/ArrayLiteralExpression:0/ObjectLiteralExpression:0/prop:image/ObjectLiteralExpression:1/prop:src/StringLiteral:1",
+      "originalExpression": "\"/assets/tablet-detail/generated/tablet-passive-screen-time-v2.png\"",
+      "altExpression": "t(\"passiveTitle\")",
+      "originalAlt": "",
+      "adapterFile": "app/products/tablet/page.tsx",
+      "expression": "cms.url(\"/assets/tablet-detail/generated/tablet-passive-screen-time-v2.png\")"
+    },
+    {
+      "slot": "asset_28eedc556a91dfad",
+      "file": "app/globals.css",
+      "sourceLocator": "Block:966/ExpressionStatement:9/CallExpression:0/StringLiteral:1",
+      "originalExpression": "'/assets/subpage-backgrounds-20260915/generated-set-02/flow-03-open-loop.webp'",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/globals.css",
+      "expression": "--cms-asset_28eedc556a91dfad"
+    },
+    {
+      "slot": "asset_28eedc556a91dfad",
+      "file": "app/globals.css",
+      "sourceLocator": "Block:968/ExpressionStatement:3/CallExpression:0/StringLiteral:1",
+      "originalExpression": "'/assets/subpage-backgrounds-20260915/generated-set-02/flow-03-open-loop.webp'",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/globals.css",
+      "expression": "--cms-asset_28eedc556a91dfad"
+    },
+    {
+      "slot": "asset_28eedc556a91dfad",
+      "file": "app/globals.css",
+      "sourceLocator": "Block:970/ExpressionStatement:7/CallExpression:0/StringLiteral:1",
+      "originalExpression": "'/assets/subpage-backgrounds-20260915/generated-set-02/flow-03-open-loop.webp'",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/globals.css",
+      "expression": "--cms-asset_28eedc556a91dfad"
+    },
+    {
+      "slot": "asset_28eedc556a91dfad",
+      "file": "app/globals.css",
+      "sourceLocator": "Block:987/ExpressionStatement:1/CallExpression:0/StringLiteral:1",
+      "originalExpression": "'/assets/subpage-backgrounds-20260915/generated-set-02/flow-03-open-loop.webp'",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/globals.css",
+      "expression": "--cms-asset_28eedc556a91dfad"
+    },
+    {
+      "slot": "asset_28eedc556a91dfad",
+      "file": "app/globals.css",
+      "sourceLocator": "css:url:28eedc556a91dfad",
+      "originalExpression": "url('/assets/subpage-backgrounds-20260915/generated-set-02/flow-03-open-loop.webp",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/globals.css",
+      "expression": "--cms-asset_28eedc556a91dfad"
+    },
+    {
+      "slot": "asset_28eedc556a91dfad",
+      "file": "app/globals.css",
+      "sourceLocator": "css:url:28eedc556a91dfad",
+      "originalExpression": "url('/assets/subpage-backgrounds-20260915/generated-set-02/flow-03-open-loop.webp",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/globals.css",
+      "expression": "--cms-asset_28eedc556a91dfad"
+    },
+    {
+      "slot": "asset_28eedc556a91dfad",
+      "file": "app/globals.css",
+      "sourceLocator": "css:url:28eedc556a91dfad",
+      "originalExpression": "url('/assets/subpage-backgrounds-20260915/generated-set-02/flow-03-open-loop.webp",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/globals.css",
+      "expression": "--cms-asset_28eedc556a91dfad"
+    },
+    {
+      "slot": "asset_28eedc556a91dfad",
+      "file": "app/globals.css",
+      "sourceLocator": "css:url:28eedc556a91dfad",
+      "originalExpression": "url('/assets/subpage-backgrounds-20260915/generated-set-02/flow-03-open-loop.webp",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/globals.css",
+      "expression": "--cms-asset_28eedc556a91dfad"
+    },
+    {
+      "slot": "asset_28eedc556a91dfad",
+      "file": "app/stable-page-backgrounds.css",
+      "sourceLocator": "Block:32/ExpressionStatement:3/CallExpression:0/StringLiteral:1",
+      "originalExpression": "'/assets/subpage-backgrounds-20260915/generated-set-02/flow-03-open-loop.webp'",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/stable-page-backgrounds.css",
+      "expression": "--cms-asset_28eedc556a91dfad"
+    },
+    {
+      "slot": "asset_28eedc556a91dfad",
+      "file": "app/stable-page-backgrounds.css",
+      "sourceLocator": "css:url:28eedc556a91dfad",
+      "originalExpression": "url('/assets/subpage-backgrounds-20260915/generated-set-02/flow-03-open-loop.webp",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/stable-page-backgrounds.css",
+      "expression": "--cms-asset_28eedc556a91dfad"
+    },
+    {
+      "slot": "asset_307c3363537a5723",
+      "file": "components/home/HomeBackgrounds.tsx",
+      "sourceLocator": "FirstStatement:6/VariableDeclarationList:1/var:chapterImage/ArrowFunction:1/TemplateExpression:2",
+      "originalExpression": "`/assets/chapter-backgrounds-20260910/${name}.webp`",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "components/home/HomeBackgrounds.tsx",
+      "expression": "cms.url(chapterImage(\"products\"))"
+    },
+    {
+      "slot": "asset_31eae4e275048ff0",
+      "file": "app/globals.css",
+      "sourceLocator": "Block:966/ExpressionStatement:7/CallExpression:0/StringLiteral:1",
+      "originalExpression": "'/assets/subpage-backgrounds-20260915/about.webp'",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/globals.css",
+      "expression": "--cms-asset_31eae4e275048ff0"
+    },
+    {
+      "slot": "asset_31eae4e275048ff0",
+      "file": "app/globals.css",
+      "sourceLocator": "css:url:31eae4e275048ff0",
+      "originalExpression": "url('/assets/subpage-backgrounds-20260915/about.webp",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/globals.css",
+      "expression": "--cms-asset_31eae4e275048ff0"
+    },
+    {
+      "slot": "asset_35f542ee3b3d9473",
+      "file": "components/home/HomeBackgrounds.tsx",
+      "sourceLocator": "FirstStatement:6/VariableDeclarationList:1/var:chapterImage/ArrowFunction:1/TemplateExpression:2",
+      "originalExpression": "`/assets/chapter-backgrounds-20260910/${name}.webp`",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "components/home/HomeBackgrounds.tsx",
+      "expression": "cms.url(chapterImage(\"products\"))"
+    },
+    {
+      "slot": "asset_38c045ee1dd24e31",
+      "file": "app/page.tsx",
+      "sourceLocator": "FunctionDeclaration:28/Block:4/ReturnStatement:2/ParenthesizedExpression:0/JsxElement:0/JsxElement:4/JsxElement:2/JsxElement:8/JsxElement:2/JsxElement:4/JsxElement:2/JsxSelfClosingElement:4/JsxAttributes:1/attr:src/StringLiteral:1",
+      "originalExpression": "\"/assets/mobile-backgrounds-20260914/ola-go-ui.webp\"",
+      "altExpression": "\"LUMIQ OLA + Go\"",
+      "originalAlt": "LUMIQ OLA + Go",
+      "adapterFile": "app/page.tsx",
+      "expression": "cms.url(\"/assets/mobile-backgrounds-20260914/ola-go-ui.webp\")"
+    },
+    {
+      "slot": "asset_3a001e1c42f920d1",
+      "file": "app/globals.css",
+      "sourceLocator": "Block:968/ExpressionStatement:9/CallExpression:0/StringLiteral:1",
+      "originalExpression": "'/assets/subpage-backgrounds-20260915/terms.webp'",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/globals.css",
+      "expression": "--cms-asset_3a001e1c42f920d1"
+    },
+    {
+      "slot": "asset_3a001e1c42f920d1",
+      "file": "app/globals.css",
+      "sourceLocator": "css:url:3a001e1c42f920d1",
+      "originalExpression": "url('/assets/subpage-backgrounds-20260915/terms.webp",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/globals.css",
+      "expression": "--cms-asset_3a001e1c42f920d1"
+    },
+    {
+      "slot": "asset_3a0fc68ee0629037",
+      "file": "components/home/HomeFilms.tsx",
+      "sourceLocator": "FunctionDeclaration:11/Block:3/ReturnStatement:26/ParenthesizedExpression:0/JsxElement:0/JsxExpression:4/ConditionalExpression:0/JsxFragment:4/JsxElement:4/JsxExpression:2/ConditionalExpression:0/JsxElement:2/JsxOpeningElement:0/JsxAttributes:1/attr:poster/JsxExpression:1/ConditionalExpression:0/StringLiteral:2",
+      "originalExpression": "\"/assets/character-20261012/poster-clean.png\"",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "components/home/HomeFilms.tsx",
+      "expression": "cms.url(\"/assets/character-20261012/poster-clean.png\")"
+    },
+    {
+      "slot": "asset_3f0e57544d2610e7",
+      "file": "app/story/page.tsx",
+      "sourceLocator": "FunctionDeclaration:8/Block:3/ReturnStatement:5/ParenthesizedExpression:0/JsxElement:0/JsxElement:4/JsxSelfClosingElement:4/JsxAttributes:1/attr:src/StringLiteral:1",
+      "originalExpression": "\"/assets/story/lumiq-brand-film.mp4\"",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/story/page.tsx",
+      "expression": "cms.url(\"/assets/story/lumiq-brand-film.mp4\")"
+    },
+    {
+      "slot": "asset_44501cb29fc98694",
+      "file": "components/home/HomeExperiences.tsx",
+      "sourceLocator": "FunctionDeclaration:7/Block:3/ReturnStatement:2/ParenthesizedExpression:0/JsxElement:0/JsxElement:4/JsxElement:2/JsxElement:2/JsxSelfClosingElement:2/JsxAttributes:1/attr:src/StringLiteral:1",
+      "originalExpression": "\"/assets/home-rooms-20260907/room-full-4k.webp\"",
+      "altExpression": "{t(\"houseAlt\")}",
+      "originalAlt": "",
+      "adapterFile": "components/home/HomeExperiences.tsx",
+      "expression": "cms.url(\"/assets/home-rooms-20260907/room-full-4k.webp\")"
+    },
+    {
+      "slot": "asset_446a063b14b8e927",
+      "file": "app/mobile.css",
+      "sourceLocator": "Block:9/Block:31/ExpressionStatement:1/CallExpression:0/StringLiteral:1",
+      "originalExpression": "'/assets/mobile-backgrounds-20260914/family.webp'",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/mobile.css",
+      "expression": "--cms-asset_446a063b14b8e927"
+    },
+    {
+      "slot": "asset_446a063b14b8e927",
+      "file": "app/mobile.css",
+      "sourceLocator": "css:url:446a063b14b8e927",
+      "originalExpression": "url('/assets/mobile-backgrounds-20260914/family.webp",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/mobile.css",
+      "expression": "--cms-asset_446a063b14b8e927"
+    },
+    {
+      "slot": "asset_463d87f421f7cde4",
+      "file": "components/home/HomeBackgrounds.tsx",
+      "sourceLocator": "FirstStatement:6/VariableDeclarationList:1/var:chapterImage/ArrowFunction:1/TemplateExpression:2",
+      "originalExpression": "`/assets/chapter-backgrounds-20260910/${name}.webp`",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "components/home/HomeBackgrounds.tsx",
+      "expression": "cms.url(chapterImage(\"products\"))"
+    },
+    {
+      "slot": "asset_49ad6a11223b37c8",
+      "file": "app/page.tsx",
+      "sourceLocator": "css:url:49ad6a11223b37c8",
+      "originalExpression": "home-products-20260907/nest15-angle-confirmed",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/page.tsx",
+      "expression": "cms.url(\"/assets/\" + artwork[id] + \".webp\")"
+    },
+    {
+      "slot": "asset_4e5db752a9e31771",
+      "file": "components/OlaProductPage.tsx",
+      "sourceLocator": "FunctionDeclaration:3/Block:3/ReturnStatement:1/ParenthesizedExpression:0/JsxSelfClosingElement:0/JsxAttributes:1/attr:scenes/JsxExpression:1/ArrayLiteralExpression:0/ObjectLiteralExpression:1/prop:image/ObjectLiteralExpression:1/prop:src/StringLiteral:1",
+      "originalExpression": "\"/assets/western-scenes-20260908/ola-senior-reminder-v2.webp\"",
+      "altExpression": "t(\"adultsAlt\")",
+      "originalAlt": "",
+      "adapterFile": "components/OlaProductPage.tsx",
+      "expression": "cms.url(\"/assets/western-scenes-20260908/ola-senior-reminder-v2.webp\")"
+    },
+    {
+      "slot": "asset_4efa9ac1966010ad",
+      "file": "components/NestProductPage.tsx",
+      "sourceLocator": "FunctionDeclaration:4/Block:3/ReturnStatement:4/ParenthesizedExpression:0/JsxSelfClosingElement:0/JsxAttributes:1/attr:story/JsxExpression:1/ObjectLiteralExpression:0/prop:image/ObjectLiteralExpression:1/prop:src/StringLiteral:1",
+      "originalExpression": "\"/assets/nest-detail/generated/nest-family-kitchen-v2.png\"",
+      "altExpression": "t(\"landscapeAlt\")",
+      "originalAlt": "",
+      "adapterFile": "components/NestProductPage.tsx",
+      "expression": "cms.url(\"/assets/nest-detail/generated/nest-family-kitchen-v2.png\")"
+    },
+    {
+      "slot": "asset_4f5fb66ba7dc95fe",
+      "file": "app/products/tablet/page.tsx",
+      "sourceLocator": "FunctionDeclaration:3/Block:3/ReturnStatement:1/ParenthesizedExpression:0/JsxSelfClosingElement:0/JsxAttributes:1/attr:scenes/JsxExpression:1/ArrayLiteralExpression:0/ObjectLiteralExpression:1/prop:image/ObjectLiteralExpression:1/prop:src/StringLiteral:1",
+      "originalExpression": "\"/assets/tablet-detail/generated/tablet-active-story-time-back-muted-20261001.png\"",
+      "altExpression": "t(\"activeTitle\")",
+      "originalAlt": "",
+      "adapterFile": "app/products/tablet/page.tsx",
+      "expression": "cms.url(\"/assets/tablet-detail/generated/tablet-active-story-time-back-muted-20261001.png\")"
+    },
+    {
+      "slot": "asset_50409433ee3449d3",
+      "file": "app/globals.css",
+      "sourceLocator": "Block:968/ExpressionStatement:1/CallExpression:0/StringLiteral:1",
+      "originalExpression": "'/assets/subpage-backgrounds-20260915/story.webp'",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/globals.css",
+      "expression": "--cms-asset_50409433ee3449d3"
+    },
+    {
+      "slot": "asset_50409433ee3449d3",
+      "file": "app/globals.css",
+      "sourceLocator": "css:url:50409433ee3449d3",
+      "originalExpression": "url('/assets/subpage-backgrounds-20260915/story.webp",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/globals.css",
+      "expression": "--cms-asset_50409433ee3449d3"
+    },
+    {
+      "slot": "asset_50409433ee3449d3",
+      "file": "app/product-detail-template.css",
+      "sourceLocator": "Block:3/ExpressionStatement:11/CallExpression:0/StringLiteral:1",
+      "originalExpression": "\"/assets/subpage-backgrounds-20260915/story.webp\"",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/product-detail-template.css",
+      "expression": "--cms-asset_50409433ee3449d3"
+    },
+    {
+      "slot": "asset_50409433ee3449d3",
+      "file": "app/product-detail-template.css",
+      "sourceLocator": "Block:9/ExpressionStatement:11/CallExpression:0/StringLiteral:1",
+      "originalExpression": "\"/assets/subpage-backgrounds-20260915/story.webp\"",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/product-detail-template.css",
+      "expression": "--cms-asset_50409433ee3449d3"
+    },
+    {
+      "slot": "asset_50409433ee3449d3",
+      "file": "app/product-detail-template.css",
+      "sourceLocator": "css:url:50409433ee3449d3",
+      "originalExpression": "url(\"/assets/subpage-backgrounds-20260915/story.webp",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/product-detail-template.css",
+      "expression": "--cms-asset_50409433ee3449d3"
+    },
+    {
+      "slot": "asset_50409433ee3449d3",
+      "file": "app/product-detail-template.css",
+      "sourceLocator": "css:url:50409433ee3449d3",
+      "originalExpression": "url(\"/assets/subpage-backgrounds-20260915/story.webp",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/product-detail-template.css",
+      "expression": "--cms-asset_50409433ee3449d3"
+    },
+    {
+      "slot": "asset_51f05a7e73f89c59",
+      "file": "app/globals.css",
+      "sourceLocator": "Block:966/ExpressionStatement:1/CallExpression:0/StringLiteral:1",
+      "originalExpression": "'/assets/subpage-backgrounds-20260915/generated-set-02/flow-01-low-arc.webp'",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/globals.css",
+      "expression": "--cms-asset_51f05a7e73f89c59"
+    },
+    {
+      "slot": "asset_51f05a7e73f89c59",
+      "file": "app/globals.css",
+      "sourceLocator": "Block:968/ExpressionStatement:7/CallExpression:0/StringLiteral:1",
+      "originalExpression": "'/assets/subpage-backgrounds-20260915/generated-set-02/flow-01-low-arc.webp'",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/globals.css",
+      "expression": "--cms-asset_51f05a7e73f89c59"
+    },
+    {
+      "slot": "asset_51f05a7e73f89c59",
+      "file": "app/globals.css",
+      "sourceLocator": "Block:970/ExpressionStatement:11/CallExpression:0/StringLiteral:1",
+      "originalExpression": "'/assets/subpage-backgrounds-20260915/generated-set-02/flow-01-low-arc.webp'",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/globals.css",
+      "expression": "--cms-asset_51f05a7e73f89c59"
+    },
+    {
+      "slot": "asset_51f05a7e73f89c59",
+      "file": "app/globals.css",
+      "sourceLocator": "Block:987/ExpressionStatement:5/CallExpression:0/StringLiteral:1",
+      "originalExpression": "'/assets/subpage-backgrounds-20260915/generated-set-02/flow-01-low-arc.webp'",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/globals.css",
+      "expression": "--cms-asset_51f05a7e73f89c59"
+    },
+    {
+      "slot": "asset_51f05a7e73f89c59",
+      "file": "app/globals.css",
+      "sourceLocator": "css:url:51f05a7e73f89c59",
+      "originalExpression": "url('/assets/subpage-backgrounds-20260915/generated-set-02/flow-01-low-arc.webp",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/globals.css",
+      "expression": "--cms-asset_51f05a7e73f89c59"
+    },
+    {
+      "slot": "asset_51f05a7e73f89c59",
+      "file": "app/globals.css",
+      "sourceLocator": "css:url:51f05a7e73f89c59",
+      "originalExpression": "url('/assets/subpage-backgrounds-20260915/generated-set-02/flow-01-low-arc.webp",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/globals.css",
+      "expression": "--cms-asset_51f05a7e73f89c59"
+    },
+    {
+      "slot": "asset_51f05a7e73f89c59",
+      "file": "app/globals.css",
+      "sourceLocator": "css:url:51f05a7e73f89c59",
+      "originalExpression": "url('/assets/subpage-backgrounds-20260915/generated-set-02/flow-01-low-arc.webp",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/globals.css",
+      "expression": "--cms-asset_51f05a7e73f89c59"
+    },
+    {
+      "slot": "asset_51f05a7e73f89c59",
+      "file": "app/globals.css",
+      "sourceLocator": "css:url:51f05a7e73f89c59",
+      "originalExpression": "url('/assets/subpage-backgrounds-20260915/generated-set-02/flow-01-low-arc.webp",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/globals.css",
+      "expression": "--cms-asset_51f05a7e73f89c59"
+    },
+    {
+      "slot": "asset_51f05a7e73f89c59",
+      "file": "app/stable-page-backgrounds.css",
+      "sourceLocator": "Block:11/ExpressionStatement:3/CallExpression:0/StringLiteral:1",
+      "originalExpression": "'/assets/subpage-backgrounds-20260915/generated-set-02/flow-01-low-arc.webp'",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/stable-page-backgrounds.css",
+      "expression": "--cms-asset_51f05a7e73f89c59"
+    },
+    {
+      "slot": "asset_51f05a7e73f89c59",
+      "file": "app/stable-page-backgrounds.css",
+      "sourceLocator": "css:url:51f05a7e73f89c59",
+      "originalExpression": "url('/assets/subpage-backgrounds-20260915/generated-set-02/flow-01-low-arc.webp",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/stable-page-backgrounds.css",
+      "expression": "--cms-asset_51f05a7e73f89c59"
+    },
+    {
+      "slot": "asset_57246e2797dd7da7",
+      "file": "components/home/HomeFilms.tsx",
+      "sourceLocator": "FunctionDeclaration:11/Block:3/ReturnStatement:26/ParenthesizedExpression:0/JsxElement:0/JsxExpression:4/ConditionalExpression:0/JsxFragment:4/JsxElement:4/JsxExpression:2/ConditionalExpression:0/JsxSelfClosingElement:4/JsxAttributes:1/attr:src/StringLiteral:1",
+      "originalExpression": "\"/assets/character-20261012/settled-clean.png\"",
+      "altExpression": "\"\"",
+      "originalAlt": "",
+      "adapterFile": "components/home/HomeFilms.tsx",
+      "expression": "cms.url(\"/assets/character-20261012/settled-clean.png\")"
+    },
+    {
+      "slot": "asset_5a52d37e181fb252",
+      "file": "app/product-detail-template.css",
+      "sourceLocator": "Block:1/ExpressionStatement:20/CallExpression:0/StringLiteral:1",
+      "originalExpression": "\"/assets/ola-detail/backgrounds-20260915/01-hero.webp\"",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/product-detail-template.css",
+      "expression": "--cms-asset_5a52d37e181fb252"
+    },
+    {
+      "slot": "asset_5a52d37e181fb252",
+      "file": "app/product-detail-template.css",
+      "sourceLocator": "Block:3/ExpressionStatement:13/CallExpression:0/StringLiteral:1",
+      "originalExpression": "\"/assets/ola-detail/backgrounds-20260915/01-hero.webp\"",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/product-detail-template.css",
+      "expression": "--cms-asset_5a52d37e181fb252"
+    },
+    {
+      "slot": "asset_5a52d37e181fb252",
+      "file": "app/product-detail-template.css",
+      "sourceLocator": "Block:5/ExpressionStatement:9/CallExpression:0/StringLiteral:1",
+      "originalExpression": "\"/assets/ola-detail/backgrounds-20260915/01-hero.webp\"",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/product-detail-template.css",
+      "expression": "--cms-asset_5a52d37e181fb252"
+    },
+    {
+      "slot": "asset_5a52d37e181fb252",
+      "file": "app/product-detail-template.css",
+      "sourceLocator": "Block:7/ExpressionStatement:7/CallExpression:0/StringLiteral:1",
+      "originalExpression": "\"/assets/ola-detail/backgrounds-20260915/01-hero.webp\"",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/product-detail-template.css",
+      "expression": "--cms-asset_5a52d37e181fb252"
+    },
+    {
+      "slot": "asset_5a52d37e181fb252",
+      "file": "app/product-detail-template.css",
+      "sourceLocator": "Block:9/ExpressionStatement:5/CallExpression:0/StringLiteral:1",
+      "originalExpression": "\"/assets/ola-detail/backgrounds-20260915/01-hero.webp\"",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/product-detail-template.css",
+      "expression": "--cms-asset_5a52d37e181fb252"
+    },
+    {
+      "slot": "asset_5a52d37e181fb252",
+      "file": "app/product-detail-template.css",
+      "sourceLocator": "css:url:5a52d37e181fb252",
+      "originalExpression": "url(\"/assets/ola-detail/backgrounds-20260915/01-hero.webp",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/product-detail-template.css",
+      "expression": "--cms-asset_5a52d37e181fb252"
+    },
+    {
+      "slot": "asset_5a52d37e181fb252",
+      "file": "app/product-detail-template.css",
+      "sourceLocator": "css:url:5a52d37e181fb252",
+      "originalExpression": "url(\"/assets/ola-detail/backgrounds-20260915/01-hero.webp",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/product-detail-template.css",
+      "expression": "--cms-asset_5a52d37e181fb252"
+    },
+    {
+      "slot": "asset_5a52d37e181fb252",
+      "file": "app/product-detail-template.css",
+      "sourceLocator": "css:url:5a52d37e181fb252",
+      "originalExpression": "url(\"/assets/ola-detail/backgrounds-20260915/01-hero.webp",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/product-detail-template.css",
+      "expression": "--cms-asset_5a52d37e181fb252"
+    },
+    {
+      "slot": "asset_5a52d37e181fb252",
+      "file": "app/product-detail-template.css",
+      "sourceLocator": "css:url:5a52d37e181fb252",
+      "originalExpression": "url(\"/assets/ola-detail/backgrounds-20260915/01-hero.webp",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/product-detail-template.css",
+      "expression": "--cms-asset_5a52d37e181fb252"
+    },
+    {
+      "slot": "asset_5a52d37e181fb252",
+      "file": "app/product-detail-template.css",
+      "sourceLocator": "css:url:5a52d37e181fb252",
+      "originalExpression": "url(\"/assets/ola-detail/backgrounds-20260915/01-hero.webp",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/product-detail-template.css",
+      "expression": "--cms-asset_5a52d37e181fb252"
+    },
+    {
+      "slot": "asset_5b7b23f94b475d0e",
+      "file": "app/page.tsx",
+      "sourceLocator": "css:url:5b7b23f94b475d0e",
+      "originalExpression": "home-products-refined-20260907/tablet-pair",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/page.tsx",
+      "expression": "cms.url(\"/assets/\" + artwork[id] + \".webp\")"
+    },
+    {
+      "slot": "asset_5b7b23f94b475d0e",
+      "file": "components/home/GlassCards.tsx",
+      "sourceLocator": "FirstStatement:11/VariableDeclarationList:0/var:demoProducts/ArrayLiteralExpression:2/ObjectLiteralExpression:1/prop:image/StringLiteral:1",
+      "originalExpression": "\"/assets/home-products-refined-20260907/tablet-pair.webp\"",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "components/home/GlassCards.tsx",
+      "expression": "cms.url(originalUrl)"
+    },
+    {
+      "slot": "asset_5ba0e1d8163c62a4",
+      "file": "components/home/HomeBackgrounds.tsx",
+      "sourceLocator": "FirstStatement:6/VariableDeclarationList:1/var:chapterImage/ArrowFunction:1/TemplateExpression:2",
+      "originalExpression": "`/assets/chapter-backgrounds-20260910/${name}.webp`",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "components/home/HomeBackgrounds.tsx",
+      "expression": "cms.url(chapterImage(\"products\"))"
+    },
+    {
+      "slot": "asset_5fa455671b41fc69",
+      "file": "components/MembersArea.tsx",
+      "sourceLocator": "FirstStatement:8/VariableDeclarationList:0/var:devices/AsExpression:1/ArrayLiteralExpression:0/ObjectLiteralExpression:1/prop:image/StringLiteral:1",
+      "originalExpression": "\"/assets/web/lumiq-tablet.webp\"",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "components/MembersArea.tsx",
+      "expression": "cms.url(\"/assets/web/lumiq-tablet.webp\")"
+    },
+    {
+      "slot": "asset_5fa455671b41fc69",
+      "file": "lib/products.ts",
+      "sourceLocator": "FirstStatement:3/VariableDeclarationList:1/var:PRODUCT_CATALOG/SatisfiesExpression:1/AsExpression:0/ArrayLiteralExpression:0/ObjectLiteralExpression:2/prop:image/StringLiteral:1",
+      "originalExpression": "\"/assets/web/lumiq-tablet.webp\"",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "components/content/ContentImage.tsx",
+      "expression": "cms.url(props.src)"
+    },
+    {
+      "slot": "asset_6091ade8c5c35bfa",
+      "file": "app/globals.css",
+      "sourceLocator": "Block:972/ExpressionStatement:1/CallExpression:0/StringLiteral:1",
+      "originalExpression": "'/assets/subpage-backgrounds-20260918-clean/story-flow-clean.webp'",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/globals.css",
+      "expression": "--cms-asset_6091ade8c5c35bfa"
+    },
+    {
+      "slot": "asset_6091ade8c5c35bfa",
+      "file": "app/globals.css",
+      "sourceLocator": "css:url:6091ade8c5c35bfa",
+      "originalExpression": "url('/assets/subpage-backgrounds-20260918-clean/story-flow-clean.webp",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/globals.css",
+      "expression": "--cms-asset_6091ade8c5c35bfa"
+    },
+    {
+      "slot": "asset_63bf91c7eb93c17a",
+      "file": "components/OlaProductPage.tsx",
+      "sourceLocator": "FunctionDeclaration:3/Block:3/ReturnStatement:1/ParenthesizedExpression:0/JsxSelfClosingElement:0/JsxAttributes:1/attr:scenes/JsxExpression:1/ArrayLiteralExpression:0/ObjectLiteralExpression:0/prop:image/ObjectLiteralExpression:1/prop:src/StringLiteral:1",
+      "originalExpression": "\"/assets/western-scenes-20260908/ola-bedtime-story-v2.webp\"",
+      "altExpression": "t(\"kidsAlt\")",
+      "originalAlt": "",
+      "adapterFile": "components/OlaProductPage.tsx",
+      "expression": "cms.url(\"/assets/western-scenes-20260908/ola-bedtime-story-v2.webp\")"
+    },
+    {
+      "slot": "asset_6f36183e6da5cc73",
+      "file": "components/home/HomeFilms.tsx",
+      "sourceLocator": "FunctionDeclaration:11/Block:3/ReturnStatement:26/ParenthesizedExpression:0/JsxElement:0/JsxExpression:4/ConditionalExpression:0/JsxFragment:4/JsxElement:4/JsxExpression:2/ConditionalExpression:0/JsxElement:2/JsxSelfClosingElement:2/JsxAttributes:1/attr:src/JsxExpression:1/TemplateExpression:0",
+      "originalExpression": "`/assets/character-20261012/ola-girl-clean-alpha${characterFormat === \"hevc\" ? \"-safari.mov\" : \".webm\"}`",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "components/home/HomeFilms.tsx",
+      "expression": "cms.url(`/assets/character-20261012/ola-girl-clean-alpha${characterFormat === \"hevc\" ? \"-safari.mov\" : \".webm\"}`)"
+    },
+    {
+      "slot": "asset_700321a1b9f4533b",
+      "file": "components/PrintProductPage.tsx",
+      "sourceLocator": "FunctionDeclaration:2/Block:3/ReturnStatement:1/ParenthesizedExpression:0/JsxSelfClosingElement:0/JsxAttributes:1/attr:scenes/JsxExpression:1/ArrayLiteralExpression:0/ObjectLiteralExpression:1/prop:image/ObjectLiteralExpression:1/prop:src/StringLiteral:1",
+      "originalExpression": "\"/assets/print-detail/consistent-20260907/reading.webp\"",
+      "altExpression": "t(\"alt\")",
+      "originalAlt": "",
+      "adapterFile": "components/PrintProductPage.tsx",
+      "expression": "cms.url(\"/assets/print-detail/consistent-20260907/reading.webp\")"
+    },
+    {
+      "slot": "asset_7145d3296daddfe8",
+      "file": "app/mobile.css",
+      "sourceLocator": "Block:9/Block:28/ExpressionStatement:1/CallExpression:0/StringLiteral:1",
+      "originalExpression": "'/assets/mobile-backgrounds-20260914/safety.webp'",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/mobile.css",
+      "expression": "--cms-asset_7145d3296daddfe8"
+    },
+    {
+      "slot": "asset_7145d3296daddfe8",
+      "file": "app/mobile.css",
+      "sourceLocator": "css:url:7145d3296daddfe8",
+      "originalExpression": "url('/assets/mobile-backgrounds-20260914/safety.webp",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/mobile.css",
+      "expression": "--cms-asset_7145d3296daddfe8"
+    },
+    {
+      "slot": "asset_723302ce05f7b130",
+      "file": "components/MembersArea.tsx",
+      "sourceLocator": "FirstStatement:8/VariableDeclarationList:0/var:devices/AsExpression:1/ArrayLiteralExpression:0/ObjectLiteralExpression:0/prop:image/StringLiteral:1",
+      "originalExpression": "\"/assets/web/ola-hero-front.webp\"",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "components/MembersArea.tsx",
+      "expression": "cms.url(\"/assets/web/ola-hero-front.webp\")"
+    },
+    {
+      "slot": "asset_723302ce05f7b130",
+      "file": "components/OlaProductPage.tsx",
+      "sourceLocator": "FunctionDeclaration:3/Block:3/ReturnStatement:1/ParenthesizedExpression:0/JsxSelfClosingElement:0/JsxAttributes:1/attr:heroImage/JsxExpression:1/ObjectLiteralExpression:0/prop:src/StringLiteral:1",
+      "originalExpression": "\"/assets/web/ola-hero-front.webp\"",
+      "altExpression": "t(\"deviceAlt\")",
+      "originalAlt": "",
+      "adapterFile": "components/OlaProductPage.tsx",
+      "expression": "cms.url(\"/assets/web/ola-hero-front.webp\")"
+    },
+    {
+      "slot": "asset_723302ce05f7b130",
+      "file": "lib/products.ts",
+      "sourceLocator": "FirstStatement:3/VariableDeclarationList:1/var:PRODUCT_CATALOG/SatisfiesExpression:1/AsExpression:0/ArrayLiteralExpression:0/ObjectLiteralExpression:0/prop:image/StringLiteral:1",
+      "originalExpression": "\"/assets/web/ola-hero-front.webp\"",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "components/content/ContentImage.tsx",
+      "expression": "cms.url(props.src)"
+    },
+    {
+      "slot": "asset_7334168c1851117c",
+      "file": "lib/products.ts",
+      "sourceLocator": "FirstStatement:3/VariableDeclarationList:1/var:PRODUCT_CATALOG/SatisfiesExpression:1/AsExpression:0/ArrayLiteralExpression:0/ObjectLiteralExpression:3/prop:image/StringLiteral:1",
+      "originalExpression": "\"/assets/web/lumiq-print.webp\"",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "components/content/ContentImage.tsx",
+      "expression": "cms.url(props.src)"
+    },
+    {
+      "slot": "asset_74cd3fba98989129",
+      "file": "app/mobile.css",
+      "sourceLocator": "Block:9/Block:25/ExpressionStatement:1/CallExpression:0/StringLiteral:1",
+      "originalExpression": "'/assets/mobile-backgrounds-20260914/experiences.webp'",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/mobile.css",
+      "expression": "--cms-asset_74cd3fba98989129"
+    },
+    {
+      "slot": "asset_74cd3fba98989129",
+      "file": "app/mobile.css",
+      "sourceLocator": "css:url:74cd3fba98989129",
+      "originalExpression": "url('/assets/mobile-backgrounds-20260914/experiences.webp",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/mobile.css",
+      "expression": "--cms-asset_74cd3fba98989129"
+    },
+    {
+      "slot": "asset_76a5de3f207ca5bb",
+      "file": "app/home-brand-review.css",
+      "sourceLocator": "Block:67/Block:14/ExpressionStatement:1/CallExpression:0/StringLiteral:1",
+      "originalExpression": "'/assets/home-video/ola-scroll-v16-start-20260909.webp'",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/home-brand-review.css",
+      "expression": "--cms-asset_76a5de3f207ca5bb"
+    },
+    {
+      "slot": "asset_76a5de3f207ca5bb",
+      "file": "app/home-brand-review.css",
+      "sourceLocator": "css:url:76a5de3f207ca5bb",
+      "originalExpression": "url('/assets/home-video/ola-scroll-v16-start-20260909.webp",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/home-brand-review.css",
+      "expression": "--cms-asset_76a5de3f207ca5bb"
+    },
+    {
+      "slot": "asset_76a5de3f207ca5bb",
+      "file": "app/opening-video.css",
+      "sourceLocator": "Block:16/ExpressionStatement:1/CallExpression:0/StringLiteral:1",
+      "originalExpression": "\"/assets/home-video/ola-scroll-v16-start-20260909.webp\"",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/opening-video.css",
+      "expression": "--cms-asset_76a5de3f207ca5bb"
+    },
+    {
+      "slot": "asset_76a5de3f207ca5bb",
+      "file": "app/opening-video.css",
+      "sourceLocator": "css:url:76a5de3f207ca5bb",
+      "originalExpression": "url(\"/assets/home-video/ola-scroll-v16-start-20260909.webp",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/opening-video.css",
+      "expression": "--cms-asset_76a5de3f207ca5bb"
+    },
+    {
+      "slot": "asset_76a5de3f207ca5bb",
+      "file": "app/page.tsx",
+      "sourceLocator": "FunctionDeclaration:28/Block:4/ReturnStatement:2/ParenthesizedExpression:0/JsxElement:0/JsxElement:4/JsxElement:2/JsxElement:6/JsxElement:2/JsxElement:2/JsxSelfClosingElement:2/JsxAttributes:1/attr:srcSet/StringLiteral:1",
+      "originalExpression": "\"/assets/home-video/ola-scroll-v16-start-20260909.webp\"",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/page.tsx",
+      "expression": "cms.url(\"/assets/home-video/ola-scroll-v16-start-20260909.webp\")"
+    },
+    {
+      "slot": "asset_76a5de3f207ca5bb",
+      "file": "components/home/preloadOpening.ts",
+      "sourceLocator": "FunctionDeclaration:0/Block:5/FirstStatement:0/VariableDeclarationList:0/var:posters/CallExpression:1/PropertyAccessExpression:0/ArrayLiteralExpression:0/StringLiteral:0",
+      "originalExpression": "\"/assets/home-video/ola-scroll-v16-start-20260909.webp\"",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "components/home/HomeMotion.tsx",
+      "expression": "cms.slot(\"asset_76a5de3f207ca5bb\").url"
+    },
+    {
+      "slot": "asset_8335171d62b1df69",
+      "file": "components/home/HomeBackgrounds.tsx",
+      "sourceLocator": "FirstStatement:5/VariableDeclarationList:1/var:backgroundVideoSource/StringLiteral:1",
+      "originalExpression": "\"/assets/background-variants-20260911/version-5-tail-wave-20260914.mp4\"",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "components/home/HomeBackgrounds.tsx",
+      "expression": "cms.url(backgroundVideoSource)"
+    },
+    {
+      "slot": "asset_88efe500e5b410d0",
+      "file": "components/OlaGoProductPage.tsx",
+      "sourceLocator": "FunctionDeclaration:3/Block:3/ReturnStatement:3/ParenthesizedExpression:0/JsxSelfClosingElement:0/JsxAttributes:1/attr:scenes/JsxExpression:1/CallExpression:0/ArrowFunction:1/ParenthesizedExpression:3/ObjectLiteralExpression:0/prop:image/ObjectLiteralExpression:1/prop:src/ConditionalExpression:1/StringLiteral:2",
+      "originalExpression": "\"/assets/western-scenes-20260908/ola-go-schoolbag-v2.webp\"",
+      "altExpression": "t(\"alt\")",
+      "originalAlt": "",
+      "adapterFile": "components/OlaGoProductPage.tsx",
+      "expression": "cms.url(\"/assets/western-scenes-20260908/ola-go-schoolbag-v2.webp\")"
+    },
+    {
+      "slot": "asset_8cca076b45bb13bb",
+      "file": "components/SiteFooter.tsx",
+      "sourceLocator": "FunctionDeclaration:6/Block:3/ReturnStatement:3/ParenthesizedExpression:0/JsxElement:0/JsxElement:2/JsxElement:2/JsxElement:2/JsxElement:2/JsxSelfClosingElement:4/JsxAttributes:1/attr:src/StringLiteral:1",
+      "originalExpression": "\"/assets/brand/lumiq-logo-white-transparent-v2.png\"",
+      "altExpression": "\"\"",
+      "originalAlt": "",
+      "adapterFile": "components/SiteFooter.tsx",
+      "expression": "cms.url(\"/assets/brand/lumiq-logo-white-transparent-v2.png\")"
+    },
+    {
+      "slot": "asset_8d201377bedb6b6b",
+      "file": "app/products/tablet/page.tsx",
+      "sourceLocator": "FunctionDeclaration:3/Block:3/ReturnStatement:1/ParenthesizedExpression:0/JsxSelfClosingElement:0/JsxAttributes:1/attr:features/JsxExpression:1/ObjectLiteralExpression:0/prop:image/ObjectLiteralExpression:1/prop:src/StringLiteral:1",
+      "originalExpression": "\"/assets/tablet-detail/five-ways/imagime-v1.jpg\"",
+      "altExpression": "t(\"way2Title\")",
+      "originalAlt": "",
+      "adapterFile": "app/products/tablet/page.tsx",
+      "expression": "cms.url(\"/assets/tablet-detail/five-ways/imagime-v1.jpg\")"
+    },
+    {
+      "slot": "asset_90f01db04a2a0b59",
+      "file": "components/home/HomeExperiences.tsx",
+      "sourceLocator": "FunctionDeclaration:7/Block:3/ReturnStatement:2/ParenthesizedExpression:0/JsxElement:0/JsxElement:4/JsxElement:2/JsxElement:6/JsxExpression:2/CallExpression:0/ArrowFunction:1/ParenthesizedExpression:2/JsxElement:0/JsxElement:2/JsxSelfClosingElement:2/JsxAttributes:1/attr:src/JsxExpression:1/TemplateExpression:0",
+      "originalExpression": "`/assets/home-premium-20260907/${id}-halo.webp`",
+      "altExpression": "\"\"",
+      "originalAlt": "",
+      "adapterFile": "components/home/HomeExperiences.tsx",
+      "expression": "cms.url(`/assets/home-premium-20260907/${id}-halo.webp`)"
+    },
+    {
+      "slot": "asset_91d55b429b76df2a",
+      "file": "components/OlaGoProductPage.tsx",
+      "sourceLocator": "FunctionDeclaration:3/Block:3/ReturnStatement:3/ParenthesizedExpression:0/JsxSelfClosingElement:0/JsxAttributes:1/attr:story/JsxExpression:1/ObjectLiteralExpression:0/prop:image/ObjectLiteralExpression:1/prop:src/StringLiteral:1",
+      "originalExpression": "\"/assets/western-scenes-20260908/ola-go-return-home-v3.webp\"",
+      "altExpression": "t(\"alt\")",
+      "originalAlt": "",
+      "adapterFile": "components/OlaGoProductPage.tsx",
+      "expression": "cms.url(\"/assets/western-scenes-20260908/ola-go-return-home-v3.webp\")"
+    },
+    {
+      "slot": "asset_9a83c769ddc9caef",
+      "file": "app/mobile.css",
+      "sourceLocator": "Block:9/Block:34/ExpressionStatement:1/CallExpression:0/StringLiteral:1",
+      "originalExpression": "'/assets/mobile-backgrounds-20260914/join.webp'",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/mobile.css",
+      "expression": "--cms-asset_9a83c769ddc9caef"
+    },
+    {
+      "slot": "asset_9a83c769ddc9caef",
+      "file": "app/mobile.css",
+      "sourceLocator": "css:url:9a83c769ddc9caef",
+      "originalExpression": "url('/assets/mobile-backgrounds-20260914/join.webp",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/mobile.css",
+      "expression": "--cms-asset_9a83c769ddc9caef"
+    },
+    {
+      "slot": "asset_9b7205387e1ed4d0",
+      "file": "app/page.tsx",
+      "sourceLocator": "FunctionDeclaration:28/Block:4/ReturnStatement:2/ParenthesizedExpression:0/JsxElement:0/JsxElement:12/JsxElement:2/JsxElement:2/JsxElement:2/JsxSelfClosingElement:2/JsxAttributes:1/attr:src/StringLiteral:1",
+      "originalExpression": "\"/assets/home-safety-20261002/story-world-family.jpg\"",
+      "altExpression": "{t(\"trustAlt\")}",
+      "originalAlt": "",
+      "adapterFile": "app/page.tsx",
+      "expression": "cms.url(\"/assets/home-safety-20261002/story-world-family.jpg\")"
+    },
+    {
+      "slot": "asset_9be4a1247ceac726",
+      "file": "components/OlaProductPage.tsx",
+      "sourceLocator": "FunctionDeclaration:3/Block:3/ReturnStatement:1/ParenthesizedExpression:0/JsxSelfClosingElement:0/JsxAttributes:1/attr:darkSection/JsxExpression:1/ObjectLiteralExpression:0/prop:image/ObjectLiteralExpression:1/prop:src/StringLiteral:1",
+      "originalExpression": "\"/assets/ola-detail/original-20260915/ola-high-angle-crop.png\"",
+      "altExpression": "t(\"deviceAlt\")",
+      "originalAlt": "",
+      "adapterFile": "components/OlaProductPage.tsx",
+      "expression": "cms.url(\"/assets/ola-detail/original-20260915/ola-high-angle-crop.png\")"
+    },
+    {
+      "slot": "asset_9facedc76c2b867d",
+      "file": "app/globals.css",
+      "sourceLocator": "Block:974/ExpressionStatement:1/CallExpression:0/StringLiteral:1",
+      "originalExpression": "'/assets/subpage-backgrounds-20260918-clean/plans-flow-clean.webp'",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/globals.css",
+      "expression": "--cms-asset_9facedc76c2b867d"
+    },
+    {
+      "slot": "asset_9facedc76c2b867d",
+      "file": "app/globals.css",
+      "sourceLocator": "css:url:9facedc76c2b867d",
+      "originalExpression": "url('/assets/subpage-backgrounds-20260918-clean/plans-flow-clean.webp",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/globals.css",
+      "expression": "--cms-asset_9facedc76c2b867d"
+    },
+    {
+      "slot": "asset_a13cd8b7515ae501",
+      "file": "components/PrintProductPage.tsx",
+      "sourceLocator": "FunctionDeclaration:2/Block:3/ReturnStatement:1/ParenthesizedExpression:0/JsxSelfClosingElement:0/JsxAttributes:1/attr:heroImage/JsxExpression:1/ObjectLiteralExpression:0/prop:src/StringLiteral:1",
+      "originalExpression": "\"/assets/products/lumiq-print.png\"",
+      "altExpression": "t(\"alt\")",
+      "originalAlt": "",
+      "adapterFile": "components/PrintProductPage.tsx",
+      "expression": "cms.url(\"/assets/products/lumiq-print.png\")"
+    },
+    {
+      "slot": "asset_a13cd8b7515ae501",
+      "file": "components/PrintProductPage.tsx",
+      "sourceLocator": "FunctionDeclaration:2/Block:3/ReturnStatement:1/ParenthesizedExpression:0/JsxSelfClosingElement:0/JsxAttributes:1/attr:darkSection/JsxExpression:1/ObjectLiteralExpression:0/prop:image/ObjectLiteralExpression:1/prop:src/StringLiteral:1",
+      "originalExpression": "\"/assets/products/lumiq-print.png\"",
+      "altExpression": "t(\"alt\")",
+      "originalAlt": "",
+      "adapterFile": "components/PrintProductPage.tsx",
+      "expression": "cms.url(\"/assets/products/lumiq-print.png\")"
+    },
+    {
+      "slot": "asset_a3dc98ea847871b2",
+      "file": "app/product-detail-template.css",
+      "sourceLocator": "Block:1/ExpressionStatement:22/CallExpression:0/StringLiteral:1",
+      "originalExpression": "\"/assets/ola-detail/backgrounds-20260915/02-story.webp\"",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/product-detail-template.css",
+      "expression": "--cms-asset_a3dc98ea847871b2"
+    },
+    {
+      "slot": "asset_a3dc98ea847871b2",
+      "file": "app/product-detail-template.css",
+      "sourceLocator": "Block:3/ExpressionStatement:1/CallExpression:0/StringLiteral:1",
+      "originalExpression": "\"/assets/ola-detail/backgrounds-20260915/02-story.webp\"",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/product-detail-template.css",
+      "expression": "--cms-asset_a3dc98ea847871b2"
+    },
+    {
+      "slot": "asset_a3dc98ea847871b2",
+      "file": "app/product-detail-template.css",
+      "sourceLocator": "Block:5/ExpressionStatement:13/CallExpression:0/StringLiteral:1",
+      "originalExpression": "\"/assets/ola-detail/backgrounds-20260915/02-story.webp\"",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/product-detail-template.css",
+      "expression": "--cms-asset_a3dc98ea847871b2"
+    },
+    {
+      "slot": "asset_a3dc98ea847871b2",
+      "file": "app/product-detail-template.css",
+      "sourceLocator": "Block:7/ExpressionStatement:9/CallExpression:0/StringLiteral:1",
+      "originalExpression": "\"/assets/ola-detail/backgrounds-20260915/02-story.webp\"",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/product-detail-template.css",
+      "expression": "--cms-asset_a3dc98ea847871b2"
+    },
+    {
+      "slot": "asset_a3dc98ea847871b2",
+      "file": "app/product-detail-template.css",
+      "sourceLocator": "Block:9/ExpressionStatement:7/CallExpression:0/StringLiteral:1",
+      "originalExpression": "\"/assets/ola-detail/backgrounds-20260915/02-story.webp\"",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/product-detail-template.css",
+      "expression": "--cms-asset_a3dc98ea847871b2"
+    },
+    {
+      "slot": "asset_a3dc98ea847871b2",
+      "file": "app/product-detail-template.css",
+      "sourceLocator": "css:url:a3dc98ea847871b2",
+      "originalExpression": "url(\"/assets/ola-detail/backgrounds-20260915/02-story.webp",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/product-detail-template.css",
+      "expression": "--cms-asset_a3dc98ea847871b2"
+    },
+    {
+      "slot": "asset_a3dc98ea847871b2",
+      "file": "app/product-detail-template.css",
+      "sourceLocator": "css:url:a3dc98ea847871b2",
+      "originalExpression": "url(\"/assets/ola-detail/backgrounds-20260915/02-story.webp",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/product-detail-template.css",
+      "expression": "--cms-asset_a3dc98ea847871b2"
+    },
+    {
+      "slot": "asset_a3dc98ea847871b2",
+      "file": "app/product-detail-template.css",
+      "sourceLocator": "css:url:a3dc98ea847871b2",
+      "originalExpression": "url(\"/assets/ola-detail/backgrounds-20260915/02-story.webp",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/product-detail-template.css",
+      "expression": "--cms-asset_a3dc98ea847871b2"
+    },
+    {
+      "slot": "asset_a3dc98ea847871b2",
+      "file": "app/product-detail-template.css",
+      "sourceLocator": "css:url:a3dc98ea847871b2",
+      "originalExpression": "url(\"/assets/ola-detail/backgrounds-20260915/02-story.webp",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/product-detail-template.css",
+      "expression": "--cms-asset_a3dc98ea847871b2"
+    },
+    {
+      "slot": "asset_a3dc98ea847871b2",
+      "file": "app/product-detail-template.css",
+      "sourceLocator": "css:url:a3dc98ea847871b2",
+      "originalExpression": "url(\"/assets/ola-detail/backgrounds-20260915/02-story.webp",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/product-detail-template.css",
+      "expression": "--cms-asset_a3dc98ea847871b2"
+    },
+    {
+      "slot": "asset_a4b2063e90484449",
+      "file": "components/home/openingVideo.ts",
+      "sourceLocator": "FirstStatement:4/VariableDeclarationList:1/var:openingVideoSource/StringLiteral:1",
+      "originalExpression": "\"/assets/home-video/compat-20261008/ola-scroll-v16-scrub.mp4\"",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "components/home/HomeMotion.tsx",
+      "expression": "cms.slot(\"asset_a4b2063e90484449\").url"
+    },
+    {
+      "slot": "asset_a6510e681604d2f9",
+      "file": "components/home/HomeFilms.tsx",
+      "sourceLocator": "FunctionDeclaration:11/Block:3/ReturnStatement:26/ParenthesizedExpression:0/JsxElement:0/JsxExpression:4/ConditionalExpression:0/JsxFragment:4/JsxElement:4/JsxExpression:2/ConditionalExpression:0/JsxElement:2/JsxSelfClosingElement:2/JsxAttributes:1/attr:src/JsxExpression:1/TemplateExpression:0",
+      "originalExpression": "`/assets/character-20261012/ola-girl-clean-alpha${characterFormat === \"hevc\" ? \"-safari.mov\" : \".webm\"}`",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "components/home/HomeFilms.tsx",
+      "expression": "cms.url(`/assets/character-20261012/ola-girl-clean-alpha${characterFormat === \"hevc\" ? \"-safari.mov\" : \".webm\"}`)"
+    },
+    {
+      "slot": "asset_a795af9e87d42422",
+      "file": "app/globals.css",
+      "sourceLocator": "Block:970/ExpressionStatement:3/CallExpression:0/StringLiteral:1",
+      "originalExpression": "'/assets/subpage-backgrounds-20260915/plans.webp'",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/globals.css",
+      "expression": "--cms-asset_a795af9e87d42422"
+    },
+    {
+      "slot": "asset_a795af9e87d42422",
+      "file": "app/globals.css",
+      "sourceLocator": "css:url:a795af9e87d42422",
+      "originalExpression": "url('/assets/subpage-backgrounds-20260915/plans.webp",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/globals.css",
+      "expression": "--cms-asset_a795af9e87d42422"
+    },
+    {
+      "slot": "asset_a795af9e87d42422",
+      "file": "app/product-detail-template.css",
+      "sourceLocator": "Block:5/ExpressionStatement:11/CallExpression:0/StringLiteral:1",
+      "originalExpression": "\"/assets/subpage-backgrounds-20260915/plans.webp\"",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/product-detail-template.css",
+      "expression": "--cms-asset_a795af9e87d42422"
+    },
+    {
+      "slot": "asset_a795af9e87d42422",
+      "file": "app/product-detail-template.css",
+      "sourceLocator": "css:url:a795af9e87d42422",
+      "originalExpression": "url(\"/assets/subpage-backgrounds-20260915/plans.webp",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/product-detail-template.css",
+      "expression": "--cms-asset_a795af9e87d42422"
+    },
+    {
+      "slot": "asset_a96a7ca7a3fe65e6",
+      "file": "app/page.tsx",
+      "sourceLocator": "css:url:a96a7ca7a3fe65e6",
+      "originalExpression": "home-products-refined-20260907/ola-original-transparent",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/page.tsx",
+      "expression": "cms.url(\"/assets/\" + artwork[id] + \".webp\")"
+    },
+    {
+      "slot": "asset_a96a7ca7a3fe65e6",
+      "file": "components/home/GlassCards.tsx",
+      "sourceLocator": "FirstStatement:11/VariableDeclarationList:0/var:demoProducts/ArrayLiteralExpression:2/ObjectLiteralExpression:2/prop:image/StringLiteral:1",
+      "originalExpression": "\"/assets/home-products-refined-20260907/ola-original-transparent.webp\"",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "components/home/GlassCards.tsx",
+      "expression": "cms.url(originalUrl)"
+    },
+    {
+      "slot": "asset_ac2e8eaae020fece",
+      "file": "components/home/HomeFilms.tsx",
+      "sourceLocator": "FunctionDeclaration:11/Block:3/ReturnStatement:26/ParenthesizedExpression:0/JsxElement:0/JsxExpression:4/ConditionalExpression:0/JsxFragment:4/JsxElement:2/JsxElement:2/JsxExpression:2/CallExpression:0/ArrowFunction:1/Block:2/ReturnStatement:2/JsxElement:0/JsxExpression:2/ConditionalExpression:0/JsxElement:2/JsxSelfClosingElement:2/JsxAttributes:1/attr:src/JsxExpression:1/TemplateExpression:0",
+      "originalExpression": "`/assets/films-20260908/${films[index]}.jpg`",
+      "altExpression": "\"\"",
+      "originalAlt": "",
+      "adapterFile": "components/home/HomeFilms.tsx",
+      "expression": "cms.url(`/assets/films-20260908/${films[index]}.jpg`)"
+    },
+    {
+      "slot": "asset_ac2e8eaae020fece",
+      "file": "components/home/HomeFilms.tsx",
+      "sourceLocator": "FunctionDeclaration:11/Block:3/ReturnStatement:26/ParenthesizedExpression:0/JsxElement:0/JsxExpression:4/ConditionalExpression:0/JsxFragment:4/JsxElement:2/JsxElement:2/JsxExpression:2/CallExpression:0/ArrowFunction:1/Block:2/ReturnStatement:2/JsxElement:0/JsxExpression:2/ConditionalExpression:0/JsxElement:4/JsxElement:2/JsxOpeningElement:0/JsxAttributes:1/attr:poster/JsxExpression:1/ConditionalExpression:0/TemplateExpression:2",
+      "originalExpression": "`/assets/films-20260908/${films[active]}.jpg`",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "components/home/HomeFilms.tsx",
+      "expression": "cms.url(`/assets/films-20260908/${films[active]}.jpg`)"
+    },
+    {
+      "slot": "asset_ac2e8eaae020fece",
+      "file": "components/home/MobileFilmCarousel.tsx",
+      "sourceLocator": "FunctionDeclaration:5/Block:4/ReturnStatement:14/JsxElement:0/JsxElement:2/JsxExpression:2/CallExpression:0/ArrowFunction:1/JsxElement:3/JsxElement:2/JsxExpression:2/ConditionalExpression:0/JsxFragment:2/JsxElement:2/JsxOpeningElement:0/JsxAttributes:1/attr:poster/JsxExpression:1/TemplateExpression:0",
+      "originalExpression": "`/assets/films-20260908/${film}.jpg`",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "components/home/MobileFilmCarousel.tsx",
+      "expression": "cms.url(`/assets/films-20260908/${film}.jpg`)"
+    },
+    {
+      "slot": "asset_ac2e8eaae020fece",
+      "file": "components/home/MobileFilmCarousel.tsx",
+      "sourceLocator": "FunctionDeclaration:5/Block:4/ReturnStatement:14/JsxElement:0/JsxElement:2/JsxExpression:2/CallExpression:0/ArrowFunction:1/JsxElement:3/JsxElement:2/JsxExpression:2/ConditionalExpression:0/JsxElement:4/JsxSelfClosingElement:2/JsxAttributes:1/attr:src/JsxExpression:1/TemplateExpression:0",
+      "originalExpression": "`/assets/films-20260908/${film}.jpg`",
+      "altExpression": "\"\"",
+      "originalAlt": "",
+      "adapterFile": "components/home/MobileFilmCarousel.tsx",
+      "expression": "cms.url(`/assets/films-20260908/${film}.jpg`)"
+    },
+    {
+      "slot": "asset_af1c0c15cef911c4",
+      "file": "components/OlaProductPage.tsx",
+      "sourceLocator": "FunctionDeclaration:3/Block:3/ReturnStatement:1/ParenthesizedExpression:0/JsxSelfClosingElement:0/JsxAttributes:1/attr:features/JsxExpression:1/ObjectLiteralExpression:0/prop:image/ObjectLiteralExpression:1/prop:src/StringLiteral:1",
+      "originalExpression": "\"/assets/home-products-refined-20260907/ola-repaired.webp\"",
+      "altExpression": "t(\"deviceAlt\")",
+      "originalAlt": "",
+      "adapterFile": "components/OlaProductPage.tsx",
+      "expression": "cms.url(\"/assets/home-products-refined-20260907/ola-repaired.webp\")"
+    },
+    {
+      "slot": "asset_afd527c3bb80dc38",
+      "file": "components/home/HomeFilms.tsx",
+      "sourceLocator": "FunctionDeclaration:11/Block:3/ReturnStatement:26/ParenthesizedExpression:0/JsxElement:0/JsxExpression:4/ConditionalExpression:0/JsxFragment:4/JsxElement:2/JsxElement:2/JsxExpression:2/CallExpression:0/ArrowFunction:1/Block:2/ReturnStatement:2/JsxElement:0/JsxExpression:2/ConditionalExpression:0/JsxElement:4/JsxElement:2/JsxSelfClosingElement:2/JsxAttributes:1/attr:src/JsxExpression:1/ConditionalExpression:0/TemplateExpression:2",
+      "originalExpression": "`/assets/films-20260908/${films[active]}.mp4`",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "components/home/HomeFilms.tsx",
+      "expression": "cms.url(`/assets/films-20260908/${films[active]}.mp4`)"
+    },
+    {
+      "slot": "asset_afd527c3bb80dc38",
+      "file": "components/home/HomeFilms.tsx",
+      "sourceLocator": "FunctionDeclaration:11/Block:3/ReturnStatement:26/ParenthesizedExpression:0/JsxElement:0/JsxExpression:4/ConditionalExpression:0/JsxFragment:4/JsxElement:2/JsxElement:2/JsxExpression:2/CallExpression:0/ArrowFunction:1/Block:2/ReturnStatement:2/JsxElement:0/JsxExpression:2/ConditionalExpression:0/JsxElement:4/JsxElement:2/JsxElement:4/JsxOpeningElement:0/JsxAttributes:1/attr:href/JsxExpression:1/TemplateExpression:0",
+      "originalExpression": "`/assets/films-20260908/${films[active]}.mp4`",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "components/home/HomeFilms.tsx",
+      "expression": "cms.url(`/assets/films-20260908/${films[active]}.mp4`)"
+    },
+    {
+      "slot": "asset_afd527c3bb80dc38",
+      "file": "components/home/HomeFilms.tsx",
+      "sourceLocator": "FunctionDeclaration:11/Block:3/ReturnStatement:26/ParenthesizedExpression:0/JsxElement:0/JsxExpression:4/ConditionalExpression:0/JsxFragment:4/JsxElement:2/JsxElement:2/JsxExpression:2/CallExpression:0/ArrowFunction:1/Block:2/ReturnStatement:2/JsxElement:0/JsxExpression:2/ConditionalExpression:0/JsxElement:4/JsxExpression:6/BinaryExpression:0/JsxElement:2/JsxOpeningElement:0/JsxAttributes:1/attr:href/JsxExpression:1/TemplateExpression:0",
+      "originalExpression": "`/assets/films-20260908/${films[active]}.mp4`",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "components/home/HomeFilms.tsx",
+      "expression": "cms.url(`/assets/films-20260908/${films[active]}.mp4`)"
+    },
+    {
+      "slot": "asset_afd527c3bb80dc38",
+      "file": "components/home/MobileFilmCarousel.tsx",
+      "sourceLocator": "FunctionDeclaration:5/Block:4/ReturnStatement:14/JsxElement:0/JsxElement:2/JsxExpression:2/CallExpression:0/ArrowFunction:1/JsxElement:3/JsxElement:2/JsxExpression:2/ConditionalExpression:0/JsxFragment:2/JsxElement:2/JsxSelfClosingElement:2/JsxAttributes:1/attr:src/JsxExpression:1/ConditionalExpression:0/TemplateExpression:2",
+      "originalExpression": "`/assets/films-20260908/${film}.mp4`",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "components/home/MobileFilmCarousel.tsx",
+      "expression": "cms.url(`/assets/films-20260908/${film}.mp4`)"
+    },
+    {
+      "slot": "asset_afd527c3bb80dc38",
+      "file": "components/home/MobileFilmCarousel.tsx",
+      "sourceLocator": "FunctionDeclaration:5/Block:4/ReturnStatement:14/JsxElement:0/JsxElement:2/JsxExpression:2/CallExpression:0/ArrowFunction:1/JsxElement:3/JsxElement:2/JsxExpression:2/ConditionalExpression:0/JsxFragment:2/JsxExpression:6/BinaryExpression:0/JsxElement:2/JsxOpeningElement:0/JsxAttributes:1/attr:href/JsxExpression:1/TemplateExpression:0",
+      "originalExpression": "`/assets/films-20260908/${film}.mp4`",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "components/home/MobileFilmCarousel.tsx",
+      "expression": "cms.url(`/assets/films-20260908/${film}.mp4`)"
+    },
+    {
+      "slot": "asset_b0fc987be9c43a11",
+      "file": "app/home-floors-3-4.css",
+      "sourceLocator": "Block:1/ExpressionStatement:1/CallExpression:0/StringLiteral:1",
+      "originalExpression": "'/assets/home-interactive/pearl-light.webp'",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/home-floors-3-4.css",
+      "expression": "--cms-asset_b0fc987be9c43a11"
+    },
+    {
+      "slot": "asset_b0fc987be9c43a11",
+      "file": "app/home-floors-3-4.css",
+      "sourceLocator": "css:url:b0fc987be9c43a11",
+      "originalExpression": "url('/assets/home-interactive/pearl-light.webp",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/home-floors-3-4.css",
+      "expression": "--cms-asset_b0fc987be9c43a11"
+    },
+    {
+      "slot": "asset_b0fc987be9c43a11",
+      "file": "app/homepage.css",
+      "sourceLocator": "Block:69/LabeledStatement:6/ExpressionStatement:1/CallExpression:0/StringLiteral:1",
+      "originalExpression": "\"/assets/home-interactive/pearl-light.webp\"",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/homepage.css",
+      "expression": "--cms-asset_b0fc987be9c43a11"
+    },
+    {
+      "slot": "asset_b0fc987be9c43a11",
+      "file": "app/homepage.css",
+      "sourceLocator": "css:url:b0fc987be9c43a11",
+      "originalExpression": "url(\"/assets/home-interactive/pearl-light.webp",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/homepage.css",
+      "expression": "--cms-asset_b0fc987be9c43a11"
+    },
+    {
+      "slot": "asset_b0fc987be9c43a11",
+      "file": "components/home/GlassCards.tsx",
+      "sourceLocator": "FunctionDeclaration:14/Block:2/FirstStatement:12/VariableDeclarationList:0/var:background/CallExpression:1/ConditionalExpression:1/StringLiteral:4",
+      "originalExpression": "\"/assets/home-interactive/pearl-light.webp\"",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "components/home/GlassCards.tsx",
+      "expression": "cms.url(originalUrl)"
+    },
+    {
+      "slot": "asset_b1921d50c6c01ab2",
+      "file": "components/home/HomeExperiences.tsx",
+      "sourceLocator": "FunctionDeclaration:7/Block:3/ReturnStatement:2/ParenthesizedExpression:0/JsxElement:0/JsxElement:4/JsxElement:2/JsxElement:6/JsxExpression:2/CallExpression:0/ArrowFunction:1/ParenthesizedExpression:2/JsxElement:0/JsxElement:2/JsxSelfClosingElement:2/JsxAttributes:1/attr:src/JsxExpression:1/TemplateExpression:0",
+      "originalExpression": "`/assets/home-premium-20260907/${id}-halo.webp`",
+      "altExpression": "\"\"",
+      "originalAlt": "",
+      "adapterFile": "components/home/HomeExperiences.tsx",
+      "expression": "cms.url(`/assets/home-premium-20260907/${id}-halo.webp`)"
+    },
+    {
+      "slot": "asset_b35289613f6367dc",
+      "file": "components/home/HomeExperiences.tsx",
+      "sourceLocator": "FunctionDeclaration:7/Block:3/ReturnStatement:2/ParenthesizedExpression:0/JsxElement:0/JsxElement:4/JsxElement:2/JsxElement:6/JsxExpression:2/CallExpression:0/ArrowFunction:1/ParenthesizedExpression:2/JsxElement:0/JsxElement:2/JsxSelfClosingElement:2/JsxAttributes:1/attr:src/JsxExpression:1/TemplateExpression:0",
+      "originalExpression": "`/assets/home-premium-20260907/${id}-halo.webp`",
+      "altExpression": "\"\"",
+      "originalAlt": "",
+      "adapterFile": "components/home/HomeExperiences.tsx",
+      "expression": "cms.url(`/assets/home-premium-20260907/${id}-halo.webp`)"
+    },
+    {
+      "slot": "asset_b5a5817b8372b323",
+      "file": "app/product-detail-template.css",
+      "sourceLocator": "Block:1/ExpressionStatement:24/CallExpression:0/StringLiteral:1",
+      "originalExpression": "\"/assets/ola-detail/backgrounds-20260915/03-scenes.webp\"",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/product-detail-template.css",
+      "expression": "--cms-asset_b5a5817b8372b323"
+    },
+    {
+      "slot": "asset_b5a5817b8372b323",
+      "file": "app/product-detail-template.css",
+      "sourceLocator": "Block:3/ExpressionStatement:3/CallExpression:0/StringLiteral:1",
+      "originalExpression": "\"/assets/ola-detail/backgrounds-20260915/03-scenes.webp\"",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/product-detail-template.css",
+      "expression": "--cms-asset_b5a5817b8372b323"
+    },
+    {
+      "slot": "asset_b5a5817b8372b323",
+      "file": "app/product-detail-template.css",
+      "sourceLocator": "Block:5/ExpressionStatement:1/CallExpression:0/StringLiteral:1",
+      "originalExpression": "\"/assets/ola-detail/backgrounds-20260915/03-scenes.webp\"",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/product-detail-template.css",
+      "expression": "--cms-asset_b5a5817b8372b323"
+    },
+    {
+      "slot": "asset_b5a5817b8372b323",
+      "file": "app/product-detail-template.css",
+      "sourceLocator": "Block:7/ExpressionStatement:13/CallExpression:0/StringLiteral:1",
+      "originalExpression": "\"/assets/ola-detail/backgrounds-20260915/03-scenes.webp\"",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/product-detail-template.css",
+      "expression": "--cms-asset_b5a5817b8372b323"
+    },
+    {
+      "slot": "asset_b5a5817b8372b323",
+      "file": "app/product-detail-template.css",
+      "sourceLocator": "Block:9/ExpressionStatement:9/CallExpression:0/StringLiteral:1",
+      "originalExpression": "\"/assets/ola-detail/backgrounds-20260915/03-scenes.webp\"",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/product-detail-template.css",
+      "expression": "--cms-asset_b5a5817b8372b323"
+    },
+    {
+      "slot": "asset_b5a5817b8372b323",
+      "file": "app/product-detail-template.css",
+      "sourceLocator": "css:url:b5a5817b8372b323",
+      "originalExpression": "url(\"/assets/ola-detail/backgrounds-20260915/03-scenes.webp",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/product-detail-template.css",
+      "expression": "--cms-asset_b5a5817b8372b323"
+    },
+    {
+      "slot": "asset_b5a5817b8372b323",
+      "file": "app/product-detail-template.css",
+      "sourceLocator": "css:url:b5a5817b8372b323",
+      "originalExpression": "url(\"/assets/ola-detail/backgrounds-20260915/03-scenes.webp",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/product-detail-template.css",
+      "expression": "--cms-asset_b5a5817b8372b323"
+    },
+    {
+      "slot": "asset_b5a5817b8372b323",
+      "file": "app/product-detail-template.css",
+      "sourceLocator": "css:url:b5a5817b8372b323",
+      "originalExpression": "url(\"/assets/ola-detail/backgrounds-20260915/03-scenes.webp",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/product-detail-template.css",
+      "expression": "--cms-asset_b5a5817b8372b323"
+    },
+    {
+      "slot": "asset_b5a5817b8372b323",
+      "file": "app/product-detail-template.css",
+      "sourceLocator": "css:url:b5a5817b8372b323",
+      "originalExpression": "url(\"/assets/ola-detail/backgrounds-20260915/03-scenes.webp",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/product-detail-template.css",
+      "expression": "--cms-asset_b5a5817b8372b323"
+    },
+    {
+      "slot": "asset_b5a5817b8372b323",
+      "file": "app/product-detail-template.css",
+      "sourceLocator": "css:url:b5a5817b8372b323",
+      "originalExpression": "url(\"/assets/ola-detail/backgrounds-20260915/03-scenes.webp",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/product-detail-template.css",
+      "expression": "--cms-asset_b5a5817b8372b323"
+    },
+    {
+      "slot": "asset_b5b00f7a4189cbc0",
+      "file": "components/OlaProductPage.tsx",
+      "sourceLocator": "FunctionDeclaration:3/Block:3/ReturnStatement:1/ParenthesizedExpression:0/JsxSelfClosingElement:0/JsxAttributes:1/attr:story/JsxExpression:1/ObjectLiteralExpression:0/prop:image/ObjectLiteralExpression:1/prop:src/StringLiteral:1",
+      "originalExpression": "\"/assets/western-scenes-20260908/ola-family-kitchen-v2.webp\"",
+      "altExpression": "t(\"adultsAlt\")",
+      "originalAlt": "",
+      "adapterFile": "components/OlaProductPage.tsx",
+      "expression": "cms.url(\"/assets/western-scenes-20260908/ola-family-kitchen-v2.webp\")"
+    },
+    {
+      "slot": "asset_b6773280778a1b03",
+      "file": "app/products/tablet/page.tsx",
+      "sourceLocator": "FunctionDeclaration:3/Block:3/ReturnStatement:1/ParenthesizedExpression:0/JsxSelfClosingElement:0/JsxAttributes:1/attr:extraSection/JsxExpression:1/ObjectLiteralExpression:0/prop:image/ObjectLiteralExpression:1/prop:src/StringLiteral:1",
+      "originalExpression": "\"/assets/western-scenes-20260908/tablet-parent-controls-v2.webp\"",
+      "altExpression": "t(\"parentsTitle\")",
+      "originalAlt": "",
+      "adapterFile": "app/products/tablet/page.tsx",
+      "expression": "cms.url(\"/assets/western-scenes-20260908/tablet-parent-controls-v2.webp\")"
+    },
+    {
+      "slot": "asset_b7165aed3c49a200",
+      "file": "app/mobile.css",
+      "sourceLocator": "Block:9/Block:22/ExpressionStatement:1/CallExpression:0/StringLiteral:1",
+      "originalExpression": "'/assets/mobile-backgrounds-20260914/films.webp'",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/mobile.css",
+      "expression": "--cms-asset_b7165aed3c49a200"
+    },
+    {
+      "slot": "asset_b7165aed3c49a200",
+      "file": "app/mobile.css",
+      "sourceLocator": "css:url:b7165aed3c49a200",
+      "originalExpression": "url('/assets/mobile-backgrounds-20260914/films.webp",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/mobile.css",
+      "expression": "--cms-asset_b7165aed3c49a200"
+    },
+    {
+      "slot": "asset_b81e23fdca833486",
+      "file": "components/OlaGoProductPage.tsx",
+      "sourceLocator": "FunctionDeclaration:3/Block:3/ReturnStatement:3/ParenthesizedExpression:0/JsxSelfClosingElement:0/JsxAttributes:1/attr:heroImage/JsxExpression:1/ObjectLiteralExpression:0/prop:src/StringLiteral:1",
+      "originalExpression": "\"/assets/products/lumiq-ola-go.png\"",
+      "altExpression": "t(\"alt\")",
+      "originalAlt": "",
+      "adapterFile": "components/OlaGoProductPage.tsx",
+      "expression": "cms.url(\"/assets/products/lumiq-ola-go.png\")"
+    },
+    {
+      "slot": "asset_b81e23fdca833486",
+      "file": "components/OlaGoProductPage.tsx",
+      "sourceLocator": "FunctionDeclaration:3/Block:3/ReturnStatement:3/ParenthesizedExpression:0/JsxSelfClosingElement:0/JsxAttributes:1/attr:darkSection/JsxExpression:1/ObjectLiteralExpression:0/prop:image/ObjectLiteralExpression:1/prop:src/StringLiteral:1",
+      "originalExpression": "\"/assets/products/lumiq-ola-go.png\"",
+      "altExpression": "t(\"alt\")",
+      "originalAlt": "",
+      "adapterFile": "components/OlaGoProductPage.tsx",
+      "expression": "cms.url(\"/assets/products/lumiq-ola-go.png\")"
+    },
+    {
+      "slot": "asset_b950c7cb7c70aa2d",
+      "file": "components/ProductsShowcase.tsx",
+      "sourceLocator": "FunctionDeclaration:12/Block:3/ReturnStatement:20/ParenthesizedExpression:0/JsxElement:0/JsxElement:8/JsxElement:4/JsxSelfClosingElement:2/JsxAttributes:1/attr:src/StringLiteral:1",
+      "originalExpression": "\"/assets/products/lumiq-ola-tablet-hero.webp\"",
+      "altExpression": "{t(\"heroAlt\")}",
+      "originalAlt": "",
+      "adapterFile": "components/ProductsShowcase.tsx",
+      "expression": "cms.url(\"/assets/products/lumiq-ola-tablet-hero.webp\")"
+    },
+    {
+      "slot": "asset_b96382e3faaa5375",
+      "file": "components/PrintProductPage.tsx",
+      "sourceLocator": "FunctionDeclaration:2/Block:3/ReturnStatement:1/ParenthesizedExpression:0/JsxSelfClosingElement:0/JsxAttributes:1/attr:scenes/JsxExpression:1/ArrayLiteralExpression:0/ObjectLiteralExpression:0/prop:image/ObjectLiteralExpression:1/prop:src/StringLiteral:1",
+      "originalExpression": "\"/assets/print-detail/consistent-20260907/craft.webp\"",
+      "altExpression": "t(\"alt\")",
+      "originalAlt": "",
+      "adapterFile": "components/PrintProductPage.tsx",
+      "expression": "cms.url(\"/assets/print-detail/consistent-20260907/craft.webp\")"
+    },
+    {
+      "slot": "asset_ba68d35d82376950",
+      "file": "app/page.tsx",
+      "sourceLocator": "FunctionDeclaration:28/Block:4/ReturnStatement:2/ParenthesizedExpression:0/JsxElement:0/JsxElement:16/JsxElement:2/JsxSelfClosingElement:2/JsxAttributes:1/attr:src/StringLiteral:1",
+      "originalExpression": "\"/assets/home-anchored-2026-09-07/join-crystal.webp\"",
+      "altExpression": "\"\"",
+      "originalAlt": "",
+      "adapterFile": "app/page.tsx",
+      "expression": "cms.url(\"/assets/home-anchored-2026-09-07/join-crystal.webp\")"
+    },
+    {
+      "slot": "asset_ba9780f819f2e375",
+      "file": "components/home/HomeFilms.tsx",
+      "sourceLocator": "FunctionDeclaration:11/Block:3/ReturnStatement:26/ParenthesizedExpression:0/JsxElement:0/JsxExpression:4/ConditionalExpression:0/JsxFragment:4/JsxElement:2/JsxElement:2/JsxExpression:2/CallExpression:0/ArrowFunction:1/Block:2/ReturnStatement:2/JsxElement:0/JsxExpression:2/ConditionalExpression:0/JsxElement:2/JsxSelfClosingElement:2/JsxAttributes:1/attr:src/JsxExpression:1/TemplateExpression:0",
+      "originalExpression": "`/assets/films-20260908/${films[index]}.jpg`",
+      "altExpression": "\"\"",
+      "originalAlt": "",
+      "adapterFile": "components/home/HomeFilms.tsx",
+      "expression": "cms.url(`/assets/films-20260908/${films[index]}.jpg`)"
+    },
+    {
+      "slot": "asset_ba9780f819f2e375",
+      "file": "components/home/HomeFilms.tsx",
+      "sourceLocator": "FunctionDeclaration:11/Block:3/ReturnStatement:26/ParenthesizedExpression:0/JsxElement:0/JsxExpression:4/ConditionalExpression:0/JsxFragment:4/JsxElement:2/JsxElement:2/JsxExpression:2/CallExpression:0/ArrowFunction:1/Block:2/ReturnStatement:2/JsxElement:0/JsxExpression:2/ConditionalExpression:0/JsxElement:4/JsxElement:2/JsxOpeningElement:0/JsxAttributes:1/attr:poster/JsxExpression:1/ConditionalExpression:0/TemplateExpression:2",
+      "originalExpression": "`/assets/films-20260908/${films[active]}.jpg`",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "components/home/HomeFilms.tsx",
+      "expression": "cms.url(`/assets/films-20260908/${films[active]}.jpg`)"
+    },
+    {
+      "slot": "asset_ba9780f819f2e375",
+      "file": "components/home/MobileFilmCarousel.tsx",
+      "sourceLocator": "FunctionDeclaration:5/Block:4/ReturnStatement:14/JsxElement:0/JsxElement:2/JsxExpression:2/CallExpression:0/ArrowFunction:1/JsxElement:3/JsxElement:2/JsxExpression:2/ConditionalExpression:0/JsxFragment:2/JsxElement:2/JsxOpeningElement:0/JsxAttributes:1/attr:poster/JsxExpression:1/TemplateExpression:0",
+      "originalExpression": "`/assets/films-20260908/${film}.jpg`",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "components/home/MobileFilmCarousel.tsx",
+      "expression": "cms.url(`/assets/films-20260908/${film}.jpg`)"
+    },
+    {
+      "slot": "asset_ba9780f819f2e375",
+      "file": "components/home/MobileFilmCarousel.tsx",
+      "sourceLocator": "FunctionDeclaration:5/Block:4/ReturnStatement:14/JsxElement:0/JsxElement:2/JsxExpression:2/CallExpression:0/ArrowFunction:1/JsxElement:3/JsxElement:2/JsxExpression:2/ConditionalExpression:0/JsxElement:4/JsxSelfClosingElement:2/JsxAttributes:1/attr:src/JsxExpression:1/TemplateExpression:0",
+      "originalExpression": "`/assets/films-20260908/${film}.jpg`",
+      "altExpression": "\"\"",
+      "originalAlt": "",
+      "adapterFile": "components/home/MobileFilmCarousel.tsx",
+      "expression": "cms.url(`/assets/films-20260908/${film}.jpg`)"
+    },
+    {
+      "slot": "asset_bb5f211d5118c121",
+      "file": "components/home/HomeFilms.tsx",
+      "sourceLocator": "FunctionDeclaration:11/Block:3/ReturnStatement:26/ParenthesizedExpression:0/JsxElement:0/JsxExpression:4/ConditionalExpression:0/JsxFragment:4/JsxElement:2/JsxElement:2/JsxExpression:2/CallExpression:0/ArrowFunction:1/Block:2/ReturnStatement:2/JsxElement:0/JsxExpression:2/ConditionalExpression:0/JsxElement:4/JsxElement:2/JsxSelfClosingElement:2/JsxAttributes:1/attr:src/JsxExpression:1/ConditionalExpression:0/TemplateExpression:2",
+      "originalExpression": "`/assets/films-20260908/${films[active]}.mp4`",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "components/home/HomeFilms.tsx",
+      "expression": "cms.url(`/assets/films-20260908/${films[active]}.mp4`)"
+    },
+    {
+      "slot": "asset_bb5f211d5118c121",
+      "file": "components/home/HomeFilms.tsx",
+      "sourceLocator": "FunctionDeclaration:11/Block:3/ReturnStatement:26/ParenthesizedExpression:0/JsxElement:0/JsxExpression:4/ConditionalExpression:0/JsxFragment:4/JsxElement:2/JsxElement:2/JsxExpression:2/CallExpression:0/ArrowFunction:1/Block:2/ReturnStatement:2/JsxElement:0/JsxExpression:2/ConditionalExpression:0/JsxElement:4/JsxElement:2/JsxElement:4/JsxOpeningElement:0/JsxAttributes:1/attr:href/JsxExpression:1/TemplateExpression:0",
+      "originalExpression": "`/assets/films-20260908/${films[active]}.mp4`",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "components/home/HomeFilms.tsx",
+      "expression": "cms.url(`/assets/films-20260908/${films[active]}.mp4`)"
+    },
+    {
+      "slot": "asset_bb5f211d5118c121",
+      "file": "components/home/HomeFilms.tsx",
+      "sourceLocator": "FunctionDeclaration:11/Block:3/ReturnStatement:26/ParenthesizedExpression:0/JsxElement:0/JsxExpression:4/ConditionalExpression:0/JsxFragment:4/JsxElement:2/JsxElement:2/JsxExpression:2/CallExpression:0/ArrowFunction:1/Block:2/ReturnStatement:2/JsxElement:0/JsxExpression:2/ConditionalExpression:0/JsxElement:4/JsxExpression:6/BinaryExpression:0/JsxElement:2/JsxOpeningElement:0/JsxAttributes:1/attr:href/JsxExpression:1/TemplateExpression:0",
+      "originalExpression": "`/assets/films-20260908/${films[active]}.mp4`",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "components/home/HomeFilms.tsx",
+      "expression": "cms.url(`/assets/films-20260908/${films[active]}.mp4`)"
+    },
+    {
+      "slot": "asset_bb5f211d5118c121",
+      "file": "components/home/MobileFilmCarousel.tsx",
+      "sourceLocator": "FunctionDeclaration:5/Block:4/ReturnStatement:14/JsxElement:0/JsxElement:2/JsxExpression:2/CallExpression:0/ArrowFunction:1/JsxElement:3/JsxElement:2/JsxExpression:2/ConditionalExpression:0/JsxFragment:2/JsxElement:2/JsxSelfClosingElement:2/JsxAttributes:1/attr:src/JsxExpression:1/ConditionalExpression:0/TemplateExpression:2",
+      "originalExpression": "`/assets/films-20260908/${film}.mp4`",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "components/home/MobileFilmCarousel.tsx",
+      "expression": "cms.url(`/assets/films-20260908/${film}.mp4`)"
+    },
+    {
+      "slot": "asset_bb5f211d5118c121",
+      "file": "components/home/MobileFilmCarousel.tsx",
+      "sourceLocator": "FunctionDeclaration:5/Block:4/ReturnStatement:14/JsxElement:0/JsxElement:2/JsxExpression:2/CallExpression:0/ArrowFunction:1/JsxElement:3/JsxElement:2/JsxExpression:2/ConditionalExpression:0/JsxFragment:2/JsxExpression:6/BinaryExpression:0/JsxElement:2/JsxOpeningElement:0/JsxAttributes:1/attr:href/JsxExpression:1/TemplateExpression:0",
+      "originalExpression": "`/assets/films-20260908/${film}.mp4`",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "components/home/MobileFilmCarousel.tsx",
+      "expression": "cms.url(`/assets/films-20260908/${film}.mp4`)"
+    },
+    {
+      "slot": "asset_bf09508e13bc01da",
+      "file": "components/PrintProductPage.tsx",
+      "sourceLocator": "FunctionDeclaration:2/Block:3/ReturnStatement:1/ParenthesizedExpression:0/JsxSelfClosingElement:0/JsxAttributes:1/attr:features/JsxExpression:1/ObjectLiteralExpression:0/prop:image/ObjectLiteralExpression:1/prop:src/StringLiteral:1",
+      "originalExpression": "\"/assets/print-detail/consistent-20260907/pages.webp\"",
+      "altExpression": "t(\"alt\")",
+      "originalAlt": "",
+      "adapterFile": "components/PrintProductPage.tsx",
+      "expression": "cms.url(\"/assets/print-detail/consistent-20260907/pages.webp\")"
+    },
+    {
+      "slot": "asset_c5465b6816a75f09",
+      "file": "app/story/page.tsx",
+      "sourceLocator": "FunctionDeclaration:8/Block:3/ReturnStatement:5/ParenthesizedExpression:0/JsxElement:0/JsxElement:4/JsxSelfClosingElement:4/JsxAttributes:1/attr:poster/StringLiteral:1",
+      "originalExpression": "\"/assets/western-scenes-20260908/lumiq-story-family-v3.webp\"",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/story/page.tsx",
+      "expression": "cms.url(\"/assets/western-scenes-20260908/lumiq-story-family-v3.webp\")"
+    },
+    {
+      "slot": "asset_c90fbe22d7d3cb65",
+      "file": "app/product-detail-template.css",
+      "sourceLocator": "Block:1/ExpressionStatement:28/CallExpression:0/StringLiteral:1",
+      "originalExpression": "\"/assets/ola-detail/backgrounds-20260915/05-strengths.webp\"",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/product-detail-template.css",
+      "expression": "--cms-asset_c90fbe22d7d3cb65"
+    },
+    {
+      "slot": "asset_c90fbe22d7d3cb65",
+      "file": "app/product-detail-template.css",
+      "sourceLocator": "Block:3/ExpressionStatement:7/CallExpression:0/StringLiteral:1",
+      "originalExpression": "\"/assets/ola-detail/backgrounds-20260915/05-strengths.webp\"",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/product-detail-template.css",
+      "expression": "--cms-asset_c90fbe22d7d3cb65"
+    },
+    {
+      "slot": "asset_c90fbe22d7d3cb65",
+      "file": "app/product-detail-template.css",
+      "sourceLocator": "Block:5/ExpressionStatement:5/CallExpression:0/StringLiteral:1",
+      "originalExpression": "\"/assets/ola-detail/backgrounds-20260915/05-strengths.webp\"",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/product-detail-template.css",
+      "expression": "--cms-asset_c90fbe22d7d3cb65"
+    },
+    {
+      "slot": "asset_c90fbe22d7d3cb65",
+      "file": "app/product-detail-template.css",
+      "sourceLocator": "Block:7/ExpressionStatement:3/CallExpression:0/StringLiteral:1",
+      "originalExpression": "\"/assets/ola-detail/backgrounds-20260915/05-strengths.webp\"",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/product-detail-template.css",
+      "expression": "--cms-asset_c90fbe22d7d3cb65"
+    },
+    {
+      "slot": "asset_c90fbe22d7d3cb65",
+      "file": "app/product-detail-template.css",
+      "sourceLocator": "Block:9/ExpressionStatement:1/CallExpression:0/StringLiteral:1",
+      "originalExpression": "\"/assets/ola-detail/backgrounds-20260915/05-strengths.webp\"",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/product-detail-template.css",
+      "expression": "--cms-asset_c90fbe22d7d3cb65"
+    },
+    {
+      "slot": "asset_c90fbe22d7d3cb65",
+      "file": "app/product-detail-template.css",
+      "sourceLocator": "css:url:c90fbe22d7d3cb65",
+      "originalExpression": "url(\"/assets/ola-detail/backgrounds-20260915/05-strengths.webp",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/product-detail-template.css",
+      "expression": "--cms-asset_c90fbe22d7d3cb65"
+    },
+    {
+      "slot": "asset_c90fbe22d7d3cb65",
+      "file": "app/product-detail-template.css",
+      "sourceLocator": "css:url:c90fbe22d7d3cb65",
+      "originalExpression": "url(\"/assets/ola-detail/backgrounds-20260915/05-strengths.webp",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/product-detail-template.css",
+      "expression": "--cms-asset_c90fbe22d7d3cb65"
+    },
+    {
+      "slot": "asset_c90fbe22d7d3cb65",
+      "file": "app/product-detail-template.css",
+      "sourceLocator": "css:url:c90fbe22d7d3cb65",
+      "originalExpression": "url(\"/assets/ola-detail/backgrounds-20260915/05-strengths.webp",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/product-detail-template.css",
+      "expression": "--cms-asset_c90fbe22d7d3cb65"
+    },
+    {
+      "slot": "asset_c90fbe22d7d3cb65",
+      "file": "app/product-detail-template.css",
+      "sourceLocator": "css:url:c90fbe22d7d3cb65",
+      "originalExpression": "url(\"/assets/ola-detail/backgrounds-20260915/05-strengths.webp",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/product-detail-template.css",
+      "expression": "--cms-asset_c90fbe22d7d3cb65"
+    },
+    {
+      "slot": "asset_c90fbe22d7d3cb65",
+      "file": "app/product-detail-template.css",
+      "sourceLocator": "css:url:c90fbe22d7d3cb65",
+      "originalExpression": "url(\"/assets/ola-detail/backgrounds-20260915/05-strengths.webp",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/product-detail-template.css",
+      "expression": "--cms-asset_c90fbe22d7d3cb65"
+    },
+    {
+      "slot": "asset_ceeef07a274fb86e",
+      "file": "components/home/HomeFamily.tsx",
+      "sourceLocator": "FunctionDeclaration:5/Block:3/ReturnStatement:15/ParenthesizedExpression:0/JsxElement:0/JsxElement:4/JsxExpression:2/CallExpression:0/ArrowFunction:1/Block:2/ReturnStatement:3/ParenthesizedExpression:0/JsxElement:0/JsxExpression:2/ConditionalExpression:0/JsxElement:2/JsxSelfClosingElement:2/JsxAttributes:1/attr:src/JsxExpression:1/TemplateExpression:0",
+      "originalExpression": "`/assets/western-scenes-20260908/${key}.webp`",
+      "altExpression": "\"\"",
+      "originalAlt": "",
+      "adapterFile": "components/home/HomeFamily.tsx",
+      "expression": "cms.url(`/assets/western-scenes-20260908/${key}.webp`)"
+    },
+    {
+      "slot": "asset_ceeef07a274fb86e",
+      "file": "components/home/HomeFamily.tsx",
+      "sourceLocator": "FunctionDeclaration:5/Block:3/ReturnStatement:15/ParenthesizedExpression:0/JsxElement:0/JsxElement:4/JsxExpression:2/CallExpression:0/ArrowFunction:1/Block:2/ReturnStatement:3/ParenthesizedExpression:0/JsxElement:0/JsxExpression:2/ConditionalExpression:0/JsxSelfClosingElement:4/JsxAttributes:1/attr:src/JsxExpression:1/TemplateExpression:0",
+      "originalExpression": "`/assets/western-scenes-20260908/${key}.webp`",
+      "altExpression": "{t(`familyMoments.${key}`)}",
+      "originalAlt": "",
+      "adapterFile": "components/home/HomeFamily.tsx",
+      "expression": "cms.url(`/assets/western-scenes-20260908/${key}.webp`)"
+    },
+    {
+      "slot": "asset_cf10ad0a75bcb248",
+      "file": "components/NestProductPage.tsx",
+      "sourceLocator": "FunctionDeclaration:4/Block:3/FirstStatement:1/VariableDeclarationList:0/var:finishes/AsExpression:1/ArrayLiteralExpression:0/ObjectLiteralExpression:1/prop:front/StringLiteral:1",
+      "originalExpression": "\"/assets/web/nest15-walnut-front.webp\"",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "components/NestProductPage.tsx",
+      "expression": "cms.url(\"/assets/web/nest15-walnut-front.webp\")"
+    },
+    {
+      "slot": "asset_cfab6960e3e4fad9",
+      "file": "components/home/HomeExperiences.tsx",
+      "sourceLocator": "FunctionDeclaration:7/Block:3/ReturnStatement:2/ParenthesizedExpression:0/JsxElement:0/JsxElement:4/JsxElement:2/JsxElement:6/JsxExpression:2/CallExpression:0/ArrowFunction:1/ParenthesizedExpression:2/JsxElement:0/JsxElement:2/JsxSelfClosingElement:2/JsxAttributes:1/attr:src/JsxExpression:1/TemplateExpression:0",
+      "originalExpression": "`/assets/home-premium-20260907/${id}-halo.webp`",
+      "altExpression": "\"\"",
+      "originalAlt": "",
+      "adapterFile": "components/home/HomeExperiences.tsx",
+      "expression": "cms.url(`/assets/home-premium-20260907/${id}-halo.webp`)"
+    },
+    {
+      "slot": "asset_d11e4e878cf13138",
+      "file": "app/home-brand-review.css",
+      "sourceLocator": "Block:67/Block:16/ExpressionStatement:1/CallExpression:0/StringLiteral:1",
+      "originalExpression": "'/assets/home-video/ola-scroll-v16-end-20260909.webp'",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/home-brand-review.css",
+      "expression": "--cms-asset_d11e4e878cf13138"
+    },
+    {
+      "slot": "asset_d11e4e878cf13138",
+      "file": "app/home-brand-review.css",
+      "sourceLocator": "css:url:d11e4e878cf13138",
+      "originalExpression": "url('/assets/home-video/ola-scroll-v16-end-20260909.webp",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/home-brand-review.css",
+      "expression": "--cms-asset_d11e4e878cf13138"
+    },
+    {
+      "slot": "asset_d11e4e878cf13138",
+      "file": "app/opening-video.css",
+      "sourceLocator": "Block:18/ExpressionStatement:1/CallExpression:0/StringLiteral:1",
+      "originalExpression": "\"/assets/home-video/ola-scroll-v16-end-20260909.webp\"",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/opening-video.css",
+      "expression": "--cms-asset_d11e4e878cf13138"
+    },
+    {
+      "slot": "asset_d11e4e878cf13138",
+      "file": "app/opening-video.css",
+      "sourceLocator": "css:url:d11e4e878cf13138",
+      "originalExpression": "url(\"/assets/home-video/ola-scroll-v16-end-20260909.webp",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/opening-video.css",
+      "expression": "--cms-asset_d11e4e878cf13138"
+    },
+    {
+      "slot": "asset_d11e4e878cf13138",
+      "file": "app/page.tsx",
+      "sourceLocator": "FunctionDeclaration:28/Block:4/ReturnStatement:2/ParenthesizedExpression:0/JsxElement:0/JsxElement:4/JsxElement:2/JsxElement:8/JsxElement:2/JsxElement:4/JsxElement:2/JsxSelfClosingElement:2/JsxAttributes:1/attr:srcSet/StringLiteral:1",
+      "originalExpression": "\"/assets/home-video/ola-scroll-v16-end-20260909.webp\"",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/page.tsx",
+      "expression": "cms.url(\"/assets/home-video/ola-scroll-v16-end-20260909.webp\")"
+    },
+    {
+      "slot": "asset_d11e4e878cf13138",
+      "file": "components/home/preloadOpening.ts",
+      "sourceLocator": "FunctionDeclaration:0/Block:5/FirstStatement:0/VariableDeclarationList:0/var:posters/CallExpression:1/PropertyAccessExpression:0/ArrayLiteralExpression:0/StringLiteral:1",
+      "originalExpression": "\"/assets/home-video/ola-scroll-v16-end-20260909.webp\"",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "components/home/HomeMotion.tsx",
+      "expression": "cms.slot(\"asset_d11e4e878cf13138\").url"
+    },
+    {
+      "slot": "asset_d1ad8dd5bdfbf760",
+      "file": "app/mobile.css",
+      "sourceLocator": "Block:9/Block:19/ExpressionStatement:1/CallExpression:0/StringLiteral:1",
+      "originalExpression": "'/assets/mobile-backgrounds-20260914/products.webp'",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/mobile.css",
+      "expression": "--cms-asset_d1ad8dd5bdfbf760"
+    },
+    {
+      "slot": "asset_d1ad8dd5bdfbf760",
+      "file": "app/mobile.css",
+      "sourceLocator": "css:url:d1ad8dd5bdfbf760",
+      "originalExpression": "url('/assets/mobile-backgrounds-20260914/products.webp",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/mobile.css",
+      "expression": "--cms-asset_d1ad8dd5bdfbf760"
+    },
+    {
+      "slot": "asset_d2d12ceec8d371d0",
+      "file": "app/globals.css",
+      "sourceLocator": "Block:970/ExpressionStatement:9/CallExpression:0/StringLiteral:1",
+      "originalExpression": "'/assets/subpage-backgrounds-20260915/cookies.webp'",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/globals.css",
+      "expression": "--cms-asset_d2d12ceec8d371d0"
+    },
+    {
+      "slot": "asset_d2d12ceec8d371d0",
+      "file": "app/globals.css",
+      "sourceLocator": "css:url:d2d12ceec8d371d0",
+      "originalExpression": "url('/assets/subpage-backgrounds-20260915/cookies.webp",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/globals.css",
+      "expression": "--cms-asset_d2d12ceec8d371d0"
+    },
+    {
+      "slot": "asset_d4055fda93896dd6",
+      "file": "components/OlaGoProductPage.tsx",
+      "sourceLocator": "FunctionDeclaration:3/Block:3/ReturnStatement:3/ParenthesizedExpression:0/JsxSelfClosingElement:0/JsxAttributes:1/attr:features/JsxExpression:1/ObjectLiteralExpression:0/prop:image/ObjectLiteralExpression:1/prop:src/StringLiteral:1",
+      "originalExpression": "\"/assets/ola-go-detail/original-20260915/ola-go-three-quarter.png\"",
+      "altExpression": "t(\"alt\")",
+      "originalAlt": "",
+      "adapterFile": "components/OlaGoProductPage.tsx",
+      "expression": "cms.url(\"/assets/ola-go-detail/original-20260915/ola-go-three-quarter.png\")"
+    },
+    {
+      "slot": "asset_d44e0814abbebfad",
+      "file": "components/PrintProductPage.tsx",
+      "sourceLocator": "FunctionDeclaration:2/Block:3/ReturnStatement:1/ParenthesizedExpression:0/JsxSelfClosingElement:0/JsxAttributes:1/attr:story/JsxExpression:1/ObjectLiteralExpression:0/prop:image/ObjectLiteralExpression:1/prop:src/StringLiteral:1",
+      "originalExpression": "\"/assets/print-detail/consistent-20260907/gift.webp\"",
+      "altExpression": "t(\"alt\")",
+      "originalAlt": "",
+      "adapterFile": "components/PrintProductPage.tsx",
+      "expression": "cms.url(\"/assets/print-detail/consistent-20260907/gift.webp\")"
+    },
+    {
+      "slot": "asset_d5fbac1e9755dc9c",
+      "file": "components/NestProductPage.tsx",
+      "sourceLocator": "FunctionDeclaration:4/Block:3/ReturnStatement:4/ParenthesizedExpression:0/JsxSelfClosingElement:0/JsxAttributes:1/attr:features/JsxExpression:1/ObjectLiteralExpression:0/prop:image/ObjectLiteralExpression:1/prop:src/StringLiteral:1",
+      "originalExpression": "\"/assets/nest-detail/generated/nest-routine-closeup-v2.png\"",
+      "altExpression": "t(\"portraitAlt\")",
+      "originalAlt": "",
+      "adapterFile": "components/NestProductPage.tsx",
+      "expression": "cms.url(\"/assets/nest-detail/generated/nest-routine-closeup-v2.png\")"
+    },
+    {
+      "slot": "asset_d6c99816cec8aded",
+      "file": "components/home/HomeBackgrounds.tsx",
+      "sourceLocator": "FirstStatement:6/VariableDeclarationList:1/var:chapterImage/ArrowFunction:1/TemplateExpression:2",
+      "originalExpression": "`/assets/chapter-backgrounds-20260910/${name}.webp`",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "components/home/HomeBackgrounds.tsx",
+      "expression": "cms.url(chapterImage(\"products\"))"
+    },
+    {
+      "slot": "asset_d7ecc19f147a2202",
+      "file": "app/page.tsx",
+      "sourceLocator": "css:url:d7ecc19f147a2202",
+      "originalExpression": "home-interactive/print",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/page.tsx",
+      "expression": "cms.url(\"/assets/\" + artwork[id] + \".webp\")"
+    },
+    {
+      "slot": "asset_d91f09496c0e79ea",
+      "file": "app/globals.css",
+      "sourceLocator": "Block:968/ExpressionStatement:5/CallExpression:0/StringLiteral:1",
+      "originalExpression": "'/assets/subpage-backgrounds-20260915/contact.webp'",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/globals.css",
+      "expression": "--cms-asset_d91f09496c0e79ea"
+    },
+    {
+      "slot": "asset_d91f09496c0e79ea",
+      "file": "app/globals.css",
+      "sourceLocator": "css:url:d91f09496c0e79ea",
+      "originalExpression": "url('/assets/subpage-backgrounds-20260915/contact.webp",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/globals.css",
+      "expression": "--cms-asset_d91f09496c0e79ea"
+    },
+    {
+      "slot": "asset_da896ce0780cca53",
+      "file": "app/product-detail-template.css",
+      "sourceLocator": "Block:1/ExpressionStatement:26/CallExpression:0/StringLiteral:1",
+      "originalExpression": "\"/assets/ola-detail/backgrounds-20260915/04-features.webp\"",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/product-detail-template.css",
+      "expression": "--cms-asset_da896ce0780cca53"
+    },
+    {
+      "slot": "asset_da896ce0780cca53",
+      "file": "app/product-detail-template.css",
+      "sourceLocator": "Block:3/ExpressionStatement:5/CallExpression:0/StringLiteral:1",
+      "originalExpression": "\"/assets/ola-detail/backgrounds-20260915/04-features.webp\"",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/product-detail-template.css",
+      "expression": "--cms-asset_da896ce0780cca53"
+    },
+    {
+      "slot": "asset_da896ce0780cca53",
+      "file": "app/product-detail-template.css",
+      "sourceLocator": "Block:5/ExpressionStatement:3/CallExpression:0/StringLiteral:1",
+      "originalExpression": "\"/assets/ola-detail/backgrounds-20260915/04-features.webp\"",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/product-detail-template.css",
+      "expression": "--cms-asset_da896ce0780cca53"
+    },
+    {
+      "slot": "asset_da896ce0780cca53",
+      "file": "app/product-detail-template.css",
+      "sourceLocator": "Block:7/ExpressionStatement:1/CallExpression:0/StringLiteral:1",
+      "originalExpression": "\"/assets/ola-detail/backgrounds-20260915/04-features.webp\"",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/product-detail-template.css",
+      "expression": "--cms-asset_da896ce0780cca53"
+    },
+    {
+      "slot": "asset_da896ce0780cca53",
+      "file": "app/product-detail-template.css",
+      "sourceLocator": "Block:9/ExpressionStatement:13/CallExpression:0/StringLiteral:1",
+      "originalExpression": "\"/assets/ola-detail/backgrounds-20260915/04-features.webp\"",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/product-detail-template.css",
+      "expression": "--cms-asset_da896ce0780cca53"
+    },
+    {
+      "slot": "asset_da896ce0780cca53",
+      "file": "app/product-detail-template.css",
+      "sourceLocator": "css:url:da896ce0780cca53",
+      "originalExpression": "url(\"/assets/ola-detail/backgrounds-20260915/04-features.webp",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/product-detail-template.css",
+      "expression": "--cms-asset_da896ce0780cca53"
+    },
+    {
+      "slot": "asset_da896ce0780cca53",
+      "file": "app/product-detail-template.css",
+      "sourceLocator": "css:url:da896ce0780cca53",
+      "originalExpression": "url(\"/assets/ola-detail/backgrounds-20260915/04-features.webp",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/product-detail-template.css",
+      "expression": "--cms-asset_da896ce0780cca53"
+    },
+    {
+      "slot": "asset_da896ce0780cca53",
+      "file": "app/product-detail-template.css",
+      "sourceLocator": "css:url:da896ce0780cca53",
+      "originalExpression": "url(\"/assets/ola-detail/backgrounds-20260915/04-features.webp",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/product-detail-template.css",
+      "expression": "--cms-asset_da896ce0780cca53"
+    },
+    {
+      "slot": "asset_da896ce0780cca53",
+      "file": "app/product-detail-template.css",
+      "sourceLocator": "css:url:da896ce0780cca53",
+      "originalExpression": "url(\"/assets/ola-detail/backgrounds-20260915/04-features.webp",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/product-detail-template.css",
+      "expression": "--cms-asset_da896ce0780cca53"
+    },
+    {
+      "slot": "asset_da896ce0780cca53",
+      "file": "app/product-detail-template.css",
+      "sourceLocator": "css:url:da896ce0780cca53",
+      "originalExpression": "url(\"/assets/ola-detail/backgrounds-20260915/04-features.webp",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/product-detail-template.css",
+      "expression": "--cms-asset_da896ce0780cca53"
+    },
+    {
+      "slot": "asset_db2b43c552f5a337",
+      "file": "components/OlaGoProductPage.tsx",
+      "sourceLocator": "FunctionDeclaration:3/Block:3/ReturnStatement:3/ParenthesizedExpression:0/JsxSelfClosingElement:0/JsxAttributes:1/attr:scenes/JsxExpression:1/CallExpression:0/ArrowFunction:1/ParenthesizedExpression:3/ObjectLiteralExpression:0/prop:image/ObjectLiteralExpression:1/prop:src/ConditionalExpression:1/ConditionalExpression:4/StringLiteral:4",
+      "originalExpression": "\"/assets/western-scenes-20260908/ola-go-bedside-journal-v3.webp\"",
+      "altExpression": "t(\"alt\")",
+      "originalAlt": "",
+      "adapterFile": "components/OlaGoProductPage.tsx",
+      "expression": "cms.url(\"/assets/western-scenes-20260908/ola-go-bedside-journal-v3.webp\")"
+    },
+    {
+      "slot": "asset_de6d7af49ce01a95",
+      "file": "app/globals.css",
+      "sourceLocator": "Block:987/ExpressionStatement:3/CallExpression:0/StringLiteral:1",
+      "originalExpression": "'/assets/subpage-backgrounds-20260915/faq.webp'",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/globals.css",
+      "expression": "--cms-asset_de6d7af49ce01a95"
+    },
+    {
+      "slot": "asset_de6d7af49ce01a95",
+      "file": "app/globals.css",
+      "sourceLocator": "css:url:de6d7af49ce01a95",
+      "originalExpression": "url('/assets/subpage-backgrounds-20260915/faq.webp",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/globals.css",
+      "expression": "--cms-asset_de6d7af49ce01a95"
+    },
+    {
+      "slot": "asset_de6d7af49ce01a95",
+      "file": "app/product-detail-template.css",
+      "sourceLocator": "Block:1/ExpressionStatement:30/CallExpression:0/StringLiteral:1",
+      "originalExpression": "\"/assets/subpage-backgrounds-20260915/faq.webp\"",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/product-detail-template.css",
+      "expression": "--cms-asset_de6d7af49ce01a95"
+    },
+    {
+      "slot": "asset_de6d7af49ce01a95",
+      "file": "app/product-detail-template.css",
+      "sourceLocator": "Block:7/ExpressionStatement:11/CallExpression:0/StringLiteral:1",
+      "originalExpression": "\"/assets/subpage-backgrounds-20260915/faq.webp\"",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/product-detail-template.css",
+      "expression": "--cms-asset_de6d7af49ce01a95"
+    },
+    {
+      "slot": "asset_de6d7af49ce01a95",
+      "file": "app/product-detail-template.css",
+      "sourceLocator": "css:url:de6d7af49ce01a95",
+      "originalExpression": "url(\"/assets/subpage-backgrounds-20260915/faq.webp",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/product-detail-template.css",
+      "expression": "--cms-asset_de6d7af49ce01a95"
+    },
+    {
+      "slot": "asset_de6d7af49ce01a95",
+      "file": "app/product-detail-template.css",
+      "sourceLocator": "css:url:de6d7af49ce01a95",
+      "originalExpression": "url(\"/assets/subpage-backgrounds-20260915/faq.webp",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/product-detail-template.css",
+      "expression": "--cms-asset_de6d7af49ce01a95"
+    },
+    {
+      "slot": "asset_e036cbcfe52d5970",
+      "file": "components/ProductsShowcase.tsx",
+      "sourceLocator": "FunctionDeclaration:12/Block:3/ReturnStatement:20/ParenthesizedExpression:0/JsxElement:0/JsxElement:18/JsxElement:4/JsxElement:4/JsxElement:2/JsxSelfClosingElement:2/JsxAttributes:1/attr:src/StringLiteral:1",
+      "originalExpression": "\"/assets/brand/lumiq-logo-transparent-dark.png\"",
+      "altExpression": "\"LumiQ\"",
+      "originalAlt": "LumiQ",
+      "adapterFile": "components/ProductsShowcase.tsx",
+      "expression": "cms.url(\"/assets/brand/lumiq-logo-transparent-dark.png\")"
+    },
+    {
+      "slot": "asset_e036cbcfe52d5970",
+      "file": "components/SiteFooter.tsx",
+      "sourceLocator": "FunctionDeclaration:6/Block:3/ReturnStatement:3/ParenthesizedExpression:0/JsxElement:0/JsxElement:2/JsxElement:2/JsxElement:2/JsxElement:2/JsxSelfClosingElement:2/JsxAttributes:1/attr:src/StringLiteral:1",
+      "originalExpression": "\"/assets/brand/lumiq-logo-transparent-dark.png\"",
+      "altExpression": "{isHomepage ? \"LUMIQ Studio\" : \"LumiQ Studio\"}",
+      "originalAlt": "",
+      "adapterFile": "components/SiteFooter.tsx",
+      "expression": "cms.url(\"/assets/brand/lumiq-logo-transparent-dark.png\")"
+    },
+    {
+      "slot": "asset_e036cbcfe52d5970",
+      "file": "components/SiteHeader.tsx",
+      "sourceLocator": "FunctionDeclaration:9/Block:3/ReturnStatement:24/ParenthesizedExpression:0/JsxElement:0/JsxElement:4/JsxElement:2/JsxSelfClosingElement:2/JsxAttributes:1/attr:src/StringLiteral:1",
+      "originalExpression": "\"/assets/brand/lumiq-logo-transparent-dark.png\"",
+      "altExpression": "{isHomepage ? \"LUMIQ Studio\" : \"LumiQ Studio\"}",
+      "originalAlt": "",
+      "adapterFile": "components/SiteHeader.tsx",
+      "expression": "cms.url(\"/assets/brand/lumiq-logo-transparent-dark.png\")"
+    },
+    {
+      "slot": "asset_e589e6544320d14c",
+      "file": "app/globals.css",
+      "sourceLocator": "Block:966/ExpressionStatement:3/CallExpression:0/StringLiteral:1",
+      "originalExpression": "'/assets/subpage-backgrounds-20260915/products.webp'",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/globals.css",
+      "expression": "--cms-asset_e589e6544320d14c"
+    },
+    {
+      "slot": "asset_e589e6544320d14c",
+      "file": "app/globals.css",
+      "sourceLocator": "css:url:e589e6544320d14c",
+      "originalExpression": "url('/assets/subpage-backgrounds-20260915/products.webp",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/globals.css",
+      "expression": "--cms-asset_e589e6544320d14c"
+    },
+    {
+      "slot": "asset_e70d871db07c298c",
+      "file": "components/home/HomeFamily.tsx",
+      "sourceLocator": "FunctionDeclaration:5/Block:3/ReturnStatement:15/ParenthesizedExpression:0/JsxElement:0/JsxElement:4/JsxExpression:2/CallExpression:0/ArrowFunction:1/Block:2/ReturnStatement:3/ParenthesizedExpression:0/JsxElement:0/JsxExpression:2/ConditionalExpression:0/JsxElement:2/JsxSelfClosingElement:2/JsxAttributes:1/attr:src/JsxExpression:1/TemplateExpression:0",
+      "originalExpression": "`/assets/western-scenes-20260908/${key}.webp`",
+      "altExpression": "\"\"",
+      "originalAlt": "",
+      "adapterFile": "components/home/HomeFamily.tsx",
+      "expression": "cms.url(`/assets/western-scenes-20260908/${key}.webp`)"
+    },
+    {
+      "slot": "asset_e70d871db07c298c",
+      "file": "components/home/HomeFamily.tsx",
+      "sourceLocator": "FunctionDeclaration:5/Block:3/ReturnStatement:15/ParenthesizedExpression:0/JsxElement:0/JsxElement:4/JsxExpression:2/CallExpression:0/ArrowFunction:1/Block:2/ReturnStatement:3/ParenthesizedExpression:0/JsxElement:0/JsxExpression:2/ConditionalExpression:0/JsxSelfClosingElement:4/JsxAttributes:1/attr:src/JsxExpression:1/TemplateExpression:0",
+      "originalExpression": "`/assets/western-scenes-20260908/${key}.webp`",
+      "altExpression": "{t(`familyMoments.${key}`)}",
+      "originalAlt": "",
+      "adapterFile": "components/home/HomeFamily.tsx",
+      "expression": "cms.url(`/assets/western-scenes-20260908/${key}.webp`)"
+    },
+    {
+      "slot": "asset_e72d00b15369d5bc",
+      "file": "lib/products.ts",
+      "sourceLocator": "FirstStatement:3/VariableDeclarationList:1/var:PRODUCT_CATALOG/SatisfiesExpression:1/AsExpression:0/ArrayLiteralExpression:0/ObjectLiteralExpression:1/prop:image/StringLiteral:1",
+      "originalExpression": "\"/assets/web/lumiq-ola-go.webp\"",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "components/content/ContentImage.tsx",
+      "expression": "cms.url(props.src)"
+    },
+    {
+      "slot": "asset_e952cecf44ce1cc1",
+      "file": "app/globals.css",
+      "sourceLocator": "Block:966/ExpressionStatement:5/CallExpression:0/StringLiteral:1",
+      "originalExpression": "'/assets/subpage-backgrounds-20260915/generated-set-02/flow-02-diagonal-convergence.webp'",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/globals.css",
+      "expression": "--cms-asset_e952cecf44ce1cc1"
+    },
+    {
+      "slot": "asset_e952cecf44ce1cc1",
+      "file": "app/globals.css",
+      "sourceLocator": "Block:968/ExpressionStatement:11/CallExpression:0/StringLiteral:1",
+      "originalExpression": "'/assets/subpage-backgrounds-20260915/generated-set-02/flow-02-diagonal-convergence.webp'",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/globals.css",
+      "expression": "--cms-asset_e952cecf44ce1cc1"
+    },
+    {
+      "slot": "asset_e952cecf44ce1cc1",
+      "file": "app/globals.css",
+      "sourceLocator": "Block:970/ExpressionStatement:1/CallExpression:0/StringLiteral:1",
+      "originalExpression": "'/assets/subpage-backgrounds-20260915/generated-set-02/flow-02-diagonal-convergence.webp'",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/globals.css",
+      "expression": "--cms-asset_e952cecf44ce1cc1"
+    },
+    {
+      "slot": "asset_e952cecf44ce1cc1",
+      "file": "app/globals.css",
+      "sourceLocator": "Block:987/ExpressionStatement:9/CallExpression:0/StringLiteral:1",
+      "originalExpression": "'/assets/subpage-backgrounds-20260915/generated-set-02/flow-02-diagonal-convergence.webp'",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/globals.css",
+      "expression": "--cms-asset_e952cecf44ce1cc1"
+    },
+    {
+      "slot": "asset_e952cecf44ce1cc1",
+      "file": "app/globals.css",
+      "sourceLocator": "css:url:e952cecf44ce1cc1",
+      "originalExpression": "url('/assets/subpage-backgrounds-20260915/generated-set-02/flow-02-diagonal-convergence.webp",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/globals.css",
+      "expression": "--cms-asset_e952cecf44ce1cc1"
+    },
+    {
+      "slot": "asset_e952cecf44ce1cc1",
+      "file": "app/globals.css",
+      "sourceLocator": "css:url:e952cecf44ce1cc1",
+      "originalExpression": "url('/assets/subpage-backgrounds-20260915/generated-set-02/flow-02-diagonal-convergence.webp",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/globals.css",
+      "expression": "--cms-asset_e952cecf44ce1cc1"
+    },
+    {
+      "slot": "asset_e952cecf44ce1cc1",
+      "file": "app/globals.css",
+      "sourceLocator": "css:url:e952cecf44ce1cc1",
+      "originalExpression": "url('/assets/subpage-backgrounds-20260915/generated-set-02/flow-02-diagonal-convergence.webp",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/globals.css",
+      "expression": "--cms-asset_e952cecf44ce1cc1"
+    },
+    {
+      "slot": "asset_e952cecf44ce1cc1",
+      "file": "app/globals.css",
+      "sourceLocator": "css:url:e952cecf44ce1cc1",
+      "originalExpression": "url('/assets/subpage-backgrounds-20260915/generated-set-02/flow-02-diagonal-convergence.webp",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/globals.css",
+      "expression": "--cms-asset_e952cecf44ce1cc1"
+    },
+    {
+      "slot": "asset_e952cecf44ce1cc1",
+      "file": "components/ProductsShowcase.tsx",
+      "sourceLocator": "css:url:e952cecf44ce1cc1",
+      "originalExpression": "url('/assets/subpage-backgrounds-20260915/generated-set-02/flow-02-diagonal-convergence.webp",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "components/ProductsShowcase.tsx",
+      "expression": "--cms-asset_e952cecf44ce1cc1"
+    },
+    {
+      "slot": "asset_ec014a3fa141a91f",
+      "file": "app/globals.css",
+      "sourceLocator": "Block:987/ExpressionStatement:7/CallExpression:0/StringLiteral:1",
+      "originalExpression": "'/assets/subpage-backgrounds-20260915/prelaunch.webp'",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/globals.css",
+      "expression": "--cms-asset_ec014a3fa141a91f"
+    },
+    {
+      "slot": "asset_ec014a3fa141a91f",
+      "file": "app/globals.css",
+      "sourceLocator": "css:url:ec014a3fa141a91f",
+      "originalExpression": "url('/assets/subpage-backgrounds-20260915/prelaunch.webp",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/globals.css",
+      "expression": "--cms-asset_ec014a3fa141a91f"
+    },
+    {
+      "slot": "asset_edd9b6feea2c227d",
+      "file": "components/home/HomeExperiences.tsx",
+      "sourceLocator": "FunctionDeclaration:7/Block:3/ReturnStatement:2/ParenthesizedExpression:0/JsxElement:0/JsxElement:4/JsxElement:2/JsxElement:6/JsxExpression:2/CallExpression:0/ArrowFunction:1/ParenthesizedExpression:2/JsxElement:0/JsxElement:2/JsxSelfClosingElement:2/JsxAttributes:1/attr:src/JsxExpression:1/TemplateExpression:0",
+      "originalExpression": "`/assets/home-premium-20260907/${id}-halo.webp`",
+      "altExpression": "\"\"",
+      "originalAlt": "",
+      "adapterFile": "components/home/HomeExperiences.tsx",
+      "expression": "cms.url(`/assets/home-premium-20260907/${id}-halo.webp`)"
+    },
+    {
+      "slot": "asset_ee4b8b73451d2ca7",
+      "file": "components/NestProductPage.tsx",
+      "sourceLocator": "FunctionDeclaration:4/Block:3/FirstStatement:1/VariableDeclarationList:0/var:finishes/AsExpression:1/ArrayLiteralExpression:0/ObjectLiteralExpression:0/prop:image/StringLiteral:1",
+      "originalExpression": "\"/assets/web/nest15-oak-angle.webp\"",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "components/NestProductPage.tsx",
+      "expression": "cms.url(\"/assets/web/nest15-oak-angle.webp\")"
+    },
+    {
+      "slot": "asset_ee4b8b73451d2ca7",
+      "file": "lib/products.ts",
+      "sourceLocator": "FirstStatement:3/VariableDeclarationList:1/var:PRODUCT_CATALOG/SatisfiesExpression:1/AsExpression:0/ArrayLiteralExpression:0/ObjectLiteralExpression:4/prop:image/StringLiteral:1",
+      "originalExpression": "\"/assets/web/nest15-oak-angle.webp\"",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "components/content/ContentImage.tsx",
+      "expression": "cms.url(props.src)"
+    },
+    {
+      "slot": "asset_eeb12b0a16838df4",
+      "file": "components/NestProductPage.tsx",
+      "sourceLocator": "FunctionDeclaration:4/Block:3/FirstStatement:1/VariableDeclarationList:0/var:finishes/AsExpression:1/ArrayLiteralExpression:0/ObjectLiteralExpression:1/prop:image/StringLiteral:1",
+      "originalExpression": "\"/assets/web/nest15-walnut-angle.webp\"",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "components/NestProductPage.tsx",
+      "expression": "cms.url(\"/assets/web/nest15-walnut-angle.webp\")"
+    },
+    {
+      "slot": "asset_ef1229bce355c0a5",
+      "file": "components/OlaGoProductPage.tsx",
+      "sourceLocator": "FunctionDeclaration:3/Block:3/ReturnStatement:3/ParenthesizedExpression:0/JsxSelfClosingElement:0/JsxAttributes:1/attr:scenes/JsxExpression:1/CallExpression:0/ArrowFunction:1/ParenthesizedExpression:3/ObjectLiteralExpression:0/prop:image/ObjectLiteralExpression:1/prop:src/ConditionalExpression:1/ConditionalExpression:4/StringLiteral:2",
+      "originalExpression": "\"/assets/ola-go-detail/generated/ola-go-weather-walk-v2.png\"",
+      "altExpression": "t(\"alt\")",
+      "originalAlt": "",
+      "adapterFile": "components/OlaGoProductPage.tsx",
+      "expression": "cms.url(\"/assets/ola-go-detail/generated/ola-go-weather-walk-v2.png\")"
+    },
+    {
+      "slot": "asset_f5b8b5725dbebcd8",
+      "file": "components/NestProductPage.tsx",
+      "sourceLocator": "FunctionDeclaration:4/Block:3/FirstStatement:1/VariableDeclarationList:0/var:finishes/AsExpression:1/ArrayLiteralExpression:0/ObjectLiteralExpression:2/prop:front/StringLiteral:1",
+      "originalExpression": "\"/assets/web/nest15-black-front.webp\"",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "components/NestProductPage.tsx",
+      "expression": "cms.url(\"/assets/web/nest15-black-front.webp\")"
+    },
+    {
+      "slot": "asset_faca783fe64e017d",
+      "file": "app/globals.css",
+      "sourceLocator": "Block:987/ExpressionStatement:11/CallExpression:0/StringLiteral:1",
+      "originalExpression": "'/assets/subpage-backgrounds-20260915/child-safety.webp'",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/globals.css",
+      "expression": "--cms-asset_faca783fe64e017d"
+    },
+    {
+      "slot": "asset_faca783fe64e017d",
+      "file": "app/globals.css",
+      "sourceLocator": "css:url:faca783fe64e017d",
+      "originalExpression": "url('/assets/subpage-backgrounds-20260915/child-safety.webp",
+      "altExpression": "",
+      "originalAlt": "",
+      "adapterFile": "app/globals.css",
+      "expression": "--cms-asset_faca783fe64e017d"
+    },
+    {
+      "slot": "asset_fc719b255cde1427",
+      "file": "components/NestProductPage.tsx",
+      "sourceLocator": "FunctionDeclaration:4/Block:3/ReturnStatement:4/ParenthesizedExpression:0/JsxSelfClosingElement:0/JsxAttributes:1/attr:darkSection/JsxExpression:1/ObjectLiteralExpression:0/prop:image/ObjectLiteralExpression:1/prop:src/StringLiteral:1",
+      "originalExpression": "\"/assets/web/nest15-rear.webp\"",
+      "altExpression": "t(\"portraitAlt\")",
+      "originalAlt": "",
+      "adapterFile": "components/NestProductPage.tsx",
+      "expression": "cms.url(\"/assets/web/nest15-rear.webp\")"
+    }
+  ]
+}

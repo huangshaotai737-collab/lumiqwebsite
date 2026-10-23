@@ -1,5 +1,5 @@
-import type { Metadata } from "next";
-import {getLocale} from "next-intl/server";
+import {readContentAdapter} from "@/lib/content/server-adapter";
+import {siteRequestLocale} from "@/components/content/SiteContentBoundary";
 import "./globals.css";
 import "./product-detail-template.css";
 import "./navigation.css";
@@ -14,33 +14,45 @@ import "./mobile-experience.css";
 import "./mobile-polish.css";
 import "./reduced-motion-layout.css";
 import "./mobile-visual-refinement.css";
+import "./brand-tablet.css";
+import "./brand-orb.css";
+import "./brand-plans.css";
+import "./brand-olago.css";
+import "./brand-home.css";
+import "./brand-refinement.css";
+import "./noto-sans-tc.css";
+import "./brand-polish-20261022.css";
+import "./home-product-card-layout.css";
 import {htmlLang, type Locale} from "@/i18n/routing";
 
-export const metadata: Metadata = {
+export async function generateMetadata() {
+  const cms = await readContentAdapter({publishedOnly:true});
+  return {
   title: {
-    default: "Lumiq Studio — Where Stories Come Alive",
+    default: cms.text("field_e635317a912dfef3"),
     template: "%s",
   },
   description:
-    "Lumiq Studio creates AI-powered story and companion experiences — helping children read and imagine, while giving older adults a gentle presence for conversation, reminders, and connection.",
+    cms.text("field_e1113eff51ca8f33"),
   openGraph: {
     type: "website",
-    siteName: "Lumiq Studio",
+    siteName: cms.text("field_7d0c1e9cd75db1e9"),
   },
   twitter: {
     card: "summary",
   },
 };
+}
 
 export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const locale = (await getLocale()) as Locale;
+  const locale = (await siteRequestLocale()) as Locale;
 
   return (
-    <html lang={htmlLang[locale] ?? "en"} suppressHydrationWarning>
+    <html lang={htmlLang[locale] ?? "en"} data-scroll-behavior="smooth" suppressHydrationWarning>
       <head>
         <link rel="preload" href="/assets/fonts/manrope-latin.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
       </head>

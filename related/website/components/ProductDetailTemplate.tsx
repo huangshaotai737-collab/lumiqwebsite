@@ -1,10 +1,13 @@
 "use client";
+import {useContentAdapter} from "@/components/content/useContentAdapter";
+import {useCartCopy} from "@/components/content/useCartCopy";
+import {isProductId} from "@/lib/cart";
 import Heading from "@/components/Heading";
 import AddToCartButton from "@/components/cart/AddToCartButton";
 
 
-import { useEffect, useRef, type CSSProperties, type ReactNode } from "react";
-import Image from "next/image";
+import { type CSSProperties, type ReactNode } from "react";
+import Image from "@/components/content/ContentImage";
 import { preload } from "react-dom";
 import { Link } from "@/i18n/navigation";
 
@@ -55,6 +58,8 @@ type ProductDetailTemplateProps = {
   lede: string;
   conceptNotice: string;
   priceLabel: string;
+  priceQualifier?: string;
+  statusItems?: { label: string; detail: string }[];
   compactHeroPriceLabel?: boolean;
   ctaLabel: string;
   heroImage: ProductVisual;
@@ -69,6 +74,8 @@ type ProductDetailTemplateProps = {
   finalTitle: string;
   finalBody: string;
   secondaryAction?: { href: string; label: string };
+  afterFeatures?: ReactNode;
+  hideDarkSection?: boolean;
 };
 
 function ProductImage({
@@ -148,6 +155,8 @@ export default function ProductDetailTemplate({
   lede,
   conceptNotice,
   priceLabel,
+  priceQualifier,
+  statusItems,
   compactHeroPriceLabel = false,
   ctaLabel,
   heroImage,
@@ -162,34 +171,29 @@ export default function ProductDetailTemplate({
   finalTitle,
   finalBody,
   secondaryAction,
+  afterFeatures,
+  hideDarkSection = false,
 }: ProductDetailTemplateProps) {
+  const cms = useContentAdapter();
+  const copy = useCartCopy();
+  if (isProductId(slug)) {
+    const product = cms.snapshot.products[slug];
+    productName = product.name;
+    priceLabel = product.price.kind === "usd" ? `USD ${product.price.amount}` : product.price.kind === "included" || slug === "nest" ? priceLabel : copy.pending;
+  }
+
   preload("/assets/fonts/barlow-condensed-semibold.ttf", {
     as: "font", type: "font/ttf", crossOrigin: "anonymous",
   });
-  const heroRef = useRef<HTMLElement>(null);
   const style = {
     "--pd-accent": accent,
     "--pd-accent-soft": accentSoft,
   } as CSSProperties;
 
-  useEffect(() => {
-    if (!heroRef.current) return;
-
-    const hero = heroRef.current;
-    const observer = new IntersectionObserver(
-      ([entry]) => hero.classList.toggle("is-entered", entry.isIntersecting),
-      { threshold: 0.25 },
-    );
-
-    observer.observe(hero);
-    return () => observer.disconnect();
-  }, [slug]);
-
   return (
     <main className={`product-detail-light pd-${slug}`} style={style}>
       <section
-        ref={heroRef}
-        className="pd-hero-floor is-entered"
+        className="pd-hero-floor"
         data-no-word-reveal=""
       >
         <div className="pd-shell pd-hero-grid">
@@ -198,17 +202,30 @@ export default function ProductDetailTemplate({
               {backLabel}
             </Link>
             <div className="pd-hero-display-title" aria-hidden="true">
-              {productName.toUpperCase()}
+              {productName}
             </div>
             <Heading as="h1">
               <span className="pd-product-name">{productName}</span>
               <span className="pd-product-tagline">{title}</span>
             </Heading>
             <p className="pd-hero-lede">{lede}</p>
+            {statusItems && (
+              <ul className="pd-status-list" aria-label={productName}>
+                {statusItems.map((item) => (
+                  <li key={item.label}>
+                    <span className="pd-status-label">{item.label}</span>
+                    <span>{item.detail}</span>
+                  </li>
+                ))}
+              </ul>
+            )}
             <p className="pd-concept-note">{conceptNotice}</p>
             <div className="pd-hero-actions">
               <div className="pd-price-row">
-                <p className={`pd-price${compactHeroPriceLabel ? " pd-price--compact" : ""}`}>{priceLabel}</p>
+                <p className={`pd-price${compactHeroPriceLabel ? " pd-price--compact" : ""}`}>
+                  {priceQualifier && <span className="pd-price-qualifier">{priceQualifier}</span>}
+                  {priceLabel}
+                </p>
                 <Link href="/prelaunch" className="pd-primary-action">
                   {ctaLabel}
                 </Link>
@@ -321,7 +338,9 @@ export default function ProductDetailTemplate({
         </div>
       </section>
 
-      <section className="pd-floor pd-dark-floor">
+      {afterFeatures}
+
+      {!hideDarkSection && <section className="pd-floor pd-dark-floor">
         <div className="pd-shell pd-dark-layout">
           <div className="pd-dark-copy">
             <SectionHeading
@@ -340,7 +359,7 @@ export default function ProductDetailTemplate({
             </figure>
           )}
         </div>
-      </section>
+      </section>}
 
       {extraSection && (
         <section className="pd-floor pd-extra-floor">
@@ -373,7 +392,10 @@ export default function ProductDetailTemplate({
             <p>{finalBody}</p>
           </div>
           <div className={`pd-final-actions${compactHeroPriceLabel ? " is-compact-price" : ""}`}>
-            <p className="pd-price">{priceLabel}</p>
+            <p className="pd-price">
+              {priceQualifier && <span className="pd-price-qualifier">{priceQualifier}</span>}
+              {priceLabel}
+            </p>
             <Link href="/prelaunch" className="pd-primary-action">
               {ctaLabel}
             </Link>

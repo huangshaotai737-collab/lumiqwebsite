@@ -1,0 +1,635 @@
+{
+  "app/[locale]/members/members.css": {
+    "occurrences": {
+      "--cms-asset_1adb9be602d046aa": 1
+    },
+    "uses": []
+  },
+  "app/globals.css": {
+    "occurrences": {
+      "--cms-asset_037b5083d4367575": 1,
+      "--cms-asset_0c270be51d793f7b": 1,
+      "--cms-asset_0d34c384acd4d56d": 2,
+      "--cms-asset_1adb9be602d046aa": 1,
+      "--cms-asset_28eedc556a91dfad": 4,
+      "--cms-asset_31eae4e275048ff0": 1,
+      "--cms-asset_3a001e1c42f920d1": 1,
+      "--cms-asset_50409433ee3449d3": 1,
+      "--cms-asset_51f05a7e73f89c59": 4,
+      "--cms-asset_6091ade8c5c35bfa": 1,
+      "--cms-asset_9facedc76c2b867d": 1,
+      "--cms-asset_a795af9e87d42422": 1,
+      "--cms-asset_d2d12ceec8d371d0": 1,
+      "--cms-asset_d91f09496c0e79ea": 1,
+      "--cms-asset_de6d7af49ce01a95": 1,
+      "--cms-asset_e589e6544320d14c": 1,
+      "--cms-asset_e952cecf44ce1cc1": 4,
+      "--cms-asset_ec014a3fa141a91f": 1,
+      "--cms-asset_faca783fe64e017d": 1
+    },
+    "uses": []
+  },
+  "app/home-brand-review.css": {
+    "occurrences": {
+      "--cms-asset_76a5de3f207ca5bb": 1,
+      "--cms-asset_d11e4e878cf13138": 1
+    },
+    "uses": []
+  },
+  "app/home-films.css": {
+    "occurrences": {
+      "--cms-asset_210077b6875ebb01": 1
+    },
+    "uses": []
+  },
+  "app/home-floors-3-4.css": {
+    "occurrences": {
+      "--cms-asset_b0fc987be9c43a11": 1
+    },
+    "uses": []
+  },
+  "app/homepage.css": {
+    "occurrences": {
+      "--cms-asset_b0fc987be9c43a11": 1
+    },
+    "uses": []
+  },
+  "app/mobile.css": {
+    "occurrences": {
+      "--cms-asset_446a063b14b8e927": 1,
+      "--cms-asset_7145d3296daddfe8": 1,
+      "--cms-asset_74cd3fba98989129": 1,
+      "--cms-asset_9a83c769ddc9caef": 1,
+      "--cms-asset_b7165aed3c49a200": 1,
+      "--cms-asset_d1ad8dd5bdfbf760": 1
+    },
+    "uses": []
+  },
+  "app/opening-video.css": {
+    "occurrences": {
+      "--cms-asset_76a5de3f207ca5bb": 1,
+      "--cms-asset_d11e4e878cf13138": 1
+    },
+    "uses": []
+  },
+  "app/page.tsx": {
+    "occurrences": {
+      "cms.url(\"/assets/\" + artwork[id] + \".webp\")": 2,
+      "cms.url(\"/assets/home-anchored-2026-09-07/join-crystal.webp\")": 1,
+      "cms.url(\"/assets/home-safety-20261002/story-world-family.jpg\")": 1,
+      "cms.url(\"/assets/home-video/ola-scroll-v16-end-20260909.webp\")": 1,
+      "cms.url(\"/assets/home-video/ola-scroll-v16-start-20260909.webp\")": 1,
+      "cms.url(\"/assets/mobile-backgrounds-20260914/hero-unified.webp\")": 1,
+      "cms.url(\"/assets/mobile-backgrounds-20260914/ola-go-ui.webp\")": 1
+    },
+    "uses": [
+      {
+        "kind": "Image",
+        "property": "src",
+        "source": "{cms.url(\"/assets/mobile-backgrounds-20260914/hero-unified.webp\")}",
+        "alt": "\"\""
+      },
+      {
+        "kind": "Image",
+        "property": "src",
+        "source": "{cms.url(\"/assets/mobile-backgrounds-20260914/ola-go-ui.webp\")}",
+        "alt": "{cms.value(\"media.asset_38c045ee1dd24e31.alt\")}"
+      },
+      {
+        "kind": "Image",
+        "property": "src",
+        "source": "{cms.url(\"/assets/home-video/\" + key + \".webp\")}",
+        "alt": "{t(`rhythms.${key}.alt`)}"
+      },
+      {
+        "kind": "Image",
+        "property": "src",
+        "source": "{\n                            cms.url(\"/assets/\" + artwork[id] + \".webp\")\n                          }",
+        "alt": "{t(`products.${id}.name`)}"
+      },
+      {
+        "kind": "Image",
+        "property": "src",
+        "source": "{cms.url(\"/assets/home-safety-20261002/story-world-family.jpg\")}",
+        "alt": "{t(\"trustAlt\")}"
+      },
+      {
+        "kind": "Image",
+        "property": "src",
+        "source": "{cms.url(\"/assets/home-anchored-2026-09-07/join-crystal.webp\")}",
+        "alt": "\"\""
+      }
+    ]
+  },
+  "app/product-detail-template.css": {
+    "occurrences": {
+      "--cms-asset_1ea544f965add638": 5,
+      "--cms-asset_50409433ee3449d3": 2,
+      "--cms-asset_5a52d37e181fb252": 5,
+      "--cms-asset_a3dc98ea847871b2": 5,
+      "--cms-asset_a795af9e87d42422": 1,
+      "--cms-asset_b5a5817b8372b323": 5,
+      "--cms-asset_c90fbe22d7d3cb65": 5,
+      "--cms-asset_da896ce0780cca53": 5,
+      "--cms-asset_de6d7af49ce01a95": 2
+    },
+    "uses": []
+  },
+  "app/products/tablet/page.tsx": {
+    "occurrences": {
+      "cms.url(\"/assets/tablet-detail/five-ways/imagime-v1.jpg\")": 1,
+      "cms.url(\"/assets/tablet-detail/generated/tablet-active-story-time-back-muted-20261001.png\")": 1,
+      "cms.url(\"/assets/tablet-detail/generated/tablet-passive-screen-time-v2.png\")": 1,
+      "cms.url(\"/assets/tablet-detail/generated/tablet-reading-lifestyle-v2.png\")": 1,
+      "cms.url(\"/assets/tablet-detail/original-20260915/tablet-hero-original-transparent.png\")": 1,
+      "cms.url(\"/assets/tablet-detail/original-20260915/tablet-three-quarter-transparent.png\")": 1,
+      "cms.url(\"/assets/western-scenes-20260908/tablet-parent-controls-v2.webp\")": 1
+    },
+    "uses": [
+      {
+        "kind": "object",
+        "property": "src",
+        "source": "cms.url(\"/assets/tablet-detail/original-20260915/tablet-hero-original-transparent.png\")",
+        "alt": "t(\"deviceAlt\")"
+      },
+      {
+        "kind": "object",
+        "property": "src",
+        "source": "cms.url(\"/assets/tablet-detail/generated/tablet-reading-lifestyle-v2.png\")",
+        "alt": "brand(\"stories.story1Title\")"
+      },
+      {
+        "kind": "object",
+        "property": "src",
+        "source": "cms.url(\"/assets/tablet-detail/generated/tablet-passive-screen-time-v2.png\")",
+        "alt": "t(\"passiveTitle\")"
+      },
+      {
+        "kind": "object",
+        "property": "src",
+        "source": "cms.url(\"/assets/tablet-detail/generated/tablet-active-story-time-back-muted-20261001.png\")",
+        "alt": "t(\"activeTitle\")"
+      },
+      {
+        "kind": "object",
+        "property": "src",
+        "source": "cms.url(\"/assets/tablet-detail/five-ways/imagime-v1.jpg\")",
+        "alt": "brand(\"stories.story2Title\")"
+      },
+      {
+        "kind": "object",
+        "property": "src",
+        "source": "cms.url(\"/assets/tablet-detail/original-20260915/tablet-three-quarter-transparent.png\")",
+        "alt": "t(\"deviceAlt\")"
+      },
+      {
+        "kind": "object",
+        "property": "src",
+        "source": "cms.url(\"/assets/western-scenes-20260908/tablet-parent-controls-v2.webp\")",
+        "alt": "brand(\"parents.title\")"
+      }
+    ]
+  },
+  "app/stable-page-backgrounds.css": {
+    "occurrences": {
+      "--cms-asset_28eedc556a91dfad": 1,
+      "--cms-asset_51f05a7e73f89c59": 1
+    },
+    "uses": []
+  },
+  "app/story/page.tsx": {
+    "occurrences": {
+      "cms.url(\"/assets/story/lumiq-brand-film.mp4\")": 1,
+      "cms.url(\"/assets/western-scenes-20260908/lumiq-story-family-v3.webp\")": 1
+    },
+    "uses": [
+      {
+        "kind": "StoryHeroVideo",
+        "property": "poster",
+        "source": "{cms.url(\"/assets/western-scenes-20260908/lumiq-story-family-v3.webp\")}",
+        "alt": null
+      },
+      {
+        "kind": "StoryHeroVideo",
+        "property": "src",
+        "source": "{cms.url(\"/assets/story/lumiq-brand-film.mp4\")}",
+        "alt": null
+      },
+      {
+        "kind": "Image",
+        "property": "src",
+        "source": "{product.image}",
+        "alt": "{product.name}"
+      }
+    ]
+  },
+  "components/MembersArea.tsx": {
+    "occurrences": {
+      "cms.url(\"/assets/web/lumiq-tablet.webp\")": 1,
+      "cms.url(\"/assets/web/ola-hero-front.webp\")": 1
+    },
+    "uses": [
+      {
+        "kind": "Image",
+        "property": "src",
+        "source": "{device.image}",
+        "alt": "{device.name}"
+      }
+    ]
+  },
+  "components/NestProductPage.tsx": {
+    "occurrences": {
+      "cms.url(\"/assets/nest-detail/generated/nest-family-kitchen-v2.png\")": 1,
+      "cms.url(\"/assets/nest-detail/generated/nest-routine-closeup-v2.png\")": 1,
+      "cms.url(\"/assets/web/nest15-black-angle.webp\")": 1,
+      "cms.url(\"/assets/web/nest15-black-front.webp\")": 1,
+      "cms.url(\"/assets/web/nest15-oak-angle.webp\")": 1,
+      "cms.url(\"/assets/web/nest15-oak-front.webp\")": 1,
+      "cms.url(\"/assets/web/nest15-rear.webp\")": 1,
+      "cms.url(\"/assets/web/nest15-walnut-angle.webp\")": 1,
+      "cms.url(\"/assets/web/nest15-walnut-front.webp\")": 1
+    },
+    "uses": [
+      {
+        "kind": "Image",
+        "property": "src",
+        "source": "{selected.image}",
+        "alt": "{t(\"finishes.alt\", { name: selected.name, productName })}"
+      },
+      {
+        "kind": "Image",
+        "property": "src",
+        "source": "{selected.front}",
+        "alt": "{t(\"finishes.alt\", { name: selected.name, productName })}"
+      },
+      {
+        "kind": "Image",
+        "property": "src",
+        "source": "{cms.url(\"/assets/nest-detail/generated/nest-family-kitchen-v2.png\")}",
+        "alt": "{t(\"images.familyAlt\", { productName })}"
+      },
+      {
+        "kind": "Image",
+        "property": "src",
+        "source": "{cms.url(\"/assets/nest-detail/generated/nest-routine-closeup-v2.png\")}",
+        "alt": "{t(\"images.closeupAlt\", { productName })}"
+      },
+      {
+        "kind": "Image",
+        "property": "src",
+        "source": "{cms.url(\"/assets/web/nest15-rear.webp\")}",
+        "alt": "{t(\"images.rearAlt\", { productName })}"
+      }
+    ]
+  },
+  "components/OlaGoProductPage.tsx": {
+    "occurrences": {
+      "cms.url(\"/assets/ola-go-detail/generated/ola-go-weather-walk-v2.png\")": 1,
+      "cms.url(\"/assets/ola-go-detail/original-20260915/ola-go-three-quarter.png\")": 1,
+      "cms.url(\"/assets/products/lumiq-ola-go.png\")": 2,
+      "cms.url(\"/assets/western-scenes-20260908/ola-go-bedside-journal-v3.webp\")": 1,
+      "cms.url(\"/assets/western-scenes-20260908/ola-go-return-home-v3.webp\")": 1,
+      "cms.url(\"/assets/western-scenes-20260908/ola-go-schoolbag-v2.webp\")": 1
+    },
+    "uses": [
+      {
+        "kind": "object",
+        "property": "src",
+        "source": "cms.url(\"/assets/products/lumiq-ola-go.png\")",
+        "alt": "t(\"alt\")"
+      },
+      {
+        "kind": "object",
+        "property": "src",
+        "source": "cms.url(\"/assets/western-scenes-20260908/ola-go-return-home-v3.webp\")",
+        "alt": "t(\"alt\")"
+      },
+      {
+        "kind": "object",
+        "property": "src",
+        "source": "index === 0\n              ? cms.url(\"/assets/western-scenes-20260908/ola-go-schoolbag-v2.webp\")\n              : index === 1\n                ? cms.url(\"/assets/ola-go-detail/generated/ola-go-weather-walk-v2.png\")\n                : cms.url(\"/assets/western-scenes-20260908/ola-go-bedside-journal-v3.webp\")",
+        "alt": "t(\"alt\")"
+      },
+      {
+        "kind": "object",
+        "property": "src",
+        "source": "cms.url(\"/assets/ola-go-detail/original-20260915/ola-go-three-quarter.png\")",
+        "alt": "t(\"alt\")"
+      },
+      {
+        "kind": "object",
+        "property": "src",
+        "source": "cms.url(\"/assets/products/lumiq-ola-go.png\")",
+        "alt": "t(\"alt\")"
+      }
+    ]
+  },
+  "components/OlaProductPage.tsx": {
+    "occurrences": {
+      "cms.url(\"/assets/home-products-refined-20260907/ola-repaired.webp\")": 1,
+      "cms.url(\"/assets/ola-detail/original-20260915/ola-high-angle-crop.png\")": 1,
+      "cms.url(\"/assets/web/ola-hero-front.webp\")": 1,
+      "cms.url(\"/assets/western-scenes-20260908/ola-bedtime-story-v2.webp\")": 1,
+      "cms.url(\"/assets/western-scenes-20260908/ola-family-kitchen-v2.webp\")": 1,
+      "cms.url(\"/assets/western-scenes-20260908/ola-senior-reminder-v2.webp\")": 1
+    },
+    "uses": [
+      {
+        "kind": "object",
+        "property": "src",
+        "source": "cms.url(\"/assets/web/ola-hero-front.webp\")",
+        "alt": "t(\"deviceAlt\")"
+      },
+      {
+        "kind": "object",
+        "property": "src",
+        "source": "cms.url(\"/assets/western-scenes-20260908/ola-family-kitchen-v2.webp\")",
+        "alt": "t(\"adultsAlt\")"
+      },
+      {
+        "kind": "object",
+        "property": "src",
+        "source": "cms.url(\"/assets/western-scenes-20260908/ola-bedtime-story-v2.webp\")",
+        "alt": "t(\"kidsAlt\")"
+      },
+      {
+        "kind": "object",
+        "property": "src",
+        "source": "cms.url(\"/assets/western-scenes-20260908/ola-senior-reminder-v2.webp\")",
+        "alt": "t(\"adultsAlt\")"
+      },
+      {
+        "kind": "object",
+        "property": "src",
+        "source": "cms.url(\"/assets/home-products-refined-20260907/ola-repaired.webp\")",
+        "alt": "t(\"deviceAlt\")"
+      },
+      {
+        "kind": "object",
+        "property": "src",
+        "source": "cms.url(\"/assets/ola-detail/original-20260915/ola-high-angle-crop.png\")",
+        "alt": "t(\"deviceAlt\")"
+      }
+    ]
+  },
+  "components/PrintProductPage.tsx": {
+    "occurrences": {
+      "cms.url(\"/assets/print-detail/consistent-20260907/craft.webp\")": 1,
+      "cms.url(\"/assets/print-detail/consistent-20260907/gift.webp\")": 1,
+      "cms.url(\"/assets/print-detail/consistent-20260907/pages.webp\")": 1,
+      "cms.url(\"/assets/print-detail/consistent-20260907/reading.webp\")": 1,
+      "cms.url(\"/assets/products/lumiq-print.png\")": 2
+    },
+    "uses": [
+      {
+        "kind": "object",
+        "property": "src",
+        "source": "cms.url(\"/assets/products/lumiq-print.png\")",
+        "alt": "t(\"alt\")"
+      },
+      {
+        "kind": "object",
+        "property": "src",
+        "source": "cms.url(\"/assets/print-detail/consistent-20260907/gift.webp\")",
+        "alt": "t(\"alt\")"
+      },
+      {
+        "kind": "object",
+        "property": "src",
+        "source": "cms.url(\"/assets/print-detail/consistent-20260907/craft.webp\")",
+        "alt": "t(\"alt\")"
+      },
+      {
+        "kind": "object",
+        "property": "src",
+        "source": "cms.url(\"/assets/print-detail/consistent-20260907/reading.webp\")",
+        "alt": "t(\"alt\")"
+      },
+      {
+        "kind": "object",
+        "property": "src",
+        "source": "cms.url(\"/assets/print-detail/consistent-20260907/pages.webp\")",
+        "alt": "t(\"alt\")"
+      },
+      {
+        "kind": "object",
+        "property": "src",
+        "source": "cms.url(\"/assets/products/lumiq-print.png\")",
+        "alt": "t(\"alt\")"
+      }
+    ]
+  },
+  "components/ProductsShowcase.tsx": {
+    "occurrences": {
+      "--cms-asset_e952cecf44ce1cc1": 1,
+      "cms.url(\"/assets/brand/lumiq-logo-transparent-dark.png\")": 1,
+      "cms.url(\"/assets/products/lumiq-ola-tablet-hero.webp\")": 1
+    },
+    "uses": [
+      {
+        "kind": "Image",
+        "property": "src",
+        "source": "{cms.url(\"/assets/products/lumiq-ola-tablet-hero.webp\")}",
+        "alt": "{t(\"heroAlt\")}"
+      },
+      {
+        "kind": "Image",
+        "property": "src",
+        "source": "{p.img}",
+        "alt": "{selected ? p.name : \"\"}"
+      },
+      {
+        "kind": "Image",
+        "property": "src",
+        "source": "{cms.url(\"/assets/brand/lumiq-logo-transparent-dark.png\")}",
+        "alt": "{cms.value(\"media.asset_e036cbcfe52d5970.alt\")}"
+      },
+      {
+        "kind": "Image",
+        "property": "src",
+        "source": "{product.img}",
+        "alt": "\"\""
+      }
+    ]
+  },
+  "components/SiteFooter.tsx": {
+    "occurrences": {
+      "cms.url(\"/assets/brand/lumiq-logo-transparent-dark.png\")": 1,
+      "cms.url(\"/assets/brand/lumiq-logo-white-transparent-v2.png\")": 1
+    },
+    "uses": [
+      {
+        "kind": "Image",
+        "property": "src",
+        "source": "{cms.url(\"/assets/brand/lumiq-logo-transparent-dark.png\")}",
+        "alt": "{isHomepage ? cms.text(\"field_f9f5468863713928\") : cms.text(\"field_a291c2c8ec1af322\")}"
+      },
+      {
+        "kind": "Image",
+        "property": "src",
+        "source": "{cms.url(\"/assets/brand/lumiq-logo-white-transparent-v2.png\")}",
+        "alt": "\"\""
+      }
+    ]
+  },
+  "components/SiteHeader.tsx": {
+    "occurrences": {
+      "cms.url(\"/assets/brand/lumiq-logo-transparent-dark.png\")": 1
+    },
+    "uses": [
+      {
+        "kind": "Image",
+        "property": "src",
+        "source": "{cms.url(\"/assets/brand/lumiq-logo-transparent-dark.png\")}",
+        "alt": "{isHomepage ? cms.text(\"field_430041fc9b25a88e\") : cms.text(\"field_b805d448f3a55978\")}"
+      }
+    ]
+  },
+  "components/content/ContentImage.tsx": {
+    "occurrences": {
+      "cms.url(props.src)": 1
+    },
+    "uses": [
+      {
+        "kind": "Image",
+        "property": "src",
+        "source": "{src}",
+        "alt": "{props.alt}"
+      }
+    ]
+  },
+  "components/home/GlassCards.tsx": {
+    "occurrences": {
+      "cms.url(originalUrl)": 1
+    },
+    "uses": []
+  },
+  "components/home/HomeBackgrounds.tsx": {
+    "occurrences": {
+      "cms.url(backgroundVideoSource)": 1,
+      "cms.url(chapterImage(\"products\"))": 1
+    },
+    "uses": []
+  },
+  "components/home/HomeExperiences.tsx": {
+    "occurrences": {
+      "cms.url(\"/assets/home-rooms-20260907/room-full-4k.webp\")": 1,
+      "cms.url(`/assets/home-premium-20260907/${id}-halo.webp`)": 1
+    },
+    "uses": [
+      {
+        "kind": "Image",
+        "property": "src",
+        "source": "{cms.url(\"/assets/home-rooms-20260907/room-full-4k.webp\")}",
+        "alt": "{t(\"houseAlt\")}"
+      },
+      {
+        "kind": "Image",
+        "property": "src",
+        "source": "{cms.url(`/assets/home-premium-20260907/${id}-halo.webp`)}",
+        "alt": "\"\""
+      }
+    ]
+  },
+  "components/home/HomeFamily.tsx": {
+    "occurrences": {
+      "cms.url(`/assets/western-scenes-20260908/${key}.webp`)": 2
+    },
+    "uses": [
+      {
+        "kind": "Image",
+        "property": "src",
+        "source": "{cms.url(`/assets/western-scenes-20260908/${key}.webp`)}",
+        "alt": "\"\""
+      },
+      {
+        "kind": "Image",
+        "property": "src",
+        "source": "{cms.url(`/assets/western-scenes-20260908/${key}.webp`)}",
+        "alt": "{t(`familyMoments.${key}`)}"
+      }
+    ]
+  },
+  "components/home/HomeFilms.tsx": {
+    "occurrences": {
+      "cms.url(\"/assets/character-20261012/poster-clean.png\")": 1,
+      "cms.url(\"/assets/character-20261012/settled-clean.png\")": 1,
+      "cms.url(`/assets/character-20261012/ola-girl-clean-alpha${characterFormat === \"hevc\" ? \"-safari.mov\" : \".webm\"}`)": 1,
+      "cms.url(`/assets/films-20260908/${films[active]}.jpg`)": 1,
+      "cms.url(`/assets/films-20260908/${films[active]}.mp4`)": 3,
+      "cms.url(`/assets/films-20260908/${films[index]}.jpg`)": 1
+    },
+    "uses": [
+      {
+        "kind": "Image",
+        "property": "src",
+        "source": "{cms.url(`/assets/films-20260908/${films[index]}.jpg`)}",
+        "alt": "\"\""
+      },
+      {
+        "kind": "video",
+        "property": "poster",
+        "source": "{mediaRequested ? cms.url(`/assets/films-20260908/${films[active]}.jpg`) : undefined}",
+        "alt": null
+      },
+      {
+        "kind": "source",
+        "property": "src",
+        "source": "{mediaRequested ? cms.url(`/assets/films-20260908/${films[active]}.mp4`) : undefined}",
+        "alt": null
+      },
+      {
+        "kind": "video",
+        "property": "poster",
+        "source": "{mediaRequested ? cms.url(\"/assets/character-20261012/poster-clean.png\") : undefined}",
+        "alt": null
+      },
+      {
+        "kind": "source",
+        "property": "src",
+        "source": "{cms.url(`/assets/character-20261012/ola-girl-clean-alpha${characterFormat === \"hevc\" ? \"-safari.mov\" : \".webm\"}`)}",
+        "alt": null
+      },
+      {
+        "kind": "Image",
+        "property": "src",
+        "source": "{cms.url(\"/assets/character-20261012/settled-clean.png\")}",
+        "alt": "\"\""
+      }
+    ]
+  },
+  "components/home/HomeMotion.tsx": {
+    "occurrences": {
+      "cms.slot(\"asset_76a5de3f207ca5bb\").url": 1,
+      "cms.slot(\"asset_a4b2063e90484449\").url": 1,
+      "cms.slot(\"asset_d11e4e878cf13138\").url": 1
+    },
+    "uses": []
+  },
+  "components/home/MobileFilmCarousel.tsx": {
+    "occurrences": {
+      "cms.url(`/assets/films-20260908/${film}.jpg`)": 2,
+      "cms.url(`/assets/films-20260908/${film}.mp4`)": 2
+    },
+    "uses": [
+      {
+        "kind": "video",
+        "property": "poster",
+        "source": "{cms.url(`/assets/films-20260908/${film}.jpg`)}",
+        "alt": null
+      },
+      {
+        "kind": "source",
+        "property": "src",
+        "source": "{requested ? cms.url(`/assets/films-20260908/${film}.mp4`) : undefined}",
+        "alt": null
+      },
+      {
+        "kind": "Image",
+        "property": "src",
+        "source": "{cms.url(`/assets/films-20260908/${film}.jpg`)}",
+        "alt": "\"\""
+      }
+    ]
+  }
+}

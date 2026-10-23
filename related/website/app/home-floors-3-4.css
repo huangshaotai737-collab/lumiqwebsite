@@ -1,6 +1,6 @@
 /* Third floor: quiet pearl glass, original product renders and circular navigation. */
 .lh-home .lh-products {
-  background: #f5f3f9 url('/assets/home-interactive/pearl-light.webp') center / cover no-repeat;
+  background: #f5f3f9 var(--cms-asset_b0fc987be9c43a11, url('/assets/home-interactive/pearl-light.webp')) center / cover no-repeat;
 }
 .lh-products .lh-products-stage { min-height: 100svh; padding: 110px 0 36px; gap: 24px; }
 .lh-products .lh-products-heading { justify-content: center; text-align: center; }

@@ -1,8 +1,5 @@
-import MembersArea from "@/components/MembersArea";
-import "./members.css";
-
+import MembersPage from "./content";
+import {withSiteContent} from "@/components/content/SiteContentBoundary";
+export const dynamic = 'force-dynamic';
 export const metadata = { robots: { index: false, follow: false } };
-
-export default function MembersPage() {
-  return <MembersArea />;
-}
+export default withSiteContent(MembersPage);

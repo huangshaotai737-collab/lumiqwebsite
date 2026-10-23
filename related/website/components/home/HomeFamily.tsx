@@ -1,4 +1,5 @@
 "use client";
+import {useContentAdapter} from "@/components/content/useContentAdapter";
 import Image from "@/components/home/HomeImage";
 import { useCallback, useEffect, useRef, useState, type CSSProperties, type KeyboardEvent } from "react";
 import { useTranslations } from "next-intl";
@@ -6,6 +7,7 @@ import { useTranslations } from "next-intl";
 const moments = ["morning", "afternoon", "evening"] as const;
 
 export default function HomeFamily() {
+  const cms = useContentAdapter();
   const t = useTranslations("HomeRefresh");
   const [active, setActive] = useState(0);
   const chapters = useRef<HTMLDivElement>(null);
@@ -131,7 +133,7 @@ export default function HomeFamily() {
           >
             {Math.abs(offset) === 1 ? <button type="button" className="lh-family-preview-button" aria-label={t(`familyMoments.${key}`)} onClick={() => advance(offset)}>
               <Image
-                src={`/assets/western-scenes-20260908/${key}.webp`}
+                src={cms.url(`/assets/western-scenes-20260908/${key}.webp`)}
                 alt=""
                 fill
                 quality={90}
@@ -139,7 +141,7 @@ export default function HomeFamily() {
                 draggable={false}
               />
             </button> : <Image
-              src={`/assets/western-scenes-20260908/${key}.webp`}
+              src={cms.url(`/assets/western-scenes-20260908/${key}.webp`)}
               alt={t(`familyMoments.${key}`)}
               fill
               quality={90}

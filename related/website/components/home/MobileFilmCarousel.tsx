@@ -1,4 +1,7 @@
 "use client";
+import {useContentAdapter} from "@/components/content/useContentAdapter";
+import {useVisualPreview} from '@/components/content/SiteContentProvider';
+import {visualMediaDependency} from '@/lib/content/visual-dependency';
 
 import {useEffect, useRef, useState} from 'react';
 import {useTranslations} from 'next-intl';
@@ -10,6 +13,9 @@ export default function MobileFilmCarousel({films, active, onChange}: {
   active: number;
   onChange: (index: number) => void;
 }) {
+  const cms = useContentAdapter();
+  const visual = useVisualPreview();
+  const mediaDependency = visualMediaDependency(cms,visual,`/assets/films-20260908/${films[active]}.mp4`);
   const t = useTranslations('HomeFilms');
   const track = useRef<HTMLDivElement>(null);
   const video = useRef<HTMLVideoElement>(null);
@@ -94,7 +100,7 @@ export default function MobileFilmCarousel({films, active, onChange}: {
     setFailed(false);
     if (requested) clip?.load();
     return () => {clip?.pause();};
-  }, [active, requested]);
+  }, [active, requested, mediaDependency]);
 
   const toggle = async () => {
     const clip = video.current;
@@ -110,16 +116,16 @@ export default function MobileFilmCarousel({films, active, onChange}: {
       {films.map((film, index) => <article key={film} className="lh-mobile-film-card" aria-label={`${index + 1} / ${films.length}: ${t(`${film}.title`)}`}>
         <div className="lh-mobile-film-media">
           {index === active ? <>
-            <video key={film} ref={video} playsInline preload={requested ? 'metadata' : 'none'} poster={`/assets/films-20260908/${film}.jpg`}
+            <video key={film} ref={video} playsInline preload={requested ? 'metadata' : 'none'} poster={cms.url(`/assets/films-20260908/${film}.jpg`)}
               aria-label={t(`${film}.title`)} onPlay={() => setPlaying(true)} onPause={() => setPlaying(false)} onEnded={() => setPlaying(false)} onError={() => setFailed(true)}>
-              <source src={requested ? `/assets/films-20260908/${film}.mp4` : undefined} type="video/mp4" onError={() => setFailed(true)} />
+              <source src={requested ? cms.url(`/assets/films-20260908/${film}.mp4`) : undefined} type="video/mp4" onError={() => setFailed(true)} />
             </video>
             <button className="lh-mobile-film-toggle" data-playing={playing} type="button" onClick={toggle} aria-label={t(playing ? 'pause' : 'play')}>
               {playing ? <Pause size={24} /> : <Play size={26} fill="currentColor" />}
             </button>
-            {failed && <a className="lh-film-open" href={`/assets/films-20260908/${film}.mp4`} target="_blank" rel="noopener noreferrer">{t('open')} ↗</a>}
+            {failed && <a className="lh-film-open" href={cms.url(`/assets/films-20260908/${film}.mp4`)} target="_blank" rel="noopener noreferrer">{t('open')} {cms.text("field_3e2795a1de57d032")}</a>}
           </> : <button className="lh-mobile-film-poster" type="button" onClick={() => moveTo(index)} aria-label={`${t('next')}: ${t(`${film}.title`)}`}>
-            <Image src={`/assets/films-20260908/${film}.jpg`} alt="" width={1280} height={720} unoptimized />
+            <Image src={cms.url(`/assets/films-20260908/${film}.jpg`)} alt="" width={1280} height={720} unoptimized />
           </button>}
         </div>
         <div className="lh-mobile-film-copy"><h3>{t(`${film}.title`)}</h3><p>{t(`${film}.body`)}</p></div>
@@ -127,7 +133,7 @@ export default function MobileFilmCarousel({films, active, onChange}: {
     </div>
     <nav className="lh-mobile-films-controls" aria-label={t('carousel')}>
       <button type="button" onClick={() => moveTo(active - 1)} aria-label={t('previous')}><ArrowLeft size={24} /></button>
-      <span aria-live="polite" aria-atomic="true"><strong>{String(active + 1).padStart(2, '0')}</strong> / 03</span>
+      <span aria-live="polite" aria-atomic="true"><strong>{String(active + 1).padStart(2, '0')}</strong> {cms.text("field_e70b6b741eccd461")}</span>
       <button type="button" onClick={() => moveTo(active + 1)} aria-label={t('next')}><ArrowRight size={24} /></button>
     </nav>
   </div>;

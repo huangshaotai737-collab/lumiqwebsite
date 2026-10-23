@@ -85,16 +85,17 @@ for (const density of [1, 2]) {
   });
 }
 
-test('waitlist entries use the same label on products, plans, forms and the cart', async ({page}) => {
+test('waitlist labels stay consistent while the cart leads to the approved checkout', async ({page}) => {
   test.setTimeout(90000);
-  for (const [locale, label] of [['zh-hant', '加入候補名單'], ['en', 'Join the waitlist'], ['ja', 'ウェイトリストに登録']]) {
+  for (const [locale, label, checkout] of [['zh-hant', '加入候補名單', '結帳'], ['en', 'Join the waitlist', 'Checkout'], ['ja', 'ウェイトリストに登録', 'チェックアウト']]) {
     await page.setViewportSize({width: 1440, height: 900});
     for (const slug of ['ola', 'ola-go', 'tablet', 'print', 'nest']) {
       await open(page, slug, locale);
       for (const entry of await page.locator('.pd-primary-action').all()) await expect(entry).toHaveText(label);
     }
     await page.locator('[data-cart-add="nest"]').first().click();
-    await expect(page.locator('#lumiq-cart .cart-primary')).toHaveText(label);
+    await expect(page.locator('#lumiq-cart .cart-primary')).toHaveText(checkout);
+    await expect(page.locator('#lumiq-cart .cart-primary')).toHaveAttribute('href', `/${locale}/checkout`);
     await page.keyboard.press('Escape');
     await page.goto(`/${locale}/plans`, {waitUntil: 'domcontentloaded'});
     for (const entry of await page.locator('main a[href$="/prelaunch"]').all()) await expect(entry).toHaveText(label);

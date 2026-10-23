@@ -1,8 +1,10 @@
 "use client";
+import {useContentAdapter} from "@/components/content/useContentAdapter";
+import {useVisualPreview} from '@/components/content/SiteContentProvider';
+import {visualMediaDependency} from '@/lib/content/visual-dependency';
 import {homeWideQuery} from "./responsiveLayout";
 import {usePhoneLayout} from "./usePhoneLayout";
 import MobileFilmCarousel from "./MobileFilmCarousel";
-import Heading from "@/components/Heading";
 
 
 import { useCallback, useEffect, useRef, useState, type CSSProperties } from "react";
@@ -14,9 +16,12 @@ import { ArrowUp, ArrowDown, Play, Pause } from "lucide-react";
 const films = ["everyday-companion", "worlds-together", "welcome-home"] as const;
 
 export default function HomeFilms() {
+  const cms = useContentAdapter();
+  const visual = useVisualPreview();
   const t = useTranslations("HomeFilms");
   const isPhone = usePhoneLayout();
   const [active, setActive] = useState(0);
+  const mediaDependency = visualMediaDependency(cms,visual,`/assets/films-20260908/${films[active]}.mp4`);
   const [mediaRequested, setMediaRequested] = useState(false);
   const [playing, setPlaying] = useState(false);
   const [playbackError, setPlaybackError] = useState(false);
@@ -61,7 +66,7 @@ export default function HomeFilms() {
     if (!target) return;
     const observer = new IntersectionObserver(entries => {
       if (entries.some(entry => entry.isIntersecting)) { setMediaRequested(true); observer.disconnect(); }
-    }, { rootMargin: "600px 0px" });
+    }, { rootMargin: "1200px 0px" });
     observer.observe(target);
     return () => observer.disconnect();
   }, [isPhone]);
@@ -97,7 +102,7 @@ export default function HomeFilms() {
       element.pause(); observer.disconnect(); document.removeEventListener("visibilitychange", onHidden);
       element.removeEventListener("error", onFailure); source?.removeEventListener("error", onFailure);
     };
-  }, [active, mediaRequested, isPhone]);
+  }, [active, mediaRequested, isPhone, mediaDependency]);
   useEffect(() => {
     const clip = character.current;
     const host = characterHost.current;
@@ -113,8 +118,10 @@ export default function HomeFilms() {
       host.dataset.visible = String(showing);
       if (!clip) return;
       if (!showing) clip.pause();
-      else if (!clip.ended) void clip.play().catch(() => {
-        if (!disposed && showing && clip.error) setCharacterFailed(true);
+      else if (!clip.ended) void clip.play().catch((error: unknown) => {
+        // A blocked autoplay or unsupported source can reject without video.error.
+        // Keep the approved still visible when the animation cannot start.
+        if (!disposed && showing && !(error instanceof DOMException && error.name === "AbortError")) setCharacterFailed(true);
       });
     };
     const placeCharacter = () => {
@@ -171,7 +178,7 @@ export default function HomeFilms() {
   return (
     <div className="lh-films" role="region" aria-roledescription={t("carousel")} aria-labelledby="films-title">
       <header className="lh-films-heading">
-        <div><p className="lh-eyebrow">{t("eyebrow")}</p><Heading as="h2" id="films-title">{t("heading")}</Heading></div>
+        <h2 id="films-title">{t("heading")}</h2>
       </header>
       {isPhone ? <MobileFilmCarousel films={films} active={active} onChange={setActive} /> : <>
       <div className="lh-films-layout">
@@ -191,31 +198,31 @@ export default function HomeFilms() {
           {offset !== 0 ? <button className={`lh-film-preview lh-film-preview-${offset < 0 ? "top" : "bottom"}`}
             tabIndex={Math.abs(slot) > 1 || travel !== 0 ? -1 : 0} disabled={travel !== 0}
             type="button" onClick={() => select(Math.sign(offset))} aria-label={`${t(offset < 0 ? "previous" : "next")}: ${t(`${films[index]}.title`)}`}>
-            <Image src={`/assets/films-20260908/${films[index]}.jpg`} alt="" width={1280} height={720} unoptimized />
+            <Image src={cms.url(`/assets/films-20260908/${films[index]}.jpg`)} alt="" width={1280} height={720} unoptimized />
           </button> : <article className={`lh-film-card${films[active] === "welcome-home" ? " lh-film-card-portrait" : ""}`} aria-label={`${active + 1} / ${films.length}`} data-playing={playing}>
-          <video key={films[active]} ref={video} playsInline preload={mediaRequested ? "metadata" : "none"} poster={mediaRequested ? `/assets/films-20260908/${films[active]}.jpg` : undefined}
+          <video key={films[active]} ref={video} playsInline preload={mediaRequested ? "metadata" : "none"} poster={mediaRequested ? cms.url(`/assets/films-20260908/${films[active]}.jpg`) : undefined}
             aria-label={t(`${films[active]}.title`)} onError={() => setPlaybackError(true)} onPlay={() => setPlaying(true)} onPause={() => setPlaying(false)} onEnded={() => setPlaying(false)}>
-            <source src={mediaRequested ? `/assets/films-20260908/${films[active]}.mp4` : undefined} type="video/mp4" onError={() => setPlaybackError(true)} />
-            <a href={`/assets/films-20260908/${films[active]}.mp4`}>{t("open")}</a>
+            <source src={mediaRequested ? cms.url(`/assets/films-20260908/${films[active]}.mp4`) : undefined} type="video/mp4" onError={() => setPlaybackError(true)} />
+            <a href={cms.url(`/assets/films-20260908/${films[active]}.mp4`)}>{t("open")}</a>
           </video>
           <button className="lh-film-toggle" type="button" onClick={toggle} aria-label={t(playing ? "pause" : "play")}>
             {playing ? <Pause size={26} /> : <Play size={30} fill="currentColor" />}
           </button>
-          {playbackError && <a className="lh-film-open" href={`/assets/films-20260908/${films[active]}.mp4`} target="_blank" rel="noopener noreferrer">{t("open")} ↗</a>}
+          {playbackError && <a className="lh-film-open" href={cms.url(`/assets/films-20260908/${films[active]}.mp4`)} target="_blank" rel="noopener noreferrer">{t("open")} {cms.text("field_a75a773c2f6e5622")}</a>}
         </article>}
         </div>;
         })}
       </div>
       <nav className="lh-films-controls" aria-label={t("carousel")}>
         <button type="button" onClick={() => select(-1)} disabled={travel !== 0} aria-label={t("previous")}><ArrowUp size={24} /></button>
-        <span aria-live="polite" aria-atomic="true"><strong>{String(active + 1).padStart(2, "0")}</strong><span>/</span><span>03</span></span>
+        <span aria-live="polite" aria-atomic="true"><strong>{String(active + 1).padStart(2, "0")}</strong><span>{cms.text("field_8012c8a7ba06bfe5")}</span><span>{cms.text("field_28cae631213153ae")}</span></span>
         <button type="button" onClick={() => select(1)} disabled={travel !== 0} aria-label={t("next")}><ArrowDown size={24} /></button>
       </nav>
       </div>
       <div ref={characterHost} className="lh-film-character" data-alpha-video={Boolean(characterFormat && !characterFailed)} aria-hidden="true">
-      {characterFormat && !characterFailed ? <video key={characterFormat} ref={character} muted playsInline preload="none" poster={mediaRequested ? "/assets/character-20261012/poster-clean.png" : undefined} onError={() => setCharacterFailed(true)}>
-        <source src={`/assets/character-20261012/ola-girl-clean-alpha${characterFormat === "hevc" ? "-safari.mov" : ".webm"}`} type={characterFormat === "hevc" ? 'video/quicktime; codecs="hvc1"' : "video/webm"} />
-      </video> : <Image src="/assets/character-20261012/settled-clean.png" alt="" fill unoptimized sizes="100vw" />}
+      {characterFormat && !characterFailed ? <video key={characterFormat} ref={character} muted playsInline preload="none" poster={mediaRequested ? cms.url("/assets/character-20261012/poster-clean.png") : undefined} onError={() => setCharacterFailed(true)}>
+        <source src={cms.url(`/assets/character-20261012/ola-girl-clean-alpha${characterFormat === "hevc" ? "-safari.mov" : ".webm"}`)} type={characterFormat === "hevc" ? 'video/quicktime; codecs="hvc1"' : "video/webm"} onError={() => setCharacterFailed(true)} />
+      </video> : <Image src={cms.url("/assets/character-20261012/settled-clean.png")} alt="" fill unoptimized sizes="100vw" />}
       </div>
       </>}
     </div>

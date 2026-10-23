@@ -3,28 +3,36 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
+    "prebuild": "node scripts/generate-visual-preview.mjs --check",
+    "dev": "next dev --webpack",
+    "build": "next build --webpack",
     "start": "next start",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:e2e": "playwright test",
-    "optimize-images": "node scripts/optimize-images.mjs",
-    "check:i18n": "node scripts/check-i18n.mjs"
+    "test:e2e:brand": "playwright test -c playwright.brand.config.ts",
+    "check:i18n": "node scripts/check-i18n.mjs",
+    "test:e2e:platform": "playwright test -c playwright.platform.config.ts",
+    "test:e2e:account": "playwright test -c playwright.account.config.ts",
+    "test:e2e:payments": "playwright test -c playwright.payments.config.ts",
+    "test:e2e:orders": "playwright test -c playwright.orders.config.ts"
   },
   "dependencies": {
+    "@formatjs/icu-messageformat-parser": "3.5.17",
     "@gsap/react": "^2.1.2",
     "@react-three/drei": "^10.7.8",
     "@react-three/fiber": "^9.7.0",
-    "@supabase/supabase-js": "^2.112.4",
+    "@supabase/ssr": "0.12.7",
+    "@supabase/supabase-js": "2.118.0",
     "clsx": "^2.1.1",
     "gsap": "^3.15.0",
     "lucide-react": "^0.475.0",
-    "next": "^15.5.21",
+    "next": "16.4.2",
     "next-intl": "^4.13.7",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
+    "react": "19.2.7",
+    "react-dom": "19.2.7",
+    "server-only": "0.0.1",
     "tailwind-merge": "^3.0.2",
     "three": "^0.186.0"
   },
@@ -38,16 +46,18 @@
     "@types/three": "^0.185.4",
     "@vitest/coverage-v8": "^4.1.11",
     "eslint": "^9",
-    "eslint-config-next": "^15.5.21",
+    "eslint-config-next": "16.4.2",
     "postcss": "^8.5.26",
-    "sharp": "^0.35.4",
+    "sharp": "0.35.5",
     "tailwindcss": "^4",
     "typescript": "^5",
     "vitest": "^4.1.11"
   },
   "overrides": {
-    "brace-expansion": "1.1.18",
+    "brace-expansion": "1.1.21",
     "postcss": "$postcss",
-    "sharp": "$sharp"
+    "sharp": "$sharp",
+    "source-map-js": "1.2.2",
+    "js-yaml": "4.3.2"
   }
 }

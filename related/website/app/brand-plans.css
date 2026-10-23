@@ -1,0 +1,100 @@
+/* Plan previews share the existing hardware, comparison-table and phone-card UI. */
+.brand-plans-page { padding-top: 6rem; color: var(--ink); }
+.brand-plans-page .plans-intro { padding: 2rem 2rem 3rem; max-width: 1100px; }
+.brand-plans-page .plans-intro h1 { margin: 1rem 0 1.25rem; max-width: 900px; }
+.brand-plans-page .plans-intro > .lq-body { color: var(--ink-2); max-width: 700px; }
+.brand-plans-page .plans-preview-notice { margin: 1.5rem 0 0; padding: 1.1rem 1.25rem; max-width: 900px; border: 1px solid var(--border-h); border-radius: 16px; color: var(--ink-2); font-size: 1rem; line-height: 1.65; }
+.brand-plans-page .plans-preview-notice strong { color: var(--ink); }
+.brand-plans-page .plans-hardware { padding: 0 2rem 4rem; }
+.brand-plans-page .hw-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1.5rem; }
+.brand-plans-page .hw-card { min-width: 0; background: #fff; border: 1px solid var(--border); border-radius: 20px; padding: 1.25rem 1.25rem 1.75rem; display: flex; flex-direction: column; transition: transform .4s, box-shadow .4s, border-color .4s; }
+.brand-plans-page .hw-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); border-color: var(--border-h); }
+.brand-plans-page .hw-img { aspect-ratio: 4/3; border-radius: 14px; overflow: hidden; margin-bottom: 1.25rem; background: rgba(255,255,255,.68); }
+.brand-plans-page .hw-img img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .8s ease; }
+.brand-plans-page .hw-img-contain-ola img, .brand-plans-page .hw-img-contain-print img { object-fit: contain; }
+.brand-plans-page .hw-img-contain-ola img { transform: scale(1.02); }
+.brand-plans-page .hw-img-contain-print img { transform: scale(1.08); }
+.brand-plans-page .hw-card:hover .hw-img img { transform: scale(1.05); }
+.brand-plans-page .hw-card:hover .hw-img-contain-ola img { transform: scale(1.02); }
+.brand-plans-page .hw-card:hover .hw-img-contain-print img { transform: scale(1.08); }
+.brand-plans-page .hw-name { font-size: var(--lq-h3); margin: .25rem 0 .35rem; }
+.brand-plans-page .hw-copy { color: var(--ink-2); font-size: 1rem; line-height: 1.6; margin-bottom: 1.25rem; }
+.brand-plans-page .hw-msrp { margin: auto 0 .4rem; color: var(--ink-2); font-size: 1rem; line-height: 1.5; }
+.brand-plans-page .hw-msrp span { display: block; }
+.brand-plans-page .hw-price.serif { color: var(--ink); font-size: clamp(1.5rem, 2.4vw, 1.85rem); margin-bottom: 1.25rem; line-height: 1.4; }
+.brand-plans-page .hw-price-label { display: block; color: var(--ink-2); font-family: var(--font-sans); font-size: 1rem; line-height: 1.5; }
+.brand-plans-page .hw-currency { font-size: 1rem; color: var(--gold); margin-right: .25rem; }
+.brand-plans-page .hw-price.serif.hw-price-pending { font-size: 1rem; line-height: 1.5; }
+.brand-plans-page .hw-actions { display: flex; align-items: center; gap: .65rem; flex-wrap: wrap; min-width: 0; margin-top: auto; }
+.brand-plans-page .hw-reserve { flex: 0 1 auto; min-width: 0; min-height: 44px; padding: .55rem .75rem; font-size: .9rem; text-align: center; white-space: normal; }
+.brand-plans-page .hw-more { display: inline-flex; align-items: center; flex: 0 0 auto; min-height: 44px; color: var(--ink-2); font-size: .95rem; font-weight: 500; border-bottom: 1px solid var(--ink-4); transition: color .25s, border-color .25s; }
+.brand-plans-page .hw-more:hover { color: var(--ink); border-color: var(--ink); }
+.brand-plans-page .plans-comparison { padding: 0 2rem 5rem; }
+.brand-plans-page .plans-product-tabs { display: flex; align-items: stretch; justify-content: center; gap: .6rem; max-width: 720px; margin-inline: auto; padding: .4rem; border: 1px solid var(--border-h); border-radius: 24px; background: #ffffffe6; }
+.brand-plans-page .plans-product-tabs button { flex: 1; min-width: 0; min-height: 52px; padding: .65rem 1rem; color: var(--ink-2); border: 0; border-radius: 18px; background: transparent; font: inherit; font-size: 1rem; font-weight: 600; overflow-wrap: anywhere; cursor: pointer; transition: background .25s, color .25s; }
+.brand-plans-page .plans-product-tabs button.on { background: var(--ink); color: white; }
+.brand-plans-page :is(button, a, [role="tabpanel"]):focus-visible { outline: 2px solid var(--ink); outline-offset: 4px; }
+.brand-plans-page .plans-billing { margin: 1.25rem auto 2.5rem; text-align: center; }
+.brand-plans-page .billing-toggle { display: inline-flex; max-width: 100%; border: 1px solid var(--border-h); border-radius: 999px; padding: 4px; background: #fff; }
+.brand-plans-page .billing-toggle button { border: 0; background: transparent; font: inherit; font-size: 1rem; font-weight: 500; color: var(--ink-2); min-height: 44px; padding: .55rem 1.4rem; border-radius: 999px; cursor: pointer; transition: background .3s, color .3s; display: inline-flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: .5rem; }
+.brand-plans-page .billing-toggle button.on { background: var(--ink); color: #fff; }
+.brand-plans-page .billing-save { font-size: .875rem; font-weight: 600; color: #805832; }
+.brand-plans-page .billing-toggle button.on .billing-save { color: #E8CE8F; }
+.brand-plans-page .plans-product-panel[hidden] { display: none; }
+.brand-plans-page .plans-panel-heading { text-align: center; max-width: 720px; margin: 0 auto 2rem; }
+.brand-plans-page .plans-panel-heading .kicker { justify-content: center; }
+.brand-plans-page .plans-panel-heading p { font-size: 1rem; line-height: 1.65; color: var(--ink-2); margin-top: 1rem; }
+.brand-plans-page .fee-cell { display: inline-flex; flex-direction: column; line-height: 1.5; gap: .3rem; }
+.brand-plans-page .fee-cell strong { font-size: 1.35rem; font-weight: 600; }
+.brand-plans-page .fee-cell em { font-style: normal; font-size: 1rem; line-height: 1.5; color: var(--ink-2); letter-spacing: 0; }
+.brand-plans-page .plan-included { color: var(--ink); font-weight: 600; }
+.brand-plans-page .plan-unavailable { color: var(--ink-2); }
+.brand-plans-page .plan-tier-description { display: block; font-family: var(--font-sans); font-size: 1rem; font-weight: 400; color: var(--ink-2); line-height: 1.6; margin-top: .4rem; }
+.brand-plans-page .tier-card { min-width: 0; background: #fff; color: var(--ink); border: 1px solid var(--border); border-radius: 16px; padding: 2rem 1.75rem; display: flex; flex-direction: column; }
+.brand-plans-page .tier-card.featured { background: #f5f7ff; color: var(--ink); border-color: #b8c7de; }
+.brand-plans-page .plan-tier-title { color: var(--ink); font-size: 1.15rem; letter-spacing: .02em; margin: 0; }
+.brand-plans-page .plan-card-price { font-size: 1.5rem; margin: 1rem 0; }
+.brand-plans-page .plan-list { flex: 1; margin-bottom: 1.5rem; }
+.brand-plans-page .plan-list li { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: start; gap: 1rem; padding: .65rem 0; border-bottom: 1px solid var(--border); font-size: 1rem; line-height: 1.6; }
+.brand-plans-page .plan-list li > span:first-child { min-width: 0; color: var(--ink-2); overflow-wrap: anywhere; }
+.brand-plans-page .plan-list li > span:last-child { min-width: 0; text-align: right; overflow-wrap: anywhere; }
+.brand-plans-page .pal-table-wrap { display: block; border: 1px solid var(--border); border-radius: 16px; overflow: hidden; }
+.brand-plans-page .pal-table { width: 100%; table-layout: fixed; border-collapse: collapse; background: #fff; }
+.brand-plans-page .pal-table th, .brand-plans-page .pal-table td { padding: 1rem 1.1rem; text-align: center; border-bottom: 1px solid var(--border); font-size: 1rem; line-height: 1.6; vertical-align: middle; overflow-wrap: anywhere; }
+.brand-plans-page .pal-table thead th { font-family: var(--font-serif); font-size: 1.1rem; border-bottom: 1px solid var(--border-h); position: relative; padding-block: 1.4rem; }
+.brand-plans-page .pal-table tbody th { text-align: left; color: var(--ink-2); font-weight: 500; }
+.brand-plans-page .pal-table tbody tr:not(.cta-row):hover th, .brand-plans-page .pal-table tbody tr:not(.cta-row):hover td { background: rgba(240,245,252,.6); }
+.brand-plans-page .pal-table .is-featured { background: rgba(240,245,252,.6); }
+.brand-plans-page .pal-table thead .is-featured { background: #f5f7ff; color: var(--ink); }
+.brand-plans-page .pop-tag { display: block; font-family: var(--font-sans); font-size: .875rem; font-weight: 600; color: #805832; margin-bottom: .3rem; }
+.brand-plans-page .pal-table .cta-row th, .brand-plans-page .pal-table .cta-row td { border-bottom: none; padding-block: 1.25rem 1.5rem; }
+.brand-plans-page .plan-choose { background: transparent; color: var(--ink); border: 1px solid var(--ink); min-height: 44px; padding: .6rem 1rem; font-size: 1rem; white-space: normal; text-align: center; }
+.brand-plans-page .plan-choose:hover { background: var(--ink); color: #fff; transform: translateY(-2px); }
+.brand-plans-page .plan-choose.is-dark { background: var(--ink); color: #fff; border-color: var(--ink); }
+.brand-plans-page .plan-choose.is-dark:hover { background: #000; }
+.brand-plans-page .pal-cards { display: none; }
+.brand-plans-page .plans-trial-notice { margin: 1.5rem auto 0; max-width: 820px; font-size: 1rem; line-height: 1.7; color: var(--ink-2); }
+.brand-plans-page .plan-sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
+@media (max-width: 1100px) {
+  .brand-plans-page .hw-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 760px) {
+  .brand-plans-page .plans-intro { padding: 1.5rem 1.25rem 2rem; }
+  .brand-plans-page :is(.plans-hardware, .plans-comparison) { padding-inline: 1.25rem; }
+  .brand-plans-page .pal-table-wrap { display: none; }
+  .brand-plans-page .pal-cards { display: grid; gap: 1.5rem; grid-template-columns: minmax(0, 1fr); width: min(100%, 460px); margin-inline: auto; }
+  .lumiq-root .brand-plans-page .tier-card .fee-cell { display: flex; font-size: 1rem; }
+  .lumiq-root .brand-plans-page .tier-card .fee-cell em { font-size: 1rem !important; }
+  .lumiq-root .brand-plans-page .tier-card li { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .lumiq-root .brand-plans-page .tier-card li > span:last-child { min-width: 0; }
+  .brand-plans-page .plans-product-tabs { gap: .25rem; padding: .3rem; border-radius: 18px; }
+  .brand-plans-page .plans-product-tabs button { padding-inline: .35rem; border-radius: 14px; font-size: 1rem; }
+  .brand-plans-page .billing-toggle button { padding-inline: .85rem; }
+}
+@media (max-width: 640px) {
+  .brand-plans-page .hw-grid { grid-template-columns: minmax(0, 1fr); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .brand-plans-page :is(.hw-card, .hw-img img, button, a) { transition: none; }
+  .brand-plans-page .hw-card:hover, .brand-plans-page .plan-choose:hover { transform: none; }
+}

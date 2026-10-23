@@ -1,10 +1,13 @@
-import type { Metadata } from "next";
+import {readContentAdapter} from "@/lib/content/server-adapter";
 import ProductsShowcase from "@/components/ProductsShowcase";
 
-export const metadata: Metadata = {
-  title: "Products — Lumiq Studio",
-  description: "Five objects, one quiet universe — Lumiq Ola, Lumiq Ola Go, Lumiq Tablet, Lumiq Print and Lumiq Orb.",
+export async function generateMetadata() {
+  const cms = await readContentAdapter();
+  return {
+  title: cms.text("field_111b161da5642d3e"),
+  description: cms.text("field_214766da1c1b9375"),
 };
+}
 
 export default function ProductsPage() {
   return <ProductsShowcase />;

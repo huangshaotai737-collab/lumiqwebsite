@@ -1,20 +1,24 @@
 "use client";
 
+import {useContentAdapter} from "@/components/content/useContentAdapter";
 import Image, { type ImageProps } from "next/image";
 import { useEffect, useRef, useState } from "react";
 import images from "@/lib/home-image-manifest.json";
+import inlinePreviews from "@/lib/home-inline-previews.json";
 
 type Asset = { base: string; widths: number[]; preview: string };
 const assets: Record<string, Asset> = images;
-const emptyPreview = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7";
+const previews: Record<string, string> = inlinePreviews;
 
 /** Reserve the artwork with an inline preview before loading an upcoming scene.
  * A lazy src alone can race the opening's pin layout and fetch distant products. */
-export default function HomeImage(props: ImageProps) {
+export default function HomeImage(input: ImageProps) {
+  const cms = useContentAdapter();
+  const props = {...input, src: typeof input.src === "string" ? cms.url(input.src) : input.src};
   const asset = typeof props.src === "string" ? assets[props.src] : undefined;
-  const preview = asset?.preview ?? emptyPreview;
+  const preview = asset?.preview ?? (typeof props.src === "string" ? previews[props.src] : undefined);
   const image = useRef<HTMLImageElement>(null);
-  const [requested, setRequested] = useState(Boolean(props.priority || props.loading === "eager"));
+  const [requested, setRequested] = useState(Boolean(props.priority || props.loading === "eager" || !preview));
   const [failed, setFailed] = useState(false);
   useEffect(() => {
     const element = image.current;
@@ -30,7 +34,7 @@ export default function HomeImage(props: ImageProps) {
     if (!section) {
       observer = new IntersectionObserver(entries => {
         if (entries.some(entry => entry.isIntersecting)) { load(); observer?.disconnect(); }
-      }, { rootMargin: "600px 0px" });
+      }, { rootMargin: "1200px 0px" });
       observer.observe(element);
     }
     return () => {
@@ -39,18 +43,18 @@ export default function HomeImage(props: ImageProps) {
       window.removeEventListener("lumiq:retry-images", retry);
     };
   }, [props.src]);
-  const showingPreview = !requested || failed;
+  const showingPreview = Boolean(preview && (!requested || failed));
   return <Image
     {...props}
     ref={image}
     alt={props.alt}
     data-home-image
-    data-home-image-state={failed ? "error" : requested ? "requested" : "preview"}
-    src={showingPreview ? preview : props.src}
-    unoptimized={showingPreview || props.unoptimized}
-    loading={requested && !props.priority ? "eager" : props.loading}
+    data-home-image-state={failed ? "error" : requested || !preview ? "requested" : "preview"}
+    src={showingPreview && preview ? preview : props.src}
+    unoptimized={showingPreview || props.unoptimized || cms.preview}
+    loading={!preview || requested && !props.priority ? "eager" : props.loading}
     loader={!showingPreview && asset ? ({ width }) => `${asset.base}-${asset.widths.find(w => w >= width) ?? asset.widths.at(-1)}.webp` : props.loader}
-    placeholder={asset?.preview as `data:image/${string}` | undefined}
+    placeholder={preview as `data:image/${string}` | undefined}
     onError={event => {
       if (!showingPreview) setFailed(true);
       props.onError?.(event);
