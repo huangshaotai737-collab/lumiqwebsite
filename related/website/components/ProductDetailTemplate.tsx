@@ -58,6 +58,9 @@ type ProductDetailTemplateProps = {
   lede: string;
   conceptNotice: string;
   priceLabel: string;
+  priceQualifier?: string;
+  statusItems?: { label: string; detail: string }[];
+  storyFootnote?: string;
   compactHeroPriceLabel?: boolean;
   ctaLabel: string;
   heroImage: ProductVisual;
@@ -153,6 +156,9 @@ export default function ProductDetailTemplate({
   lede,
   conceptNotice,
   priceLabel,
+  priceQualifier,
+  statusItems,
+  storyFootnote,
   compactHeroPriceLabel = false,
   ctaLabel,
   heroImage,
@@ -205,10 +211,23 @@ export default function ProductDetailTemplate({
               <span className="pd-product-tagline">{title}</span>
             </Heading>
             <p className="pd-hero-lede">{lede}</p>
+            {statusItems && (
+              <ul className="pd-status-list" aria-label={productName}>
+                {statusItems.map((item) => (
+                  <li key={item.label}>
+                    <span className="pd-status-label">{item.label}</span>
+                    <span>{item.detail}</span>
+                  </li>
+                ))}
+              </ul>
+            )}
             <p className="pd-concept-note">{conceptNotice}</p>
             <div className="pd-hero-actions">
               <div className="pd-price-row">
-                <p className={`pd-price${compactHeroPriceLabel ? " pd-price--compact" : ""}`}>{priceLabel}</p>
+                <p className={`pd-price${compactHeroPriceLabel ? " pd-price--compact" : ""}`}>
+                  {priceQualifier && <span className="pd-price-qualifier">{priceQualifier}</span>}
+                  {priceLabel}
+                </p>
                 <Link href="/prelaunch" className="pd-primary-action">
                   {ctaLabel}
                 </Link>
@@ -249,6 +268,7 @@ export default function ProductDetailTemplate({
                 ))}
               </ul>
             )}
+            {storyFootnote && <p className="pd-story-footnote">{storyFootnote}</p>}
             {story.noteTitle && (
               <aside className="pd-story-note">
                 <Heading as="h3">{story.noteTitle}</Heading>
@@ -375,7 +395,10 @@ export default function ProductDetailTemplate({
             <p>{finalBody}</p>
           </div>
           <div className={`pd-final-actions${compactHeroPriceLabel ? " is-compact-price" : ""}`}>
-            <p className="pd-price">{priceLabel}</p>
+            <p className="pd-price">
+              {priceQualifier && <span className="pd-price-qualifier">{priceQualifier}</span>}
+              {priceLabel}
+            </p>
             <Link href="/prelaunch" className="pd-primary-action">
               {ctaLabel}
             </Link>

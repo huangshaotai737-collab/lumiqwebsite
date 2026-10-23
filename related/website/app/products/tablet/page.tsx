@@ -1,17 +1,24 @@
 "use client";
 import {useContentAdapter} from "@/components/content/useContentAdapter";
 
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import ProductDetailTemplate from "@/components/ProductDetailTemplate";
 import TabletGrowthMap from "@/components/TabletGrowthMap";
 import {Link} from '@/i18n/navigation';
 import "@/app/brand-tablet.css";
+
+const blueLightNotes = {
+  en: "* The certificate, applicable standard and measurement conditions for the 80% figure will be published before ordering opens. Low blue light is not a medical or eye-health guarantee.",
+  "zh-hant": "* 認證文件、適用標準及 80% 數值的檢測條件，將於開放訂購前公布。低藍光不代表醫療或護眼效果。",
+  ja: "* 認証書、適用規格、80%という数値の測定条件は、注文受付前に公開します。低ブルーライトは医療・眼の健康上の効果を保証するものではありません。",
+} as const;
 
 export default function TabletPage() {
   const cms = useContentAdapter();
   const t = useTranslations("Tablet");
   const brand = useTranslations("BrandTablet");
   const faq = useTranslations("BrandFaq");
+  const locale = useLocale();
 
   return (
     <ProductDetailTemplate
@@ -40,6 +47,7 @@ export default function TabletPage() {
         },
         bullets: [t("spec1"), t("spec2"), t("spec3"), t("spec4")],
       }}
+      storyFootnote={blueLightNotes[locale as keyof typeof blueLightNotes] ?? blueLightNotes.en}
       scenesEyebrow={t("why")}
       scenesTitle={t("whyTitle")}
       scenes={[

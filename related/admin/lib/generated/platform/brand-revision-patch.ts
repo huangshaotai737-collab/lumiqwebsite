@@ -830,12 +830,12 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.en.Pal.conceptNotice",
     "before": "Concept product — safety, companion, reminder, connectivity and final hardware capabilities are pending brand confirmation.",
-    "after": "Product preview. Final features and availability will be confirmed before launch."
+    "after": "Features and launch timing will be announced before ordering opens."
   },
   {
     "path": "messages.en.Pal.deviceAlt",
     "before": "Lumiq Ola concept device",
-    "after": "LumiqOla concept device"
+    "after": "LumiqOla device"
   },
   {
     "path": "messages.en.Pal.kidsAlt",
@@ -845,12 +845,12 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.en.Pal.kidsBody",
     "before": "Designed to pair with Lumiq Tablet so stories can extend into the room.",
-    "after": "A proposed character presence for everyday conversation and quiet moments at home."
+    "after": "A familiar character could add a new voice to everyday moments at home. Character interaction is planned."
   },
   {
     "path": "messages.en.Pal.lede",
     "before": "A concept interactive holographic companion for stories, conversation and gentle everyday support.",
-    "after": "An AI companion concept for adults and older adults, centered on conversation and everyday reminders."
+    "after": "LumiqOla is designed for adults and older adults, with everyday conversation and gentle reminders in focus."
   },
   {
     "path": "messages.en.Pal.magic",
@@ -860,7 +860,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.en.Pal.magicBody",
     "before": "Lumiq Ola is designed to respond to stories and support conversations with characters. Final capabilities are pending confirmation.",
-    "after": "LumiqOla is designed for adult conversation and gentle reminders. Final device capabilities are still being confirmed."
+    "after": "Everyday conversation is in development; gentle reminders are planned for a later stage."
   },
   {
     "path": "messages.en.Pal.sb3",
@@ -885,7 +885,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.en.Pal.syncedBody",
     "before": "Cross-device progress and adaptation remain concept specifications.",
-    "after": "LumiqTablet is the children’s reading experience. Any story connection with Ola remains a concept under review."
+    "after": "LumiqTablet is for children’s reading. A cross-device story connection with Ola is planned for a later stage."
   },
   {
     "path": "messages.en.Pal.twoLives",
@@ -895,17 +895,17 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.en.Pal.way2Body",
     "before": "As the story changes, new interactions and abilities appear. Talk with the characters in the room.",
-    "after": "An expressive character could give everyday conversation a familiar face. Final interactions remain under review."
+    "after": "Bring familiar storybook characters into everyday conversation. The interaction is planned."
   },
   {
     "path": "messages.en.Pal.way3Body",
     "before": "Character conversations, story coaching, and dreamtime companions — rolling out over time.",
-    "after": "Further conversation and reminder features are planned; availability will be confirmed before launch."
+    "after": "Further conversation and reminder features are planned. Timing will be announced before launch."
   },
   {
     "path": "messages.en.Pal.waysTitle",
     "before": "Three ways Lumiq Ola may join the story",
-    "after": "Three ways Ola could fit into daily life"
+    "after": "Three directions for everyday life with Ola"
   },
   {
     "path": "messages.en.Plans.character",
@@ -2120,7 +2120,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.ja.Pal.conceptNotice",
     "before": "コンセプト製品——安全、見守り、リマインダー、通信、最終仕様はブランド確認待ちです。",
-    "after": "製品プレビューです。最終的な機能と提供時期は発売前にご案内します。"
+    "after": "機能と発売時期は、注文受付前にご案内します。"
   },
   {
     "path": "messages.ja.Pal.deviceAlt",
@@ -2135,12 +2135,12 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.ja.Pal.kidsBody",
     "before": "Lumiq Tablet と連携し、物語が画面を飛び出して部屋の中に広がります。",
-    "after": "キャラクターと音声でやり取りする構想。大人の何気ない時間に寄り添います。機能は確認中です。"
+    "after": "親しみのあるキャラクターの声が、大人の日常に寄り添います。キャラクターとの対話は計画中です。"
   },
   {
     "path": "messages.ja.Pal.lede",
     "before": "お子さまに応えるインタラクティブなホログラフィック・コンパニオンであり、大切な大人にもそっと寄り添う存在です。",
-    "after": "大人とシニアの日々の会話やリマインダーを中心にした、AI コンパニオンの構想です。"
+    "after": "LumiqOla は大人とシニアのために設計され、日々の会話と穏やかなリマインダーを中心に据えています。"
   },
   {
     "path": "messages.ja.Pal.magic",
@@ -2150,7 +2150,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.ja.Pal.magicBody",
     "before": "Lumiq Ola は読んでいる物語に反応し、子どもが登場人物と話したり、触れ合ったり、質問したりできます。キャラクターへの理解を新しい次元へ導きます。",
-    "after": "LumiqOla は大人の会話や穏やかなリマインダーを目指しています。最終的な機能は確認中です。"
+    "after": "日々の会話は開発中です。穏やかなリマインダーは次の段階で計画しています。"
   },
   {
     "path": "messages.ja.Pal.sb3",
@@ -2175,7 +2175,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.ja.Pal.syncedBody",
     "before": "進捗、キャラクターの学習、適応をデバイス間で同期します。",
-    "after": "LumiqTablet は子どもの読書体験です。Ola との物語連携は、確認中の構想です。"
+    "after": "LumiqTablet は子どもの読書体験です。Ola との連携は今後の計画に含まれます。"
   },
   {
     "path": "messages.ja.Pal.twoLives",
@@ -2185,17 +2185,17 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.ja.Pal.way2Body",
     "before": "物語の変化に合わせて新しい反応や能力が現れ、部屋の中のキャラクターと会話できます。",
-    "after": "親しみのあるキャラクターと日々の会話を。最終的な対話方法は確認中です。"
+    "after": "絵本の親しみあるキャラクターと日々の会話を。対話方法は計画中です。"
   },
   {
     "path": "messages.ja.Pal.way3Body",
     "before": "キャラクターとの会話、物語のコーチング、夢の時間のコンパニオンを順次提供します。",
-    "after": "会話とリマインダーに関する追加機能は計画中です。提供時期は発売前にお知らせします。"
+    "after": "会話やリマインダーの追加機能を計画しています。提供時期は発売前にお知らせします。"
   },
   {
     "path": "messages.ja.Pal.waysTitle",
     "before": "Lumiq Ola が物語に加わる3つの方法",
-    "after": "Ola が日々に寄り添う三つの構想"
+    "after": "Ola と過ごす日常の三つの方向性"
   },
   {
     "path": "messages.ja.Plans.character",
@@ -3405,12 +3405,12 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.zh-hant.Pal.conceptNotice",
     "before": "概念產品——安全、陪伴、提醒、連線與最終硬體能力有待品牌確認。",
-    "after": "產品預覽；最終功能與供應安排將於上市前公布。"
+    "after": "功能與上市時間將於開放訂購前公布。"
   },
   {
     "path": "messages.zh-hant.Pal.deviceAlt",
     "before": "Lumiq Ola 概念裝置",
-    "after": "LumiqOla 概念裝置"
+    "after": "LumiqOla 裝置"
   },
   {
     "path": "messages.zh-hant.Pal.kidsAlt",
@@ -3420,12 +3420,12 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.zh-hant.Pal.kidsBody",
     "before": "與 Lumiq Tablet 配對，讓故事走出螢幕、進入房間。",
-    "after": "以角色與語音互動的概念，陪伴成人的日常時刻；實際功能仍待確認。"
+    "after": "讓熟悉的角色與語音互動，為成人的日常添一點陪伴。角色功能正在規劃。"
   },
   {
     "path": "messages.zh-hant.Pal.lede",
     "before": "用於故事、對話與日常支援的互動式全息陪伴概念。",
-    "after": "為成人與長輩構思的 AI 夥伴，著重日常對話與提醒。"
+    "after": "LumiqOla 專為成人與長輩而設計，聚焦日常對話與溫和提醒。"
   },
   {
     "path": "messages.zh-hant.Pal.magic",
@@ -3435,7 +3435,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.zh-hant.Pal.magicBody",
     "before": "Lumiq Ola 的故事反應與角色對話仍屬概念，最終能力有待確認。",
-    "after": "LumiqOla 以成人的日常對話與溫和提醒為方向；最終裝置功能仍待確認。"
+    "after": "日常對話正在開發，溫和提醒列入後續規劃。"
   },
   {
     "path": "messages.zh-hant.Pal.sb3",
@@ -3460,7 +3460,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.zh-hant.Pal.syncedBody",
     "before": "跨裝置進度與適應功能仍屬概念規格。",
-    "after": "LumiqTablet 是孩子的閱讀體驗。與 Ola 的故事聯動仍屬待確認概念。"
+    "after": "LumiqTablet 提供孩子的閱讀體驗；與 Ola 的跨裝置故事聯動列入後續規劃。"
   },
   {
     "path": "messages.zh-hant.Pal.twoLives",
@@ -3470,17 +3470,17 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.zh-hant.Pal.way2Body",
     "before": "故事變化時，新的互動與能力隨之出現，讓你與房間裡的角色對話。",
-    "after": "讓熟悉的角色參與日常對話；最終互動方式仍待確認。"
+    "after": "讓故事書裡熟悉的角色走進日常對話；互動方式正在規劃。"
   },
   {
     "path": "messages.zh-hant.Pal.way3Body",
     "before": "角色對話、故事指導與夢鄉夥伴等功能將陸續推出。",
-    "after": "更多對話與提醒功能仍在規劃，推出時間會在上市前確認。"
+    "after": "更多對話與提醒功能正在規劃，推出時間將於上市前公布。"
   },
   {
     "path": "messages.zh-hant.Pal.waysTitle",
     "before": "Lumiq Ola 參與故事的三種方式",
-    "after": "Ola 陪伴日常的三種構想"
+    "after": "Ola 日常陪伴的三個方向"
   },
   {
     "path": "messages.zh-hant.Plans.character",
@@ -4175,17 +4175,17 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.en.Pal.kids1",
     "before": "Concept character projection",
-    "after": "Character projection concept"
+    "after": "Character projection · Planned"
   },
   {
     "path": "messages.en.Pal.kids2",
     "before": "Proposed voice and light reactions",
-    "after": "Voice interaction concept"
+    "after": "Voice interaction · In development"
   },
   {
     "path": "messages.en.Pal.kids3",
     "before": "Concept gentle bedtime mode",
-    "after": "Ambient light concept"
+    "after": "Ambient light · Planned"
   },
   {
     "path": "messages.en.Pal.adultsTitle",
@@ -4205,12 +4205,12 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.en.Pal.way2Title",
     "before": "Ambient Story Sync",
-    "after": "Personal character interaction"
+    "after": "Interact with storybook characters"
   },
   {
     "path": "messages.en.Pal.strengthsIntro",
     "before": "Concept directions for a calm presence on the side table; final companion and care claims require confirmation.",
-    "after": "Concept directions for adults and older adults; final companion and care claims require confirmation."
+    "after": "Reminders, family contact and nighttime companionship are planned. Availability will be announced before launch."
   },
   {
     "path": "messages.en.Pal.sb1",
@@ -4345,17 +4345,17 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.zh-hant.Pal.kids1",
     "before": "把角色投影到空中",
-    "after": "角色投影概念"
+    "after": "角色投影 · 規劃中"
   },
   {
     "path": "messages.zh-hant.Pal.kids2",
     "before": "聲音與燈光隨故事反應",
-    "after": "語音互動概念"
+    "after": "語音互動 · 開發中"
   },
   {
     "path": "messages.zh-hant.Pal.kids3",
     "before": "溫柔的睡前模式",
-    "after": "氛圍燈光概念"
+    "after": "氛圍燈光 · 規劃中"
   },
   {
     "path": "messages.zh-hant.Pal.adults",
@@ -4380,12 +4380,12 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.zh-hant.Pal.way2Title",
     "before": "環境故事同步",
-    "after": "角色互動"
+    "after": "與故事書角色互動"
   },
   {
     "path": "messages.zh-hant.Pal.strengthsIntro",
     "before": "獻給我們所愛的成人與長者——邊桌上的安定陪伴，讓日常柔和一點、安全一點，不再孤單。",
-    "after": "為成人與長輩構思的陪伴方式；照護與連線能力仍待確認。"
+    "after": "提醒、家人聯絡與夜間陪伴等功能仍在規劃，提供時間將於上市前公布。"
   },
   {
     "path": "messages.zh-hant.Pal.sb1",
@@ -4515,17 +4515,17 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.ja.Pal.kids1",
     "before": "キャラクターを空中に映し出す",
-    "after": "キャラクター投影の構想"
+    "after": "キャラクター投影 · 計画中"
   },
   {
     "path": "messages.ja.Pal.kids2",
     "before": "声と光が物語に反応",
-    "after": "音声対話の構想"
+    "after": "音声対話 · 開発中"
   },
   {
     "path": "messages.ja.Pal.kids3",
     "before": "やさしい就寝モード",
-    "after": "環境光の構想"
+    "after": "環境光 · 計画中"
   },
   {
     "path": "messages.ja.Pal.adults",
@@ -4550,12 +4550,12 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.ja.Pal.way2Title",
     "before": "アンビエント・ストーリー同期",
-    "after": "キャラクターとの対話"
+    "after": "絵本のキャラクターと対話"
   },
   {
     "path": "messages.ja.Pal.strengthsIntro",
     "before": "大切な大人とシニアへ。サイドテーブルから穏やかに寄り添い、毎日を少しやさしく、安全に、孤独のないものにします。",
-    "after": "大人とシニアのためのコンセプトです。見守りや通信の機能は確認中です。"
+    "after": "リマインダー、家族との連絡、夜間の寄り添いは計画中です。提供時期は発売前にご案内します。"
   },
   {
     "path": "messages.ja.Pal.sb1",
@@ -4566,5 +4566,95 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
     "path": "messages.ja.Pal.sb5",
     "before": "環境光とやさしい音が眠りを助け、朝までそっと寄り添います。",
     "after": "環境光とやわらかな白い合図が、朝まで寄り添います。"
+  },
+  {
+    "path": "messages.en.Pal.way1Pill",
+    "before": "Voice First",
+    "after": "In development"
+  },
+  {
+    "path": "messages.en.Pal.way2Pill",
+    "before": "In Sync",
+    "after": "Planned"
+  },
+  {
+    "path": "messages.en.Pal.way3Pill",
+    "before": "Coming Soon",
+    "after": "Planned"
+  },
+  {
+    "path": "messages.en.Pal.way3Title",
+    "before": "More AI Features Coming",
+    "after": "More AI features"
+  },
+  {
+    "path": "messages.en.Tablet.immersedBody",
+    "before": "An easy-to-read display, hardware blue-light filter, and distraction-free system help children simply read, listen, and explore.",
+    "after": "An easy-to-read display, low-blue-light design and distraction-free system make more room for stories."
+  },
+  {
+    "path": "messages.en.Tablet.spec2",
+    "before": "Certified with TUV80 - 80% Blue Light Reduction (BLR)",
+    "after": "TUV80 low-blue-light certification · 80% blue-light reduction (BLR)*"
+  },
+  {
+    "path": "messages.zh-hant.Pal.way1Pill",
+    "before": "語音優先",
+    "after": "開發中"
+  },
+  {
+    "path": "messages.zh-hant.Pal.way2Pill",
+    "before": "同步互動",
+    "after": "規劃中"
+  },
+  {
+    "path": "messages.zh-hant.Pal.way3Pill",
+    "before": "即將推出",
+    "after": "規劃中"
+  },
+  {
+    "path": "messages.zh-hant.Pal.way3Title",
+    "before": "更多 AI 功能即將登場",
+    "after": "更多 AI 功能"
+  },
+  {
+    "path": "messages.zh-hant.Tablet.immersedBody",
+    "before": "易讀螢幕、硬體抗藍光濾鏡與無干擾系統，讓孩子專心閱讀、聆聽與探索。",
+    "after": "易讀螢幕、低藍光設計與無干擾系統，讓孩子專心閱讀、聆聽與探索。"
+  },
+  {
+    "path": "messages.zh-hant.Tablet.spec2",
+    "before": "通過 TUV80 認證，降低 80% 藍光（BLR）",
+    "after": "TUV80 低藍光認證 · 藍光降低 80%（BLR）*"
+  },
+  {
+    "path": "messages.ja.Pal.way1Pill",
+    "before": "声から始まる",
+    "after": "開発中"
+  },
+  {
+    "path": "messages.ja.Pal.way2Pill",
+    "before": "物語と同期",
+    "after": "計画中"
+  },
+  {
+    "path": "messages.ja.Pal.way3Pill",
+    "before": "近日公開",
+    "after": "計画中"
+  },
+  {
+    "path": "messages.ja.Pal.way3Title",
+    "before": "新しい AI 機能",
+    "after": "今後の AI 機能"
+  },
+  {
+    "path": "messages.ja.Tablet.immersedBody",
+    "before": "読みやすい画面、ハードウェアのブルーライト軽減フィルター、集中を妨げないシステムで、読書、聞くこと、探索に集中できます。",
+    "after": "読みやすい画面、低ブルーライト設計、気が散りにくいシステムで、物語に集中できます。"
+  },
+  {
+    "path": "messages.ja.Tablet.spec2",
+    "before": "TUV80認証 — ブルーライトを80%低減（BLR）",
+    "after": "TUV80 低ブルーライト認証 · ブルーライトを80%低減（BLR）*"
   }
 ];
