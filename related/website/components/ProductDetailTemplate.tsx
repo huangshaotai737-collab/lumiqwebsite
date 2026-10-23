@@ -60,7 +60,6 @@ type ProductDetailTemplateProps = {
   priceLabel: string;
   priceQualifier?: string;
   statusItems?: { label: string; detail: string }[];
-  storyFootnote?: string;
   compactHeroPriceLabel?: boolean;
   ctaLabel: string;
   heroImage: ProductVisual;
@@ -158,7 +157,6 @@ export default function ProductDetailTemplate({
   priceLabel,
   priceQualifier,
   statusItems,
-  storyFootnote,
   compactHeroPriceLabel = false,
   ctaLabel,
   heroImage,
@@ -268,7 +266,6 @@ export default function ProductDetailTemplate({
                 ))}
               </ul>
             )}
-            {storyFootnote && <p className="pd-story-footnote">{storyFootnote}</p>}
             {story.noteTitle && (
               <aside className="pd-story-note">
                 <Heading as="h3">{story.noteTitle}</Heading>

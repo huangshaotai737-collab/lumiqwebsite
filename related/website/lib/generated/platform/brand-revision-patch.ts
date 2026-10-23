@@ -4595,7 +4595,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.en.Tablet.spec2",
     "before": "Certified with TUV80 - 80% Blue Light Reduction (BLR)",
-    "after": "TUV80 low-blue-light certification · 80% blue-light reduction (BLR)*"
+    "after": "TUV80 low-blue-light certification · 80% blue-light reduction (BLR)"
   },
   {
     "path": "messages.zh-hant.Pal.way1Pill",
@@ -4625,7 +4625,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.zh-hant.Tablet.spec2",
     "before": "通過 TUV80 認證，降低 80% 藍光（BLR）",
-    "after": "TUV80 低藍光認證 · 藍光降低 80%（BLR）*"
+    "after": "TUV80 低藍光認證 · 藍光降低 80%（BLR）"
   },
   {
     "path": "messages.ja.Pal.way1Pill",
@@ -4655,6 +4655,6 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.ja.Tablet.spec2",
     "before": "TUV80認証 — ブルーライトを80%低減（BLR）",
-    "after": "TUV80 低ブルーライト認証 · ブルーライトを80%低減（BLR）*"
+    "after": "TUV80 低ブルーライト認証 · ブルーライトを80%低減（BLR）"
   }
 ];

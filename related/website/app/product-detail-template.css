@@ -155,13 +155,6 @@
   font: 600 14px/1.4 var(--font-sans, sans-serif);
   letter-spacing: 0;
 }
-.product-detail-light .pd-story-footnote {
-  max-width: 550px;
-  margin-top: 16px;
-  color: var(--pd-muted);
-  font-size: 14px;
-  line-height: 1.6;
-}
 .product-detail-light .pd-price-row {
   display: flex;
   align-items: center;
