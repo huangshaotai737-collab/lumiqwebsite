@@ -58,7 +58,7 @@ export function OrderList({ locale }: { locale: Locale }) {
   }, [page, refresh, t]);
   return (
     <section>
-      <h2>{t.orders}</h2>
+      <h1>{t.orders}</h1>
       <p role="status">{message}</p>
       {data && (
         <>

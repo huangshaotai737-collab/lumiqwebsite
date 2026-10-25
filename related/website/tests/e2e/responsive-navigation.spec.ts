@@ -45,7 +45,7 @@ test("a 320px phone shows a labeled menu with all destinations and languages", a
     expect(waitlist!.x + waitlist!.width).toBeLessThan(triggerBox!.x);
     expect(triggerBox!.x + triggerBox!.width).toBeLessThanOrEqual(capsule!.x + capsule!.width);
     await trigger.click();
-    await expect(page.locator("#mobile-navigation a[role='menuitem']")).toHaveCount(6);
+    await expect(page.locator("#mobile-navigation").getByRole("link")).toHaveCount(6);
     await expect(page.locator("#mobile-navigation .site-mobile-languages button")).toHaveCount(3);
     expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(321);
   }

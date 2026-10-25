@@ -47,8 +47,9 @@ function TeamRow({ member }: { member: TeamMember }) {
       <td data-label="角色">
         <select
           aria-label="员工角色"
+          disabled={pending}
           value={role}
-          onChange={(event) => setRole(event.target.value)}
+          onChange={(event) => { setRole(event.target.value); setMessage(''); }}
         >
           <option value="admin">管理员</option>
           <option value="editor">内容编辑</option>
@@ -60,8 +61,9 @@ function TeamRow({ member }: { member: TeamMember }) {
           <input
             aria-label="在职"
             type="checkbox"
+            disabled={pending}
             checked={active}
-            onChange={(event) => setActive(event.target.checked)}
+            onChange={(event) => { setActive(event.target.checked); setMessage(''); }}
           />{' '}
           在职
         </label>

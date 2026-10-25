@@ -113,7 +113,9 @@ test("real signup, dedup, staff permissions, notes, versions, CSV and audit", as
   const denied = await browser.newContext();
   for (const role of ["editor", "member"]) {
     await login(denied, role);
-    const response = await denied.request.get(origin + "/api/waitlist/export");
+    const response = await denied.request.post(origin + "/api/waitlist/export", {
+      headers: { origin },
+    });
     expect(response.status()).toBe(403);
     const customers = await denied.request.get(origin + "/api/customers/list");
     expect(customers.status()).toBe(403);
@@ -151,10 +153,15 @@ test("real signup, dedup, staff permissions, notes, versions, CSV and audit", as
     },
   });
   expect(stale.status()).toBe(409);
-  const exported = await page.request.get(
+  expect((await page.request.get("/api/waitlist/export")).status()).toBe(405);
+  expect((await page.request.post("/api/waitlist/export", {
+    headers: { origin: "https://other.invalid" },
+  })).status()).toBe(403);
+  const exported = await page.request.post(
     "/api/waitlist/export?search=" +
       email +
       "&status=contacted&page=99&pageSize=1",
+    { headers: { origin } },
   );
   expect(exported.status()).toBe(200);
   expect(exported.headers()["content-type"]).toContain("text/csv");
@@ -259,9 +266,11 @@ test("real signup, dedup, staff permissions, notes, versions, CSV and audit", as
   await page.getByLabel("邮箱搜索").fill(email);
   await page.getByRole("button", { name: "筛选", exact: true }).click();
   await expect(page.getByText("共 1 条", { exact: false })).toBeVisible();
-  const download = page.waitForEvent("download");
+  const downloading = page.waitForEvent("download");
   await page.getByRole("button", { name: "导出筛选结果，最多10000条" }).click();
-  expect((await download).suggestedFilename()).toBe("lumiq-waitlist.csv");
+  const download = await downloading;
+  expect(download.suggestedFilename()).toBe("lumiq-waitlist.csv");
+  expect(readFileSync((await download.path())!, "utf8")).toContain("'=1+1," + '""运营""');
   // A real API error must retain the last successful rows and cannot show a false empty state.
   await page.route("**/api/waitlist/list?**", (route) =>
     route.fulfill({

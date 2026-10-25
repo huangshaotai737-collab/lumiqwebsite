@@ -181,20 +181,20 @@ export default function SiteHeader() {
               ref={languageRef}
               className="lang-btn"
               onClick={() => setLangOpen((v) => !v)}
-              aria-haspopup="listbox"
+              aria-label={`${t("language")}: ${activeLanguage.label}`}
+              aria-controls={langOpen ? "site-language-options" : undefined}
               aria-expanded={langOpen}
             >
               <Globe2 size={16} aria-hidden="true" /> {activeLanguage.code}{" "}
               <span className="lang-caret">{cms.text("field_a11b193e1a6e95b8")}</span>
             </button>
             {langOpen && (
-              <ul className="lang-menu" role="listbox">
+              <ul id="site-language-options" className="lang-menu" aria-label={t("language")}>
                 {languages.map((o) => (
                   <li key={o.locale}>
                     <button
                       type="button"
-                      role="option"
-                      aria-selected={locale === o.locale}
+                      aria-current={locale === o.locale ? "true" : undefined}
                       className={`lang-item${locale === o.locale ? " active" : ""}`}
                       onClick={() => switchLanguage(o.locale)}
                     >
@@ -238,7 +238,6 @@ export default function SiteHeader() {
       <div
         id="mobile-navigation"
         className={`site-mobile-menu md:hidden ${menuOpen ? "flex open" : "hidden"}`}
-        role="menu"
         aria-hidden={!menuOpen}
       >
         <div className="site-mobile-menu-head">
@@ -247,7 +246,7 @@ export default function SiteHeader() {
             type="button"
             className="site-mobile-close"
             aria-label={t("closeMenu")}
-            onClick={closeMenu}
+            onClick={() => { closeMenu(); triggerRef.current?.focus(); }}
           >
             <X size={20} />
           </button>
@@ -257,7 +256,6 @@ export default function SiteHeader() {
             prefetch={false}
             key={l.href}
             href={l.href}
-            role="menuitem"
             aria-current={isActive(l.href) ? "page" : undefined}
             onClick={closeMenu}
             className={isActive(l.href) ? "active" : ""}

@@ -1,11 +1,15 @@
 -- Only unique fixtures and transaction-scoped configuration; all changes roll back.
 begin;
 select no_plan();
-create temporary table audit_fixture as select gen_random_uuid() a, gen_random_uuid() b,gen_random_uuid() admin_id,gen_random_uuid() bad_draft,(select release_id from public.content_publication where singleton) release_id,(select r.snapshot from public.content_releases r join public.content_publication p on p.release_id=r.id where p.singleton) snapshot;
+\ir ../support/content-fixture.inc
+create temporary table audit_fixture as select gen_random_uuid() a, gen_random_uuid() b,gen_random_uuid() admin_id,gen_random_uuid() bad_draft,gen_random_uuid() baseline_draft,gen_random_uuid() release_id,pg_temp.content_boundary_snapshot() snapshot;
 grant select on audit_fixture to authenticated;
 select diag('owned IDs before writes: '||row_to_json(f)::text) from (select a,b,admin_id,bad_draft from audit_fixture) f;
 insert into auth.users(id,email,email_confirmed_at,is_anonymous) select id,'audit-'||id||'@example.invalid',now(),false from audit_fixture cross join lateral unnest(array[a,b,admin_id]) id;
 insert into public.staff_memberships(user_id,role) select admin_id,'admin' from audit_fixture;
+insert into public.content_drafts(id,version,snapshot,created_by,updated_by) select baseline_draft,1,snapshot,admin_id,admin_id from audit_fixture;
+insert into public.content_releases(id,snapshot,draft_id,draft_version,created_by) select release_id,snapshot,baseline_draft,1,admin_id from audit_fixture;
+update public.content_publication set release_id=f.release_id from audit_fixture f where singleton;
 select lives_ok($$select private.assert_media_selection(snapshot,snapshot) from audit_fixture$$,'initial product aliases remain compatible');
 select throws_ok($$select private.assert_media_selection(jsonb_set(snapshot,'{products,ola,image}','"/api/media/12345678-1234-4123-8123-123456789abc"'),snapshot) from audit_fixture$$,'22023','INVALID_MEDIA','selection rejects product reference outside canonical slots');
 select throws_ok($$select private.assert_media_snapshot(jsonb_set(snapshot,'{products,ola,image}','"/api/media/12345678-1234-4123-8123-123456789abc"')) from audit_fixture$$,'22023','INVALID_MEDIA','publication rejects untracked product reference');

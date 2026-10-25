@@ -94,8 +94,9 @@ export default function Home() {
                   alt=""
                   fill
                   sizes="(max-width: 1199px) 100vw, 1px"
-                  unoptimized
+              quality={75}
                   priority
+                  fetchPriority="high"
                 />
               </picture>
             </div>

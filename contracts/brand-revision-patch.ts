@@ -264,7 +264,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.en.HomeRefresh.brandBody",
     "before": "Every family moves to its own beat. OLA grows with you — through learning, connection and the little moments in between.",
-    "after": "Every family moves to its own beat. LumiqOla grows with you — through learning, connection and the little moments in between."
+    "after": "LumiqOla is a companion concept for adults and older adults, centered on daily conversation and reminders."
   },
   {
     "path": "messages.en.HomeRefresh.experiences.companion.alt",
@@ -894,7 +894,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.en.Pal.way2Body",
     "before": "As the story changes, new interactions and abilities appear. Talk with the characters in the room.",
-    "after": "Bring familiar storybook characters into everyday conversation. The interaction is planned."
+    "after": "An expressive character could give everyday conversation a familiar face. Final interactions remain under review."
   },
   {
     "path": "messages.en.Pal.way3Body",
@@ -1074,7 +1074,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.en.Products.p5Desc",
     "before": "15.6-inch family display concept for calendars, chores, and meal planning",
-    "after": "A family display for recipes, calendars, chores and rewards, and shared photos."
+    "after": "A 15.6-inch family display concept for recipes, calendars, chores and rewards, and shared photos."
   },
   {
     "path": "messages.en.Products.p5Pill",
@@ -1569,7 +1569,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.ja.HomeRefresh.brandBody",
     "before": "家族には、それぞれのペースがあります。学び、つながり、日々の小さな時間を、OLA と一緒に。",
-    "after": "家族には、それぞれのペースがあります。学び、つながり、日々の小さな時間を、LumiqOla と一緒に。"
+    "after": "LumiqOla は、大人とシニアの日々の会話やリマインダーを中心に、一人ひとりのペースに寄り添うコンパニオンの構想です。"
   },
   {
     "path": "messages.ja.HomeRefresh.experiences.companion.alt",
@@ -2184,7 +2184,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.ja.Pal.way2Body",
     "before": "物語の変化に合わせて新しい反応や能力が現れ、部屋の中のキャラクターと会話できます。",
-    "after": "絵本の親しみあるキャラクターと日々の会話を。対話方法は計画中です。"
+    "after": "親しみのあるキャラクターと日々の会話を。最終的な対話方法は確認中です。"
   },
   {
     "path": "messages.ja.Pal.way3Body",
@@ -2359,7 +2359,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.ja.Products.p5Desc",
     "before": "カレンダー、家事、食事の計画に使う15.6インチのファミリーディスプレイ構想。",
-    "after": "レシピ、カレンダー、家事とごほうび、家族の写真をひとつにする共有ディスプレイ。"
+    "after": "レシピ、カレンダー、家事とごほうび、家族の写真をひとつにする15.6インチの共有ディスプレイ構想。"
   },
   {
     "path": "messages.ja.Products.p5Pill",
@@ -2844,7 +2844,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.zh-hant.HomeRefresh.brandBody",
     "before": "每個家庭都有自己的步調。讓 OLA 陪你學習、交流，也陪伴日常中每個細微時刻。",
-    "after": "每個家庭都有自己的步調。讓 LumiqOla 陪你學習、交流，也陪伴日常中每個細微時刻。"
+    "after": "LumiqOla 為成人與長輩構思，以日常對話與提醒，陪伴各自的生活步調。"
   },
   {
     "path": "messages.zh-hant.HomeRefresh.experiences.companion.alt",
@@ -3469,7 +3469,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.zh-hant.Pal.way2Body",
     "before": "故事變化時，新的互動與能力隨之出現，讓你與房間裡的角色對話。",
-    "after": "讓故事書裡熟悉的角色走進日常對話；互動方式正在規劃。"
+    "after": "讓熟悉的角色參與日常對話；最終互動方式仍待確認。"
   },
   {
     "path": "messages.zh-hant.Pal.way3Body",
@@ -3639,7 +3639,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.zh-hant.Products.p5Desc",
     "before": "15.6 吋家庭顯示器概念，整合行事曆、家務與餐食規劃。",
-    "after": "集中呈現食譜、行事曆、家務與獎勵，以及全家共享照片的家庭顯示器。"
+    "after": "15.6 吋家庭顯示器概念，集中呈現食譜、行事曆、家務與獎勵，以及全家共享照片。"
   },
   {
     "path": "messages.zh-hant.Products.p5Pill",
@@ -4204,7 +4204,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.en.Pal.way2Title",
     "before": "Ambient Story Sync",
-    "after": "Interact with storybook characters"
+    "after": "Personal character interaction"
   },
   {
     "path": "messages.en.Pal.strengthsIntro",
@@ -4379,7 +4379,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.zh-hant.Pal.way2Title",
     "before": "環境故事同步",
-    "after": "與故事書角色互動"
+    "after": "角色互動"
   },
   {
     "path": "messages.zh-hant.Pal.strengthsIntro",
@@ -4549,7 +4549,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.ja.Pal.way2Title",
     "before": "アンビエント・ストーリー同期",
-    "after": "絵本のキャラクターと対話"
+    "after": "キャラクターとの対話"
   },
   {
     "path": "messages.ja.Pal.strengthsIntro",
@@ -4655,5 +4655,95 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
     "path": "messages.ja.Tablet.spec2",
     "before": "TUV80認証 — ブルーライトを80%低減（BLR）",
     "after": "TUV80 低ブルーライト認証 · ブルーライトを80%低減（BLR）"
+  },
+  {
+    "path": "messages.en.HomeRefresh.rhythms.learn.title",
+    "before": "Learn",
+    "after": "Talk"
+  },
+  {
+    "path": "messages.en.HomeRefresh.rhythms.learn.body",
+    "before": "Curiosity-led discovery that sparks confidence.",
+    "after": "Share a thought from your day."
+  },
+  {
+    "path": "messages.en.HomeRefresh.rhythms.connect.title",
+    "before": "Connect",
+    "after": "Remember"
+  },
+  {
+    "path": "messages.en.HomeRefresh.rhythms.connect.body",
+    "before": "Meaningful time together. Little moments that bring us closer.",
+    "after": "Keep everyday plans and reminders close."
+  },
+  {
+    "path": "messages.en.HomeRefresh.rhythms.care.title",
+    "before": "Care",
+    "after": "Unwind"
+  },
+  {
+    "path": "messages.en.HomeRefresh.rhythms.care.body",
+    "before": "Thoughtful companionship for the people you love.",
+    "after": "A familiar voice for quiet moments at home."
+  },
+  {
+    "path": "messages.zh-hant.HomeRefresh.rhythms.learn.title",
+    "before": "學習",
+    "after": "對話"
+  },
+  {
+    "path": "messages.zh-hant.HomeRefresh.rhythms.learn.body",
+    "before": "讓好奇心帶路，在探索中建立自信。",
+    "after": "聊聊今天發生的事。"
+  },
+  {
+    "path": "messages.zh-hant.HomeRefresh.rhythms.connect.title",
+    "before": "連結",
+    "after": "提醒"
+  },
+  {
+    "path": "messages.zh-hant.HomeRefresh.rhythms.connect.body",
+    "before": "共享有意義的時光，讓彼此更親近。",
+    "after": "留意行程與日常小事。"
+  },
+  {
+    "path": "messages.zh-hant.HomeRefresh.rhythms.care.title",
+    "before": "關懷",
+    "after": "陪伴"
+  },
+  {
+    "path": "messages.zh-hant.HomeRefresh.rhythms.care.body",
+    "before": "用心設計的陪伴，獻給你所愛的人。",
+    "after": "安靜的時刻，也能聊上幾句。"
+  },
+  {
+    "path": "messages.ja.HomeRefresh.rhythms.learn.title",
+    "before": "学ぶ",
+    "after": "会話"
+  },
+  {
+    "path": "messages.ja.HomeRefresh.rhythms.learn.body",
+    "before": "好奇心から始まる発見が、自信につながる。",
+    "after": "今日の出来事を、気軽に話せるように。"
+  },
+  {
+    "path": "messages.ja.HomeRefresh.rhythms.connect.title",
+    "before": "つながる",
+    "after": "リマインダー"
+  },
+  {
+    "path": "messages.ja.HomeRefresh.rhythms.connect.body",
+    "before": "一緒に過ごす小さな時間が、家族を近づける。",
+    "after": "予定や日々の用事を思い出すきっかけに。"
+  },
+  {
+    "path": "messages.ja.HomeRefresh.rhythms.care.title",
+    "before": "寄り添う",
+    "after": "寄り添い"
+  },
+  {
+    "path": "messages.ja.HomeRefresh.rhythms.care.body",
+    "before": "大切な人のために、心を込めたパートナー。",
+    "after": "家での静かな時間に、なじみの声を。"
   }
 ];

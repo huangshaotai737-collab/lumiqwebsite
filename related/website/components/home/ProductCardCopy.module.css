@@ -14,7 +14,7 @@
 
 .copy {
   position: absolute;
-  inset: 252px 16px 27px;
+  inset: 246px 16px 27px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -26,7 +26,7 @@
   position: static;
   width: 100%;
   margin: 0;
-  font: 600 36px/1.2 var(--font-sans, Arial, sans-serif);
+  font: 600 42px/1.2 var(--font-sans, Arial, sans-serif);
   text-align: center;
   white-space: nowrap;
 }
@@ -55,13 +55,15 @@
   width: 100%;
   margin-top: auto;
   padding-top: 8px;
-  font: 600 32px/1.25 var(--font-sans, Arial, sans-serif);
+  font: 600 38px/1.25 var(--font-sans, Arial, sans-serif);
   letter-spacing: -.025em;
   text-align: center;
-  white-space: nowrap;
+  white-space: normal;
+  text-wrap: balance;
 }
 
-.surface[data-active="true"] .action { font-size: 23px; }
+.surface[data-active="false"] .action { line-height: 1.1; }
+.surface[data-active="true"] .action { font-size: 23px; white-space: nowrap; }
 
 /* The same projected surface owns the text and its pointer/keyboard target. */
 .surface :global(.glass-product-hit) {

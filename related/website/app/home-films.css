@@ -11,6 +11,12 @@
   .lh-films-layout { --film-width: min(45.5vw,1092px); margin-right: 3vw; }
   .lh-films-stage { width: min(50vw,1200px); }
 }
+/* On panoramic displays, viewport height bounds the complete film and controls.
+   Keep the desktop arrangement and the original chapter background. */
+@media(min-width:1200px) and (min-aspect-ratio:5/2) {
+  .lh-films-layout { --film-height: min(614.25px, calc((100svh - 128px) * .68)); --film-width: calc(var(--film-height) * 16 / 9); }
+  .lh-films-stage { width: calc(var(--film-width) / .91); height: calc(100svh - 128px); }
+}
 .lh-film-slot { position: absolute; top: 50%; right: 0; width: 91%; height: calc(var(--film-height) * var(--card-height)); translate: 0 -50%; transform: translateY(calc(var(--slot) * (var(--film-height) * .62 + 24px))) scale(var(--card-scale)); opacity: var(--card-opacity); transform-origin: center; }
 .lh-film-slot { z-index: 1; }
 .lh-film-slot[data-main=true] { z-index: 2; }

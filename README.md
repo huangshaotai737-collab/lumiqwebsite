@@ -2,7 +2,31 @@
 
 官网位于 `related/website/`，独立控制中台位于 `related/admin/`，两站共用根目录的合约与数据库迁移。生产分支为 `main`。
 
-## 最新官网与后台检查版本（2026-10-22）
+## 合并版本｜供双方复核（2026-10-25）
+
+[`codex/merged-review-20261025`](https://github.com/huangshaotai737-collab/lumiqwebsite/tree/codex/merged-review-20261025) 将用户独立分支 `f918842` 与协作者修复分支 `4a81e57` 合在一处，供双方检查。两个来源分支及 `main` 保持原样；此分支没有部署到正式网站。
+
+冲突集中在品牌文案源文件及两份生成副本。合并时保留开发／规划状态和 Tablet 联动说明，补入协作者修复的首页成人定位、Ola 角色描述及 Orb「15.6 吋」文案。文件保留核对、测试结果与尚待验证的范围见[合并复核记录](docs/merge-review-2026-10-25.md)。协作者只发布在本机 CMS 的 28 个字段不随 Git 分支自动迁移。
+
+## 协作者独立分支交接记录（2026-10-25）
+
+本次交付分支为 [`codex/review-ready-20261025`](https://github.com/huangshaotai737-collab/lumiqwebsite/tree/codex/review-ready-20261025)，包含官网、独立后台、共用合约、数据库迁移和本轮验收记录。应用代码基于本机已验收提交 `83b841a58b232a75a5103f6c7d24c788ce084541`；其后的本次交接提交只更新本说明。
+
+旧审核分支上的独立提交 `52504d4`、`e48335c`（OLA功能状态／参考价格、Tablet蓝光文案）未并入这个已验收快照，旧分支保持原样。检查人员比较分支时请保留这一区别，不将此分支视为已合并全部远端改动。源码交付不代表生产发布，`main` 不变；账号、环境密钥、数据库业务数据和本机草稿不进入仓库。
+
+新增 [设计师待交付清单](https://hcnbsg6ttb3t.feishu.cn/docx/AMevdAozIoYRdaxLmi1cS2DTnGf)，仅用“序号／品牌方要求／我们需要做什么”三列整理13组设计与素材交付事项。
+
+## 协作者本机验收记录（2026-10-25）
+
+本轮官网与后台走查、修复和证据见 [追加修复与最终报告](qa/reports/2026-10-25/followup-report.md)（[首轮历史报告](qa/reports/2026-10-25/detailed-report.md)）、[147项品牌清单状态](qa/reports/2026-10-25/brand-status.csv) 和 [测试矩阵](qa/reports/2026-10-25/test-matrix.csv)。上述报告记录的是本机验收完成时的状态；后续源码交付分支见上一节，尚未部署生产。
+
+官网入口：http://127.0.0.1:4211/zh-hant；后台入口：http://127.0.0.1:4270/login。原本地账号、草稿与数据库保留。最终构建源码 SHA-256 为 `fe61b33b24f26d6cee480ee93b7ecb0386f79f83da324660f90a239c784b33e8`，追加修复基线提交为 `e843c60c1ce66e3cd0fb24c92ae7aad6833e5f4f`。
+
+原品牌147项中，114项在注明范围内完成（77.6%），24项待材料或外部验收，9项待设计、范围或进一步验证。手机限速首屏 LCP 为1.52–1.70秒、中位1.696秒（本机实验室样本）；正式邮件、生产环境、真实设备等验收尚未完成，不作为无条件上线结论。全站原背景保留，没有新增阅读底色。
+
+[飞书原清单及红框截图](https://hcnbsg6ttb3t.feishu.cn/docx/AhN4dg0iqoJ3kHxV9kIcys92nn3) · [代办](https://hcnbsg6ttb3t.feishu.cn/docx/UCFgdKhn2orJcXxgOiWcmPn9nVd)
+
+## 仓库交接记录（2026-10-22）
 
 最新版官网、独立后台、共用合约及数据库迁移统一位于 [`codex/admin-platform-design-20261020`](https://github.com/huangshaotai737-collab/lumiqwebsite/tree/codex/admin-platform-design-20261020) 审核分支。检查人员请先阅读 [运行与检查交接](docs/review-2026-10-22.md)。源码检查交付不代表生产部署或真实支付验收。
 
@@ -16,11 +40,11 @@
 
 ## 本地运行
 
-当前审核分支两站均使用 Next.js 16.4.2，使用 Node 22；后台项目独立。2026-10-22 品牌收尾见 [实施记录](docs/brand-revision-2026-10-22.md)，最新源码检查与验证边界见 [检查交接](docs/review-2026-10-22.md)。
+当前审核分支两站均使用 Next.js 16.4.2，使用 Node 22；后台项目独立。2026-10-22 品牌收尾见 [实施记录](docs/brand-revision-2026-10-22.md)，最新源码检查与验证边界见 [2026-10-25验收报告](qa/reports/2026-10-25/detailed-report.md)，原部署交接见 [检查交接](docs/review-2026-10-22.md)。
 
 ```sh
 git lfs install
-git clone --branch codex/admin-platform-design-20261020 https://github.com/huangshaotai737-collab/lumiqwebsite.git
+git clone --branch codex/merged-review-20261025 https://github.com/huangshaotai737-collab/lumiqwebsite.git
 cd lumiqwebsite
 git lfs pull
 cd related/website

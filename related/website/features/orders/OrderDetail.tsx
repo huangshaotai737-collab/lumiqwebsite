@@ -94,10 +94,11 @@ export function OrderDetail({ locale, id }: { locale: Locale; id: string }) {
   }
   return (
     <>
+      <h1>{t.detail}</h1>
       <p role="status">{message}</p>
       {order && (
         <section className="orders-card">
-          <h1>{order.id}</h1>
+          <h2>{order.id}</h2>
           <p>{order.status === "cancelled" ? t.cancelled : t.waiting}</p>
           <p>{t.notice}</p>
           <p>{t.payment}</p>
