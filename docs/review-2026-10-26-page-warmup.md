@@ -36,6 +36,17 @@
 
 ## 发布与限制
 
-待更新原展示站点 `https://lumiq-showcase-20261025.vercel.app/zh-hant`，发布后补记实际部署编号与在线结果。
+已更新原展示站点 `https://lumiq-showcase-20261025.vercel.app/zh-hant`。
+
+- 应用提交：`3140fbe8b9fc0bf808d821e954f71078c648054f`。
+- 部署：`dpl_AdQnHVPKLPuHWm9Apq2yi3ErPTRc`，Vercel 返回 READY，原 productionUrl 已绑定。
+- 独立部署地址：`https://lumiq-showcase-20261025-5l169qmdb.vercel.app`。
+- 部署包：723 个文件，SHA-256 `fb5a31f777dae1c14c1c16ac2e9e44fc95479c5ae7ea4bfccc93143f14b47cfa`；不包含本地环境变量、依赖、构建缓存或后台数据。
+- 在线首轮 10 项：9 PASS，1 FAIL。Chrome 的慢后台请求用例在最初 HTML 请求时遇到 `net::ERR_CONNECTION_CLOSED`，尚未执行任何导航断言。同一原用例重试仍出现该连接错误，两个失败记录均保留。
+- 原用例对所有网络请求使用了拦截器。将拦截范围收窄至需要人为挂起的 2 个 RSC 请求，文档与其余资源使用浏览器正常网络路径后，同一慢请求/导航断言在 Chrome、WebKit 在线复测 2 PASS，本地复测 2 PASS。没有更改应用行为、期望结果或放宽时限。
+- 在线全部 10 个场景最终都有通过证据，但上述 Chrome 用例不能记为首次通过。报告分别保留首次失败、原样重试和拦截范围修正后的结果。
+- 两个引擎的在线证据均记录 16 条公开路由，预加载阶段视频请求为 0；产品跳转复用已加载的大图 URL 和路由缓存。正反向滚动动效正常，背景视频从约 5.42 秒前进到 9.5 秒再回退，页面错误列表为空。
+
+在线证据：`.lumiq-local/page-warmup-20261026/online-results.json`、`online-connection-retest.json`、`online-targeted-interception.json`。截图和录像位于同目录对应结果文件夹。发布后只调整测试拦截与本文记录，部署的应用代码没有改变。
 
 上述浏览器验证为本机无头 Chrome 和 Playwright WebKit，不等于真实手机或系统 Safari 的验收。后台准备需要网络和停留时间；路由缓存可能失效，不保证每个链接在任何时候都瞬间打开，也不提供全站离线访问。视频只保留当前页面原有按需行为，不为未来页面预先下载整段视频。

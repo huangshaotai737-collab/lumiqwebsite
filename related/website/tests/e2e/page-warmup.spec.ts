@@ -42,12 +42,12 @@ test('slow background page requests never hold up a chosen navigation', async ({
   const pending:string[]=[];
   let release!: () => void;
   const gate=new Promise<void>(resolve => {release=resolve;});
-  await page.route('**/*', async route => {
+  // Intercept only the slow prefetches, leaving the document/TLS connection and
+  // unrelated requests on the browser's normal network path.
+  await page.route(url => url.searchParams.has('_rsc') && ['/en/products','/en/story'].includes(url.pathname), async route => {
     const url=new URL(route.request().url());
-    if (url.searchParams.has('_rsc') && ['/en/products','/en/story'].includes(url.pathname)) {
-      pending.push(url.pathname);
-      await gate;
-    }
+    pending.push(url.pathname);
+    await gate;
     await route.continue().catch(()=>{});
   });
   try {
