@@ -1,17 +1,17 @@
 /* Orb's feature-led layout is scoped to this product; shared product pages keep their template. */
 .lumiq-root .orb-page {
-  --orb-ink: #263c34;
-  --orb-muted: #57645d;
-  --orb-line: rgba(45, 66, 54, .14);
+  --orb-ink: var(--pd-ink);
+  --orb-muted: var(--pd-muted);
+  --orb-line: rgba(21, 36, 57, .16);
   color: var(--orb-ink);
 }
 .lumiq-root .orb-page .pd-shell { width: min(1200px, calc(100% - 80px)); }
 .lumiq-root .orb-page :is(p, h1, h2, h3) { overflow-wrap: anywhere; }
 .lumiq-root .orb-page :is(a, button) { -webkit-tap-highlight-color: transparent; }
 .lumiq-root main.orb-page .pd-primary-action { width: fit-content; background: var(--orb-ink); }
-.lumiq-root main.orb-page .pd-primary-action:hover { background: #4a6354; }
+.lumiq-root main.orb-page .pd-primary-action:hover { background: var(--ink-2); }
 .lumiq-root .orb-page .orb-eyebrow {
-  color: #506557;
+  color: var(--ink-2);
   font-size: 16px;
   font-weight: 650;
   letter-spacing: .09em;
@@ -44,28 +44,39 @@
   padding: 26px 22px 54px;
   border: 1px solid var(--orb-line);
   border-radius: 22px;
-  background: #fffefa;
+  background: rgba(255, 255, 255, .28);
+  box-shadow: 0 12px 32px rgba(21, 36, 57, .04);
   transition: background .2s ease, border-color .2s ease;
 }
-.lumiq-root .orb-page .orb-overview-card:hover { border-color: #6f8676; background: #f0f4ee; }
-.lumiq-root .orb-page .orb-feature-icon { display: grid; place-items: center; width: 54px; height: 54px; border-radius: 16px; background: #eaf0e8; color: #47634d; }
+.lumiq-root .orb-page .orb-overview-card:hover { border-color: rgba(21, 36, 57, .3); background: rgba(255, 255, 255, .48); }
+.lumiq-root .orb-page .orb-feature-icon { display: grid; place-items: center; width: 54px; height: 54px; border: 1px solid rgba(21, 36, 57, .12); border-radius: 50%; background: transparent; color: var(--ink-2); }
 .lumiq-root .orb-page .orb-feature-icon svg { width: 34px; height: 34px; }
-.lumiq-root .orb-page .orb-card-label { margin-top: 24px; color: #506557; font-size: 16px; font-weight: 650; line-height: 1.5; }
+.lumiq-root .orb-page .orb-card-label { margin-top: 24px; color: var(--ink-2); font-size: 16px; font-weight: 650; line-height: 1.5; }
 .lumiq-root .orb-page .orb-overview-card h3 { margin-top: 10px; color: var(--orb-ink); font-size: 22px; line-height: 1.3; letter-spacing: -.025em; }
 .lumiq-root .orb-page .orb-card-body { margin-top: 14px; color: var(--orb-muted); font-size: 16px; line-height: 1.65; }
-.lumiq-root .orb-page .orb-card-arrow { position: absolute; right: 22px; bottom: 20px; color: #47634d; font-size: 25px; line-height: 1; }
+.lumiq-root .orb-page .orb-card-arrow { position: absolute; right: 22px; bottom: 20px; color: var(--ink-2); font-size: 25px; line-height: 1; }
 .lumiq-root .orb-page .orb-detail { scroll-margin-top: 105px; border-top: 1px solid var(--orb-line); }
 .lumiq-root .orb-page .orb-detail:focus { outline: none; }
 .lumiq-root .orb-page .orb-detail-layout { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.4fr); align-items: start; gap: clamp(38px, 6vw, 84px); }
 .lumiq-root .orb-page .orb-section-number { display: block; margin-bottom: 24px; color: var(--orb-muted); font-size: 18px; font-variant-numeric: tabular-nums; line-height: 1.5; }
-.lumiq-root .orb-page .orb-detail-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
-.lumiq-root .orb-page .orb-detail-card { min-width: 0; padding: 26px; border: 1px solid var(--orb-line); border-radius: 20px; background: rgba(255, 255, 251, .8); }
-.lumiq-root .orb-page .orb-detail-step { display: flex; align-items: center; justify-content: space-between; margin-bottom: 22px; color: #627b66; font-size: 16px; line-height: 1; font-variant-numeric: tabular-nums; }
-.lumiq-root .orb-page .orb-detail-step svg { width: 30px; height: 30px; }
-.lumiq-root .orb-page .orb-detail-card h3 { color: var(--orb-ink); font-size: 22px; line-height: 1.3; letter-spacing: -.025em; }
-.lumiq-root .orb-page .orb-detail-body { margin-top: 14px; color: var(--orb-muted); font-size: 16px; line-height: 1.7; }
-.lumiq-root .orb-page .orb-planned-label { display: inline-block; margin-top: 14px; padding: 5px 10px; border: 1px solid #a2b29f; border-radius: 8px; color: #3f5d43; background: #edf2e8; font-size: 16px; font-weight: 600; line-height: 1.5; }
-.lumiq-root .orb-page .orb-detail-grid--three > :last-child { grid-column: 1 / -1; }
+/* Use the product template's open numbered rows, keeping the original
+   background visible instead of introducing a second card design. */
+.lumiq-root .orb-page .orb-detail-grid { display: grid; grid-template-columns: minmax(0, 1fr); border-top: 1px solid var(--orb-line); }
+.lumiq-root .orb-page .orb-detail-card {
+  display: grid;
+  grid-template-columns: 32px minmax(0, 1fr);
+  column-gap: 22px;
+  row-gap: 12px;
+  align-content: start;
+  min-width: 0;
+  padding: 26px 0;
+  border-bottom: 1px solid var(--orb-line);
+}
+.lumiq-root .orb-page .orb-detail-step { grid-column: 1; grid-row: 1 / span 3; padding-top: 3px; color: var(--ink-2); font-size: 18px; line-height: 1.5; font-variant-numeric: tabular-nums; }
+.lumiq-root .orb-page .orb-detail-step svg { display: none; }
+.lumiq-root .orb-page .orb-detail-card h3 { grid-column: 2; color: var(--orb-ink); font-size: var(--lq-h3); line-height: 1.3; letter-spacing: -.025em; }
+.lumiq-root .orb-page .orb-detail-body { grid-column: 2; color: var(--ink-2); font-size: 16px; line-height: 1.7; }
+.lumiq-root .orb-page .orb-planned-label { grid-column: 2; width: fit-content; padding: 4px 12px; border: 1px solid var(--orb-line); border-radius: 999px; color: var(--ink-2); font-size: 16px; font-weight: 500; line-height: 1.5; }
 .lumiq-root .orb-page .orb-finishes { border-top: 1px solid var(--orb-line); }
 .lumiq-root .orb-page .orb-finish-selection { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); align-items: center; gap: 48px; margin-top: 42px; }
 .lumiq-root .orb-page .orb-finish-visual { min-width: 0; }
@@ -74,7 +85,7 @@
 .lumiq-root .orb-page .orb-finish-picker p strong { margin: 0; color: var(--orb-ink); font-size: 26px; line-height: 1.4; }
 .lumiq-root .orb-page .orb-finish-picker button { width: 48px; height: 48px; }
 .lumiq-root .orb-page .orb-finish-picker button span { width: 30px; height: 30px; }
-.lumiq-root .orb-page .orb-finish-picker button.is-active { border-color: #426149; border-width: 2px; }
+.lumiq-root .orb-page .orb-finish-picker button.is-active { border-color: var(--orb-ink); border-width: 2px; }
 .lumiq-root .orb-page .orb-finish-note { margin-top: 22px; color: var(--orb-muted); font-size: 18px; line-height: 1.6; }
 .lumiq-root .orb-page .orb-concept-note { color: var(--orb-muted); font-size: 16px; line-height: 1.6; }
 .lumiq-root .orb-page .orb-finish-copy .orb-concept-note { margin-top: 12px; }
@@ -120,9 +131,8 @@
   .lumiq-root .orb-page .orb-card-label { margin-top: 16px; }
   .lumiq-root .orb-page .orb-overview-card h3 { font-size: 22px; }
   .lumiq-root .orb-page .orb-card-body { margin-top: 10px; }
-  .lumiq-root .orb-page .orb-detail-grid { grid-template-columns: 1fr; gap: 14px; }
-  .lumiq-root .orb-page .orb-detail-card { padding: 24px; }
-  .lumiq-root .orb-page .orb-detail-grid--three > :last-child { grid-column: auto; }
+  .lumiq-root .orb-page .orb-detail-grid { grid-template-columns: minmax(0, 1fr); }
+  .lumiq-root .orb-page .orb-detail-card { grid-template-columns: 26px minmax(0, 1fr); column-gap: 16px; padding: 22px 0; }
   .lumiq-root .orb-page .orb-detail { scroll-margin-top: 92px; }
   .lumiq-root .orb-page .orb-finish-selection { grid-template-columns: 1fr; gap: 10px; margin-top: 24px; }
   .lumiq-root .orb-page .orb-finish-copy { text-align: center; }

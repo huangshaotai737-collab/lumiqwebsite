@@ -85,14 +85,14 @@
   .lumiq-root main.product-detail-light.pd-tablet .pd-index-row p { margin-top: 6px; }
   .lumiq-root main.product-detail-light.pd-tablet :is(.pd-feature-visual, .pd-extra-visual) { max-height: 260px; aspect-ratio: 4 / 3; }
   .lumiq-root main.pd-tablet .tablet-growth-skills { gap: 12px; }
-  .lumiq-root main.pd-tablet .tablet-growth-skill { padding: 16px; gap: 12px; }
-  .lumiq-root main.pd-tablet .tablet-growth-number { width: 32px; height: 32px; flex-basis: 32px; font-size: 16px; border-radius: 10px; }
+  .lumiq-root main.pd-tablet .tablet-growth-skill { padding: 20px 0; gap: 12px; }
+  .lumiq-root main.pd-tablet .tablet-growth-number { width: 24px; min-height: 28px; flex-basis: 24px; font-size: 18px; }
   .lumiq-root main.pd-tablet .tablet-growth-skill h3 { font-size: 21px; }
   .lumiq-root .footer .foot-brand-details p { font-size: 16px; line-height: 1.6; }
 }
 @media (min-width: 390px) and (max-width: 767px) {
   .lumiq-root main.pd-tablet .tablet-growth-skills { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .lumiq-root main.pd-tablet .tablet-growth-skill { display: block; padding: 14px; border-top: 3px solid var(--tablet-skill-color); }
+  .lumiq-root main.pd-tablet .tablet-growth-skill { display: block; padding: 20px 0; }
   .lumiq-root main.pd-tablet .tablet-growth-number { margin-bottom: 10px; }
   .lumiq-root main.pd-tablet .tablet-growth-skill h3 { font-size: 20px; }
 }
