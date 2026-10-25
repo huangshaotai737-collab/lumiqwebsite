@@ -1,4 +1,3 @@
-import {homeMotionQuery} from "./responsiveLayout";
 import { CarouselInput } from "@/lib/carousel-input";
 
 /** A trackpad gesture changes one card. Vertical input always belongs to the page. */
@@ -15,49 +14,4 @@ export function mountHorizontalCarousel(target: HTMLElement, advance: (step: num
   };
   target.addEventListener("wheel", wheel, { passive: false });
   return () => target.removeEventListener("wheel", wheel);
-}
-
-/** Catch a wheel pulse briefly at a complete composition; never require card advances. */
-export function mountReadingAnchors(root: HTMLElement) {
-  const enabled = matchMedia(`${homeMotionQuery} and (pointer: fine)`);
-  const targets = [...root.querySelectorAll<HTMLElement>(".lh-products-stage, .lh-films-stage, .lh-family-anchor, .lh-room-layout, .lh-safety, #join")];
-  const visited = new Set<HTMLElement>();
-  let held: HTMLElement | null = null;
-  let began = 0;
-  let lastInput = -Infinity;
-  let timeout: ReturnType<typeof setTimeout> | undefined;
-  const release = () => { if (held) delete held.dataset.readingAnchored; held = null; clearTimeout(timeout); };
-  const wheel = (event: WheelEvent) => {
-    if (!enabled.matches || event.defaultPrevented || event.ctrlKey || event.shiftKey || Math.abs(event.deltaY) <= Math.abs(event.deltaX)) return;
-    const now = performance.now();
-    const previousInput = lastInput;
-    lastInput = now;
-    if (held) {
-      // Fresh gestures leave immediately; decaying momentum has a bounded settling window.
-      if (now - previousInput > 180 || now - began > 600) release();
-      else { event.preventDefault(); clearTimeout(timeout); timeout = setTimeout(release, 180); return; }
-    }
-    const navBottom = document.querySelector(".site-nav")?.getBoundingClientRect().bottom ?? 74;
-    const landing = navBottom + 12;
-    const unit = event.deltaMode === 1 ? 16 : event.deltaMode === 2 ? innerHeight : 1;
-    const delta = event.deltaY * unit;
-    const direction = Math.sign(delta);
-    const candidates = targets.filter(target => {
-      const bounds = target.getBoundingClientRect();
-      if (bounds.top > innerHeight || bounds.bottom < 0) visited.delete(target);
-      const distance = bounds.top - landing;
-      return !visited.has(target) && direction * distance > 2 && direction * distance <= Math.abs(delta) + 2;
-    }).sort((a, b) => Math.abs(a.getBoundingClientRect().top - landing) - Math.abs(b.getBoundingClientRect().top - landing));
-    const target = candidates[0];
-    if (!target) return;
-    event.preventDefault();
-    visited.add(target);
-    held = target;
-    began = now;
-    target.dataset.readingAnchored = "true";
-    window.scrollTo({ top: scrollY + target.getBoundingClientRect().top - landing, behavior: "instant" });
-    timeout = setTimeout(release, 180);
-  };
-  window.addEventListener("wheel", wheel, { passive: false });
-  return () => { release(); window.removeEventListener("wheel", wheel); };
 }

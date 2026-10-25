@@ -11,7 +11,6 @@ import { mountProductRail } from "./productRail";
 import { mountRoomAnchor } from "./roomAnchor";
 import { mountOpeningVideo, openingVideoQuery } from "./openingVideo";
 import { preloadScenes } from "./preloadScenes";
-import { mountReadingAnchors } from "./readingNavigation";
 import { mountHomePosition } from "./homePosition";
 import HomePageWarmup from "./HomePageWarmup";
 gsap.registerPlugin(useGSAP, ScrollTrigger);
@@ -39,7 +38,6 @@ export default function HomeMotion({ children }: { children: ReactNode }) {
         ? mountProductRail(root.current)
         : () => {};
       const releaseRoom = root.current ? mountRoomAnchor(root.current) : () => {};
-      const releaseReading = root.current ? mountReadingAnchors(root.current) : () => {};
       const mm = gsap.matchMedia();
       mm.add(
         {
@@ -122,7 +120,6 @@ export default function HomeMotion({ children }: { children: ReactNode }) {
         releasePosition();
         document.fonts.removeEventListener("loadingdone", fontsChanged);
         releaseImages();
-        releaseReading();
         mm.revert();
         releaseRoom();
         releaseProducts();

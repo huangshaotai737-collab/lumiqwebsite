@@ -136,7 +136,12 @@ export function mountHomePosition(root: HTMLElement) {
   window.addEventListener("pointerdown", input, { passive: true });
   window.addEventListener("keydown", key);
   document.fonts.ready.then(schedule);
-  capture();
+  // The browser/Next router may already have restored a scroll offset here,
+  // but HomeMotion has not created the opening's pin yet. Capturing this
+  // temporary layout would pick a later chapter and pull the reader down when
+  // the initial refresh adds the pin. The first scheduled settle captures only
+  // after the synchronous motion setup has finished; real resizes still use
+  // the last settled snapshot above.
   schedule();
 
   return () => {
