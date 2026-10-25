@@ -24,4 +24,14 @@ Chrome / WebKit 共 32 个页面组合通过：两页 × 繁中／英文／日�
 
 ## 发布
 
-待更新原展示站点，发布与在线复测结果完成后补记。
+已发布至 `https://lumiq-showcase-20261025.vercel.app`，Vercel 返回 READY，原网址已绑定。
+
+- 应用提交：`a021cea02aa67bc0b2d3a04c12abf58a36ca52e7`。
+- 部署：`dpl_CvmmCRvpP5nwfkB8odjKpBX1YbAJ`。
+- 独立地址：`https://lumiq-showcase-20261025-747d3akyc.vercel.app`。
+- 部署包 SHA-256：`7604c54dee3caaf7b1bec0340f7d1f029a7b2f9a660d813c9c9eef0f71083f29`；723 个文件，不含本地环境变量或构建目录。相对上一部署只改 3 份应用 CSS，以及上一轮已经验证的预加载测试脚本（测试不进入应用构建）。
+- 在线繁中电脑／手机 × 两页 × 两种浏览器的首轮结果为 7 PASS / 1 FAIL。失败项是 Chrome 电脑 Tablet：HTML 请求出现 `ERR_CONNECTION_CLOSED`，原用例重试也在加载 HTML 时中断；尚未进入 UI 断言。保留 `online-results.json`、`online-retest.json` 与 trace。
+- 另用独立 Chrome 正常直接访问线上 Tablet 成功：六技能、四阶段、新配色、候补跳转和脚本错误检查通过，证据为 `direct-online.log`、`direct-online-tablet.png`。连接中断原因没有确认，不写成全部线上测试首次通过，也没有为此调整应用或放宽断言。
+- Orb 电脑／手机、Tablet 手机及 WebKit 电脑的完整线上文案、样式、布局与相关操作检查通过。线上检查不代表正式支付、账号或数据库验收。
+
+供查看的本地截图：`/Users/huangshaotai/Documents/outputs/01a13132-7aa0-7d01-8889-c18bbc65ccec/product-ui-20261026/`。
