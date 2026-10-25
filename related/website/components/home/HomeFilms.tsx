@@ -222,7 +222,7 @@ export default function HomeFilms() {
       <div ref={characterHost} className="lh-film-character" data-alpha-video={Boolean(characterFormat && !characterFailed)} aria-hidden="true">
       {characterFormat && !characterFailed ? <video key={characterFormat} ref={character} muted playsInline preload="none" poster={mediaRequested ? cms.url("/assets/character-20261012/poster-clean.png") : undefined} onError={() => setCharacterFailed(true)}>
         <source src={cms.url(`/assets/character-20261012/ola-girl-clean-alpha${characterFormat === "hevc" ? "-safari.mov" : ".webm"}`)} type={characterFormat === "hevc" ? 'video/quicktime; codecs="hvc1"' : "video/webm"} onError={() => setCharacterFailed(true)} />
-      </video> : <Image src={cms.url("/assets/character-20261012/settled-clean.png")} alt="" fill unoptimized sizes="100vw" />}
+      </video> : mediaRequested && <Image src={cms.url("/assets/character-20261012/settled-clean.png")} alt="" fill unoptimized sizes="100vw" />}
       </div>
       </>}
     </div>

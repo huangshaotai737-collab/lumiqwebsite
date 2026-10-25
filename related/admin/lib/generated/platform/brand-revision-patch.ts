@@ -265,7 +265,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.en.HomeRefresh.brandBody",
     "before": "Every family moves to its own beat. OLA grows with you — through learning, connection and the little moments in between.",
-    "after": "Every family moves to its own beat. LumiqOla grows with you — through learning, connection and the little moments in between."
+    "after": "LumiqOla is a companion concept for adults and older adults, centered on daily conversation and reminders."
   },
   {
     "path": "messages.en.HomeRefresh.experiences.companion.alt",
@@ -1075,7 +1075,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.en.Products.p5Desc",
     "before": "15.6-inch family display concept for calendars, chores, and meal planning",
-    "after": "A family display for recipes, calendars, chores and rewards, and shared photos."
+    "after": "A 15.6-inch family display concept for recipes, calendars, chores and rewards, and shared photos."
   },
   {
     "path": "messages.en.Products.p5Pill",
@@ -1570,7 +1570,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.ja.HomeRefresh.brandBody",
     "before": "家族には、それぞれのペースがあります。学び、つながり、日々の小さな時間を、OLA と一緒に。",
-    "after": "家族には、それぞれのペースがあります。学び、つながり、日々の小さな時間を、LumiqOla と一緒に。"
+    "after": "LumiqOla は、大人とシニアの日々の会話やリマインダーを中心に、一人ひとりのペースに寄り添うコンパニオンの構想です。"
   },
   {
     "path": "messages.ja.HomeRefresh.experiences.companion.alt",
@@ -2360,7 +2360,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.ja.Products.p5Desc",
     "before": "カレンダー、家事、食事の計画に使う15.6インチのファミリーディスプレイ構想。",
-    "after": "レシピ、カレンダー、家事とごほうび、家族の写真をひとつにする共有ディスプレイ。"
+    "after": "レシピ、カレンダー、家事とごほうび、家族の写真をひとつにする15.6インチの共有ディスプレイ構想。"
   },
   {
     "path": "messages.ja.Products.p5Pill",
@@ -2845,7 +2845,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.zh-hant.HomeRefresh.brandBody",
     "before": "每個家庭都有自己的步調。讓 OLA 陪你學習、交流，也陪伴日常中每個細微時刻。",
-    "after": "每個家庭都有自己的步調。讓 LumiqOla 陪你學習、交流，也陪伴日常中每個細微時刻。"
+    "after": "LumiqOla 為成人與長輩構思，以日常對話與提醒，陪伴各自的生活步調。"
   },
   {
     "path": "messages.zh-hant.HomeRefresh.experiences.companion.alt",
@@ -3640,7 +3640,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.zh-hant.Products.p5Desc",
     "before": "15.6 吋家庭顯示器概念，整合行事曆、家務與餐食規劃。",
-    "after": "集中呈現食譜、行事曆、家務與獎勵，以及全家共享照片的家庭顯示器。"
+    "after": "15.6 吋家庭顯示器概念，集中呈現食譜、行事曆、家務與獎勵，以及全家共享照片。"
   },
   {
     "path": "messages.zh-hant.Products.p5Pill",
@@ -4065,7 +4065,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.en.Products.lead",
     "before": "Future-ready AI devices that interact, learn, and grow with your family — designed to end in stories, not scrolling.",
-    "after": "LumiqTablet gives children and parents a place to read together. LumiqOla and OlaGo are companion concepts for adults and older adults, built around conversation and everyday reminders."
+    "after": "LumiqTablet brings children and parents together through interactive reading. LumiqOla and OlaGo are AI companion concepts for adults and older adults, focused on conversation and reminders. LumiqOrb brings shared family routines into one place."
   },
   {
     "path": "messages.en.Products.p1Sub",
@@ -4230,7 +4230,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.zh-hant.Products.lead",
     "before": "與家人一起互動、學習和成長的未來型 AI 裝置；體驗以故事作結，而不是無止境滑動。",
-    "after": "LumiqTablet 讓孩子與家長一起讀故事；LumiqOla 和 OlaGo 面向成人與長輩，著重日常對話與提醒。"
+    "after": "LumiqTablet 讓孩子與家長一起讀互動故事；LumiqOla 和 OlaGo 是為成人與長輩構思的 AI 夥伴，著重對話與提醒；LumiqOrb 集中呈現全家的日常安排。"
   },
   {
     "path": "messages.zh-hant.Products.p1Sub",
@@ -4405,7 +4405,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.ja.Products.lead",
     "before": "家族と関わり、学び、ともに成長する未来志向の AI デバイス。スクロールではなく、物語で終わるように設計しています。",
-    "after": "LumiqTablet は子どもと保護者が一緒に読むための製品。LumiqOla と OlaGo は、大人とシニアの会話や日々のリマインダーを中心にしたコンセプトです。"
+    "after": "LumiqTablet は子どもと保護者が一緒に楽しむインタラクティブな読書に。LumiqOla と OlaGo は大人とシニアの会話やリマインダーを中心にした AI コンパニオンの構想。LumiqOrb は家族の予定や日々の用事をひとつにまとめます。"
   },
   {
     "path": "messages.ja.Products.p1Sub",
@@ -4566,5 +4566,100 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
     "path": "messages.ja.Pal.sb5",
     "before": "環境光とやさしい音が眠りを助け、朝までそっと寄り添います。",
     "after": "環境光とやわらかな白い合図が、朝まで寄り添います。"
+  },
+  {
+    "path": "messages.en.HomeRefresh.rhythms.learn.title",
+    "before": "Learn",
+    "after": "Talk"
+  },
+  {
+    "path": "messages.en.HomeRefresh.rhythms.learn.body",
+    "before": "Curiosity-led discovery that sparks confidence.",
+    "after": "Share a thought from your day."
+  },
+  {
+    "path": "messages.en.HomeRefresh.rhythms.connect.title",
+    "before": "Connect",
+    "after": "Remember"
+  },
+  {
+    "path": "messages.en.HomeRefresh.rhythms.connect.body",
+    "before": "Meaningful time together. Little moments that bring us closer.",
+    "after": "Keep everyday plans and reminders close."
+  },
+  {
+    "path": "messages.en.HomeRefresh.rhythms.care.title",
+    "before": "Care",
+    "after": "Unwind"
+  },
+  {
+    "path": "messages.en.HomeRefresh.rhythms.care.body",
+    "before": "Thoughtful companionship for the people you love.",
+    "after": "A familiar voice for quiet moments at home."
+  },
+  {
+    "path": "messages.zh-hant.HomeRefresh.rhythms.learn.title",
+    "before": "學習",
+    "after": "對話"
+  },
+  {
+    "path": "messages.zh-hant.HomeRefresh.rhythms.learn.body",
+    "before": "讓好奇心帶路，在探索中建立自信。",
+    "after": "聊聊今天發生的事。"
+  },
+  {
+    "path": "messages.zh-hant.HomeRefresh.rhythms.connect.title",
+    "before": "連結",
+    "after": "提醒"
+  },
+  {
+    "path": "messages.zh-hant.HomeRefresh.rhythms.connect.body",
+    "before": "共享有意義的時光，讓彼此更親近。",
+    "after": "留意行程與日常小事。"
+  },
+  {
+    "path": "messages.zh-hant.HomeRefresh.rhythms.care.title",
+    "before": "關懷",
+    "after": "陪伴"
+  },
+  {
+    "path": "messages.zh-hant.HomeRefresh.rhythms.care.body",
+    "before": "用心設計的陪伴，獻給你所愛的人。",
+    "after": "安靜的時刻，也能聊上幾句。"
+  },
+  {
+    "path": "messages.ja.HomeRefresh.rhythms.learn.title",
+    "before": "学ぶ",
+    "after": "会話"
+  },
+  {
+    "path": "messages.ja.HomeRefresh.rhythms.learn.body",
+    "before": "好奇心から始まる発見が、自信につながる。",
+    "after": "今日の出来事を、気軽に話せるように。"
+  },
+  {
+    "path": "messages.ja.HomeRefresh.rhythms.connect.title",
+    "before": "つながる",
+    "after": "リマインダー"
+  },
+  {
+    "path": "messages.ja.HomeRefresh.rhythms.connect.body",
+    "before": "一緒に過ごす小さな時間が、家族を近づける。",
+    "after": "予定や日々の用事を思い出すきっかけに。"
+  },
+  {
+    "path": "messages.ja.HomeRefresh.rhythms.care.title",
+    "before": "寄り添う",
+    "after": "寄り添い"
+  },
+  {
+    "path": "messages.ja.HomeRefresh.rhythms.care.body",
+    "before": "大切な人のために、心を込めたパートナー。",
+    "after": "家での静かな時間に、なじみの声を。"
+  },
+  {
+    "path": "messages.ja.Pal.way2Pill",
+    "before": "物語と同期",
+    "after": "あなたのキャラクター"
   }
 ];

@@ -6,7 +6,8 @@ create table private.c3_saved_settings as select * from public.commerce_settings
 create table private.c3_saved_publication as select * from public.content_publication;
 insert into auth.users(id,email,email_confirmed_at,is_anonymous) values
  ('b3000000-0000-4000-8000-000000000001','c3-race-admin@example.invalid',now(),false),
- ('b3000000-0000-4000-8000-000000000002','c3-race-member@example.invalid',now(),false);
+ ('b3000000-0000-4000-8000-000000000002','c3-race-member@example.invalid',now(),false),
+ ('b3000000-0000-4000-8000-000000000005','c3-race-other-member@example.invalid',now(),false);
 insert into public.staff_memberships(user_id,role) values('b3000000-0000-4000-8000-000000000001','admin');
 insert into public.content_drafts(id,version,snapshot,created_by,updated_by)
  select 'b3000000-0000-4000-8000-000000000003',1,jsonb_build_object('settings','{}'::jsonb,'messages',jsonb_object_agg(locale,jsonb_build_object('Legal',jsonb_build_object('eyebrow','Legal','draft','Draft','terms',(select jsonb_object_agg(k,'test '||k) from unnest(array['title','intro','p1','h1','p2','h2','p3','h3','p4','h4','p5']) k)),'Products',jsonb_build_object('shipping','Shipping','returns','Returns','warranty','Warranty')))),'b3000000-0000-4000-8000-000000000001','b3000000-0000-4000-8000-000000000001' from unnest(array['en','zh-hant','ja']) locale
@@ -75,7 +76,7 @@ select is((select value#>>'{order,status}' from c3_cancel_result),'cancelled','r
 select is((select value->>'reused' from c3_cancel_result),'true','cancel race still reports reused');
 select is((select count(*)::int from public.customer_orders where user_id='b3000000-0000-4000-8000-000000000002'),2,'only the two intentional unique requests exist');
 select * from extensions.dblink_get_result('c3_b') as t(value jsonb);
--- A different key completes before the first new-order transaction commits: shared pricing lock is concurrent.
+-- The same customer's new keys serialize on the quota counter, preventing quota overruns.
 select extensions.dblink_exec('c3_a','begin');
 select * from extensions.dblink('c3_a',format('select public.create_customer_order(%L::jsonb)',(select jsonb_set(value,'{idempotencyKey}','"parallel-new-a"') from c3_request))) as t(value jsonb);
 select extensions.dblink_send_query('c3_b',format('select public.create_customer_order(%L::jsonb)',(select jsonb_set(value,'{idempotencyKey}','"parallel-new-b"') from c3_request)));
@@ -84,18 +85,28 @@ declare deadline timestamptz:=clock_timestamp()+interval '5 seconds';begin
  while extensions.dblink_is_busy(connection)=1 loop
   if clock_timestamp()>deadline then return false; end if; perform pg_sleep(0.01);
  end loop;return true;end;$$;
-select ok(pg_temp.await_finished('c3_b'),'second different-key order completes while first transaction remains open');
+select ok(pg_temp.await_blocked(array[(select pid from c3_pids where name='b')]),'same-customer different-key order waits for the quota transaction');
 select extensions.dblink_exec('c3_a','commit');
 select * from extensions.dblink_get_result('c3_b') as t(value jsonb);
 select is((select count(*)::int from public.customer_orders where user_id='b3000000-0000-4000-8000-000000000002'),4,'different-key concurrent requests create exactly two additional orders');
+select * from extensions.dblink_get_result('c3_b') as t(value jsonb);
+-- Separate customers retain concurrent shared pricing locks and independent quotas.
+select extensions.dblink_exec('c3_b',$$set request.jwt.claims='{"sub":"b3000000-0000-4000-8000-000000000005","role":"authenticated"}'$$);
+select extensions.dblink_exec('c3_a','begin');
+select * from extensions.dblink('c3_a',format('select public.create_customer_order(%L::jsonb)',(select jsonb_set(value,'{idempotencyKey}','"parallel-new-c"') from c3_request))) as t(value jsonb);
+select extensions.dblink_send_query('c3_b',format('select public.create_customer_order(%L::jsonb)',(select jsonb_set(value,'{idempotencyKey}','"parallel-other-customer"') from c3_request)));
+select ok(pg_temp.await_finished('c3_b'),'different customer completes while first customer transaction remains open');
+select extensions.dblink_exec('c3_a','commit');
+select * from extensions.dblink_get_result('c3_b') as t(value jsonb);
+select is((select count(*)::int from public.customer_orders where user_id='b3000000-0000-4000-8000-000000000005'),1,'other customer persists exactly one order');
 select extensions.dblink_disconnect('c3_a');
 select extensions.dblink_disconnect('c3_b');
 -- Restore every prior commercial value; keep immutable audit/release fixtures, remove own private rows.
 update public.catalog_offerings c set currency=s.currency,unit_minor=s.unit_minor,confirmed=s.confirmed,enabled=s.enabled,version=s.version from private.c3_saved_offerings s where c.id=s.id;
 update public.commerce_settings c set orders_enabled=s.orders_enabled,approved_terms_release_id=s.approved_terms_release_id,approved_terms_fingerprint=s.approved_terms_fingerprint,version=s.version from private.c3_saved_settings s where c.singleton=s.singleton;
 update public.content_publication c set release_id=s.release_id,updated_at=s.updated_at from private.c3_saved_publication s where c.singleton=s.singleton;
-delete from public.order_items where order_id in(select id from public.customer_orders where user_id='b3000000-0000-4000-8000-000000000002');
-delete from public.customer_orders where user_id='b3000000-0000-4000-8000-000000000002';
-delete from auth.users where id in('b3000000-0000-4000-8000-000000000001','b3000000-0000-4000-8000-000000000002');
+delete from public.order_items where order_id in(select id from public.customer_orders where user_id in('b3000000-0000-4000-8000-000000000002','b3000000-0000-4000-8000-000000000005'));
+delete from public.customer_orders where user_id in('b3000000-0000-4000-8000-000000000002','b3000000-0000-4000-8000-000000000005');
+delete from auth.users where id in('b3000000-0000-4000-8000-000000000001','b3000000-0000-4000-8000-000000000002','b3000000-0000-4000-8000-000000000005');
 drop table private.c3_saved_offerings,private.c3_saved_settings,private.c3_saved_publication;
 select * from finish();

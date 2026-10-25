@@ -18,7 +18,12 @@ export function mountHomePosition(root: HTMLElement) {
     const target = document.getElementById(location.hash.slice(1));
     return target && root.contains(target) && target !== root && !target.closest(".lh-opening") ? target : null;
   };
+  const hasOpeningAnchor = () => {
+    const element = document.getElementById(location.hash.slice(1));
+    return Boolean(element && root.contains(element) && element.closest(".lh-opening"));
+  };
   let target = hashTarget();
+  let openingAnchor = hasOpeningAnchor();
   let reading: ReadingPosition | null = null;
   let restoring: ReadingPosition | null = null;
   let changingLayout = false;
@@ -31,6 +36,10 @@ export function mountHomePosition(root: HTMLElement) {
 
   const capture = () => {
     if (inputTimer || changingLayout || restoring || scrollState.isRefreshing) return;
+    // Native #ola positioning can expose a later chapter before the opening's
+    // pin exists. Its own controller resolves that anchor to a film frame;
+    // a snapshot of the temporary chapter must not override that position.
+    if (openingAnchor) { reading = null; return; }
     const landing = navTop();
     let visible: HTMLElement | null = null;
     let visibleHeight = 0;
@@ -82,14 +91,14 @@ export function mountHomePosition(root: HTMLElement) {
   };
   const navigate = () => {
     clearTimeout(inputTimer); inputTimer = 0;
-    releaseLayout(); target = hashTarget(); aligned = false; schedule();
+    releaseLayout(); target = hashTarget(); openingAnchor = hasOpeningAnchor(); aligned = false; schedule();
   };
   const waitForInput = () => {
     clearTimeout(inputTimer);
     inputTimer = window.setTimeout(() => { inputTimer = 0; capture(); }, 300);
   };
   const input = () => {
-    target = null; reading = null; releaseLayout(); waitForInput();
+    target = null; openingAnchor = false; reading = null; releaseLayout(); waitForInput();
   };
   const key = (event: KeyboardEvent) => {
     if (["ArrowUp", "ArrowDown", "PageUp", "PageDown", "Home", "End", " "].includes(event.key)) input();

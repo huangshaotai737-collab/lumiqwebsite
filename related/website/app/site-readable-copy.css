@@ -1,4 +1,5 @@
 /* Semantic secondary text shares a readable scale across all public routes. */
+.lumiq-root .faq-count { color: var(--ink-3); }
 .lumiq-root {
   --lq-label-size: 16px;
   --lq-caption-size: 16px;

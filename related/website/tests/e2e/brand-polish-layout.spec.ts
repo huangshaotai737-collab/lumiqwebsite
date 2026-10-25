@@ -37,12 +37,28 @@ test('desktop product controls sit below the products and can advance them', asy
   const section=page.locator('.lh-products');
   await section.scrollIntoViewIfNeeded();
   await expect(section).toHaveAttribute('data-enhanced','true');
-  await page.waitForTimeout(1200);
-  const controls=page.locator('.lh-products-controls');
-  const content=await page.locator('.lh-products[data-glass-3d]').count()
-    ?page.locator('.lh-glass-products'):page.locator('.lh-products-viewport .lh-product').nth(Number(await section.getAttribute('data-active-product')) || 0);
-  const rail=await content.boundingBox(), buttons=await controls.boundingBox();
-  expect(buttons!.y).toBeGreaterThanOrEqual(rail!.y+rail!.height-2);
+  let previous: {renderer: string; contentBottom: number; controlsTop: number} | null=null;
+  await expect.poll(async () => {
+    // Read the renderer choice and both rectangles in the same browser task.
+    // A separate boundingBox call can outlive the HTML-to-WebGL handoff.
+    const geometry=await section.evaluate(element => {
+      if (element.hasAttribute('data-glass-revealing')) return null;
+      const glass=element.hasAttribute('data-glass-3d');
+      const content=glass ? element.querySelector('.lh-glass-products')
+        : element.querySelectorAll('.lh-products-viewport .lh-product')[Number(element.getAttribute('data-active-product')) || 0];
+      const controls=element.querySelector('.lh-products-controls');
+      if (!content || !controls) return null;
+      const rail=content.getBoundingClientRect(), buttons=controls.getBoundingClientRect();
+      const style=getComputedStyle(content);
+      if (!rail.width || !rail.height || !buttons.width || !buttons.height || style.visibility==='hidden' || Number(style.opacity)===0) return null;
+      return {renderer: glass ? 'glass' : 'html', contentBottom: rail.bottom, controlsTop: buttons.top};
+    });
+    const settled=geometry && previous && geometry.renderer===previous.renderer
+      && Math.abs(geometry.contentBottom-previous.contentBottom)<1
+      && Math.abs(geometry.controlsTop-previous.controlsTop)<1;
+    previous=geometry;
+    return settled && geometry ? geometry.controlsTop-geometry.contentBottom : Number.NEGATIVE_INFINITY;
+  }, {message: 'Visible product artwork and controls settle with the controls below the artwork'}).toBeGreaterThanOrEqual(-2);
   const before=await section.getAttribute('data-active-product');
   await page.locator('[data-products-next]').click();
   await expect(section).not.toHaveAttribute('data-active-product',before!);

@@ -1,12 +1,15 @@
 -- Focused owner-isolated regression. No global deletes/reset; all rows roll back.
 begin;
 select no_plan();
-create temp table ff_fixture as select gen_random_uuid() admin_id,gen_random_uuid() editor_id,gen_random_uuid() ops_id,gen_random_uuid() member_id,gen_random_uuid() editing_id,gen_random_uuid() submitted_id,gen_random_uuid() bad_id,gen_random_uuid() media_id,gen_random_uuid() history_id,(select count(*) from public.content_drafts where status in ('editing','submitted')) base_count,(select r.snapshot from public.content_releases r join public.content_publication p on p.release_id=r.id where p.singleton) snapshot;
+\ir ../support/content-fixture.inc
+create temp table ff_fixture as select gen_random_uuid() admin_id,gen_random_uuid() editor_id,gen_random_uuid() ops_id,gen_random_uuid() member_id,gen_random_uuid() editing_id,gen_random_uuid() submitted_id,gen_random_uuid() bad_id,gen_random_uuid() media_id,gen_random_uuid() history_id,gen_random_uuid() baseline_release,(select count(*) from public.content_drafts where status in ('editing','submitted')) base_count,pg_temp.content_boundary_snapshot() snapshot;
 grant select on ff_fixture to authenticated;
 select diag('owned fixture IDs recorded before mutations: '||row_to_json(f)::text) from (select admin_id,editor_id,ops_id,member_id,editing_id,submitted_id,bad_id,media_id,history_id,base_count from ff_fixture) f;
 insert into auth.users(id,email,email_confirmed_at,is_anonymous) select id,'final-fix-'||id||'@example.invalid',now(),false from ff_fixture cross join lateral unnest(array[admin_id,editor_id,ops_id,member_id]) id;
 insert into public.staff_memberships(user_id,role) select admin_id,'admin' from ff_fixture union all select editor_id,'editor' from ff_fixture union all select ops_id,'operations' from ff_fixture;
 insert into public.content_drafts(id,version,snapshot,status,created_by,updated_by) select editing_id,1,snapshot,'editing',admin_id,admin_id from ff_fixture union all select submitted_id,1,snapshot,'submitted',admin_id,admin_id from ff_fixture;
+insert into public.content_releases(id,snapshot,draft_id,draft_version,created_by) select baseline_release,snapshot,editing_id,1,admin_id from ff_fixture;
+update public.content_publication set release_id=f.baseline_release from ff_fixture f where singleton;
 select set_config('request.jwt.claims',jsonb_build_object('sub',admin_id,'role','authenticated')::text,true) from ff_fixture;
 set local role authenticated;
 select is((public.get_admin_dashboard()->>'drafts')::bigint,(select base_count+2 from ff_fixture),'admin exact editing plus submitted count');

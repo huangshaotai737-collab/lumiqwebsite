@@ -129,7 +129,7 @@ for (const action of ['save', 'submit'] as const) {
       const stored = (await (await context.request.get(`${origin}/api/content/drafts?id=${ownId}`)).json()).data;
       expect(stored.snapshot.products.ola.name).toBe(requestText);
       await name.fill('New edit after pending operation finished');
-      await expect(page.getByText(/有未保存修改/)).toBeVisible();
+      await expect(page.getByText('有未保存修改', { exact: true })).toBeVisible();
       await expect(page.getByRole('button', { name: '发布当前版本', exact: true })).toBeDisabled();
     } finally { await held.dispose(); }
   });

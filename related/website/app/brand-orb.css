@@ -57,7 +57,7 @@
 .lumiq-root .orb-page .orb-detail { scroll-margin-top: 105px; border-top: 1px solid var(--orb-line); }
 .lumiq-root .orb-page .orb-detail:focus { outline: none; }
 .lumiq-root .orb-page .orb-detail-layout { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.4fr); align-items: start; gap: clamp(38px, 6vw, 84px); }
-.lumiq-root .orb-page .orb-section-number { display: block; margin-bottom: 24px; color: #738275; font-size: 18px; font-variant-numeric: tabular-nums; line-height: 1.5; }
+.lumiq-root .orb-page .orb-section-number { display: block; margin-bottom: 24px; color: var(--orb-muted); font-size: 18px; font-variant-numeric: tabular-nums; line-height: 1.5; }
 .lumiq-root .orb-page .orb-detail-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
 .lumiq-root .orb-page .orb-detail-card { min-width: 0; padding: 26px; border: 1px solid var(--orb-line); border-radius: 20px; background: rgba(255, 255, 251, .8); }
 .lumiq-root .orb-page .orb-detail-step { display: flex; align-items: center; justify-content: space-between; margin-bottom: 22px; color: #627b66; font-size: 16px; line-height: 1; font-variant-numeric: tabular-nums; }

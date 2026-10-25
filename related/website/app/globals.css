@@ -324,8 +324,8 @@
 .lumiq-root .lang-caret { font-size: 0.7rem; opacity: 0.7; }
 .lumiq-root .lang-menu { position: absolute; right: 0; top: calc(100% + 0.5rem); min-width: 160px; background: white; border: 1px solid var(--border); border-radius: 14px; box-shadow: var(--shadow-lg); padding: 0.35rem; z-index: 1100; display: flex; flex-direction: column; gap: 0.1rem; }
 .lumiq-root .lang-item { width: 100%; text-align: left; padding: 0.55rem 0.85rem; border-radius: 10px; background: transparent; color: var(--ink-2); font-size: 0.875rem; cursor: pointer; transition: background 0.15s; }
-.lumiq-root .lang-item:hover { background: var(--card-h); color: var(--purple); }
-.lumiq-root .lang-item.active { background: var(--purple-soft); color: white; }
+.lumiq-root .lang-item:hover { background: var(--card-h); color: var(--ink); }
+.lumiq-root .lang-item.active { background: var(--purple-soft); color: var(--ink); }
 .lumiq-root .btn-ghost-navy { background: transparent; color: var(--navy); border: 1px solid var(--navy); }
 .lumiq-root .btn-ghost-navy:hover { background: var(--navy); color: white; transform: translateY(-2px); }
 

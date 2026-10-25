@@ -6,7 +6,8 @@ import { useEffect, useRef, useState } from "react";
 import type { GlassProduct } from "./GlassCards";
 import "./critical-loading.css";
 
-const GlassCanvas = dynamic(() => import("./GlassCards").then(m => m.GlassCanvas), { ssr: false });
+const loadGlassCanvas = () => import("./GlassCards").then(m => m.GlassCanvas);
+const GlassCanvas = dynamic(loadGlassCanvas, { ssr: false });
 
 export default function HomeGlassProducts({ products }: { products: GlassProduct[] }) {
   const host = useRef<HTMLDivElement>(null);
@@ -19,6 +20,7 @@ export default function HomeGlassProducts({ products }: { products: GlassProduct
     const section = element.closest<HTMLElement>(".lh-products")!;
     const desktop = matchMedia(homeWideQuery);
     let near = false;
+    let visible = false;
     let supported: boolean | undefined;
     const cancelHandoff = () => {
       if (handoffTimer.current !== null) window.clearTimeout(handoffTimer.current);
@@ -26,11 +28,21 @@ export default function HomeGlassProducts({ products }: { products: GlassProduct
       section.removeAttribute("data-glass-revealing");
     };
     const sync = () => setSelected(Number(section.dataset.activeProduct || 0));
+    const syncRunning = () => setRunning(visible && desktop.matches && !document.hidden);
     const configure = () => {
+      // IO notifications can describe an earlier resize frame. Read the settled
+      // slot again before allocating a renderer after the scroll pins rebuild.
+      const bounds = element.getBoundingClientRect();
+      const visibleHeight = Math.max(0, Math.min(bounds.bottom, innerHeight) - Math.max(bounds.top, 0));
+      visible = bounds.width > 0 && visibleHeight > 0;
+      syncRunning();
       // The CSS slot is reserved from the first render, but normal product links
       // remain visible until the renderer has its first complete scene.
       if (!desktop.matches) { cancelHandoff(); setEnabled(false); section.removeAttribute("data-glass-3d"); return; }
-      if (!near) return;
+      if (near) void loadGlassCanvas().catch(() => {});
+      // Loading the component is cheap; creating its GPU context and scene is
+      // not. A phone-to-desktop resize at films must not initialize hidden glass.
+      if (!visible) return;
       if (supported === undefined) {
         const canvas = document.createElement("canvas");
         const context = canvas.getContext("webgl2");
@@ -48,13 +60,17 @@ export default function HomeGlassProducts({ products }: { products: GlassProduct
     element.addEventListener("webglcontextlost", failed, true);
     const observer = new MutationObserver(sync);
     observer.observe(section, { attributes: true, attributeFilter: ["data-active-product"] });
-    const visibility = new IntersectionObserver(([entry]) => {
+    const preload = new IntersectionObserver(([entry]) => {
       near = entry.isIntersecting;
-      setRunning(near);
       configure();
     }, { rootMargin: "1200px 0px" });
-    visibility.observe(section); desktop.addEventListener("change", configure); sync();
-    return () => { cancelHandoff(); element.removeEventListener("webglcontextlost", failed, true); observer.disconnect(); visibility.disconnect(); desktop.removeEventListener("change", configure); section.removeAttribute("data-glass-3d"); };
+    // Preload nearby artwork, but render only while the actual canvas slot is
+    // on screen. The loading margin extends into the following films chapter.
+    const visibility = new IntersectionObserver(configure);
+    preload.observe(section); visibility.observe(element);
+    document.addEventListener("visibilitychange", syncRunning);
+    desktop.addEventListener("change", configure); sync();
+    return () => { cancelHandoff(); element.removeEventListener("webglcontextlost", failed, true); observer.disconnect(); preload.disconnect(); visibility.disconnect(); document.removeEventListener("visibilitychange", syncRunning); desktop.removeEventListener("change", configure); section.removeAttribute("data-glass-3d"); };
   }, []);
   const ready = () => {
     // The finished scene fades over the still-clickable HTML cards. A pending

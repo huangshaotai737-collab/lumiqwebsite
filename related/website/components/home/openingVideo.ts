@@ -142,9 +142,14 @@ export function mountOpeningVideo(root: HTMLElement, source = openingVideoSource
     // Only the opening blocks entry. Lower floors keep their own lazy loading.
     const blocked = Array.from(root.querySelectorAll<HTMLElement>("[data-home-section]"))
       .map(element => ({element, inert: element.inert}));
-    blocked.forEach(({element}) => { element.inert = true; });
-    opening.dataset.openingLoading = "true";
-    opening.setAttribute("aria-busy", "true");
+    // A desktop resize can initialize this decoder while the reader is already
+    // in a later chapter. Only the visible opening needs its loading gate.
+    const openingBounds = stage.getBoundingClientRect();
+    if (openingBounds.bottom > 0 && openingBounds.top < innerHeight) {
+      blocked.forEach(({element}) => { element.inert = true; });
+      opening.dataset.openingLoading = "true";
+      opening.setAttribute("aria-busy", "true");
+    }
     const releaseGate = () => {
       if (!opening.hasAttribute("data-opening-loading")) return;
       blocked.forEach(({element, inert}) => { element.inert = inert; });
@@ -205,7 +210,7 @@ export function mountOpeningVideo(root: HTMLElement, source = openingVideoSource
       frame = 0;
       if (!mounted || failed || document.hidden) return;
       const bounds = stage.getBoundingClientRect();
-      if (bounds.bottom < 0 || bounds.top > innerHeight) { clearStall(); return; }
+      if (bounds.bottom < 0 || bounds.top > innerHeight) { clearStall(); releaseGate(); return; }
       if (!ownedSource) return;
       if (video.readyState < 2) { waitForDecoder(); return; }
       if (video.seeking) { waitForDecoder(); return; }

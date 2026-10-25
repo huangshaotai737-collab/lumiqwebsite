@@ -220,6 +220,42 @@ test('invitation email, verified identity, explicit acceptance and single use wo
   );
   await recipient.close();
 });
+test('pending team save locks the submitted values and later edits clear saved feedback', async ({ page, context }) => {
+  await login(context, 'admin');
+  await page.goto('/team');
+  const row = page.getByRole('row').filter({ hasText: users.editor.email });
+  await row.getByLabel('员工角色').selectOption('operations');
+  let release!: () => void;
+  let arrived!: () => void;
+  const gate = new Promise<void>(resolve => { release = resolve; });
+  const requested = new Promise<void>(resolve => { arrived = resolve; });
+  await page.route('**/api/team/role', async route => {
+    const response = await route.fetch();
+    arrived();
+    await gate;
+    await route.fulfill({ response });
+  });
+  try {
+    await row.getByRole('button', { name: '保存权限' }).click();
+    await requested;
+    await expect(row.getByLabel('员工角色')).toBeDisabled();
+    await expect(row.getByLabel('在职')).toBeDisabled();
+    release();
+    await expect(row.getByRole('status')).toContainText('已保存');
+    await expect(row.getByLabel('员工角色')).toBeEnabled();
+    const stored = await backend.from('staff_memberships').select('role,active').eq('user_id', users.editor.id).single();
+    expect(stored.data).toEqual({ role: 'operations', active: true });
+    await row.getByLabel('员工角色').selectOption('editor');
+    await expect(row.getByRole('status')).not.toContainText('已保存');
+    await row.getByRole('button', { name: '保存权限' }).click();
+    await expect(row.getByRole('status')).toContainText('已保存');
+    await row.getByLabel('在职').uncheck();
+    await expect(row.getByRole('status')).not.toContainText('已保存');
+  } finally {
+    release();
+    await page.unrouteAll({ behavior: 'wait' });
+  }
+});
 test('failed SMTP delivery never grants role; role/status change and safe settings audited', async ({
   page,
   context,

@@ -2,7 +2,17 @@
 
 官网位于 `related/website/`，独立控制中台位于 `related/admin/`，两站共用根目录的合约与数据库迁移。生产分支为 `main`。
 
-## 最新官网与后台检查版本（2026-10-22）
+## 本机最新验收版本（2026-10-25）
+
+本轮官网与后台走查、修复和证据见 [详细验收报告](qa/reports/2026-10-25/detailed-report.md)、[147项品牌清单状态](qa/reports/2026-10-25/brand-status.csv) 和 [测试矩阵](qa/reports/2026-10-25/test-matrix.csv)。本次仅更新本机并在当前 `codex/` 分支保存提交，没有推送 GitHub 或部署生产。
+
+官网入口：http://127.0.0.1:4211/zh-hant；后台入口：http://127.0.0.1:4270/login。原本地账号、草稿与数据库保留。最终构建源码 SHA-256 为 `cf2d18a31b0181a57c36cb834869b57d190e887648d9fd191e23ea5138a56a04`，验收基线提交为 `89db247fdf490e13f804618881239812585181f7`。
+
+原品牌147项中，113项在注明范围内完成，24项待材料或外部验收，10项待设计、范围或进一步验证。手机限速首屏 LCP 仍为4.56–4.76秒；正式邮件、生产环境、真实设备等验收尚未完成，不作为无条件上线结论。全站原背景保留，没有新增阅读底色。
+
+[飞书原清单及红框截图](https://hcnbsg6ttb3t.feishu.cn/docx/AhN4dg0iqoJ3kHxV9kIcys92nn3) · [代办](https://hcnbsg6ttb3t.feishu.cn/docx/UCFgdKhn2orJcXxgOiWcmPn9nVd)
+
+## 仓库交接记录（2026-10-22）
 
 最新版官网、独立后台、共用合约及数据库迁移统一位于 [`codex/admin-platform-design-20261020`](https://github.com/huangshaotai737-collab/lumiqwebsite/tree/codex/admin-platform-design-20261020) 审核分支。检查人员请先阅读 [运行与检查交接](docs/review-2026-10-22.md)。源码检查交付不代表生产部署或真实支付验收。
 
@@ -16,7 +26,7 @@
 
 ## 本地运行
 
-当前审核分支两站均使用 Next.js 16.4.2，使用 Node 22；后台项目独立。2026-10-22 品牌收尾见 [实施记录](docs/brand-revision-2026-10-22.md)，最新源码检查与验证边界见 [检查交接](docs/review-2026-10-22.md)。
+当前审核分支两站均使用 Next.js 16.4.2，使用 Node 22；后台项目独立。2026-10-22 品牌收尾见 [实施记录](docs/brand-revision-2026-10-22.md)，最新源码检查与验证边界见 [2026-10-25验收报告](qa/reports/2026-10-25/detailed-report.md)，原部署交接见 [检查交接](docs/review-2026-10-22.md)。
 
 ```sh
 git lfs install
