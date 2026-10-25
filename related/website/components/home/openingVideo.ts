@@ -1,4 +1,3 @@
-import {preloadOpening} from "./preloadOpening";
 import {homeMotionQuery, homeWideQuery} from "./responsiveLayout";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -9,11 +8,17 @@ export const openingVideoQuery =
   homeMotionQuery;
 
 /** One continuous shot, held at its approved first frame until the user scrolls. */
-export function mountOpeningVideo(root: HTMLElement, source = openingVideoSource, posters?: string[], preview = false) {
+export function mountOpeningVideo(root: HTMLElement, source = openingVideoSource, posters?: string[]) {
   const opening = root.querySelector<HTMLElement>(".lh-opening")!;
   const stage = opening.querySelector<HTMLElement>(".lh-opening-stage")!;
   const video = opening.querySelector<HTMLVideoElement>(".lh-opening-video")!;
   const layer = opening.querySelector<HTMLElement>(".lh-video-layer")!;
+  const posterLayers = Array.from(layer.querySelectorAll<HTMLElement>(".lh-video-start-poster, .lh-video-end-poster"));
+  const previousPosters = posterLayers.map(element => element.style.backgroundImage);
+  // Preserve CMS-selected artwork without making its download a loading gate.
+  posterLayers.forEach((element, index) => {
+    if (posters?.[index]) element.style.backgroundImage = `url(${JSON.stringify(posters[index])})`;
+  });
   const heroCopy = opening.querySelector<HTMLElement>(".lh-hero-copy")!;
   const brandCopy = opening.querySelector<HTMLElement>(".lh-ola-copy")!;
   const cards = opening.querySelector<HTMLElement>(".lh-rhythm-cards")!;
@@ -119,7 +124,6 @@ export function mountOpeningVideo(root: HTMLElement, source = openingVideoSource
   window.addEventListener("keydown", key);
   const mm = gsap.matchMedia();
   mm.add({desktop: homeWideQuery, motion: "(prefers-reduced-motion: no-preference)"}, context => {
-    delete opening.dataset.openingPending;
     if (!context.conditions?.desktop) return;
     opening.dataset.videoMode = "true";
     if (!context.conditions.motion || failedThisVisit) {
@@ -132,56 +136,30 @@ export function mountOpeningVideo(root: HTMLElement, source = openingVideoSource
     let frame = 0;
     let decodedFrame = 0;
     let stallTimer = 0;
-    let downloadDeadline = 0;
-    let loadDeadline = 0;
     let presentedTime: number | null = null;
-    let ownedSource: string | null = null;
-    const controller = new AbortController();
+    let sourceRequested = false;
     const playhead = {progress: 0};
     const duration = () => Number.isFinite(video.duration) ? video.duration : 6;
     const endTime = () => Math.max(0, duration() - 1 / 30);
     const desiredTime = () => Math.min(endTime(), Math.round(playhead.progress * endTime() * 24) / 24);
-    // Only the opening blocks entry. Lower floors keep their own lazy loading.
-    const blocked = Array.from(root.querySelectorAll<HTMLElement>("[data-home-section]"))
-      .map(element => ({element, inert: element.inert}));
-    // A desktop resize can initialize this decoder while the reader is already
-    // in a later chapter. Only the visible opening needs its loading gate.
-    const openingBounds = stage.getBoundingClientRect();
-    if (openingBounds.bottom > 0 && openingBounds.top < innerHeight) {
-      blocked.forEach(({element}) => { element.inert = true; });
-      opening.dataset.openingLoading = "true";
-      opening.setAttribute("aria-busy", "true");
-    }
-    const releaseGate = () => {
-      if (!opening.hasAttribute("data-opening-loading")) return;
-      blocked.forEach(({element, inert}) => { element.inert = inert; });
-      delete opening.dataset.openingLoading;
-      opening.removeAttribute("aria-busy");
-    };
-    // Copy is rendered from the presented media frame, never from a requested
-    // seek. Pending decodes therefore retain one coherent composition.
+    // Media enhances a page that is already usable. While it buffers, the
+    // approved posters and copy follow scrolling without a document-wide gate.
     const copyTimeline = gsap.timeline({paused: true})
       .to(heroCopy, {autoAlpha: 0, y: -35, duration: .25, ease: "none"}, .05)
       .fromTo(brandCopy, {autoAlpha: 0, y: 24}, {autoAlpha: 1, y: 0, duration: .22, ease: "none"}, .42)
       .fromTo(cards, {autoAlpha: 0, y: 24}, {autoAlpha: 1, y: 0, duration: .22, ease: "none"}, .48);
     const renderCopy = () => {
-      const actual = Math.max(0, Math.min(1, (presentedTime ?? 0) / endTime()));
+      const actual = layer.dataset.ready && presentedTime !== null
+        ? Math.max(0, Math.min(1, presentedTime / endTime())) : playhead.progress;
       copyTimeline.time(actual * anchor);
-      if (!opening.hasAttribute("data-opening-loading")) {
-        heroCopy.inert = actual > .4;
-        brandCopy.inert = cards.inert = actual < .43;
-      }
+      heroCopy.inert = actual > .4;
+      brandCopy.inert = cards.inert = actual < .43;
+      layer.dataset.poster = actual >= .4 ? "end" : "start";
     };
     const clearStall = () => { clearTimeout(stallTimer); stallTimer = 0; };
-    const clearLoadingTimers = () => {
-      clearTimeout(downloadDeadline);
-      clearTimeout(loadDeadline);
-    };
     const fallback = () => {
       if (!mounted || failed) return;
       failed = failedThisVisit = true;
-      controller.abort();
-      clearLoadingTimers();
       clearStall();
       const inOpening = stage.getBoundingClientRect().bottom > 0 && stage.getBoundingClientRect().top <= innerHeight;
       const chapter = playhead.progress >= .4 ? brandCopy.closest<HTMLElement>("section")! : heroCopy.closest<HTMLElement>("section")!;
@@ -195,36 +173,45 @@ export function mountOpeningVideo(root: HTMLElement, source = openingVideoSource
       gsap.set([heroCopy, brandCopy, cards], {clearProps: "opacity,visibility,transform"});
       opening.dataset.staticOpening = "true";
       delete layer.dataset.ready;
-      releaseGate();
       heroCopy.inert = brandCopy.inert = cards.inert = false;
       video.pause(); video.removeAttribute("src"); video.load();
-      if (ownedSource) { URL.revokeObjectURL(ownedSource); ownedSource = null; }
       ScrollTrigger.refresh();
       if (inOpening) window.scrollTo({top: chapter.offsetTop, behavior: "instant"});
       else if (nextChapter) window.scrollBy({top: nextChapter.element.getBoundingClientRect().top - nextChapter.top, behavior: "instant"});
       capture();
     };
-    // Slow but progressing transfers should retain the film. A stalled transfer
-    // still falls back promptly, with a total cap so loading cannot trap a reader.
-    const downloadProgress = () => {
-      if (!mounted || failed) return;
-      clearTimeout(downloadDeadline);
-      downloadDeadline = window.setTimeout(fallback, 12000);
-    };
-    downloadProgress();
-    loadDeadline = window.setTimeout(fallback, 30000);
     const aligned = () => !video.error && video.readyState >= 2 && !video.seeking &&
       Math.abs(video.currentTime - desiredTime()) <= 1 / 48 &&
       (presentedTime !== null && Math.abs(presentedTime - desiredTime()) <= 1 / 12);
     const waitForDecoder = () => {
-      if (layer.dataset.ready && !stallTimer) stallTimer = window.setTimeout(fallback, 4000);
+      if (layer.dataset.ready && !stallTimer) stallTimer = window.setTimeout(() => {
+        stallTimer = 0;
+        const wanted = desiredTime();
+        const buffered = Array.from({length: video.buffered.length}, (_, index) =>
+          wanted >= video.buffered.start(index) && wanted <= video.buffered.end(index)
+        ).some(Boolean);
+        if (buffered) fallback();
+        else {
+          // A distant seek can need another network range. Keep readable copy
+          // and posters while it arrives, then resume the film at this position.
+          delete layer.dataset.ready;
+          renderCopy();
+        }
+      }, 4000);
     };
     const tick = () => {
       frame = 0;
       if (!mounted || failed || document.hidden) return;
       const bounds = stage.getBoundingClientRect();
-      if (bounds.bottom < 0 || bounds.top > innerHeight) { clearStall(); releaseGate(); return; }
-      if (!ownedSource) return;
+      if (bounds.bottom < 0 || bounds.top > innerHeight) { clearStall(); return; }
+      if (!sourceRequested) {
+        // Native media loading can decode and seek with HTTP Range requests;
+        // it never waits for a complete fetch/blob copy in JavaScript memory.
+        sourceRequested = true;
+        video.preload = "auto";
+        video.src = source;
+        video.load();
+      }
       if (video.readyState < 2) { waitForDecoder(); return; }
       if (video.seeking) { waitForDecoder(); return; }
       if (Math.abs(video.currentTime - desiredTime()) > 1 / 48) {
@@ -236,8 +223,6 @@ export function mountOpeningVideo(root: HTMLElement, source = openingVideoSource
         clearStall();
         // Latch the movie plane. Ordinary waiting/seeking never reveals posters.
         layer.dataset.ready = "true";
-        clearLoadingTimers();
-        releaseGate();
         renderCopy();
       } else waitForDecoder();
     };
@@ -268,6 +253,7 @@ export function mountOpeningVideo(root: HTMLElement, source = openingVideoSource
       if (failed) return;
       video.dataset.scrollProgress = String(playhead.progress);
       capture();
+      if (!layer.dataset.ready) renderCopy();
       schedule();
     };
     const visibility = () => {
@@ -306,20 +292,11 @@ export function mountOpeningVideo(root: HTMLElement, source = openingVideoSource
       scroll.update();
       update();
     });
-    void preloadOpening(source, controller.signal, posters, preview, downloadProgress).then(blob => {
-      if (!mounted || failed || controller.signal.aborted) return;
-      ownedSource = URL.createObjectURL(blob);
-      video.src = ownedSource;
-      video.load();
-    }).catch(() => { if (!controller.signal.aborted) fallback(); });
     renderCopy();
     update();
     return () => {
       mounted = false;
-      controller.abort();
-      clearLoadingTimers();
       clearStall();
-      releaseGate();
       currentScroll = undefined;
       cancelAnimationFrame(resetFrame);
       cancelAnimationFrame(frame);
@@ -334,12 +311,12 @@ export function mountOpeningVideo(root: HTMLElement, source = openingVideoSource
       document.removeEventListener("visibilitychange", visibility);
       window.removeEventListener("lumiq:home-enter", ready);
       video.pause(); video.removeAttribute("src"); video.load();
-      if (ownedSource) URL.revokeObjectURL(ownedSource);
       delete video.dataset.scrollProgress;
       delete opening.dataset.videoMode;
       delete opening.dataset.staticOpening;
       delete layer.dataset.ready;
       delete layer.dataset.intro;
+      delete layer.dataset.poster;
       heroCopy.inert = brandCopy.inert = cards.inert = false;
     };
   });
@@ -357,5 +334,6 @@ export function mountOpeningVideo(root: HTMLElement, source = openingVideoSource
     window.removeEventListener("click", input);
     window.removeEventListener("keydown", key);
     mm.revert();
+    posterLayers.forEach((element, index) => { element.style.backgroundImage = previousPosters[index]; });
   };
 }

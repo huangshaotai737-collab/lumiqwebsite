@@ -94,17 +94,21 @@ for (const entry of ['anchor', 'wheel'] as const) {
   });
 }
 
-// The new below-fold exemption must retain the initial visible opening gate.
-test('visible opening gates lower chapters until its first decoded frame', async ({page}) => {
+// Both visible and below-fold content remain interactive during media buffering.
+test('lower chapters stay interactive while the opening buffers', async ({page}) => {
   await page.setViewportSize({width: 1440, height: 900});
   let release!: () => void;
   const delayed = new Promise<void>(resolve => { release = resolve; });
-  await page.route('**/ola-scroll-v16-scrub.mp4', async route => { await delayed; await route.continue(); });
+  await page.route('**/ola-scroll-v16-scrub.mp4', async route => { await delayed; await route.continue().catch(() => {}); });
   try {
     await page.goto('/zh-hant', {waitUntil: 'domcontentloaded'});
-    await expect(page.locator('.lh-opening')).toHaveAttribute('data-opening-loading', 'true');
-    await expect(page.locator('#films')).toHaveAttribute('inert', '');
+    await expect(page.locator('#products')).toHaveAttribute('data-enhanced', 'true');
+    await enterSection(page, '.lh-films-section');
+    await expect(page.locator('#films')).not.toHaveAttribute('inert');
+    await page.locator('.lh-films-controls button').last().click();
+    await expect(page.locator('.lh-films-controls strong')).toHaveText('02');
   } finally { release(); }
+  await page.evaluate(() => scrollTo({top: 0, behavior: 'instant'}));
   await expect(page.locator('.lh-video-layer')).toHaveAttribute('data-ready', 'true', {timeout: 15000});
   await expect(page.locator('.lh-opening')).not.toHaveAttribute('aria-busy');
   await expect(page.locator('#films')).not.toHaveAttribute('inert');

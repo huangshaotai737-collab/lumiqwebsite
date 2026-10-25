@@ -58,7 +58,7 @@ export default function Home() {
   return (
     <HomeMotion>
       <HomeBackgrounds />
-      <div className="lh-opening" data-opening-pending="true">
+      <div className="lh-opening">
         <div className="lh-opening-stage">
           <div className="lh-video-layer" aria-hidden="true">
             <div className="lh-opening-film">

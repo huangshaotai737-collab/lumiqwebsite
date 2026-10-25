@@ -31,7 +31,7 @@ export default function HomeMotion({ children }: { children: ReactNode }) {
       const releasePosition = root.current ? mountHomePosition(root.current) : () => {};
       const releaseImages = root.current ? preloadScenes(root.current) : () => {};
       const releaseOpening = root.current
-        ? mountOpeningVideo(root.current, cms.slot("asset_a4b2063e90484449").url, [cms.slot("asset_76a5de3f207ca5bb").url,cms.slot("asset_d11e4e878cf13138").url], cms.preview)
+        ? mountOpeningVideo(root.current, cms.slot("asset_a4b2063e90484449").url, [cms.slot("asset_76a5de3f207ca5bb").url,cms.slot("asset_d11e4e878cf13138").url])
         : () => {};
       // Opening layout is reserved before the horizontal product floor is measured.
       const releaseProducts = root.current
