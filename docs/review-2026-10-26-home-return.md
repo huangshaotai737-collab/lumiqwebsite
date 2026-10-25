@@ -29,7 +29,7 @@
 
 沿用 `huangshaotai737-1797s-projects/lumiq-showcase-20261025`，项目 ID 已通过 CLI 核验。724 个源文件；相对上一包仅四个应用文件及新增回归测试不同，源文件／已测试构建源／发布目录哈希一致。无环境变量、缓存、构建输出或 LFS 指针。包 SHA-256：`7614e9d6b02585a5d67293f8aa17abcd21ff2ff43afc120a756682466572ca3e`。
 
-发布状态与线上复测结果在发布完成后追加。
+最终发布状态与线上复测见文末。
 
 ## 动态录像补充发现
 
@@ -40,3 +40,12 @@
 补充修复后，包含文案可见性、继续滚动后的重新出现，以及原有重复刷新／导航的双引擎套件再次 30 PASS；连续缩放专项再次 9 PASS，最终版本仍为 39 PASS／0 FAIL／0 SKIP（`resize-copy.json`）。198 项单元测试、正式构建和修改文件 ESLint 再次通过。最新原始日志为 `browser-copy.json`、`unit-copy.log`、`build-copy.log`、`lint-copy.log`。
 
 实际操作录像验证：产品区刷新前后均为 3365px；滚动到视频区时背景视频时间从 4.8333s 推进到 10.2917s；产品页返回首页为 0px，开场视频 0s、下一段文字隐藏；页面脚本错误 0 条。最终录像和截图位于 `/Users/huangshaotai/Documents/outputs/01a13132-7aa0-7d01-8889-c18bbc65ccec/home-return-20261026-final/`。原始重叠截图仍保留于相邻的 `home-return-20261026/` 目录，未覆盖失败证据。
+
+## 最终发布与线上复测
+
+- 最终应用提交：`5ad7c4a81338da877d7cd4484182dab1f886949b`。
+- Vercel 部署：`dpl_3HuuwkC6FizcRnZagMQJRQ7AhFNL`，`READY`，production。原地址 `https://lumiq-showcase-20261025.vercel.app/zh-hant` 已绑定。
+- 线上 Chrome／WebKit 五条回归路径各一遍，首次 8 PASS／2 FAIL。WebKit 五条全部通过；Chrome 的两处连续刷新及深页导航、文案零帧状态通过。
+- Chrome 失败两项（后退、纵向滚轮）均发生于最初 HTML 请求的 `ERR_CONNECTION_CLOSED`，尚未执行交互断言。独立重测后，后退通过；纵向滚轮再次连接中断，单独新进程重测仍中断。累计保留四次连接中断记录，没有删断言或更改应用。
+- 最后一条纵向滚轮在仅关闭 QUIC 的 Chrome 对照环境中通过，页面滚动按原断言响应。此结果只证明该传输配置下功能通过，不能据此断言 QUIC 就是根因，也不能把默认连接的失败计为首次通过。默认 Chrome 到该域名的偶发连接稳定性仍需另行核实。
+- 线上证据：`online.json`、`online-retest.json`、`online-wheel-retest.json`、`online-wheel-transport.json` 及对应日志／trace；最终部署结果 `deployment-result.json`。此次检查为公开展示站，不涉及后台数据写入或交易。
