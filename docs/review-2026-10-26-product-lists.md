@@ -30,3 +30,11 @@
 包 SHA-256：`f39e125719ebf3534fc935ca0e41e3123869736c970f9e339c2efab9ed63028a`。
 
 部署目标沿用用户指定 `lumiq-showcase-20261025`，团队 `huangshaotai737-1797s-projects`；已通过 CLI 只读核对项目 ID 和归属。发布结果另记于本报告末尾。
+
+## 发布与线上复测
+
+- 应用提交：`7fdee36ea5b075d229f7c8a4f3d82e89ad3f5a68`。
+- Vercel 部署：`dpl_BUZMLYLvXa5Hq6vbuvm934nbh1G2`，状态 `READY`，原地址 `https://lumiq-showcase-20261025.vercel.app` 已绑定。
+- 两页 × 电脑／手机 × Chrome／WebKit 的 8 个线上组合最终均有通过记录；验证新版透明编号列表、布局、锚点及候补跳转，加载成功的检查中没有页面脚本异常。
+- 保留不稳定访问记录：首轮 5 PASS / 3 FAIL；失败的三项均为 Chrome 首次请求 HTML 时 `ERR_CONNECTION_CLOSED`，尚未进入页面断言。逐项独立重试后 Orb 手机、OlaGo 电脑通过；OlaGo 手机首次重试仍中断，单独再测通过。未修改应用或断言，未确认连接中断根因，不能宣称线上访问稳定性全部通过。
+- 原始线上结果位于同一证据目录：`online-results.json`、`online-retest-*.json` 及对应 trace／截图。发布结果为 `deployment-result.json`。
