@@ -13,6 +13,7 @@ import { mountOpeningVideo, openingVideoQuery } from "./openingVideo";
 import { preloadScenes } from "./preloadScenes";
 import { mountReadingAnchors } from "./readingNavigation";
 import { mountHomePosition } from "./homePosition";
+import HomePageWarmup from "./HomePageWarmup";
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 /** Native scrolling drives the current opening at every desktop aspect ratio. */
@@ -132,6 +133,7 @@ export default function HomeMotion({ children }: { children: ReactNode }) {
   );
   return (
     <main ref={root} id="main-content" className="lh-home" data-home-state="open" tabIndex={-1}>
+      <HomePageWarmup />
       {children}
     </main>
   );
