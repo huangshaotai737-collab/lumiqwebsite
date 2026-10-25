@@ -2,9 +2,17 @@
 
 官网位于 `related/website/`，独立控制中台位于 `related/admin/`，两站共用根目录的合约与数据库迁移。生产分支为 `main`。
 
+## 最新源码交付分支（2026-10-25）
+
+本次交付分支为 [`codex/review-ready-20261025`](https://github.com/huangshaotai737-collab/lumiqwebsite/tree/codex/review-ready-20261025)，包含官网、独立后台、共用合约、数据库迁移和本轮验收记录。应用代码基于本机已验收提交 `83b841a58b232a75a5103f6c7d24c788ce084541`；其后的本次交接提交只更新本说明。
+
+旧审核分支上的独立提交 `52504d4`、`e48335c`（OLA功能状态／参考价格、Tablet蓝光文案）未并入这个已验收快照，旧分支保持原样。检查人员比较分支时请保留这一区别，不将此分支视为已合并全部远端改动。源码交付不代表生产发布，`main` 不变；账号、环境密钥、数据库业务数据和本机草稿不进入仓库。
+
+新增 [设计师待交付清单](https://hcnbsg6ttb3t.feishu.cn/docx/AMevdAozIoYRdaxLmi1cS2DTnGf)，仅用“序号／品牌方要求／我们需要做什么”三列整理13组设计与素材交付事项。
+
 ## 本机最新验收版本（2026-10-25）
 
-本轮官网与后台走查、修复和证据见 [追加修复与最终报告](qa/reports/2026-10-25/followup-report.md)（[首轮历史报告](qa/reports/2026-10-25/detailed-report.md)）、[147项品牌清单状态](qa/reports/2026-10-25/brand-status.csv) 和 [测试矩阵](qa/reports/2026-10-25/test-matrix.csv)。本次仅更新本机并在当前 `codex/` 分支保存提交，没有推送 GitHub 或部署生产。
+本轮官网与后台走查、修复和证据见 [追加修复与最终报告](qa/reports/2026-10-25/followup-report.md)（[首轮历史报告](qa/reports/2026-10-25/detailed-report.md)）、[147项品牌清单状态](qa/reports/2026-10-25/brand-status.csv) 和 [测试矩阵](qa/reports/2026-10-25/test-matrix.csv)。上述报告记录的是本机验收完成时的状态；后续源码交付分支见上一节，尚未部署生产。
 
 官网入口：http://127.0.0.1:4211/zh-hant；后台入口：http://127.0.0.1:4270/login。原本地账号、草稿与数据库保留。最终构建源码 SHA-256 为 `fe61b33b24f26d6cee480ee93b7ecb0386f79f83da324660f90a239c784b33e8`，追加修复基线提交为 `e843c60c1ce66e3cd0fb24c92ae7aad6833e5f4f`。
 
@@ -30,7 +38,7 @@
 
 ```sh
 git lfs install
-git clone --branch codex/admin-platform-design-20261020 https://github.com/huangshaotai737-collab/lumiqwebsite.git
+git clone --branch codex/review-ready-20261025 https://github.com/huangshaotai737-collab/lumiqwebsite.git
 cd lumiqwebsite
 git lfs pull
 cd related/website
