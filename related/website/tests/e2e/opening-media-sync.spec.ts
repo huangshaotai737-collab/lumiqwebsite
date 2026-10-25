@@ -114,6 +114,60 @@ test('response headers and a first chunk cannot release the opening gate', async
   await expect(page.locator('.lh-video-layer')).toHaveAttribute('data-ready', 'true');
 });
 
+// A healthy transfer may take longer than the former 12-second total deadline.
+// Delay real movie bytes at the transport boundary; decoding and scrolling stay real.
+test('a progressing slow download retains the scroll film', async ({page}) => {
+  test.setTimeout(45_000);
+  await page.addInitScript(() => {
+    const original = window.fetch;
+    window.fetch = async (...args) => {
+      const response = await original(...args);
+      if (!String(args[0]).includes('ola-scroll-v16-scrub.mp4')) return response;
+      const bytes = new Uint8Array(await response.arrayBuffer());
+      const chunkSize = Math.ceil(bytes.length / 5);
+      return new Response(new ReadableStream({async start(controller) {
+        for (let offset = 0; offset < bytes.length; offset += chunkSize) {
+          if (offset) await new Promise(resolve => setTimeout(resolve, 3500));
+          controller.enqueue(bytes.slice(offset, offset + chunkSize));
+        }
+        controller.close();
+      }}), {headers: {'content-type': 'video/mp4'}});
+    };
+  });
+  await page.goto('/zh-hant', {waitUntil: 'domcontentloaded'});
+  await expect(page.locator('.lh-video-layer')).toHaveAttribute('data-ready', 'true', {timeout: 22000});
+  await expect(page.locator('.lh-opening')).not.toHaveAttribute('data-static-opening', 'true');
+  await expect(page.locator('.lh-opening')).not.toHaveAttribute('data-opening-loading', 'true');
+  await page.mouse.wheel(0, 900);
+  await expect.poll(() => page.locator('.lh-opening-video').evaluate((v: HTMLVideoElement) => v.currentTime)).toBeGreaterThan(1);
+  await page.evaluate(() => scrollTo({top: 0, behavior: 'instant'}));
+  await expect(page.locator('.lh-hero-copy')).toHaveCSS('opacity', '1');
+});
+
+test('an endless trickle of bytes still releases the loading gate', async ({page}) => {
+  test.setTimeout(45_000);
+  await page.addInitScript(() => {
+    const original = window.fetch;
+    window.fetch = async (...args) => {
+      if (!String(args[0]).includes('ola-scroll-v16-scrub.mp4')) return original(...args);
+      let timer = 0;
+      return new Response(new ReadableStream({
+        start(controller) {
+          controller.enqueue(new Uint8Array([0]));
+          timer = window.setInterval(() => controller.enqueue(new Uint8Array([0])), 1000);
+        },
+        cancel() { clearInterval(timer); },
+      }), {headers: {'content-type': 'video/mp4'}});
+    };
+  });
+  await page.goto('/zh-hant', {waitUntil: 'domcontentloaded'});
+  await expect(page.locator('.lh-opening')).toHaveAttribute('data-opening-loading', 'true');
+  await expect(page.locator('.lh-opening')).toHaveAttribute('data-static-opening', 'true', {timeout: 35000});
+  await expect(page.locator('.lh-opening')).not.toHaveAttribute('data-opening-loading', 'true');
+  await page.mouse.wheel(0, 900);
+  await expect.poll(() => page.evaluate(() => scrollY)).toBeGreaterThan(200);
+});
+
 test('rapid forward and reverse scrolling never switches the revealed movie back to posters', async ({page}) => {
   await page.goto('/zh-hant');
   await expect(page.locator('.lh-video-layer')).toHaveAttribute('data-ready', 'true');

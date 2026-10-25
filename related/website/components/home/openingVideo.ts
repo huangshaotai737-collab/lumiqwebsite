@@ -132,6 +132,8 @@ export function mountOpeningVideo(root: HTMLElement, source = openingVideoSource
     let frame = 0;
     let decodedFrame = 0;
     let stallTimer = 0;
+    let downloadDeadline = 0;
+    let loadDeadline = 0;
     let presentedTime: number | null = null;
     let ownedSource: string | null = null;
     const controller = new AbortController();
@@ -171,11 +173,15 @@ export function mountOpeningVideo(root: HTMLElement, source = openingVideoSource
       }
     };
     const clearStall = () => { clearTimeout(stallTimer); stallTimer = 0; };
+    const clearLoadingTimers = () => {
+      clearTimeout(downloadDeadline);
+      clearTimeout(loadDeadline);
+    };
     const fallback = () => {
       if (!mounted || failed) return;
       failed = failedThisVisit = true;
       controller.abort();
-      clearTimeout(deadline);
+      clearLoadingTimers();
       clearStall();
       const inOpening = stage.getBoundingClientRect().bottom > 0 && stage.getBoundingClientRect().top <= innerHeight;
       const chapter = playhead.progress >= .4 ? brandCopy.closest<HTMLElement>("section")! : heroCopy.closest<HTMLElement>("section")!;
@@ -198,8 +204,15 @@ export function mountOpeningVideo(root: HTMLElement, source = openingVideoSource
       else if (nextChapter) window.scrollBy({top: nextChapter.element.getBoundingClientRect().top - nextChapter.top, behavior: "instant"});
       capture();
     };
-    // A slow or unsupported decoder must not trap the visitor behind a loader.
-    const deadline = window.setTimeout(fallback, 12000);
+    // Slow but progressing transfers should retain the film. A stalled transfer
+    // still falls back promptly, with a total cap so loading cannot trap a reader.
+    const downloadProgress = () => {
+      if (!mounted || failed) return;
+      clearTimeout(downloadDeadline);
+      downloadDeadline = window.setTimeout(fallback, 12000);
+    };
+    downloadProgress();
+    loadDeadline = window.setTimeout(fallback, 30000);
     const aligned = () => !video.error && video.readyState >= 2 && !video.seeking &&
       Math.abs(video.currentTime - desiredTime()) <= 1 / 48 &&
       (presentedTime !== null && Math.abs(presentedTime - desiredTime()) <= 1 / 12);
@@ -223,7 +236,7 @@ export function mountOpeningVideo(root: HTMLElement, source = openingVideoSource
         clearStall();
         // Latch the movie plane. Ordinary waiting/seeking never reveals posters.
         layer.dataset.ready = "true";
-        clearTimeout(deadline);
+        clearLoadingTimers();
         releaseGate();
         renderCopy();
       } else waitForDecoder();
@@ -293,7 +306,7 @@ export function mountOpeningVideo(root: HTMLElement, source = openingVideoSource
       scroll.update();
       update();
     });
-    void preloadOpening(source, controller.signal, posters, preview).then(blob => {
+    void preloadOpening(source, controller.signal, posters, preview, downloadProgress).then(blob => {
       if (!mounted || failed || controller.signal.aborted) return;
       ownedSource = URL.createObjectURL(blob);
       video.src = ownedSource;
@@ -304,7 +317,7 @@ export function mountOpeningVideo(root: HTMLElement, source = openingVideoSource
     return () => {
       mounted = false;
       controller.abort();
-      clearTimeout(deadline);
+      clearLoadingTimers();
       clearStall();
       releaseGate();
       currentScroll = undefined;
