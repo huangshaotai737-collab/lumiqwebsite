@@ -45,8 +45,16 @@ test('home navigation resets to the opening after repeated visits to deep produc
     await page.waitForURL('**/zh-hant');
     await settledHome(page);
     expect(await page.evaluate(() => scrollY)).toBeLessThan(2);
+    await expect(page.locator('.lh-hero-copy')).toHaveCSS('opacity', '1');
+    await expect(page.locator('.lh-ola-copy')).toHaveCSS('opacity', '0');
+    await expect(page.locator('.lh-rhythm-cards')).toHaveCSS('opacity', '0');
     await expect(page.locator('.pin-spacer')).toHaveCount(1);
     await expect(page.locator('#films')).not.toHaveAttribute('inert');
+    // Returning to frame zero must not leave the next chapter visible, nor
+    // prevent that chapter from appearing again when the reader scrolls.
+    await page.evaluate(() => scrollTo({top: 2300, behavior: 'instant'}));
+    await expect(page.locator('.lh-hero-copy')).toHaveCSS('opacity', '0');
+    await expect(page.locator('.lh-ola-copy')).toHaveCSS('opacity', '1');
   }
 });
 

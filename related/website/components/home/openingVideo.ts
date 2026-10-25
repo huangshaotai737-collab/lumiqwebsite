@@ -144,10 +144,14 @@ export function mountOpeningVideo(root: HTMLElement, source = openingVideoSource
     const desiredTime = () => Math.min(endTime(), Math.round(playhead.progress * endTime() * 24) / 24);
     // Media enhances a page that is already usable. While it buffers, the
     // approved posters and copy follow scrolling without a document-wide gate.
+    // A route can mount at the previous page's offset before Next scrolls to
+    // zero. Establish a real starting state so rewinding the paused timeline
+    // does not revert a fromTo's startAt to the visible server-rendered copy.
+    gsap.set([brandCopy, cards], {autoAlpha: 0, y: 24});
     const copyTimeline = gsap.timeline({paused: true})
       .to(heroCopy, {autoAlpha: 0, y: -35, duration: .25, ease: "none"}, .05)
-      .fromTo(brandCopy, {autoAlpha: 0, y: 24}, {autoAlpha: 1, y: 0, duration: .22, ease: "none"}, .42)
-      .fromTo(cards, {autoAlpha: 0, y: 24}, {autoAlpha: 1, y: 0, duration: .22, ease: "none"}, .48);
+      .to(brandCopy, {autoAlpha: 1, y: 0, duration: .22, ease: "none"}, .42)
+      .to(cards, {autoAlpha: 1, y: 0, duration: .22, ease: "none"}, .48);
     const renderCopy = () => {
       const actual = layer.dataset.ready && presentedTime !== null
         ? Math.max(0, Math.min(1, presentedTime / endTime())) : playhead.progress;
