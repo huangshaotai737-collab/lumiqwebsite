@@ -146,6 +146,9 @@ test('the first paint remains scrollable before application scripts arrive', asy
   try {
     await page.goto('/zh-hant', {waitUntil: 'commit'});
     await expect(page.locator('.lh-hero-copy')).toBeVisible();
+    // On a remote origin, commit can precede the render-blocking stylesheet.
+    // Wait for painted layout while application scripts are still held above.
+    await expect(page.locator('.lh-hero-copy')).toHaveCSS('position', 'relative');
     await expect(page.locator('html')).not.toHaveCSS('overflow-y', 'hidden');
     await page.mouse.wheel(0, 800);
     await page.evaluate(() => new Promise<void>(resolve => requestAnimationFrame(() => requestAnimationFrame(() => resolve()))));
