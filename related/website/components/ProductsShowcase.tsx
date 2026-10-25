@@ -438,7 +438,7 @@ export default function ProductsShowcase() {
                 <div className="prod-stage-media">
                   <Image
                     src={p.img}
-                    alt={selected ? p.name : ""}
+                    alt={selected ? `${p.name} · ${brand(`audiences.${p.id === 'pal' ? 'ola' : p.id === 'book' ? 'print' : p.id}`)}` : ""}
                     width={1000}
                     height={1000}
                     unoptimized={isPhone}

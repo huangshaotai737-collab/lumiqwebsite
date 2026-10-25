@@ -436,7 +436,7 @@
         "kind": "Image",
         "property": "src",
         "source": "{p.img}",
-        "alt": "{selected ? p.name : \"\"}"
+        "alt": "{selected ? `${p.name} · ${brand(`audiences.${p.id === 'pal' ? 'ola' : p.id === 'book' ? 'print' : p.id}`)}` : \"\"}"
       },
       {
         "kind": "Image",

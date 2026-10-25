@@ -1285,7 +1285,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.en.Tablet.step4Body",
     "before": "Place the tablet beside Lumiq Ola to explore character conversations and questions about the story.",
-    "after": "Place the tablet beside LumiqOla to explore character conversations and questions about the story."
+    "after": "A planned connection with LumiqOla could let children and parents talk with storybook characters about the story they are reading."
   },
   {
     "path": "messages.en.Tablet.updates",
@@ -2560,7 +2560,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.ja.Tablet.step4Body",
     "before": "タブレットを Lumiq Ola のそばに置き、登場人物との会話や物語への質問を楽しみます。",
-    "after": "タブレットを LumiqOla のそばに置き、登場人物との会話や物語への質問を楽しみます。"
+    "after": "LumiqOla との連携では、子どもと保護者が読んでいる物語の登場人物と会話できる体験を計画しています。"
   },
   {
     "path": "messages.ja.Tablet.updates",
@@ -3850,7 +3850,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.zh-hant.Tablet.step4Body",
     "before": "把平板放在 Lumiq Ola 旁，探索角色對話並提出故事相關問題。",
-    "after": "把平板放在 LumiqOla 旁，探索角色對話並提出故事相關問題。"
+    "after": "規劃中的 LumiqOla 聯動，讓孩子和家長與正在閱讀的故事角色對話，聊聊故事接下來的發展。"
   },
   {
     "path": "messages.zh-hant.Tablet.way4Body",
@@ -4065,7 +4065,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.en.Products.lead",
     "before": "Future-ready AI devices that interact, learn, and grow with your family — designed to end in stories, not scrolling.",
-    "after": "LumiqTablet gives children and parents a place to read together. LumiqOla and OlaGo are companion concepts for adults and older adults, built around conversation and everyday reminders."
+    "after": "LumiqTablet brings children and parents into stories together. LumiqOla and OlaGo are for conversation and everyday company for adults and older adults. LumiqOrb helps the whole household share plans and daily tasks."
   },
   {
     "path": "messages.en.Products.p1Sub",
@@ -4230,7 +4230,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.zh-hant.Products.lead",
     "before": "與家人一起互動、學習和成長的未來型 AI 裝置；體驗以故事作結，而不是無止境滑動。",
-    "after": "LumiqTablet 讓孩子與家長一起讀故事；LumiqOla 和 OlaGo 面向成人與長輩，著重日常對話與提醒。"
+    "after": "LumiqTablet 讓孩子與家長一起讀故事；LumiqOla 和 OlaGo 陪伴成人與長輩聊天、記得日常小事；LumiqOrb 幫全家共享行程與家務。"
   },
   {
     "path": "messages.zh-hant.Products.p1Sub",
@@ -4405,7 +4405,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.ja.Products.lead",
     "before": "家族と関わり、学び、ともに成長する未来志向の AI デバイス。スクロールではなく、物語で終わるように設計しています。",
-    "after": "LumiqTablet は子どもと保護者が一緒に読むための製品。LumiqOla と OlaGo は、大人とシニアの会話や日々のリマインダーを中心にしたコンセプトです。"
+    "after": "LumiqTablet は子どもと保護者が一緒に物語を読むために。LumiqOla と OlaGo は大人とシニアの日々の会話やリマインダーに。LumiqOrb は家族の予定や家事を共有します。"
   },
   {
     "path": "messages.ja.Products.p1Sub",

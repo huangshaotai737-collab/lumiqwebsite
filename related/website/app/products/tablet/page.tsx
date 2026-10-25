@@ -39,6 +39,8 @@ export default function TabletPage() {
           alt: brand("stories.story1Title"),
         },
         bullets: [t("spec1"), t("spec2"), t("spec3"), t("spec4")],
+        noteTitle: t("step4Title"),
+        noteBody: t("step4Body"),
       }}
       scenesEyebrow={t("why")}
       scenesTitle={t("whyTitle")}
