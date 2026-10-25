@@ -7,16 +7,6 @@ import ProductDetailTemplate from "@/components/ProductDetailTemplate";
 
 const avatarActions = ["feed", "clean", "exchange"] as const;
 
-function AvatarIcon({ action }: { action: (typeof avatarActions)[number] }) {
-  return (
-    <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false">
-      {action === "feed" && <><path d="M5 16h22v2a11 11 0 0 1-22 0v-2ZM3 16h26M10 29h12" /><path d="M11 10c-2-2 2-3 0-5M19 10c-2-2 2-3 0-5" /></>}
-      {action === "clean" && <><path d="M19 4c0 0-9 10-9 15a9 9 0 0 0 18 0C28 14 19 4 19 4Z" /><path d="M14 20a5 5 0 0 0 5 5M5 4v8M1 8h8" /></>}
-      {action === "exchange" && <><path d="M5 11h22l-6-6M27 21H5l6 6M27 11V8M5 21v3" /></>}
-    </svg>
-  );
-}
-
 export default function OlaGoProductPage() {
   const cms = useContentAdapter();
   const t = useTranslations("OlaGo");
@@ -87,7 +77,7 @@ export default function OlaGoProductPage() {
       }}
       afterFeatures={
         <section className="pd-floor olago-avatar-floor" aria-labelledby="olago-avatar-title">
-          <div className="pd-shell">
+          <div className="pd-shell olago-avatar-layout">
             <header className="olago-avatar-heading">
               <p className="pd-eyebrow">{brand("avatar.eyebrow")}</p>
               <Heading as="h2" id="olago-avatar-title">{brand("avatar.title")}</Heading>
@@ -96,7 +86,6 @@ export default function OlaGoProductPage() {
             <div className="olago-avatar-grid">
               {avatarActions.map((action, index) => (
                 <article className="olago-avatar-card" key={action}>
-                  <span className="olago-avatar-icon"><AvatarIcon action={action} /></span>
                   <p className="olago-avatar-step" aria-hidden="true">{String(index + 1).padStart(2, "0")}</p>
                   <Heading as="h3">{brand(`avatar.${action}Title`)}</Heading>
                   <p>{brand(`avatar.${action}Body`)}</p>

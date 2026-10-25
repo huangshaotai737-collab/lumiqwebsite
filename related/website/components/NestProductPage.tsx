@@ -80,16 +80,16 @@ export default function NestProductPage() {
       </section>
 
       <section className="orb-overview orb-floor" aria-labelledby="orb-overview-title">
-        <div className="pd-shell">
-          <header className="orb-section-heading orb-section-heading--center">
+        <div className="pd-shell orb-detail-layout">
+          <header className="orb-section-heading">
             <p className="orb-eyebrow">{t("overview.eyebrow")}</p>
             <Heading as="h2" id="orb-overview-title">{t("overview.title")}</Heading>
             <p>{t("overview.body")}</p>
           </header>
           <nav className="orb-overview-grid" aria-label={t("overview.navigation")}>
-            {featureSections.map((feature) => (
+            {featureSections.map((feature, index) => (
               <a className="orb-overview-card" key={feature.key} href={`#${feature.id}`}>
-                <span className="orb-feature-icon"><FeatureIcon feature={feature.key} /></span>
+                <span className="orb-overview-step" aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
                 <p className="orb-card-label">{t(`${feature.key}.label`)}</p>
                 <Heading as="h3">{t(`${feature.key}.cardTitle`)}</Heading>
                 <p className="orb-card-body">{t(`${feature.key}.cardBody`)}</p>

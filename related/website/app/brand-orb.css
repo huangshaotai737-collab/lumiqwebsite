@@ -34,27 +34,24 @@
 .lumiq-root .orb-page .orb-section-heading > p:last-child { margin-top: 22px; color: var(--orb-muted); font-size: 17px; line-height: 1.7; }
 .lumiq-root .orb-page .orb-section-heading--center { max-width: 750px; margin-inline: auto; text-align: center; }
 .lumiq-root .orb-page .orb-overview { border-top: 1px solid var(--orb-line); }
-.lumiq-root .orb-page .orb-overview-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; margin-top: 44px; }
+/* Overview links use the same open numbered rows as the feature details. */
+.lumiq-root .orb-page .orb-overview-grid { display: grid; grid-template-columns: minmax(0, 1fr); border-top: 1px solid var(--orb-line); }
 .lumiq-root .orb-page .orb-overview-card {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  display: grid;
+  grid-template-columns: 32px minmax(0, 1fr) 28px;
+  column-gap: 22px;
+  row-gap: 12px;
+  align-content: start;
   min-width: 0;
-  padding: 26px 22px 54px;
-  border: 1px solid var(--orb-line);
-  border-radius: 22px;
-  background: rgba(255, 255, 255, .28);
-  box-shadow: 0 12px 32px rgba(21, 36, 57, .04);
-  transition: background .2s ease, border-color .2s ease;
+  padding: 26px 0;
+  border-bottom: 1px solid var(--orb-line);
 }
-.lumiq-root .orb-page .orb-overview-card:hover { border-color: rgba(21, 36, 57, .3); background: rgba(255, 255, 255, .48); }
-.lumiq-root .orb-page .orb-feature-icon { display: grid; place-items: center; width: 54px; height: 54px; border: 1px solid rgba(21, 36, 57, .12); border-radius: 50%; background: transparent; color: var(--ink-2); }
-.lumiq-root .orb-page .orb-feature-icon svg { width: 34px; height: 34px; }
-.lumiq-root .orb-page .orb-card-label { margin-top: 24px; color: var(--ink-2); font-size: 16px; font-weight: 650; line-height: 1.5; }
-.lumiq-root .orb-page .orb-overview-card h3 { margin-top: 10px; color: var(--orb-ink); font-size: 22px; line-height: 1.3; letter-spacing: -.025em; }
-.lumiq-root .orb-page .orb-card-body { margin-top: 14px; color: var(--orb-muted); font-size: 16px; line-height: 1.65; }
-.lumiq-root .orb-page .orb-card-arrow { position: absolute; right: 22px; bottom: 20px; color: var(--ink-2); font-size: 25px; line-height: 1; }
+.lumiq-root .orb-page .orb-overview-step { grid-column: 1; grid-row: 1 / span 3; color: var(--ink-2); font-size: 18px; font-variant-numeric: tabular-nums; line-height: 1.5; }
+.lumiq-root .orb-page .orb-card-label { grid-column: 2; color: var(--ink-2); font-size: 16px; font-weight: 650; line-height: 1.5; }
+.lumiq-root .orb-page .orb-overview-card h3 { grid-column: 2; color: var(--orb-ink); font-size: var(--lq-h3); line-height: 1.3; letter-spacing: -.025em; }
+.lumiq-root .orb-page .orb-card-body { grid-column: 2; color: var(--ink-2); font-size: 16px; line-height: 1.7; }
+.lumiq-root .orb-page .orb-card-arrow { grid-column: 3; grid-row: 1 / span 3; align-self: center; color: var(--ink-2); font-size: 25px; line-height: 1; transition: transform .2s ease; }
+.lumiq-root .orb-page .orb-overview-card:is(:hover, :focus-visible) .orb-card-arrow { transform: translate(2px, -2px); }
 .lumiq-root .orb-page .orb-detail { scroll-margin-top: 105px; border-top: 1px solid var(--orb-line); }
 .lumiq-root .orb-page .orb-detail:focus { outline: none; }
 .lumiq-root .orb-page .orb-detail-layout { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.4fr); align-items: start; gap: clamp(38px, 6vw, 84px); }
@@ -101,7 +98,6 @@
 .lumiq-root .orb-page .orb-final .pd-primary-action { margin-top: 30px; }
 .lumiq-root .orb-page .orb-final .orb-concept-note { max-width: 620px; margin: 24px auto 0; }
 @media (max-width: 1100px) {
-  .lumiq-root .orb-page .orb-overview-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .lumiq-root .orb-page .orb-detail-layout { grid-template-columns: 1fr; gap: 36px; }
   .lumiq-root .orb-page .orb-detail-layout > .orb-section-heading { max-width: 720px; }
   .lumiq-root .orb-page .orb-section-number { margin-bottom: 16px; }
@@ -126,11 +122,7 @@
   .lumiq-root .orb-page .orb-eyebrow { font-size: 16px; letter-spacing: .055em; }
   .lumiq-root .orb-page .orb-section-heading h2 { font-size: clamp(30px, 7vw, 38px); }
   .lumiq-root .orb-page .orb-section-heading > p:last-child { margin-top: 18px; font-size: 16px; }
-  .lumiq-root .orb-page .orb-overview-grid { grid-template-columns: 1fr; gap: 14px; margin-top: 30px; }
-  .lumiq-root .orb-page .orb-overview-card { padding: 24px 24px 42px; }
-  .lumiq-root .orb-page .orb-card-label { margin-top: 16px; }
-  .lumiq-root .orb-page .orb-overview-card h3 { font-size: 22px; }
-  .lumiq-root .orb-page .orb-card-body { margin-top: 10px; }
+  .lumiq-root .orb-page .orb-overview-card { grid-template-columns: 26px minmax(0, 1fr) 28px; column-gap: 16px; padding: 22px 0; }
   .lumiq-root .orb-page .orb-detail-grid { grid-template-columns: minmax(0, 1fr); }
   .lumiq-root .orb-page .orb-detail-card { grid-template-columns: 26px minmax(0, 1fr); column-gap: 16px; padding: 22px 0; }
   .lumiq-root .orb-page .orb-detail { scroll-margin-top: 92px; }
@@ -145,6 +137,7 @@
   .lumiq-root .orb-page .orb-final .pd-primary-action { width: 100%; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .lumiq-root .orb-page :is(.orb-overview-card, .pd-primary-action) { transition: none; }
+  .lumiq-root .orb-page :is(.orb-card-arrow, .pd-primary-action) { transition: none; }
+  .lumiq-root .orb-page .orb-overview-card:is(:hover, :focus-visible) .orb-card-arrow { transform: none; }
   .lumiq-root .orb-page .pd-primary-action:hover { transform: none; }
 }
