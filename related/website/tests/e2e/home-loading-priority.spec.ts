@@ -7,11 +7,24 @@ test('mobile opening image starts at high network priority', async ({page, brows
   await cdp.send('Network.enable');
   const priorities: string[] = [];
   cdp.on('Network.requestWillBeSent', event => {
-    if (event.request.url.includes('/mobile-backgrounds-20260914/hero-unified.webp')) priorities.push(event.request.initialPriority);
+    if (decodeURIComponent(event.request.url).includes('/mobile-backgrounds-20260914/hero-unified.webp')) priorities.push(event.request.initialPriority);
   });
   await page.goto('/zh-hant');
   await expect.poll(() => page.locator('.lh-mobile-hero-art img').evaluate(element => (element as HTMLImageElement).naturalWidth)).toBeGreaterThan(0);
   expect(priorities).toEqual(['High']);
+});
+
+test('a phone receives a smaller opening image without changing the artwork', async ({page}) => {
+  await page.setViewportSize({width:390, height:844});
+  const imageResponse = page.waitForResponse(response =>
+    decodeURIComponent(response.url()).includes('/mobile-backgrounds-20260914/hero-unified.webp') && response.status() === 200);
+  await page.goto('/zh-hant');
+  const response = await imageResponse;
+  await expect.poll(() => page.locator('.lh-mobile-hero-art img').evaluate(element => (element as HTMLImageElement).naturalWidth)).toBeGreaterThan(0);
+  // A 390px phone should not transfer the entire 941px/143KB source.
+  expect((await response.body()).byteLength).toBeLessThan(100 * 1024);
+  expect(decodeURIComponent(await page.locator('.lh-mobile-hero-art img').evaluate(element => (element as HTMLImageElement).currentSrc)))
+    .toContain('/mobile-backgrounds-20260914/hero-unified.webp');
 });
 
 test('distant film character does not compete with the opening image', async ({page}) => {

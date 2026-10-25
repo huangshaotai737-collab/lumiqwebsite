@@ -51,7 +51,12 @@
   }
 
   .lumiq-root main.lh-home .lh-products:not([data-glass-3d]) .lh-product-slot:not([data-active="true"]) .lh-product {
+    grid-template-rows: minmax(0, 1fr) auto auto;
     padding: 18px 14px 20px;
+  }
+
+  .lumiq-root main.lh-home .lh-products:not([data-glass-3d]) .lh-product-slot:not([data-active="true"]) .lh-product-copy h3 {
+    font-size: 20px;
   }
 
   .lumiq-root main.lh-home .lh-products:not([data-glass-3d]) .lh-product-art {
@@ -65,7 +70,9 @@
   }
 
   .lumiq-root main.lh-home .lh-products:not([data-glass-3d]) .lh-product-slot:not([data-active="true"]) .lh-product-bottom {
-    font-size: 15px !important;
+    font-size: 18px !important;
+    white-space: normal;
+    text-wrap: balance;
   }
 }
 
