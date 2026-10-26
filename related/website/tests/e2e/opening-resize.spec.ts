@@ -1,6 +1,5 @@
 import { expect, test, type Page } from "@playwright/test";
 
-test.use({ channel: "chrome" });
 test.beforeEach(async ({ page }, info) => {
   test.skip(info.project.name !== "desktop", "Desktop film and its responsive handoff");
   await page.setViewportSize({ width: 1440, height: 800 });

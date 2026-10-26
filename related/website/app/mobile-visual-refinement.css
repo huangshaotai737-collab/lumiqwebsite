@@ -36,7 +36,7 @@
   }
   .lumiq-root main.lh-home :is(.lh-lead, .lh-section-intro, .lh-room-intro, .lh-rhythm-copy p, .lh-principle p, .lh-product-copy p, .lh-mobile-film-copy p) { color: #3e5067; }
   .lumiq-root main.lh-home .lh-muted { color: #465970; }
-  .lumiq-root .navbar.site-nav .nav-logo { width: clamp(96px, calc(100vw - 248px), 136px); height: 44px; }
+  .lumiq-root .navbar.site-nav .nav-logo { width: clamp(80px, calc(100vw - 256px), 136px); height: 44px; }
   .lumiq-root main.lh-home :is(.lh-lead, .lh-room-intro, .lh-section-intro),
   .lumiq-root main.lh-home .lh-section-intro p,
   .lumiq-root main.lh-home .lh-rhythm-copy p,
