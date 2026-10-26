@@ -575,7 +575,7 @@
       {
         "kind": "source",
         "property": "src",
-        "source": "{mediaRequested ? cms.url(`/assets/films-20260908/${films[active]}.mp4`) : undefined}",
+        "source": "{cms.url(`/assets/films-20260908/${films[active]}.mp4`)}",
         "alt": null
       },
       {
@@ -621,7 +621,7 @@
       {
         "kind": "source",
         "property": "src",
-        "source": "{requested ? cms.url(`/assets/films-20260908/${film}.mp4`) : undefined}",
+        "source": "{cms.url(`/assets/films-20260908/${film}.mp4`)}",
         "alt": null
       },
       {

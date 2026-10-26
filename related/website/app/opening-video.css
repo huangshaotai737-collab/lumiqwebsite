@@ -1,4 +1,10 @@
 /* Only the first two floors participate. No video request on the small-screen fallback. */
+.lh-mobile-hero-art picture {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
 @media (max-width: 1199px) {
   .lh-hero-stage {
     height: auto;
