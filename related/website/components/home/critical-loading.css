@@ -72,7 +72,10 @@
   .lh-home .lh-products .lh-glass-products { transition: none; }
 }
 
-/* Product cards use one HTML surface on every screen, without a mirrored copy. */
-.lumiq-root main.lh-home .lh-products .lh-product {
-  -webkit-box-reflect: initial;
+/* Desktop uses only the mirror scene: no ordinary-card first paint or swap.
+   Keep an accessible fallback only if the renderer cannot run. */
+@media (min-width: 1200px) {
+  .lumiq-root main.lh-home .lh-products:not([data-glass-fallback]) .lh-products-viewport {
+    visibility: hidden;
+  }
 }

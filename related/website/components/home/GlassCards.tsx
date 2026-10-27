@@ -6,7 +6,6 @@ import { chapterImage } from "./HomeBackgrounds";
 
 import { Suspense, useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Environment, Html, Lightformer, MeshTransmissionMaterial, useFBO } from "@react-three/drei";
 import { CanvasTexture, ExtrudeGeometry, Group, MathUtils, NoToneMapping, PerspectiveCamera, ShaderMaterial, Shape, SRGBColorSpace, Texture, TextureLoader, VideoTexture, Vector3 } from "three";
 import "@/app/[locale]/glass-preview/preview.css";
@@ -99,24 +98,6 @@ function GlassScene({ selected, select, sideView, content, products, carousel = 
   const pointers = useMemo(() => products.map(() => ({ x: 0, y: 0, hovered: false })), [products]);
   const buffer = useFBO(768, 768);
   useFrame(({ gl, scene }) => {
-    if (reflections.current && carousel) {
-      const stop = ScrollTrigger.getById("home-products-hold");
-      const stage = gl.domElement.closest('.lh-products-stage');
-      const top = stage?.getBoundingClientRect().top ?? innerHeight;
-      const entry = 1 - MathUtils.smoothstep(top, 0, 80);
-      const exit = stop ? MathUtils.smoothstep(scrollY, stop.end - 80, stop.end + innerHeight * .35) : MathUtils.smoothstep(-top, 0, innerHeight * .35);
-      const fade = entry * (1 - exit);
-      reflections.current.visible = fade > .001;
-      reflections.current.position.y = -4.56 - exit * 5.5;
-      reflections.current.traverse(object => {
-        const material = (object as unknown as { material?: ShaderMaterial }).material;
-        if (!material) return;
-        if (material.uniforms?.reflectionFade) material.uniforms.reflectionFade.value = fade;
-        else if (typeof material.userData.reflectionOpacity === 'number') material.opacity = material.userData.reflectionOpacity * fade;
-      });
-      gl.domElement.dataset.reflectionOpacity = fade.toFixed(3);
-      gl.domElement.dataset.reflectionOffset = (exit * 5.5).toFixed(3);
-    }
     if (!opticalObjects.current) return;
     const previous = gl.getRenderTarget();
     opticalObjects.current.visible = false;
