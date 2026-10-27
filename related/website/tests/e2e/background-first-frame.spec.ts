@@ -15,5 +15,5 @@ test('background still stays visible until decoded video frame is presented',asy
  await page.evaluate(()=>(window as typeof window & {releaseVideo:()=>void}).releaseVideo());
  await page.mouse.wheel(0,50);
  await expect(page.locator('[data-background-video]')).toHaveCSS('opacity','1',{timeout:15000});
- await expect(page.locator('#products')).toHaveAttribute('data-glass-3d','');
+ await expect(page.locator('.lh-glass-products')).toHaveAttribute('data-renderer','static-mirror');
 });

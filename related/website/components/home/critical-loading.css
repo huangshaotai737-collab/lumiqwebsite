@@ -1,5 +1,4 @@
-/* Reserve the desktop canvas footprint before downloading its renderer. The
-   ordinary cards occupy the same slot until the textured scene can be shown. */
+/* Fixed mirror layout: reserve its footprint from the first server render. */
 @media (min-width: 1200px) {
   .lh-home .lh-products { --carousel-height: clamp(560px, 65svh, 900px); }
   .lh-home .lh-products .lh-products-stage { position: relative; min-height: 0; gap: 8px; padding-bottom: var(--lq-section-edge); }
@@ -59,11 +58,11 @@
     animation: none;
   }
   .lumiq-root main.lh-home .lh-products:not([data-glass-3d]) .lh-product-art { flex: 1; min-height: 0; margin: 0 0 8px; }
-  .lumiq-root main.lh-home .lh-products:not([data-glass-3d]) .lh-product h3 { font-size: 18px; line-height: 1.3; }
+  .lumiq-root main.lh-home .lh-products:not([data-glass-3d]) .lh-product h3 { font-size: 20px; line-height: 1.3; }
   .lumiq-root main.lh-home .lh-products:not([data-glass-3d]) .lh-product-copy p { display: none; min-height: 0; font-size: 16px; line-height: 1.5; }
   .lumiq-root main.lh-home .lh-products:not([data-glass-3d]) :is(.lh-product-slot[data-active=true], .lh-product-slot:not([data-offset]):first-child) h3 { font-size: 26px; }
   .lumiq-root main.lh-home .lh-products:not([data-glass-3d]) :is(.lh-product-slot[data-active=true], .lh-product-slot:not([data-offset]):first-child) .lh-product-copy p { display: block; }
-  .lumiq-root main.lh-home .lh-products:not([data-glass-3d]) .lh-product-bottom { flex-shrink: 0; margin-top: 10px; padding-top: 8px; gap: 4px; font-size: 16px; line-height: 1.4; }
+  .lumiq-root main.lh-home .lh-products:not([data-glass-3d]) .lh-product-bottom { flex-shrink: 0; margin-top: 10px; padding-top: 8px; gap: 4px; font-size: 18px; line-height: 1.4; }
   .lumiq-root main.lh-home .lh-products:not([data-glass-3d]) .lh-product-bottom > span:first-child { min-width: 0; }
   .lumiq-root main.lh-home .lh-products:not([data-glass-3d]) .lh-product-arrow { flex-shrink: 0; width: 18px; height: 18px; }
   .lumiq-root main.lh-home .lh-products:not([data-glass-3d]) .lh-products-progress { display: none; }
@@ -72,10 +71,33 @@
   .lh-home .lh-products .lh-glass-products { transition: none; }
 }
 
-/* Desktop uses only the mirror scene: no ordinary-card first paint or swap.
-   Keep an accessible fallback only if the renderer cannot run. */
+/* Fixed glass skin, present in the server HTML. Reflections are decorative
+   mirrored copies, never links or a second rendering engine. */
+.lh-product-reflection { display: none; }
 @media (min-width: 1200px) {
-  .lumiq-root main.lh-home .lh-products:not([data-glass-fallback]) .lh-products-viewport {
-    visibility: hidden;
+  .lumiq-root main.lh-home .lh-products .lh-glass-products { opacity: 1; pointer-events: none; }
+  .lumiq-root main.lh-home .lh-products .lh-products-viewport { visibility: visible; }
+  .lumiq-root main.lh-home .lh-products .lh-product-slot .lh-product {
+    background: url('/assets/fixed-glass-card.svg') center / 100% 100% no-repeat;
+    border: 0;
+    box-shadow: 0 8px 24px rgb(155 142 180 / 8%);
+    backdrop-filter: none; -webkit-backdrop-filter: none;
+    animation: none; transform: none;
   }
+  .lumiq-root main.lh-home .lh-products .lh-product-slot[data-active=true] > .lh-product,
+  .lumiq-root main.lh-home .lh-products .lh-product-slot:not([data-offset]):first-child > .lh-product {
+    box-shadow: 0 0 28px rgb(255 235 248 / 65%), inset 0 0 18px rgb(255 255 255 / 35%);
+  }
+  .lumiq-root main.lh-home .lh-products .lh-product::before { content: none; }
+  .lumiq-root main.lh-home .lh-products .lh-product-float,
+  .lumiq-root main.lh-home .lh-products .lh-product-float img { animation: none; transform: none; filter: none; }
+  .lumiq-root main.lh-home .lh-products .lh-product-bottom { border: 0; }
+  .lumiq-root main.lh-home .lh-products .lh-product-reflection {
+    display: block; position: absolute; top: calc(100% + 3px); left: 0; width: 100%; height: 100%;
+    transform: scaleY(-1); opacity: .27; pointer-events: none; user-select: none;
+    mask-image: linear-gradient(to top, #000 0%, transparent 85%);
+    -webkit-mask-image: linear-gradient(to top, #000 0%, transparent 85%);
+  }
+  .lumiq-root main.lh-home .lh-products .lh-reflection-title { font-size: 20px; font-weight: 700; line-height: 1.3; letter-spacing: -.035em; color: #202d40; }
+  .lumiq-root main.lh-home .lh-products :is(.lh-product-slot[data-active=true], .lh-product-slot:not([data-offset]):first-child) .lh-reflection-title { font-size: 26px; }
 }

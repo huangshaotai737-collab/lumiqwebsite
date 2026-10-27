@@ -235,6 +235,36 @@ export default function Home() {
                       </span>
                     </span>
                   </Link>
+                  <div className="lh-product-reflection" aria-hidden="true" inert>
+                    <div className={"lh-product lh-product-" + id}>
+                    <div className="lh-product-art">
+                      <div className="lh-product-float">
+                        <Image
+                          src={
+                            cms.url("/assets/" + artwork[id] + ".webp")
+                          }
+                          alt=""
+                          fill
+                          sizes="(max-width: 520px) 78vw, 440px"
+                          quality={90}
+                        />
+                      </div>
+                    </div>
+                    <div className="lh-product-copy">
+                      <span className="lh-product-type">
+                        {t(`products.${id}.type`)}
+                      </span>
+                      <div className="lh-reflection-title">{t(`products.${id}.name`)}</div>
+                      <p>{t(`products.${id}.body`)}</p>
+                    </div>
+                    <span className="lh-product-bottom">
+                      <span>{t("explore")}</span>
+                      <span className="lh-product-arrow">
+                        <ArrowUpRight size={19} />
+                      </span>
+                    </span>
+                    </div>
+                  </div>
                 </div>
               ))}
             </div>

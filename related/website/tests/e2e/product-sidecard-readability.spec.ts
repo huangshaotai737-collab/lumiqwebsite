@@ -6,17 +6,16 @@ for (const locale of ['zh-hant','en','ja']) for (const viewport of [{width:1440,
     await page.setViewportSize(viewport);
     await page.goto(`/${locale}#products`, {waitUntil:'domcontentloaded'});
     await page.locator('.lh-products-stage').evaluate(element => scrollTo({top:scrollY + element.getBoundingClientRect().top,behavior:'instant'}));
-    const cards = page.locator('.lh-glass-products [data-projected="true"]');
+    const cards = page.locator('.lh-product-slot > a');
     await expect(cards).toHaveCount(5, {timeout: 20_000});
     await page.evaluate(() => document.fonts.ready);
     for (let selected = 0; selected < 5; selected++) {
       await expect(page.locator('#products')).toHaveAttribute('data-active-product', String(selected));
       await expect.poll(async () => cards.evaluateAll(elements => {
-        const side = elements.filter(element => element.getAttribute('data-active') !== 'true');
+        const side = elements.filter(element => element.parentElement?.getAttribute('data-active') !== 'true');
         return side.length === 4 && side.every(element => {
-          const matrix = new DOMMatrix(getComputedStyle(element).transform);
-          const scale = Math.hypot(matrix.c, matrix.d);
-          return [['[data-card-title]',20],['[data-card-action]',18]].every(([selector, minimum]) => {
+          const scale = 1;
+          return [['h3',20],['.lh-product-bottom',18]].every(([selector, minimum]) => {
             const label = element.querySelector(selector as string) as HTMLElement;
             const style = getComputedStyle(label);
             return parseFloat(style.fontSize) * scale >= Number(minimum)
@@ -25,7 +24,7 @@ for (const locale of ['zh-hant','en','ja']) for (const viewport of [{width:1440,
         });
       })).toBe(true);
       // The active and side labels must retain a separate, usable hit target.
-      await expect(page.locator('.lh-glass-products [data-active="true"] .glass-product-hit')).toHaveAttribute('href', /\/products\//);
+      await expect(page.locator('.lh-product-slot[data-active="true"] > a')).toHaveAttribute('href', /\/products\//);
       if (selected < 4) {
         const next = page.locator('[data-products-next]');
         if (viewport.height <= 760) await expect(next).toBeInViewport();
@@ -56,7 +55,7 @@ test('the non-WebGL fallback keeps readable side-card labels', async ({page}) =>
   await expect(page.locator('.lh-product-slot[data-active="false"]')).toHaveCount(4);
   for (const card of await page.locator('.lh-product-slot[data-active="false"]').all()) {
     expect(await card.locator('h3').evaluate(e => parseFloat(getComputedStyle(e).fontSize))).toBeGreaterThanOrEqual(20);
-    expect(await card.locator('.lh-product-bottom').evaluate(e => parseFloat(getComputedStyle(e).fontSize))).toBeGreaterThanOrEqual(18);
+    expect(await card.locator('a > .lh-product-bottom').evaluate(e => parseFloat(getComputedStyle(e).fontSize))).toBeGreaterThanOrEqual(18);
     expect(await card.evaluate(e => e.scrollWidth - e.clientWidth)).toBeLessThanOrEqual(1);
   }
 });
