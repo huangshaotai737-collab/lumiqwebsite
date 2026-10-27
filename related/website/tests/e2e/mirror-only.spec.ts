@@ -59,3 +59,29 @@ test('slow artwork does not gate the complete mirror scene', async ({page}) => {
     await expect(page.locator('#products')).toHaveAttribute('data-active-product', '1');
   } finally { release(); }
 });
+
+test('mirror stops GPU draws while idle and wakes for carousel input', async ({page}) => {
+  await page.addInitScript(() => {
+    const state = window as typeof window & {mirrorDraws:number};
+    state.mirrorDraws = 0;
+    const draw = WebGL2RenderingContext.prototype.drawElements;
+    WebGL2RenderingContext.prototype.drawElements = function(...args: Parameters<typeof draw>) {
+      state.mirrorDraws++;
+      return draw.apply(this, args);
+    };
+  });
+  await page.goto('/zh-hant#products');
+  await expect(page.locator('#products')).toHaveAttribute('data-glass-3d', '', {timeout:30000});
+  await page.waitForTimeout(3000);
+  const readDraws = () => page.evaluate(() => (window as typeof window & {mirrorDraws:number}).mirrorDraws);
+  const before = await readDraws();
+  await page.waitForTimeout(1000);
+  expect(await readDraws()).toBe(before);
+  await page.locator('[data-products-next]').click();
+  await expect(page.locator('#products')).toHaveAttribute('data-active-product','1');
+  await expect.poll(readDraws).toBeGreaterThan(before);
+  await page.waitForTimeout(2500);
+  const settled = await readDraws();
+  await page.waitForTimeout(1000);
+  expect(await readDraws()).toBe(settled);
+});

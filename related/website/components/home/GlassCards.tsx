@@ -30,6 +30,7 @@ function useSafeTexture(originalUrl: string, transparent = false): Texture {
   const cms = useContentAdapter();
   const url = cms.url(originalUrl);
   const pool = useContext(TexturePool)!;
+  const invalidate = useThree(state => state.invalidate);
   const [, update] = useState(0);
   const fallback = useMemo(() => {
     const canvas = document.createElement("canvas");
@@ -49,7 +50,7 @@ function useSafeTexture(originalUrl: string, transparent = false): Texture {
   }, [transparent]);
   useEffect(() => {
     let entry = pool.get(url);
-    const changed = () => update(value => value + 1);
+    const changed = () => { update(value => value + 1); invalidate(); };
     if (!entry) {
       entry = { texture: null, settled: false, listeners: new Set() };
       pool.set(url, entry);
@@ -68,7 +69,7 @@ function useSafeTexture(originalUrl: string, transparent = false): Texture {
     entry.listeners.add(changed);
     changed();
     return () => { entry.listeners.delete(changed); };
-  }, [url, pool]);
+  }, [url, pool, invalidate]);
   useEffect(() => () => fallback.dispose(), [fallback]);
   return pool.get(url)?.texture ?? fallback;
 }
@@ -104,7 +105,7 @@ function GlassScene({ selected, select, sideView, content, products, carousel = 
   const reflections = useRef<Group>(null);
   const refractionBackground = useRef<Group>(null);
   const pointers = useMemo(() => products.map(() => ({ x: 0, y: 0, hovered: false })), [products]);
-  const buffer = useFBO(768, 768);
+  const buffer = useFBO(512, 512);
   useFrame(({ gl, scene }) => {
     if (!opticalObjects.current) return;
     const previous = gl.getRenderTarget();
@@ -280,7 +281,7 @@ function GlassCard({ geometry, index, product, offset, five, active, select, hov
         transmission={1} roughness={active ? .7 : .38} ior={1.65} transparent opacity={(reflected ? .45 : 1) * opacity}
         clearcoat={1} clearcoatRoughness={.045} attenuationColor="#dcd5ea" attenuationDistance={2.5}
         chromaticAberration={0} anisotropicBlur={0} distortion={0}
-        samples={6} resolution={512} backsideResolution={256} color="#ffffff" />
+        samples={reflected ? 2 : 4} resolution={512} backsideResolution={256} color="#ffffff" />
     </mesh>
     <PearlFlow index={index} reflected={reflected} opacity={opacity} active={active} />
     {content && <CardArtwork product={product} active={active} reflected={reflected} opacity={opacity} hideLabel={five && !reflected && Boolean(product.body)} />}
@@ -380,10 +381,10 @@ function CardArtwork({ product, active, reflected, opacity, hideLabel = false }:
 function PearlFlow({ index, reflected, opacity, active }: { index: number; reflected: boolean; opacity: number; active: boolean }) {
   const material = useRef<ShaderMaterial>(null);
   const uniforms = useMemo(() => ({ time: { value: 0 }, strength: { value: 1 }, glowWidth: { value: 1 }, reflectionFade: { value: 1 } }), []);
-  useFrame(({ clock }) => {
+  useFrame((_, delta) => {
     if (!material.current) return;
     const live = material.current.uniforms;
-    live.time.value = window.matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : clock.elapsedTime / 22 + index * .8;
+    if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) live.time.value += Math.min(delta, .05) / 22;
     live.strength.value = (reflected ? .55 : 1) * opacity * (active ? 2.4 : .85);
     live.glowWidth.value = active ? 2.8 : 1;
   });
@@ -434,6 +435,34 @@ function CanvasReady({ onReady }: { onReady: () => void }) {
   return null;
 }
 
+// Render during interaction and settling only. The mirrored composition stays
+// on the canvas while idle; scroll/resize/late textures explicitly wake it.
+function InteractionFrames({ running, selected }: { running: boolean; selected: number }) {
+  const { invalidate, size } = useThree();
+  useEffect(() => {
+    if (!running) return;
+    let request = 0;
+    let until = 0;
+    const tick = (now: number) => {
+      invalidate();
+      if (now < until) request = requestAnimationFrame(tick);
+      else request = 0;
+    };
+    const wake = () => {
+      until = performance.now() + 1600;
+      if (!request) request = requestAnimationFrame(tick);
+    };
+    const events = ["pointermove", "pointerdown", "pointerout", "scroll", "resize", "keydown"];
+    events.forEach(name => window.addEventListener(name, wake, {passive:true, capture:true}));
+    wake();
+    return () => {
+      cancelAnimationFrame(request);
+      events.forEach(name => window.removeEventListener(name, wake, true));
+    };
+  }, [running, selected, size.width, size.height, invalidate]);
+  return null;
+}
+
 export function GlassCanvas({ selected, select, products = demoProducts, sideView = false, content = true, carousel = false, running = true, onReady }: {
   selected: number; select: (index: number) => void; products?: GlassProduct[]; sideView?: boolean; content?: boolean; carousel?: boolean; running?: boolean; onReady?: () => void;
 }) {
@@ -443,10 +472,10 @@ export function GlassCanvas({ selected, select, products = demoProducts, sideVie
     pool.forEach(entry => entry.texture?.dispose());
     pool.clear();
   }, [pool]);
-  return <Canvas frameloop={running ? "always" : "never"} camera={{ position: [0, 1.3, 36], fov: 12, near: .1, far: 100 }} dpr={[1, 1.25]}
+  return <Canvas frameloop={running ? "demand" : "never"} camera={{ position: [0, 1.3, 36], fov: 12, near: .1, far: 100 }} dpr={[1, 1.25]}
     gl={{ antialias: true, alpha: true, toneMapping: NoToneMapping }} fallback={carousel ? null : <p>{cms.text("field_33e42817ed9c66ca")}</p>}>
     {!carousel && <color attach="background" args={["#f5f3f9"]} />}
-    <TexturePool.Provider value={pool}><Suspense fallback={null}>{onReady && <CanvasReady onReady={onReady} />}<GlassScene selected={selected} select={select} sideView={sideView} content={content} products={products} carousel={carousel} /></Suspense></TexturePool.Provider>
+    <TexturePool.Provider value={pool}><InteractionFrames running={running} selected={selected} /><Suspense fallback={null}>{onReady && <CanvasReady onReady={onReady} />}<GlassScene selected={selected} select={select} sideView={sideView} content={content} products={products} carousel={carousel} /></Suspense></TexturePool.Provider>
   </Canvas>;
 }
 
