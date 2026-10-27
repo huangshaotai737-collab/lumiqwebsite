@@ -2535,7 +2535,7 @@
       "source": {
         "file": "app/products/tablet/page.tsx",
         "locator": "FunctionDeclaration:3/Block:3/ReturnStatement:1/ParenthesizedExpression:0/JsxSelfClosingElement:0/JsxAttributes:1/attr:scenes/JsxExpression:1/ArrayLiteralExpression:0/ObjectLiteralExpression:0/prop:image/ObjectLiteralExpression:1/prop:src/StringLiteral:1",
-        "expression": "\"/assets/tablet-detail/generated/tablet-passive-screen-time-v2.png\""
+        "expression": "\"/assets/tablet-detail/generated/tablet-passive-new-scene-20261026.png\""
       }
     },
     {
@@ -2554,7 +2554,7 @@
       "source": {
         "file": "app/products/tablet/page.tsx",
         "locator": "FunctionDeclaration:3/Block:3/ReturnStatement:1/ParenthesizedExpression:0/JsxSelfClosingElement:0/JsxAttributes:1/attr:scenes/JsxExpression:1/ArrayLiteralExpression:0/ObjectLiteralExpression:0/prop:image/ObjectLiteralExpression:1/prop:src/StringLiteral:1",
-        "expression": "\"/assets/tablet-detail/generated/tablet-passive-screen-time-v2.png\""
+        "expression": "\"/assets/tablet-detail/generated/tablet-passive-new-scene-20261026.png\""
       }
     },
     {
@@ -2573,7 +2573,7 @@
       "source": {
         "file": "app/products/tablet/page.tsx",
         "locator": "FunctionDeclaration:3/Block:3/ReturnStatement:1/ParenthesizedExpression:0/JsxSelfClosingElement:0/JsxAttributes:1/attr:scenes/JsxExpression:1/ArrayLiteralExpression:0/ObjectLiteralExpression:0/prop:image/ObjectLiteralExpression:1/prop:src/StringLiteral:1",
-        "expression": "\"/assets/tablet-detail/generated/tablet-passive-screen-time-v2.png\""
+        "expression": "\"/assets/tablet-detail/generated/tablet-passive-new-scene-20261026.png\""
       }
     },
     {
@@ -2593,7 +2593,7 @@
       "source": {
         "file": "app/products/tablet/page.tsx",
         "locator": "FunctionDeclaration:3/Block:3/ReturnStatement:1/ParenthesizedExpression:0/JsxSelfClosingElement:0/JsxAttributes:1/attr:scenes/JsxExpression:1/ArrayLiteralExpression:0/ObjectLiteralExpression:0/prop:image/ObjectLiteralExpression:1/prop:src/StringLiteral:1",
-        "expression": "\"/assets/tablet-detail/generated/tablet-passive-screen-time-v2.png\""
+        "expression": "\"/assets/tablet-detail/generated/tablet-passive-new-scene-20261026.png\""
       }
     },
     {
@@ -2613,7 +2613,7 @@
       "source": {
         "file": "app/products/tablet/page.tsx",
         "locator": "FunctionDeclaration:3/Block:3/ReturnStatement:1/ParenthesizedExpression:0/JsxSelfClosingElement:0/JsxAttributes:1/attr:scenes/JsxExpression:1/ArrayLiteralExpression:0/ObjectLiteralExpression:0/prop:image/ObjectLiteralExpression:1/prop:src/StringLiteral:1",
-        "expression": "\"/assets/tablet-detail/generated/tablet-passive-screen-time-v2.png\""
+        "expression": "\"/assets/tablet-detail/generated/tablet-passive-new-scene-20261026.png\""
       }
     },
     {
@@ -2628,11 +2628,11 @@
       "adminOnly": false,
       "editable": true,
       "owner": "snapshot",
-      "initialValue": "/assets/tablet-detail/generated/tablet-passive-screen-time-v2.png",
+      "initialValue": "/assets/tablet-detail/generated/tablet-passive-new-scene-20261026.png",
       "source": {
         "file": "app/products/tablet/page.tsx",
         "locator": "FunctionDeclaration:3/Block:3/ReturnStatement:1/ParenthesizedExpression:0/JsxSelfClosingElement:0/JsxAttributes:1/attr:scenes/JsxExpression:1/ArrayLiteralExpression:0/ObjectLiteralExpression:0/prop:image/ObjectLiteralExpression:1/prop:src/StringLiteral:1",
-        "expression": "\"/assets/tablet-detail/generated/tablet-passive-screen-time-v2.png\""
+        "expression": "\"/assets/tablet-detail/generated/tablet-passive-new-scene-20261026.png\""
       }
     },
     {
@@ -4668,7 +4668,7 @@
       "source": {
         "file": "app/products/tablet/page.tsx",
         "locator": "FunctionDeclaration:3/Block:3/ReturnStatement:1/ParenthesizedExpression:0/JsxSelfClosingElement:0/JsxAttributes:1/attr:scenes/JsxExpression:1/ArrayLiteralExpression:0/ObjectLiteralExpression:1/prop:image/ObjectLiteralExpression:1/prop:src/StringLiteral:1",
-        "expression": "\"/assets/tablet-detail/generated/tablet-active-story-time-back-muted-20261001.png\""
+        "expression": "\"/assets/tablet-detail/generated/tablet-family-new-scene-20261026.png\""
       }
     },
     {
@@ -4687,7 +4687,7 @@
       "source": {
         "file": "app/products/tablet/page.tsx",
         "locator": "FunctionDeclaration:3/Block:3/ReturnStatement:1/ParenthesizedExpression:0/JsxSelfClosingElement:0/JsxAttributes:1/attr:scenes/JsxExpression:1/ArrayLiteralExpression:0/ObjectLiteralExpression:1/prop:image/ObjectLiteralExpression:1/prop:src/StringLiteral:1",
-        "expression": "\"/assets/tablet-detail/generated/tablet-active-story-time-back-muted-20261001.png\""
+        "expression": "\"/assets/tablet-detail/generated/tablet-family-new-scene-20261026.png\""
       }
     },
     {
@@ -4706,7 +4706,7 @@
       "source": {
         "file": "app/products/tablet/page.tsx",
         "locator": "FunctionDeclaration:3/Block:3/ReturnStatement:1/ParenthesizedExpression:0/JsxSelfClosingElement:0/JsxAttributes:1/attr:scenes/JsxExpression:1/ArrayLiteralExpression:0/ObjectLiteralExpression:1/prop:image/ObjectLiteralExpression:1/prop:src/StringLiteral:1",
-        "expression": "\"/assets/tablet-detail/generated/tablet-active-story-time-back-muted-20261001.png\""
+        "expression": "\"/assets/tablet-detail/generated/tablet-family-new-scene-20261026.png\""
       }
     },
     {
@@ -4726,7 +4726,7 @@
       "source": {
         "file": "app/products/tablet/page.tsx",
         "locator": "FunctionDeclaration:3/Block:3/ReturnStatement:1/ParenthesizedExpression:0/JsxSelfClosingElement:0/JsxAttributes:1/attr:scenes/JsxExpression:1/ArrayLiteralExpression:0/ObjectLiteralExpression:1/prop:image/ObjectLiteralExpression:1/prop:src/StringLiteral:1",
-        "expression": "\"/assets/tablet-detail/generated/tablet-active-story-time-back-muted-20261001.png\""
+        "expression": "\"/assets/tablet-detail/generated/tablet-family-new-scene-20261026.png\""
       }
     },
     {
@@ -4746,7 +4746,7 @@
       "source": {
         "file": "app/products/tablet/page.tsx",
         "locator": "FunctionDeclaration:3/Block:3/ReturnStatement:1/ParenthesizedExpression:0/JsxSelfClosingElement:0/JsxAttributes:1/attr:scenes/JsxExpression:1/ArrayLiteralExpression:0/ObjectLiteralExpression:1/prop:image/ObjectLiteralExpression:1/prop:src/StringLiteral:1",
-        "expression": "\"/assets/tablet-detail/generated/tablet-active-story-time-back-muted-20261001.png\""
+        "expression": "\"/assets/tablet-detail/generated/tablet-family-new-scene-20261026.png\""
       }
     },
     {
@@ -4761,11 +4761,11 @@
       "adminOnly": false,
       "editable": true,
       "owner": "snapshot",
-      "initialValue": "/assets/tablet-detail/generated/tablet-active-story-time-back-muted-20261001.png",
+      "initialValue": "/assets/tablet-detail/generated/tablet-family-new-scene-20261026.png",
       "source": {
         "file": "app/products/tablet/page.tsx",
         "locator": "FunctionDeclaration:3/Block:3/ReturnStatement:1/ParenthesizedExpression:0/JsxSelfClosingElement:0/JsxAttributes:1/attr:scenes/JsxExpression:1/ArrayLiteralExpression:0/ObjectLiteralExpression:1/prop:image/ObjectLiteralExpression:1/prop:src/StringLiteral:1",
-        "expression": "\"/assets/tablet-detail/generated/tablet-active-story-time-back-muted-20261001.png\""
+        "expression": "\"/assets/tablet-detail/generated/tablet-family-new-scene-20261026.png\""
       }
     },
     {
@@ -74282,7 +74282,7 @@
       {
         "file": "app/products/tablet/page.tsx",
         "locator": "FunctionDeclaration:3/Block:3/ReturnStatement:1/ParenthesizedExpression:0/JsxSelfClosingElement:0/JsxAttributes:1/attr:scenes/JsxExpression:1/ArrayLiteralExpression:0/ObjectLiteralExpression:0/prop:image/ObjectLiteralExpression:1/prop:src/StringLiteral:1",
-        "expression": "\"/assets/tablet-detail/generated/tablet-passive-screen-time-v2.png\"",
+        "expression": "\"/assets/tablet-detail/generated/tablet-passive-new-scene-20261026.png\"",
         "originalAlt": "",
         "altExpression": "t(\"passiveTitle\")",
         "altMessagePath": "messages.{locale}.Tablet.passiveTitle",
@@ -74857,7 +74857,7 @@
       {
         "file": "app/products/tablet/page.tsx",
         "locator": "FunctionDeclaration:3/Block:3/ReturnStatement:1/ParenthesizedExpression:0/JsxSelfClosingElement:0/JsxAttributes:1/attr:scenes/JsxExpression:1/ArrayLiteralExpression:0/ObjectLiteralExpression:1/prop:image/ObjectLiteralExpression:1/prop:src/StringLiteral:1",
-        "expression": "\"/assets/tablet-detail/generated/tablet-active-story-time-back-muted-20261001.png\"",
+        "expression": "\"/assets/tablet-detail/generated/tablet-family-new-scene-20261026.png\"",
         "originalAlt": "",
         "altExpression": "t(\"activeTitle\")",
         "altMessagePath": "messages.{locale}.Tablet.activeTitle",

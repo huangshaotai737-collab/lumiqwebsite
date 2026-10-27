@@ -15,11 +15,15 @@ export function mountHomePosition(root: HTMLElement) {
   const sections = [...root.querySelectorAll<HTMLElement>("[data-home-section]")];
   const navTop = () => document.querySelector(".site-nav")?.getBoundingClientRect().height ?? 86;
   const hashTarget = () => {
-    const target = document.getElementById(location.hash.slice(1));
+    const id = location.hash.slice(1);
+    if (!id) return null;
+    const target = document.getElementById(id);
     return target && root.contains(target) && target !== root && !target.closest(".lh-opening") ? target : null;
   };
   const hasOpeningAnchor = () => {
-    const element = document.getElementById(location.hash.slice(1));
+    const id = location.hash.slice(1);
+    if (!id) return false;
+    const element = document.getElementById(id);
     return Boolean(element && root.contains(element) && element.closest(".lh-opening"));
   };
   let target = hashTarget();

@@ -202,7 +202,7 @@ export default function HomeFilms() {
           </button> : <article className={`lh-film-card${films[active] === "welcome-home" ? " lh-film-card-portrait" : ""}`} aria-label={`${active + 1} / ${films.length}`} data-playing={playing}>
           <video key={films[active]} ref={video} playsInline preload={mediaRequested ? "metadata" : "none"} poster={mediaRequested ? cms.url(`/assets/films-20260908/${films[active]}.jpg`) : undefined}
             aria-label={t(`${films[active]}.title`)} onError={() => setPlaybackError(true)} onPlay={() => setPlaying(true)} onPause={() => setPlaying(false)} onEnded={() => setPlaying(false)}>
-            <source src={mediaRequested ? cms.url(`/assets/films-20260908/${films[active]}.mp4`) : undefined} type="video/mp4" onError={() => setPlaybackError(true)} />
+            {mediaRequested && <source src={cms.url(`/assets/films-20260908/${films[active]}.mp4`)} type="video/mp4" onError={() => setPlaybackError(true)} />}
             <a href={cms.url(`/assets/films-20260908/${films[active]}.mp4`)}>{t("open")}</a>
           </video>
           <button className="lh-film-toggle" type="button" onClick={toggle} aria-label={t(playing ? "pause" : "play")}>

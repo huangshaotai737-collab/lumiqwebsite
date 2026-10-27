@@ -1,7 +1,7 @@
 import { createClient } from '@/lib/auth/server';
 import { assertSameOrigin } from '@/lib/http/origin';
 import { clientAddress, enforceRateLimit } from '@/lib/http/rate-limit';
-import { failure, success, HttpError } from '@/lib/http/result';
+import { failure, success, HttpError, readJson } from '@/lib/http/result';
 import { safeReturnPath } from '@/lib/generated/platform/auth-policy';
 import { requireUser } from '@/lib/auth/require-user';
 
@@ -9,8 +9,7 @@ export async function POST(request: Request) {
   try {
     assertSameOrigin(request,process.env.APP_ORIGIN || '');
     await enforceRateLimit('signin',clientAddress(request));
-    let input;
-    try { input = await request.json(); } catch { throw new HttpError('INVALID_INPUT',400); }
+    const input = await readJson(request);
     if (!input || typeof input.email !== 'string' || input.email.length > 254 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.email) || typeof input.password !== 'string' || !input.password || input.password.length > 1024) throw new HttpError('INVALID_INPUT',400);
     const client = await createClient();
     const {error} = await client.auth.signInWithPassword({email:input.email,password:input.password});

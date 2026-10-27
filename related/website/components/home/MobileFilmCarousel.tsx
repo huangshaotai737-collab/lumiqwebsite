@@ -118,7 +118,7 @@ export default function MobileFilmCarousel({films, active, onChange}: {
           {index === active ? <>
             <video key={film} ref={video} playsInline preload={requested ? 'metadata' : 'none'} poster={cms.url(`/assets/films-20260908/${film}.jpg`)}
               aria-label={t(`${film}.title`)} onPlay={() => setPlaying(true)} onPause={() => setPlaying(false)} onEnded={() => setPlaying(false)} onError={() => setFailed(true)}>
-              <source src={requested ? cms.url(`/assets/films-20260908/${film}.mp4`) : undefined} type="video/mp4" onError={() => setFailed(true)} />
+              {requested && <source src={cms.url(`/assets/films-20260908/${film}.mp4`)} type="video/mp4" onError={() => setFailed(true)} />}
             </video>
             <button className="lh-mobile-film-toggle" data-playing={playing} type="button" onClick={toggle} aria-label={t(playing ? 'pause' : 'play')}>
               {playing ? <Pause size={24} /> : <Play size={26} fill="currentColor" />}

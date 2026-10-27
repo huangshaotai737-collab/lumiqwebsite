@@ -446,11 +446,11 @@
     }
   ],
   "preserved": {
-    "related/website/lib/content/initial-snapshot.json": "0860669fac96aa1870663ee75f84ba00d5136f5f96b8b62367608d68bf9535d2",
-    "related/website/lib/content/field-manifest.json": "d0eaded8a31616ccad08fdd674e99c7c0161899e1295f46ce95d4136f3136833",
+    "related/website/lib/content/initial-snapshot.json": "f620680bee4bd406775d3b39d6de920452574902200a37989a25aae431518c9c",
+    "related/website/lib/content/field-manifest.json": "b53501b007c8e1c768dc97cb73e4a602e085e2aef97514ac28f324ec342427bc",
     "contracts/content-policy.ts": "de91c90edbebebfd8ecebad360c3bcb1b9e7e4871b2ab1d3f233fec6a6b3f338",
-    "related/admin/features/content/field-manifest.json": "d0eaded8a31616ccad08fdd674e99c7c0161899e1295f46ce95d4136f3136833",
-    "related/admin/features/content/initial-snapshot.json": "0860669fac96aa1870663ee75f84ba00d5136f5f96b8b62367608d68bf9535d2"
+    "related/admin/features/content/field-manifest.json": "b53501b007c8e1c768dc97cb73e4a602e085e2aef97514ac28f324ec342427bc",
+    "related/admin/features/content/initial-snapshot.json": "f620680bee4bd406775d3b39d6de920452574902200a37989a25aae431518c9c"
   },
   "media": [
     {
@@ -897,11 +897,11 @@
       "slot": "asset_27bcf70b57b916d5",
       "file": "app/products/tablet/page.tsx",
       "sourceLocator": "FunctionDeclaration:3/Block:3/ReturnStatement:1/ParenthesizedExpression:0/JsxSelfClosingElement:0/JsxAttributes:1/attr:scenes/JsxExpression:1/ArrayLiteralExpression:0/ObjectLiteralExpression:0/prop:image/ObjectLiteralExpression:1/prop:src/StringLiteral:1",
-      "originalExpression": "\"/assets/tablet-detail/generated/tablet-passive-screen-time-v2.png\"",
+      "originalExpression": "\"/assets/tablet-detail/generated/tablet-passive-new-scene-20261026.png\"",
       "altExpression": "t(\"passiveTitle\")",
       "originalAlt": "",
       "adapterFile": "app/products/tablet/page.tsx",
-      "expression": "cms.url(\"/assets/tablet-detail/generated/tablet-passive-screen-time-v2.png\")"
+      "expression": "cms.url(\"/assets/tablet-detail/generated/tablet-passive-new-scene-20261026.png\")"
     },
     {
       "slot": "asset_28eedc556a91dfad",
@@ -1167,11 +1167,11 @@
       "slot": "asset_4f5fb66ba7dc95fe",
       "file": "app/products/tablet/page.tsx",
       "sourceLocator": "FunctionDeclaration:3/Block:3/ReturnStatement:1/ParenthesizedExpression:0/JsxSelfClosingElement:0/JsxAttributes:1/attr:scenes/JsxExpression:1/ArrayLiteralExpression:0/ObjectLiteralExpression:1/prop:image/ObjectLiteralExpression:1/prop:src/StringLiteral:1",
-      "originalExpression": "\"/assets/tablet-detail/generated/tablet-active-story-time-back-muted-20261001.png\"",
+      "originalExpression": "\"/assets/tablet-detail/generated/tablet-family-new-scene-20261026.png\"",
       "altExpression": "t(\"activeTitle\")",
       "originalAlt": "",
       "adapterFile": "app/products/tablet/page.tsx",
-      "expression": "cms.url(\"/assets/tablet-detail/generated/tablet-active-story-time-back-muted-20261001.png\")"
+      "expression": "cms.url(\"/assets/tablet-detail/generated/tablet-family-new-scene-20261026.png\")"
     },
     {
       "slot": "asset_50409433ee3449d3",

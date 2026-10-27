@@ -1,7 +1,7 @@
 ﻿requirement_id,original_row,page,requirement,status,completion_group,verified_scope,remaining,evidence
 BR-002,2,品牌故事,删除“2011 年，Arpha 成立”的内容，只保留 2024—2026 年。,PASS,已完成,品牌故事旧DOM仅有2024、2025、2026时间线，无2011成立段；关于我们仍介绍Arpha品牌背景不等于违背本条。 仅文字/结构与已留存页面证据支持，不认证实物功能或正式商业政策。,,requirements-review.json
 BR-003,3,品牌故事,将 Nest 15 更名为 Orb。,PASS,已完成,品牌故事系列入口含LumiqOrb，旧Nest15不作为产品展示名；内部nest标识保留。 仅文字/结构与已留存页面证据支持，不认证实物功能或正式商业政策。,,requirements-review.json
-BR-004,4,首页,移除启动时加载至 100% 的画面。,PASS,已完成,当前公开Home入口未导入或渲染HomeLoading；仓库虽保留旧进度组件，不可仅凭旧文件判定仍有百分比启动页。 仅文字/结构与已留存页面证据支持，不认证实物功能或正式商业政策。,,requirements-review.json
+BR-004,4,首页,移除启动时加载至 100% 的画面。,SUPERSEDED,按新要求调整,用户于2026-10-26明确要求首次进入官网显示LUMIQ标志和预加载读条；此项旧要求由最新需求覆盖。当前首页在媒体准备期间显示进度，成功后进入首页，失败时停留并可重试。,,qa/reports/2026-10-26/lumiq-entry-tablet/browser-results.json
 BR-005,5,首页,主标题和副标题字号增加 30%。,PASS,已完成,后续48/79/90已替代一律放大30%的要求；保留被替代记录，不声称所有字号增加30%。 仅文字/结构与已留存页面证据支持，不认证实物功能或正式商业政策。,,requirements-review.json
 BR-006,6,首页,将“认识你的 LUMIQ”改为“把用心的创新带回家”。,PASS,已完成,首页实际读取HomeRefresh.productsHeading，繁中为“把貼心創新帶回家”，与原要求语义一致；并非沿用旧标题。 仅文字/结构与已留存页面证据支持，不认证实物功能或正式商业政策。,,requirements-review.json
 BR-007,7,首页,第二个区块的左右切换按钮应放在图片下方。,PASS,已完成,已目视查看1440桌面、3840宽屏和390手机截图：左右按钮与计数位于产品图片/卡片下方。 当前动态记录在1440×900、2560×640、3840×960依次点击next遍历五产品；15个主选卡名称、链接和几何断言通过。,,integrated/production-results.json;integrated/production-controls-rerun-results.json
@@ -13,7 +13,7 @@ BR-012,12,首页,将所有 LumiQ 字样统一为全大写 LUMIQ。,PASS,已完�
 BR-013,13,首页,第四个区块：一家人，共享彼此相连的体验。将“创意”改为“书籍”，作为主角。将“随时随地学习与玩乐”改为“便携伙伴”。,PASS,已完成,原短标签方案被96的五组生态文案替代；最新成人受众又调整OLA那一组，不应回写旧“学习”诉求。 仅文字/结构与已留存页面证据支持，不认证实物功能或正式商业政策。,,requirements-review.json
 BR-014,14,首页,页面上下滚动不应触发第二个区块的产品左右切换。,PASS,已完成,production-results.json 中 vertical input leaves the product floor without advancing cards 为 passed；横向惯性只前进一款亦通过。,,integrated/production-results.json
 BR-015,15,常见问题,将“我可以取消方案吗？”的回答改为：月付方案可随时取消；年付方案自登记之日起持续 12 个月。,PASS,已完成,149的上市前FAQ新稿替代月付随时取消/年付固定12月的旧承诺；当前不把加入候补当作开通付费。 仅文字/结构与已留存页面证据支持，不认证实物功能或正式商业政策。,,requirements-review.json
-BR-016,16,媒体与评价,清空该页面的内容。,NEEDS_REVIEW,待确认,旧Media内容/入口已撤下，三语旧路由404。,原要求清空内容；需确认是否接受移除整个页面/导航。,brand-media-route-review.json
+BR-016,16,媒体与评价,清空该页面的内容。,PASS,已完成,用户已确认完整删除旧Media页面；导航无入口，三语旧路由均返回404。,,"qa/reports/2026-10-26/lumiq-entry-tablet/browser-results.json;brand-media-route-review.json"
 BR-017,17,产品,第二个区块：将“05 Lumiq Nest”改为“05 Lumiq Orb”。,PASS,已完成,总览第五款展示LumiqOrb，编号/产品身份按现有五产品排列保留。 仅文字/结构与已留存页面证据支持，不认证实物功能或正式商业政策。,,requirements-review.json
 BR-018,18,产品,第二个区块，01 Lumiq Tablet：将“故事探索任务”改为“选择自己故事走向的故事”。,PASS,已完成,Tablet总览卖点含“自行選擇故事路線”，实现选择故事走向的文字要求。 仅文字/结构与已留存页面证据支持，不认证实物功能或正式商业政策。,,requirements-review.json
 BR-019,19,产品,第二个区块，01 Lumiq Tablet：将“专注无干扰的设计”改为“复制你的声音，为孩子朗读”。,PASS,已完成,此句已由106更新为任何故事配音；当前Products.p1S4对应新稿，不再要求旧“为孩子朗读”字面。 仅文字/结构与已留存页面证据支持，不认证实物功能或正式商业政策。,,requirements-review.json
@@ -36,7 +36,7 @@ BR-035,35,首页,第三个区块，LUMIQ 故事区域：将“每一天，都更
 BR-036,36,产品,Lumiq Tablet，第三个区块，“为什么选择 LUMIQ”：将“当人工智能无处不在，孩子需要学会如何与它一起思考”改为“运用人工智能的力量，打开你的想象力”。,PASS,已完成,Tablet为什么选择区标题为“運用AI，打開想像力”；普通平板图另归120。 仅文字/结构与已留存页面证据支持，不认证实物功能或正式商业政策。,,requirements-review.json
 BR-037,37,产品,Lumiq Tablet，第三个区块，“传统屏幕时间”：将“被动观看，无止境滑动”改为“频繁切换，无止境滑动”。,PASS,已完成,Tablet负面对照标题为“不停切換 無止盡地滑動”；语义与改稿一致。 仅文字/结构与已留存页面证据支持，不认证实物功能或正式商业政策。,,requirements-review.json
 BR-038,38,产品,Lumiq Tablet，第三个区块，“传统屏幕时间”：将“注意力在阅读、视频和游戏之间切换，缩短专注时间，难以沉浸”改为“注意力从阅读转向视频，再转向游戏，更容易分心，也使持续专注的时间更短”。,PASS,已完成,Tablet负面对照正文包含阅读→影片→游戏与分心/专注缩短，文字与要求对应；不额外当作阅读成效实验结论。 仅文字/结构与已留存页面证据支持，不认证实物功能或正式商业政策。,,requirements-review.json
-BR-039,39,产品,Lumiq Tablet，第三个区块，“LUMIQ 故事时间”：将图片替换为平板产品外观正确的图片。,NEEDS_REVIEW,待确认,已有完整Tablet手机截图显示家长和孩子共读橙色平板；源码使用指定场景图。,品牌核对该场景图中的最终硬件外观。,public-detail/first-zh-hant-products-tablet-390.png;../../related/website/app/products/tablet/page.tsx
+BR-039,39,产品,Lumiq Tablet，第三个区块，“LUMIQ 故事时间”：将图片替换为平板产品外观正确的图片。,PASS,已完成,两张场景图依据原始带标志的产品素材从零重新构图；画面无明显噪点，橙色薄机身背面有清晰LUMIQ标志与单摄像头，均无三角支架。,,qa/reports/2026-10-26/lumiq-entry-tablet/tablet-before.png;qa/reports/2026-10-26/lumiq-entry-tablet/tablet-after-comparison.png
 BR-040,40,产品,Lumiq Tablet，第三个区块，“LUMIQ 故事时间”：将“主动阅读，一起想象”改为“沉浸阅读，一起探索”。,PASS,已完成,Tablet正面对照为“沉浸閱讀 一起探索”，旧DOM可见。 仅文字/结构与已留存页面证据支持，不认证实物功能或正式商业政策。,,requirements-review.json
 BR-041,41,产品,Lumiq Tablet，第三个区块，“LUMIQ 故事时间”：将“孩子专注于故事，走进插画，决定接下来发生什么，与家人一起阅读、思考和创作”改为“孩子专注于故事，可以替换自己的脸部形象，或选择接下来发生什么”。,PASS,已完成,Tablet正文描述姓名/照片个人化指定故事或选择接下来发展，保留指定故事限制。 仅文字/结构与已留存页面证据支持，不认证实物功能或正式商业政策。,,requirements-review.json
 BR-042,42,产品,Lumiq Tablet，第三个区块，“LUMIQ 故事时间”：将“孩子专注于故事，走进插画，决定接下来发生什么，与家人一起阅读、思考和创作”改为“孩子专注于故事，可以替换自己的脸部形象，或选择接下来发生什么”。,PASS,已完成,与41完全重复，保留原行与继承关系，不作为额外独立修复。 仅文字/结构与已留存页面证据支持，不认证实物功能或正式商业政策。,,requirements-review.json

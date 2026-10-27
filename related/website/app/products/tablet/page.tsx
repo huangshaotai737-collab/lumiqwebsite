@@ -50,7 +50,7 @@ export default function TabletPage() {
           title: t("passiveTitle"),
           body: t("passiveBody"),
           image: {
-            src: cms.url("/assets/tablet-detail/generated/tablet-passive-screen-time-v2.png"),
+            src: cms.url("/assets/tablet-detail/generated/tablet-passive-new-scene-20261026.png"),
             alt: t("passiveTitle"),
           },
         },
@@ -59,7 +59,7 @@ export default function TabletPage() {
           title: t("activeTitle"),
           body: t("activeBody"),
           image: {
-            src: cms.url("/assets/tablet-detail/generated/tablet-active-story-time-back-muted-20261001.png"),
+            src: cms.url("/assets/tablet-detail/generated/tablet-family-new-scene-20261026.png"),
             alt: t("activeTitle"),
           },
         },

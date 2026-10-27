@@ -4,15 +4,20 @@ import { LoginForm } from '@/features/account/LoginForm';
 import { requireUser } from '@/lib/auth/require-user';
 import { authConfigured } from '@/lib/auth/server';
 import { safeReturnPath } from '@/lib/generated/platform/auth-policy';
+import { accountCopy } from '@/features/account/copy';
+import type { Locale } from '@/i18n/routing';
 export const dynamic = 'force-dynamic';
-export const metadata = {robots:{index:false,follow:false}};
+export async function generateMetadata({params}: {params: Promise<{locale: Locale}>}) {
+  const {locale} = await params;
+  return {title: `${(accountCopy[locale] ?? accountCopy.en).signIn} — LUMIQ Studio`, robots: {index: false, follow: false}};
+}
 async function LoginPage({params,searchParams}: {params:Promise<{locale:string}>;searchParams:Promise<Record<string,string|undefined>>}) {
   const {locale} = await params;
   if (locale !== 'en' && locale !== 'zh-hant' && locale !== 'ja') notFound();
   const query = await searchParams;
   let signedIn = false;
   try { await requireUser(); signedIn = true; } catch { /* Public login also works without a session. */ }
-  const title = {en:'Sign in','zh-hant':'登入',ja:'ログイン'}[locale];
+  const title = accountCopy[locale].signIn;
   return <main style={{padding:'140px 24px 80px',minHeight:'70vh'}}><h1 style={{textAlign:'center',fontSize:32,marginBottom:28}}>{title}</h1><LoginForm locale={locale} next={safeReturnPath(query.next,`/${locale}/members`)} configured={authConfigured()} signedIn={signedIn} error={query.error} status={query.status}/></main>;
 }
 

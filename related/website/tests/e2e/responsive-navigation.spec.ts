@@ -51,6 +51,31 @@ test("a 320px phone shows a labeled menu with all destinations and languages", a
   }
 });
 
+test("navigation stays inside its capsule during viewport changes", async ({ page }, info) => {
+  test.skip(info.project.name !== "desktop");
+  for (const locale of ["en", "zh-hant", "ja"]) {
+    await page.setViewportSize({ width: 1440, height: 740 });
+    await page.goto(`/${locale}/story`);
+    await page.evaluate(() => document.fonts.ready);
+    for (const width of [320, 390, 1200, 1280, 320]) {
+      await page.setViewportSize({ width, height: 740 });
+      for (const delay of [0, 80, 220]) {
+        if (delay) await page.waitForTimeout(delay);
+        const bounds = await page.evaluate(() => {
+          const nav = document.querySelector(".site-nav")!.getBoundingClientRect();
+          const trigger = document.querySelector(".site-mobile-trigger")!.getBoundingClientRect();
+          const actions = document.querySelector(".nav-actions")!.getBoundingClientRect();
+          const lastLink = [...document.querySelectorAll(".site-desktop-nav a")].at(-1)!.getBoundingClientRect();
+          return { navRight: nav.right, triggerRight: trigger.right, actionsLeft: actions.left, lastLinkRight: lastLink.right };
+        });
+        const label = `${locale} at ${width}px, ${delay}ms after resize`;
+        if (width < 1200) expect(bounds.triggerRight, label).toBeLessThanOrEqual(bounds.navRight + 0.5);
+        else expect(bounds.lastLinkRight, label).toBeLessThan(bounds.actionsLeft);
+      }
+    }
+  }
+});
+
 test("public pages keep headings and navigation inside narrow and wide viewports", async ({ page }, info) => {
   test.skip(info.project.name !== "desktop");
   test.setTimeout(180_000);

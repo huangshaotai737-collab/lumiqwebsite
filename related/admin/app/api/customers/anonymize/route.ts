@@ -5,7 +5,7 @@ import {
 } from "@/features/customers/privacy";
 import { responseFor } from "@/features/team/service";
 import { assertSameOrigin } from "@/lib/http/origin";
-import { failure, HttpError } from "@/lib/http/result";
+import { failure, HttpError, readJson } from "@/lib/http/result";
 export async function GET(request: Request) {
   const q = new URL(request.url).searchParams;
   return responseFor(
@@ -18,12 +18,7 @@ export async function GET(request: Request) {
 export async function POST(request: Request) {
   try {
     assertSameOrigin(request, process.env.APP_ORIGIN || "");
-    let input;
-    try {
-      input = await request.json();
-    } catch {
-      throw new HttpError("INVALID_INPUT", 400);
-    }
+    const input = await readJson(request);
     if (!input || typeof input !== "object" || Array.isArray(input))
       throw new HttpError("INVALID_INPUT", 400);
     const keys = Object.keys(input).sort().join(",");
