@@ -7,7 +7,7 @@ import { chapterImage } from "./HomeBackgrounds";
 import { Suspense, createContext, useContext, useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { Environment, Html, Lightformer, MeshTransmissionMaterial, useFBO } from "@react-three/drei";
-import { CanvasTexture, ExtrudeGeometry, Group, MathUtils, NoToneMapping, PerspectiveCamera, ShaderMaterial, Shape, SRGBColorSpace, Texture, TextureLoader, VideoTexture, Vector3 } from "three";
+import { CanvasTexture, ExtrudeGeometry, Group, MathUtils, NoToneMapping, PerspectiveCamera, ShaderMaterial, Shape, SRGBColorSpace, Texture, TextureLoader, Vector3 } from "three";
 import "@/app/[locale]/glass-preview/preview.css";
 import copyStyles from "./ProductCardCopy.module.css";
 
@@ -166,9 +166,6 @@ function GlassScene({ selected, select, sideView, content, products, carousel = 
 // Refraction uses the same fixed viewport coordinates and crossfade as the page background.
 function ViewportBackground({ texture, fixed }: { texture: Texture; fixed: boolean }) {
   const nextTexture = useSafeTexture(chapterImage("films"));
-  const videoMap = useRef<VideoTexture | null>(null);
-  const decodedTime = useRef(-1);
-  useEffect(() => () => { videoMap.current?.dispose(); }, []);
   const material = useRef<ShaderMaterial>(null);
   const { gl } = useThree();
   const uniforms = useMemo(() => ({ map: { value: texture }, nextMap: { value: nextTexture }, blend: { value: 0 }, viewport: { value: [1, 1] },
@@ -178,24 +175,16 @@ function ViewportBackground({ texture, fixed }: { texture: Texture; fixed: boole
     const rect = gl.domElement.getBoundingClientRect();
     const u = material.current.uniforms;
     const image = texture.image as HTMLImageElement;
-    const video = fixed ? document.querySelector<HTMLVideoElement>("[data-background-video]") : null;
-    const liveVideo = video?.dataset.ready === "true";
-    if (liveVideo && !videoMap.current) {
-      videoMap.current = new VideoTexture(video);
-      videoMap.current.colorSpace = SRGBColorSpace;
-    }
-    if (liveVideo && videoMap.current && !video.seeking && decodedTime.current !== video.currentTime) {
-      videoMap.current.needsUpdate = true;
-      decodedTime.current = video.currentTime;
-    }
-    u.map.value = liveVideo ? videoMap.current : texture;
-    u.nextMap.value = liveVideo ? videoMap.current : nextTexture;
+    // A scrolling video can be mid-seek or have an unpresented black frame.
+    // Refraction uses the stable chapter image; the page keeps its video motion.
+    u.map.value = texture;
+    u.nextMap.value = nextTexture;
     const backdrop = fixed ? document.querySelector('.lh-fixed-backgrounds')?.getBoundingClientRect() : null;
     u.viewport.value = backdrop ? [backdrop.width, backdrop.height] : [rect.width, rect.height];
     u.blend.value = 0;
     u.canvasOrigin.value = backdrop ? [rect.left - backdrop.left, rect.top - backdrop.top] : [0, 0]; u.canvasHeight.value = rect.height;
     u.canvasSize.value = [rect.width, rect.height];
-    u.pixelRatio.value = gl.getPixelRatio(); u.imageSize.value = liveVideo ? [video.videoWidth, video.videoHeight] : [image.width, image.height];
+    u.pixelRatio.value = gl.getPixelRatio(); u.imageSize.value = [image.width, image.height];
   }, -2);
   return <mesh frustumCulled={false} renderOrder={-10} raycast={() => {}}>
     <planeGeometry args={[2, 2]} />
@@ -426,6 +415,8 @@ function CanvasReady({ onReady }: { onReady: () => void }) {
   const elapsed = useRef(0);
   const frames = useRef(0);
   const announced = useRef(false);
+  const revealFrame = useRef(0);
+  useEffect(() => () => cancelAnimationFrame(revealFrame.current), []);
   const callback = useRef(onReady);
   callback.current = onReady;
   useFrame((_, delta) => {
@@ -436,7 +427,8 @@ function CanvasReady({ onReady }: { onReady: () => void }) {
     if (!announced.current && frames.current > 2 && pool.size > 0 &&
         ([...pool.values()].every(entry => entry.settled) || elapsed.current >= 1.2)) {
       announced.current = true;
-      callback.current();
+      // useFrame runs before drawing: reveal only after that frame completed.
+      revealFrame.current = requestAnimationFrame(() => callback.current());
     }
   });
   return null;

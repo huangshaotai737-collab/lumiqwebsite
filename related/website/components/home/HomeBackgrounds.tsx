@@ -27,6 +27,9 @@ export default function HomeBackgrounds() {
     if (!host) return;
     let frame = 0;
     let loaded = false;
+    let presented = false;
+    let videoFrame = 0;
+    let fallbackFrame = 0;
     let start = 0;
     let end = 1;
     let cues: [number, number][] = [];
@@ -42,13 +45,13 @@ export default function HomeBackgrounds() {
         movie.load();
       }
       // Seeking can temporarily lower readyState. Keep the last decoded frame visible.
-      const ready = motion.matches && !movie.error && loaded;
+      const ready = motion.matches && !movie.error && presented;
       movie.dataset.ready = String(ready);
       movie.style.opacity = ready ? "1" : "0";
       const theme = String(ready);
       if (root && root.dataset.flowBackground !== theme) root.dataset.flowBackground = theme;
       if (fallback.current) fallback.current.style.opacity = ready ? "0" : "1";
-      if (!ready || document.hidden || movie.seeking || movie.readyState < 2) return;
+      if (!motion.matches || !loaded || movie.error || document.hidden || movie.seeking || movie.readyState < 2) return;
       const progress = Math.max(0, Math.min(1, (scrollY - start) / Math.max(1, end - start)));
       let desired = progress * lastFrame();
       if (cues.length) {
@@ -63,6 +66,26 @@ export default function HomeBackgrounds() {
       }
       desired = Math.min(lastFrame(), Math.round(desired * 24) / 24);
       if (Math.abs(movie.currentTime - desired) > 1 / 48) movie.currentTime = desired;
+      // loadeddata only proves decoding started. Keep the approved still until
+      // a frame at the requested scroll position has reached the compositor.
+      if (!presented && !videoFrame && !fallbackFrame) {
+        const confirm = () => {
+          if (!movie.seeking && movie.readyState >= 2 && movie.videoWidth > 0 &&
+              Math.abs(movie.currentTime - desired) < .1) presented = true;
+          schedule();
+        };
+        if (typeof movie.requestVideoFrameCallback === "function") {
+          videoFrame = movie.requestVideoFrameCallback((_, metadata) => {
+            videoFrame = 0;
+            if (Math.abs(metadata.mediaTime - desired) < .1) confirm();
+            else schedule();
+          });
+        } else if (!movie.seeking) {
+          fallbackFrame = requestAnimationFrame(() => {
+            fallbackFrame = requestAnimationFrame(() => { fallbackFrame = 0; confirm(); });
+          });
+        }
+      }
     };
     const schedule = () => { if (!frame) frame = requestAnimationFrame(update); };
     const measure = () => {
@@ -94,7 +117,7 @@ export default function HomeBackgrounds() {
     const onLoaded = () => { loaded = true; schedule(); };
     const configure = () => {
       movie.pause();
-      if (!motion.matches) { loaded = false; movie.removeAttribute("src"); movie.load(); }
+      if (!motion.matches) { loaded = false; presented = false; if (videoFrame) movie.cancelVideoFrameCallback(videoFrame); videoFrame = 0; cancelAnimationFrame(fallbackFrame); fallbackFrame = 0; movie.removeAttribute("src"); movie.load(); }
       schedule();
     };
     const resize = new ResizeObserver(measure);
@@ -115,7 +138,7 @@ export default function HomeBackgrounds() {
     measure();
     update();
     return () => {
-      cancelAnimationFrame(frame); resize.disconnect(); window.removeEventListener("scroll", schedule); window.removeEventListener("resize", measure); window.removeEventListener("lumiq:home-enter", schedule);
+      cancelAnimationFrame(frame); cancelAnimationFrame(fallbackFrame); if (videoFrame) movie.cancelVideoFrameCallback(videoFrame); resize.disconnect(); window.removeEventListener("scroll", schedule); window.removeEventListener("resize", measure); window.removeEventListener("lumiq:home-enter", schedule);
       movie.removeEventListener("loadeddata", onLoaded); movie.removeEventListener("canplay", schedule); movie.removeEventListener("seeked", schedule); movie.removeEventListener("error", schedule);
       motion.removeEventListener("change", configure); ScrollTrigger.removeEventListener("refresh", measure);
       document.removeEventListener("visibilitychange", schedule);
