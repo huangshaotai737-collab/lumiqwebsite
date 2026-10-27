@@ -1,106 +1,77 @@
 .lh-loader {
   position: fixed;
   inset: 0;
+  width: 100vw;
   z-index: 1000;
   display: grid;
   place-items: center;
   isolation: isolate;
-  color: #102047;
+  color: #152439;
   font-family: "Lumiq Manrope", Arial, sans-serif;
-}
-/* Match the opening film's pearl/lilac palette without an extra scene.
-   The veil dissolves over the prepared opening frame, which stays in place. */
-.lh-loader::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
   background:
-    radial-gradient(ellipse at 82% 15%, #f9edf380, transparent 62%),
-    radial-gradient(ellipse at 8% 85%, #e5e3f270, transparent 65%),
-    linear-gradient(135deg, #f6f3f8, #f0ecf4 58%, #f6f2f7);
-  transition: opacity 940ms cubic-bezier(.4, 0, .2, 1) 160ms;
+    radial-gradient(ellipse at 82% 15%, #f9edf3 0, transparent 62%),
+    radial-gradient(ellipse at 8% 85%, #e5e3f2 0, transparent 65%),
+    #f6f3f8;
+  transition: opacity 420ms ease;
 }
-.lh-loader[data-state="revealing"] { pointer-events: none; }
-.lh-loader[data-state="revealing"]::before { opacity: 0; }
+.lh-loader[data-state="revealing"] {
+  opacity: 0;
+  pointer-events: none;
+}
 .lh-loader[data-state="hidden"] { display: none; }
 .lh-loader-center {
-  width: min(430px, calc(100vw - 104px));
-  position: relative;
-  transform: translateY(-2vh);
+  width: min(370px, calc(100vw - 64px));
   text-align: center;
-  transition: opacity 420ms ease, transform 650ms cubic-bezier(.22, 1, .36, 1);
 }
-.lh-loader[data-state="revealing"] .lh-loader-center { opacity: 0; transform: translateY(calc(-2vh - 12px)) scale(1.025); }
-.lh-loader-wordmark { display: block; width: 100%; height: auto; overflow: visible; }
-.lh-loader-letter {
-  transform-origin: center;
-  opacity: 0;
-  animation: lh-letter-arrive 1050ms cubic-bezier(.16, 1, .3, 1) calc(100ms + var(--letter-index) * 90ms) both;
+.lh-loader-logo {
+  display: block;
+  width: 100%;
+  height: auto;
 }
-.lh-loader-letter-float {
-  animation: lh-letter-float 4800ms ease-in-out calc(2700ms + var(--letter-index) * 90ms) infinite;
+.lh-loader-progress {
+  display: grid;
+  gap: 14px;
+  margin-top: 24px;
 }
-.lh-loader-studio { animation-name: lh-studio-arrive; animation-duration: 850ms; animation-delay: calc(640ms + var(--letter-index) * 65ms); }
-.lh-loader-studio .lh-loader-letter-float { animation-name: lh-studio-float; animation-delay: calc(3000ms + var(--letter-index) * 65ms); }
-.lh-loader-accent { animation-name: lh-accent-arrive; animation-delay: 600ms; transform-origin: 2960px 455px; }
-.lh-loader-accent .lh-loader-letter-float {
-  transform-origin: 2960px 455px;
-  animation-name: lh-accent-float;
-  animation-delay: 1800ms;
+.lh-loader-track {
+  display: block;
+  width: 100%;
+  height: 5px;
+  overflow: hidden;
+  border-radius: 99px;
+  background: #d8d9e4;
 }
-.lh-loader-wordmark:not([data-ready="true"]) :is(.lh-loader-letter, .lh-loader-letter-float) { animation-play-state: paused; }
-.lh-loader-progress { margin-top: 28px; animation: lh-progress-arrive 900ms ease 850ms both; }
-.lh-loader-percent { color: #71748a; font-size: 12px; font-variant-numeric: tabular-nums; letter-spacing: .08em; }
-.lh-loader-percent small { margin-left: 3px; font-size: 9px; opacity: .7; }
-.lh-loader-label { margin: 24px -24px 0; color: #687389; font-size: 12px; line-height: 1.7; }
-.lh-loader-actions { display: flex; justify-content: center; gap: 12px; margin: 18px -32px 0; }
-.lh-loader-actions button { padding: 10px 14px; border: 1px solid #15243935; border-radius: 22px; background: #ffffff90; color: #152439; font-size: 12px; cursor: pointer; }
-.lh-loader-actions button:focus-visible { outline: 2px solid #8f70c9; outline-offset: 4px; }
-.lh-loader[data-state="error"] .lh-loader-letter-float { animation-play-state: paused; }
-.lh-loader[data-returning="true"] .lh-loader-letter { animation-duration: 450ms; animation-delay: calc(var(--letter-index) * 30ms); }
-.lh-loader[data-returning="true"] .lh-loader-progress { animation-delay: 200ms; animation-duration: 400ms; }
-@keyframes lh-letter-arrive {
-  0% { opacity: 0; transform: translateY(190px) rotate(3deg); }
-  58% { opacity: 1; transform: translateY(-28px) rotate(-.4deg); }
-  100% { opacity: 1; transform: translateY(0) rotate(0); }
+.lh-loader-track > span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #1b3157, #6e60ba);
+  transition: width 100ms linear;
 }
-@keyframes lh-studio-arrive {
-  from { opacity: 0; transform: translateY(65px); }
-  to { opacity: 1; transform: translateY(0); }
+.lh-loader-percent {
+  color: #536077;
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: .08em;
 }
-@keyframes lh-accent-arrive {
-  0% { opacity: 0; transform: translateY(145px) rotate(-22deg) scale(.6); }
-  42% { opacity: 1; transform: translateY(-125px) rotate(9deg) scale(.98, 1.05); }
-  65% { opacity: 1; transform: translateY(9px) rotate(-3deg) scale(1.1, .9); }
-  82% { opacity: 1; transform: translateY(-38px) rotate(3deg) scale(1); }
-  100% { opacity: 1; transform: translateY(0) rotate(0) scale(1); }
+.lh-loader-percent small { margin-left: 2px; font-size: 10px; }
+.lh-loader-label { margin-top: 20px; color: #536077; font-size: 14px; line-height: 1.6; }
+.lh-loader-actions { margin-top: 18px; }
+.lh-loader-actions button {
+  min-height: 44px;
+  padding: 10px 22px;
+  border: 1px solid #15243935;
+  border-radius: 99px;
+  background: #fff;
+  color: #152439;
+  cursor: pointer;
 }
-/* A 4.8-second phrase: accent double-hop, a travelling letter wave, then rest.
-   The logo stays readable throughout; no loop resets its entrance or opacity. */
-@keyframes lh-letter-float {
-  0%, 8%, 42%, 100% { transform: translateY(0); }
-  18% { transform: translateY(-62px); }
-  29% { transform: translateY(10px); }
-  36% { transform: translateY(-5px); }
-}
-@keyframes lh-studio-float {
-  0%, 8%, 38%, 100% { transform: translateY(0); }
-  20% { transform: translateY(-24px); }
-}
-@keyframes lh-accent-float {
-  0%, 34%, 100% { transform: translateY(0) rotate(0) scale(1); }
-  4% { transform: translateY(12px) rotate(0) scale(1.06, .9); }
-  10% { transform: translateY(-160px) rotate(-10deg) scale(.96, 1.04); }
-  18% { transform: translateY(0) rotate(0) scale(1.1, .88); }
-  22% { transform: translateY(-72px) rotate(6deg) scale(1); }
-  29% { transform: translateY(0) rotate(0) scale(1.04, .95); }
-}
-@keyframes lh-progress-arrive { from { opacity: 0; } to { opacity: 1; } }
+.lh-loader-actions button:focus-visible { outline: 2px solid #6e60ba; outline-offset: 4px; }
 .lh-home[data-home-state="loading"] { visibility: hidden; }
-html:has(.lh-loader:not([data-state="hidden"])), body:has(.lh-loader:not([data-state="hidden"])) { overflow: hidden; }
+html:has(.lh-loader:not([data-state="hidden"])),
+body:has(.lh-loader:not([data-state="hidden"])) { overflow: hidden; }
+html:has(.lh-loader:not([data-state="hidden"])) { scrollbar-gutter: auto; }
 body:has(.lh-loader:is([data-state="loading"], [data-state="error"])) :is(.site-nav, .footer) { visibility: hidden; }
 @media (prefers-reduced-motion: reduce) {
-  .lh-loader::before, .lh-loader-center { transition: none; }
-  .lh-loader-letter, .lh-loader-letter-float, .lh-loader-progress { animation: none; opacity: 1; }
+  .lh-loader, .lh-loader-track > span { transition: none; }
 }

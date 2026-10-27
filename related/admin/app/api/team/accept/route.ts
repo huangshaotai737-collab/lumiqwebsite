@@ -2,16 +2,11 @@ import { acceptStaffInvite, responseFor } from '@/features/team/service';
 import { createClient } from '@/lib/auth/server';
 import { assertSameOrigin } from '@/lib/http/origin';
 import { clientAddress, enforceRateLimit } from '@/lib/http/rate-limit';
-import { failure, success, HttpError } from '@/lib/http/result';
+import { failure, success, HttpError, readJson } from '@/lib/http/result';
 export async function POST(request: Request) {
   try {
     assertSameOrigin(request, process.env.APP_ORIGIN || '');
-    let input;
-    try {
-      input = await request.json();
-    } catch {
-      throw new HttpError('INVALID_INPUT', 400);
-    }
+    const input = await readJson(request);
     if (input?.action === 'signin') {
       await enforceRateLimit('signin', clientAddress(request));
       if (

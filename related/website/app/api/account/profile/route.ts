@@ -1,7 +1,7 @@
 import {getOwnProfile, updateOwnProfile} from '@/features/account/service';
 import {assertSameOrigin} from '@/lib/http/origin';
 import {clientAddress, enforceRateLimit} from '@/lib/http/rate-limit';
-import {failure, HttpError} from '@/lib/http/result';
+import { failure, readJson } from '@/lib/http/result';
 import type {ApiResult, Profile} from '@/lib/generated/platform/core';
 
 function response(result: ApiResult<Profile>) {
@@ -17,12 +17,7 @@ export async function PATCH(request: Request) {
   try {
     assertSameOrigin(request, process.env.APP_ORIGIN || '');
     await enforceRateLimit('write', clientAddress(request));
-    let input;
-    try {
-      input = await request.json();
-    } catch {
-      throw new HttpError('INVALID_INPUT', 400);
-    }
+    const input = await readJson(request);
     return response(await updateOwnProfile(input));
   } catch (error) {
     return failure(error);

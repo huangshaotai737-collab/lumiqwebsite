@@ -3,7 +3,7 @@ import {useContentAdapter} from "@/components/content/useContentAdapter";
 import {homeMotionQuery} from "./responsiveLayout";
 import {useVisualPreview} from '@/components/content/SiteContentProvider';
 
-import { useEffect, useRef, type ReactNode } from "react";
+import { useCallback, useMemo, useRef, useState, type ReactNode } from "react";
 import { useGSAP } from "@gsap/react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -13,6 +13,9 @@ import { mountOpeningVideo, openingVideoQuery } from "./openingVideo";
 import { preloadScenes } from "./preloadScenes";
 import { mountReadingAnchors } from "./readingNavigation";
 import { mountHomePosition } from "./homePosition";
+import HomeLoading from "./HomeLoading";
+import { backgroundVideoSource, chapterImage } from "./HomeBackgrounds";
+import type { HomeAssets } from "./prepareHome";
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 /** Native scrolling drives the current opening at every desktop aspect ratio. */
@@ -21,17 +24,47 @@ export default function HomeMotion({ children }: { children: ReactNode }) {
   const visual = useVisualPreview();
   const motionDependency = visual ? [cms.slot('asset_a4b2063e90484449').url,cms.slot('asset_76a5de3f207ca5bb').url,cms.slot('asset_d11e4e878cf13138').url].join('|') : cms;
   const root = useRef<HTMLElement>(null);
-  useEffect(() => {
+  const [prepared, setPrepared] = useState(false);
+  const assets = useMemo<HomeAssets>(() => ({
+    opening: cms.slot("asset_a4b2063e90484449").url,
+    images: [
+      cms.slot("asset_76a5de3f207ca5bb").url,
+      cms.slot("asset_d11e4e878cf13138").url,
+      cms.url(chapterImage("products")),
+      cms.url("/assets/home-interactive/pearl-light.webp"),
+      cms.url("/assets/home-anchored-2026-09-07/join-crystal.webp"),
+      cms.url("/assets/home-rooms-20260907/room-full-4k.webp"),
+      cms.url("/assets/home-safety-20261002/story-world-family.jpg"),
+      cms.url("/assets/character-20261012/poster-clean.png"),
+      cms.url("/assets/character-20261012/settled-clean.png"),
+      ...["everyday-companion", "worlds-together", "welcome-home"]
+        .map(film => cms.url(`/assets/films-20260908/${film}.jpg`)),
+    ],
+    videos: [
+      cms.url(backgroundVideoSource),
+      ...["everyday-companion", "worlds-together", "welcome-home"]
+        .map(film => cms.url(`/assets/films-20260908/${film}.mp4`)),
+      cms.url("/assets/character-20261012/ola-girl-clean-alpha.webm"),
+      cms.url("/assets/character-20261012/ola-girl-clean-alpha-safari.mov"),
+    ],
+  }), [cms]);
+  const onPrepared = useCallback(() => {
+    setPrepared(true);
+    if (root.current) root.current.dataset.homeState = "open";
+  }, []);
+  const onOpened = useCallback(() => {
     window.dispatchEvent(new Event("lumiq:home-enter"));
+    ScrollTrigger.refresh();
   }, []);
   useGSAP(
     () => {
+      if (!prepared) return;
       const fontsChanged = () => ScrollTrigger.refresh();
       document.fonts.addEventListener("loadingdone", fontsChanged);
       const releasePosition = root.current ? mountHomePosition(root.current) : () => {};
       const releaseImages = root.current ? preloadScenes(root.current) : () => {};
       const releaseOpening = root.current
-        ? mountOpeningVideo(root.current, cms.slot("asset_a4b2063e90484449").url, [cms.slot("asset_76a5de3f207ca5bb").url,cms.slot("asset_d11e4e878cf13138").url], cms.preview)
+        ? mountOpeningVideo(root.current)
         : () => {};
       // Opening layout is reserved before the horizontal product floor is measured.
       const releaseProducts = root.current
@@ -128,11 +161,14 @@ export default function HomeMotion({ children }: { children: ReactNode }) {
         releaseOpening();
       };
     },
-    { scope: root, dependencies: [motionDependency], revertOnUpdate: true },
+    { scope: root, dependencies: [motionDependency, prepared], revertOnUpdate: true },
   );
   return (
-    <main ref={root} id="main-content" className="lh-home" data-home-state="open" tabIndex={-1}>
-      {children}
-    </main>
+    <>
+      <main ref={root} id="main-content" className="lh-home" data-home-state="loading" tabIndex={-1}>
+        {children}
+      </main>
+      <HomeLoading root={root} assets={assets} onPrepared={onPrepared} onOpened={onOpened} />
+    </>
   );
 }

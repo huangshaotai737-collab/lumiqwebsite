@@ -48,10 +48,9 @@ export async function POST(request: Request) {
   try {
     assertSameOrigin(request, process.env.APP_ORIGIN || "");
     await enforceRateLimit("waitlist", clientAddress(request));
-    const result = await registerWaitlistEmail(payload, insertWaitlistRecord);
+    const result = await registerWaitlistEmail(parsed.email, insertWaitlistRecord);
     if (!result.ok) {
-      const status = result.error === "invalid_email" ? 400 : 503;
-      return Response.json(result, { status, headers: noStoreHeaders });
+      return Response.json(result, { status: 503, headers: noStoreHeaders });
     }
 
     return Response.json(result, {

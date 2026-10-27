@@ -2,13 +2,13 @@
 
 import { useEffect, useRef, useState, type RefObject } from "react";
 import { useTranslations } from "next-intl";
-import { prepareHome } from "./prepareHome";
-import LoadingWordmark from "./LoadingWordmark";
+import { loadingLogo, prepareHome, type HomeAssets } from "./prepareHome";
 
 const visitKey = "lumiq-home-ready-20260907-v1";
 
-export default function HomeLoading({ root, onPrepared, onOpened }: {
+export default function HomeLoading({ root, assets, onPrepared, onOpened }: {
   root: RefObject<HTMLElement | null>;
+  assets: HomeAssets;
   onPrepared: () => void;
   onOpened: () => void;
 }) {
@@ -31,7 +31,6 @@ export default function HomeLoading({ root, onPrepared, onOpened }: {
     let url: string | undefined;
     let frame = 0;
     let exitTimer: ReturnType<typeof setTimeout>;
-    let wordmarkStarted: number | undefined;
     const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
     let returning = false;
     try { returning = sessionStorage.getItem(visitKey) === "ready"; } catch { /* storage is optional */ }
@@ -53,21 +52,14 @@ export default function HomeLoading({ root, onPrepared, onOpened }: {
         setPhase("hidden");
         shell.forEach((element, i) => { element.inert = wasInert[i]; });
         onOpened();
-      }, reduced ? 0 : 1100);
+      }, reduced ? 0 : 450);
     };
     const tick = () => {
-      // The LFS-backed mark is optional in a fresh development clone. Let the
-      // progress gate finish with its CSS preview instead of keeping the page
-      // hidden behind a logo that cannot decode yet.
-      if (wordmarkStarted === undefined && (process.env.NODE_ENV === "development" || overlay.current?.querySelector('.lh-loader-wordmark[data-ready="true"]'))) {
-        wordmarkStarted = performance.now();
-      }
       shown.current += (target.current - shown.current) * (reduced || returning ? 1 : 0.12);
       if (target.current - shown.current < 0.08) shown.current = target.current;
       const value = Math.floor(shown.current);
       setPercent(value);
-      if (complete.current && value === 100 && wordmarkStarted !== undefined &&
-        performance.now() - wordmarkStarted >= (reduced ? 0 : returning ? 750 : 1750)) {
+      if (complete.current && value === 100) {
         reveal();
         return;
       }
@@ -75,11 +67,11 @@ export default function HomeLoading({ root, onPrepared, onOpened }: {
     };
     frame = requestAnimationFrame(tick);
     const timeout = () => controller.abort(new Error("Loading made no progress"));
-    let deadline = setTimeout(timeout, 30000);
+    let deadline = setTimeout(timeout, 60000);
     const progress = (value: number) => {
       if (value > target.current) {
         clearTimeout(deadline);
-        deadline = setTimeout(timeout, 30000);
+        deadline = setTimeout(timeout, 60000);
       }
       target.current = value;
     };
@@ -87,7 +79,7 @@ export default function HomeLoading({ root, onPrepared, onOpened }: {
     window.dispatchEvent(new Event("lumiq:retry-images"));
     const begin = requestAnimationFrame(() => {
       if (disposed) return;
-      void prepareHome(main, controller.signal, progress, value => { url = value; })
+      void prepareHome(main, assets, controller.signal, progress, value => { url = value; })
         .then(() => {
           if (disposed) return;
           clearTimeout(deadline);
@@ -101,9 +93,6 @@ export default function HomeLoading({ root, onPrepared, onOpened }: {
           setPhase("error");
         });
     });
-    const continueEvent = () => { clearTimeout(deadline); controller.abort(); reveal(); };
-    const element = overlay.current;
-    element?.addEventListener("lumiq:continue", continueEvent);
     return () => {
       disposed = true;
       controller.abort();
@@ -111,28 +100,27 @@ export default function HomeLoading({ root, onPrepared, onOpened }: {
       clearTimeout(exitTimer);
       cancelAnimationFrame(frame);
       cancelAnimationFrame(begin);
-      element?.removeEventListener("lumiq:continue", continueEvent);
       shell.forEach((element, i) => { element.inert = wasInert[i]; });
       if (url) {
         URL.revokeObjectURL(url);
         main.querySelector("video")?.removeAttribute("data-prepared-src");
       }
     };
-  }, [attempt, root, onPrepared, onOpened]);
+  }, [attempt, root, assets, onPrepared, onOpened]);
 
   useEffect(() => { if (phase === "error") retryButton.current?.focus(); }, [phase]);
 
   return <>
     <div ref={overlay} className="lh-loader" data-state={phase} role="dialog" aria-modal={phase !== "hidden"} aria-label={t("label")}>
       <div className="lh-loader-center" key={attempt}>
-        <LoadingWordmark />
+        <img className="lh-loader-logo" src={loadingLogo} alt="LUMIQ" width={4096} height={1551} />
         <div className="lh-loader-progress" role="progressbar" aria-valuemin={0} aria-valuemax={100} aria-valuenow={percent} aria-label={t("label")}>
+          <span className="lh-loader-track" aria-hidden="true"><span style={{ width: `${percent}%` }} /></span>
           <span className="lh-loader-percent">{percent}<small>%</small></span>
         </div>
         {phase === "error" && <p className="lh-loader-label" role="alert">{t("error")}</p>}
         {phase === "error" && <div className="lh-loader-actions">
           <button ref={retryButton} onClick={() => setAttempt(value => value + 1)}>{t("retry")}</button>
-          <button onClick={() => overlay.current?.dispatchEvent(new Event("lumiq:continue"))}>{t("continue")}</button>
         </div>}
       </div>
     </div>

@@ -1,4 +1,3 @@
-import {preloadOpening} from "./preloadOpening";
 import {homeMotionQuery, homeWideQuery} from "./responsiveLayout";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -9,7 +8,7 @@ export const openingVideoQuery =
   homeMotionQuery;
 
 /** One continuous shot, held at its approved first frame until the user scrolls. */
-export function mountOpeningVideo(root: HTMLElement, source = openingVideoSource, posters?: string[], preview = false) {
+export function mountOpeningVideo(root: HTMLElement) {
   const opening = root.querySelector<HTMLElement>(".lh-opening")!;
   const stage = opening.querySelector<HTMLElement>(".lh-opening-stage")!;
   const video = opening.querySelector<HTMLVideoElement>(".lh-opening-video")!;
@@ -134,7 +133,6 @@ export function mountOpeningVideo(root: HTMLElement, source = openingVideoSource
     let stallTimer = 0;
     let presentedTime: number | null = null;
     let ownedSource: string | null = null;
-    const controller = new AbortController();
     const playhead = {progress: 0};
     const duration = () => Number.isFinite(video.duration) ? video.duration : 6;
     const endTime = () => Math.max(0, duration() - 1 / 30);
@@ -174,7 +172,6 @@ export function mountOpeningVideo(root: HTMLElement, source = openingVideoSource
     const fallback = () => {
       if (!mounted || failed) return;
       failed = failedThisVisit = true;
-      controller.abort();
       clearTimeout(deadline);
       clearStall();
       const inOpening = stage.getBoundingClientRect().bottom > 0 && stage.getBoundingClientRect().top <= innerHeight;
@@ -192,7 +189,7 @@ export function mountOpeningVideo(root: HTMLElement, source = openingVideoSource
       releaseGate();
       heroCopy.inert = brandCopy.inert = cards.inert = false;
       video.pause(); video.removeAttribute("src"); video.load();
-      if (ownedSource) { URL.revokeObjectURL(ownedSource); ownedSource = null; }
+      ownedSource = null;
       ScrollTrigger.refresh();
       if (inOpening) window.scrollTo({top: chapter.offsetTop, behavior: "instant"});
       else if (nextChapter) window.scrollBy({top: nextChapter.element.getBoundingClientRect().top - nextChapter.top, behavior: "instant"});
@@ -293,17 +290,18 @@ export function mountOpeningVideo(root: HTMLElement, source = openingVideoSource
       scroll.update();
       update();
     });
-    void preloadOpening(source, controller.signal, posters, preview).then(blob => {
-      if (!mounted || failed || controller.signal.aborted) return;
-      ownedSource = URL.createObjectURL(blob);
+    // The entry gate has already fetched and decoded this exact source.
+    ownedSource = video.dataset.preparedSrc ?? null;
+    if (!ownedSource) fallback();
+    else {
       video.src = ownedSource;
       video.load();
-    }).catch(() => { if (!controller.signal.aborted) fallback(); });
+      ready();
+    }
     renderCopy();
     update();
     return () => {
       mounted = false;
-      controller.abort();
       clearTimeout(deadline);
       clearStall();
       releaseGate();
@@ -321,7 +319,6 @@ export function mountOpeningVideo(root: HTMLElement, source = openingVideoSource
       document.removeEventListener("visibilitychange", visibility);
       window.removeEventListener("lumiq:home-enter", ready);
       video.pause(); video.removeAttribute("src"); video.load();
-      if (ownedSource) URL.revokeObjectURL(ownedSource);
       delete video.dataset.scrollProgress;
       delete opening.dataset.videoMode;
       delete opening.dataset.staticOpening;

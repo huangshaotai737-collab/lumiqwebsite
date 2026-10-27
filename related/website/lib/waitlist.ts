@@ -7,8 +7,8 @@ export type WaitlistInsertResult =
   { ok: true } | { ok: false; duplicate?: boolean };
 
 export type WaitlistRegistrationResult =
-  | { ok: true; state: WaitlistSuccessState; isBot?: boolean }
-  | { ok: false; error: "invalid_email" | "temporarily_unavailable" };
+  | { ok: true; state: WaitlistSuccessState }
+  | { ok: false; error: "temporarily_unavailable" };
 
 export type WaitlistRecord = {
   email: string;
@@ -53,16 +53,11 @@ export function parseWaitlistRequest(
 }
 
 export async function registerWaitlistEmail(
-  input: unknown,
+  email: string,
   insert: (record: WaitlistRecord) => Promise<WaitlistInsertResult>,
 ): Promise<WaitlistRegistrationResult> {
-  const parsed = parseWaitlistRequest(input);
-
-  if (!parsed.ok) return parsed;
-  if (parsed.isBot) return { ok: true, state: "created", isBot: true };
-
   const result = await insert({
-    email: parsed.email,
+    email,
     source: WAITLIST_SOURCE,
     consent_version: WAITLIST_CONSENT_VERSION,
   });

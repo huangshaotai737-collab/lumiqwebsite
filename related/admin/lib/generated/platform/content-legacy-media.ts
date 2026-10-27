@@ -98,7 +98,7 @@ export const trustedLegacyMedia: Readonly<Record<string,{url:string;kind:string;
     "readOnly": false
   },
   "asset_27bcf70b57b916d5": {
-    "url": "/assets/tablet-detail/generated/tablet-passive-screen-time-v2.png",
+    "url": "/assets/tablet-detail/generated/tablet-passive-new-scene-20261026.png",
     "kind": "image",
     "profile": "public-content",
     "readOnly": false
@@ -188,7 +188,7 @@ export const trustedLegacyMedia: Readonly<Record<string,{url:string;kind:string;
     "readOnly": false
   },
   "asset_4f5fb66ba7dc95fe": {
-    "url": "/assets/tablet-detail/generated/tablet-active-story-time-back-muted-20261001.png",
+    "url": "/assets/tablet-detail/generated/tablet-family-new-scene-20261026.png",
     "kind": "image",
     "profile": "public-content",
     "readOnly": false
