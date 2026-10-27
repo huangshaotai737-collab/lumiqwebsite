@@ -75,8 +75,15 @@
    mirrored copies, never links or a second rendering engine. */
 .lh-product-reflection { display: none; }
 @media (min-width: 1200px) {
+  .lumiq-root main.lh-home .lh-products { --product-controls-height: 48px; }
   .lumiq-root main.lh-home .lh-products .lh-glass-products { opacity: 1; pointer-events: none; }
-  .lumiq-root main.lh-home .lh-products .lh-products-viewport { visibility: visible; }
+  .lumiq-root main.lh-home .lh-products .lh-products-viewport {
+    visibility: visible;
+    /* The rail and controls share a bottom edge. End the mirror 8px above
+       the controls, leaving the cards' top/side glow and stage background intact. */
+    clip-path: inset(-100vmax -100vmax calc(var(--product-controls-height) + 8px) -100vmax);
+  }
+  .lumiq-root main.lh-home .lh-products .lh-products-controls { height: var(--product-controls-height); }
   .lumiq-root main.lh-home .lh-products .lh-product-slot .lh-product {
     background: url('/assets/fixed-glass-card.svg') center / 100% 100% no-repeat;
     border: 0;
