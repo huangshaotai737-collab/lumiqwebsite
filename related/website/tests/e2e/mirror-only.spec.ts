@@ -32,3 +32,30 @@ test('unsupported WebGL leaves accessible product links',async({page})=>{
  await page.goto('/zh-hant#products');await page.locator('.lh-products-stage').scrollIntoViewIfNeeded();
  await expect(page.locator('#products')).toHaveAttribute('data-glass-fallback','');await expect(page.locator('.lh-products-viewport')).toBeVisible();
 });
+
+test('mirror remains usable when product artwork fails', async ({page}) => {
+  await page.route('**/assets/home-products-refined-20260907/**', route => route.abort());
+  await page.goto('/zh-hant#products');
+  await page.locator('.lh-products-stage').scrollIntoViewIfNeeded();
+  await expect(page.locator('#products')).toHaveAttribute('data-glass-3d', '', {timeout:30000});
+  await expect(page.locator('[data-projected="true"]')).toHaveCount(5);
+  await page.locator('[data-products-next]').click();
+  await expect(page.locator('#products')).toHaveAttribute('data-active-product', '1');
+});
+
+test('slow artwork does not gate the complete mirror scene', async ({page}) => {
+  let release!: () => void;
+  const gate = new Promise<void>(resolve => { release = resolve; });
+  await page.route('**/assets/home-products-refined-20260907/**', async route => {
+    await gate;
+    await route.continue();
+  });
+  try {
+    await page.goto('/zh-hant#products', {waitUntil:'domcontentloaded'});
+    await page.locator('.lh-products-stage').scrollIntoViewIfNeeded();
+    await expect(page.locator('#products')).toHaveAttribute('data-glass-3d', '', {timeout:30000});
+    await expect(page.locator('[data-projected="true"]')).toHaveCount(5);
+    await page.locator('[data-products-next]').click();
+    await expect(page.locator('#products')).toHaveAttribute('data-active-product', '1');
+  } finally { release(); }
+});

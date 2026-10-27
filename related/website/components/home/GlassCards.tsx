@@ -4,7 +4,7 @@ import Heading from "@/components/Heading";
 
 import { chapterImage } from "./HomeBackgrounds";
 
-import { Suspense, useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
+import { Suspense, createContext, useContext, useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { Environment, Html, Lightformer, MeshTransmissionMaterial, useFBO } from "@react-three/drei";
 import { CanvasTexture, ExtrudeGeometry, Group, MathUtils, NoToneMapping, PerspectiveCamera, ShaderMaterial, Shape, SRGBColorSpace, Texture, TextureLoader, VideoTexture, Vector3 } from "three";
@@ -21,48 +21,56 @@ const demoProducts: GlassProduct[] = [
 
 type CardPointer = { x: number; y: number; hovered: boolean };
 
-/**
- * A missing LFS object is served as a small text pointer during a fresh clone.
- * Drei's useTexture rejects that decode and takes down the whole canvas. Keep a
- * neutral canvas texture on screen until the real asset is available instead.
- */
+type TextureEntry = { texture: Texture | null; settled: boolean; listeners: Set<() => void> };
+const TexturePool = createContext<Map<string, TextureEntry> | null>(null);
+
+// One request and GPU texture per CMS-resolved asset, shared by face and reflection.
+// The pool belongs to this canvas and is disposed when the canvas unmounts.
 function useSafeTexture(originalUrl: string, transparent = false): Texture {
   const cms = useContentAdapter();
   const url = cms.url(originalUrl);
+  const pool = useContext(TexturePool)!;
+  const [, update] = useState(0);
   const fallback = useMemo(() => {
     const canvas = document.createElement("canvas");
     canvas.width = canvas.height = 96;
     const ctx = canvas.getContext("2d")!;
     if (!transparent) {
-      const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+      const gradient = ctx.createLinearGradient(0, 0, 96, 96);
       gradient.addColorStop(0, "#f8f5fb");
       gradient.addColorStop(.5, "#e9eef8");
       gradient.addColorStop(1, "#f7eee9");
       ctx.fillStyle = gradient;
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.fillRect(0, 0, 96, 96);
     }
     const texture = new CanvasTexture(canvas);
     texture.colorSpace = SRGBColorSpace;
     return texture;
   }, [transparent]);
-  const [texture, setTexture] = useState<Texture>(fallback);
   useEffect(() => {
-    let alive = true;
-    let loaded: Texture | undefined;
-    setTexture(fallback);
-    new TextureLoader().load(url, value => {
-      if (!alive) { value.dispose(); return; }
-      value.colorSpace = SRGBColorSpace;
-      loaded = value;
-      setTexture(value);
-    }, undefined, () => {
-      // The static fallback keeps local development usable until `git lfs pull` finishes.
-      console.warn(`Could not load ${url}; using the local preview texture.`);
-    });
-    return () => { alive = false; loaded?.dispose(); };
-  }, [url, fallback]);
+    let entry = pool.get(url);
+    const changed = () => update(value => value + 1);
+    if (!entry) {
+      entry = { texture: null, settled: false, listeners: new Set() };
+      pool.set(url, entry);
+      const resource = entry;
+      new TextureLoader().load(url, texture => {
+        if (pool.get(url) !== resource) { texture.dispose(); return; }
+        texture.colorSpace = SRGBColorSpace;
+        resource.texture = texture;
+        resource.settled = true;
+        resource.listeners.forEach(notify => notify());
+      }, undefined, () => {
+        resource.settled = true;
+        resource.listeners.forEach(notify => notify());
+      });
+    }
+    entry.listeners.add(changed);
+    changed();
+    return () => { entry.listeners.delete(changed); };
+  }, [url, pool]);
   useEffect(() => () => fallback.dispose(), [fallback]);
-  return texture;
+  return pool.get(url)?.texture ?? fallback;
 }
 
 function GlassScene({ selected, select, sideView, content, products, carousel = false }: {
@@ -405,29 +413,22 @@ function PearlFlow({ index, reflected, opacity, active }: { index: number; refle
 
 /** Keep the DOM cards until the real renderer and product artwork can paint.
  * A successful capability probe does not guarantee Canvas can create a context. */
-function CanvasReady({ products, onReady }: { products: GlassProduct[]; onReady: () => void }) {
-  const ready = useRef(false);
+function CanvasReady({ onReady }: { onReady: () => void }) {
+  const pool = useContext(TexturePool)!;
+  const elapsed = useRef(0);
+  const frames = useRef(0);
   const announced = useRef(false);
-  const frame = useRef(0);
   const callback = useRef(onReady);
   callback.current = onReady;
-  useEffect(() => {
-    let alive = true;
-    ready.current = announced.current = false;
-    void Promise.all(products.map(product => new Promise<void>((resolve, reject) => {
-      const image = new window.Image();
-      image.onload = () => { void image.decode().then(resolve, reject); };
-      image.onerror = reject;
-      image.src = product.image;
-    }))).then(() => { if (alive) ready.current = true; }).catch(() => {
-      // Missing artwork leaves the navigable DOM card/inline-preview fallback.
-    });
-    return () => { alive = false; cancelAnimationFrame(frame.current); };
-  }, [products]);
-  useFrame(() => {
-    if (ready.current && !announced.current) {
+  useFrame((_, delta) => {
+    elapsed.current += delta;
+    frames.current++;
+    // Never gate the entire mirror on the slowest image. Late artwork fills in
+    // on the same mirror surface; failed artwork retains a neutral texture.
+    if (!announced.current && frames.current > 2 && pool.size > 0 &&
+        ([...pool.values()].every(entry => entry.settled) || elapsed.current >= 1.2)) {
       announced.current = true;
-      frame.current = requestAnimationFrame(() => callback.current());
+      callback.current();
     }
   });
   return null;
@@ -437,10 +438,15 @@ export function GlassCanvas({ selected, select, products = demoProducts, sideVie
   selected: number; select: (index: number) => void; products?: GlassProduct[]; sideView?: boolean; content?: boolean; carousel?: boolean; running?: boolean; onReady?: () => void;
 }) {
   const cms = useContentAdapter();
+  const [pool] = useState(() => new Map<string, TextureEntry>());
+  useEffect(() => () => {
+    pool.forEach(entry => entry.texture?.dispose());
+    pool.clear();
+  }, [pool]);
   return <Canvas frameloop={running ? "always" : "never"} camera={{ position: [0, 1.3, 36], fov: 12, near: .1, far: 100 }} dpr={[1, 1.25]}
     gl={{ antialias: true, alpha: true, toneMapping: NoToneMapping }} fallback={carousel ? null : <p>{cms.text("field_33e42817ed9c66ca")}</p>}>
     {!carousel && <color attach="background" args={["#f5f3f9"]} />}
-    <Suspense fallback={null}>{onReady && <CanvasReady products={products} onReady={onReady} />}<GlassScene selected={selected} select={select} sideView={sideView} content={content} products={products} carousel={carousel} /></Suspense>
+    <TexturePool.Provider value={pool}><Suspense fallback={null}>{onReady && <CanvasReady onReady={onReady} />}<GlassScene selected={selected} select={select} sideView={sideView} content={content} products={products} carousel={carousel} /></Suspense></TexturePool.Provider>
   </Canvas>;
 }
 

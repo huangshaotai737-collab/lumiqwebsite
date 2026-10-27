@@ -13,6 +13,7 @@ export default function HomeGlassProducts({ products }: { products: GlassProduct
   const host = useRef<HTMLDivElement>(null);
   const [enabled, setEnabled] = useState(false);
   const [running, setRunning] = useState(false);
+  const [prepared, setPrepared] = useState(false);
   const [selected, setSelected] = useState(0);
   const handoffTimer = useRef<number | null>(null);
   useEffect(() => {
@@ -37,11 +38,11 @@ export default function HomeGlassProducts({ products }: { products: GlassProduct
       visible = bounds.width > 0 && visibleHeight > 0;
       syncRunning();
       // Reserve layout from the first render; show only the completed mirror scene.
-      if (!desktop.matches) { cancelHandoff(); setEnabled(false); section.removeAttribute("data-glass-3d"); return; }
+      if (!desktop.matches) { cancelHandoff(); setEnabled(false); setPrepared(false); section.removeAttribute("data-glass-3d"); return; }
       if (near) void loadGlassCanvas().catch(failed);
-      // Loading the component is cheap; creating its GPU context and scene is
-      // not. A phone-to-desktop resize at films must not initialize hidden glass.
-      if (!visible) return;
+      // Prepare within the nearby margin, before the slot becomes visible.
+      // Once ready, offscreen rendering pauses until the user reaches it.
+      if (!near && !visible) return;
       if (supported === undefined) {
         const canvas = document.createElement("canvas");
         const context = canvas.getContext("webgl2");
@@ -65,8 +66,8 @@ export default function HomeGlassProducts({ products }: { products: GlassProduct
       near = entry.isIntersecting;
       configure();
     }, { rootMargin: "1200px 0px" });
-    // Preload nearby artwork, but render only while the actual canvas slot is
-    // on screen. The loading margin extends into the following films chapter.
+    // Warm the nearby scene once; after preparation, render only while the
+    // actual slot is visible. The margin also covers reverse scrolling.
     const visibility = new IntersectionObserver(configure);
     preload.observe(section); visibility.observe(element);
     document.addEventListener("visibilitychange", syncRunning);
@@ -74,6 +75,7 @@ export default function HomeGlassProducts({ products }: { products: GlassProduct
     return () => { cancelHandoff(); element.removeEventListener("webglcontextlost", failed, true); observer.disconnect(); preload.disconnect(); visibility.disconnect(); document.removeEventListener("visibilitychange", syncRunning); desktop.removeEventListener("change", configure); section.removeAttribute("data-glass-3d"); };
   }, []);
   const ready = () => {
+    setPrepared(true);
     // The completed mirror scene fades into its reserved slot. A pending
     // frame must not re-enable it after a mobile resize or unmount.
     const section = host.current?.closest<HTMLElement>(".lh-products");
@@ -92,6 +94,6 @@ export default function HomeGlassProducts({ products }: { products: GlassProduct
     if (e.key !== "ArrowLeft" && e.key !== "ArrowRight") return;
     e.preventDefault(); select((selected + (e.key === "ArrowRight" ? 1 : products.length - 1)) % products.length);
   }}>
-    {enabled && <GlassCanvas selected={selected} select={select} products={products} carousel running={running} onReady={ready} />}
+    {enabled && <GlassCanvas selected={selected} select={select} products={products} carousel running={running || !prepared} onReady={ready} />}
   </div>;
 }
