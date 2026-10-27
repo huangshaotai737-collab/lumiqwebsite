@@ -6,7 +6,7 @@ for (const locale of ['zh-hant','en','ja']) for (const viewport of [{width:1440,
     await page.setViewportSize(viewport);
     await page.goto(`/${locale}#products`, {waitUntil:'domcontentloaded'});
     await page.locator('.lh-products-stage').evaluate(element => scrollTo({top:scrollY + element.getBoundingClientRect().top,behavior:'instant'}));
-    const cards = page.locator('.lh-glass-products [data-projected="true"]');
+    const cards = page.locator('.lh-product-slot');
     await expect(cards).toHaveCount(5, {timeout: 20_000});
     await page.evaluate(() => document.fonts.ready);
     for (let selected = 0; selected < 5; selected++) {
@@ -16,7 +16,7 @@ for (const locale of ['zh-hant','en','ja']) for (const viewport of [{width:1440,
         return side.length === 4 && side.every(element => {
           const matrix = new DOMMatrix(getComputedStyle(element).transform);
           const scale = Math.hypot(matrix.c, matrix.d);
-          return [['[data-card-title]',20],['[data-card-action]',18]].every(([selector, minimum]) => {
+          return [['h3',20],['.lh-product-bottom',18]].every(([selector, minimum]) => {
             const label = element.querySelector(selector as string) as HTMLElement;
             const style = getComputedStyle(label);
             return parseFloat(style.fontSize) * scale >= Number(minimum)
@@ -25,7 +25,7 @@ for (const locale of ['zh-hant','en','ja']) for (const viewport of [{width:1440,
         });
       })).toBe(true);
       // The active and side labels must retain a separate, usable hit target.
-      await expect(page.locator('.lh-glass-products [data-active="true"] .glass-product-hit')).toHaveAttribute('href', /\/products\//);
+      await expect(page.locator('.lh-product-slot[data-active="true"] a')).toHaveAttribute('href', /\/products\//);
       if (selected < 4) {
         const next = page.locator('[data-products-next]');
         if (viewport.height <= 760) await expect(next).toBeInViewport();
