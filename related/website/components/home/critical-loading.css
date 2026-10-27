@@ -71,3 +71,8 @@
 @media (min-width: 1200px) and (prefers-reduced-motion: reduce) {
   .lh-home .lh-products .lh-glass-products { transition: none; }
 }
+
+/* Product cards use one HTML surface on every screen, without a mirrored copy. */
+.lumiq-root main.lh-home .lh-products .lh-product {
+  -webkit-box-reflect: initial;
+}
