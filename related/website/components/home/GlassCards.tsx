@@ -219,6 +219,8 @@ function GlassCard({ geometry, index, product, offset, five, active, select, hov
   const cms = useContentAdapter();
   const group = useRef<Group>(null);
   const copySurface = useRef<HTMLDivElement>(null);
+  const lastTransform = useRef("");
+  const motionPreference = useMemo(() => window.matchMedia("(prefers-reduced-motion: reduce)"), []);
   const projected = useMemo(() => [new Vector3(), new Vector3(), new Vector3()], []);
   const targetX = five ? Math.sign(offset) * ([0, 4.15, 7][Math.abs(offset)] ?? 7) : offset * 3.55;
   const targetScale = five ? [1.36, .83, .76][Math.abs(offset)] : active ? 1 : .9;
@@ -238,7 +240,7 @@ function GlassCard({ geometry, index, product, offset, five, active, select, hov
       pointer.hovered = false;
     }
     previousOffset.current = offset;
-    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const reduced = motionPreference.matches;
     const hovering = pointer.hovered && !reduced;
     group.current.rotation.y = MathUtils.damp(group.current.rotation.y, angle + (hovering ? pointer.x * .07 : 0), 7, delta);
     group.current.rotation.x = MathUtils.damp(group.current.rotation.x, hovering ? -pointer.y * .045 : 0, 7, delta);
@@ -258,7 +260,11 @@ function GlassCard({ geometry, index, product, offset, five, active, select, hov
       y.set(0, -1, .3).applyMatrix4(group.current.matrixWorld).project(camera);
       const a=(x.x-origin.x)*size.width/200, b=-(x.y-origin.y)*size.height/200;
       const c=(y.x-origin.x)*size.width/200, d=-(y.y-origin.y)*size.height/200;
-      copySurface.current.style.transform=`matrix(${a},${b},${c},${d},${-142.5*a-210*c},${-142.5*b-210*d})`;
+      const transform = `matrix(${[a,b,c,d,-142.5*a-210*c,-142.5*b-210*d].map(value => value.toFixed(4)).join(",")})`;
+      if (transform !== lastTransform.current) {
+        copySurface.current.style.transform = transform;
+        lastTransform.current = transform;
+      }
       // The first projected frame is ready before DOM copy becomes visible.
       // Otherwise Html briefly paints unscaled text at its default position.
       if (!copySurface.current.dataset.projected) copySurface.current.dataset.projected = "true";
@@ -276,12 +282,13 @@ function GlassCard({ geometry, index, product, offset, five, active, select, hov
       hover(index);
     }} onPointerOut={reflected ? undefined : () => { pointer.hovered = false; hover(null); }}
       onPointerOver={reflected ? undefined : e => { e.stopPropagation(); hover(index); }} onClick={reflected ? undefined : e => { e.stopPropagation(); select(index); }}>
+      {reflected ? <meshBasicMaterial color="#f1eef8" transparent opacity={.10 * opacity} depthWrite={false} toneMapped={false} /> :
       <MeshTransmissionMaterial buffer={buffer} thickness={.25}
         userData={reflected ? { reflectionOpacity: .45 * opacity } : {}}
         transmission={1} roughness={active ? .7 : .38} ior={1.65} transparent opacity={(reflected ? .45 : 1) * opacity}
         clearcoat={1} clearcoatRoughness={.045} attenuationColor="#dcd5ea" attenuationDistance={2.5}
         chromaticAberration={0} anisotropicBlur={0} distortion={0}
-        samples={reflected ? 2 : 4} resolution={512} backsideResolution={256} color="#ffffff" />
+        samples={2} resolution={512} backsideResolution={256} color="#ffffff" />}
     </mesh>
     <PearlFlow index={index} reflected={reflected} opacity={opacity} active={active} />
     {content && <CardArtwork product={product} active={active} reflected={reflected} opacity={opacity} hideLabel={five && !reflected && Boolean(product.body)} />}
@@ -472,7 +479,7 @@ export function GlassCanvas({ selected, select, products = demoProducts, sideVie
     pool.forEach(entry => entry.texture?.dispose());
     pool.clear();
   }, [pool]);
-  return <Canvas frameloop={running ? "demand" : "never"} camera={{ position: [0, 1.3, 36], fov: 12, near: .1, far: 100 }} dpr={[1, 1.25]}
+  return <Canvas frameloop={running ? "demand" : "never"} camera={{ position: [0, 1.3, 36], fov: 12, near: .1, far: 100 }} dpr={1}
     gl={{ antialias: true, alpha: true, toneMapping: NoToneMapping }} fallback={carousel ? null : <p>{cms.text("field_33e42817ed9c66ca")}</p>}>
     {!carousel && <color attach="background" args={["#f5f3f9"]} />}
     <TexturePool.Provider value={pool}><InteractionFrames running={running} selected={selected} /><Suspense fallback={null}>{onReady && <CanvasReady onReady={onReady} />}<GlassScene selected={selected} select={select} sideView={sideView} content={content} products={products} carousel={carousel} /></Suspense></TexturePool.Provider>

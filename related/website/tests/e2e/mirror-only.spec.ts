@@ -85,3 +85,16 @@ test('mirror stops GPU draws while idle and wakes for carousel input', async ({p
   await page.waitForTimeout(1000);
   expect(await readDraws()).toBe(settled);
 });
+
+test('high density displays keep mirror rendering at CSS resolution', async ({browser, baseURL}) => {
+  const context = await browser.newContext({viewport:{width:1440,height:900},deviceScaleFactor:2});
+  const page = await context.newPage();
+  try {
+    await page.goto(`${baseURL}/zh-hant#products`);
+    await expect(page.locator('#products')).toHaveAttribute('data-glass-3d','',{timeout:30000});
+    const scale = await page.locator('.lh-glass-products canvas').evaluate((canvas:HTMLCanvasElement) => canvas.width / canvas.clientWidth);
+    expect(scale).toBeCloseTo(1,2);
+    await page.locator('[data-products-next]').click();
+    await expect(page.locator('#products')).toHaveAttribute('data-active-product','1');
+  } finally { await context.close(); }
+});
