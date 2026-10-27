@@ -27,6 +27,40 @@ export function mountProductRail(root: HTMLElement) {
   let phonePositions: number[] = [];
   let renderedPhoneActive = -1;
   let renderedDesktop = desktop.matches;
+  const animations = new Map<HTMLElement, Animation>();
+  const stopAnimations = () => {
+    for (const animation of animations.values()) animation.cancel();
+    animations.clear();
+  };
+  const animateSelection = (update: () => void) => {
+    if (!desktop.matches || reduced.matches) { stopAnimations(); update(); return; }
+    // Capture even an interrupted transition before cancelling it. Layout is
+    // updated once; only compositor transforms animate between the two poses.
+    const before = slots.map(slot => ({rect: slot.getBoundingClientRect(), offset: Number(slot.dataset.offset)}));
+    stopAnimations();
+    update();
+    const after = slots.map(slot => ({rect: slot.getBoundingClientRect(), transform: getComputedStyle(slot).transform}));
+    slots.forEach((slot, index) => {
+      const from = before[index], to = after[index];
+      if (!to.rect.width || !to.rect.height) return;
+      const wraps = Math.abs(Number(slot.dataset.offset) - from.offset) > 2;
+      // A card wrapping around the ring reappears at the far edge; it must not
+      // sweep across the selected product in the foreground.
+      const frames = wraps ? [{opacity: 0}, {opacity: 1}] : [
+        {transform: `translate(${from.rect.left - to.rect.left}px, ${from.rect.top - to.rect.top}px) ${to.transform} scale(${from.rect.width / to.rect.width}, ${from.rect.height / to.rect.height})`},
+        {transform: to.transform},
+      ];
+      const animation = slot.animate(frames, {
+        duration: wraps ? 300 : 650,
+        easing: 'cubic-bezier(.22,.68,0,1)',
+      });
+      animations.set(slot, animation);
+      animation.onfinish = () => {
+        if (animations.get(slot) === animation) animations.delete(slot);
+        animation.cancel();
+      };
+    });
+  };
   const measurePhonePositions = () => {
     const width = viewport.clientWidth;
     phonePositions = slots.map(slot => slot.offsetLeft - (width - slot.offsetWidth) / 2);
@@ -58,7 +92,7 @@ export function mountProductRail(root: HTMLElement) {
   const select = (index: number) => {
     active = (index + slots.length) % slots.length;
     lockedUntil = performance.now() + (reduced.matches ? 0 : 650);
-    render();
+    animateSelection(render);
     if (!desktop.matches) viewport.scrollTo({ left: centeredLeft(slots[active]), behavior: phone.matches || reduced.matches ? "instant" : "smooth" });
   };
   slots.forEach((slot, index) => {
@@ -95,6 +129,7 @@ export function mountProductRail(root: HTMLElement) {
   }, { ...options, passive: true });
   const resize = () => {
     // A layout switch changes the presentation, not the selected product.
+    stopAnimations();
     positioning = true;
     render();
     cancelAnimationFrame(resizeFrame);
@@ -106,9 +141,15 @@ export function mountProductRail(root: HTMLElement) {
     });
   };
   desktop.addEventListener("change", resize, options);
+  reduced.addEventListener("change", stopAnimations, options);
   let viewportWidth = viewport.clientWidth;
+  let viewportHeight = viewport.clientHeight;
   const sizeObserver = new ResizeObserver(() => {
-    if (viewport.clientWidth !== viewportWidth) { viewportWidth = viewport.clientWidth; resize(); }
+    if (viewport.clientWidth !== viewportWidth || viewport.clientHeight !== viewportHeight) {
+      viewportWidth = viewport.clientWidth;
+      viewportHeight = viewport.clientHeight;
+      resize();
+    }
   });
   sizeObserver.observe(viewport);
   let releaseWheel = () => {};
@@ -126,6 +167,7 @@ export function mountProductRail(root: HTMLElement) {
   section.dataset.enhanced = "true";
   render();
   return () => {
+    stopAnimations();
     sizeObserver.disconnect();
     cancelAnimationFrame(resizeFrame);
     cancelAnimationFrame(settleFrame);

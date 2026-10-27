@@ -28,6 +28,8 @@
     position: absolute; top: auto; bottom: calc(var(--carousel-height) * .38); left: 50%;
     width: calc(var(--fallback-unit) * var(--card-width)); height: calc(var(--fallback-unit) * var(--card-height));
     transform: translateX(calc(-50% + var(--fallback-unit) * var(--card-x)));
+    /* productRail animates the whole card and mirror as one transform. */
+    transform-origin: top left; transition: none;
     opacity: 1; pointer-events: auto; z-index: 1;
   }
   .lumiq-root main.lh-home .lh-products:not([data-glass-3d]) .lh-product-slot:nth-child(2) { --card-x: 4.15; --card-width: 2.65; --card-height: 3.8; }
