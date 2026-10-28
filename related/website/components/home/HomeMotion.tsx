@@ -10,7 +10,6 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { mountProductRail } from "./productRail";
 import { mountRoomAnchor } from "./roomAnchor";
 import { mountOpeningVideo, openingVideoQuery } from "./openingVideo";
-import { preloadScenes } from "./preloadScenes";
 import { mountHomePosition } from "./homePosition";
 import HomePageWarmup from "./HomePageWarmup";
 gsap.registerPlugin(useGSAP, ScrollTrigger);
@@ -29,7 +28,6 @@ export default function HomeMotion({ children }: { children: ReactNode }) {
       const fontsChanged = () => ScrollTrigger.refresh();
       document.fonts.addEventListener("loadingdone", fontsChanged);
       const releasePosition = root.current ? mountHomePosition(root.current) : () => {};
-      const releaseImages = root.current ? preloadScenes(root.current) : () => {};
       const releaseOpening = root.current
         ? mountOpeningVideo(root.current, cms.slot("asset_a4b2063e90484449").url, [cms.slot("asset_76a5de3f207ca5bb").url,cms.slot("asset_d11e4e878cf13138").url])
         : () => {};
@@ -119,7 +117,6 @@ export default function HomeMotion({ children }: { children: ReactNode }) {
       return () => {
         releasePosition();
         document.fonts.removeEventListener("loadingdone", fontsChanged);
-        releaseImages();
         mm.revert();
         releaseRoom();
         releaseProducts();

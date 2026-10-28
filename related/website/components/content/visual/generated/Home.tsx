@@ -167,6 +167,7 @@ export default function Home() {
                         src={cms.url("/assets/home-video/" + key + ".webp")}
                         alt={t(`rhythms.${key}.alt`)}
                         fill
+                        loading="eager"
                         sizes="(max-width: 520px) 42vw, (max-width: 1199px) 28vw, 320px"
                       />
                     </div>
@@ -216,6 +217,8 @@ export default function Home() {
                           }
                           alt={t(`products.${id}.name`)}
                           fill
+                          style={{objectFit: "contain"}}
+                          loading="eager"
                           sizes="(max-width: 520px) 78vw, 440px"
                           quality={90}
                         />
@@ -245,6 +248,7 @@ export default function Home() {
                           }
                           alt=""
                           fill
+                          style={{objectFit: "contain"}}
                           sizes="(max-width: 520px) 78vw, 440px"
                           quality={90}
                         />

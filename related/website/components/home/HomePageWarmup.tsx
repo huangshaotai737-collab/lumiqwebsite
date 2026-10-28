@@ -6,6 +6,7 @@ import {useRouter} from "next/navigation";
 import {PrefetchKind} from "next/dist/client/components/router-reducer/router-reducer-types";
 import {useContentAdapter} from "@/components/content/useContentAdapter";
 import {useContentPreview, useVisualPreview} from "@/components/content/SiteContentProvider";
+import {hasPendingHomeArtwork} from "./preloadScenes";
 
 // Only public reading routes: never prefetch account, checkout, API or draft data.
 const pages = [
@@ -48,7 +49,7 @@ export default function HomePageWarmup() {
     const available = () => {
       const connection = (navigator as Navigator & {connection?: Connection}).connection;
       return !disposed && !document.hidden && navigator.onLine && !connection?.saveData &&
-        !["slow-2g", "2g"].includes(connection?.effectiveType ?? "");
+        !["slow-2g", "2g"].includes(connection?.effectiveType ?? "") && !hasPendingHomeArtwork();
     };
 
     const warmImage = (props: (typeof images)[number]) => {
@@ -89,15 +90,16 @@ export default function HomePageWarmup() {
           // existing router cache without rendering another page or its media.
           router.prefetch(`/${cms.locale}${pages[routeIndex++]}`, {kind:PrefetchKind.FULL});
         }
-        while (activeImages.size < 2 && imageIndex < images.length) {
+        // One background image at a time leaves room for the next home scene.
+        while (activeImages.size < 1 && imageIndex < images.length) {
           warmImage(images[imageIndex++]);
         }
       }
       schedule();
     };
 
-    // Do not wait for window.load (which also waits for media); leave the first
-    // render and interactive controls a head start, then warm in small batches.
+    // The delay is only a head start. Each batch also waits for current/nearby
+    // artwork, without using window.load or waiting for video downloads.
     timer = window.setTimeout(schedule, 1500);
     return () => {
       disposed = true;

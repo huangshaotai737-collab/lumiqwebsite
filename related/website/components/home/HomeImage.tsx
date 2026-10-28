@@ -2,7 +2,7 @@
 
 import {useContentAdapter} from "@/components/content/useContentAdapter";
 import Image, { type ImageProps } from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import images from "@/lib/home-image-manifest.json";
 import inlinePreviews from "@/lib/home-inline-previews.json";
 
@@ -10,53 +10,37 @@ type Asset = { base: string; widths: number[]; preview: string };
 const assets: Record<string, Asset> = images;
 const previews: Record<string, string> = inlinePreviews;
 
-/** Reserve the artwork with an inline preview before loading an upcoming scene.
- * A lazy src alone can race the opening's pin layout and fetch distant products. */
+/** Put real image URLs in the server HTML so downloads do not wait for motion
+ * hydration. Native lazy loading handles distant scenes; previews cover loading
+ * and failed requests without changing the reserved image dimensions. */
 export default function HomeImage(input: ImageProps) {
   const cms = useContentAdapter();
   const props = {...input, src: typeof input.src === "string" ? cms.url(input.src) : input.src};
   const asset = typeof props.src === "string" ? assets[props.src] : undefined;
   const preview = asset?.preview ?? (typeof props.src === "string" ? previews[props.src] : undefined);
-  const image = useRef<HTMLImageElement>(null);
-  const [requested, setRequested] = useState(Boolean(props.priority || props.loading === "eager" || !preview));
-  const [failed, setFailed] = useState(false);
+  const [failedSource, setFailedSource] = useState<ImageProps["src"] | null>(null);
+  const failed = failedSource === props.src;
   useEffect(() => {
-    const element = image.current;
-    if (!element) return;
-    const load = () => setRequested(true);
-    const retry = () => setFailed(false);
-    element.addEventListener("lumiq:load-image", load);
+    const retry = () => setFailedSource(null);
     window.addEventListener("lumiq:retry-images", retry);
-    const section = element.closest<HTMLElement>("[data-home-section]");
-    // Activation can precede a child effect, or a carousel can insert new images.
-    if (section?.dataset.homeMediaRequested === "true") load();
-    let observer: IntersectionObserver | undefined;
-    if (!section) {
-      observer = new IntersectionObserver(entries => {
-        if (entries.some(entry => entry.isIntersecting)) { load(); observer?.disconnect(); }
-      }, { rootMargin: "1200px 0px" });
-      observer.observe(element);
-    }
-    return () => {
-      observer?.disconnect();
-      element.removeEventListener("lumiq:load-image", load);
-      window.removeEventListener("lumiq:retry-images", retry);
-    };
-  }, [props.src]);
-  const showingPreview = Boolean(preview && (!requested || failed));
+    return () => window.removeEventListener("lumiq:retry-images", retry);
+  }, []);
+  const showingPreview = Boolean(preview && failed);
   return <Image
     {...props}
-    ref={image}
     alt={props.alt}
     data-home-image
-    data-home-image-state={failed ? "error" : requested || !preview ? "requested" : "preview"}
+    data-home-image-state={failed ? "error" : "requested"}
     src={showingPreview && preview ? preview : props.src}
     unoptimized={showingPreview || props.unoptimized || cms.preview}
-    loading={!preview || requested && !props.priority ? "eager" : props.loading}
     loader={!showingPreview && asset ? ({ width }) => `${asset.base}-${asset.widths.find(w => w >= width) ?? asset.widths.at(-1)}.webp` : props.loader}
     placeholder={preview as `data:image/${string}` | undefined}
+    onLoad={event => {
+      if (!showingPreview) setFailedSource(null);
+      props.onLoad?.(event);
+    }}
     onError={event => {
-      if (!showingPreview) setFailed(true);
+      if (!showingPreview) setFailedSource(props.src);
       props.onError?.(event);
     }}
   />;
