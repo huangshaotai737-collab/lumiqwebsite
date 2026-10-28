@@ -11,13 +11,14 @@ export default function FaqPage() {
   const cms = useContentAdapter();
   const t = useTranslations("Faq");
   const faq = useTranslations("BrandFaq");
+  const storyFaq = useTranslations("BrandStoryFaq");
   const [open, setOpen] = useState<number | null>(0);
   const [query, setQuery] = useState("");
   const searchRef = useRef<HTMLInputElement>(null);
   const faqs = useMemo(() => Array.from({length:17},(_,index)=>index+1).map((i) => ({
     q: faq(`q${i}`),
     a: faq(`a${i}`),
-  })), [faq]);
+  })).concat({q: storyFaq("question"), a: storyFaq("answer")}), [faq, storyFaq]);
   const faqSchema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",

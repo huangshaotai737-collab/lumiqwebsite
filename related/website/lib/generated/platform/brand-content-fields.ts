@@ -1575,6 +1575,138 @@ export const brandContentFields: readonly (ContentField & {optionalGroup:string}
     "initialValue": "はい。発売案内メールの配信停止や、メールアドレスの削除をいつでもご依頼いただけます。"
   },
   {
+    "path": "messages.en.BrandStoryFaq",
+    "pages": [
+      "/faq"
+    ],
+    "type": "object",
+    "maxLength": null,
+    "icuSignature": null,
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": false,
+    "owner": "snapshot",
+    "optionalGroup": "messages.en.BrandStoryFaq"
+  },
+  {
+    "path": "messages.en.BrandStoryFaq.question",
+    "pages": [
+      "/faq"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.en.BrandStoryFaq",
+    "initialValue": "Can Tablet interact with OLA storybook characters?"
+  },
+  {
+    "path": "messages.en.BrandStoryFaq.answer",
+    "pages": [
+      "/faq"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.en.BrandStoryFaq",
+    "initialValue": "Tablet can interact with OLA storybook characters. OLA／OlaGo are AI companions for adults and older adults."
+  },
+  {
+    "path": "messages.zh-hant.BrandStoryFaq",
+    "pages": [
+      "/faq"
+    ],
+    "type": "object",
+    "maxLength": null,
+    "icuSignature": null,
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": false,
+    "owner": "snapshot",
+    "optionalGroup": "messages.zh-hant.BrandStoryFaq"
+  },
+  {
+    "path": "messages.zh-hant.BrandStoryFaq.question",
+    "pages": [
+      "/faq"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.zh-hant.BrandStoryFaq",
+    "initialValue": "Tablet 可以與 OLA 進行故事角色互動嗎？"
+  },
+  {
+    "path": "messages.zh-hant.BrandStoryFaq.answer",
+    "pages": [
+      "/faq"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.zh-hant.BrandStoryFaq",
+    "initialValue": "Tablet 可與 OLA 進行故事角色互動。OLA／OlaGo 本身主打成人與長輩的 AI companion。"
+  },
+  {
+    "path": "messages.ja.BrandStoryFaq",
+    "pages": [
+      "/faq"
+    ],
+    "type": "object",
+    "maxLength": null,
+    "icuSignature": null,
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": false,
+    "owner": "snapshot",
+    "optionalGroup": "messages.ja.BrandStoryFaq"
+  },
+  {
+    "path": "messages.ja.BrandStoryFaq.question",
+    "pages": [
+      "/faq"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.ja.BrandStoryFaq",
+    "initialValue": "Tablet は OLA と物語のキャラクターを通じて交流できますか？"
+  },
+  {
+    "path": "messages.ja.BrandStoryFaq.answer",
+    "pages": [
+      "/faq"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.ja.BrandStoryFaq",
+    "initialValue": "Tablet は OLA と物語のキャラクターを通じて交流できます。OLA／OlaGo は大人とシニア向けの AI コンパニオンです。"
+  },
+  {
     "path": "messages.en.BrandTablet",
     "pages": [
       "/products/tablet"

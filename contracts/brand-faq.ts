@@ -92,3 +92,19 @@ export const brandFaqMessages = {
     q17: 'ウェイトリストから退会できますか？', a17: 'はい。発売案内メールの配信停止や、メールアドレスの削除をいつでもご依頼いただけます。',
   },
 };
+
+/** Workbook rows 63/85: separate story-interaction question; old FAQ snapshots remain valid. */
+export const brandStoryFaqMessages = {
+  en: {
+    question: 'Can Tablet interact with OLA storybook characters?',
+    answer: 'Tablet can interact with OLA storybook characters. OLA／OlaGo are AI companions for adults and older adults.',
+  },
+  'zh-hant': {
+    question: 'Tablet 可以與 OLA 進行故事角色互動嗎？',
+    answer: 'Tablet 可與 OLA 進行故事角色互動。OLA／OlaGo 本身主打成人與長輩的 AI companion。',
+  },
+  ja: {
+    question: 'Tablet は OLA と物語のキャラクターを通じて交流できますか？',
+    answer: 'Tablet は OLA と物語のキャラクターを通じて交流できます。OLA／OlaGo は大人とシニア向けの AI コンパニオンです。',
+  },
+};

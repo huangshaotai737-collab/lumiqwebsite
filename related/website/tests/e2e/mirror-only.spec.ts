@@ -13,7 +13,7 @@ for (const viewport of [{width:1440,height:900},{width:2560,height:640}]) {
  });
  test(`fixed mirror retains carousel at ${viewport.width}`,async({page},info)=>{
   await page.setViewportSize(viewport);
-  await page.addInitScript(()=>{const get=HTMLCanvasElement.prototype.getContext;HTMLCanvasElement.prototype.getContext=function(type:string,...args:unknown[]){if(type.includes('webgl'))throw Error('Homepage must not initialize WebGL');return Reflect.apply(get,this,[type,...args]);} as typeof get;});
+  await page.addInitScript(()=>{const get=HTMLCanvasElement.prototype.getContext;HTMLCanvasElement.prototype.getContext=function(this:HTMLCanvasElement,type:string,...args:unknown[]){if(type.includes('webgl'))throw Error('Homepage must not initialize WebGL');return Reflect.apply(get,this,[type,...args]);} as typeof get;});
   await page.goto('/zh-hant#products');
   await expect(page.locator('#products')).toHaveAttribute('data-enhanced','true');
   await page.locator('.lh-products-stage').scrollIntoViewIfNeeded();

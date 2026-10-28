@@ -8,7 +8,7 @@ const require=createRequire(path.join(root,'related/website/package.json'));
 const ts=require('typescript'),{parse}=require('@formatjs/icu-messageformat-parser');
 const run=(source)=>{const exports={};new Function('exports',ts.transpileModule(source,{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2020}}).outputText)(exports);return exports;};
 const {icuSignature}=run(await readFile(path.join(root,'contracts/content-icu.ts'),'utf8'));
-const sources=[['faq','brandFaqMessages','BrandFaq','/faq'],['tablet','brandTabletMessages','BrandTablet','/products/tablet'],['orb','brandOrbMessages','BrandOrb','/products/nest'],['plans','brandPlansMessages','BrandPlans','/plans'],['olago','brandOlaGoMessages','BrandOlaGo','/products/ola-go'],['products','brandProductsMessages','BrandProducts','/products'],['footer','brandFooterMessages','BrandFooter','global/footer']];
+const sources=[['faq','brandFaqMessages','BrandFaq','/faq'],['faq','brandStoryFaqMessages','BrandStoryFaq','/faq'],['tablet','brandTabletMessages','BrandTablet','/products/tablet'],['orb','brandOrbMessages','BrandOrb','/products/nest'],['plans','brandPlansMessages','BrandPlans','/plans'],['olago','brandOlaGoMessages','BrandOlaGo','/products/ola-go'],['products','brandProductsMessages','BrandProducts','/products'],['footer','brandFooterMessages','BrandFooter','global/footer']];
 const fields=[];
 for(const [name,exportName,namespace,page] of sources) {
  const data=run(await readFile(path.join(root,`contracts/brand-${name}.ts`),'utf8'))[exportName];

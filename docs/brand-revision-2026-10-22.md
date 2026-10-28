@@ -1,5 +1,34 @@
 # 品牌清单收尾与截图交付（2026-10-22）
 
+## 2026-10-28：按品牌原句替换明确文案
+
+本次用户要求：明确给出替换句子的反馈，直接按品牌方原文修改，不自行润色、增加「规划中／开发中」后缀，也不把证书或实物核验作为文案替换的前置条件。本节优先于下方早期文案处理记录；不表示其他待交付图片、视频或实物检查已完成。
+
+原表：[品牌方修改清单](https://mjp2dsa6vvo8.jp.larksuite.com/wiki/EtXjw016JibcJrkkqaujmvGKpBd)。核对基线为 `3779aea`。
+
+| 原表行 | 本次落实 |
+| --- | --- |
+| 34 | Tablet：`Certified with TUV80 - 80% Blue Light Reduction (BLR)`，恢复原词与标点。 |
+| 45 | 方案页 Ola 标题采用附图的 `Ola (OlaGo included)`，原有 Free／Pro 档位和金额逻辑不变。 |
+| 102 | 产品总览标题：`Interaction.Reimagined.`，保留原有换行排版。 |
+| 113 | Ola 简介：`Brings stories to life, joins the conversation, interactive avatars and offers gentle support through the day.` |
+| 116 | Ola 语音说明：`Interact with custom avatars with the intelligent voice service.` |
+| 117 | Ola 故事说明：`Designed to respond to stories and support conversations with characters.` |
+| 124 | Ola 三项：`Character projection`、`Voice interaction`、`Custom voice bedtime stories`。 |
+| 128 | `As the story changes, new interactions and abilities appear. Talk with the characters in your favorite story.` |
+| 129 | `More characters, more conversation context, more avatars ---rolling out over time.`，不润色原稿空格及连字符。 |
+| 132 | `Ambient light and soft white notice that keep you company till morning.`，保留 `notice` 原词。 |
+| 20、86 | 按第 86 行后续定位，将 `Interact with storybook characters` 放到 Tablet 与 Ola 联动说明，不恢复为产品总览中 Ola 的主诉求；说明正文沿用第 117 行原句。 |
+| 63、85 | 单独增加 Tablet／OLA 故事互动问答，保留原有 17 题，继续区分 Tablet 的儿童／家长与 Ola／OlaGo 的成人／长辈受众。这两行仅提供内容要求，问答句子为对应翻译整理，并非品牌方逐字提供的英文终稿。 |
+
+英文替换串逐字核对（不保留表格单元格末尾无显示意义的空格）。繁中、日文同步对应翻译；后台和官网使用相同生成内容字段。新增问答使用独立可编辑字段，旧的 17 题 CMS 快照仍兼容，不重写历史发布记录或自定义内容。本次改的是源码默认内容；已发布 CMS 内容仍按原发布流程管理。
+
+验证：官网生产构建、改动文件 ESLint、生成字段与共享契约一致性检查通过。15 项新增原句／旧快照兼容检查通过；包含受众检查的相关测试共 33 项通过。Chromium 1440／390px 下完成 18 个页面场景核对（英文、繁中产品页／方案／FAQ），指定文案存在、FAQ 搜索及展开通过，所查产品页无横向溢出，未观察到页面脚本异常。证据保存于 `.lumiq-local/exact-copy-20261028/runtime/evidence/`。
+
+全套官网单元测试为 214／216 通过。剩余两项是原有内容导出检查：基线 `3779aea` 的 `app/page.tsx` 已有 7 个媒体使用位置，但保存的媒体绑定清单为 6 个；本次未修改该页面或清单。未放宽测试断言。为通过生产 TypeScript 构建，另给既有轮播测试的 `getContext` 替换函数补上 `this: HTMLCanvasElement` 类型，运行逻辑未变。
+
+本轮未部署 Vercel、未推送 GitHub、未改云文档或生产 CMS 数据。本地核对预览为 `http://127.0.0.1:4288/en/products/ola`（需本机服务运行）。
+
 ## 后续用户指令：首页产品卡片对齐
 
 首页五张产品卡的图片、名称、说明和「探索更多」现沿卡片中线排列。桌面卡片放大并留出边距；3D 文字在投影位置算好后才显示，避免刚滚入时先出现小字、随后突然变大。手机、平板和无 WebGL 的桌面浏览器使用同一套卡片布局，保留原有背景、产品图和轮播操作。

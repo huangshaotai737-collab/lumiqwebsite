@@ -1,6 +1,6 @@
 // Generated from contracts/ by scripts/sync-platform-contracts.mjs. Do not edit.
 import type {ContentSnapshot, MessageTree} from './content';
-import {brandFaqMessages} from './brand-faq';
+import {brandFaqMessages, brandStoryFaqMessages} from './brand-faq';
 import {brandTabletMessages} from './brand-tablet';
 import {brandOrbMessages} from './brand-orb';
 import {brandPlansMessages} from './brand-plans';
@@ -11,9 +11,9 @@ import {brandFooterMessages} from './brand-footer';
 
 /** Additive copy only. Historical releases and their signed snapshots stay intact. */
 export const brandContentMessages = {
-  en: {BrandFaq:brandFaqMessages.en, BrandTablet:brandTabletMessages.en, BrandOrb:brandOrbMessages.en, BrandPlans:brandPlansMessages.en, BrandOlaGo:brandOlaGoMessages.en, BrandProducts:brandProductsMessages.en, BrandFooter:brandFooterMessages.en},
-  'zh-hant': {BrandFaq:brandFaqMessages['zh-hant'], BrandTablet:brandTabletMessages['zh-hant'], BrandOrb:brandOrbMessages['zh-hant'], BrandPlans:brandPlansMessages['zh-hant'], BrandOlaGo:brandOlaGoMessages['zh-hant'], BrandProducts:brandProductsMessages['zh-hant'], BrandFooter:brandFooterMessages['zh-hant']},
-  ja: {BrandFaq:brandFaqMessages.ja, BrandTablet:brandTabletMessages.ja, BrandOrb:brandOrbMessages.ja, BrandPlans:brandPlansMessages.ja, BrandOlaGo:brandOlaGoMessages.ja, BrandProducts:brandProductsMessages.ja, BrandFooter:brandFooterMessages.ja},
+  en: {BrandFaq:brandFaqMessages.en, BrandStoryFaq:brandStoryFaqMessages.en, BrandTablet:brandTabletMessages.en, BrandOrb:brandOrbMessages.en, BrandPlans:brandPlansMessages.en, BrandOlaGo:brandOlaGoMessages.en, BrandProducts:brandProductsMessages.en, BrandFooter:brandFooterMessages.en},
+  'zh-hant': {BrandFaq:brandFaqMessages['zh-hant'], BrandStoryFaq:brandStoryFaqMessages['zh-hant'], BrandTablet:brandTabletMessages['zh-hant'], BrandOrb:brandOrbMessages['zh-hant'], BrandPlans:brandPlansMessages['zh-hant'], BrandOlaGo:brandOlaGoMessages['zh-hant'], BrandProducts:brandProductsMessages['zh-hant'], BrandFooter:brandFooterMessages['zh-hant']},
+  ja: {BrandFaq:brandFaqMessages.ja, BrandStoryFaq:brandStoryFaqMessages.ja, BrandTablet:brandTabletMessages.ja, BrandOrb:brandOrbMessages.ja, BrandPlans:brandPlansMessages.ja, BrandOlaGo:brandOlaGoMessages.ja, BrandProducts:brandProductsMessages.ja, BrandFooter:brandFooterMessages.ja},
 };
 
 /** Renderer/editor defaults for newly introduced namespaces, never overrides
