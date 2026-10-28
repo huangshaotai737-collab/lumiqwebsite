@@ -39,13 +39,8 @@
   width: auto; margin: 12px auto 0; padding-inline: 20px;
   justify-content: center; pointer-events: auto;
 }
-@media (min-width: 1800px) and (max-height: 760px) {
-  .lumiq-root main.lh-home .lh-products .lh-products-footer {
-    width: max-content;
-    margin: calc(100svh - 860px) clamp(48px, 6vw, 240px) 0 auto;
-    z-index: 4;
-  }
-}
+/* The fixed mirror rail uses this footer in normal flow. A negative viewport
+   margin shrinks the stage and pulls its bottom-anchored cards over the title. */
 .lumiq-root main.lh-home .lh-products .lh-products-controls {
   position: static; inset: auto; height: 48px; padding: 0;
   transform: none; justify-content: center; align-items: center; gap: 24px;

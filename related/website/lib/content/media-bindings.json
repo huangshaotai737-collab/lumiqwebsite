@@ -74,7 +74,7 @@
   },
   "app/page.tsx": {
     "occurrences": {
-      "cms.url(\"/assets/\" + artwork[id] + \".webp\")": 2,
+      "cms.url(\"/assets/\" + artwork[id] + \".webp\")": 3,
       "cms.url(\"/assets/home-anchored-2026-09-07/join-crystal.webp\")": 1,
       "cms.url(\"/assets/home-safety-20261002/story-world-family.jpg\")": 1,
       "cms.url(\"/assets/home-video/ola-scroll-v16-end-20260909.webp\")": 1,
@@ -106,6 +106,12 @@
         "property": "src",
         "source": "{\n                            cms.url(\"/assets/\" + artwork[id] + \".webp\")\n                          }",
         "alt": "{t(`products.${id}.name`)}"
+      },
+      {
+        "kind": "Image",
+        "property": "src",
+        "source": "{\n                            cms.url(\"/assets/\" + artwork[id] + \".webp\")\n                          }",
+        "alt": "\"\""
       },
       {
         "kind": "Image",

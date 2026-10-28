@@ -839,7 +839,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.en.Pal.kidsAlt",
     "before": "Lumiq Ola concept for kids",
-    "after": "Current concept photo of a parent and child with LumiqOla"
+    "after": "An adult talking with LumiqOla at home"
   },
   {
     "path": "messages.en.Pal.kidsBody",
@@ -2129,7 +2129,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.ja.Pal.kidsAlt",
     "before": "子ども向け Lumiq Ola",
-    "after": "保護者と子どもが LumiqOla を使う現在のコンセプト写真"
+    "after": "自宅で LumiqOla と話す大人のコンセプト写真"
   },
   {
     "path": "messages.ja.Pal.kidsBody",
@@ -3414,7 +3414,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.zh-hant.Pal.kidsAlt",
     "before": "兒童使用 Lumiq Ola",
-    "after": "目前展示家長與孩子使用 LumiqOla 的概念照片"
+    "after": "成人在家與 LumiqOla 對話的概念照片"
   },
   {
     "path": "messages.zh-hant.Pal.kidsBody",
@@ -4775,5 +4775,50 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
     "path": "messages.ja.Tablet.step4Title",
     "before": "物語を動かす",
     "after": "物語のキャラクターと交流"
+  },
+  {
+    "path": "messages.en.HomeRefresh.rhythms.learn.alt",
+    "before": "A child discovering stories on an orange tablet",
+    "after": "An adult woman talking with LumiqOla at home"
+  },
+  {
+    "path": "messages.en.HomeRefresh.rhythms.connect.alt",
+    "before": "Parents and child building a wooden-block town together",
+    "after": "An adult couple with LumiqOla in their kitchen"
+  },
+  {
+    "path": "messages.en.HomeRefresh.rhythms.care.alt",
+    "before": "A mother and child sharing a picture book with a teddy bear",
+    "after": "An older adult with LumiqOla at home"
+  },
+  {
+    "path": "messages.zh-hant.HomeRefresh.rhythms.learn.alt",
+    "before": "孩子透過橙色平板探索故事",
+    "after": "成年女性在家與 LumiqOla 對話"
+  },
+  {
+    "path": "messages.zh-hant.HomeRefresh.rhythms.connect.alt",
+    "before": "父母與孩子一起用木製積木搭建小鎮",
+    "after": "成年伴侶在廚房使用 LumiqOla"
+  },
+  {
+    "path": "messages.zh-hant.HomeRefresh.rhythms.care.alt",
+    "before": "媽媽與抱著玩具熊的孩子一起閱讀繪本",
+    "after": "長者在家由 LumiqOla 陪伴"
+  },
+  {
+    "path": "messages.ja.HomeRefresh.rhythms.learn.alt",
+    "before": "オレンジ色のタブレットで物語を楽しむ子ども",
+    "after": "自宅で LumiqOla と話す成人女性"
+  },
+  {
+    "path": "messages.ja.HomeRefresh.rhythms.connect.alt",
+    "before": "木の積み木で小さな街を一緒につくる親子",
+    "after": "キッチンで LumiqOla と過ごす成人カップル"
+  },
+  {
+    "path": "messages.ja.HomeRefresh.rhythms.care.alt",
+    "before": "くまのぬいぐるみを抱いた子どもと母親が絵本を読む",
+    "after": "自宅で LumiqOla と過ごすシニア"
   }
 ];
