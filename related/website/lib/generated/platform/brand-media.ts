@@ -43,6 +43,13 @@ export const brandMediaDefaults: Record<string,MediaSlot> = {
     "alt": "LumiqOrb gallery",
     "kind": "image",
     "profile": "asset_dd25b70a62c78f12"
+  },
+  "asset_1cda2c90e6c65f98": {
+    "assetId": null,
+    "url": "/assets/ola-scenes-20261103/adult-senior-companion.webp",
+    "alt": "成人与长辈一起使用 LumiqOla",
+    "kind": "image",
+    "profile": "asset_1cda2c90e6c65f98"
   }
 };
 export const brandMediaFields: readonly (ContentField & {optionalGroup:string})[] = [
@@ -573,5 +580,93 @@ export const brandMediaFields: readonly (ContentField & {optionalGroup:string})[
     "owner": "snapshot",
     "optionalGroup": "media.asset_dd25b70a62c78f12",
     "fixedValue": "asset_dd25b70a62c78f12"
+  },
+  {
+    "type": "object",
+    "maxLength": null,
+    "icuSignature": null,
+    "mediaPurpose": "image",
+    "adminOnly": false,
+    "editable": false,
+    "owner": "snapshot",
+    "path": "media.asset_1cda2c90e6c65f98",
+    "pages": [
+      "/products/ola"
+    ],
+    "optionalGroup": "media.asset_1cda2c90e6c65f98"
+  },
+  {
+    "type": "assetId",
+    "maxLength": null,
+    "icuSignature": null,
+    "mediaPurpose": "image",
+    "adminOnly": false,
+    "editable": false,
+    "owner": "snapshot",
+    "path": "media.asset_1cda2c90e6c65f98.assetId",
+    "pages": [
+      "/products/ola"
+    ],
+    "optionalGroup": "media.asset_1cda2c90e6c65f98"
+  },
+  {
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": null,
+    "mediaPurpose": "image",
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "path": "media.asset_1cda2c90e6c65f98.url",
+    "pages": [
+      "/products/ola"
+    ],
+    "optionalGroup": "media.asset_1cda2c90e6c65f98",
+    "initialValue": "/assets/ola-scenes-20261103/adult-senior-companion.webp"
+  },
+  {
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": null,
+    "mediaPurpose": "image",
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "path": "media.asset_1cda2c90e6c65f98.alt",
+    "pages": [
+      "/products/ola"
+    ],
+    "optionalGroup": "media.asset_1cda2c90e6c65f98",
+    "initialValue": "成人与长辈一起使用 LumiqOla"
+  },
+  {
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": null,
+    "mediaPurpose": "image",
+    "adminOnly": false,
+    "editable": false,
+    "owner": "snapshot",
+    "path": "media.asset_1cda2c90e6c65f98.kind",
+    "pages": [
+      "/products/ola"
+    ],
+    "optionalGroup": "media.asset_1cda2c90e6c65f98",
+    "fixedValue": "image"
+  },
+  {
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": null,
+    "mediaPurpose": "image",
+    "adminOnly": false,
+    "editable": false,
+    "owner": "snapshot",
+    "path": "media.asset_1cda2c90e6c65f98.profile",
+    "pages": [
+      "/products/ola"
+    ],
+    "optionalGroup": "media.asset_1cda2c90e6c65f98",
+    "fixedValue": "asset_1cda2c90e6c65f98"
   }
 ];

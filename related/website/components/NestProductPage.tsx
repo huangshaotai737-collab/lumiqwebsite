@@ -88,7 +88,7 @@ export default function NestProductPage() {
             <Heading as="h2" id="orb-overview-title">{t("overview.title")}</Heading>
             <p>{t("overview.body")}</p>
           </header>
-          <div className="pd-unified-layout">
+          <div className="pd-unified-layout is-media-left">
             <nav className="orb-overview-grid" aria-label={t("overview.navigation")}>
               {featureSections.map((feature, index) => (
                 <a className="orb-overview-card" key={feature.key} href={`#${feature.id}`}>
@@ -116,7 +116,7 @@ export default function NestProductPage() {
               <Heading as="h2" id={`${feature.id}-title`}>{t(`${feature.key}.title`)}</Heading>
               <p>{t(`${feature.key}.body`)}</p>
             </header>
-            <div className="orb-detail-layout pd-unified-layout">
+            <div className={`orb-detail-layout pd-unified-layout${sectionIndex % 2 ? " is-media-left" : ""}`}>
               <div className={`orb-detail-grid${feature.details.length === 3 ? " orb-detail-grid--three" : ""}`}>
                 {feature.details.map((number) => (
                   <article className="orb-detail-card" key={number}>
@@ -138,15 +138,15 @@ export default function NestProductPage() {
         </section>
       ))}
 
-      <section className="orb-finishes orb-floor" aria-labelledby="orb-finishes-title">
+      <section className="orb-finishes orb-floor pd-unified-section" aria-labelledby="orb-finishes-title">
         <div className="pd-shell">
           <header className="orb-section-heading orb-section-heading--center">
             <p className="orb-eyebrow">{t("finishes.eyebrow")}</p>
             <Heading as="h2" id="orb-finishes-title">{t("finishes.title")}</Heading>
             <p>{t("finishes.body")}</p>
           </header>
-          <div className="orb-finish-selection">
-            <figure className="orb-finish-visual">
+          <div className="orb-finish-selection pd-unified-layout">
+            <figure className="orb-finish-visual pd-unified-visual">
               <Image src={selected.front} alt={t("finishes.alt", { name: selected.name, productName })} width={1600} height={1200} sizes="(max-width: 700px) 100vw, 60vw" />
             </figure>
             <div className="orb-finish-copy">

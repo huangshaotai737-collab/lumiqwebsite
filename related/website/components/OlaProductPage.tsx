@@ -74,20 +74,10 @@ export default function OlaProductPage() {
         {
           eyebrow: t("kids"),
           title: t("kidsTitle"),
-          body: t("kidsBody"),
-          bullets: [t("kids1"), t("kids2"), t("kids3")],
+          body: `${t("kidsBody")} ${t("adultsBody")}`,
+          bullets: [...new Set([t("kids1"), t("kids2"), t("kids3"), t("adults1"), t("adults2"), t("adults3")])],
           image: {
-            src: cms.url("/assets/western-scenes-20260908/ola-bedtime-story-v2.webp"),
-            alt: t("kidsAlt"),
-          },
-        },
-        {
-          eyebrow: t("adults"),
-          title: t("adultsTitle"),
-          body: t("adultsBody"),
-          bullets: [t("adults1"), t("adults2"), t("adults3")],
-          image: {
-            src: cms.url("/assets/western-scenes-20260908/ola-senior-reminder-v2.webp"),
+            src: cms.url("/assets/ola-scenes-20261103/adult-senior-companion.webp"),
             alt: t("adultsAlt"),
           },
         },
@@ -114,8 +104,8 @@ export default function OlaProductPage() {
           body: t(`sb${number}`),
         })),
         image: {
-          src: cms.url("/assets/ola-detail/original-20260915/ola-high-angle-crop.png"),
-          alt: t("deviceAlt"),
+          src: cms.url("/assets/western-scenes-20260908/ola-bedtime-story-v2.webp"),
+          alt: t("kidsAlt"),
           fit: "contain",
         },
       }}

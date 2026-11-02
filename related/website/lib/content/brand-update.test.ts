@@ -17,13 +17,26 @@ describe('November brand reply',()=>{
  });
  it('adds six editable images without rebasing the original media map',()=>{
    const s=withBrandContent(parseSnapshot(seed));
-   expect(Object.keys(brandMediaDefaults)).toHaveLength(6);
+   expect(Object.values(brandMediaDefaults).filter(slot=>slot.url.startsWith('/assets/orb-ui-20261102/'))).toHaveLength(6);
    const id=Object.keys(brandMediaDefaults)[0],original=s.media[id].url;
    const uuid='11111111-1111-4111-8111-111111111111';
    s.media[id]={...s.media[id],assetId:uuid,url:`/api/media/${uuid}`};
    const saved=parseSnapshot(s);
    expect(createContentAdapter(withBrandContent(saved),'en').url(original)).toBe(`/api/media/${uuid}`);
    expect(createContentAdapter(saved,'en',true).url(original)).toBe(`/api/content/preview-media/${uuid}`);
+ });
+ it('keeps the merged Ola scene editable and preserves both historical source slots',()=>{
+   const original='/assets/ola-scenes-20261103/adult-senior-companion.webp';
+   const s=withBrandContent(parseSnapshot(seed));
+   const id=Object.keys(brandMediaDefaults).find(id=>brandMediaDefaults[id].url===original)!;
+   expect(id).toBeTruthy();
+   expect(createContentAdapter(s,'zh-hant').url(original)).toBe(original);
+   for(const legacy of ['asset_4e5db752a9e31771','asset_9be4a1247ceac726'])expect(s.media[legacy]).toEqual(seed.media[legacy as keyof typeof seed.media]);
+   const uuid='22222222-2222-4222-8222-222222222222';
+   s.media[id]={...s.media[id],assetId:uuid,url:`/api/media/${uuid}`};
+   const saved=parseSnapshot(s);
+   expect(createContentAdapter(saved,'zh-hant').url(original)).toBe(`/api/media/${uuid}`);
+   expect(createContentAdapter(saved,'zh-hant',true).url(original)).toBe(`/api/content/preview-media/${uuid}`);
  });
  it('does not permit arbitrary images or changed code-owned slot identity',()=>{
    const s=withBrandContent(parseSnapshot(seed)),id=Object.keys(brandMediaDefaults)[0];

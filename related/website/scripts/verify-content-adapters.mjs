@@ -35,7 +35,12 @@ export async function verifyContentAdapters(app,root) {
     if(map[slot.url]!==id)throw Error(`Wrong media slot: ${id}`);
     for(const use of manifest.mediaSources[id]) {
       const entry=ledger.media.find(e=>e.slot===id&&e.file===use.file&&e.sourceLocator===use.locator);
-      if(!entry||!sources.get(entry.adapterFile)?.includes(entry.expression))throw Error(`Missing media adapter: ${id} ${use.file} ${use.locator}`);
+      const source=entry && sources.get(entry.adapterFile);
+      // Explicit, reviewed substitutions preserve the original slot/locator for
+      // old releases while checking the actual replacement in the current UI.
+      const replacement=entry?.replacement;
+      if(replacement && (!replacement.reason || !replacement.expression || source?.includes(entry.expression) || !source?.includes(replacement.expression)))throw Error(`Invalid media substitution: ${id} ${use.file}`);
+      if(!entry||(!replacement && !source?.includes(entry.expression)))throw Error(`Missing media adapter: ${id} ${use.file} ${use.locator}`);
     }
   }
   const bindings=JSON.parse(await read('lib/content/media-bindings.json'));

@@ -351,11 +351,11 @@
   "components/OlaProductPage.tsx": {
     "occurrences": {
       "cms.url(\"/assets/home-products-refined-20260907/ola-repaired.webp\")": 1,
-      "cms.url(\"/assets/ola-detail/original-20260915/ola-high-angle-crop.png\")": 1,
+      "cms.url(\"/assets/ola-detail/original-20260915/ola-high-angle-crop.png\")": 0,
       "cms.url(\"/assets/web/ola-hero-front.webp\")": 1,
       "cms.url(\"/assets/western-scenes-20260908/ola-bedtime-story-v2.webp\")": 1,
       "cms.url(\"/assets/western-scenes-20260908/ola-family-kitchen-v2.webp\")": 1,
-      "cms.url(\"/assets/western-scenes-20260908/ola-senior-reminder-v2.webp\")": 1
+      "cms.url(\"/assets/western-scenes-20260908/ola-senior-reminder-v2.webp\")": 0
     },
     "uses": [
       {
@@ -373,13 +373,7 @@
       {
         "kind": "object",
         "property": "src",
-        "source": "cms.url(\"/assets/western-scenes-20260908/ola-bedtime-story-v2.webp\")",
-        "alt": "t(\"kidsAlt\")"
-      },
-      {
-        "kind": "object",
-        "property": "src",
-        "source": "cms.url(\"/assets/western-scenes-20260908/ola-senior-reminder-v2.webp\")",
+        "source": "cms.url(\"/assets/ola-scenes-20261103/adult-senior-companion.webp\")",
         "alt": "t(\"adultsAlt\")"
       },
       {
@@ -391,8 +385,8 @@
       {
         "kind": "object",
         "property": "src",
-        "source": "cms.url(\"/assets/ola-detail/original-20260915/ola-high-angle-crop.png\")",
-        "alt": "t(\"deviceAlt\")"
+        "source": "cms.url(\"/assets/western-scenes-20260908/ola-bedtime-story-v2.webp\")",
+        "alt": "t(\"kidsAlt\")"
       }
     ]
   },

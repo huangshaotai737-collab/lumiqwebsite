@@ -1151,7 +1151,11 @@
       "altExpression": "t(\"adultsAlt\")",
       "originalAlt": "",
       "adapterFile": "components/OlaProductPage.tsx",
-      "expression": "cms.url(\"/assets/western-scenes-20260908/ola-senior-reminder-v2.webp\")"
+      "expression": "cms.url(\"/assets/western-scenes-20260908/ola-senior-reminder-v2.webp\")",
+      "replacement": {
+        "expression": "cms.url(\"/assets/ola-scenes-20261103/adult-senior-companion.webp\")",
+        "reason": "2026-11-03: user merged adult and elder scenes into one adult-daily scene."
+      }
     },
     {
       "slot": "asset_4efa9ac1966010ad",
@@ -1781,7 +1785,11 @@
       "altExpression": "t(\"deviceAlt\")",
       "originalAlt": "",
       "adapterFile": "components/OlaProductPage.tsx",
-      "expression": "cms.url(\"/assets/ola-detail/original-20260915/ola-high-angle-crop.png\")"
+      "expression": "cms.url(\"/assets/ola-detail/original-20260915/ola-high-angle-crop.png\")",
+      "replacement": {
+        "expression": "cms.url(\"/assets/western-scenes-20260908/ola-bedtime-story-v2.webp\")",
+        "reason": "2026-11-03: user replaced repetitive Ola product render with existing adult lifestyle image."
+      }
     },
     {
       "slot": "asset_9facedc76c2b867d",

@@ -20,7 +20,7 @@ export default function TabletGrowthMap() {
           <p className="tablet-growth-summary">{t("growth.summary")}</p>
         </header>
 
-        <div className="pd-unified-layout">
+        <div className="pd-unified-layout is-media-left">
           <div className="tablet-growth-skills">
             {[1, 2, 3, 4, 5, 6].map((number) => (
               <article className={`tablet-growth-skill tablet-growth-skill-${number}`} key={number}>

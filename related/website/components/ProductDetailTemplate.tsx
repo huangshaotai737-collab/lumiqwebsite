@@ -259,7 +259,7 @@ export default function ProductDetailTemplate({
             title={story.title}
             align="center"
           />
-          <div className="pd-story-grid pd-unified-layout">
+          <div className="pd-story-grid pd-unified-layout is-media-left">
             <div className="pd-story-copy pd-unified-copy">
               <p className="pd-section-intro">{story.body}</p>
               {story.bullets && (
@@ -294,8 +294,8 @@ export default function ProductDetailTemplate({
             align="center"
           />
           <div className={`pd-scene-grid is-${Math.min(scenes.length, 3)}`}>
-            {scenes.map((scene) => (
-              <article className="pd-scene pd-unified-layout" key={scene.title}>
+            {scenes.map((scene, index) => (
+              <article className={`pd-scene pd-unified-layout${index % 2 ? " is-media-left" : ""}`} key={scene.title}>
                 <figure className="pd-unified-visual">
                   <ProductImage
                     visual={scene.image}
@@ -330,7 +330,7 @@ export default function ProductDetailTemplate({
             intro={features.intro}
             align="center"
           />
-          <div className={`pd-feature-layout pd-unified-layout${features.image ? " has-image" : ""}`}>
+          <div className={`pd-feature-layout pd-unified-layout${features.image ? " has-image" : ""}${scenes.length % 2 ? " is-media-left" : ""}`}>
             <IndexRows items={features.items} />
             {features.image && (
               <figure className="pd-feature-visual pd-unified-visual">
@@ -354,7 +354,7 @@ export default function ProductDetailTemplate({
             intro={darkSection.intro}
             align="center"
           />
-          <div className="pd-dark-layout pd-unified-layout">
+          <div className={`pd-dark-layout pd-unified-layout${(scenes.length + 3 + (afterFeatures ? 1 : 0)) % 2 ? " is-media-left" : ""}`}>
             <div className="pd-dark-copy pd-unified-copy">
               <IndexRows items={darkSection.items} />
             </div>
@@ -379,7 +379,7 @@ export default function ProductDetailTemplate({
               intro={extraSection.intro}
               align="center"
             />
-            <div className={`pd-extra-layout pd-unified-layout${extraSection.image ? " has-image" : ""}`}>
+            <div className={`pd-extra-layout pd-unified-layout${extraSection.image ? " has-image" : ""}${(scenes.length + 3 + (afterFeatures ? 1 : 0) + (hideDarkSection ? 0 : 1)) % 2 ? " is-media-left" : ""}`}>
               <IndexRows items={extraSection.items} />
               {extraSection.image && (
                 <figure className="pd-extra-visual pd-unified-visual">
