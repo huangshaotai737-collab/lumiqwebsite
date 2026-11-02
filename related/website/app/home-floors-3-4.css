@@ -193,7 +193,7 @@
 }
 
 /* Shared volumetric material; existing rail remains the mobile/WebGL fallback. */
-.lh-glass-products { display: none; }
+.lh-glass-products,
 .lh-products[data-glass-3d] .lh-products-viewport { display: none; }
 .lh-products[data-glass-3d] .lh-glass-products { display: block; position: relative; height: clamp(560px, 76svh, 1000px); width: 100%; }
 .lh-products[data-glass-3d] .lh-glass-products::after { content: ""; position: absolute; inset: auto 0 0; height: 20%; pointer-events: none; background: linear-gradient(transparent, #f5f3f9); }

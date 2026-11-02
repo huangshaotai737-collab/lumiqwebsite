@@ -64,7 +64,7 @@
     --lq-link-size: 16px;
     --lq-support-size: 16px;
   }
-  .lumiq-root .navbar.site-nav .login-btn { font-size: 16px; }
+  .lumiq-root .navbar.site-nav .login-btn,
   .lumiq-root .navbar.site-nav .site-mobile-trigger-label { font-size: 16px; }
 }
 

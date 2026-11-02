@@ -1,5 +1,5 @@
 /* Preserve the desktop's existing flex items and control positions. */
-.lh-products-carousel { display: contents; }
+.lh-products-carousel,
 .pd-hero-actions { display: contents; }
 .lh-products-count, .foot-brand-details, .foot-mobile-tag { display: none; }
 

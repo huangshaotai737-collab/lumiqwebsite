@@ -82,9 +82,6 @@
   .lumiq-root main.lh-home .lh-products .lh-product-copy h3 { font-size: 22px; line-height: 1.3; }
   .lumiq-root main.lh-home .lh-products .lh-product-copy p { margin-top: 8px; font-size: 16px !important; line-height: 1.5; }
   .lumiq-root main.lh-home .lh-products .lh-product-bottom { margin-top: 12px; min-height: 44px; }
-  .lumiq-root main.product-detail-light.pd-tablet .pd-index-row { padding-block: 18px; gap: 12px; grid-template-columns: 28px minmax(0, 1fr); }
-  .lumiq-root main.product-detail-light.pd-tablet .pd-index-row h3 { font-size: 21px; line-height: 1.35; }
-  .lumiq-root main.product-detail-light.pd-tablet .pd-index-row p { margin-top: 6px; }
   .lumiq-root main.product-detail-light.pd-tablet :is(.pd-feature-visual, .pd-extra-visual) { max-height: 260px; aspect-ratio: 4 / 3; }
   .lumiq-root main.pd-tablet .tablet-growth-skills { gap: 12px; }
   .lumiq-root main.pd-tablet .tablet-growth-skill { padding: 20px 0; gap: 12px; }

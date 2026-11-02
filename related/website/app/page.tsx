@@ -28,7 +28,6 @@ import "./home-ending.css";
 import "./home-immersive.css";
 import "./home-anchored.css";
 import "./home-typography.css";
-import "./home-loading.css";
 import "./home-pearl-background.css";
 import "./home-brand-review.css";
 import "./responsive-layout.css";

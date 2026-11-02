@@ -1154,9 +1154,7 @@ html:has(.lh-home) {
   }
 }
 @media (min-width: 2100px) {
-  .lh-hero {
-    min-height: 960px;
-  }
+  .lh-hero,
   .lh-hero-layout {
     min-height: 960px;
   }

@@ -30,7 +30,6 @@ import "@/app/home-ending.css";
 import "@/app/home-immersive.css";
 import "@/app/home-anchored.css";
 import "@/app/home-typography.css";
-import "@/app/home-loading.css";
 import "@/app/home-pearl-background.css";
 import "@/app/home-brand-review.css";
 import "@/app/responsive-layout.css";

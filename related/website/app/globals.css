@@ -166,7 +166,7 @@
 .lumiq-root .duo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin-top: 4rem; }
 .lumiq-root .duo-card { background: var(--card); border: 1px solid var(--border); border-radius: 32px; padding: 3rem; position: relative; overflow: hidden; cursor: pointer; transition: all 0.4s; }
 .lumiq-root .duo-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-lg); }
-.lumiq-root .duo-card.book { background: var(--card); }
+.lumiq-root .duo-card.book,
 .lumiq-root .duo-card.pal { background: var(--card); }
 .lumiq-root .duo-pill { display: inline-block; padding: 0.5rem 1rem; border-radius: 999px; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.05em; margin-bottom: 1.5rem; }
 .lumiq-root .book .duo-pill { background: var(--purple); color: white; }
@@ -384,7 +384,7 @@
 
 /* Product detail helpers */
 .lumiq-root .sec-num { display: inline-flex; align-items: center; justify-content: center; width: 64px; height: 64px; border-radius: 16px; font-family: var(--font-serif); font-size: 1.5rem; color: white; flex-shrink: 0; box-shadow: var(--shadow); }
-.lumiq-root .sec-num.purple { background: var(--ink); }
+.lumiq-root .sec-num.purple,
 .lumiq-root .sec-num.rose { background: var(--ink); }
 .lumiq-root .sec-head { display: flex; gap: 1.5rem; align-items: flex-start; margin-bottom: 3rem; }
 .lumiq-root .sec-head .sec-head-body { flex: 1; min-width: 0; }
@@ -640,7 +640,7 @@
   .lumiq-root .foot-grid { grid-template-columns: 1fr; gap: 2.5rem; margin-bottom: 3rem; }
   .lumiq-root .foot-bottom { flex-direction: column; gap: 1rem; text-align: center; }
   .lumiq-root .plans-grid, .lumiq-root .member-grid, .lumiq-root .how-grid,
-  .lumiq-root .age-grid, .lumiq-root .value-grid, .lumiq-root .cf-grid { grid-template-columns: 1fr; }
+  .lumiq-root .age-grid, .lumiq-root .value-grid, .lumiq-root .cf-grid,
   .lumiq-root .dash-stats, .lumiq-root .dash-row { grid-template-columns: 1fr; }
   .lumiq-root .eco-stage { height: 380px; max-width: 360px; }
   .lumiq-root .eco-orbit { width: 220px; height: 220px; margin: -110px 0 0 -110px; }
