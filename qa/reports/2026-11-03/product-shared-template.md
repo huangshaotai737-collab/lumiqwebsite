@@ -9,6 +9,7 @@
 - 原表第 59 行曾要求标记“已确认／开发中／规划中”。品牌最新回复“目前写的功能都是已经完成的功能”及本轮用户明确指示替代该旧口径，故移除面向访客的状态标签及相应未来式功能表述。未开放订购的实际状态保持。
 - Ola 成人与长辈场景维持合并为成人日常，六项能力完整保留。重复的纯设备图已在前一版本替换为场景图，本轮继续使用。
 - Ola 首屏默认图片用静态 `saturate(.8) brightness(.96)` 稍降饱和度与亮度；没有重绘产品或改变人物。该样式仅命中内置默认素材，自定义后台图片不受影响。一次生成的候选图因改变原产品细节被弃用，未加入网站。
+- 同步移除产品浏览器标题/分享描述遗留的“概念”称谓，以及日文 OlaGo “计划附带”旧提示；新增三语回归断言。
 - Tablet 家庭资料说明完整移动至产品页最后、页脚之前；支持邮箱保留 support@lumiq.studio。
 - 品牌已经明确的正文继续沿用；缺少列表说明的部分新增三语辅助文案，范围限于既有能力。新增字段进入后台内容契约及对应产品的字段筛选。
 - 未修改首页轮播/加载逻辑、背景资源、认证蓝光正文、支付开关、订单和账号业务逻辑。
@@ -26,7 +27,7 @@
 | 生产构建 | PASS；Next build、类型检查及预览生成检查通过 |
 | 变更组件 ESLint | PASS |
 | 基础三语键检查 | PASS；994 个历史键，三语一致 |
-| 官网单元测试 | 完整 220 项通过；新增两个 CMS 兼容回归后，相关文件 17 项通过 |
+| 官网单元测试 | 完整 223 项通过（包含新增 CMS 兼容与三语页面元信息回归） |
 | 后台测试 | 141 项通过；另外 4 项边界/契约同步测试通过 |
 | CMS 素材与适配器验证 | PASS；4396 个历史字段、111 个素材槽、278 条素材使用记录；种子/历史清单未重写 |
 | 页面可达性与文案 | 3 种语言 × 5 页 = 15 条路由，HTTP 200；无 Ola 混入 Tablet 标题、无旧状态标签、无额外章节编号 |
@@ -42,14 +43,15 @@
 
 1. 文案补丁最初以重复路径追加，幂等测试失败。已合并为每条路径一个 before/after 增量，保留不可变种子，并复测完整单元测试通过。没有放宽补丁冲突规则。
 2. 第一轮状态扫描把食谱/家务正文“勾选已完成的任务”误认作内部状态标签。调整为检查独立标签行；保留合法正文。最终 15 条路由扫描通过。
-3. 旧滚动回归脚本定位已移除的 `.pd-story-copy h2`，已改为同一区块的 `.pd-story-floor h2`，保留原可见性断言。
+3. 发布前补充全文/元信息扫描，查到日文附带关系仍写未来式、四个产品元信息仍写概念；修复后重新生产构建、223 项单元测试及 15 路由/元信息冒烟通过。
+4. 旧滚动回归脚本定位已移除的 `.pd-story-copy h2`，已改为同一区块的 `.pd-story-floor h2`，保留原可见性断言。
 
 ## 本地原始证据
 
 位于仓库 `.lumiq-local/product-template-20261103/`（不含凭据，原始截图不作为已批准像素基线）：
 
 - `build-final.log`、`unit-final.log`、`cms-compatibility-final.log`、`admin-tests.log`
-- `report.json`、`failures.json`、`matrix-final.log`、`interactions.json`、`interactions-final.log`
+- `report.json`、`failures.json`、`matrix-final.log`、`interactions.json`、`interactions-final.log`、`routes-final.json`
 - `check.cjs`、`interactions.cjs`、`final-screens.cjs`
 - `ola-corrected.png`、`ola-color.png`、`ola-adult.png`、`olago-shared.png`、`tablet-shared.png`、`tablet-privacy-bottom.png`、`print-shared.png`、`orb-shared.png`
 - 全模块桌面/手机/超宽屏截图：`{slug}-{width}-{index}.png`，共 87 张。

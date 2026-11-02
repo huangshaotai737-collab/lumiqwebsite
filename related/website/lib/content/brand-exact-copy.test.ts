@@ -58,6 +58,15 @@ describe('brand verbatim replacement acceptance', () => {
     expect(get(display.messages.en, 'BrandPresentation.olago.stepsTitle')).toBe('Keep track of your steps');
     expect(snapshot.messages.en.BrandPresentation).toBeUndefined();
   });
+  it('keeps browser titles and descriptions aligned with confirmed product copy in every language', () => {
+    for (const locale of ['en', 'zh-hant', 'ja'] as const) {
+      for (const product of ['productOla', 'productOlaGo', 'productTablet', 'productPrint']) {
+        expect(String(get(currentSnapshot.messages[locale], `Metadata.${product}.title`))).not.toMatch(/concept|概念|コンセプト/i);
+        expect(String(get(currentSnapshot.messages[locale], `Metadata.${product}.description`))).not.toMatch(/concept|概念|コンセプト/i);
+      }
+    }
+    expect(get(currentSnapshot.messages.ja, 'OlaGo.included')).toBe('LumiqOla に付属');
+  });
   it('preserves CMS edits to shared-template supporting copy', () => {
     const snapshot = withBrandContent(structuredClone(currentSnapshot));
     const presentation = snapshot.messages.en.BrandPresentation as MessageTree;

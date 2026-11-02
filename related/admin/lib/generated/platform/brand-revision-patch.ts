@@ -611,7 +611,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.en.Metadata.productOlaGo.description",
     "before": "A portable concept companion included with Lumiq Ola.",
-    "after": "A portable concept companion included with LumiqOla."
+    "after": "A portable companion included with LumiqOla."
   },
   {
     "path": "messages.en.Metadata.productOlaGo.title",
@@ -1906,7 +1906,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.ja.Metadata.productOlaGo.description",
     "before": "Lumiq Ola に付属するポータブル・コンセプト。",
-    "after": "LumiqOla に付属するポータブル・コンセプト。"
+    "after": "LumiqOla に付属するポータブルパートナー。"
   },
   {
     "path": "messages.ja.Metadata.productOlaGo.title",
@@ -2026,7 +2026,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.ja.OlaGo.included",
     "before": "Lumiq Ola に付属予定",
-    "after": "LumiqOla に付属予定"
+    "after": "LumiqOla に付属"
   },
   {
     "path": "messages.ja.OlaGo.journalBody",
@@ -3186,17 +3186,17 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.zh-hant.Metadata.productOla.title",
     "before": "Lumiq Ola — 全息陪伴概念",
-    "after": "LumiqOla — 全息陪伴概念"
+    "after": "LumiqOla — 全息陪伴裝置"
   },
   {
     "path": "messages.zh-hant.Metadata.productOlaGo.description",
     "before": "隨 Lumiq Ola 提供的可攜式陪伴概念。",
-    "after": "隨 LumiqOla 提供的可攜式陪伴概念。"
+    "after": "隨 LumiqOla 提供的隨身夥伴。"
   },
   {
     "path": "messages.zh-hant.Metadata.productOlaGo.title",
     "before": "Lumiq Ola Go — 隨身陪伴概念",
-    "after": "LumiqOlaGo — 隨身陪伴概念"
+    "after": "LumiqOlaGo — 隨身夥伴"
   },
   {
     "path": "messages.zh-hant.Metadata.productPrint.title",
@@ -4872,5 +4872,50 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
     "path": "messages.ja.Book.s2",
     "before": "上質なハードカバー構想",
     "after": "上質なマット仕上げのハードカバー"
+  },
+  {
+    "path": "messages.en.Metadata.productOla.description",
+    "before": "A concept companion designed for stories, conversation, reminders and family connection.",
+    "after": "A companion designed for stories, conversation, reminders and family connection."
+  },
+  {
+    "path": "messages.en.Metadata.productTablet.description",
+    "before": "A concept learning and reading tablet created especially for children.",
+    "after": "A learning and reading tablet created especially for children."
+  },
+  {
+    "path": "messages.en.Metadata.productPrint.description",
+    "before": "A concept premium hardcover keepsake with your child as the main character.",
+    "after": "A premium hardcover keepsake with your child as the main character."
+  },
+  {
+    "path": "messages.zh-hant.Metadata.productOla.description",
+    "before": "為故事、對話、提醒與家庭連結而設計的概念陪伴裝置。",
+    "after": "為故事、對話、提醒與家庭連結而設計的陪伴裝置。"
+  },
+  {
+    "path": "messages.zh-hant.Metadata.productTablet.description",
+    "before": "專為孩子打造、遠離干擾的概念學習與閱讀平板。",
+    "after": "專為孩子打造、遠離干擾的學習與閱讀平板。"
+  },
+  {
+    "path": "messages.zh-hant.Metadata.productPrint.description",
+    "before": "讓孩子成為故事主角的概念精裝珍藏書。",
+    "after": "讓孩子成為故事主角的精裝珍藏書。"
+  },
+  {
+    "path": "messages.ja.Metadata.productOla.description",
+    "before": "物語、会話、リマインダー、家族のつながりのためのコンセプト。",
+    "after": "物語、会話、リマインダー、家族のつながりに寄り添うパートナー。"
+  },
+  {
+    "path": "messages.ja.Metadata.productTablet.description",
+    "before": "子どものための学習・読書タブレットのコンセプト。",
+    "after": "子どものための学習・読書タブレット。"
+  },
+  {
+    "path": "messages.ja.Metadata.productPrint.description",
+    "before": "お子さまが主人公になるハードカバー絵本のコンセプト。",
+    "after": "お子さまが主人公になるハードカバー絵本。"
   }
 ];
