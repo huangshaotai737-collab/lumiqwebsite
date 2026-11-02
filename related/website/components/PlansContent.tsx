@@ -150,7 +150,7 @@ export default function PlansContent() {
   ];
   const hardware = (["tablet", "ola", "print", "nest"] as const).map((id, index) => {
     const product = cms.snapshot.products[id];
-    return { id, name: product.name, price: product.price.kind === "usd" ? String(product.price.amount) : null, img: cms.url(product.image), href: product.href, imageFit: ["cover", "contain-ola", "contain-print", "cover"][index], blurbKey: ["tabletBlurb", "palBlurb", "printBlurb", "nestBlurb"][index], msrp: id === "tablet" ? brand("hardware.tabletMsrp") : id === "ola" ? brand("hardware.olaMsrp") : null };
+    return { id, name: product.name, price: id === "tablet" || id === "ola" ? brand(`hardware.${id}Vip`) : product.price.kind === "usd" ? String(product.price.amount) : null, img: cms.url(product.image), href: product.href, imageFit: ["cover", "contain-ola", "contain-print", "cover"][index], blurbKey: ["tabletBlurb", "palBlurb", "printBlurb", "nestBlurb"][index], msrp: id === "tablet" ? brand("hardware.tabletMsrp") : id === "ola" ? brand("hardware.olaMsrp") : null };
   });
   function handleTabKey(event: KeyboardEvent<HTMLButtonElement>, tab: ProductTab) {
     const index = PRODUCT_TABS.indexOf(tab);

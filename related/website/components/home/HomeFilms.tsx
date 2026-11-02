@@ -11,7 +11,7 @@ import { useCallback, useEffect, useRef, useState, type CSSProperties } from "re
 import Image from "./HomeImage";
 import { mountHorizontalCarousel } from "./readingNavigation";
 import { useTranslations } from "next-intl";
-import { ArrowUp, ArrowDown, Play, Pause } from "lucide-react";
+import { ArrowLeft, ArrowRight, Play, Pause } from "lucide-react";
 
 const films = ["everyday-companion", "worlds-together", "welcome-home"] as const;
 
@@ -214,9 +214,9 @@ export default function HomeFilms() {
         })}
       </div>
       <nav className="lh-films-controls" aria-label={t("carousel")}>
-        <button type="button" onClick={() => select(-1)} disabled={travel !== 0} aria-label={t("previous")}><ArrowUp size={24} /></button>
+        <button type="button" onClick={() => select(-1)} disabled={travel !== 0} aria-label={t("previous")}><ArrowLeft size={24} /></button>
         <span aria-live="polite" aria-atomic="true"><strong>{String(active + 1).padStart(2, "0")}</strong><span>{cms.text("field_8012c8a7ba06bfe5")}</span><span>{cms.text("field_28cae631213153ae")}</span></span>
-        <button type="button" onClick={() => select(1)} disabled={travel !== 0} aria-label={t("next")}><ArrowDown size={24} /></button>
+        <button type="button" onClick={() => select(1)} disabled={travel !== 0} aria-label={t("next")}><ArrowRight size={24} /></button>
       </nav>
       </div>
       <div ref={characterHost} className="lh-film-character" data-alpha-video={Boolean(characterFormat && !characterFailed)} aria-hidden="true">

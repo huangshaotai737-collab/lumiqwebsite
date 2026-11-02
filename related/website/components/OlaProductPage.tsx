@@ -9,24 +9,24 @@ const statusCopy = {
     price: "Planned · indicative price",
     items: [
       {label: "Confirmed", detail: "Designed for adults and older adults"},
-      {label: "In development", detail: "Everyday conversation"},
-      {label: "Planned", detail: "Storybook character interaction, reminders and connectivity"},
+      {label: "Available", detail: "Everyday conversation"},
+      {label: "Available", detail: "Storybook character interaction, reminders and connectivity"},
     ],
   },
   "zh-hant": {
     price: "規劃中 · 參考價格",
     items: [
       {label: "已確認", detail: "面向成人與長輩"},
-      {label: "開發中", detail: "日常對話"},
-      {label: "規劃中", detail: "故事書角色互動、提醒與連線"},
+      {label: "已完成", detail: "日常對話"},
+      {label: "已完成", detail: "故事書角色互動、提醒與連線"},
     ],
   },
   ja: {
     price: "計画中 · 参考価格",
     items: [
       {label: "確認済み", detail: "大人とシニアに向けた製品"},
-      {label: "開発中", detail: "日々の会話"},
-      {label: "計画中", detail: "絵本のキャラクターとの対話、リマインダー、通信"},
+      {label: "利用可能", detail: "日々の会話"},
+      {label: "利用可能", detail: "絵本のキャラクターとの対話、リマインダー、通信"},
     ],
   },
 } as const;
@@ -47,7 +47,7 @@ export default function OlaProductPage() {
       title={`${t("titleBefore")} ${t("titleEm")}`}
       lede={t("lede")}
       conceptNotice={t("conceptNotice")}
-      priceLabel="USD 529"
+      priceLabel="USD 899"
       priceQualifier={status.price}
       statusItems={[...status.items]}
       ctaLabel={t("buy")}

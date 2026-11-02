@@ -25,7 +25,7 @@ describe('brand revision content compatibility', () => {
     expect(updated.conflicts).toEqual([]);
     expect(parseSnapshot(updated.snapshot).products.tablet.name).toBe('LumiqTablet');
     expect(updated.snapshot.products.tablet.href).toBe(seed.products.tablet.href);
-    expect(updated.snapshot.products.ola.price).toEqual({kind:'usd',amount:529});
+    expect(updated.snapshot.products.ola.price).toEqual({kind:'usd',amount:899});
     expect(seed).toEqual(before);
     expect(applyBrandRevision(updated.snapshot).conflicts).toEqual([]);
   });

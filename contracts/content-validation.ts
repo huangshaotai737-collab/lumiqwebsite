@@ -1,3 +1,4 @@
+import {brandMediaDefaults} from './brand-media';
 import { trustedLegacyMedia, trustedProductImages } from './content-legacy-media';
 import type { ContentRule, ContentSnapshot, MessageTree, ContentValidationOptions, ContentValidationResult } from './content';
 
@@ -114,7 +115,8 @@ export function validateContentSnapshot(
   for (const [path, value] of values) {
     if (!/^media\.[^.]+\.url$/.test(path) || typeof value !== 'string') continue;
     const asset = values.get(path.replace(/\.url$/, '.assetId'));
-    const legacy = trustedLegacyMedia[path.split('.')[1]];
+    const id = path.split('.')[1];
+    const legacy = trustedLegacyMedia[id] ?? (brandMediaDefaults[id] ? {...brandMediaDefaults[id],readOnly:false} : undefined);
     if (!legacy || (asset === null && value !== legacy.url) || (asset !== null && legacy.readOnly)) issue(path, 'Media replacement requires a supported controlled asset');
     const controlledAsset = controlledMediaAssetId(value);
     if (controlledAsset !== null) {

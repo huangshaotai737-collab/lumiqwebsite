@@ -30,6 +30,8 @@ function FeatureIcon({ feature }: { feature: FeatureKey }) {
 export default function NestProductPage() {
   const cms = useContentAdapter();
   const t = useTranslations("BrandOrb");
+  const update = useTranslations("BrandUpdate");
+  const screenshots = {recipes:["cook","recipe"],calendar:["calendar"],chores:["tasks","rewards"],photos:["gallery"]};
   const productName = cms.snapshot.products.nest.name;
   const finishes = [
     {
@@ -119,6 +121,12 @@ export default function NestProductPage() {
                 </article>
               ))}
             </div>
+          </div>
+          <div className="pd-shell orb-ui-gallery">
+            {screenshots[feature.key].map(name => <figure key={name}>
+              <Image src={cms.url(`/assets/orb-ui-20261102/${name}.webp`)} alt={update(`screens.${name}`)} width={1920} height={1080} sizes="(max-width: 800px) 100vw, 80vw" unoptimized />
+              <figcaption>{update(`screens.${name}`)}</figcaption>
+            </figure>)}
           </div>
         </section>
       ))}

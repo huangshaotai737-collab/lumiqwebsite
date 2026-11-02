@@ -99,7 +99,7 @@
     "codec": "h264",
     "duration": null,
     "alpha": false,
-    "frameRate": 30.0
+    "frameRate": 30
   },
   "asset_1adb9be602d046aa": {
     "kind": "image",
@@ -320,7 +320,7 @@
     "codec": "h264",
     "duration": null,
     "alpha": false,
-    "frameRate": 30.0
+    "frameRate": 30
   },
   "asset_44501cb29fc98694": {
     "kind": "image",
@@ -542,7 +542,7 @@
     "duration": 8,
     "alpha": true,
     "readOnlyReason": "透明人物需要同步验证 WebM、Safari MOV 与封面；MOV 不在本期新上传支持范围。",
-    "frameRate": 24.0
+    "frameRate": 24
   },
   "asset_700321a1b9f4533b": {
     "kind": "image",
@@ -637,7 +637,7 @@
     "codec": "h264",
     "duration": 30,
     "alpha": false,
-    "frameRate": 24.0
+    "frameRate": 24
   },
   "asset_88efe500e5b410d0": {
     "kind": "image",
@@ -788,7 +788,7 @@
     "codec": "h264",
     "duration": 6.583333,
     "alpha": false,
-    "frameRate": 24.0
+    "frameRate": 24
   },
   "asset_a6510e681604d2f9": {
     "kind": "video",
@@ -809,7 +809,7 @@
     "duration": 8,
     "alpha": true,
     "readOnlyReason": "透明人物需要同步验证 WebM、Safari MOV 与封面；MOV 不在本期新上传支持范围。",
-    "frameRate": 24.0
+    "frameRate": 24
   },
   "asset_a795af9e87d42422": {
     "kind": "image",
@@ -879,7 +879,7 @@
     "codec": "h264",
     "duration": null,
     "alpha": false,
-    "frameRate": 30.0
+    "frameRate": 30
   },
   "asset_b0fc987be9c43a11": {
     "kind": "image",
@@ -1045,7 +1045,7 @@
     "codec": "h264",
     "duration": null,
     "alpha": false,
-    "frameRate": 30.0
+    "frameRate": 30
   },
   "asset_bf09508e13bc01da": {
     "kind": "image",
@@ -1427,5 +1427,89 @@
     ],
     "companions": [],
     "complex": false
+  },
+  "asset_dc26b27fe3117728": {
+    "kind": "image",
+    "profile": "asset_dc26b27fe3117728",
+    "legacyUrl": "/assets/orb-ui-20261102/cook.webp",
+    "mimes": [
+      "image/jpeg",
+      "image/png",
+      "image/webp"
+    ],
+    "companions": [],
+    "complex": false,
+    "width": 1920,
+    "height": 1080
+  },
+  "asset_f7e2ba338d31371b": {
+    "kind": "image",
+    "profile": "asset_f7e2ba338d31371b",
+    "legacyUrl": "/assets/orb-ui-20261102/recipe.webp",
+    "mimes": [
+      "image/jpeg",
+      "image/png",
+      "image/webp"
+    ],
+    "companions": [],
+    "complex": false,
+    "width": 1920,
+    "height": 1080
+  },
+  "asset_9ccabb9a31b94ad2": {
+    "kind": "image",
+    "profile": "asset_9ccabb9a31b94ad2",
+    "legacyUrl": "/assets/orb-ui-20261102/calendar.webp",
+    "mimes": [
+      "image/jpeg",
+      "image/png",
+      "image/webp"
+    ],
+    "companions": [],
+    "complex": false,
+    "width": 1920,
+    "height": 1080
+  },
+  "asset_a9189b139b2ce05e": {
+    "kind": "image",
+    "profile": "asset_a9189b139b2ce05e",
+    "legacyUrl": "/assets/orb-ui-20261102/tasks.webp",
+    "mimes": [
+      "image/jpeg",
+      "image/png",
+      "image/webp"
+    ],
+    "companions": [],
+    "complex": false,
+    "width": 1920,
+    "height": 1080
+  },
+  "asset_3dbef3e285441f46": {
+    "kind": "image",
+    "profile": "asset_3dbef3e285441f46",
+    "legacyUrl": "/assets/orb-ui-20261102/rewards.webp",
+    "mimes": [
+      "image/jpeg",
+      "image/png",
+      "image/webp"
+    ],
+    "companions": [],
+    "complex": false,
+    "width": 1920,
+    "height": 1080
+  },
+  "asset_dd25b70a62c78f12": {
+    "kind": "image",
+    "profile": "asset_dd25b70a62c78f12",
+    "legacyUrl": "/assets/orb-ui-20261102/gallery.webp",
+    "mimes": [
+      "image/jpeg",
+      "image/png",
+      "image/webp"
+    ],
+    "companions": [],
+    "complex": false,
+    "width": 1920,
+    "height": 1080
   }
 }

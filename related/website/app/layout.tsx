@@ -24,6 +24,7 @@ import "./noto-sans-tc.css";
 import "./brand-polish-20261022.css";
 import "./home-product-card-layout.css";
 import {htmlLang, type Locale} from "@/i18n/routing";
+import "./brand-reply-20261102.css";
 
 export async function generateMetadata() {
   const cms = await readContentAdapter({publishedOnly:true});

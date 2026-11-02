@@ -193,7 +193,7 @@ export const brandContentFields: readonly (ContentField & {optionalGroup:string}
     "editable": true,
     "owner": "snapshot",
     "optionalGroup": "messages.en.BrandFaq",
-    "initialValue": "Joining the waitlist does not start a paid plan. The subscription options currently shown are previews; final billing and cancellation terms will be available before anyone subscribes."
+    "initialValue": "The trial period starts after the user creates an account and activates the device. Monthly/yearly payments begin after subscribing to a plan. If the user cancels the subscription, automatic charges will not continue."
   },
   {
     "path": "messages.en.BrandFaq.q7",
@@ -253,7 +253,7 @@ export const brandContentFields: readonly (ContentField & {optionalGroup:string}
     "editable": true,
     "owner": "snapshot",
     "optionalGroup": "messages.en.BrandFaq",
-    "initialValue": "No. Current prices and subscription options are previews. We’ll confirm final pricing and what each option includes before ordering opens."
+    "initialValue": "LumiqTablet: MSRP USD599, VIP starts from USD359. LumiqOla: MSRP USD899, VIP starts from USD539."
   },
   {
     "path": "messages.en.BrandFaq.q9",
@@ -433,7 +433,7 @@ export const brandContentFields: readonly (ContentField & {optionalGroup:string}
     "editable": true,
     "owner": "snapshot",
     "optionalGroup": "messages.en.BrandFaq",
-    "initialValue": "Ola is an at-home companion concept for adults and older adults. OlaGo is its planned portable partner for the same audience. Connection and offline-use details will be confirmed before launch."
+    "initialValue": "Stay connected to enjoy the most features. OlaGo: While offline away from home, you can still record audio, interact and converse with characters, receive reminders and record steps."
   },
   {
     "path": "messages.en.BrandFaq.q15",
@@ -493,7 +493,7 @@ export const brandContentFields: readonly (ContentField & {optionalGroup:string}
     "editable": true,
     "owner": "snapshot",
     "optionalGroup": "messages.en.BrandFaq",
-    "initialValue": "Some experiences may need a connection. We’ll publish the offline capabilities of each product before ordering opens."
+    "initialValue": "Languages: English, Traditional Chinese and Japanese. More languages are being added. Tablet: Downloaded books can be read offline. Ola: Stay connected to enjoy the most features. OlaGo: While offline away from home, you can still record audio, interact and converse with characters, receive reminders and record steps."
   },
   {
     "path": "messages.en.BrandFaq.q17",
@@ -717,7 +717,7 @@ export const brandContentFields: readonly (ContentField & {optionalGroup:string}
     "editable": true,
     "owner": "snapshot",
     "optionalGroup": "messages.zh-hant.BrandFaq",
-    "initialValue": "加入候補名單不會啟用付費方案。目前展示的訂閱選項是預覽，正式計費與取消條款會在開放訂閱前提供。"
+    "initialValue": "當用戶創建帳號且開通設備後開始計算試用期。訂閱方案後始開始按月/按年付款，若用戶取消訂閱，則不會繼續自動扣款。"
   },
   {
     "path": "messages.zh-hant.BrandFaq.q7",
@@ -777,7 +777,7 @@ export const brandContentFields: readonly (ContentField & {optionalGroup:string}
     "editable": true,
     "owner": "snapshot",
     "optionalGroup": "messages.zh-hant.BrandFaq",
-    "initialValue": "尚未確定。目前價格和訂閱選項僅供預覽，正式價格與各選項包含的內容會在開放訂購前確認。"
+    "initialValue": "LumiqTablet：建議售價 USD599，VIP USD359 起。LumiqOla：建議售價 USD899，VIP USD539 起。"
   },
   {
     "path": "messages.zh-hant.BrandFaq.q9",
@@ -957,7 +957,7 @@ export const brandContentFields: readonly (ContentField & {optionalGroup:string}
     "editable": true,
     "owner": "snapshot",
     "optionalGroup": "messages.zh-hant.BrandFaq",
-    "initialValue": "Ola 是面向成人與長輩的居家陪伴概念；OlaGo 規劃成為同一受眾的隨身夥伴。連線與離線使用方式會在上市前確認。"
+    "initialValue": "保持連線狀態享受最多功能 OlaGo: 外出離線時仍可錄音、與角色互動對話、提醒事項通知、步數記錄。"
   },
   {
     "path": "messages.zh-hant.BrandFaq.q15",
@@ -1017,7 +1017,7 @@ export const brandContentFields: readonly (ContentField & {optionalGroup:string}
     "editable": true,
     "owner": "snapshot",
     "optionalGroup": "messages.zh-hant.BrandFaq",
-    "initialValue": "部分體驗可能需要網路連線。我們會在開放訂購前公布各產品的離線使用能力。"
+    "initialValue": "語言：英文、繁體中文、日文，其他語言持續更新。 Tablet: 已下載書籍可離線閱讀 Ola: 保持連線狀態享受最多功能 OlaGo: 外出離線時仍可錄音、與角色互動對話、提醒事項通知、步數記錄。"
   },
   {
     "path": "messages.zh-hant.BrandFaq.q17",
@@ -1241,7 +1241,7 @@ export const brandContentFields: readonly (ContentField & {optionalGroup:string}
     "editable": true,
     "owner": "snapshot",
     "optionalGroup": "messages.ja.BrandFaq",
-    "initialValue": "ウェイトリストへの登録で有料プランが開始されることはありません。現在のプランはプレビューです。正式な請求・解約条件は、お申し込み開始前にご案内します。"
+    "initialValue": "アカウントを作成し、デバイスを有効化した時点から試用期間が始まります。プランへの加入後に月払い／年払いが始まります。サブスクリプションを解約した場合、自動課金は継続されません。"
   },
   {
     "path": "messages.ja.BrandFaq.q7",
@@ -1301,7 +1301,7 @@ export const brandContentFields: readonly (ContentField & {optionalGroup:string}
     "editable": true,
     "owner": "snapshot",
     "optionalGroup": "messages.ja.BrandFaq",
-    "initialValue": "いいえ。現在の価格とプランはプレビューです。正式な価格と内容は注文受付前に確定します。"
+    "initialValue": "LumiqTablet：希望小売価格 USD599、VIP は USD359 から。LumiqOla：希望小売価格 USD899、VIP は USD539 から。"
   },
   {
     "path": "messages.ja.BrandFaq.q9",
@@ -1481,7 +1481,7 @@ export const brandContentFields: readonly (ContentField & {optionalGroup:string}
     "editable": true,
     "owner": "snapshot",
     "optionalGroup": "messages.ja.BrandFaq",
-    "initialValue": "Ola は大人とシニア向けの家庭用コンパニオン構想です。OlaGo は同じ対象に向けた携帯型パートナーとして計画しています。接続とオフライン利用の詳細は発売前に確認します。"
+    "initialValue": "より多くの機能を楽しむには、接続状態を保ってください。 OlaGo: 外出先でオフラインでも、録音、キャラクターとの対話、リマインダー通知、歩数記録を利用できます。"
   },
   {
     "path": "messages.ja.BrandFaq.q15",
@@ -1541,7 +1541,7 @@ export const brandContentFields: readonly (ContentField & {optionalGroup:string}
     "editable": true,
     "owner": "snapshot",
     "optionalGroup": "messages.ja.BrandFaq",
-    "initialValue": "一部の体験には接続が必要な場合があります。各製品のオフライン機能は注文受付前に公表します。"
+    "initialValue": "言語：英語、繁体字中国語、日本語。その他の言語も順次追加しています。 Tablet: ダウンロード済みの本はオフラインで読めます。 Ola: より多くの機能を楽しむには、接続状態を保ってください。 OlaGo: 外出先でオフラインでも、録音、キャラクターとの対話、リマインダー通知、歩数記録を利用できます。"
   },
   {
     "path": "messages.ja.BrandFaq.q17",
@@ -9018,7 +9018,7 @@ export const brandContentFields: readonly (ContentField & {optionalGroup:string}
     "editable": true,
     "owner": "snapshot",
     "optionalGroup": "messages.en.BrandPlans",
-    "initialValue": "Current prices and subscription options are previews. Final pricing, included features, billing and cancellation terms will be confirmed before ordering opens. Joining the waitlist does not place an order or charge you."
+    "initialValue": "Joining the waitlist does not place an order or charge you. Ordering is not open yet."
   },
   {
     "path": "messages.en.BrandPlans.trialNotice",
@@ -9033,7 +9033,7 @@ export const brandContentFields: readonly (ContentField & {optionalGroup:string}
     "editable": true,
     "owner": "snapshot",
     "optionalGroup": "messages.en.BrandPlans",
-    "initialValue": "Paid plans preview a 7-day free trial. Trial-end billing details will be available before anyone subscribes. Joining the waitlist does not start a trial or a paid plan."
+    "initialValue": "The trial period starts after the user creates an account and activates the device. Monthly/yearly payments begin after subscribing to a plan. If the user cancels the subscription, automatic charges will not continue."
   },
   {
     "path": "messages.en.BrandPlans.annualTotal",
@@ -9122,7 +9122,7 @@ export const brandContentFields: readonly (ContentField & {optionalGroup:string}
     "editable": true,
     "owner": "snapshot",
     "optionalGroup": "messages.en.BrandPlans",
-    "initialValue": "MSRP preview"
+    "initialValue": "MSRP"
   },
   {
     "path": "messages.en.BrandPlans.hardware.vip",
@@ -9137,7 +9137,7 @@ export const brandContentFields: readonly (ContentField & {optionalGroup:string}
     "editable": true,
     "owner": "snapshot",
     "optionalGroup": "messages.en.BrandPlans",
-    "initialValue": "VIP preview from"
+    "initialValue": "VIP from"
   },
   {
     "path": "messages.en.BrandPlans.hardware.tabletMsrp",
@@ -9152,7 +9152,7 @@ export const brandContentFields: readonly (ContentField & {optionalGroup:string}
     "editable": true,
     "owner": "snapshot",
     "optionalGroup": "messages.en.BrandPlans",
-    "initialValue": "559"
+    "initialValue": "599"
   },
   {
     "path": "messages.en.BrandPlans.hardware.olaMsrp",
@@ -9167,7 +9167,37 @@ export const brandContentFields: readonly (ContentField & {optionalGroup:string}
     "editable": true,
     "owner": "snapshot",
     "optionalGroup": "messages.en.BrandPlans",
-    "initialValue": "799"
+    "initialValue": "899"
+  },
+  {
+    "path": "messages.en.BrandPlans.hardware.tabletVip",
+    "pages": [
+      "/plans"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.en.BrandPlans",
+    "initialValue": "359"
+  },
+  {
+    "path": "messages.en.BrandPlans.hardware.olaVip",
+    "pages": [
+      "/plans"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.en.BrandPlans",
+    "initialValue": "539"
   },
   {
     "path": "messages.en.BrandPlans.tierDescriptions",
@@ -9744,7 +9774,7 @@ export const brandContentFields: readonly (ContentField & {optionalGroup:string}
     "editable": true,
     "owner": "snapshot",
     "optionalGroup": "messages.zh-hant.BrandPlans",
-    "initialValue": "目前價格與訂閱方案均為預覽。我們會在開放訂購前確認最終價格、方案內容、計費與取消條款。加入候補名單不會成立訂單或產生費用。"
+    "initialValue": "加入候補名單不會成立訂單或產生費用。目前尚未開放訂購。"
   },
   {
     "path": "messages.zh-hant.BrandPlans.trialNotice",
@@ -9759,7 +9789,7 @@ export const brandContentFields: readonly (ContentField & {optionalGroup:string}
     "editable": true,
     "owner": "snapshot",
     "optionalGroup": "messages.zh-hant.BrandPlans",
-    "initialValue": "付費方案預計提供 7 天免費試用；試用結束後的計費細節將於訂閱前公布。加入候補名單不會啟動試用或付費方案。"
+    "initialValue": "當用戶創建帳號且開通設備後開始計算試用期。訂閱方案後始開始按月/按年付款，若用戶取消訂閱，則不會繼續自動扣款。"
   },
   {
     "path": "messages.zh-hant.BrandPlans.annualTotal",
@@ -9848,7 +9878,7 @@ export const brandContentFields: readonly (ContentField & {optionalGroup:string}
     "editable": true,
     "owner": "snapshot",
     "optionalGroup": "messages.zh-hant.BrandPlans",
-    "initialValue": "建議售價預覽"
+    "initialValue": "建議售價"
   },
   {
     "path": "messages.zh-hant.BrandPlans.hardware.vip",
@@ -9863,7 +9893,7 @@ export const brandContentFields: readonly (ContentField & {optionalGroup:string}
     "editable": true,
     "owner": "snapshot",
     "optionalGroup": "messages.zh-hant.BrandPlans",
-    "initialValue": "VIP 預覽價起"
+    "initialValue": "VIP 起價"
   },
   {
     "path": "messages.zh-hant.BrandPlans.hardware.tabletMsrp",
@@ -9878,7 +9908,7 @@ export const brandContentFields: readonly (ContentField & {optionalGroup:string}
     "editable": true,
     "owner": "snapshot",
     "optionalGroup": "messages.zh-hant.BrandPlans",
-    "initialValue": "559"
+    "initialValue": "599"
   },
   {
     "path": "messages.zh-hant.BrandPlans.hardware.olaMsrp",
@@ -9893,7 +9923,37 @@ export const brandContentFields: readonly (ContentField & {optionalGroup:string}
     "editable": true,
     "owner": "snapshot",
     "optionalGroup": "messages.zh-hant.BrandPlans",
-    "initialValue": "799"
+    "initialValue": "899"
+  },
+  {
+    "path": "messages.zh-hant.BrandPlans.hardware.tabletVip",
+    "pages": [
+      "/plans"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.zh-hant.BrandPlans",
+    "initialValue": "359"
+  },
+  {
+    "path": "messages.zh-hant.BrandPlans.hardware.olaVip",
+    "pages": [
+      "/plans"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.zh-hant.BrandPlans",
+    "initialValue": "539"
   },
   {
     "path": "messages.zh-hant.BrandPlans.tierDescriptions",
@@ -10470,7 +10530,7 @@ export const brandContentFields: readonly (ContentField & {optionalGroup:string}
     "editable": true,
     "owner": "snapshot",
     "optionalGroup": "messages.ja.BrandPlans",
-    "initialValue": "現在の価格とサブスクリプションはプレビューです。最終価格、プラン内容、請求および解約条件は注文受付前にご案内します。ウェイトリストへの登録によって注文や請求が発生することはありません。"
+    "initialValue": "ウェイトリストへの登録によって注文や請求が発生することはありません。現在、注文受付は開始していません。"
   },
   {
     "path": "messages.ja.BrandPlans.trialNotice",
@@ -10485,7 +10545,7 @@ export const brandContentFields: readonly (ContentField & {optionalGroup:string}
     "editable": true,
     "owner": "snapshot",
     "optionalGroup": "messages.ja.BrandPlans",
-    "initialValue": "有料プランでは7日間の無料体験を予定しています。体験終了後の請求条件はお申し込み前にご案内します。ウェイトリスト登録では無料体験や有料プランは開始されません。"
+    "initialValue": "アカウントを作成し、デバイスを有効化した時点から試用期間が始まります。プランへの加入後に月払い／年払いが始まります。サブスクリプションを解約した場合、自動課金は継続されません。"
   },
   {
     "path": "messages.ja.BrandPlans.annualTotal",
@@ -10574,7 +10634,7 @@ export const brandContentFields: readonly (ContentField & {optionalGroup:string}
     "editable": true,
     "owner": "snapshot",
     "optionalGroup": "messages.ja.BrandPlans",
-    "initialValue": "希望小売価格プレビュー"
+    "initialValue": "希望小売価格"
   },
   {
     "path": "messages.ja.BrandPlans.hardware.vip",
@@ -10589,7 +10649,7 @@ export const brandContentFields: readonly (ContentField & {optionalGroup:string}
     "editable": true,
     "owner": "snapshot",
     "optionalGroup": "messages.ja.BrandPlans",
-    "initialValue": "VIP プレビュー価格"
+    "initialValue": "VIP 最低価格"
   },
   {
     "path": "messages.ja.BrandPlans.hardware.tabletMsrp",
@@ -10604,7 +10664,7 @@ export const brandContentFields: readonly (ContentField & {optionalGroup:string}
     "editable": true,
     "owner": "snapshot",
     "optionalGroup": "messages.ja.BrandPlans",
-    "initialValue": "559"
+    "initialValue": "599"
   },
   {
     "path": "messages.ja.BrandPlans.hardware.olaMsrp",
@@ -10619,7 +10679,37 @@ export const brandContentFields: readonly (ContentField & {optionalGroup:string}
     "editable": true,
     "owner": "snapshot",
     "optionalGroup": "messages.ja.BrandPlans",
-    "initialValue": "799"
+    "initialValue": "899"
+  },
+  {
+    "path": "messages.ja.BrandPlans.hardware.tabletVip",
+    "pages": [
+      "/plans"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.ja.BrandPlans",
+    "initialValue": "359"
+  },
+  {
+    "path": "messages.ja.BrandPlans.hardware.olaVip",
+    "pages": [
+      "/plans"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.ja.BrandPlans",
+    "initialValue": "539"
   },
   {
     "path": "messages.ja.BrandPlans.tierDescriptions",
@@ -13266,6 +13356,1467 @@ export const brandContentFields: readonly (ContentField & {optionalGroup:string}
     "owner": "snapshot",
     "optionalGroup": "messages.ja.BrandFooter",
     "initialValue": "https://www.youtube.com/@Lumiq.Studio"
+  },
+  {
+    "path": "messages.en.BrandUpdate",
+    "pages": [
+      "global/brand-update"
+    ],
+    "type": "object",
+    "maxLength": null,
+    "icuSignature": null,
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": false,
+    "owner": "snapshot",
+    "optionalGroup": "messages.en.BrandUpdate"
+  },
+  {
+    "path": "messages.en.BrandUpdate.privacy",
+    "pages": [
+      "global/brand-update"
+    ],
+    "type": "object",
+    "maxLength": null,
+    "icuSignature": null,
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": false,
+    "owner": "snapshot",
+    "optionalGroup": "messages.en.BrandUpdate"
+  },
+  {
+    "path": "messages.en.BrandUpdate.privacy.title",
+    "pages": [
+      "global/brand-update"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.en.BrandUpdate",
+    "initialValue": "Photos, voices and family member data"
+  },
+  {
+    "path": "messages.en.BrandUpdate.privacy.p1",
+    "pages": [
+      "global/brand-update"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.en.BrandUpdate",
+    "initialValue": "When using features such as personalized stories, you may upload photos and voices of yourself, your children or other family members. We process this data only as needed to provide the features you choose; without separate consent, we will not make it public or use it for advertising. Before uploading, please confirm that you have obtained consent from other people in the photos or recordings; for minors, consent must be given by their parent or legal guardian."
+  },
+  {
+    "path": "messages.en.BrandUpdate.privacy.p2",
+    "pages": [
+      "global/brand-update"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.en.BrandUpdate",
+    "initialValue": "Data is retained only for as long as needed to provide the feature. Individuals, or a minor’s parent or legal guardian, may email support@lumiq.studio to request access, correction, cessation of use or deletion of data. We will process the request in accordance with the law after verifying identity."
+  },
+  {
+    "path": "messages.en.BrandUpdate.languages",
+    "pages": [
+      "global/brand-update"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.en.BrandUpdate",
+    "initialValue": "Languages: English, Traditional Chinese and Japanese. More languages are being added."
+  },
+  {
+    "path": "messages.en.BrandUpdate.offline",
+    "pages": [
+      "global/brand-update"
+    ],
+    "type": "object",
+    "maxLength": null,
+    "icuSignature": null,
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": false,
+    "owner": "snapshot",
+    "optionalGroup": "messages.en.BrandUpdate"
+  },
+  {
+    "path": "messages.en.BrandUpdate.offline.tablet",
+    "pages": [
+      "global/brand-update"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.en.BrandUpdate",
+    "initialValue": "Downloaded books can be read offline."
+  },
+  {
+    "path": "messages.en.BrandUpdate.offline.ola",
+    "pages": [
+      "global/brand-update"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.en.BrandUpdate",
+    "initialValue": "Stay connected to enjoy the most features."
+  },
+  {
+    "path": "messages.en.BrandUpdate.offline.ola-go",
+    "pages": [
+      "global/brand-update"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.en.BrandUpdate",
+    "initialValue": "While offline away from home, you can still record audio, interact and converse with characters, receive reminders and record steps."
+  },
+  {
+    "path": "messages.en.BrandUpdate.usageTitle",
+    "pages": [
+      "global/brand-update"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.en.BrandUpdate",
+    "initialValue": "Languages and offline use"
+  },
+  {
+    "path": "messages.en.BrandUpdate.trial",
+    "pages": [
+      "global/brand-update"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.en.BrandUpdate",
+    "initialValue": "The trial period starts after the user creates an account and activates the device. Monthly/yearly payments begin after subscribing to a plan. If the user cancels the subscription, automatic charges will not continue."
+  },
+  {
+    "path": "messages.en.BrandUpdate.previous",
+    "pages": [
+      "global/brand-update"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.en.BrandUpdate",
+    "initialValue": "Previous"
+  },
+  {
+    "path": "messages.en.BrandUpdate.next",
+    "pages": [
+      "global/brand-update"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.en.BrandUpdate",
+    "initialValue": "Next"
+  },
+  {
+    "path": "messages.en.BrandUpdate.screens",
+    "pages": [
+      "global/brand-update"
+    ],
+    "type": "object",
+    "maxLength": null,
+    "icuSignature": null,
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": false,
+    "owner": "snapshot",
+    "optionalGroup": "messages.en.BrandUpdate"
+  },
+  {
+    "path": "messages.en.BrandUpdate.screens.cook",
+    "pages": [
+      "global/brand-update"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.en.BrandUpdate",
+    "initialValue": "Recipe home"
+  },
+  {
+    "path": "messages.en.BrandUpdate.screens.recipe",
+    "pages": [
+      "global/brand-update"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.en.BrandUpdate",
+    "initialValue": "Cooking steps"
+  },
+  {
+    "path": "messages.en.BrandUpdate.screens.calendar",
+    "pages": [
+      "global/brand-update"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.en.BrandUpdate",
+    "initialValue": "Family calendar"
+  },
+  {
+    "path": "messages.en.BrandUpdate.screens.tasks",
+    "pages": [
+      "global/brand-update"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.en.BrandUpdate",
+    "initialValue": "Chores and points"
+  },
+  {
+    "path": "messages.en.BrandUpdate.screens.rewards",
+    "pages": [
+      "global/brand-update"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.en.BrandUpdate",
+    "initialValue": "Reward goals"
+  },
+  {
+    "path": "messages.en.BrandUpdate.screens.gallery",
+    "pages": [
+      "global/brand-update"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.en.BrandUpdate",
+    "initialValue": "Family photo frame"
+  },
+  {
+    "path": "messages.zh-hant.BrandUpdate",
+    "pages": [
+      "global/brand-update"
+    ],
+    "type": "object",
+    "maxLength": null,
+    "icuSignature": null,
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": false,
+    "owner": "snapshot",
+    "optionalGroup": "messages.zh-hant.BrandUpdate"
+  },
+  {
+    "path": "messages.zh-hant.BrandUpdate.privacy",
+    "pages": [
+      "global/brand-update"
+    ],
+    "type": "object",
+    "maxLength": null,
+    "icuSignature": null,
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": false,
+    "owner": "snapshot",
+    "optionalGroup": "messages.zh-hant.BrandUpdate"
+  },
+  {
+    "path": "messages.zh-hant.BrandUpdate.privacy.title",
+    "pages": [
+      "global/brand-update"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.zh-hant.BrandUpdate",
+    "initialValue": "照片、聲音與家庭成員資料"
+  },
+  {
+    "path": "messages.zh-hant.BrandUpdate.privacy.p1",
+    "pages": [
+      "global/brand-update"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.zh-hant.BrandUpdate",
+    "initialValue": "使用個人化故事等功能時，您可能上傳自己、孩子或其他家人的照片與聲音。我們僅在提供您選用的功能所需範圍內處理這些資料；未經另外同意，不會將其公開或用於廣告宣傳。上傳前，請確認已取得照片或錄音中其他人的同意；涉及未成年人時，應由其家長或法定代理人同意。"
+  },
+  {
+    "path": "messages.zh-hant.BrandUpdate.privacy.p2",
+    "pages": [
+      "global/brand-update"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.zh-hant.BrandUpdate",
+    "initialValue": "資料僅保存於提供功能所需的期間。本人或未成年人的家長、法定代理人可寄信至 support@lumiq.studio，請求查詢、更正、停止使用或刪除資料；我們會在確認身分後依法處理。"
+  },
+  {
+    "path": "messages.zh-hant.BrandUpdate.languages",
+    "pages": [
+      "global/brand-update"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.zh-hant.BrandUpdate",
+    "initialValue": "語言：英文、繁體中文、日文，其他語言持續更新。"
+  },
+  {
+    "path": "messages.zh-hant.BrandUpdate.offline",
+    "pages": [
+      "global/brand-update"
+    ],
+    "type": "object",
+    "maxLength": null,
+    "icuSignature": null,
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": false,
+    "owner": "snapshot",
+    "optionalGroup": "messages.zh-hant.BrandUpdate"
+  },
+  {
+    "path": "messages.zh-hant.BrandUpdate.offline.tablet",
+    "pages": [
+      "global/brand-update"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.zh-hant.BrandUpdate",
+    "initialValue": "已下載書籍可離線閱讀"
+  },
+  {
+    "path": "messages.zh-hant.BrandUpdate.offline.ola",
+    "pages": [
+      "global/brand-update"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.zh-hant.BrandUpdate",
+    "initialValue": "保持連線狀態享受最多功能"
+  },
+  {
+    "path": "messages.zh-hant.BrandUpdate.offline.ola-go",
+    "pages": [
+      "global/brand-update"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.zh-hant.BrandUpdate",
+    "initialValue": "外出離線時仍可錄音、與角色互動對話、提醒事項通知、步數記錄。"
+  },
+  {
+    "path": "messages.zh-hant.BrandUpdate.usageTitle",
+    "pages": [
+      "global/brand-update"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.zh-hant.BrandUpdate",
+    "initialValue": "語言與離線使用"
+  },
+  {
+    "path": "messages.zh-hant.BrandUpdate.trial",
+    "pages": [
+      "global/brand-update"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.zh-hant.BrandUpdate",
+    "initialValue": "當用戶創建帳號且開通設備後開始計算試用期。訂閱方案後始開始按月/按年付款，若用戶取消訂閱，則不會繼續自動扣款。"
+  },
+  {
+    "path": "messages.zh-hant.BrandUpdate.previous",
+    "pages": [
+      "global/brand-update"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.zh-hant.BrandUpdate",
+    "initialValue": "上一個"
+  },
+  {
+    "path": "messages.zh-hant.BrandUpdate.next",
+    "pages": [
+      "global/brand-update"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.zh-hant.BrandUpdate",
+    "initialValue": "下一個"
+  },
+  {
+    "path": "messages.zh-hant.BrandUpdate.screens",
+    "pages": [
+      "global/brand-update"
+    ],
+    "type": "object",
+    "maxLength": null,
+    "icuSignature": null,
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": false,
+    "owner": "snapshot",
+    "optionalGroup": "messages.zh-hant.BrandUpdate"
+  },
+  {
+    "path": "messages.zh-hant.BrandUpdate.screens.cook",
+    "pages": [
+      "global/brand-update"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.zh-hant.BrandUpdate",
+    "initialValue": "食譜首頁"
+  },
+  {
+    "path": "messages.zh-hant.BrandUpdate.screens.recipe",
+    "pages": [
+      "global/brand-update"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.zh-hant.BrandUpdate",
+    "initialValue": "料理步驟"
+  },
+  {
+    "path": "messages.zh-hant.BrandUpdate.screens.calendar",
+    "pages": [
+      "global/brand-update"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.zh-hant.BrandUpdate",
+    "initialValue": "家庭日曆"
+  },
+  {
+    "path": "messages.zh-hant.BrandUpdate.screens.tasks",
+    "pages": [
+      "global/brand-update"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.zh-hant.BrandUpdate",
+    "initialValue": "家務與積分"
+  },
+  {
+    "path": "messages.zh-hant.BrandUpdate.screens.rewards",
+    "pages": [
+      "global/brand-update"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.zh-hant.BrandUpdate",
+    "initialValue": "獎勵目標"
+  },
+  {
+    "path": "messages.zh-hant.BrandUpdate.screens.gallery",
+    "pages": [
+      "global/brand-update"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.zh-hant.BrandUpdate",
+    "initialValue": "家庭相框"
+  },
+  {
+    "path": "messages.ja.BrandUpdate",
+    "pages": [
+      "global/brand-update"
+    ],
+    "type": "object",
+    "maxLength": null,
+    "icuSignature": null,
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": false,
+    "owner": "snapshot",
+    "optionalGroup": "messages.ja.BrandUpdate"
+  },
+  {
+    "path": "messages.ja.BrandUpdate.privacy",
+    "pages": [
+      "global/brand-update"
+    ],
+    "type": "object",
+    "maxLength": null,
+    "icuSignature": null,
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": false,
+    "owner": "snapshot",
+    "optionalGroup": "messages.ja.BrandUpdate"
+  },
+  {
+    "path": "messages.ja.BrandUpdate.privacy.title",
+    "pages": [
+      "global/brand-update"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.ja.BrandUpdate",
+    "initialValue": "写真、音声および家族のデータ"
+  },
+  {
+    "path": "messages.ja.BrandUpdate.privacy.p1",
+    "pages": [
+      "global/brand-update"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.ja.BrandUpdate",
+    "initialValue": "パーソナライズされた物語などの機能を利用する際、ご自身、お子様、その他のご家族の写真や音声をアップロードする場合があります。これらのデータは、選択した機能の提供に必要な範囲でのみ処理し、別途同意を得ずに公開したり広告に使用したりすることはありません。アップロード前に、写真や録音に含まれる他の方の同意を得ていることをご確認ください。未成年者については、保護者または法定代理人の同意が必要です。"
+  },
+  {
+    "path": "messages.ja.BrandUpdate.privacy.p2",
+    "pages": [
+      "global/brand-update"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.ja.BrandUpdate",
+    "initialValue": "データは機能の提供に必要な期間のみ保存します。ご本人、または未成年者の保護者・法定代理人は、support@lumiq.studio へメールでデータの照会、訂正、利用停止、削除を依頼できます。本人確認後、法令に従い対応します。"
+  },
+  {
+    "path": "messages.ja.BrandUpdate.languages",
+    "pages": [
+      "global/brand-update"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.ja.BrandUpdate",
+    "initialValue": "言語：英語、繁体字中国語、日本語。その他の言語も順次追加しています。"
+  },
+  {
+    "path": "messages.ja.BrandUpdate.offline",
+    "pages": [
+      "global/brand-update"
+    ],
+    "type": "object",
+    "maxLength": null,
+    "icuSignature": null,
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": false,
+    "owner": "snapshot",
+    "optionalGroup": "messages.ja.BrandUpdate"
+  },
+  {
+    "path": "messages.ja.BrandUpdate.offline.tablet",
+    "pages": [
+      "global/brand-update"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.ja.BrandUpdate",
+    "initialValue": "ダウンロード済みの本はオフラインで読めます。"
+  },
+  {
+    "path": "messages.ja.BrandUpdate.offline.ola",
+    "pages": [
+      "global/brand-update"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.ja.BrandUpdate",
+    "initialValue": "より多くの機能を楽しむには、接続状態を保ってください。"
+  },
+  {
+    "path": "messages.ja.BrandUpdate.offline.ola-go",
+    "pages": [
+      "global/brand-update"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.ja.BrandUpdate",
+    "initialValue": "外出先でオフラインでも、録音、キャラクターとの対話、リマインダー通知、歩数記録を利用できます。"
+  },
+  {
+    "path": "messages.ja.BrandUpdate.usageTitle",
+    "pages": [
+      "global/brand-update"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.ja.BrandUpdate",
+    "initialValue": "言語とオフライン利用"
+  },
+  {
+    "path": "messages.ja.BrandUpdate.trial",
+    "pages": [
+      "global/brand-update"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.ja.BrandUpdate",
+    "initialValue": "アカウントを作成し、デバイスを有効化した時点から試用期間が始まります。プランへの加入後に月払い／年払いが始まります。サブスクリプションを解約した場合、自動課金は継続されません。"
+  },
+  {
+    "path": "messages.ja.BrandUpdate.previous",
+    "pages": [
+      "global/brand-update"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.ja.BrandUpdate",
+    "initialValue": "前へ"
+  },
+  {
+    "path": "messages.ja.BrandUpdate.next",
+    "pages": [
+      "global/brand-update"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.ja.BrandUpdate",
+    "initialValue": "次へ"
+  },
+  {
+    "path": "messages.ja.BrandUpdate.screens",
+    "pages": [
+      "global/brand-update"
+    ],
+    "type": "object",
+    "maxLength": null,
+    "icuSignature": null,
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": false,
+    "owner": "snapshot",
+    "optionalGroup": "messages.ja.BrandUpdate"
+  },
+  {
+    "path": "messages.ja.BrandUpdate.screens.cook",
+    "pages": [
+      "global/brand-update"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.ja.BrandUpdate",
+    "initialValue": "レシピのホーム"
+  },
+  {
+    "path": "messages.ja.BrandUpdate.screens.recipe",
+    "pages": [
+      "global/brand-update"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.ja.BrandUpdate",
+    "initialValue": "料理の手順"
+  },
+  {
+    "path": "messages.ja.BrandUpdate.screens.calendar",
+    "pages": [
+      "global/brand-update"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.ja.BrandUpdate",
+    "initialValue": "家族のカレンダー"
+  },
+  {
+    "path": "messages.ja.BrandUpdate.screens.tasks",
+    "pages": [
+      "global/brand-update"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.ja.BrandUpdate",
+    "initialValue": "家事とポイント"
+  },
+  {
+    "path": "messages.ja.BrandUpdate.screens.rewards",
+    "pages": [
+      "global/brand-update"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.ja.BrandUpdate",
+    "initialValue": "ごほうびの目標"
+  },
+  {
+    "path": "messages.ja.BrandUpdate.screens.gallery",
+    "pages": [
+      "global/brand-update"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.ja.BrandUpdate",
+    "initialValue": "家族のフォトフレーム"
+  },
+  {
+    "path": "media.asset_dc26b27fe3117728",
+    "pages": [
+      "/products/nest"
+    ],
+    "type": "object",
+    "maxLength": null,
+    "icuSignature": null,
+    "mediaPurpose": "image",
+    "adminOnly": false,
+    "editable": false,
+    "owner": "snapshot",
+    "optionalGroup": "media.asset_dc26b27fe3117728"
+  },
+  {
+    "path": "media.asset_dc26b27fe3117728.assetId",
+    "pages": [
+      "/products/nest"
+    ],
+    "type": "assetId",
+    "maxLength": null,
+    "icuSignature": null,
+    "mediaPurpose": "image",
+    "adminOnly": false,
+    "editable": false,
+    "owner": "snapshot",
+    "optionalGroup": "media.asset_dc26b27fe3117728"
+  },
+  {
+    "path": "media.asset_dc26b27fe3117728.url",
+    "pages": [
+      "/products/nest"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": null,
+    "mediaPurpose": "image",
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "media.asset_dc26b27fe3117728",
+    "initialValue": "/assets/orb-ui-20261102/cook.webp"
+  },
+  {
+    "path": "media.asset_dc26b27fe3117728.alt",
+    "pages": [
+      "/products/nest"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": null,
+    "mediaPurpose": "image",
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "media.asset_dc26b27fe3117728",
+    "initialValue": "LumiqOrb cook"
+  },
+  {
+    "path": "media.asset_dc26b27fe3117728.kind",
+    "pages": [
+      "/products/nest"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": null,
+    "mediaPurpose": "image",
+    "adminOnly": false,
+    "editable": false,
+    "owner": "snapshot",
+    "optionalGroup": "media.asset_dc26b27fe3117728",
+    "fixedValue": "image"
+  },
+  {
+    "path": "media.asset_dc26b27fe3117728.profile",
+    "pages": [
+      "/products/nest"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": null,
+    "mediaPurpose": "image",
+    "adminOnly": false,
+    "editable": false,
+    "owner": "snapshot",
+    "optionalGroup": "media.asset_dc26b27fe3117728",
+    "fixedValue": "asset_dc26b27fe3117728"
+  },
+  {
+    "path": "media.asset_f7e2ba338d31371b",
+    "pages": [
+      "/products/nest"
+    ],
+    "type": "object",
+    "maxLength": null,
+    "icuSignature": null,
+    "mediaPurpose": "image",
+    "adminOnly": false,
+    "editable": false,
+    "owner": "snapshot",
+    "optionalGroup": "media.asset_f7e2ba338d31371b"
+  },
+  {
+    "path": "media.asset_f7e2ba338d31371b.assetId",
+    "pages": [
+      "/products/nest"
+    ],
+    "type": "assetId",
+    "maxLength": null,
+    "icuSignature": null,
+    "mediaPurpose": "image",
+    "adminOnly": false,
+    "editable": false,
+    "owner": "snapshot",
+    "optionalGroup": "media.asset_f7e2ba338d31371b"
+  },
+  {
+    "path": "media.asset_f7e2ba338d31371b.url",
+    "pages": [
+      "/products/nest"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": null,
+    "mediaPurpose": "image",
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "media.asset_f7e2ba338d31371b",
+    "initialValue": "/assets/orb-ui-20261102/recipe.webp"
+  },
+  {
+    "path": "media.asset_f7e2ba338d31371b.alt",
+    "pages": [
+      "/products/nest"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": null,
+    "mediaPurpose": "image",
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "media.asset_f7e2ba338d31371b",
+    "initialValue": "LumiqOrb recipe"
+  },
+  {
+    "path": "media.asset_f7e2ba338d31371b.kind",
+    "pages": [
+      "/products/nest"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": null,
+    "mediaPurpose": "image",
+    "adminOnly": false,
+    "editable": false,
+    "owner": "snapshot",
+    "optionalGroup": "media.asset_f7e2ba338d31371b",
+    "fixedValue": "image"
+  },
+  {
+    "path": "media.asset_f7e2ba338d31371b.profile",
+    "pages": [
+      "/products/nest"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": null,
+    "mediaPurpose": "image",
+    "adminOnly": false,
+    "editable": false,
+    "owner": "snapshot",
+    "optionalGroup": "media.asset_f7e2ba338d31371b",
+    "fixedValue": "asset_f7e2ba338d31371b"
+  },
+  {
+    "path": "media.asset_9ccabb9a31b94ad2",
+    "pages": [
+      "/products/nest"
+    ],
+    "type": "object",
+    "maxLength": null,
+    "icuSignature": null,
+    "mediaPurpose": "image",
+    "adminOnly": false,
+    "editable": false,
+    "owner": "snapshot",
+    "optionalGroup": "media.asset_9ccabb9a31b94ad2"
+  },
+  {
+    "path": "media.asset_9ccabb9a31b94ad2.assetId",
+    "pages": [
+      "/products/nest"
+    ],
+    "type": "assetId",
+    "maxLength": null,
+    "icuSignature": null,
+    "mediaPurpose": "image",
+    "adminOnly": false,
+    "editable": false,
+    "owner": "snapshot",
+    "optionalGroup": "media.asset_9ccabb9a31b94ad2"
+  },
+  {
+    "path": "media.asset_9ccabb9a31b94ad2.url",
+    "pages": [
+      "/products/nest"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": null,
+    "mediaPurpose": "image",
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "media.asset_9ccabb9a31b94ad2",
+    "initialValue": "/assets/orb-ui-20261102/calendar.webp"
+  },
+  {
+    "path": "media.asset_9ccabb9a31b94ad2.alt",
+    "pages": [
+      "/products/nest"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": null,
+    "mediaPurpose": "image",
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "media.asset_9ccabb9a31b94ad2",
+    "initialValue": "LumiqOrb calendar"
+  },
+  {
+    "path": "media.asset_9ccabb9a31b94ad2.kind",
+    "pages": [
+      "/products/nest"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": null,
+    "mediaPurpose": "image",
+    "adminOnly": false,
+    "editable": false,
+    "owner": "snapshot",
+    "optionalGroup": "media.asset_9ccabb9a31b94ad2",
+    "fixedValue": "image"
+  },
+  {
+    "path": "media.asset_9ccabb9a31b94ad2.profile",
+    "pages": [
+      "/products/nest"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": null,
+    "mediaPurpose": "image",
+    "adminOnly": false,
+    "editable": false,
+    "owner": "snapshot",
+    "optionalGroup": "media.asset_9ccabb9a31b94ad2",
+    "fixedValue": "asset_9ccabb9a31b94ad2"
+  },
+  {
+    "path": "media.asset_a9189b139b2ce05e",
+    "pages": [
+      "/products/nest"
+    ],
+    "type": "object",
+    "maxLength": null,
+    "icuSignature": null,
+    "mediaPurpose": "image",
+    "adminOnly": false,
+    "editable": false,
+    "owner": "snapshot",
+    "optionalGroup": "media.asset_a9189b139b2ce05e"
+  },
+  {
+    "path": "media.asset_a9189b139b2ce05e.assetId",
+    "pages": [
+      "/products/nest"
+    ],
+    "type": "assetId",
+    "maxLength": null,
+    "icuSignature": null,
+    "mediaPurpose": "image",
+    "adminOnly": false,
+    "editable": false,
+    "owner": "snapshot",
+    "optionalGroup": "media.asset_a9189b139b2ce05e"
+  },
+  {
+    "path": "media.asset_a9189b139b2ce05e.url",
+    "pages": [
+      "/products/nest"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": null,
+    "mediaPurpose": "image",
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "media.asset_a9189b139b2ce05e",
+    "initialValue": "/assets/orb-ui-20261102/tasks.webp"
+  },
+  {
+    "path": "media.asset_a9189b139b2ce05e.alt",
+    "pages": [
+      "/products/nest"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": null,
+    "mediaPurpose": "image",
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "media.asset_a9189b139b2ce05e",
+    "initialValue": "LumiqOrb tasks"
+  },
+  {
+    "path": "media.asset_a9189b139b2ce05e.kind",
+    "pages": [
+      "/products/nest"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": null,
+    "mediaPurpose": "image",
+    "adminOnly": false,
+    "editable": false,
+    "owner": "snapshot",
+    "optionalGroup": "media.asset_a9189b139b2ce05e",
+    "fixedValue": "image"
+  },
+  {
+    "path": "media.asset_a9189b139b2ce05e.profile",
+    "pages": [
+      "/products/nest"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": null,
+    "mediaPurpose": "image",
+    "adminOnly": false,
+    "editable": false,
+    "owner": "snapshot",
+    "optionalGroup": "media.asset_a9189b139b2ce05e",
+    "fixedValue": "asset_a9189b139b2ce05e"
+  },
+  {
+    "path": "media.asset_3dbef3e285441f46",
+    "pages": [
+      "/products/nest"
+    ],
+    "type": "object",
+    "maxLength": null,
+    "icuSignature": null,
+    "mediaPurpose": "image",
+    "adminOnly": false,
+    "editable": false,
+    "owner": "snapshot",
+    "optionalGroup": "media.asset_3dbef3e285441f46"
+  },
+  {
+    "path": "media.asset_3dbef3e285441f46.assetId",
+    "pages": [
+      "/products/nest"
+    ],
+    "type": "assetId",
+    "maxLength": null,
+    "icuSignature": null,
+    "mediaPurpose": "image",
+    "adminOnly": false,
+    "editable": false,
+    "owner": "snapshot",
+    "optionalGroup": "media.asset_3dbef3e285441f46"
+  },
+  {
+    "path": "media.asset_3dbef3e285441f46.url",
+    "pages": [
+      "/products/nest"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": null,
+    "mediaPurpose": "image",
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "media.asset_3dbef3e285441f46",
+    "initialValue": "/assets/orb-ui-20261102/rewards.webp"
+  },
+  {
+    "path": "media.asset_3dbef3e285441f46.alt",
+    "pages": [
+      "/products/nest"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": null,
+    "mediaPurpose": "image",
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "media.asset_3dbef3e285441f46",
+    "initialValue": "LumiqOrb rewards"
+  },
+  {
+    "path": "media.asset_3dbef3e285441f46.kind",
+    "pages": [
+      "/products/nest"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": null,
+    "mediaPurpose": "image",
+    "adminOnly": false,
+    "editable": false,
+    "owner": "snapshot",
+    "optionalGroup": "media.asset_3dbef3e285441f46",
+    "fixedValue": "image"
+  },
+  {
+    "path": "media.asset_3dbef3e285441f46.profile",
+    "pages": [
+      "/products/nest"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": null,
+    "mediaPurpose": "image",
+    "adminOnly": false,
+    "editable": false,
+    "owner": "snapshot",
+    "optionalGroup": "media.asset_3dbef3e285441f46",
+    "fixedValue": "asset_3dbef3e285441f46"
+  },
+  {
+    "path": "media.asset_dd25b70a62c78f12",
+    "pages": [
+      "/products/nest"
+    ],
+    "type": "object",
+    "maxLength": null,
+    "icuSignature": null,
+    "mediaPurpose": "image",
+    "adminOnly": false,
+    "editable": false,
+    "owner": "snapshot",
+    "optionalGroup": "media.asset_dd25b70a62c78f12"
+  },
+  {
+    "path": "media.asset_dd25b70a62c78f12.assetId",
+    "pages": [
+      "/products/nest"
+    ],
+    "type": "assetId",
+    "maxLength": null,
+    "icuSignature": null,
+    "mediaPurpose": "image",
+    "adminOnly": false,
+    "editable": false,
+    "owner": "snapshot",
+    "optionalGroup": "media.asset_dd25b70a62c78f12"
+  },
+  {
+    "path": "media.asset_dd25b70a62c78f12.url",
+    "pages": [
+      "/products/nest"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": null,
+    "mediaPurpose": "image",
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "media.asset_dd25b70a62c78f12",
+    "initialValue": "/assets/orb-ui-20261102/gallery.webp"
+  },
+  {
+    "path": "media.asset_dd25b70a62c78f12.alt",
+    "pages": [
+      "/products/nest"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": null,
+    "mediaPurpose": "image",
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "media.asset_dd25b70a62c78f12",
+    "initialValue": "LumiqOrb gallery"
+  },
+  {
+    "path": "media.asset_dd25b70a62c78f12.kind",
+    "pages": [
+      "/products/nest"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": null,
+    "mediaPurpose": "image",
+    "adminOnly": false,
+    "editable": false,
+    "owner": "snapshot",
+    "optionalGroup": "media.asset_dd25b70a62c78f12",
+    "fixedValue": "image"
+  },
+  {
+    "path": "media.asset_dd25b70a62c78f12.profile",
+    "pages": [
+      "/products/nest"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": null,
+    "mediaPurpose": "image",
+    "adminOnly": false,
+    "editable": false,
+    "owner": "snapshot",
+    "optionalGroup": "media.asset_dd25b70a62c78f12",
+    "fixedValue": "asset_dd25b70a62c78f12"
   }
 ];
 export const brandContentPolicy: readonly ContentRule[] = brandContentFields;

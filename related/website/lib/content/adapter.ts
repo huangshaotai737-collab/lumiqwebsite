@@ -2,9 +2,10 @@ import type {CSSProperties} from 'react';
 import type {ContentSnapshot} from '@/lib/generated/platform/content';
 import type {Locale} from '@/i18n/routing';
 import slots from './media-map.json';
+import {brandMediaDefaults} from '@/lib/generated/platform/brand-media';
 import cssSlots from './css-slots.json';
 import {resolveMediaSlot} from './media';
-const byUrl:Record<string,string>=slots;
+const byUrl:Record<string,string>={...slots,...Object.fromEntries(Object.entries(brandMediaDefaults).map(([id,slot])=>[slot.url,id]))};
 export function previewMediaUrl(url:string,preview:boolean) {
   return preview ? url.replace(/^\/api\/media\//,'/api/content/preview-media/') : url;
 }

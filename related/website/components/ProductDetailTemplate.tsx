@@ -1,4 +1,6 @@
 "use client";
+import {useTranslations} from "next-intl";
+import BrandProductFacts from "@/components/BrandProductFacts";
 import {useContentAdapter} from "@/components/content/useContentAdapter";
 import {useCartCopy} from "@/components/content/useCartCopy";
 import {isProductId} from "@/lib/cart";
@@ -176,6 +178,9 @@ export default function ProductDetailTemplate({
 }: ProductDetailTemplateProps) {
   const cms = useContentAdapter();
   const copy = useCartCopy();
+  const prices = useTranslations("BrandPlans");
+  const vip = slug === "tablet" || slug === "ola" ? prices(`hardware.${slug}Vip`) : null;
+  if (vip) priceQualifier=prices("hardware.msrp");
   if (isProductId(slug)) {
     const product = cms.snapshot.products[slug];
     productName = product.name;
@@ -212,7 +217,7 @@ export default function ProductDetailTemplate({
             {statusItems && (
               <ul className="pd-status-list" aria-label={productName}>
                 {statusItems.map((item) => (
-                  <li key={item.label}>
+                  <li key={item.detail}>
                     <span className="pd-status-label">{item.label}</span>
                     <span>{item.detail}</span>
                   </li>
@@ -225,6 +230,7 @@ export default function ProductDetailTemplate({
                 <p className={`pd-price${compactHeroPriceLabel ? " pd-price--compact" : ""}`}>
                   {priceQualifier && <span className="pd-price-qualifier">{priceQualifier}</span>}
                   {priceLabel}
+                  {vip && <span className="pd-vip-price">{prices("hardware.vip")} USD {vip}</span>}
                 </p>
                 <Link href="/prelaunch" className="pd-primary-action">
                   {ctaLabel}
@@ -233,6 +239,7 @@ export default function ProductDetailTemplate({
               <div className="pd-cart-action"><AddToCartButton productId={slug} /></div>
             </div>
             {heroOptions && <div className="pd-hero-options">{heroOptions}</div>}
+            {(slug === "tablet" || slug === "ola" || slug === "ola-go") && <BrandProductFacts product={slug} />}
           </div>
 
           <figure className="pd-hero-visual">
@@ -395,6 +402,7 @@ export default function ProductDetailTemplate({
             <p className="pd-price">
               {priceQualifier && <span className="pd-price-qualifier">{priceQualifier}</span>}
               {priceLabel}
+              {vip && <span className="pd-vip-price">{prices("hardware.vip")} USD {vip}</span>}
             </p>
             <Link href="/prelaunch" className="pd-primary-action">
               {ctaLabel}

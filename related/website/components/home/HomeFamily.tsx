@@ -1,4 +1,5 @@
 "use client";
+import {ArrowLeft,ArrowRight} from "lucide-react";
 import {useContentAdapter} from "@/components/content/useContentAdapter";
 import Image from "@/components/home/HomeImage";
 import { useCallback, useEffect, useRef, useState, type CSSProperties, type KeyboardEvent } from "react";
@@ -9,6 +10,7 @@ const moments = ["morning", "afternoon", "evening"] as const;
 export default function HomeFamily() {
   const cms = useContentAdapter();
   const t = useTranslations("HomeRefresh");
+  const update = useTranslations("BrandUpdate");
   const [active, setActive] = useState(0);
   const chapters = useRef<HTMLDivElement>(null);
   const stage = useRef<HTMLDivElement>(null);
@@ -151,6 +153,11 @@ export default function HomeFamily() {
           </div>
         );})}
       </div>
+      <nav className="lh-family-controls" aria-label={t("familyPanoramaAlt")}>
+        <button type="button" onClick={()=>advance(-1)} disabled={travel!==0} aria-label={update("previous")}><ArrowLeft size={22}/></button>
+        <span aria-live="polite" aria-atomic="true">{String(active+1).padStart(2,"0")} / 03</span>
+        <button type="button" onClick={()=>advance(1)} disabled={travel!==0} aria-label={update("next")}><ArrowRight size={22}/></button>
+      </nav>
     </div>
   );
 }

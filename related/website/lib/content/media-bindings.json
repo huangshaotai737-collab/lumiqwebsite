@@ -265,6 +265,12 @@
       {
         "kind": "Image",
         "property": "src",
+        "source": "{cms.url(`/assets/orb-ui-20261102/${name}.webp`)}",
+        "alt": "{update(`screens.${name}`)}"
+      },
+      {
+        "kind": "Image",
+        "property": "src",
         "source": "{selected.front}",
         "alt": "{t(\"finishes.alt\", { name: selected.name, productName })}"
       },

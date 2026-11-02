@@ -1,4 +1,5 @@
 "use client";
+import BrandPrivacy from "@/components/BrandPrivacy";
 import {useContentAdapter} from "@/components/content/useContentAdapter";
 
 import { useTranslations } from "next-intl";
@@ -23,7 +24,7 @@ export default function TabletPage() {
       title={brand("hero.title")}
       lede={brand("hero.body")}
       conceptNotice={t("conceptNotice")}
-      priceLabel="USD 399"
+      priceLabel="USD 599"
       ctaLabel={t("buy")}
       heroImage={{
         src: cms.url("/assets/tablet-detail/original-20260915/tablet-hero-original-transparent.png"),
@@ -84,8 +85,7 @@ export default function TabletPage() {
           <Link href="/faq#faq-question-11">{faq("q12")} <span aria-hidden="true">↗</span></Link>
         </nav>
         <aside className="tablet-data-note" aria-labelledby="tablet-data-title">
-          <h3 id="tablet-data-title">{brand('privacy.title')}</h3>
-          <p>{brand('privacy.body')}</p>
+          <BrandPrivacy />
           <Link href="/legal/privacy">{brand('privacy.link')}</Link>
         </aside>
         <TabletGrowthMap />

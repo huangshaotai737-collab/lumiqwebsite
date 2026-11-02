@@ -829,7 +829,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.en.Pal.conceptNotice",
     "before": "Concept product — safety, companion, reminder, connectivity and final hardware capabilities are pending brand confirmation.",
-    "after": "Features and launch timing will be announced before ordering opens."
+    "after": "Ordering is not open yet. Join the waitlist for launch updates."
   },
   {
     "path": "messages.en.Pal.deviceAlt",
@@ -844,7 +844,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.en.Pal.kidsBody",
     "before": "Designed to pair with Lumiq Tablet so stories can extend into the room.",
-    "after": "A familiar character could add a new voice to everyday moments at home. Character interaction is planned."
+    "after": "A familiar character adds a new voice to everyday moments at home."
   },
   {
     "path": "messages.en.Pal.lede",
@@ -1204,7 +1204,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.en.Tablet.conceptNotice",
     "before": "Offline use, parental controls and other AI features will have continuous OTA updates.",
-    "after": "Offline capabilities and future software updates will be confirmed before ordering opens."
+    "after": "Downloaded books can be read offline."
   },
   {
     "path": "messages.en.Tablet.deviceAlt",
@@ -1264,7 +1264,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.en.Tablet.spec3",
     "before": "No browser, no ads, offline reading",
-    "after": "No browser or ads. Offline capabilities will be confirmed before ordering opens."
+    "after": "No browser or advertising; downloaded books can be read offline."
   },
   {
     "path": "messages.en.Tablet.spec4",
@@ -2119,7 +2119,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.ja.Pal.conceptNotice",
     "before": "コンセプト製品——安全、見守り、リマインダー、通信、最終仕様はブランド確認待ちです。",
-    "after": "機能と発売時期は、注文受付前にご案内します。"
+    "after": "現在、注文受付は開始していません。発売情報はウェイトリストでお知らせします。"
   },
   {
     "path": "messages.ja.Pal.deviceAlt",
@@ -2134,7 +2134,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.ja.Pal.kidsBody",
     "before": "Lumiq Tablet と連携し、物語が画面を飛び出して部屋の中に広がります。",
-    "after": "親しみのあるキャラクターの声が、大人の日常に寄り添います。キャラクターとの対話は計画中です。"
+    "after": "親しみのあるキャラクターの声が、大人の日常に寄り添います。"
   },
   {
     "path": "messages.ja.Pal.lede",
@@ -2489,7 +2489,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.ja.Tablet.conceptNotice",
     "before": "オフライン利用、保護者向け管理機能、その他のAI機能はOTAで継続的に更新されます。",
-    "after": "オフライン機能と今後のソフトウェア更新については、注文受付前にご案内します。"
+    "after": "ダウンロード済みの本はオフラインで読めます。"
   },
   {
     "path": "messages.ja.Tablet.deviceAlt",
@@ -2544,7 +2544,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.ja.Tablet.spec3",
     "before": "ブラウザも広告もなく、オフライン読書に対応",
-    "after": "ブラウザーや広告はありません。オフライン機能は注文受付前にご案内します。"
+    "after": "ブラウザーも広告もなく、ダウンロード済みの本はオフラインで読めます。"
   },
   {
     "path": "messages.ja.Tablet.spec4",
@@ -3404,7 +3404,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.zh-hant.Pal.conceptNotice",
     "before": "概念產品——安全、陪伴、提醒、連線與最終硬體能力有待品牌確認。",
-    "after": "功能與上市時間將於開放訂購前公布。"
+    "after": "目前尚未開放訂購。加入候補名單以接收上市消息。"
   },
   {
     "path": "messages.zh-hant.Pal.deviceAlt",
@@ -3419,7 +3419,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.zh-hant.Pal.kidsBody",
     "before": "與 Lumiq Tablet 配對，讓故事走出螢幕、進入房間。",
-    "after": "讓熟悉的角色與語音互動，為成人的日常添一點陪伴。角色功能正在規劃。"
+    "after": "讓熟悉的角色與語音互動，為成人的日常添一點陪伴。"
   },
   {
     "path": "messages.zh-hant.Pal.lede",
@@ -3769,7 +3769,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.zh-hant.Tablet.conceptNotice",
     "before": "離線使用、家長控制與其他 AI 功能將持續透過 OTA 更新。",
-    "after": "離線功能與後續軟體更新安排，將於開放訂購前公布。"
+    "after": "已下載書籍可離線閱讀"
   },
   {
     "path": "messages.zh-hant.Tablet.deviceAlt",
@@ -3829,7 +3829,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.zh-hant.Tablet.spec3",
     "before": "沒有瀏覽器、沒有廣告，支援離線閱讀",
-    "after": "沒有瀏覽器與廣告；離線功能將於開放訂購前公布。"
+    "after": "沒有瀏覽器、沒有廣告；已下載書籍可離線閱讀。"
   },
   {
     "path": "messages.zh-hant.Tablet.spec4",
@@ -4014,7 +4014,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "products.ola.price.amount",
     "before": 599,
-    "after": 529
+    "after": 899
   },
   {
     "path": "products.ola.shortName",
@@ -4049,7 +4049,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "products.tablet.price.amount",
     "before": 399,
-    "after": 359
+    "after": 599
   },
   {
     "path": "products.tablet.shortName",
@@ -4209,7 +4209,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.en.Pal.strengthsIntro",
     "before": "Concept directions for a calm presence on the side table; final companion and care claims require confirmation.",
-    "after": "Reminders, family contact and nighttime companionship are planned. Availability will be announced before launch."
+    "after": "Reminders, family contact and nighttime companionship."
   },
   {
     "path": "messages.en.Pal.sb1",
@@ -4384,7 +4384,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.zh-hant.Pal.strengthsIntro",
     "before": "獻給我們所愛的成人與長者——邊桌上的安定陪伴，讓日常柔和一點、安全一點，不再孤單。",
-    "after": "提醒、家人聯絡與夜間陪伴等功能仍在規劃，提供時間將於上市前公布。"
+    "after": "提醒、家人聯絡與夜間陪伴。"
   },
   {
     "path": "messages.zh-hant.Pal.sb1",
@@ -4554,7 +4554,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.ja.Pal.strengthsIntro",
     "before": "大切な大人とシニアへ。サイドテーブルから穏やかに寄り添い、毎日を少しやさしく、安全に、孤独のないものにします。",
-    "after": "リマインダー、家族との連絡、夜間の寄り添いは計画中です。提供時期は発売前にご案内します。"
+    "after": "リマインダー、家族との連絡、夜間の寄り添い。"
   },
   {
     "path": "messages.ja.Pal.sb1",
@@ -4569,17 +4569,17 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.en.Pal.way1Pill",
     "before": "Voice First",
-    "after": "In development"
+    "after": "Available"
   },
   {
     "path": "messages.en.Pal.way2Pill",
     "before": "In Sync",
-    "after": "Planned"
+    "after": "Available"
   },
   {
     "path": "messages.en.Pal.way3Pill",
     "before": "Coming Soon",
-    "after": "Planned"
+    "after": "Available"
   },
   {
     "path": "messages.en.Pal.way3Title",
@@ -4599,17 +4599,17 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.zh-hant.Pal.way1Pill",
     "before": "語音優先",
-    "after": "開發中"
+    "after": "已完成"
   },
   {
     "path": "messages.zh-hant.Pal.way2Pill",
     "before": "同步互動",
-    "after": "規劃中"
+    "after": "已完成"
   },
   {
     "path": "messages.zh-hant.Pal.way3Pill",
     "before": "即將推出",
-    "after": "規劃中"
+    "after": "已完成"
   },
   {
     "path": "messages.zh-hant.Pal.way3Title",
@@ -4629,17 +4629,17 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.ja.Pal.way1Pill",
     "before": "声から始まる",
-    "after": "開発中"
+    "after": "利用可能"
   },
   {
     "path": "messages.ja.Pal.way2Pill",
     "before": "物語と同期",
-    "after": "計画中"
+    "after": "利用可能"
   },
   {
     "path": "messages.ja.Pal.way3Pill",
     "before": "近日公開",
-    "after": "計画中"
+    "after": "利用可能"
   },
   {
     "path": "messages.ja.Pal.way3Title",
@@ -4820,5 +4820,25 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
     "path": "messages.ja.HomeRefresh.rhythms.care.alt",
     "before": "くまのぬいぐるみを抱いた子どもと母親が絵本を読む",
     "after": "自宅で LumiqOla と過ごすシニア"
+  },
+  {
+    "path": "settings.supportEmail",
+    "before": "support@lumiqstudio.com",
+    "after": "support@lumiq.studio"
+  },
+  {
+    "path": "messages.zh-hant.CmsStatic.field_23cd241d015790f4",
+    "before": "hello@lumiqstudio.com",
+    "after": "support@lumiq.studio"
+  },
+  {
+    "path": "messages.en.CmsStatic.field_23cd241d015790f4",
+    "before": "hello@lumiqstudio.com",
+    "after": "support@lumiq.studio"
+  },
+  {
+    "path": "messages.ja.CmsStatic.field_23cd241d015790f4",
+    "before": "hello@lumiqstudio.com",
+    "after": "support@lumiq.studio"
   }
 ];
