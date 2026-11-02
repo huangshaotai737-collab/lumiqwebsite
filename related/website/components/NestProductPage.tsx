@@ -81,52 +81,59 @@ export default function NestProductPage() {
         </div>
       </section>
 
-      <section className="orb-overview orb-floor" aria-labelledby="orb-overview-title">
-        <div className="pd-shell orb-detail-layout">
-          <header className="orb-section-heading">
+      <section className="orb-overview orb-floor pd-unified-section" aria-labelledby="orb-overview-title">
+        <div className="pd-shell">
+          <header className="orb-section-heading pd-section-heading is-center">
             <p className="orb-eyebrow">{t("overview.eyebrow")}</p>
             <Heading as="h2" id="orb-overview-title">{t("overview.title")}</Heading>
             <p>{t("overview.body")}</p>
           </header>
-          <nav className="orb-overview-grid" aria-label={t("overview.navigation")}>
-            {featureSections.map((feature, index) => (
-              <a className="orb-overview-card" key={feature.key} href={`#${feature.id}`}>
-                <span className="orb-overview-step" aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
-                <p className="orb-card-label">{t(`${feature.key}.label`)}</p>
-                <Heading as="h3">{t(`${feature.key}.cardTitle`)}</Heading>
-                <p className="orb-card-body">{t(`${feature.key}.cardBody`)}</p>
-                <span className="orb-card-arrow" aria-hidden="true">↗</span>
-              </a>
-            ))}
-          </nav>
+          <div className="pd-unified-layout">
+            <nav className="orb-overview-grid" aria-label={t("overview.navigation")}>
+              {featureSections.map((feature, index) => (
+                <a className="orb-overview-card" key={feature.key} href={`#${feature.id}`}>
+                  <span className="orb-overview-step" aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
+                  <p className="orb-card-label">{t(`${feature.key}.label`)}</p>
+                  <Heading as="h3">{t(`${feature.key}.cardTitle`)}</Heading>
+                  <p className="orb-card-body">{t(`${feature.key}.cardBody`)}</p>
+                  <span className="orb-card-arrow" aria-hidden="true">↗</span>
+                </a>
+              ))}
+            </nav>
+            <figure className="pd-unified-visual">
+              <Image src={selected.front} alt={t("finishes.alt", { name: selected.name, productName })} width={1600} height={1200} sizes="(max-width: 900px) 100vw, 46vw" />
+            </figure>
+          </div>
         </div>
       </section>
 
       {featureSections.map((feature, sectionIndex) => (
-        <section className={`orb-detail orb-floor orb-detail--${feature.key}`} id={feature.id} key={feature.key} aria-labelledby={`${feature.id}-title`} tabIndex={-1}>
-          <div className="pd-shell orb-detail-layout">
-            <header className="orb-section-heading">
+        <section className={`orb-detail orb-floor pd-unified-section orb-detail--${feature.key}`} id={feature.id} key={feature.key} aria-labelledby={`${feature.id}-title`} tabIndex={-1}>
+          <div className="pd-shell">
+            <header className="orb-section-heading pd-section-heading is-center">
               <span className="orb-section-number" aria-hidden="true">{String(sectionIndex + 1).padStart(2, "0")}</span>
               <p className="orb-eyebrow">{t(`${feature.key}.label`)}</p>
               <Heading as="h2" id={`${feature.id}-title`}>{t(`${feature.key}.title`)}</Heading>
               <p>{t(`${feature.key}.body`)}</p>
             </header>
-            <div className={`orb-detail-grid${feature.details.length === 3 ? " orb-detail-grid--three" : ""}`}>
-              {feature.details.map((number) => (
-                <article className="orb-detail-card" key={number}>
-                  <span className="orb-detail-step" aria-hidden="true"><FeatureIcon feature={feature.key} /><span>{String(number).padStart(2, "0")}</span></span>
-                  <Heading as="h3">{t(`${feature.key}.detail${number}Title`)}</Heading>
-                  {feature.key === "photos" && number === 3 && <p className="orb-planned-label">{t("plannedFeature")}</p>}
-                  <p className="orb-detail-body">{t(`${feature.key}.detail${number}Body`)}</p>
-                </article>
-              ))}
+            <div className="orb-detail-layout pd-unified-layout">
+              <div className={`orb-detail-grid${feature.details.length === 3 ? " orb-detail-grid--three" : ""}`}>
+                {feature.details.map((number) => (
+                  <article className="orb-detail-card" key={number}>
+                    <span className="orb-detail-step" aria-hidden="true"><FeatureIcon feature={feature.key} /><span>{String(number).padStart(2, "0")}</span></span>
+                    <Heading as="h3">{t(`${feature.key}.detail${number}Title`)}</Heading>
+                    {feature.key === "photos" && number === 3 && <p className="orb-planned-label">{t("plannedFeature")}</p>}
+                    <p className="orb-detail-body">{t(`${feature.key}.detail${number}Body`)}</p>
+                  </article>
+                ))}
+              </div>
+              <div className="orb-ui-gallery pd-unified-visual">
+                {screenshots[feature.key].map(name => <figure key={name}>
+                  <Image src={cms.url(`/assets/orb-ui-20261102/${name}.webp`)} alt={update(`screens.${name}`)} width={1920} height={1080} sizes="(max-width: 900px) 100vw, 46vw" unoptimized />
+                  <figcaption>{update(`screens.${name}`)}</figcaption>
+                </figure>)}
+              </div>
             </div>
-          </div>
-          <div className="pd-shell orb-ui-gallery">
-            {screenshots[feature.key].map(name => <figure key={name}>
-              <Image src={cms.url(`/assets/orb-ui-20261102/${name}.webp`)} alt={update(`screens.${name}`)} width={1920} height={1080} sizes="(max-width: 800px) 100vw, 80vw" unoptimized />
-              <figcaption>{update(`screens.${name}`)}</figcaption>
-            </figure>)}
           </div>
         </section>
       ))}

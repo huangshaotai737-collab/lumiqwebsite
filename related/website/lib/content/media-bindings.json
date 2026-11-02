@@ -265,6 +265,12 @@
       {
         "kind": "Image",
         "property": "src",
+        "source": "{selected.front}",
+        "alt": "{t(\"finishes.alt\", { name: selected.name, productName })}"
+      },
+      {
+        "kind": "Image",
+        "property": "src",
         "source": "{cms.url(`/assets/orb-ui-20261102/${name}.webp`)}",
         "alt": "{update(`screens.${name}`)}"
       },
@@ -298,7 +304,7 @@
     "occurrences": {
       "cms.url(\"/assets/ola-go-detail/generated/ola-go-weather-walk-v2.png\")": 1,
       "cms.url(\"/assets/ola-go-detail/original-20260915/ola-go-three-quarter.png\")": 1,
-      "cms.url(\"/assets/products/lumiq-ola-go.png\")": 2,
+      "cms.url(\"/assets/products/lumiq-ola-go.png\")": 3,
       "cms.url(\"/assets/western-scenes-20260908/ola-go-bedside-journal-v3.webp\")": 1,
       "cms.url(\"/assets/western-scenes-20260908/ola-go-return-home-v3.webp\")": 1,
       "cms.url(\"/assets/western-scenes-20260908/ola-go-schoolbag-v2.webp\")": 1
@@ -327,6 +333,12 @@
         "property": "src",
         "source": "cms.url(\"/assets/ola-go-detail/original-20260915/ola-go-three-quarter.png\")",
         "alt": "t(\"alt\")"
+      },
+      {
+        "kind": "Image",
+        "property": "src",
+        "source": "{cms.url(\"/assets/products/lumiq-ola-go.png\")}",
+        "alt": "{t(\"alt\")}"
       },
       {
         "kind": "object",

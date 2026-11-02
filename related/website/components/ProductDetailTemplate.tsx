@@ -252,38 +252,41 @@ export default function ProductDetailTemplate({
         </div>
       </section>
 
-      <section className="pd-floor pd-story-floor">
-        <div className="pd-shell pd-story-grid">
-          <figure className="pd-story-visual">
-            <ProductImage
-              visual={story.image}
-              sizes="(max-width: 900px) 100vw, 58vw"
-            />
-          </figure>
-          <div className="pd-story-copy">
-            <SectionHeading
-              eyebrow={story.eyebrow}
-              title={story.title}
-              intro={story.body}
-            />
-            {story.bullets && (
-              <ul className="pd-bullet-list">
-                {story.bullets.map((item) => (
-                  <li key={item}>{item}</li>
-                ))}
-              </ul>
-            )}
-            {story.noteTitle && (
-              <aside className="pd-story-note">
-                <Heading as="h3">{story.noteTitle}</Heading>
-                {story.noteBody && <p>{story.noteBody}</p>}
-              </aside>
-            )}
+      <section className="pd-floor pd-story-floor pd-unified-section">
+        <div className="pd-shell">
+          <SectionHeading
+            eyebrow={story.eyebrow}
+            title={story.title}
+            align="center"
+          />
+          <div className="pd-story-grid pd-unified-layout">
+            <div className="pd-story-copy pd-unified-copy">
+              <p className="pd-section-intro">{story.body}</p>
+              {story.bullets && (
+                <ul className="pd-bullet-list">
+                  {story.bullets.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
+              )}
+              {story.noteTitle && (
+                <aside className="pd-story-note">
+                  <Heading as="h3">{story.noteTitle}</Heading>
+                  {story.noteBody && <p>{story.noteBody}</p>}
+                </aside>
+              )}
+            </div>
+            <figure className="pd-story-visual pd-unified-visual">
+              <ProductImage
+                visual={story.image}
+                sizes="(max-width: 900px) 100vw, 46vw"
+              />
+            </figure>
           </div>
         </div>
       </section>
 
-      <section className="pd-floor pd-scenes-floor">
+      <section className="pd-floor pd-scenes-floor pd-unified-section">
         <div className="pd-shell">
           <SectionHeading
             eyebrow={scenesEyebrow}
@@ -292,18 +295,14 @@ export default function ProductDetailTemplate({
           />
           <div className={`pd-scene-grid is-${Math.min(scenes.length, 3)}`}>
             {scenes.map((scene) => (
-              <article className="pd-scene" key={scene.title}>
-                <figure>
+              <article className="pd-scene pd-unified-layout" key={scene.title}>
+                <figure className="pd-unified-visual">
                   <ProductImage
                     visual={scene.image}
-                    sizes={
-                      scenes.length > 2
-                        ? "(max-width: 900px) 100vw, 33vw"
-                        : "(max-width: 900px) 100vw, 50vw"
-                    }
+                    sizes="(max-width: 900px) 100vw, 46vw"
                   />
                 </figure>
-                <div className="pd-scene-copy">
+                <div className="pd-scene-copy pd-unified-copy">
                   {scene.eyebrow && (
                     <p className="pd-row-eyebrow">{scene.eyebrow}</p>
                   )}
@@ -323,7 +322,7 @@ export default function ProductDetailTemplate({
         </div>
       </section>
 
-      <section className="pd-floor pd-feature-floor">
+      <section className="pd-floor pd-feature-floor pd-unified-section">
         <div className="pd-shell">
           <SectionHeading
             eyebrow={features.eyebrow}
@@ -331,10 +330,10 @@ export default function ProductDetailTemplate({
             intro={features.intro}
             align="center"
           />
-          <div className={`pd-feature-layout${features.image ? " has-image" : ""}`}>
+          <div className={`pd-feature-layout pd-unified-layout${features.image ? " has-image" : ""}`}>
             <IndexRows items={features.items} />
             {features.image && (
-              <figure className="pd-feature-visual">
+              <figure className="pd-feature-visual pd-unified-visual">
                 <ProductImage
                   visual={features.image}
                   sizes="(max-width: 900px) 100vw, 42vw"
@@ -347,45 +346,49 @@ export default function ProductDetailTemplate({
 
       {afterFeatures}
 
-      {!hideDarkSection && <section className="pd-floor pd-dark-floor">
-        <div className="pd-shell pd-dark-layout">
-          <div className="pd-dark-copy">
-            <SectionHeading
-              eyebrow={darkSection.eyebrow}
-              title={darkSection.title}
-              intro={darkSection.intro}
-            />
-            <IndexRows items={darkSection.items} />
+      {!hideDarkSection && <section className="pd-floor pd-dark-floor pd-unified-section">
+        <div className="pd-shell">
+          <SectionHeading
+            eyebrow={darkSection.eyebrow}
+            title={darkSection.title}
+            intro={darkSection.intro}
+            align="center"
+          />
+          <div className="pd-dark-layout pd-unified-layout">
+            <div className="pd-dark-copy pd-unified-copy">
+              <IndexRows items={darkSection.items} />
+            </div>
+            {darkSection.image && (
+              <figure className="pd-dark-visual pd-unified-visual">
+                <ProductImage
+                  visual={darkSection.image}
+                  sizes="(max-width: 900px) 100vw, 45vw"
+                />
+              </figure>
+            )}
           </div>
-          {darkSection.image && (
-            <figure className="pd-dark-visual">
-              <ProductImage
-                visual={darkSection.image}
-                sizes="(max-width: 900px) 100vw, 45vw"
-              />
-            </figure>
-          )}
         </div>
       </section>}
 
       {extraSection && (
-        <section className="pd-floor pd-extra-floor">
+        <section className="pd-floor pd-extra-floor pd-unified-section">
           <div className="pd-shell">
             <SectionHeading
               eyebrow={extraSection.eyebrow}
               title={extraSection.title}
               intro={extraSection.intro}
+              align="center"
             />
-            <div className={`pd-extra-layout${extraSection.image ? " has-image" : ""}`}>
+            <div className={`pd-extra-layout pd-unified-layout${extraSection.image ? " has-image" : ""}`}>
+              <IndexRows items={extraSection.items} />
               {extraSection.image && (
-                <figure className="pd-extra-visual">
+                <figure className="pd-extra-visual pd-unified-visual">
                   <ProductImage
                     visual={extraSection.image}
                     sizes="(max-width: 900px) 100vw, 48vw"
                   />
                 </figure>
               )}
-              <IndexRows items={extraSection.items} />
             </div>
           </div>
         </section>
