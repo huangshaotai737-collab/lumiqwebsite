@@ -12,6 +12,7 @@ export default function TabletPage() {
   const cms = useContentAdapter();
   const t = useTranslations("Tablet");
   const brand = useTranslations("BrandTablet");
+  const presentation = useTranslations("BrandPresentation.tablet");
   const faq = useTranslations("BrandFaq");
 
   return (
@@ -39,17 +40,14 @@ export default function TabletPage() {
           src: cms.url("/assets/tablet-detail/generated/tablet-reading-lifestyle-v2.png"),
           alt: brand("stories.story1Title"),
         },
-        bullets: [t("spec1"), t("spec2"), t("spec3"), t("spec4")],
-        noteTitle: t("step4Title"),
-        noteBody: t("step4Body"),
+        items: [...[1,2,3,4].map(number=>({title:presentation(`spec${number}Title`),body:t(`spec${number}`)})),{title:t("step4Title"),body:t("step4Body")}],
       }}
-      scenesEyebrow={t("why")}
-      scenesTitle={t("whyTitle")}
       scenes={[
         {
           eyebrow: t("passiveTag"),
           title: t("passiveTitle"),
           body: t("passiveBody"),
+          items: [1,2].map(number=>({title:presentation(`passive.item${number}Title`),body:presentation(`passive.item${number}Body`)})),
           image: {
             src: cms.url("/assets/tablet-detail/generated/tablet-passive-new-scene-20261026.png"),
             alt: t("passiveTitle"),
@@ -59,6 +57,7 @@ export default function TabletPage() {
           eyebrow: t("activeTag"),
           title: t("activeTitle"),
           body: t("activeBody"),
+          items: [1,2].map(number=>({title:presentation(`active.item${number}Title`),body:presentation(`active.item${number}Body`)})),
           image: {
             src: cms.url("/assets/tablet-detail/generated/tablet-family-new-scene-20261026.png"),
             alt: t("activeTitle"),
@@ -84,12 +83,13 @@ export default function TabletPage() {
           <Link href="/faq#faq-question-9">{faq("q10")} <span aria-hidden="true">↗</span></Link>
           <Link href="/faq#faq-question-11">{faq("q12")} <span aria-hidden="true">↗</span></Link>
         </nav>
-        <aside className="tablet-data-note" aria-labelledby="tablet-data-title">
-          <BrandPrivacy />
-          <Link href="/legal/privacy">{brand('privacy.link')}</Link>
-        </aside>
         <TabletGrowthMap />
       </>}
+      afterFeaturesCount={2}
+      afterContent={<aside className="tablet-data-note" aria-labelledby="family-data-title">
+          <BrandPrivacy />
+          <Link href="/legal/privacy">{brand('privacy.link')}</Link>
+        </aside>}
       hideDarkSection
       darkSection={{
         eyebrow: t("powers"),

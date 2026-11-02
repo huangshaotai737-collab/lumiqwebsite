@@ -1,41 +1,13 @@
 "use client";
 import {useContentAdapter} from "@/components/content/useContentAdapter";
 
-import { useLocale, useTranslations } from "next-intl";
+import { useTranslations } from "next-intl";
 import ProductDetailTemplate from "@/components/ProductDetailTemplate";
-
-const statusCopy = {
-  en: {
-    price: "Planned · indicative price",
-    items: [
-      {label: "Confirmed", detail: "Designed for adults and older adults"},
-      {label: "Available", detail: "Everyday conversation"},
-      {label: "Available", detail: "Storybook character interaction, reminders and connectivity"},
-    ],
-  },
-  "zh-hant": {
-    price: "規劃中 · 參考價格",
-    items: [
-      {label: "已確認", detail: "面向成人與長輩"},
-      {label: "已完成", detail: "日常對話"},
-      {label: "已完成", detail: "故事書角色互動、提醒與連線"},
-    ],
-  },
-  ja: {
-    price: "計画中 · 参考価格",
-    items: [
-      {label: "確認済み", detail: "大人とシニアに向けた製品"},
-      {label: "利用可能", detail: "日々の会話"},
-      {label: "利用可能", detail: "絵本のキャラクターとの対話、リマインダー、通信"},
-    ],
-  },
-} as const;
 
 export default function OlaProductPage() {
   const cms = useContentAdapter();
   const t = useTranslations("Pal");
-  const locale = useLocale();
-  const status = statusCopy[locale as keyof typeof statusCopy] ?? statusCopy.en;
+  const presentation = useTranslations("BrandPresentation.ola");
 
   return (
     <ProductDetailTemplate
@@ -48,8 +20,6 @@ export default function OlaProductPage() {
       lede={t("lede")}
       conceptNotice={t("conceptNotice")}
       priceLabel="USD 899"
-      priceQualifier={status.price}
-      statusItems={[...status.items]}
       ctaLabel={t("buy")}
       heroImage={{
         src: cms.url("/assets/web/ola-hero-front.webp"),
@@ -65,17 +35,14 @@ export default function OlaProductPage() {
           src: cms.url("/assets/western-scenes-20260908/ola-family-kitchen-v2.webp"),
           alt: t("adultsAlt"),
         },
-        noteTitle: t("synced"),
-        noteBody: t("syncedBody"),
+        items: [{title:t("way1Title"),body:t("way1Body")},{title:t("synced"),body:t("syncedBody")},{title:t("st1"),body:t("sb1")}],
       }}
-      scenesEyebrow={t("twoLives")}
-      scenesTitle={t("everyAge")}
       scenes={[
         {
           eyebrow: t("kids"),
-          title: t("kidsTitle"),
+          title: t("everyAge"),
           body: `${t("kidsBody")} ${t("adultsBody")}`,
-          bullets: [...new Set([t("kids1"), t("kids2"), t("kids3"), t("adults1"), t("adults2"), t("adults3")])],
+          items: ["kids1","kids2","kids3","adults1","adults2","adults3"].map((key,index)=>({title:t(key),body:presentation(`daily${index+1}`)})),
           image: {
             src: cms.url("/assets/ola-scenes-20261103/adult-senior-companion.webp"),
             alt: t("adultsAlt"),
@@ -84,8 +51,8 @@ export default function OlaProductPage() {
       ]}
       features={{
         title: t("waysTitle"),
+        intro: presentation("featuresIntro"),
         items: [1, 2, 3].map((number) => ({
-          eyebrow: t(`way${number}Pill`),
           title: t(`way${number}Title`),
           body: t(`way${number}Body`),
         })),

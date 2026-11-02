@@ -33,15 +33,14 @@ export default async function PrintProductPage() {
           alt: t("alt"),
           unoptimized: true,
         },
-        bullets: [1, 2, 3, 4].map((number) => t(`s${number}`)),
+        items: [1,2,3,4].map(number=>({title:t(`s${number}`),body:t(`s${number}Body`)})),
       }}
-      scenesEyebrow={t("eyebrow")}
-      scenesTitle={t("detailsTitle")}
       scenes={[
         {
           eyebrow: cms.text("field_fac072f6a017d02f"),
           title: t("titleEm"),
           body: t("lede"),
+          items: [2,3].map(number=>({title:t(`s${number}`),body:t(`s${number}Body`)})),
           image: {
             src: cms.url("/assets/print-detail/consistent-20260907/craft.webp"),
             alt: t("alt"),
@@ -52,6 +51,7 @@ export default async function PrintProductPage() {
           eyebrow: cms.text("field_9886e4c94096599d"),
           title: t("sectionTitle"),
           body: t("body"),
+          items: [1,4].map(number=>({title:t(`s${number}`),body:t(`s${number}Body`)})),
           image: {
             src: cms.url("/assets/print-detail/consistent-20260907/reading.webp"),
             alt: t("alt"),

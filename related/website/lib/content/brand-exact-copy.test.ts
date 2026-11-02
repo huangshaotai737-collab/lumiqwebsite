@@ -15,13 +15,19 @@ const approved = [
   [124, 'Pal.kids2', 'Voice interaction'],
   [124, 'Pal.kids3', 'Custom voice bedtime stories'],
   [128, 'Pal.way2Body', 'As the story changes, new interactions and abilities appear. Talk with the characters in your favorite story.'],
-  [129, 'Pal.way3Body', 'More characters, more conversation context, more avatars ---rolling out over time.'],
   [132, 'Pal.sb5', 'Ambient light and soft white notice that keep you company till morning.'],
   [20, 'Tablet.step4Title', 'Interact with storybook characters'],
 ] as const;
 const get = (tree: MessageTree, path: string): unknown => path.split('.').reduce<unknown>((v,k) => (v as MessageTree)[k],tree);
 
 describe('brand verbatim replacement acceptance', () => {
+  it('supersedes row 129 rollout wording only after the brand confirmed listed functions complete and the owner requested removal', () => {
+    // Brand reply YyT0dXQBeo4wYCxmBoacZHwQnSJ, block XoFPdDzxloAp4rxX9MvcjlaPnDd;
+    // owner confirmation 2026-11-03. All other verbatim row assertions below remain.
+    expect(get(currentSnapshot.messages.en,'Pal.way3Body')).toBe('More characters, more conversation context, more avatars.');
+    expect(get(currentSnapshot.messages['zh-hant'],'Pal.way3Body')).toBe('更多角色、更多對話上下文、更多虛擬角色。');
+    expect(get(currentSnapshot.messages['zh-hant'],'Pal.synced')).toBe('與熟悉的角色互動');
+  });
   for (const [row,path,text] of approved) {
     it(`row ${row}: ${path} matches the supplied English exactly`, () => {
       expect(get(currentSnapshot.messages.en,path)).toBe(text);
@@ -44,5 +50,19 @@ describe('brand verbatim replacement acceptance', () => {
     const snapshot=structuredClone(currentSnapshot);
     (snapshot.messages.en.BrandStoryFaq as MessageTree).answer='Saved story answer';
     expect((withBrandContent(parseSnapshot(snapshot)).messages.en.BrandStoryFaq as MessageTree).answer).toBe('Saved story answer');
+  });
+  it('can render an older saved release without the new presentation namespace', () => {
+    const snapshot = structuredClone(currentSnapshot);
+    delete snapshot.messages.en.BrandPresentation;
+    const display = withBrandContent(parseSnapshot(snapshot));
+    expect(get(display.messages.en, 'BrandPresentation.olago.stepsTitle')).toBe('Keep track of your steps');
+    expect(snapshot.messages.en.BrandPresentation).toBeUndefined();
+  });
+  it('preserves CMS edits to shared-template supporting copy', () => {
+    const snapshot = withBrandContent(structuredClone(currentSnapshot));
+    const presentation = snapshot.messages.en.BrandPresentation as MessageTree;
+    (presentation.olago as MessageTree).stepsBody = 'Edited in the content manager';
+    const display = withBrandContent(parseSnapshot(snapshot));
+    expect(get(display.messages.en, 'BrandPresentation.olago.stepsBody')).toBe('Edited in the content manager');
   });
 });

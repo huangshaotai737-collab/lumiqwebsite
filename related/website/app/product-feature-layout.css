@@ -77,60 +77,6 @@
   transform: none !important;
 }
 
-.lumiq-root main.product-detail-light .pd-unified-layout .pd-index-list {
-  margin-top: 0;
-}
-
-.lumiq-root main.product-detail-light .pd-scene-grid {
-  grid-template-columns: minmax(0, 1fr);
-  gap: 60px;
-  margin-top: 56px;
-}
-
-.lumiq-root main.product-detail-light .pd-scene.pd-unified-layout {
-  margin-top: 0;
-}
-
-.lumiq-root main.product-detail-light .pd-unified-section :is(.pd-index-row, .orb-detail-card, .olago-avatar-card) {
-  grid-template-columns: 32px minmax(0, 1fr);
-  column-gap: 22px;
-  padding-block: 26px;
-}
-
-.lumiq-root main.product-detail-light .pd-unified-section .orb-section-number {
-  margin-bottom: 12px;
-}
-
-.lumiq-root main.product-detail-light .orb-ui-gallery.pd-unified-visual {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: 24px;
-}
-
-.lumiq-root main.product-detail-light .orb-ui-gallery img {
-  max-height: none;
-}
-
-.lumiq-root main.product-detail-light .tablet-growth-skills {
-  grid-template-columns: minmax(0, 1fr);
-  gap: 0;
-  margin-top: 0;
-}
-
-.lumiq-root main.product-detail-light .tablet-growth-skill {
-  gap: 22px;
-  padding-block: 26px;
-}
-
-.lumiq-root main.product-detail-light .tablet-growth-number {
-  flex-basis: 32px;
-  width: 32px;
-}
-
-.lumiq-root main.product-detail-light .tablet-growth-skill:last-child {
-  border-bottom: 1px solid var(--pd-line);
-}
-
 @media (max-width: 900px) {
   .lumiq-root main.product-detail-light .pd-unified-section .pd-unified-layout,
   .lumiq-root main.product-detail-light .pd-unified-section .pd-unified-layout.is-media-left {
@@ -154,26 +100,107 @@
     margin-inline: auto;
   }
 
-  .lumiq-root main.product-detail-light .pd-scene-grid {
-    gap: 48px;
-    margin-top: 36px;
-  }
 }
 
+/* A single component, with the same type scale and spacing for all five products. */
+.lumiq-root main.product-detail-light .pd-feature-heading {
+  display: block;
+  max-width: 860px !important;
+  margin: 0 auto;
+  text-align: center;
+}
+.lumiq-root main.product-detail-light .pd-feature-heading .pd-eyebrow {
+  margin: 0 0 18px;
+  color: var(--pd-muted);
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.5;
+  letter-spacing: .08em;
+}
+.lumiq-root main.product-detail-light .pd-feature-heading h2 {
+  margin: 0;
+  color: var(--pd-ink);
+  letter-spacing: -.025em !important;
+}
+.lumiq-root main.product-detail-light .pd-feature-heading .pd-section-intro {
+  max-width: 800px;
+  margin: 24px auto 0;
+  color: var(--pd-muted);
+  font-size: clamp(16px, 1.25vw, 20px);
+  font-weight: 400;
+  line-height: 1.7;
+  letter-spacing: 0;
+}
+.lumiq-root main.product-detail-light .pd-feature-heading .pd-section-intro p { margin: 12px 0 0; }
+.lumiq-root main.product-detail-light .pd-feature-rows {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--pd-line);
+}
+.lumiq-root main.product-detail-light .pd-feature-row {
+  display: grid;
+  grid-template-columns: 32px minmax(0, 1fr);
+  gap: 22px;
+  margin: 0;
+  padding: 26px 0;
+  border-bottom: 1px solid var(--pd-line);
+  background: none;
+  border-radius: 0;
+  box-shadow: none;
+}
+.lumiq-root main.product-detail-light .pd-feature-number {
+  padding-top: 4px;
+  color: var(--pd-muted);
+  font-family: inherit;
+  font-size: 18px;
+  font-weight: 400;
+  font-style: normal;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.5;
+  letter-spacing: 0;
+}
+.lumiq-root main.product-detail-light .pd-feature-copy h3 {
+  color: var(--pd-ink);
+  margin: 0;
+  letter-spacing: -.015em !important;
+}
+.lumiq-root main.product-detail-light .pd-feature-copy h3 a {
+  color: inherit;
+  text-decoration: none;
+}
+.lumiq-root main.product-detail-light .pd-feature-copy h3 a:hover { text-decoration: underline; text-underline-offset: .2em; }
+.lumiq-root main.product-detail-light .pd-feature-copy h3 a:focus-visible { outline: 2px solid currentColor; outline-offset: 5px; }
+.lumiq-root main.product-detail-light .pd-feature-description {
+  margin: 14px 0 0;
+  color: var(--pd-muted);
+  font-size: clamp(16px, 1.15vw, 18px);
+  font-weight: 400;
+  line-height: 1.75;
+  letter-spacing: 0;
+  overflow-wrap: anywhere;
+}
+.lumiq-root main.product-detail-light .pd-feature-label {
+  margin: 0 0 8px;
+  color: var(--pd-muted);
+  font-size: 16px;
+  line-height: 1.5;
+  font-weight: 500;
+}
+.lumiq-root main.product-detail-light .pd-feature-section .orb-ui-gallery {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 24px;
+}
+.lumiq-root main.product-detail-light .pd-feature-section .orb-ui-gallery figure { margin: 0; }
+.lumiq-root main.product-detail-light .pd-feature-section .orb-ui-gallery figcaption {
+  color: var(--pd-muted); font-size: 16px; line-height: 1.5; margin: 10px 0 0;
+}
+.lumiq-root main.product-detail-light .pd-feature-section .orb-ui-gallery img { max-height: none; }
+/* Static, restrained correction of the supplied render: no replacement character or device. */
+.lumiq-root .pd-ola .pd-hero-visual img[src*="ola-hero-front.webp"] { filter: saturate(.8) brightness(.96); }
+.lumiq-root .pd-tablet > .tablet-data-note { margin-top: 72px; margin-bottom: 72px; }
 @media (max-width: 600px) {
-  .lumiq-root main.product-detail-light .pd-unified-section :is(.pd-index-row, .orb-detail-card, .olago-avatar-card) {
-    grid-template-columns: 26px minmax(0, 1fr);
-    column-gap: 16px;
-    padding-block: 22px;
-  }
-
-  .lumiq-root main.product-detail-light .tablet-growth-skill {
-    gap: 16px;
-    padding-block: 22px;
-  }
-
-  .lumiq-root main.product-detail-light .tablet-growth-number {
-    flex-basis: 26px;
-    width: 26px;
-  }
+  .lumiq-root main.product-detail-light .pd-feature-row { grid-template-columns: 26px minmax(0,1fr); gap:16px; padding-block:22px; }
+  .lumiq-root main.product-detail-light .pd-feature-heading .pd-section-intro { margin-top:20px; }
 }

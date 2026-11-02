@@ -6,6 +6,7 @@
  */
 export type BrandRevisionPatchEntry = {path: string; before: string | number | boolean; after: string | number | boolean};
 
+// Updated 2026-11-03 for current product copy; each path remains a single idempotent delta.
 export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "media.asset_e036cbcfe52d5970.alt",
@@ -45,22 +46,22 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.en.Book.alt",
     "before": "Lumiq Print hardcover concept",
-    "after": "LumiqPrint hardcover concept"
+    "after": "LumiqPrint hardcover book"
   },
   {
     "path": "messages.en.Book.body",
     "before": "Choose a story on Lumiq Tablet, personalize it with ImagiMe, and explore the concept of turning it into a beautifully bound hardcover.",
-    "after": "Choose a story on LumiqTablet, personalize it with ImagiMe, and explore the concept of turning it into a beautifully bound hardcover."
+    "after": "Choose a story on LumiqTablet, personalize it with ImagiMe, and turn it into a hardcover keepsake."
   },
   {
     "path": "messages.en.Book.lede",
     "before": "A concept premium hardcover keepsake powered by Lumiq Tablet's ImagiMe feature.",
-    "after": "A concept premium hardcover keepsake powered by LumiqTablet's ImagiMe feature."
+    "after": "A hardcover keepsake that brings your LumiqTablet ImagiMe story to the bookshelf."
   },
   {
     "path": "messages.en.Book.s1",
     "before": "Designed around the Lumiq Tablet ImagiMe concept",
-    "after": "Designed around the LumiqTablet ImagiMe concept"
+    "after": "From LumiqTablet ImagiMe"
   },
   {
     "path": "messages.en.Book.s1Body",
@@ -70,7 +71,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.en.Book.s4",
     "before": "Proposed access to the Lumiq story library",
-    "after": "Proposed access to the LUMIQ story library"
+    "after": "Connected to the LUMIQ story library"
   },
   {
     "path": "messages.en.Book.s4Body",
@@ -695,7 +696,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.en.OlaGo.alt",
     "before": "Lumiq Ola Go portable companion concept",
-    "after": "LumiqOlaGo portable companion concept"
+    "after": "LumiqOlaGo portable companion"
   },
   {
     "path": "messages.en.OlaGo.cellularBody",
@@ -710,7 +711,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.en.OlaGo.closingBody",
     "before": "Ola Go is planned to be included with LUMIQ OLA. Join the waitlist for product availability updates.",
-    "after": "LumiqOlaGo is planned to be included with LumiqOla. Join the waitlist for product availability updates."
+    "after": "LumiqOlaGo is included with LumiqOla. Join the waitlist for product availability updates."
   },
   {
     "path": "messages.en.OlaGo.conceptNotice",
@@ -740,7 +741,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.en.OlaGo.lede",
     "before": "Lumiq Ola Go is the portable companion concept designed to travel with Lumiq Ola.",
-    "after": "A portable companion concept for adults and older adults, planned to work with LumiqOla."
+    "after": "LumiqOlaGo is the portable companion to LumiqOla"
   },
   {
     "path": "messages.en.OlaGo.locationBody",
@@ -880,7 +881,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.en.Pal.synced",
     "before": "Designed to pair with Lumiq Tablet",
-    "after": "Stories for children live on LumiqTablet"
+    "after": "Conversations with your characters"
   },
   {
     "path": "messages.en.Pal.syncedBody",
@@ -900,7 +901,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.en.Pal.way3Body",
     "before": "Character conversations, story coaching, and dreamtime companions — rolling out over time.",
-    "after": "More characters, more conversation context, more avatars ---rolling out over time."
+    "after": "More characters, more conversation context, more avatars."
   },
   {
     "path": "messages.en.Pal.waysTitle",
@@ -1350,22 +1351,22 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.ja.Book.alt",
     "before": "Lumiq Print のコンセプト",
-    "after": "LumiqPrint のコンセプト"
+    "after": "LumiqPrint ハードカバー"
   },
   {
     "path": "messages.ja.Book.body",
     "before": "Lumiq Tablet で物語を選び、ImagiMe でパーソナライズして本にする構想です。",
-    "after": "LumiqTablet で物語を選び、ImagiMe でパーソナライズして本にする構想です。"
+    "after": "LumiqTablet で物語を選び、ImagiMe でパーソナライズして、ハードカバーの記念本にできます。"
   },
   {
     "path": "messages.ja.Book.lede",
     "before": "Lumiq Tablet の ImagiMe を使ったハードカバー絵本のコンセプトです。",
-    "after": "LumiqTablet の ImagiMe を使ったハードカバー絵本のコンセプトです。"
+    "after": "LumiqTablet の ImagiMe ストーリーを、本棚に残るハードカバーに。"
   },
   {
     "path": "messages.ja.Book.s1",
     "before": "Lumiq Tablet の ImagiMe 構想",
-    "after": "LumiqTablet の ImagiMe 構想"
+    "after": "LumiqTablet ImagiMe から"
   },
   {
     "path": "messages.ja.Book.s1Body",
@@ -1375,7 +1376,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.ja.Book.s4",
     "before": "Lumiq ストーリーライブラリ対応予定",
-    "after": "LUMIQ ストーリーライブラリ対応予定"
+    "after": "LUMIQ ストーリーライブラリーと連携"
   },
   {
     "path": "messages.ja.Book.s4Body",
@@ -1990,7 +1991,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.ja.OlaGo.alt",
     "before": "Lumiq Ola Go のコンセプト",
-    "after": "LumiqOlaGo のコンセプト"
+    "after": "LumiqOlaGo ポータブルパートナー"
   },
   {
     "path": "messages.ja.OlaGo.cellularBody",
@@ -2005,7 +2006,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.ja.OlaGo.closingBody",
     "before": "Ola Go は LUMIQ OLA に同梱する予定です。ウェイトリストで発売に関する最新情報をお受け取りください。",
-    "after": "LumiqOlaGo は LumiqOla に同梱する予定です。ウェイトリストで発売に関する最新情報をお受け取りください。"
+    "after": "LumiqOlaGo は LumiqOla に付属します。ウェイトリストに登録して、製品の最新情報を受け取れます。"
   },
   {
     "path": "messages.ja.OlaGo.conceptNotice",
@@ -2035,7 +2036,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.ja.OlaGo.lede",
     "before": "Lumiq Ola Go は Lumiq Ola と一緒に持ち歩くポータブル・コンセプトです。",
-    "after": "大人とシニア向けに、LumiqOla と組み合わせる携帯型コンパニオンの構想です。"
+    "after": "LumiqOlaGo は LumiqOla と一緒に使う持ち歩けるパートナーです。"
   },
   {
     "path": "messages.ja.OlaGo.locationBody",
@@ -2170,7 +2171,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.ja.Pal.synced",
     "before": "Lumiq Tablet と同期",
-    "after": "子どもの物語は LumiqTablet で"
+    "after": "親しみのあるキャラクターと対話"
   },
   {
     "path": "messages.ja.Pal.syncedBody",
@@ -2190,7 +2191,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.ja.Pal.way3Body",
     "before": "キャラクターとの会話、物語のコーチング、夢の時間のコンパニオンを順次提供します。",
-    "after": "さらに多くのキャラクター、会話の文脈、アバターを順次追加していきます。"
+    "after": "さらに多くのキャラクター、会話の文脈、アバターを。"
   },
   {
     "path": "messages.ja.Pal.waysTitle",
@@ -2625,22 +2626,22 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.zh-hant.Book.alt",
     "before": "Lumiq Print 精裝書概念",
-    "after": "LumiqPrint 精裝書概念"
+    "after": "LumiqPrint 精裝書"
   },
   {
     "path": "messages.zh-hant.Book.body",
     "before": "在 Lumiq Tablet 選擇故事，以 ImagiMe 個人化，再探索印成精裝書的概念。",
-    "after": "在 LumiqTablet 選擇故事，以 ImagiMe 個人化，再探索印成精裝書的概念。"
+    "after": "在 LumiqTablet 選擇故事，以 ImagiMe 個人化，再製成精裝珍藏書。"
   },
   {
     "path": "messages.zh-hant.Book.lede",
     "before": "由 Lumiq Tablet 的 ImagiMe 概念延伸而來的精裝珍藏書。",
-    "after": "由 LumiqTablet 的 ImagiMe 概念延伸而來的精裝珍藏書。"
+    "after": "將 LumiqTablet 的 ImagiMe 故事，變成書架上的精裝珍藏書。"
   },
   {
     "path": "messages.zh-hant.Book.s1",
     "before": "基於 Lumiq Tablet ImagiMe 概念",
-    "after": "基於 LumiqTablet ImagiMe 概念"
+    "after": "來自 LumiqTablet ImagiMe"
   },
   {
     "path": "messages.zh-hant.Book.s1Body",
@@ -2650,7 +2651,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.zh-hant.Book.s4",
     "before": "預計連接 Lumiq 故事庫",
-    "after": "預計連接 LUMIQ 故事庫"
+    "after": "連接 LUMIQ 故事庫"
   },
   {
     "path": "messages.zh-hant.Book.s4Body",
@@ -3275,7 +3276,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.zh-hant.OlaGo.alt",
     "before": "Lumiq Ola Go 可攜式陪伴概念",
-    "after": "LumiqOlaGo 可攜式陪伴概念"
+    "after": "LumiqOlaGo 隨身夥伴"
   },
   {
     "path": "messages.zh-hant.OlaGo.cellularBody",
@@ -3290,7 +3291,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.zh-hant.OlaGo.closingBody",
     "before": "Ola Go 規劃隨 LUMIQ OLA 提供。加入候補名單，接收產品開放的最新消息。",
-    "after": "LumiqOlaGo 規劃隨 LumiqOla 提供。加入候補名單，接收產品開放的最新消息。"
+    "after": "LumiqOlaGo 隨 LumiqOla 提供。加入候補名單，接收產品開放的最新消息。"
   },
   {
     "path": "messages.zh-hant.OlaGo.conceptNotice",
@@ -3320,7 +3321,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.zh-hant.OlaGo.lede",
     "before": "Lumiq Ola Go 是設計與 Lumiq Ola 一起出門的可攜式陪伴概念。",
-    "after": "面向成人與長輩的隨身夥伴概念，規劃與 LumiqOla 搭配使用。"
+    "after": "LumiqOlaGo 是與 LumiqOla 搭配使用的隨身夥伴。"
   },
   {
     "path": "messages.zh-hant.OlaGo.locationBody",
@@ -3455,7 +3456,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.zh-hant.Pal.synced",
     "before": "設計與 Lumiq Tablet 配對",
-    "after": "孩子的故事，留在 LumiqTablet"
+    "after": "與熟悉的角色互動"
   },
   {
     "path": "messages.zh-hant.Pal.syncedBody",
@@ -3475,7 +3476,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.zh-hant.Pal.way3Body",
     "before": "角色對話、故事指導與夢鄉夥伴等功能將陸續推出。",
-    "after": "更多角色、更多對話上下文、更多虛擬角色——將逐步推出。"
+    "after": "更多角色、更多對話上下文、更多虛擬角色。"
   },
   {
     "path": "messages.zh-hant.Pal.waysTitle",
@@ -4841,5 +4842,35 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
     "path": "messages.ja.CmsStatic.field_23cd241d015790f4",
     "before": "hello@lumiqstudio.com",
     "after": "support@lumiq.studio"
+  },
+  {
+    "path": "messages.en.Book.conceptNotice",
+    "before": "Concept product — availability, printing, delivery and final specifications are pending brand confirmation.",
+    "after": "Ordering is not open yet. Join the waitlist for launch updates."
+  },
+  {
+    "path": "messages.en.Book.s2",
+    "before": "Premium matte hardcover concept",
+    "after": "Premium matte hardcover"
+  },
+  {
+    "path": "messages.zh-hant.Book.conceptNotice",
+    "before": "概念產品——供應、印刷、配送與最終規格有待品牌確認。",
+    "after": "目前尚未開放訂購。加入候補名單以接收上市消息。"
+  },
+  {
+    "path": "messages.zh-hant.Book.s2",
+    "before": "高級霧面精裝概念",
+    "after": "高級霧面精裝"
+  },
+  {
+    "path": "messages.ja.Book.conceptNotice",
+    "before": "コンセプト製品——提供時期、印刷、配送、最終仕様はブランド確認待ちです。",
+    "after": "注文受付はまだ開始していません。ウェイトリストで発売情報をお届けします。"
+  },
+  {
+    "path": "messages.ja.Book.s2",
+    "before": "上質なハードカバー構想",
+    "after": "上質なマット仕上げのハードカバー"
   }
 ];

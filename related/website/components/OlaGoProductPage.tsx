@@ -2,8 +2,7 @@
 import {useContentAdapter} from "@/components/content/useContentAdapter";
 
 import { useTranslations } from "next-intl";
-import Heading from "@/components/Heading";
-import Image from "@/components/content/ContentImage";
+import ProductFeatureSection from "@/components/ProductFeatureSection";
 import ProductDetailTemplate from "@/components/ProductDetailTemplate";
 
 const avatarActions = ["feed", "clean", "exchange"] as const;
@@ -12,6 +11,7 @@ export default function OlaGoProductPage() {
   const cms = useContentAdapter();
   const t = useTranslations("OlaGo");
   const brand = useTranslations("BrandOlaGo");
+  const presentation = useTranslations("BrandPresentation.olago");
 
   const firstFeatures = ["reminders", "weather", "journal"] as const;
   const connectedFeatures = ["cellular", "location", "safety"] as const;
@@ -39,6 +39,7 @@ export default function OlaGoProductPage() {
         eyebrow: t("relationshipEyebrow"),
         title: t("relationshipTitle"),
         body: t("relationshipBody"),
+        items: [{title:presentation("stepsTitle"),body:presentation("stepsBody")},{title:t("journalTitle"),body:t("journalBody")},{title:t("remindersTitle"),body:t("remindersBody")}],
         image: {
           src: cms.url("/assets/western-scenes-20260908/ola-go-return-home-v3.webp"),
           alt: t("alt"),
@@ -46,12 +47,11 @@ export default function OlaGoProductPage() {
           position: "center",
         },
       }}
-      scenesEyebrow={t("relationshipEyebrow")}
-      scenesTitle={t("scenesTitle")}
       scenes={firstFeatures.map((key, index) => ({
-        eyebrow: String(index + 1).padStart(2, "0"),
+        eyebrow: t("scenesTitle"),
         title: t(`${key}Title`),
         body: t(`${key}Body`),
+        items:[1,2].map(number=>({title:presentation(`${key}.item${number}Title`),body:presentation(`${key}.item${number}Body`)})),
         image: {
           src:
             index === 0
@@ -76,31 +76,9 @@ export default function OlaGoProductPage() {
           fit: "contain",
         },
       }}
-      afterFeatures={
-        <section className="pd-floor olago-avatar-floor pd-unified-section" aria-labelledby="olago-avatar-title">
-          <div className="pd-shell">
-            <header className="olago-avatar-heading pd-section-heading is-center">
-              <p className="pd-eyebrow">{brand("avatar.eyebrow")}</p>
-              <Heading as="h2" id="olago-avatar-title">{brand("avatar.title")}</Heading>
-              <p>{brand("avatar.body")}</p>
-            </header>
-            <div className="olago-avatar-layout pd-unified-layout">
-              <div className="olago-avatar-grid">
-                {avatarActions.map((action, index) => (
-                  <article className="olago-avatar-card" key={action}>
-                    <p className="olago-avatar-step" aria-hidden="true">{String(index + 1).padStart(2, "0")}</p>
-                    <Heading as="h3">{brand(`avatar.${action}Title`)}</Heading>
-                    <p>{brand(`avatar.${action}Body`)}</p>
-                  </article>
-                ))}
-              </div>
-              <figure className="pd-unified-visual">
-                <Image src={cms.url("/assets/products/lumiq-ola-go.png")} alt={t("alt")} width={1600} height={1200} sizes="(max-width: 900px) 100vw, 46vw" />
-              </figure>
-            </div>
-          </div>
-        </section>
-      }
+      afterFeatures={<ProductFeatureSection id="olago-avatar" className="olago-avatar-floor" eyebrow={brand("avatar.eyebrow")} title={brand("avatar.title")} intro={brand("avatar.body")}
+        items={avatarActions.map(action=>({title:brand(`avatar.${action}Title`),body:brand(`avatar.${action}Body`)}))}
+        image={{src:cms.url("/assets/products/lumiq-ola-go.png"),alt:t("alt"),fit:"contain"}}/>}
       darkSection={{
         eyebrow: brand("support.eyebrow"),
         title: brand("support.title"),

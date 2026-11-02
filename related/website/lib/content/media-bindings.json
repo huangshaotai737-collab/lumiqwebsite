@@ -335,10 +335,10 @@
         "alt": "t(\"alt\")"
       },
       {
-        "kind": "Image",
+        "kind": "object",
         "property": "src",
-        "source": "{cms.url(\"/assets/products/lumiq-ola-go.png\")}",
-        "alt": "{t(\"alt\")}"
+        "source": "cms.url(\"/assets/products/lumiq-ola-go.png\")",
+        "alt": "t(\"alt\")"
       },
       {
         "kind": "object",

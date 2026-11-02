@@ -272,7 +272,7 @@ export const brandOrbMessages: Record<"en" | "zh-hant" | "ja", BrandOrbMessageTr
       detail2Title: "一日中、写真を楽しむ",
       detail2Body: "スライドショーで写真を流したり、直接一枚を選んだり、お気に入りを全画面で表示したりできます。",
       detail3Title: "思い出の一瞬に、動きを",
-      detail3Body: "動作の拡張や天候エフェクトなど、短い AI 写真アニメーションを楽しむ機能を予定しています。",
+      detail3Body: "動作の拡張や天候エフェクトなど、短い AI 写真アニメーションを楽しめます。",
     },
     finishes: {
       eyebrow: "家になじむデザイン",
