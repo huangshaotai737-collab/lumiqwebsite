@@ -89,4 +89,14 @@ describe('brand verbatim replacement acceptance', () => {
     const display = withBrandContent(parseSnapshot(snapshot));
     expect(get(display.messages.en, 'BrandPresentation.olago.stepsBody')).toBe('Edited in the content manager');
   });
+  it('accepts earlier saved presentation content and supplies the separate Print introduction', () => {
+    const saved = structuredClone(currentSnapshot);
+    for (const locale of ['en', 'zh-hant', 'ja'] as const) delete saved.messages[locale].BrandPrintPresentation;
+    const presentation = saved.messages.en.BrandPresentation as MessageTree;
+    (presentation.olago as MessageTree).stepsBody = 'An existing saved edit';
+    const display = withBrandContent(parseSnapshot(saved));
+    expect(get(display.messages.en, 'BrandPrintPresentation.craftIntro')).toBe('Keep your story in hardcover, with personalized illustrations from cover to final page.');
+    expect(get(display.messages.en, 'BrandPresentation.olago.stepsBody')).toBe('An existing saved edit');
+    expect(saved.messages.en.BrandPrintPresentation).toBeUndefined();
+  });
 });

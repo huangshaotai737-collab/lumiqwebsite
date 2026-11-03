@@ -5,7 +5,7 @@ import ProductDetailTemplate from "@/components/ProductDetailTemplate";
 export default async function PrintProductPage() {
   const cms = await readContentAdapter();
   const t = await getTranslations("Book");
-  const presentation = await getTranslations("BrandPresentation.print");
+  const presentation = await getTranslations("BrandPrintPresentation");
 
   return (
     <ProductDetailTemplate

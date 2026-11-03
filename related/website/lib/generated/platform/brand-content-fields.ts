@@ -3,6 +3,93 @@
 import type {ContentField,ContentRule} from "./content";
 export const brandContentFields: readonly (ContentField & {optionalGroup:string})[] = [
   {
+    "path": "messages.en.BrandPrintPresentation",
+    "pages": [
+      "/products/print"
+    ],
+    "type": "object",
+    "maxLength": null,
+    "icuSignature": null,
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": false,
+    "owner": "snapshot",
+    "optionalGroup": "messages.en.BrandPrintPresentation"
+  },
+  {
+    "path": "messages.en.BrandPrintPresentation.craftIntro",
+    "pages": [
+      "/products/print"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.en.BrandPrintPresentation",
+    "initialValue": "Keep your story in hardcover, with personalized illustrations from cover to final page."
+  },
+  {
+    "path": "messages.zh-hant.BrandPrintPresentation",
+    "pages": [
+      "/products/print"
+    ],
+    "type": "object",
+    "maxLength": null,
+    "icuSignature": null,
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": false,
+    "owner": "snapshot",
+    "optionalGroup": "messages.zh-hant.BrandPrintPresentation"
+  },
+  {
+    "path": "messages.zh-hant.BrandPrintPresentation.craftIntro",
+    "pages": [
+      "/products/print"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.zh-hant.BrandPrintPresentation",
+    "initialValue": "從封面到內頁，以精裝書與個人化插畫珍藏故事。"
+  },
+  {
+    "path": "messages.ja.BrandPrintPresentation",
+    "pages": [
+      "/products/print"
+    ],
+    "type": "object",
+    "maxLength": null,
+    "icuSignature": null,
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": false,
+    "owner": "snapshot",
+    "optionalGroup": "messages.ja.BrandPrintPresentation"
+  },
+  {
+    "path": "messages.ja.BrandPrintPresentation.craftIntro",
+    "pages": [
+      "/products/print"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.ja.BrandPrintPresentation",
+    "initialValue": "表紙から最後のページまで、パーソナライズされたイラストとハードカバーで物語を残します。"
+  },
+  {
     "path": "messages.en.BrandPresentation",
     "pages": [
       "/products"
@@ -15,35 +102,6 @@ export const brandContentFields: readonly (ContentField & {optionalGroup:string}
     "editable": false,
     "owner": "snapshot",
     "optionalGroup": "messages.en.BrandPresentation"
-  },
-  {
-    "path": "messages.en.BrandPresentation.print",
-    "pages": [
-      "/products/print"
-    ],
-    "type": "object",
-    "maxLength": null,
-    "icuSignature": null,
-    "mediaPurpose": null,
-    "adminOnly": false,
-    "editable": false,
-    "owner": "snapshot",
-    "optionalGroup": "messages.en.BrandPresentation"
-  },
-  {
-    "path": "messages.en.BrandPresentation.print.craftIntro",
-    "pages": [
-      "/products/print"
-    ],
-    "type": "string",
-    "maxLength": 2000,
-    "icuSignature": "",
-    "mediaPurpose": null,
-    "adminOnly": false,
-    "editable": true,
-    "owner": "snapshot",
-    "optionalGroup": "messages.en.BrandPresentation",
-    "initialValue": "Keep your story in hardcover, with personalized illustrations from cover to final page."
   },
   {
     "path": "messages.en.BrandPresentation.ola",
@@ -697,35 +755,6 @@ export const brandContentFields: readonly (ContentField & {optionalGroup:string}
     "optionalGroup": "messages.zh-hant.BrandPresentation"
   },
   {
-    "path": "messages.zh-hant.BrandPresentation.print",
-    "pages": [
-      "/products/print"
-    ],
-    "type": "object",
-    "maxLength": null,
-    "icuSignature": null,
-    "mediaPurpose": null,
-    "adminOnly": false,
-    "editable": false,
-    "owner": "snapshot",
-    "optionalGroup": "messages.zh-hant.BrandPresentation"
-  },
-  {
-    "path": "messages.zh-hant.BrandPresentation.print.craftIntro",
-    "pages": [
-      "/products/print"
-    ],
-    "type": "string",
-    "maxLength": 2000,
-    "icuSignature": "",
-    "mediaPurpose": null,
-    "adminOnly": false,
-    "editable": true,
-    "owner": "snapshot",
-    "optionalGroup": "messages.zh-hant.BrandPresentation",
-    "initialValue": "從封面到內頁，以精裝書與個人化插畫珍藏故事。"
-  },
-  {
     "path": "messages.zh-hant.BrandPresentation.ola",
     "pages": [
       "/products/ola"
@@ -1375,35 +1404,6 @@ export const brandContentFields: readonly (ContentField & {optionalGroup:string}
     "editable": false,
     "owner": "snapshot",
     "optionalGroup": "messages.ja.BrandPresentation"
-  },
-  {
-    "path": "messages.ja.BrandPresentation.print",
-    "pages": [
-      "/products/print"
-    ],
-    "type": "object",
-    "maxLength": null,
-    "icuSignature": null,
-    "mediaPurpose": null,
-    "adminOnly": false,
-    "editable": false,
-    "owner": "snapshot",
-    "optionalGroup": "messages.ja.BrandPresentation"
-  },
-  {
-    "path": "messages.ja.BrandPresentation.print.craftIntro",
-    "pages": [
-      "/products/print"
-    ],
-    "type": "string",
-    "maxLength": 2000,
-    "icuSignature": "",
-    "mediaPurpose": null,
-    "adminOnly": false,
-    "editable": true,
-    "owner": "snapshot",
-    "optionalGroup": "messages.ja.BrandPresentation",
-    "initialValue": "表紙から最後のページまで、パーソナライズされたイラストとハードカバーで物語を残します。"
   },
   {
     "path": "messages.ja.BrandPresentation.ola",

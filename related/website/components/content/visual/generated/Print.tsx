@@ -7,7 +7,7 @@ import ProductDetailTemplate from "@/components/ProductDetailTemplate";
 export default function PrintProductPage() {
   const cms = useContentAdapter();
   const t = useTranslations("Book");
-  const presentation = useTranslations("BrandPresentation.print");
+  const presentation = useTranslations("BrandPrintPresentation");
 
   return (
     <ProductDetailTemplate

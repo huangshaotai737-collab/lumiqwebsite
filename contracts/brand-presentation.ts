@@ -1,7 +1,6 @@
 /** Supporting copy for the shared product template; approved capability copy remains in its original namespace. */
 export const brandPresentationMessages = {
   "zh-hant": {
-    "print": {"craftIntro": "從封面到內頁，以精裝書與個人化插畫珍藏故事。"},
     "ola": {
       "featuresIntro": "從熟悉的對話到喜愛的角色，讓陪伴自然融入每一天。",
       "dailyIntro": "在家聊聊天，照看日常，也與家人保持聯繫。",
@@ -55,7 +54,6 @@ export const brandPresentationMessages = {
     }
   },
   "en": {
-    "print": {"craftIntro": "Keep your story in hardcover, with personalized illustrations from cover to final page."},
     "ola": {
       "featuresIntro": "From familiar conversations to favorite characters, bring companionship into everyday life.",
       "dailyIntro": "Share a conversation, keep daily plans in view, and stay connected with family.",
@@ -109,7 +107,6 @@ export const brandPresentationMessages = {
     }
   },
   "ja": {
-    "print": {"craftIntro": "表紙から最後のページまで、パーソナライズされたイラストとハードカバーで物語を残します。"},
     "ola": {
       "featuresIntro": "身近な会話からお気に入りのキャラクターまで、毎日の暮らしに寄り添います。",
       "dailyIntro": "会話を楽しみ、日々の予定を確かめ、家族とつながる時間を。",
@@ -162,4 +159,11 @@ export const brandPresentationMessages = {
       "stagesIntro": "初めての発見から自分で選ぶ力まで、四つの成長段階をたどります。"
     }
   }
+};
+
+/** Separate optional namespace so older saved BrandPresentation snapshots remain valid. */
+export const brandPrintPresentationMessages = {
+  en: {craftIntro: "Keep your story in hardcover, with personalized illustrations from cover to final page."},
+  "zh-hant": {craftIntro: "從封面到內頁，以精裝書與個人化插畫珍藏故事。"},
+  ja: {craftIntro: "表紙から最後のページまで、パーソナライズされたイラストとハードカバーで物語を残します。"},
 };
