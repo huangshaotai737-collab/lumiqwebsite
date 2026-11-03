@@ -304,7 +304,7 @@
     "occurrences": {
       "cms.url(\"/assets/ola-go-detail/generated/ola-go-weather-walk-v2.png\")": 1,
       "cms.url(\"/assets/ola-go-detail/original-20260915/ola-go-three-quarter.png\")": 1,
-      "cms.url(\"/assets/products/lumiq-ola-go.png\")": 3,
+      "cms.url(\"/assets/products/lumiq-ola-go.png\")": 2,
       "cms.url(\"/assets/western-scenes-20260908/ola-go-bedside-journal-v3.webp\")": 1,
       "cms.url(\"/assets/western-scenes-20260908/ola-go-return-home-v3.webp\")": 1,
       "cms.url(\"/assets/western-scenes-20260908/ola-go-schoolbag-v2.webp\")": 1
@@ -332,12 +332,6 @@
         "kind": "object",
         "property": "src",
         "source": "cms.url(\"/assets/ola-go-detail/original-20260915/ola-go-three-quarter.png\")",
-        "alt": "t(\"alt\")"
-      },
-      {
-        "kind": "object",
-        "property": "src",
-        "source": "cms.url(\"/assets/products/lumiq-ola-go.png\")",
         "alt": "t(\"alt\")"
       },
       {
@@ -392,11 +386,11 @@
   },
   "components/PrintProductPage.tsx": {
     "occurrences": {
-      "cms.url(\"/assets/print-detail/consistent-20260907/craft.webp\")": 1,
+      "cms.url(\"/assets/print-detail/consistent-20260907/craft.webp\")": 0,
       "cms.url(\"/assets/print-detail/consistent-20260907/gift.webp\")": 1,
       "cms.url(\"/assets/print-detail/consistent-20260907/pages.webp\")": 1,
-      "cms.url(\"/assets/print-detail/consistent-20260907/reading.webp\")": 1,
-      "cms.url(\"/assets/products/lumiq-print.png\")": 2
+      "cms.url(\"/assets/print-detail/consistent-20260907/reading.webp\")": 0,
+      "cms.url(\"/assets/products/lumiq-print.png\")": 1
     },
     "uses": [
       {
@@ -414,25 +408,7 @@
       {
         "kind": "object",
         "property": "src",
-        "source": "cms.url(\"/assets/print-detail/consistent-20260907/craft.webp\")",
-        "alt": "t(\"alt\")"
-      },
-      {
-        "kind": "object",
-        "property": "src",
-        "source": "cms.url(\"/assets/print-detail/consistent-20260907/reading.webp\")",
-        "alt": "t(\"alt\")"
-      },
-      {
-        "kind": "object",
-        "property": "src",
         "source": "cms.url(\"/assets/print-detail/consistent-20260907/pages.webp\")",
-        "alt": "t(\"alt\")"
-      },
-      {
-        "kind": "object",
-        "property": "src",
-        "source": "cms.url(\"/assets/products/lumiq-print.png\")",
         "alt": "t(\"alt\")"
       }
     ]

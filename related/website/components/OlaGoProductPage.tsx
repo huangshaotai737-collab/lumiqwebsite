@@ -15,7 +15,6 @@ export default function OlaGoProductPage() {
 
   const firstFeatures = ["reminders", "weather", "journal"] as const;
   const connectedFeatures = ["cellular", "location", "safety"] as const;
-  const supportFeatures = ["care", "memo", "sos"] as const;
 
   return (
     <ProductDetailTemplate
@@ -79,20 +78,6 @@ export default function OlaGoProductPage() {
       afterFeatures={<ProductFeatureSection id="olago-avatar" className="olago-avatar-floor" eyebrow={brand("avatar.eyebrow")} title={brand("avatar.title")} intro={brand("avatar.body")}
         items={avatarActions.map(action=>({title:brand(`avatar.${action}Title`),body:brand(`avatar.${action}Body`)}))}
         image={{src:cms.url("/assets/products/lumiq-ola-go.png"),alt:t("alt"),fit:"contain"}}/>}
-      darkSection={{
-        eyebrow: brand("support.eyebrow"),
-        title: brand("support.title"),
-        intro: brand("support.body"),
-        items: supportFeatures.map((key) => ({
-          title: brand(`support.${key}Title`),
-          body: brand(`support.${key}Body`),
-        })),
-        image: {
-          src: cms.url("/assets/products/lumiq-ola-go.png"),
-          alt: t("alt"),
-          fit: "contain",
-        },
-      }}
       finalTitle={t("closingTitle")}
       finalBody={t("closingBody")}
       secondaryAction={{ href: "/products/ola", label: t("meetOla") }}

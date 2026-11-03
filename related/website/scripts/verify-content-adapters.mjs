@@ -24,7 +24,14 @@ export async function verifyContentAdapters(app,root) {
   const adminRetirement=await readFile(path.join(root,'related/admin/features/content/retired-account-fields.json'),'utf8');
   if(adminRetirement!==await read('lib/content/retired-account-fields.json'))throw Error('Editor retirement inventory out of sync');
   const sources=new Map(await Promise.all([...new Set(ledger.static.map(x=>x.file).concat(ledger.media.map(x=>x.adapterFile)))].map(async file=>[file,await read(file)])));
-  for(const entry of ledger.static)if(!sources.get(entry.file).includes(entry.expression)&&!['en','zh-hant','ja'].every(locale=>retired.has(entry.path.replace('{locale}',locale))))throw Error(`Refusing to discard imported field ${entry.path}: ${entry.file}`);
+  for(const entry of ledger.static) {
+    const source=sources.get(entry.file), replacement=entry.replacement;
+    // Reviewed consolidation keeps historical fields/locators while requiring the
+    // replacement section to remain present. Unrecorded removals still fail.
+    if(replacement) {
+      if(!replacement.reason || !replacement.expression || source.includes(entry.expression) || !source.includes(replacement.expression))throw Error(`Invalid static substitution: ${entry.path}`);
+    }else if(!source.includes(entry.expression)&&!['en','zh-hant','ja'].every(locale=>retired.has(entry.path.replace('{locale}',locale))))throw Error(`Refusing to discard imported field ${entry.path}: ${entry.file}`);
+  }
   for(const field of manifest.fields.filter(f=>f.path.startsWith('messages.en.CmsStatic.'))) {
     if(field.path.split('.').at(-1).startsWith('cart_'))continue;
     if(!ledger.static.some(e=>e.path===field.path.replace('.en.','.{locale}.')&&e.file===field.source.file&&e.sourceLocator===field.source.locator))throw Error(`Missing static adapter: ${field.path}`);

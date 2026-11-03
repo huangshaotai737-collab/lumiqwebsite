@@ -424,13 +424,21 @@
       "file": "components/PrintProductPage.tsx",
       "sourceLocator": "FunctionDeclaration:2/Block:3/ReturnStatement:1/ParenthesizedExpression:0/JsxSelfClosingElement:0/JsxAttributes:1/attr:scenes/JsxExpression:1/ArrayLiteralExpression:0/ObjectLiteralExpression:0/prop:eyebrow/StringLiteral:1",
       "path": "messages.{locale}.CmsStatic.field_fac072f6a017d02f",
-      "expression": "cms.text(\"field_fac072f6a017d02f\")"
+      "expression": "cms.text(\"field_fac072f6a017d02f\")",
+      "replacement": {
+        "reason": "2026-11-03: owner requested duplicate Print sections consolidated; obsolete numeric eyebrows retained only in historical snapshots.",
+        "expression": "title: t(\"sectionTitle\")"
+      }
     },
     {
       "file": "components/PrintProductPage.tsx",
       "sourceLocator": "FunctionDeclaration:2/Block:3/ReturnStatement:1/ParenthesizedExpression:0/JsxSelfClosingElement:0/JsxAttributes:1/attr:scenes/JsxExpression:1/ArrayLiteralExpression:0/ObjectLiteralExpression:1/prop:eyebrow/StringLiteral:1",
       "path": "messages.{locale}.CmsStatic.field_9886e4c94096599d",
-      "expression": "cms.text(\"field_9886e4c94096599d\")"
+      "expression": "cms.text(\"field_9886e4c94096599d\")",
+      "replacement": {
+        "reason": "2026-11-03: owner requested duplicate Print sections consolidated; obsolete numeric eyebrows retained only in historical snapshots.",
+        "expression": "title: t(\"detailsTitle\")"
+      }
     },
     {
       "file": "lib/metadata.ts",
@@ -1545,7 +1553,11 @@
       "altExpression": "t(\"alt\")",
       "originalAlt": "",
       "adapterFile": "components/PrintProductPage.tsx",
-      "expression": "cms.url(\"/assets/print-detail/consistent-20260907/reading.webp\")"
+      "expression": "cms.url(\"/assets/print-detail/consistent-20260907/reading.webp\")",
+      "replacement": {
+        "reason": "2026-11-03: duplicate Print sections consolidated; retain the corresponding personalization/print-detail section and historical media slot.",
+        "expression": "cms.url(\"/assets/print-detail/consistent-20260907/gift.webp\")"
+      }
     },
     {
       "slot": "asset_7145d3296daddfe8",
@@ -2359,7 +2371,11 @@
       "altExpression": "t(\"alt\")",
       "originalAlt": "",
       "adapterFile": "components/PrintProductPage.tsx",
-      "expression": "cms.url(\"/assets/print-detail/consistent-20260907/craft.webp\")"
+      "expression": "cms.url(\"/assets/print-detail/consistent-20260907/craft.webp\")",
+      "replacement": {
+        "reason": "2026-11-03: duplicate Print sections consolidated; retain the corresponding personalization/print-detail section and historical media slot.",
+        "expression": "cms.url(\"/assets/print-detail/consistent-20260907/pages.webp\")"
+      }
     },
     {
       "slot": "asset_ba68d35d82376950",

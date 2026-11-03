@@ -225,7 +225,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.en.Home.product2Description",
     "before": "LUMIQ Ola Go is the pocket-sized extension included with every Ola. It offers touch interaction, synced reminders, weather information, and quick voice diaries. Optional 4G, location, impact detection, and SOS remain concept features pending confirmation.",
-    "after": "LumiqOlaGo is the pocket-sized extension included with every LumiqOla. It offers touch interaction, synced reminders, weather information, and quick voice diaries. Optional 4G, location, impact detection, and SOS remain concept features pending confirmation."
+    "after": "LumiqOlaGo is the pocket-sized extension included with every LumiqOla. It offers touch interaction, synced reminders, weather information, voice memos and SOS."
   },
   {
     "path": "messages.en.Home.product3Description",
@@ -265,7 +265,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.en.HomeRefresh.brandBody",
     "before": "Every family moves to its own beat. OLA grows with you — through learning, connection and the little moments in between.",
-    "after": "LumiqOla is a companion concept for adults and older adults, centered on daily conversation and reminders."
+    "after": "LumiqOla is a companion for adults and older adults, centered on daily conversation and reminders."
   },
   {
     "path": "messages.en.HomeRefresh.experiences.companion.alt",
@@ -345,7 +345,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.en.HomeRefresh.products.ola-go.body",
     "before": "Your pocket companion, included with OLA.",
-    "after": "A portable companion concept for adults and older adults."
+    "after": "A portable companion for adults and older adults."
   },
   {
     "path": "messages.en.HomeRefresh.products.ola-go.name",
@@ -715,7 +715,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.en.OlaGo.conceptNotice",
     "before": "Concept specifications — final features, 4G availability, location, collision detection and SOS are pending brand confirmation.",
-    "after": "Share avatars, voice memos and SOS are some of the ways to enjoy LumiqOlaGo."
+    "after": "Share avatars, voice memo, SOS are some of the ways to enjoy OlaGo"
   },
   {
     "path": "messages.en.OlaGo.connectedIntro",
@@ -735,7 +735,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.en.OlaGo.journalBody",
     "before": "A concept for capturing short spoken memories and notes.",
-    "after": "Remember important conversations and sync when you get home."
+    "after": "Remember the important conversations and sync when you get home."
   },
   {
     "path": "messages.en.OlaGo.lede",
@@ -745,7 +745,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.en.OlaGo.locationBody",
     "before": "Location sharing is a proposed capability and requires privacy and safety review.",
-    "after": "Get transcripts of recordings so you have notes that can sync with your calendar for reminders."
+    "after": "Get transcripts of the recording so you have notes that can sync with your calendar for any reminders."
   },
   {
     "path": "messages.en.OlaGo.locationTitle",
@@ -820,7 +820,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.en.Pal.adultsAlt",
     "before": "Lumiq Ola concept for adults and older people",
-    "after": "LumiqOla concept for adults and older people"
+    "after": "LumiqOla for adults and older people"
   },
   {
     "path": "messages.en.Pal.adultsBody",
@@ -865,7 +865,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.en.Pal.sb3",
     "before": "Story prompts, memory chats and easy questions that keep the mind moving and engaged.",
-    "after": "Story prompts and stored memories keep you curious and engaged."
+    "after": "Story prompts, and stored memory keeps you curious and engaged."
   },
   {
     "path": "messages.en.Pal.sb4",
@@ -875,7 +875,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.en.Pal.strengthsTitle",
     "before": "Five proposed roles for Lumiq Ola in the home.",
-    "after": "Five proposed roles for LumiqOla in the home."
+    "after": "Five roles for LumiqOla in the home."
   },
   {
     "path": "messages.en.Pal.synced",
@@ -905,7 +905,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.en.Pal.waysTitle",
     "before": "Three ways Lumiq Ola may join the story",
-    "after": "Three directions for everyday life with Ola"
+    "after": "3 ways LumiqOla helps you"
   },
   {
     "path": "messages.en.Plans.character",
@@ -1065,7 +1065,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.en.Products.p4Desc",
     "before": "A portable companion concept included with Lumiq Ola; final connectivity and safety features remain unconfirmed.",
-    "after": "A portable companion concept for adults and older adults, planned with LumiqOla. Connectivity and safety features remain unconfirmed."
+    "after": "A portable companion for adults and older adults, included with LumiqOla. Take your avatar, reminders and voice notes with you."
   },
   {
     "path": "messages.en.Products.p4Pill",
@@ -1075,7 +1075,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.en.Products.p5Desc",
     "before": "15.6-inch family display concept for calendars, chores, and meal planning",
-    "after": "A 15.6-inch family display concept for recipes, calendars, chores and rewards, and shared photos."
+    "after": "A 15.6-inch family display for recipes, calendars, chores and rewards, and shared photos."
   },
   {
     "path": "messages.en.Products.p5Pill",
@@ -1210,7 +1210,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.en.Tablet.deviceAlt",
     "before": "Lumiq Tablet concept device",
-    "after": "LumiqTablet concept device"
+    "after": "LumiqTablet device"
   },
   {
     "path": "messages.en.Tablet.growsBody",
@@ -1530,7 +1530,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.ja.Home.product2Description",
     "before": "LUMIQ Ola Go は、Ola に付属するポケットサイズの拡張デバイスです。タッチ操作、同期リマインダー、天気、音声日記を提供します。4G、位置情報、衝撃検知、SOS は確認待ちの構想機能です。",
-    "after": "LumiqOlaGo は、LumiqOla に付属するポケットサイズの拡張デバイスです。タッチ操作、同期リマインダー、天気、音声日記を提供します。4G、位置情報、衝撃検知、SOS は確認待ちの構想機能です。"
+    "after": "LumiqOlaGo は、LumiqOla に付属するポケットサイズの拡張デバイスです。タッチ操作、同期リマインダー、天気、音声メモ、SOS を提供します。"
   },
   {
     "path": "messages.ja.Home.product3Description",
@@ -1570,7 +1570,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.ja.HomeRefresh.brandBody",
     "before": "家族には、それぞれのペースがあります。学び、つながり、日々の小さな時間を、OLA と一緒に。",
-    "after": "LumiqOla は、大人とシニアの日々の会話やリマインダーを中心に、一人ひとりのペースに寄り添うコンパニオンの構想です。"
+    "after": "LumiqOla は、大人とシニアの日々の会話やリマインダーを中心に、一人ひとりのペースに寄り添うコンパニオンです。"
   },
   {
     "path": "messages.ja.HomeRefresh.experiences.companion.alt",
@@ -1650,7 +1650,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.ja.HomeRefresh.products.ola-go.body",
     "before": "OLA に付属する、ポケットサイズの仲間。",
-    "after": "大人とシニア向けの携帯型コンパニオンの構想。"
+    "after": "大人とシニア向けの携帯型コンパニオン。"
   },
   {
     "path": "messages.ja.HomeRefresh.products.ola-go.name",
@@ -2130,7 +2130,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.ja.Pal.kidsAlt",
     "before": "子ども向け Lumiq Ola",
-    "after": "自宅で LumiqOla と話す大人のコンセプト写真"
+    "after": "自宅で LumiqOla と話す大人"
   },
   {
     "path": "messages.ja.Pal.kidsBody",
@@ -2195,7 +2195,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.ja.Pal.waysTitle",
     "before": "Lumiq Ola が物語に加わる3つの方法",
-    "after": "Ola と過ごす日常の三つの方向性"
+    "after": "LumiqOla が暮らしを支える3つの方法"
   },
   {
     "path": "messages.ja.Plans.character",
@@ -2350,7 +2350,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.ja.Products.p4Desc",
     "before": "Lumiq Ola に付属するポータブル構想。通信と安全機能は確認待ちです。",
-    "after": "大人とシニア向けに LumiqOla と組み合わせる携帯型コンパニオンの構想。通信と安全機能は未確定です。"
+    "after": "LumiqOla に付属する、大人とシニアのための携帯型コンパニオン。アバター、リマインダー、音声メモを外出先にも。"
   },
   {
     "path": "messages.ja.Products.p4Pill",
@@ -2360,7 +2360,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.ja.Products.p5Desc",
     "before": "カレンダー、家事、食事の計画に使う15.6インチのファミリーディスプレイ構想。",
-    "after": "レシピ、カレンダー、家事とごほうび、家族の写真をひとつにする15.6インチの共有ディスプレイ構想。"
+    "after": "レシピ、カレンダー、家事とごほうび、家族の写真をひとつにする15.6インチの共有ディスプレイ。"
   },
   {
     "path": "messages.ja.Products.p5Pill",
@@ -2495,7 +2495,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.ja.Tablet.deviceAlt",
     "before": "Lumiq Tablet コンセプト端末",
-    "after": "LumiqTablet コンセプト端末"
+    "after": "LumiqTablet 端末"
   },
   {
     "path": "messages.ja.Tablet.growsBody",
@@ -2805,7 +2805,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.zh-hant.Home.product2Description",
     "before": "LUMIQ Ola Go 是每部 Ola 隨附的口袋延伸裝置，提供觸控互動、同步提醒、天氣資訊與快速語音日記。選配 4G、定位、撞擊偵測與 SOS 仍屬待確認概念。",
-    "after": "LumiqOlaGo 是每部 LumiqOla 隨附的口袋延伸裝置，提供觸控互動、同步提醒、天氣資訊與快速語音日記。選配 4G、定位、撞擊偵測與 SOS 仍屬待確認概念。"
+    "after": "LumiqOlaGo 是每部 LumiqOla 隨附的口袋延伸裝置，提供觸控互動、同步提醒、天氣資訊、語音備忘與 SOS。"
   },
   {
     "path": "messages.zh-hant.Home.product3Description",
@@ -3415,7 +3415,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.zh-hant.Pal.kidsAlt",
     "before": "兒童使用 Lumiq Ola",
-    "after": "成人在家與 LumiqOla 對話的概念照片"
+    "after": "成人在家與 LumiqOla 對話"
   },
   {
     "path": "messages.zh-hant.Pal.kidsBody",
@@ -3480,7 +3480,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.zh-hant.Pal.waysTitle",
     "before": "Lumiq Ola 參與故事的三種方式",
-    "after": "Ola 日常陪伴的三個方向"
+    "after": "LumiqOla 幫助你的三種方式"
   },
   {
     "path": "messages.zh-hant.Plans.character",
@@ -3630,7 +3630,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.zh-hant.Products.p4Desc",
     "before": "隨 Lumiq Ola 提供的可攜式陪伴概念，連線與安全功能仍有待確認。",
-    "after": "規劃與 LumiqOla 搭配的隨身夥伴概念，面向成人與長輩；連線與安全功能仍待確認。"
+    "after": "隨 LumiqOla 提供的隨身夥伴，面向成人與長輩；把虛擬角色、提醒與語音備忘帶在身邊。"
   },
   {
     "path": "messages.zh-hant.Products.p4Pill",
@@ -3640,7 +3640,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.zh-hant.Products.p5Desc",
     "before": "15.6 吋家庭顯示器概念，整合行事曆、家務與餐食規劃。",
-    "after": "15.6 吋家庭顯示器概念，集中呈現食譜、行事曆、家務與獎勵，以及全家共享照片。"
+    "after": "15.6 吋家庭顯示器，集中呈現食譜、行事曆、家務與獎勵，以及全家共享照片。"
   },
   {
     "path": "messages.zh-hant.Products.p5Pill",
@@ -3775,7 +3775,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.zh-hant.Tablet.deviceAlt",
     "before": "Lumiq Tablet 概念裝置",
-    "after": "LumiqTablet 概念裝置"
+    "after": "LumiqTablet 裝置"
   },
   {
     "path": "messages.zh-hant.Tablet.growsBody",
@@ -4065,7 +4065,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.en.Products.lead",
     "before": "Future-ready AI devices that interact, learn, and grow with your family — designed to end in stories, not scrolling.",
-    "after": "LumiqTablet brings children and parents into stories together. LumiqOla and OlaGo are for conversation and everyday company for adults and older adults. LumiqOrb helps the whole household share plans and daily tasks."
+    "after": "LumiqTablet brings children and parents into stories together. LumiqOla and LumiqOlaGo are for conversation and everyday company for adults and older adults. LumiqOrb helps the whole household share plans and daily tasks."
   },
   {
     "path": "messages.en.Products.p1Sub",
@@ -4085,12 +4085,12 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.en.Products.p3Desc",
     "before": "A magical bedside companion that syncs with the tablet to bring stories into the room — and keeps the whole family close.",
-    "after": "An AI companion concept for adults and older adults, centered on conversation and everyday reminders."
+    "after": "An AI companion for adults and older adults, centered on conversation and everyday reminders."
   },
   {
     "path": "messages.en.Products.p3S1",
     "before": "3D holographic display",
-    "after": "Character projection concept"
+    "after": "Character projection"
   },
   {
     "path": "messages.en.Products.p3S2",
@@ -4100,12 +4100,12 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.en.Products.p3S3",
     "before": "Conversation & reminders",
-    "after": "Reminders under review"
+    "after": "Everyday reminders"
   },
   {
     "path": "messages.en.Products.p3S4",
     "before": "Custom avatars",
-    "after": "Personal character concept"
+    "after": "Personal character"
   },
   {
     "path": "messages.en.Products.p4Sub",
@@ -4115,7 +4115,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.en.HomePlans.p2Desc",
     "before": "A personal holographic companion for stories, conversation, reminders and gentle everyday support across every generation of the family.",
-    "after": "A portable and at-home companion concept for adults and older adults, focused on conversation and everyday reminders."
+    "after": "A portable and at-home companion for adults and older adults, focused on conversation and everyday reminders."
   },
   {
     "path": "messages.en.HomeRefresh.heroBody",
@@ -4125,7 +4125,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.en.HomeRefresh.olaBody",
     "before": "A personal AI companion with a familiar face. Here for conversations, little reminders and moments of discovery — at every age.",
-    "after": "An AI companion concept for adults and older adults, designed around conversation and everyday reminders at home."
+    "after": "An AI companion for adults and older adults, designed around conversation and everyday reminders at home."
   },
   {
     "path": "messages.en.HomeRefresh.products.tablet.type",
@@ -4230,7 +4230,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.zh-hant.Products.lead",
     "before": "與家人一起互動、學習和成長的未來型 AI 裝置；體驗以故事作結，而不是無止境滑動。",
-    "after": "LumiqTablet 讓孩子與家長一起讀故事；LumiqOla 和 OlaGo 陪伴成人與長輩聊天、記得日常小事；LumiqOrb 幫全家共享行程與家務。"
+    "after": "LumiqTablet 讓孩子與家長一起讀故事；LumiqOla 和 LumiqOlaGo 陪伴成人與長輩聊天、記得日常小事；LumiqOrb 幫全家共享行程與家務。"
   },
   {
     "path": "messages.zh-hant.Products.p1Sub",
@@ -4250,12 +4250,12 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.zh-hant.Products.p3Desc",
     "before": "與平板同步的魔法床頭夥伴，讓故事走進房間，也讓一家人保持靠近。",
-    "after": "面向成人與長輩的 AI 夥伴概念，著重日常對話與提醒。"
+    "after": "面向成人與長輩的 AI 夥伴，著重日常對話與提醒。"
   },
   {
     "path": "messages.zh-hant.Products.p3S1",
     "before": "3D 全息顯示",
-    "after": "角色投影概念"
+    "after": "角色投影"
   },
   {
     "path": "messages.zh-hant.Products.p3S2",
@@ -4265,12 +4265,12 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.zh-hant.Products.p3S3",
     "before": "對話與提醒",
-    "after": "提醒功能待確認"
+    "after": "日常提醒"
   },
   {
     "path": "messages.zh-hant.Products.p3S4",
     "before": "自訂虛擬角色",
-    "after": "個人化角色概念"
+    "after": "個人化角色"
   },
   {
     "path": "messages.zh-hant.Products.p4Sub",
@@ -4290,7 +4290,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.zh-hant.HomeRefresh.olaBody",
     "before": "有熟悉面孔的個人 AI 夥伴，陪你聊天、提醒日常小事，一起探索生活中的新發現。",
-    "after": "面向成人與長輩的 AI 夥伴概念，陪你聊聊日常，也提醒生活中的小事。"
+    "after": "面向成人與長輩的 AI 夥伴，陪你聊聊日常，也提醒生活中的小事。"
   },
   {
     "path": "messages.zh-hant.HomeRefresh.products.tablet.type",
@@ -4405,7 +4405,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.ja.Products.lead",
     "before": "家族と関わり、学び、ともに成長する未来志向の AI デバイス。スクロールではなく、物語で終わるように設計しています。",
-    "after": "LumiqTablet は子どもと保護者が一緒に物語を読むために。LumiqOla と OlaGo は大人とシニアの日々の会話やリマインダーに。LumiqOrb は家族の予定や家事を共有します。"
+    "after": "LumiqTablet は子どもと保護者が一緒に物語を読むために。LumiqOla と LumiqOlaGo は大人とシニアの日々の会話やリマインダーに。LumiqOrb は家族の予定や家事を共有します。"
   },
   {
     "path": "messages.ja.Products.p1Sub",
@@ -4425,12 +4425,12 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.ja.Products.p3Desc",
     "before": "タブレットと同期して物語を部屋へ運び、家族を近くにつなぐ魔法のベッドサイド・コンパニオン。",
-    "after": "大人とシニアの日々の会話やリマインダーを中心に考えた、AI コンパニオンの構想です。"
+    "after": "大人とシニアの日々の会話やリマインダーを支える AI コンパニオンです。"
   },
   {
     "path": "messages.ja.Products.p3S1",
     "before": "3D ホログラフィック表示",
-    "after": "キャラクター投影の構想"
+    "after": "キャラクター投影"
   },
   {
     "path": "messages.ja.Products.p3S2",
@@ -4440,12 +4440,12 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.ja.Products.p3S3",
     "before": "会話とリマインダー",
-    "after": "確認中のリマインダー機能"
+    "after": "日々のリマインダー"
   },
   {
     "path": "messages.ja.Products.p3S4",
     "before": "カスタムアバター",
-    "after": "パーソナルキャラクターの構想"
+    "after": "パーソナルキャラクター"
   },
   {
     "path": "messages.ja.Products.p4Sub",
@@ -4455,7 +4455,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.ja.HomePlans.p2Desc",
     "before": "物語、会話、リマインダー、日々のやさしい支援を、家族のあらゆる世代に届けるパーソナル・コンパニオン。",
-    "after": "大人とシニアの会話や日々のリマインダーを中心にした、家庭用・携帯型コンパニオンの構想です。"
+    "after": "大人とシニアの会話や日々のリマインダーを中心にした、家庭用・携帯型コンパニオンです。"
   },
   {
     "path": "messages.ja.HomeRefresh.heroBody",
@@ -4465,7 +4465,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.ja.HomeRefresh.olaBody",
     "before": "なじみのある顔を持つ、個人向け AI パートナー。会話や日々のリマインダー、小さな発見を、さまざまな世代へ。",
-    "after": "大人とシニアの会話や日々のリマインダーを中心に考えた、AI コンパニオンの構想です。"
+    "after": "大人とシニアの会話や日々のリマインダーを中心に考えた、AI コンパニオンです。"
   },
   {
     "path": "messages.ja.HomeRefresh.products.tablet.type",
@@ -4485,7 +4485,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.ja.HomeRefresh.products.ola.body",
     "before": "表情豊かなパートナーを、毎日のそばに。",
-    "after": "親しみのあるキャラクターと会話し、日々の予定を思い出すための構想。"
+    "after": "親しみのあるキャラクターと会話し、日々の予定を思い出すためのパートナー。"
   },
   {
     "path": "messages.ja.HomeRefresh.products.ola-go.type",
@@ -4916,5 +4916,10 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
     "path": "messages.ja.Metadata.productPrint.description",
     "before": "お子さまが主人公になるハードカバー絵本のコンセプト。",
     "after": "お子さまが主人公になるハードカバー絵本。"
+  },
+  {
+    "path": "media.asset_38c045ee1dd24e31.alt",
+    "before": "LUMIQ OLA + Go",
+    "after": "LumiqOla + LumiqOlaGo"
   }
 ];

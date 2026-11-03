@@ -132,6 +132,12 @@ describe('content import', () => {
       symlinkSync(path.resolve('node_modules'), path.join(app, 'node_modules'));
       const run = () => spawnSync(process.execPath, [path.join(app, 'scripts/export-initial-content.mjs'), '--check'], { encoding: 'utf8' });
       expect(run().status).toBe(0);
+      const printPage = path.join(app, 'components/PrintProductPage.tsx');
+      writeFileSync(printPage, readFileSync(printPage, 'utf8').replace('title: t("sectionTitle")', 'title: ""'));
+      const missingReplacement = run();
+      expect(missingReplacement.status).toBe(1);
+      expect(missingReplacement.stderr).toContain('Invalid static substitution');
+      cpSync('components/PrintProductPage.tsx', printPage);
       const retirementFile=path.join(app,'lib/content/retired-account-fields.json');
       const retirement=JSON.parse(readFileSync(retirementFile,'utf8'));
       writeFileSync(retirementFile,JSON.stringify({...retirement,fields:retirement.fields.slice(1)}));

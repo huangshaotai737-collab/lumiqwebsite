@@ -7,6 +7,7 @@ import ProductDetailTemplate from "@/components/ProductDetailTemplate";
 export default function PrintProductPage() {
   const cms = useContentAdapter();
   const t = useTranslations("Book");
+  const presentation = useTranslations("BrandPresentation.print");
 
   return (
     <ProductDetailTemplate
@@ -14,7 +15,7 @@ export default function PrintProductPage() {
       accent="#336a9d"
       accentSoft="#e1edf5"
       backLabel={t("all")}
-      productName="Lumiq Print"
+      productName={cms.snapshot.products.print.name}
       title={`${t("titleBefore")} ${t("titleEm")}`}
       lede={t("lede")}
       conceptNotice={t("conceptNotice")}
@@ -35,58 +36,20 @@ export default function PrintProductPage() {
           alt: t("alt"),
           unoptimized: true,
         },
-        items: [1,2,3,4].map(number=>({title:t(`s${number}`),body:t(`s${number}Body`)})),
+        items: [1,4].map(number=>({title:t(`s${number}`),body:t(`s${number}Body`)})),
       }}
-      scenes={[
-        {
-          eyebrow: cms.text("field_fac072f6a017d02f"),
-          title: t("titleEm"),
-          body: t("lede"),
-          items: [2,3].map(number=>({title:t(`s${number}`),body:t(`s${number}Body`)})),
-          image: {
-            src: cms.url("/assets/print-detail/consistent-20260907/craft.webp"),
-            alt: t("alt"),
-            unoptimized: true,
-          },
-        },
-        {
-          eyebrow: cms.text("field_9886e4c94096599d"),
-          title: t("sectionTitle"),
-          body: t("body"),
-          items: [1,4].map(number=>({title:t(`s${number}`),body:t(`s${number}Body`)})),
-          image: {
-            src: cms.url("/assets/print-detail/consistent-20260907/reading.webp"),
-            alt: t("alt"),
-            unoptimized: true,
-          },
-        },
-      ]}
+      scenes={[]}
       features={{
         eyebrow: t("eyebrow"),
         title: t("detailsTitle"),
-        intro: t("body"),
-        items: [1, 2, 3, 4].map((number) => ({
+        intro: presentation("craftIntro"),
+        items: [2, 3].map((number) => ({
           title: t(`s${number}`),
           body: t(`s${number}Body`),
         })),
         image: {
           src: cms.url("/assets/print-detail/consistent-20260907/pages.webp"),
           alt: t("alt"),
-          unoptimized: true,
-        },
-      }}
-      darkSection={{
-        eyebrow: t("eyebrow"),
-        title: t("sectionTitle"),
-        intro: t("body"),
-        items: [1, 2, 3, 4].map((number) => ({
-          title: t(`s${number}`),
-          body: t(`s${number}Body`),
-        })),
-        image: {
-          src: cms.url("/assets/products/lumiq-print.png"),
-          alt: t("alt"),
-          fit: "contain",
           unoptimized: true,
         },
       }}

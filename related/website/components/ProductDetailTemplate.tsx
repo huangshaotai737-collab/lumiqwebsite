@@ -37,7 +37,7 @@ type ProductDetailTemplateProps = {
   story: ProductStory;
   scenes: ProductScene[];
   features: ProductSection;
-  darkSection: ProductSection;
+  darkSection?: ProductSection;
   extraSection?: ProductSection;
   finalTitle: string;
   finalBody: string;
@@ -174,8 +174,8 @@ export default function ProductDetailTemplate({
       {scenes.map((scene,index)=><ProductFeatureSection key={scene.title} className="pd-scenes-floor" {...scene} intro={scene.body} mediaLeft={index%2===1} />)}
       <ProductFeatureSection className="pd-feature-floor" {...features} mediaLeft={scenes.length%2===1}/>
       {afterFeatures}
-      {!hideDarkSection && <ProductFeatureSection className="pd-dark-floor" {...darkSection} mediaLeft={(scenes.length+3+(afterFeatures?afterFeaturesCount:0))%2===1}/>}
-      {extraSection && <ProductFeatureSection className="pd-extra-floor" {...extraSection} mediaLeft={(scenes.length+3+(afterFeatures?afterFeaturesCount:0)+(hideDarkSection?0:1))%2===1}/>}
+      {darkSection && !hideDarkSection && <ProductFeatureSection className="pd-dark-floor" {...darkSection} mediaLeft={(scenes.length+3+(afterFeatures?afterFeaturesCount:0))%2===1}/>}
+      {extraSection && <ProductFeatureSection className="pd-extra-floor" {...extraSection} mediaLeft={(scenes.length+3+(afterFeatures?afterFeaturesCount:0)+(darkSection && !hideDarkSection?1:0))%2===1}/>}
 
       <section className="pd-final-floor">
         <div className="pd-shell pd-final-inner">

@@ -15,7 +15,12 @@ const approved = [
   [124, 'Pal.kids2', 'Voice interaction'],
   [124, 'Pal.kids3', 'Custom voice bedtime stories'],
   [128, 'Pal.way2Body', 'As the story changes, new interactions and abilities appear. Talk with the characters in your favorite story.'],
+  [127, 'Pal.waysTitle', '3 ways LumiqOla helps you'],
+  [130, 'Pal.sb3', 'Story prompts, and stored memory keeps you curious and engaged.'],
   [132, 'Pal.sb5', 'Ambient light and soft white notice that keep you company till morning.'],
+  [135, 'OlaGo.conceptNotice', 'Share avatars, voice memo, SOS are some of the ways to enjoy OlaGo'],
+  [142, 'OlaGo.journalBody', 'Remember the important conversations and sync when you get home.'],
+  [146, 'OlaGo.locationBody', 'Get transcripts of the recording so you have notes that can sync with your calendar for any reminders.'],
   [20, 'Tablet.step4Title', 'Interact with storybook characters'],
 ] as const;
 const get = (tree: MessageTree, path: string): unknown => path.split('.').reduce<unknown>((v,k) => (v as MessageTree)[k],tree);
@@ -66,6 +71,16 @@ describe('brand verbatim replacement acceptance', () => {
       }
     }
     expect(get(currentSnapshot.messages.ja, 'OlaGo.included')).toBe('LumiqOla に付属');
+  });
+  it('uses confirmed capabilities and full product names in the overview in every language', () => {
+    for (const locale of ['en', 'zh-hant', 'ja'] as const) {
+      for (const key of ['p3Desc','p3S1','p3S3','p3S4','p4Desc','p5Desc']) {
+        expect(String(get(currentSnapshot.messages[locale], `Products.${key}`))).not.toMatch(/concept|proposed|unconfirmed|under review|概念|待確認|構想|未確定|確認中|コンセプト/i);
+      }
+      expect(get(currentSnapshot.messages[locale], 'Products.lead')).toContain('LumiqOlaGo');
+    }
+    expect(get(currentSnapshot.messages.en, 'Pal.strengthsTitle')).not.toContain('proposed');
+    expect(currentSnapshot.media.asset_38c045ee1dd24e31.alt).toBe('LumiqOla + LumiqOlaGo');
   });
   it('preserves CMS edits to shared-template supporting copy', () => {
     const snapshot = withBrandContent(structuredClone(currentSnapshot));
