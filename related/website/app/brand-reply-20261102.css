@@ -25,9 +25,6 @@
   .lh-home .lh-films-layout {padding-top:80px}
   .lh-home .lh-films-stage {height:calc(var(--film-height) + 24px)}
 }
-.brand-product-facts {margin-top:24px;font-size:15px;line-height:1.65;color:#526176}
-.product-detail-light .brand-product-facts-label {font:inherit;font-size:16px;font-weight:600;color:#1d2d42;margin:0 0 8px}
-.brand-product-facts p {margin:6px 0}
 .pd-vip-price {display:block;font-size:16px;line-height:1.5;font-weight:500;margin-top:4px}
 .brand-family-data {max-width:80ch;line-height:1.85}
 .lumiq-root .brand-family-data {padding-block:24px}

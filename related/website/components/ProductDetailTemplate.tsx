@@ -1,6 +1,5 @@
 "use client";
 import {useTranslations} from "next-intl";
-import BrandProductFacts from "@/components/BrandProductFacts";
 import {useContentAdapter} from "@/components/content/useContentAdapter";
 import {useCartCopy} from "@/components/content/useCartCopy";
 import {isProductId} from "@/lib/cart";
@@ -157,7 +156,6 @@ export default function ProductDetailTemplate({
               <div className="pd-cart-action"><AddToCartButton productId={slug} /></div>
             </div>
             {heroOptions && <div className="pd-hero-options">{heroOptions}</div>}
-            {(slug === "tablet" || slug === "ola" || slug === "ola-go") && <BrandProductFacts product={slug} />}
           </div>
 
           <figure className="pd-hero-visual">
