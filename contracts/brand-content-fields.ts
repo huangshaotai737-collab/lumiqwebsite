@@ -2,6 +2,2187 @@
 import type {ContentField,ContentRule} from "./content";
 export const brandContentFields: readonly (ContentField & {optionalGroup:string})[] = [
   {
+    "path": "messages.en.BrandSceneDetails",
+    "pages": [
+      "/products"
+    ],
+    "type": "object",
+    "maxLength": null,
+    "icuSignature": null,
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": false,
+    "owner": "snapshot",
+    "optionalGroup": "messages.en.BrandSceneDetails"
+  },
+  {
+    "path": "messages.en.BrandSceneDetails.olago",
+    "pages": [
+      "/products/ola-go"
+    ],
+    "type": "object",
+    "maxLength": null,
+    "icuSignature": null,
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": false,
+    "owner": "snapshot",
+    "optionalGroup": "messages.en.BrandSceneDetails"
+  },
+  {
+    "path": "messages.en.BrandSceneDetails.olago.reminders",
+    "pages": [
+      "/products/ola-go"
+    ],
+    "type": "object",
+    "maxLength": null,
+    "icuSignature": null,
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": false,
+    "owner": "snapshot",
+    "optionalGroup": "messages.en.BrandSceneDetails"
+  },
+  {
+    "path": "messages.en.BrandSceneDetails.olago.reminders.item1Title",
+    "pages": [
+      "/products/ola-go"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.en.BrandSceneDetails",
+    "initialValue": "Sync your calendar"
+  },
+  {
+    "path": "messages.en.BrandSceneDetails.olago.reminders.item1Body",
+    "pages": [
+      "/products/ola-go"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.en.BrandSceneDetails",
+    "initialValue": "Keep appointments and plans from your usual calendar with you, so the day stays in view when you leave home."
+  },
+  {
+    "path": "messages.en.BrandSceneDetails.olago.reminders.item2Title",
+    "pages": [
+      "/products/ola-go"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.en.BrandSceneDetails",
+    "initialValue": "Keep everyday tasks in mind"
+  },
+  {
+    "path": "messages.en.BrandSceneDetails.olago.reminders.item2Body",
+    "pages": [
+      "/products/ola-go"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.en.BrandSceneDetails",
+    "initialValue": "From running an errand to meeting family, portable reminders help you keep the things you need to do in order."
+  },
+  {
+    "path": "messages.en.BrandSceneDetails.olago.reminders.item3Title",
+    "pages": [
+      "/products/ola-go"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.en.BrandSceneDetails",
+    "initialValue": "Take your reminders along"
+  },
+  {
+    "path": "messages.en.BrandSceneDetails.olago.reminders.item3Body",
+    "pages": [
+      "/products/ola-go"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.en.BrandSceneDetails",
+    "initialValue": "Keep LumiqOlaGo in your everyday bag or close at hand, bringing the plans you make at home into your time outdoors."
+  },
+  {
+    "path": "messages.en.BrandSceneDetails.olago.weather",
+    "pages": [
+      "/products/ola-go"
+    ],
+    "type": "object",
+    "maxLength": null,
+    "icuSignature": null,
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": false,
+    "owner": "snapshot",
+    "optionalGroup": "messages.en.BrandSceneDetails"
+  },
+  {
+    "path": "messages.en.BrandSceneDetails.olago.weather.item1Title",
+    "pages": [
+      "/products/ola-go"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.en.BrandSceneDetails",
+    "initialValue": "Check before you leave"
+  },
+  {
+    "path": "messages.en.BrandSceneDetails.olago.weather.item1Body",
+    "pages": [
+      "/products/ola-go"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.en.BrandSceneDetails",
+    "initialValue": "Check the latest weather on your device and consider the temperature and conditions before getting ready."
+  },
+  {
+    "path": "messages.en.BrandSceneDetails.olago.weather.item2Title",
+    "pages": [
+      "/products/ola-go"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.en.BrandSceneDetails",
+    "initialValue": "Make time for the outdoors"
+  },
+  {
+    "path": "messages.en.BrandSceneDetails.olago.weather.item2Body",
+    "pages": [
+      "/products/ola-go"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.en.BrandSceneDetails",
+    "initialValue": "Use the weather as a starting point when planning a walk, a shopping trip or time with family."
+  },
+  {
+    "path": "messages.en.BrandSceneDetails.olago.weather.item3Title",
+    "pages": [
+      "/products/ola-go"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.en.BrandSceneDetails",
+    "initialValue": "Keep the forecast close"
+  },
+  {
+    "path": "messages.en.BrandSceneDetails.olago.weather.item3Body",
+    "pages": [
+      "/products/ola-go"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.en.BrandSceneDetails",
+    "initialValue": "Keep weather information with you. Pause for a quick look while you are out and prepare for the next part of your day."
+  },
+  {
+    "path": "messages.en.BrandSceneDetails.olago.journal",
+    "pages": [
+      "/products/ola-go"
+    ],
+    "type": "object",
+    "maxLength": null,
+    "icuSignature": null,
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": false,
+    "owner": "snapshot",
+    "optionalGroup": "messages.en.BrandSceneDetails"
+  },
+  {
+    "path": "messages.en.BrandSceneDetails.olago.journal.item1Title",
+    "pages": [
+      "/products/ola-go"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.en.BrandSceneDetails",
+    "initialValue": "Capture it in your voice"
+  },
+  {
+    "path": "messages.en.BrandSceneDetails.olago.journal.item1Body",
+    "pages": [
+      "/products/ola-go"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.en.BrandSceneDetails",
+    "initialValue": "Use your voice to keep an important conversation, a passing thought or a reflection on your day, giving those moments a place to stay."
+  },
+  {
+    "path": "messages.en.BrandSceneDetails.olago.journal.item2Title",
+    "pages": [
+      "/products/ola-go"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.en.BrandSceneDetails",
+    "initialValue": "Sync when you get home"
+  },
+  {
+    "path": "messages.en.BrandSceneDetails.olago.journal.item2Body",
+    "pages": [
+      "/products/ola-go"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.en.BrandSceneDetails",
+    "initialValue": "Sync your recordings when you return home, bringing notes and moments from your day back into your everyday routine."
+  },
+  {
+    "path": "messages.en.BrandSceneDetails.olago.journal.item3Title",
+    "pages": [
+      "/products/ola-go"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.en.BrandSceneDetails",
+    "initialValue": "Turn a note into a next step"
+  },
+  {
+    "path": "messages.en.BrandSceneDetails.olago.journal.item3Body",
+    "pages": [
+      "/products/ola-go"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.en.BrandSceneDetails",
+    "initialValue": "Review the transcript through voice notes and calendar sync, then organize the things you want to follow up into notes and reminders."
+  },
+  {
+    "path": "messages.en.BrandSceneDetails.olago.homeAlt",
+    "pages": [
+      "/products/ola-go"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.en.BrandSceneDetails",
+    "initialValue": "An adult using LumiqOla and LumiqOlaGo at home"
+  },
+  {
+    "path": "messages.en.BrandSceneDetails.olago.outdoorAlt",
+    "pages": [
+      "/products/ola-go"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.en.BrandSceneDetails",
+    "initialValue": "An older adult checking LumiqOlaGo outdoors"
+  },
+  {
+    "path": "messages.en.BrandSceneDetails.olago.journalAlt",
+    "pages": [
+      "/products/ola-go"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.en.BrandSceneDetails",
+    "initialValue": "An adult recording a voice note with LumiqOlaGo at home"
+  },
+  {
+    "path": "messages.en.BrandSceneDetails.print",
+    "pages": [
+      "/products/print"
+    ],
+    "type": "object",
+    "maxLength": null,
+    "icuSignature": null,
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": false,
+    "owner": "snapshot",
+    "optionalGroup": "messages.en.BrandSceneDetails"
+  },
+  {
+    "path": "messages.en.BrandSceneDetails.print.storyTitle",
+    "pages": [
+      "/products/print"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.en.BrandSceneDetails",
+    "initialValue": "Put the story in their hands"
+  },
+  {
+    "path": "messages.en.BrandSceneDetails.print.storyBody",
+    "pages": [
+      "/products/print"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.en.BrandSceneDetails",
+    "initialValue": "Turn a familiar ImagiMe story into a physical book to read together, taking story time from the screen into moments with family."
+  },
+  {
+    "path": "messages.en.BrandSceneDetails.print.craftTitle",
+    "pages": [
+      "/products/print"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.en.BrandSceneDetails",
+    "initialValue": "Return to a familiar story"
+  },
+  {
+    "path": "messages.en.BrandSceneDetails.print.craftBody",
+    "pages": [
+      "/products/print"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.en.BrandSceneDetails",
+    "initialValue": "From recognizing themselves on the cover to revisiting a favorite spread, children can read and share the story with family, then keep it on the bookshelf."
+  },
+  {
+    "path": "messages.en.BrandSceneDetails.tablet",
+    "pages": [
+      "/products/tablet"
+    ],
+    "type": "object",
+    "maxLength": null,
+    "icuSignature": null,
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": false,
+    "owner": "snapshot",
+    "optionalGroup": "messages.en.BrandSceneDetails"
+  },
+  {
+    "path": "messages.en.BrandSceneDetails.tablet.passiveTitle",
+    "pages": [
+      "/products/tablet"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.en.BrandSceneDetails",
+    "initialValue": "Fewer pauses to share"
+  },
+  {
+    "path": "messages.en.BrandSceneDetails.tablet.passiveBody",
+    "pages": [
+      "/products/tablet"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.en.BrandSceneDetails",
+    "initialValue": "When content keeps playing, there may be fewer pauses for children to share their thoughts. Reading together makes room for questions and conversation."
+  },
+  {
+    "path": "messages.en.BrandSceneDetails.tablet.activeTitle",
+    "pages": [
+      "/products/tablet"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.en.BrandSceneDetails",
+    "initialValue": "Talk about the story together"
+  },
+  {
+    "path": "messages.en.BrandSceneDetails.tablet.activeBody",
+    "pages": [
+      "/products/tablet"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.en.BrandSceneDetails",
+    "initialValue": "Talk about a favorite character, a choice you made and what you would like to explore next, making reading a time the family can share."
+  },
+  {
+    "path": "messages.en.BrandSceneDetails.tablet.secondSkillsTitle",
+    "pages": [
+      "/products/tablet"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.en.BrandSceneDetails",
+    "initialValue": "Practice understanding yourself and others"
+  },
+  {
+    "path": "messages.en.BrandSceneDetails.tablet.secondSkillsIntro",
+    "pages": [
+      "/products/tablet"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.en.BrandSceneDetails",
+    "initialValue": "From working toward a goal to considering feelings and different perspectives, carry the practice in stories into everyday interactions."
+  },
+  {
+    "path": "messages.en.BrandSceneDetails.tablet.stage1Body",
+    "pages": [
+      "/products/tablet"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.en.BrandSceneDetails",
+    "initialValue": "Look at pictures and listen with a caregiver, beginning to explore through familiar voices and shared time."
+  },
+  {
+    "path": "messages.en.BrandSceneDetails.tablet.stage2Body",
+    "pages": [
+      "/products/tablet"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.en.BrandSceneDetails",
+    "initialValue": "Share ideas and try simple choices while reading together, enjoying small accomplishments with family."
+  },
+  {
+    "path": "messages.en.BrandSceneDetails.tablet.stage3Body",
+    "pages": [
+      "/products/tablet"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.en.BrandSceneDetails",
+    "initialValue": "Notice clues and different paths in the story, then talk about how each choice changes what happens next."
+  },
+  {
+    "path": "messages.en.BrandSceneDetails.tablet.stage4Body",
+    "pages": [
+      "/products/tablet"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.en.BrandSceneDetails",
+    "initialValue": "Reflect on choices and characters’ feelings, gradually practicing how to consider consequences and other perspectives."
+  },
+  {
+    "path": "messages.en.BrandSceneDetails.orb",
+    "pages": [
+      "/products/nest"
+    ],
+    "type": "object",
+    "maxLength": null,
+    "icuSignature": null,
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": false,
+    "owner": "snapshot",
+    "optionalGroup": "messages.en.BrandSceneDetails"
+  },
+  {
+    "path": "messages.en.BrandSceneDetails.orb.finish1Body",
+    "pages": [
+      "/products/nest"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.en.BrandSceneDetails",
+    "initialValue": "Pair a light wood tone with dining tables and kitchens, keeping shared plans part of the places where family gathers."
+  },
+  {
+    "path": "messages.en.BrandSceneDetails.orb.finish2Body",
+    "pages": [
+      "/products/nest"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.en.BrandSceneDetails",
+    "initialValue": "A darker wood finish suits a calm living room or study, bringing the shared screen into harmony with familiar furniture."
+  },
+  {
+    "path": "messages.en.BrandSceneDetails.orb.finish3Body",
+    "pages": [
+      "/products/nest"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.en.BrandSceneDetails",
+    "initialValue": "A clean, dark frame fits a minimal space, leaving attention on today’s plans, family tasks and favorite photos."
+  },
+  {
+    "path": "messages.en.BrandSceneDetails.orb.sceneAlt",
+    "pages": [
+      "/products/nest"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "1:screen:::",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.en.BrandSceneDetails",
+    "initialValue": "{screen} on LumiqOrb at home"
+  },
+  {
+    "path": "messages.en.BrandSceneDetails.orb.closeup",
+    "pages": [
+      "/products/nest"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.en.BrandSceneDetails",
+    "initialValue": "View screen details"
+  },
+  {
+    "path": "messages.en.BrandSceneDetails.orb.close",
+    "pages": [
+      "/products/nest"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.en.BrandSceneDetails",
+    "initialValue": "Close screen details"
+  },
+  {
+    "path": "messages.zh-hant.BrandSceneDetails",
+    "pages": [
+      "/products"
+    ],
+    "type": "object",
+    "maxLength": null,
+    "icuSignature": null,
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": false,
+    "owner": "snapshot",
+    "optionalGroup": "messages.zh-hant.BrandSceneDetails"
+  },
+  {
+    "path": "messages.zh-hant.BrandSceneDetails.olago",
+    "pages": [
+      "/products/ola-go"
+    ],
+    "type": "object",
+    "maxLength": null,
+    "icuSignature": null,
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": false,
+    "owner": "snapshot",
+    "optionalGroup": "messages.zh-hant.BrandSceneDetails"
+  },
+  {
+    "path": "messages.zh-hant.BrandSceneDetails.olago.reminders",
+    "pages": [
+      "/products/ola-go"
+    ],
+    "type": "object",
+    "maxLength": null,
+    "icuSignature": null,
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": false,
+    "owner": "snapshot",
+    "optionalGroup": "messages.zh-hant.BrandSceneDetails"
+  },
+  {
+    "path": "messages.zh-hant.BrandSceneDetails.olago.reminders.item1Title",
+    "pages": [
+      "/products/ola-go"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.zh-hant.BrandSceneDetails",
+    "initialValue": "同步行事曆"
+  },
+  {
+    "path": "messages.zh-hant.BrandSceneDetails.olago.reminders.item1Body",
+    "pages": [
+      "/products/ola-go"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.zh-hant.BrandSceneDetails",
+    "initialValue": "把慣用行事曆中的約會與安排帶在身邊，出門後也能掌握今天的節奏。"
+  },
+  {
+    "path": "messages.zh-hant.BrandSceneDetails.olago.reminders.item2Title",
+    "pages": [
+      "/products/ola-go"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.zh-hant.BrandSceneDetails",
+    "initialValue": "記住日常待辦"
+  },
+  {
+    "path": "messages.zh-hant.BrandSceneDetails.olago.reminders.item2Body",
+    "pages": [
+      "/products/ola-go"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.zh-hant.BrandSceneDetails",
+    "initialValue": "從出門辦事到與家人見面，用隨身提醒記住當天要做的事，讓安排更有條理。"
+  },
+  {
+    "path": "messages.zh-hant.BrandSceneDetails.olago.reminders.item3Title",
+    "pages": [
+      "/products/ola-go"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.zh-hant.BrandSceneDetails",
+    "initialValue": "讓提醒陪你出門"
+  },
+  {
+    "path": "messages.zh-hant.BrandSceneDetails.olago.reminders.item3Body",
+    "pages": [
+      "/products/ola-go"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.zh-hant.BrandSceneDetails",
+    "initialValue": "將 LumiqOlaGo 放在隨身包裡或帶在手邊，讓家中的日常安排延續到外出的時刻。"
+  },
+  {
+    "path": "messages.zh-hant.BrandSceneDetails.olago.weather",
+    "pages": [
+      "/products/ola-go"
+    ],
+    "type": "object",
+    "maxLength": null,
+    "icuSignature": null,
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": false,
+    "owner": "snapshot",
+    "optionalGroup": "messages.zh-hant.BrandSceneDetails"
+  },
+  {
+    "path": "messages.zh-hant.BrandSceneDetails.olago.weather.item1Title",
+    "pages": [
+      "/products/ola-go"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.zh-hant.BrandSceneDetails",
+    "initialValue": "出門前看看天氣"
+  },
+  {
+    "path": "messages.zh-hant.BrandSceneDetails.olago.weather.item1Body",
+    "pages": [
+      "/products/ola-go"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.zh-hant.BrandSceneDetails",
+    "initialValue": "在裝置上查看最新天氣，先了解當天的溫度與狀況，再決定如何準備。"
+  },
+  {
+    "path": "messages.zh-hant.BrandSceneDetails.olago.weather.item2Title",
+    "pages": [
+      "/products/ola-go"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.zh-hant.BrandSceneDetails",
+    "initialValue": "安排戶外時光"
+  },
+  {
+    "path": "messages.zh-hant.BrandSceneDetails.olago.weather.item2Body",
+    "pages": [
+      "/products/ola-go"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.zh-hant.BrandSceneDetails",
+    "initialValue": "散步、採買或與家人相約，都可以從天氣資訊出發，選擇適合自己的出門節奏。"
+  },
+  {
+    "path": "messages.zh-hant.BrandSceneDetails.olago.weather.item3Title",
+    "pages": [
+      "/products/ola-go"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.zh-hant.BrandSceneDetails",
+    "initialValue": "途中也能輕鬆查看"
+  },
+  {
+    "path": "messages.zh-hant.BrandSceneDetails.olago.weather.item3Body",
+    "pages": [
+      "/products/ola-go"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.zh-hant.BrandSceneDetails",
+    "initialValue": "把天氣資訊帶在身邊；在途中停下來看一眼，為接下來的行程做準備。"
+  },
+  {
+    "path": "messages.zh-hant.BrandSceneDetails.olago.journal",
+    "pages": [
+      "/products/ola-go"
+    ],
+    "type": "object",
+    "maxLength": null,
+    "icuSignature": null,
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": false,
+    "owner": "snapshot",
+    "optionalGroup": "messages.zh-hant.BrandSceneDetails"
+  },
+  {
+    "path": "messages.zh-hant.BrandSceneDetails.olago.journal.item1Title",
+    "pages": [
+      "/products/ola-go"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.zh-hant.BrandSceneDetails",
+    "initialValue": "先把聲音記下來"
+  },
+  {
+    "path": "messages.zh-hant.BrandSceneDetails.olago.journal.item1Body",
+    "pages": [
+      "/products/ola-go"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.zh-hant.BrandSceneDetails",
+    "initialValue": "用語音留下重要對話、臨時想到的事情或一天的感受，讓值得記住的片刻有處可放。"
+  },
+  {
+    "path": "messages.zh-hant.BrandSceneDetails.olago.journal.item2Title",
+    "pages": [
+      "/products/ola-go"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.zh-hant.BrandSceneDetails",
+    "initialValue": "回家後再同步"
+  },
+  {
+    "path": "messages.zh-hant.BrandSceneDetails.olago.journal.item2Body",
+    "pages": [
+      "/products/ola-go"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.zh-hant.BrandSceneDetails",
+    "initialValue": "回家後同步隨身記下的內容，把外出的見聞與備忘帶回熟悉的日常安排中。"
+  },
+  {
+    "path": "messages.zh-hant.BrandSceneDetails.olago.journal.item3Title",
+    "pages": [
+      "/products/ola-go"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.zh-hant.BrandSceneDetails",
+    "initialValue": "從備忘延續到安排"
+  },
+  {
+    "path": "messages.zh-hant.BrandSceneDetails.olago.journal.item3Body",
+    "pages": [
+      "/products/ola-go"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.zh-hant.BrandSceneDetails",
+    "initialValue": "配合語音備忘的逐字稿與行事曆同步，回顧重點，再把需要跟進的事情整理成筆記與提醒。"
+  },
+  {
+    "path": "messages.zh-hant.BrandSceneDetails.olago.homeAlt",
+    "pages": [
+      "/products/ola-go"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.zh-hant.BrandSceneDetails",
+    "initialValue": "成人在家使用 LumiqOla 與 LumiqOlaGo"
+  },
+  {
+    "path": "messages.zh-hant.BrandSceneDetails.olago.outdoorAlt",
+    "pages": [
+      "/products/ola-go"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.zh-hant.BrandSceneDetails",
+    "initialValue": "長者在戶外查看 LumiqOlaGo"
+  },
+  {
+    "path": "messages.zh-hant.BrandSceneDetails.olago.journalAlt",
+    "pages": [
+      "/products/ola-go"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.zh-hant.BrandSceneDetails",
+    "initialValue": "成人在家用 LumiqOlaGo 記錄語音"
+  },
+  {
+    "path": "messages.zh-hant.BrandSceneDetails.print",
+    "pages": [
+      "/products/print"
+    ],
+    "type": "object",
+    "maxLength": null,
+    "icuSignature": null,
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": false,
+    "owner": "snapshot",
+    "optionalGroup": "messages.zh-hant.BrandSceneDetails"
+  },
+  {
+    "path": "messages.zh-hant.BrandSceneDetails.print.storyTitle",
+    "pages": [
+      "/products/print"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.zh-hant.BrandSceneDetails",
+    "initialValue": "把故事送到孩子手中"
+  },
+  {
+    "path": "messages.zh-hant.BrandSceneDetails.print.storyBody",
+    "pages": [
+      "/products/print"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.zh-hant.BrandSceneDetails",
+    "initialValue": "把孩子熟悉的 ImagiMe 故事變成可以一起翻閱的實體書，讓故事時間從螢幕延續到家人身邊。"
+  },
+  {
+    "path": "messages.zh-hant.BrandSceneDetails.print.craftTitle",
+    "pages": [
+      "/products/print"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.zh-hant.BrandSceneDetails",
+    "initialValue": "一次次翻開熟悉的故事"
+  },
+  {
+    "path": "messages.zh-hant.BrandSceneDetails.print.craftBody",
+    "pages": [
+      "/products/print"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.zh-hant.BrandSceneDetails",
+    "initialValue": "從認出封面上的自己，到重溫喜歡的跨頁，和家人一起翻閱、分享，再把這段回憶留在書架上。"
+  },
+  {
+    "path": "messages.zh-hant.BrandSceneDetails.tablet",
+    "pages": [
+      "/products/tablet"
+    ],
+    "type": "object",
+    "maxLength": null,
+    "icuSignature": null,
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": false,
+    "owner": "snapshot",
+    "optionalGroup": "messages.zh-hant.BrandSceneDetails"
+  },
+  {
+    "path": "messages.zh-hant.BrandSceneDetails.tablet.passiveTitle",
+    "pages": [
+      "/products/tablet"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.zh-hant.BrandSceneDetails",
+    "initialValue": "少了停下來交流的機會"
+  },
+  {
+    "path": "messages.zh-hant.BrandSceneDetails.tablet.passiveBody",
+    "pages": [
+      "/products/tablet"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.zh-hant.BrandSceneDetails",
+    "initialValue": "當內容不斷往下播放，孩子比較少停下來說說自己的想法；一起閱讀則能為提問與交流留出空間。"
+  },
+  {
+    "path": "messages.zh-hant.BrandSceneDetails.tablet.activeTitle",
+    "pages": [
+      "/products/tablet"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.zh-hant.BrandSceneDetails",
+    "initialValue": "讀完後一起聊一聊"
+  },
+  {
+    "path": "messages.zh-hant.BrandSceneDetails.tablet.activeBody",
+    "pages": [
+      "/products/tablet"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.zh-hant.BrandSceneDetails",
+    "initialValue": "聊聊最喜歡的角色、剛剛做的選擇，以及下一次想探索的情節，讓閱讀成為家人可以參與的時光。"
+  },
+  {
+    "path": "messages.zh-hant.BrandSceneDetails.tablet.secondSkillsTitle",
+    "pages": [
+      "/products/tablet"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.zh-hant.BrandSceneDetails",
+    "initialValue": "在故事裡，練習理解自己與他人"
+  },
+  {
+    "path": "messages.zh-hant.BrandSceneDetails.tablet.secondSkillsIntro",
+    "pages": [
+      "/products/tablet"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.zh-hant.BrandSceneDetails",
+    "initialValue": "從朝著目標前進，到看見不同的感受與觀點，把故事中的練習帶進每天的互動。"
+  },
+  {
+    "path": "messages.zh-hant.BrandSceneDetails.tablet.stage1Body",
+    "pages": [
+      "/products/tablet"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.zh-hant.BrandSceneDetails",
+    "initialValue": "和照顧者一起看圖、聽故事，在熟悉的聲音與陪伴中開始探索。"
+  },
+  {
+    "path": "messages.zh-hant.BrandSceneDetails.tablet.stage2Body",
+    "pages": [
+      "/products/tablet"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.zh-hant.BrandSceneDetails",
+    "initialValue": "在共讀時說出想法、嘗試簡單選擇，和家人一起體會完成小事的喜悅。"
+  },
+  {
+    "path": "messages.zh-hant.BrandSceneDetails.tablet.stage3Body",
+    "pages": [
+      "/products/tablet"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.zh-hant.BrandSceneDetails",
+    "initialValue": "留意故事中的線索與不同走向，聊聊每個選擇會讓情節如何發展。"
+  },
+  {
+    "path": "messages.zh-hant.BrandSceneDetails.tablet.stage4Body",
+    "pages": [
+      "/products/tablet"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.zh-hant.BrandSceneDetails",
+    "initialValue": "回顧自己的選擇、理解角色的感受，逐步練習思考後果與不同觀點。"
+  },
+  {
+    "path": "messages.zh-hant.BrandSceneDetails.orb",
+    "pages": [
+      "/products/nest"
+    ],
+    "type": "object",
+    "maxLength": null,
+    "icuSignature": null,
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": false,
+    "owner": "snapshot",
+    "optionalGroup": "messages.zh-hant.BrandSceneDetails"
+  },
+  {
+    "path": "messages.zh-hant.BrandSceneDetails.orb.finish1Body",
+    "pages": [
+      "/products/nest"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.zh-hant.BrandSceneDetails",
+    "initialValue": "以明亮的木色呼應餐桌與廚房，在家人聚集的地方，讓共同安排自然融入日常。"
+  },
+  {
+    "path": "messages.zh-hant.BrandSceneDetails.orb.finish2Body",
+    "pages": [
+      "/products/nest"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.zh-hant.BrandSceneDetails",
+    "initialValue": "深色木紋適合沉穩的客廳或書房，讓共享螢幕和熟悉的家具相互呼應。"
+  },
+  {
+    "path": "messages.zh-hant.BrandSceneDetails.orb.finish3Body",
+    "pages": [
+      "/products/nest"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.zh-hant.BrandSceneDetails",
+    "initialValue": "俐落的深色邊框融入簡約空間，把注意力留給今天的行程、家人的任務與珍愛照片。"
+  },
+  {
+    "path": "messages.zh-hant.BrandSceneDetails.orb.sceneAlt",
+    "pages": [
+      "/products/nest"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "1:screen:::",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.zh-hant.BrandSceneDetails",
+    "initialValue": "家中 LumiqOrb 裝置上的{screen}"
+  },
+  {
+    "path": "messages.zh-hant.BrandSceneDetails.orb.closeup",
+    "pages": [
+      "/products/nest"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.zh-hant.BrandSceneDetails",
+    "initialValue": "查看界面細節"
+  },
+  {
+    "path": "messages.zh-hant.BrandSceneDetails.orb.close",
+    "pages": [
+      "/products/nest"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.zh-hant.BrandSceneDetails",
+    "initialValue": "關閉界面細節"
+  },
+  {
+    "path": "messages.ja.BrandSceneDetails",
+    "pages": [
+      "/products"
+    ],
+    "type": "object",
+    "maxLength": null,
+    "icuSignature": null,
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": false,
+    "owner": "snapshot",
+    "optionalGroup": "messages.ja.BrandSceneDetails"
+  },
+  {
+    "path": "messages.ja.BrandSceneDetails.olago",
+    "pages": [
+      "/products/ola-go"
+    ],
+    "type": "object",
+    "maxLength": null,
+    "icuSignature": null,
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": false,
+    "owner": "snapshot",
+    "optionalGroup": "messages.ja.BrandSceneDetails"
+  },
+  {
+    "path": "messages.ja.BrandSceneDetails.olago.reminders",
+    "pages": [
+      "/products/ola-go"
+    ],
+    "type": "object",
+    "maxLength": null,
+    "icuSignature": null,
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": false,
+    "owner": "snapshot",
+    "optionalGroup": "messages.ja.BrandSceneDetails"
+  },
+  {
+    "path": "messages.ja.BrandSceneDetails.olago.reminders.item1Title",
+    "pages": [
+      "/products/ola-go"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.ja.BrandSceneDetails",
+    "initialValue": "カレンダーを同期"
+  },
+  {
+    "path": "messages.ja.BrandSceneDetails.olago.reminders.item1Body",
+    "pages": [
+      "/products/ola-go"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.ja.BrandSceneDetails",
+    "initialValue": "いつものカレンダーの約束や予定を持ち歩き、外出先でも一日の流れを確認できます。"
+  },
+  {
+    "path": "messages.ja.BrandSceneDetails.olago.reminders.item2Title",
+    "pages": [
+      "/products/ola-go"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.ja.BrandSceneDetails",
+    "initialValue": "日々の用事を忘れずに"
+  },
+  {
+    "path": "messages.ja.BrandSceneDetails.olago.reminders.item2Body",
+    "pages": [
+      "/products/ola-go"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.ja.BrandSceneDetails",
+    "initialValue": "買い物から家族との待ち合わせまで、リマインダーでその日に必要なことを整理できます。"
+  },
+  {
+    "path": "messages.ja.BrandSceneDetails.olago.reminders.item3Title",
+    "pages": [
+      "/products/ola-go"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.ja.BrandSceneDetails",
+    "initialValue": "リマインダーと一緒に外出"
+  },
+  {
+    "path": "messages.ja.BrandSceneDetails.olago.reminders.item3Body",
+    "pages": [
+      "/products/ola-go"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.ja.BrandSceneDetails",
+    "initialValue": "LumiqOlaGo をいつものバッグや手元に置き、家で立てた予定を外出中も身近に。"
+  },
+  {
+    "path": "messages.ja.BrandSceneDetails.olago.weather",
+    "pages": [
+      "/products/ola-go"
+    ],
+    "type": "object",
+    "maxLength": null,
+    "icuSignature": null,
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": false,
+    "owner": "snapshot",
+    "optionalGroup": "messages.ja.BrandSceneDetails"
+  },
+  {
+    "path": "messages.ja.BrandSceneDetails.olago.weather.item1Title",
+    "pages": [
+      "/products/ola-go"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.ja.BrandSceneDetails",
+    "initialValue": "出かける前に天気を確認"
+  },
+  {
+    "path": "messages.ja.BrandSceneDetails.olago.weather.item1Body",
+    "pages": [
+      "/products/ola-go"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.ja.BrandSceneDetails",
+    "initialValue": "デバイスで最新の天気を確認し、気温や空模様に合わせて外出の準備を考えられます。"
+  },
+  {
+    "path": "messages.ja.BrandSceneDetails.olago.weather.item2Title",
+    "pages": [
+      "/products/ola-go"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.ja.BrandSceneDetails",
+    "initialValue": "外で過ごす時間を考える"
+  },
+  {
+    "path": "messages.ja.BrandSceneDetails.olago.weather.item2Body",
+    "pages": [
+      "/products/ola-go"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.ja.BrandSceneDetails",
+    "initialValue": "散歩や買い物、家族とのお出かけも、天気を手がかりに自分に合ったペースで計画できます。"
+  },
+  {
+    "path": "messages.ja.BrandSceneDetails.olago.weather.item3Title",
+    "pages": [
+      "/products/ola-go"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.ja.BrandSceneDetails",
+    "initialValue": "外出先でも確認しやすく"
+  },
+  {
+    "path": "messages.ja.BrandSceneDetails.olago.weather.item3Body",
+    "pages": [
+      "/products/ola-go"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.ja.BrandSceneDetails",
+    "initialValue": "天気の情報を持ち歩き、外出中にひと息ついて確認。次の予定に向けて準備できます。"
+  },
+  {
+    "path": "messages.ja.BrandSceneDetails.olago.journal",
+    "pages": [
+      "/products/ola-go"
+    ],
+    "type": "object",
+    "maxLength": null,
+    "icuSignature": null,
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": false,
+    "owner": "snapshot",
+    "optionalGroup": "messages.ja.BrandSceneDetails"
+  },
+  {
+    "path": "messages.ja.BrandSceneDetails.olago.journal.item1Title",
+    "pages": [
+      "/products/ola-go"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.ja.BrandSceneDetails",
+    "initialValue": "まずは声で記録"
+  },
+  {
+    "path": "messages.ja.BrandSceneDetails.olago.journal.item1Body",
+    "pages": [
+      "/products/ola-go"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.ja.BrandSceneDetails",
+    "initialValue": "大切な会話、ふと思いついたこと、一日の感想を声で残し、覚えておきたい瞬間を記録できます。"
+  },
+  {
+    "path": "messages.ja.BrandSceneDetails.olago.journal.item2Title",
+    "pages": [
+      "/products/ola-go"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.ja.BrandSceneDetails",
+    "initialValue": "帰宅してから同期"
+  },
+  {
+    "path": "messages.ja.BrandSceneDetails.olago.journal.item2Body",
+    "pages": [
+      "/products/ola-go"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.ja.BrandSceneDetails",
+    "initialValue": "帰宅後に持ち歩いて記録した内容を同期し、外出先での出来事やメモを日々の予定につなげます。"
+  },
+  {
+    "path": "messages.ja.BrandSceneDetails.olago.journal.item3Title",
+    "pages": [
+      "/products/ola-go"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.ja.BrandSceneDetails",
+    "initialValue": "メモを次の予定につなげる"
+  },
+  {
+    "path": "messages.ja.BrandSceneDetails.olago.journal.item3Body",
+    "pages": [
+      "/products/ola-go"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.ja.BrandSceneDetails",
+    "initialValue": "音声メモの文字起こしとカレンダー同期で要点を振り返り、次に取り組むことをメモやリマインダーに整理できます。"
+  },
+  {
+    "path": "messages.ja.BrandSceneDetails.olago.homeAlt",
+    "pages": [
+      "/products/ola-go"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.ja.BrandSceneDetails",
+    "initialValue": "自宅で LumiqOla と LumiqOlaGo を使う大人"
+  },
+  {
+    "path": "messages.ja.BrandSceneDetails.olago.outdoorAlt",
+    "pages": [
+      "/products/ola-go"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.ja.BrandSceneDetails",
+    "initialValue": "屋外で LumiqOlaGo を確認する年配の女性"
+  },
+  {
+    "path": "messages.ja.BrandSceneDetails.olago.journalAlt",
+    "pages": [
+      "/products/ola-go"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.ja.BrandSceneDetails",
+    "initialValue": "自宅で LumiqOlaGo に音声を記録する大人"
+  },
+  {
+    "path": "messages.ja.BrandSceneDetails.print",
+    "pages": [
+      "/products/print"
+    ],
+    "type": "object",
+    "maxLength": null,
+    "icuSignature": null,
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": false,
+    "owner": "snapshot",
+    "optionalGroup": "messages.ja.BrandSceneDetails"
+  },
+  {
+    "path": "messages.ja.BrandSceneDetails.print.storyTitle",
+    "pages": [
+      "/products/print"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.ja.BrandSceneDetails",
+    "initialValue": "物語を子どもの手に"
+  },
+  {
+    "path": "messages.ja.BrandSceneDetails.print.storyBody",
+    "pages": [
+      "/products/print"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.ja.BrandSceneDetails",
+    "initialValue": "親しんだ ImagiMe の物語を一緒にめくれる本にして、画面の中の物語を家族との時間へつなげます。"
+  },
+  {
+    "path": "messages.ja.BrandSceneDetails.print.craftTitle",
+    "pages": [
+      "/products/print"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.ja.BrandSceneDetails",
+    "initialValue": "何度でも開きたくなる物語"
+  },
+  {
+    "path": "messages.ja.BrandSceneDetails.print.craftBody",
+    "pages": [
+      "/products/print"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.ja.BrandSceneDetails",
+    "initialValue": "表紙の自分を見つけ、お気に入りの見開きを読み返す。家族で物語を楽しみ、その思い出を本棚に残せます。"
+  },
+  {
+    "path": "messages.ja.BrandSceneDetails.tablet",
+    "pages": [
+      "/products/tablet"
+    ],
+    "type": "object",
+    "maxLength": null,
+    "icuSignature": null,
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": false,
+    "owner": "snapshot",
+    "optionalGroup": "messages.ja.BrandSceneDetails"
+  },
+  {
+    "path": "messages.ja.BrandSceneDetails.tablet.passiveTitle",
+    "pages": [
+      "/products/tablet"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.ja.BrandSceneDetails",
+    "initialValue": "立ち止まって話す機会が少なくなる"
+  },
+  {
+    "path": "messages.ja.BrandSceneDetails.tablet.passiveBody",
+    "pages": [
+      "/products/tablet"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.ja.BrandSceneDetails",
+    "initialValue": "コンテンツが次々に流れると、自分の考えを話す間が少なくなりがちです。一緒に読むことで、質問や会話の時間を作れます。"
+  },
+  {
+    "path": "messages.ja.BrandSceneDetails.tablet.activeTitle",
+    "pages": [
+      "/products/tablet"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.ja.BrandSceneDetails",
+    "initialValue": "読み終えたら一緒に話す"
+  },
+  {
+    "path": "messages.ja.BrandSceneDetails.tablet.activeBody",
+    "pages": [
+      "/products/tablet"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.ja.BrandSceneDetails",
+    "initialValue": "好きなキャラクターや選んだ展開、次に読みたい場面を話し合い、読書を家族で参加できる時間にします。"
+  },
+  {
+    "path": "messages.ja.BrandSceneDetails.tablet.secondSkillsTitle",
+    "pages": [
+      "/products/tablet"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.ja.BrandSceneDetails",
+    "initialValue": "物語を通して自分と相手を理解する"
+  },
+  {
+    "path": "messages.ja.BrandSceneDetails.tablet.secondSkillsIntro",
+    "pages": [
+      "/products/tablet"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.ja.BrandSceneDetails",
+    "initialValue": "目標に向かって進むことから、気持ちや異なる視点に気づくことまで。物語での練習を日々のやり取りにつなげます。"
+  },
+  {
+    "path": "messages.ja.BrandSceneDetails.tablet.stage1Body",
+    "pages": [
+      "/products/tablet"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.ja.BrandSceneDetails",
+    "initialValue": "保護者と絵を見たり物語を聞いたりしながら、身近な声と一緒に初めての発見を楽しみます。"
+  },
+  {
+    "path": "messages.ja.BrandSceneDetails.tablet.stage2Body",
+    "pages": [
+      "/products/tablet"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.ja.BrandSceneDetails",
+    "initialValue": "一緒に読む中で考えを話し、簡単な選択を試しながら、小さな「できた」を家族と喜びます。"
+  },
+  {
+    "path": "messages.ja.BrandSceneDetails.tablet.stage3Body",
+    "pages": [
+      "/products/tablet"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.ja.BrandSceneDetails",
+    "initialValue": "物語の手がかりや分かれ道に注目し、それぞれの選択が展開にどうつながるかを話し合います。"
+  },
+  {
+    "path": "messages.ja.BrandSceneDetails.tablet.stage4Body",
+    "pages": [
+      "/products/tablet"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.ja.BrandSceneDetails",
+    "initialValue": "自分の選択や登場人物の気持ちを振り返り、結果や異なる見方を少しずつ考えていきます。"
+  },
+  {
+    "path": "messages.ja.BrandSceneDetails.orb",
+    "pages": [
+      "/products/nest"
+    ],
+    "type": "object",
+    "maxLength": null,
+    "icuSignature": null,
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": false,
+    "owner": "snapshot",
+    "optionalGroup": "messages.ja.BrandSceneDetails"
+  },
+  {
+    "path": "messages.ja.BrandSceneDetails.orb.finish1Body",
+    "pages": [
+      "/products/nest"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.ja.BrandSceneDetails",
+    "initialValue": "明るい木の色合いがダイニングやキッチンに馴染み、家族の集まる場所で予定を身近に確認できます。"
+  },
+  {
+    "path": "messages.ja.BrandSceneDetails.orb.finish2Body",
+    "pages": [
+      "/products/nest"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.ja.BrandSceneDetails",
+    "initialValue": "落ち着いたリビングや書斎には深い木目を。共有画面がいつもの家具と自然に調和します。"
+  },
+  {
+    "path": "messages.ja.BrandSceneDetails.orb.finish3Body",
+    "pages": [
+      "/products/nest"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.ja.BrandSceneDetails",
+    "initialValue": "すっきりした濃色のフレームがシンプルな空間に馴染み、今日の予定や家族のタスク、大切な写真を引き立てます。"
+  },
+  {
+    "path": "messages.ja.BrandSceneDetails.orb.sceneAlt",
+    "pages": [
+      "/products/nest"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "1:screen:::",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.ja.BrandSceneDetails",
+    "initialValue": "家庭の LumiqOrb に表示された{screen}"
+  },
+  {
+    "path": "messages.ja.BrandSceneDetails.orb.closeup",
+    "pages": [
+      "/products/nest"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.ja.BrandSceneDetails",
+    "initialValue": "画面の詳細を見る"
+  },
+  {
+    "path": "messages.ja.BrandSceneDetails.orb.close",
+    "pages": [
+      "/products/nest"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.ja.BrandSceneDetails",
+    "initialValue": "画面の詳細を閉じる"
+  },
+  {
     "path": "messages.en.BrandPrintPresentation",
     "pages": [
       "/products/print"
@@ -16945,6 +19126,270 @@ export const brandContentFields: readonly (ContentField & {optionalGroup:string}
     ],
     "optionalGroup": "media.asset_1cda2c90e6c65f98",
     "fixedValue": "asset_1cda2c90e6c65f98"
+  },
+  {
+    "type": "object",
+    "maxLength": null,
+    "icuSignature": null,
+    "mediaPurpose": "image",
+    "adminOnly": false,
+    "editable": false,
+    "owner": "snapshot",
+    "path": "media.asset_017e7987ef331c24",
+    "pages": [
+      "/products/ola-go"
+    ],
+    "optionalGroup": "media.asset_017e7987ef331c24"
+  },
+  {
+    "type": "assetId",
+    "maxLength": null,
+    "icuSignature": null,
+    "mediaPurpose": "image",
+    "adminOnly": false,
+    "editable": false,
+    "owner": "snapshot",
+    "path": "media.asset_017e7987ef331c24.assetId",
+    "pages": [
+      "/products/ola-go"
+    ],
+    "optionalGroup": "media.asset_017e7987ef331c24"
+  },
+  {
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": null,
+    "mediaPurpose": "image",
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "path": "media.asset_017e7987ef331c24.url",
+    "pages": [
+      "/products/ola-go"
+    ],
+    "optionalGroup": "media.asset_017e7987ef331c24",
+    "initialValue": "/assets/product-scenes-20261103/olago-home.webp"
+  },
+  {
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": null,
+    "mediaPurpose": "image",
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "path": "media.asset_017e7987ef331c24.alt",
+    "pages": [
+      "/products/ola-go"
+    ],
+    "optionalGroup": "media.asset_017e7987ef331c24",
+    "initialValue": "成人在家中同时使用 LumiqOla 与 LumiqOlaGo"
+  },
+  {
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": null,
+    "mediaPurpose": "image",
+    "adminOnly": false,
+    "editable": false,
+    "owner": "snapshot",
+    "path": "media.asset_017e7987ef331c24.kind",
+    "pages": [
+      "/products/ola-go"
+    ],
+    "optionalGroup": "media.asset_017e7987ef331c24",
+    "fixedValue": "image"
+  },
+  {
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": null,
+    "mediaPurpose": "image",
+    "adminOnly": false,
+    "editable": false,
+    "owner": "snapshot",
+    "path": "media.asset_017e7987ef331c24.profile",
+    "pages": [
+      "/products/ola-go"
+    ],
+    "optionalGroup": "media.asset_017e7987ef331c24",
+    "fixedValue": "asset_017e7987ef331c24"
+  },
+  {
+    "type": "object",
+    "maxLength": null,
+    "icuSignature": null,
+    "mediaPurpose": "image",
+    "adminOnly": false,
+    "editable": false,
+    "owner": "snapshot",
+    "path": "media.asset_92fd3c30968cbc37",
+    "pages": [
+      "/products/ola-go"
+    ],
+    "optionalGroup": "media.asset_92fd3c30968cbc37"
+  },
+  {
+    "type": "assetId",
+    "maxLength": null,
+    "icuSignature": null,
+    "mediaPurpose": "image",
+    "adminOnly": false,
+    "editable": false,
+    "owner": "snapshot",
+    "path": "media.asset_92fd3c30968cbc37.assetId",
+    "pages": [
+      "/products/ola-go"
+    ],
+    "optionalGroup": "media.asset_92fd3c30968cbc37"
+  },
+  {
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": null,
+    "mediaPurpose": "image",
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "path": "media.asset_92fd3c30968cbc37.url",
+    "pages": [
+      "/products/ola-go"
+    ],
+    "optionalGroup": "media.asset_92fd3c30968cbc37",
+    "initialValue": "/assets/product-scenes-20261103/olago-outdoor.webp"
+  },
+  {
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": null,
+    "mediaPurpose": "image",
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "path": "media.asset_92fd3c30968cbc37.alt",
+    "pages": [
+      "/products/ola-go"
+    ],
+    "optionalGroup": "media.asset_92fd3c30968cbc37",
+    "initialValue": "长辈在户外随身使用 LumiqOlaGo"
+  },
+  {
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": null,
+    "mediaPurpose": "image",
+    "adminOnly": false,
+    "editable": false,
+    "owner": "snapshot",
+    "path": "media.asset_92fd3c30968cbc37.kind",
+    "pages": [
+      "/products/ola-go"
+    ],
+    "optionalGroup": "media.asset_92fd3c30968cbc37",
+    "fixedValue": "image"
+  },
+  {
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": null,
+    "mediaPurpose": "image",
+    "adminOnly": false,
+    "editable": false,
+    "owner": "snapshot",
+    "path": "media.asset_92fd3c30968cbc37.profile",
+    "pages": [
+      "/products/ola-go"
+    ],
+    "optionalGroup": "media.asset_92fd3c30968cbc37",
+    "fixedValue": "asset_92fd3c30968cbc37"
+  },
+  {
+    "type": "object",
+    "maxLength": null,
+    "icuSignature": null,
+    "mediaPurpose": "image",
+    "adminOnly": false,
+    "editable": false,
+    "owner": "snapshot",
+    "path": "media.asset_5f21bf6c2f500259",
+    "pages": [
+      "/products/ola-go"
+    ],
+    "optionalGroup": "media.asset_5f21bf6c2f500259"
+  },
+  {
+    "type": "assetId",
+    "maxLength": null,
+    "icuSignature": null,
+    "mediaPurpose": "image",
+    "adminOnly": false,
+    "editable": false,
+    "owner": "snapshot",
+    "path": "media.asset_5f21bf6c2f500259.assetId",
+    "pages": [
+      "/products/ola-go"
+    ],
+    "optionalGroup": "media.asset_5f21bf6c2f500259"
+  },
+  {
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": null,
+    "mediaPurpose": "image",
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "path": "media.asset_5f21bf6c2f500259.url",
+    "pages": [
+      "/products/ola-go"
+    ],
+    "optionalGroup": "media.asset_5f21bf6c2f500259",
+    "initialValue": "/assets/product-scenes-20261103/olago-journal.webp"
+  },
+  {
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": null,
+    "mediaPurpose": "image",
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "path": "media.asset_5f21bf6c2f500259.alt",
+    "pages": [
+      "/products/ola-go"
+    ],
+    "optionalGroup": "media.asset_5f21bf6c2f500259",
+    "initialValue": "成人使用 LumiqOlaGo 记录语音"
+  },
+  {
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": null,
+    "mediaPurpose": "image",
+    "adminOnly": false,
+    "editable": false,
+    "owner": "snapshot",
+    "path": "media.asset_5f21bf6c2f500259.kind",
+    "pages": [
+      "/products/ola-go"
+    ],
+    "optionalGroup": "media.asset_5f21bf6c2f500259",
+    "fixedValue": "image"
+  },
+  {
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": null,
+    "mediaPurpose": "image",
+    "adminOnly": false,
+    "editable": false,
+    "owner": "snapshot",
+    "path": "media.asset_5f21bf6c2f500259.profile",
+    "pages": [
+      "/products/ola-go"
+    ],
+    "optionalGroup": "media.asset_5f21bf6c2f500259",
+    "fixedValue": "asset_5f21bf6c2f500259"
   }
 ];
 export const brandContentPolicy: readonly ContentRule[] = brandContentFields;

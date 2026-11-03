@@ -122,7 +122,8 @@ describe('content import', () => {
     const app = path.join(fixture, 'related/website');
     const root = path.resolve('../..');
     try {
-      const files = [...fieldManifest.sourceFiles, 'scripts/export-initial-content.mjs', 'scripts/verify-content-adapters.mjs', 'scripts/content-media-bindings.mjs', 'lib/content/media-bindings.json', 'lib/content/retired-account-fields.json', 'lib/content/source-adapters.json', 'lib/content/media-map.json', 'components/content/ContentImage.tsx', 'messages/en.json', 'messages/zh-hant.json', 'messages/ja.json', 'lib/content/initial-snapshot.json', 'lib/content/field-manifest.json'];
+      const adapterSources = JSON.parse(readFileSync('lib/content/source-adapters.json', 'utf8')).media.map((entry: {adapterFile: string}) => entry.adapterFile);
+      const files = [...new Set<string>([...fieldManifest.sourceFiles, ...adapterSources]), 'scripts/export-initial-content.mjs', 'scripts/verify-content-adapters.mjs', 'scripts/content-media-bindings.mjs', 'lib/content/media-bindings.json', 'lib/content/retired-account-fields.json', 'lib/content/source-adapters.json', 'lib/content/media-map.json', 'components/content/ContentImage.tsx', 'messages/en.json', 'messages/zh-hant.json', 'messages/ja.json', 'lib/content/initial-snapshot.json', 'lib/content/field-manifest.json'];
       for (const file of files) { mkdirSync(path.dirname(path.join(app, file)), { recursive: true }); cpSync(file, path.join(app, file)); }
       for (const file of ['contracts/content-icu.ts', 'contracts/content-policy.ts', 'related/admin/features/content/field-manifest.json', 'related/admin/features/content/initial-snapshot.json', 'related/admin/features/content/retired-account-fields.json']) {
         mkdirSync(path.dirname(path.join(fixture, file)), { recursive: true }); cpSync(path.join(root, file), path.join(fixture, file));

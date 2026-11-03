@@ -1160,10 +1160,7 @@
       "originalAlt": "",
       "adapterFile": "components/OlaProductPage.tsx",
       "expression": "cms.url(\"/assets/western-scenes-20260908/ola-senior-reminder-v2.webp\")",
-      "replacement": {
-        "expression": "cms.url(\"/assets/ola-scenes-20261103/adult-senior-companion.webp\")",
-        "reason": "2026-11-03: user merged adult and elder scenes into one adult-daily scene."
-      }
+      "reviewNote": "2026-11-03: reuse the historical adult / reading lifestyle photo in the current feature section; merged sections remain."
     },
     {
       "slot": "asset_4efa9ac1966010ad",
@@ -1172,7 +1169,7 @@
       "originalExpression": "\"/assets/nest-detail/generated/nest-family-kitchen-v2.png\"",
       "altExpression": "t(\"landscapeAlt\")",
       "originalAlt": "",
-      "adapterFile": "components/NestProductPage.tsx",
+      "adapterFile": "components/OrbDeviceScene.tsx",
       "expression": "cms.url(\"/assets/nest-detail/generated/nest-family-kitchen-v2.png\")"
     },
     {
@@ -1554,10 +1551,7 @@
       "originalAlt": "",
       "adapterFile": "components/PrintProductPage.tsx",
       "expression": "cms.url(\"/assets/print-detail/consistent-20260907/reading.webp\")",
-      "replacement": {
-        "reason": "2026-11-03: duplicate Print sections consolidated; retain the corresponding personalization/print-detail section and historical media slot.",
-        "expression": "cms.url(\"/assets/print-detail/consistent-20260907/gift.webp\")"
-      }
+      "reviewNote": "2026-11-03: reuse the historical adult / reading lifestyle photo in the current feature section; merged sections remain."
     },
     {
       "slot": "asset_7145d3296daddfe8",
@@ -1717,7 +1711,11 @@
       "altExpression": "t(\"alt\")",
       "originalAlt": "",
       "adapterFile": "components/OlaGoProductPage.tsx",
-      "expression": "cms.url(\"/assets/western-scenes-20260908/ola-go-schoolbag-v2.webp\")"
+      "expression": "cms.url(\"/assets/western-scenes-20260908/ola-go-schoolbag-v2.webp\")",
+      "replacement": {
+        "expression": "cms.url(\"/assets/product-scenes-20261103/olago-outdoor.webp\")",
+        "reason": "2026-11-03: requested lifestyle imagery for every section below the hero; historical media slots and rollback URLs retained."
+      }
     },
     {
       "slot": "asset_8cca076b45bb13bb",
@@ -1757,7 +1755,11 @@
       "altExpression": "t(\"alt\")",
       "originalAlt": "",
       "adapterFile": "components/OlaGoProductPage.tsx",
-      "expression": "cms.url(\"/assets/western-scenes-20260908/ola-go-return-home-v3.webp\")"
+      "expression": "cms.url(\"/assets/western-scenes-20260908/ola-go-return-home-v3.webp\")",
+      "replacement": {
+        "expression": "cms.url(\"/assets/product-scenes-20261103/olago-home.webp\")",
+        "reason": "2026-11-03: requested lifestyle imagery for every section below the hero; historical media slots and rollback URLs retained."
+      }
     },
     {
       "slot": "asset_9a83c769ddc9caef",
@@ -2071,7 +2073,11 @@
       "altExpression": "t(\"deviceAlt\")",
       "originalAlt": "",
       "adapterFile": "components/OlaProductPage.tsx",
-      "expression": "cms.url(\"/assets/home-products-refined-20260907/ola-repaired.webp\")"
+      "expression": "cms.url(\"/assets/home-products-refined-20260907/ola-repaired.webp\")",
+      "replacement": {
+        "expression": "cms.url(\"/assets/western-scenes-20260908/ola-senior-reminder-v2.webp\")",
+        "reason": "2026-11-03: requested lifestyle imagery for every section below the hero; historical media slots and rollback URLs retained."
+      }
     },
     {
       "slot": "asset_afd527c3bb80dc38",
@@ -2373,8 +2379,8 @@
       "adapterFile": "components/PrintProductPage.tsx",
       "expression": "cms.url(\"/assets/print-detail/consistent-20260907/craft.webp\")",
       "replacement": {
-        "reason": "2026-11-03: duplicate Print sections consolidated; retain the corresponding personalization/print-detail section and historical media slot.",
-        "expression": "cms.url(\"/assets/print-detail/consistent-20260907/pages.webp\")"
+        "expression": "cms.url(\"/assets/print-detail/consistent-20260907/reading.webp\")",
+        "reason": "2026-11-03: requested lifestyle imagery for every section below the hero; historical media slots and rollback URLs retained."
       }
     },
     {
@@ -2485,7 +2491,11 @@
       "altExpression": "t(\"alt\")",
       "originalAlt": "",
       "adapterFile": "components/PrintProductPage.tsx",
-      "expression": "cms.url(\"/assets/print-detail/consistent-20260907/pages.webp\")"
+      "expression": "cms.url(\"/assets/print-detail/consistent-20260907/pages.webp\")",
+      "replacement": {
+        "expression": "cms.url(\"/assets/print-detail/consistent-20260907/reading.webp\")",
+        "reason": "2026-11-03: requested lifestyle imagery for every section below the hero; historical media slots and rollback URLs retained."
+      }
     },
     {
       "slot": "asset_c5465b6816a75f09",
@@ -2745,7 +2755,11 @@
       "altExpression": "t(\"alt\")",
       "originalAlt": "",
       "adapterFile": "components/OlaGoProductPage.tsx",
-      "expression": "cms.url(\"/assets/ola-go-detail/original-20260915/ola-go-three-quarter.png\")"
+      "expression": "cms.url(\"/assets/ola-go-detail/original-20260915/ola-go-three-quarter.png\")",
+      "replacement": {
+        "expression": "cms.url(\"/assets/product-scenes-20261103/olago-home.webp\")",
+        "reason": "2026-11-03: requested lifestyle imagery for every section below the hero; historical media slots and rollback URLs retained."
+      }
     },
     {
       "slot": "asset_d44e0814abbebfad",
@@ -2764,7 +2778,7 @@
       "originalExpression": "\"/assets/nest-detail/generated/nest-routine-closeup-v2.png\"",
       "altExpression": "t(\"portraitAlt\")",
       "originalAlt": "",
-      "adapterFile": "components/NestProductPage.tsx",
+      "adapterFile": "components/OrbDeviceScene.tsx",
       "expression": "cms.url(\"/assets/nest-detail/generated/nest-routine-closeup-v2.png\")"
     },
     {
@@ -2915,7 +2929,11 @@
       "altExpression": "t(\"alt\")",
       "originalAlt": "",
       "adapterFile": "components/OlaGoProductPage.tsx",
-      "expression": "cms.url(\"/assets/western-scenes-20260908/ola-go-bedside-journal-v3.webp\")"
+      "expression": "cms.url(\"/assets/western-scenes-20260908/ola-go-bedside-journal-v3.webp\")",
+      "replacement": {
+        "expression": "cms.url(\"/assets/product-scenes-20261103/olago-journal.webp\")",
+        "reason": "2026-11-03: requested lifestyle imagery for every section below the hero; historical media slots and rollback URLs retained."
+      }
     },
     {
       "slot": "asset_de6d7af49ce01a95",
@@ -3215,7 +3233,11 @@
       "altExpression": "t(\"alt\")",
       "originalAlt": "",
       "adapterFile": "components/OlaGoProductPage.tsx",
-      "expression": "cms.url(\"/assets/ola-go-detail/generated/ola-go-weather-walk-v2.png\")"
+      "expression": "cms.url(\"/assets/ola-go-detail/generated/ola-go-weather-walk-v2.png\")",
+      "replacement": {
+        "expression": "cms.url(\"/assets/product-scenes-20261103/olago-outdoor.webp\")",
+        "reason": "2026-11-03: requested lifestyle imagery for every section below the hero; historical media slots and rollback URLs retained."
+      }
     },
     {
       "slot": "asset_f5b8b5725dbebcd8",
@@ -3255,7 +3277,11 @@
       "altExpression": "t(\"portraitAlt\")",
       "originalAlt": "",
       "adapterFile": "components/NestProductPage.tsx",
-      "expression": "cms.url(\"/assets/web/nest15-rear.webp\")"
+      "expression": "cms.url(\"/assets/web/nest15-rear.webp\")",
+      "replacement": {
+        "expression": "cms.url(\"/assets/orb-ui-20261102/gallery.webp\")",
+        "reason": "2026-11-03: requested lifestyle imagery for every section below the hero; historical media slots and rollback URLs retained."
+      }
     }
   ]
 }

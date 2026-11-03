@@ -12,6 +12,7 @@ export default function TabletPage() {
   const cms = useContentAdapter();
   const t = useTranslations("Tablet");
   const brand = useTranslations("BrandTablet");
+  const details = useTranslations("BrandSceneDetails.tablet");
   const presentation = useTranslations("BrandPresentation.tablet");
   const faq = useTranslations("BrandFaq");
 
@@ -46,7 +47,7 @@ export default function TabletPage() {
           eyebrow: t("passiveTag"),
           title: t("passiveTitle"),
           body: t("passiveBody"),
-          items: [1,2].map(number=>({title:presentation(`passive.item${number}Title`),body:presentation(`passive.item${number}Body`)})),
+          items: [...[1,2].map(number=>({title:presentation(`passive.item${number}Title`),body:presentation(`passive.item${number}Body`)})), {title:details("passiveTitle"),body:details("passiveBody")}],
           image: {
             src: cms.url("/assets/tablet-detail/generated/tablet-passive-new-scene-20261026.png"),
             alt: t("passiveTitle"),
@@ -56,7 +57,7 @@ export default function TabletPage() {
           eyebrow: t("activeTag"),
           title: t("activeTitle"),
           body: t("activeBody"),
-          items: [1,2].map(number=>({title:presentation(`active.item${number}Title`),body:presentation(`active.item${number}Body`)})),
+          items: [...[1,2].map(number=>({title:presentation(`active.item${number}Title`),body:presentation(`active.item${number}Body`)})), {title:details("activeTitle"),body:details("activeBody")}],
           image: {
             src: cms.url("/assets/tablet-detail/generated/tablet-family-new-scene-20261026.png"),
             alt: t("activeTitle"),
@@ -84,7 +85,7 @@ export default function TabletPage() {
         </nav>
         <TabletGrowthMap />
       </>}
-      afterFeaturesCount={2}
+      afterFeaturesCount={3}
       afterContent={<aside className="tablet-data-note" aria-labelledby="family-data-title">
           <BrandPrivacy />
           <Link href="/legal/privacy">{brand('privacy.link')}</Link>

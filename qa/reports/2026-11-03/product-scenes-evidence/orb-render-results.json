@@ -1,0 +1,38 @@
+[
+  {
+    "engine": "chromium",
+    "width": 1440,
+    "changedPixels": 24423,
+    "outsideScreen": 0
+  },
+  {
+    "engine": "chromium",
+    "width": 390,
+    "changedPixels": 11602,
+    "outsideScreen": 0
+  },
+  {
+    "engine": "chromium",
+    "width": 2560,
+    "changedPixels": 24396,
+    "outsideScreen": 0
+  },
+  {
+    "engine": "webkit",
+    "width": 1440,
+    "changedPixels": 24196,
+    "outsideScreen": 0
+  },
+  {
+    "engine": "webkit",
+    "width": 390,
+    "changedPixels": 11423,
+    "outsideScreen": 0
+  },
+  {
+    "engine": "webkit",
+    "width": 2560,
+    "changedPixels": 24166,
+    "outsideScreen": 0
+  }
+]

@@ -42,7 +42,7 @@ export default function OlaProductPage() {
           eyebrow: t("kids"),
           title: t("everyAge"),
           body: `${t("kidsBody")} ${t("adultsBody")}`,
-          items: ["kids1","kids2","kids3","adults1","adults2","adults3"].map((key,index)=>({title:t(key),body:presentation(`daily${index+1}`)})),
+          items: [{title:`${t("kids1")} · ${t("kids2")}`,body:`${presentation("daily1")} ${presentation("daily2")}`}, ...["kids3","adults1","adults2","adults3"].map((key,index)=>({title:t(key),body:presentation(`daily${index+3}`)}))],
           image: {
             src: cms.url("/assets/ola-scenes-20261103/adult-senior-companion.webp"),
             alt: t("adultsAlt"),
@@ -57,7 +57,7 @@ export default function OlaProductPage() {
           body: t(`way${number}Body`),
         })),
         image: {
-          src: cms.url("/assets/home-products-refined-20260907/ola-repaired.webp"),
+          src: cms.url("/assets/western-scenes-20260908/ola-senior-reminder-v2.webp"),
           alt: t("deviceAlt"),
           fit: "contain",
         },

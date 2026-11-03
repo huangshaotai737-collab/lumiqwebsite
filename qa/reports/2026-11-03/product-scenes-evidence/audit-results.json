@@ -1,0 +1,770 @@
+{
+  "base": "http://localhost:4262",
+  "results": [
+    {
+      "browser": "chromium",
+      "locale": "zh-hant",
+      "product": "ola",
+      "sections": [
+        {
+          "id": "",
+          "title": "每個房間，都有魔法",
+          "items": 3,
+          "media": true
+        },
+        {
+          "id": "",
+          "title": "為成人與長輩而設計 ",
+          "items": 5,
+          "media": true
+        },
+        {
+          "id": "",
+          "title": "LumiqOla 幫助你的三種方式",
+          "items": 3,
+          "media": true
+        },
+        {
+          "id": "",
+          "title": "LumiqOla 為家中帶來的五種安靜力量 ",
+          "items": 5,
+          "media": true
+        }
+      ]
+    },
+    {
+      "browser": "chromium",
+      "locale": "zh-hant",
+      "product": "ola-go",
+      "sections": [
+        {
+          "id": "",
+          "title": "在家有 LumiqOla，出門有 LumiqOlaGo ",
+          "items": 3,
+          "media": true
+        },
+        {
+          "id": "",
+          "title": "隨身提醒",
+          "items": 3,
+          "media": true
+        },
+        {
+          "id": "",
+          "title": "天氣一覽",
+          "items": 3,
+          "media": true
+        },
+        {
+          "id": "",
+          "title": "語音日記",
+          "items": 3,
+          "media": true
+        },
+        {
+          "id": "",
+          "title": "用 LumiqOlaGo 保持聯繫，掌握消息 ",
+          "items": 3,
+          "media": true
+        },
+        {
+          "id": "olago-avatar",
+          "title": "給你的角色，一點日常照顧",
+          "items": 3,
+          "media": true
+        }
+      ]
+    },
+    {
+      "browser": "chromium",
+      "locale": "zh-hant",
+      "product": "tablet",
+      "sections": [
+        {
+          "id": "",
+          "title": "沉浸在故事裡",
+          "items": 5,
+          "media": true
+        },
+        {
+          "id": "",
+          "title": "不停切換 無止盡地滑動 ",
+          "items": 3,
+          "media": true
+        },
+        {
+          "id": "",
+          "title": "沉浸閱讀 一起探索 ",
+          "items": 3,
+          "media": true
+        },
+        {
+          "id": "",
+          "title": "四種方式，讀出自己的故事",
+          "items": 4,
+          "media": true
+        },
+        {
+          "id": "tablet-growth",
+          "title": "每個故事，都開啟新的成長路徑",
+          "items": 3,
+          "media": true
+        },
+        {
+          "id": "tablet-growth-social",
+          "title": "在故事裡，練習理解自己與他人",
+          "items": 3,
+          "media": true
+        },
+        {
+          "id": "tablet-growth-stages",
+          "title": "陪伴每個階段的成長",
+          "items": 4,
+          "media": true
+        },
+        {
+          "id": "",
+          "title": "由你掌握的家長中心",
+          "items": 5,
+          "media": true
+        }
+      ]
+    },
+    {
+      "browser": "chromium",
+      "locale": "zh-hant",
+      "product": "print",
+      "sections": [
+        {
+          "id": "",
+          "title": "成為最喜愛故事中的明星",
+          "items": 3,
+          "media": true
+        },
+        {
+          "id": "",
+          "title": "從封面到最後一頁，都值得珍藏",
+          "items": 3,
+          "media": true
+        }
+      ]
+    },
+    {
+      "browser": "chromium",
+      "locale": "zh-hant",
+      "product": "nest",
+      "sections": [
+        {
+          "id": "orb-overview",
+          "title": "四種方式，讓每一天更輕鬆",
+          "items": 4,
+          "media": true
+        },
+        {
+          "id": "orb-recipes",
+          "title": "把冰箱裡的食材，變成餐桌上的晚餐",
+          "items": 4,
+          "media": true
+        },
+        {
+          "id": "orb-calendar",
+          "title": "更清楚地看見每個人的安排",
+          "items": 4,
+          "media": true
+        },
+        {
+          "id": "orb-chores",
+          "title": "小小任務，一起進步",
+          "items": 4,
+          "media": true
+        },
+        {
+          "id": "orb-photos",
+          "title": "讓回憶在家中，擁有一個位置",
+          "items": 3,
+          "media": true
+        },
+        {
+          "id": "orb-finishes",
+          "title": "找到適合你家空間的配色",
+          "items": 3,
+          "media": true
+        }
+      ]
+    },
+    {
+      "browser": "chromium",
+      "locale": "en",
+      "product": "ola",
+      "sections": [
+        {
+          "id": "",
+          "title": "Magic in any room",
+          "items": 3,
+          "media": true
+        },
+        {
+          "id": "",
+          "title": "Made for adults and older adults ",
+          "items": 5,
+          "media": true
+        },
+        {
+          "id": "",
+          "title": "3 ways LumiqOla helps you",
+          "items": 3,
+          "media": true
+        },
+        {
+          "id": "",
+          "title": "Five roles for LumiqOla in the home ",
+          "items": 5,
+          "media": true
+        }
+      ]
+    },
+    {
+      "browser": "chromium",
+      "locale": "en",
+      "product": "ola-go",
+      "sections": [
+        {
+          "id": "",
+          "title": "At home with LumiqOla  Leave with LumiqOlaGo ",
+          "items": 3,
+          "media": true
+        },
+        {
+          "id": "",
+          "title": "Portable reminders",
+          "items": 3,
+          "media": true
+        },
+        {
+          "id": "",
+          "title": "Weather at a glance",
+          "items": 3,
+          "media": true
+        },
+        {
+          "id": "",
+          "title": "Voice journal",
+          "items": 3,
+          "media": true
+        },
+        {
+          "id": "",
+          "title": "Connect using LumiqOlaGo  Stay informed ",
+          "items": 3,
+          "media": true
+        },
+        {
+          "id": "olago-avatar",
+          "title": "A little care for your avatar",
+          "items": 3,
+          "media": true
+        }
+      ]
+    },
+    {
+      "browser": "chromium",
+      "locale": "en",
+      "product": "tablet",
+      "sections": [
+        {
+          "id": "",
+          "title": "Be immersed in the story",
+          "items": 5,
+          "media": true
+        },
+        {
+          "id": "",
+          "title": "Active switching  Endless scrolling ",
+          "items": 3,
+          "media": true
+        },
+        {
+          "id": "",
+          "title": "Immersive reading  Exploring together ",
+          "items": 3,
+          "media": true
+        },
+        {
+          "id": "",
+          "title": "Four ways to make a story your own",
+          "items": 4,
+          "media": true
+        },
+        {
+          "id": "tablet-growth",
+          "title": "Every story opens a new path to growth",
+          "items": 3,
+          "media": true
+        },
+        {
+          "id": "tablet-growth-social",
+          "title": "Practice understanding yourself and others",
+          "items": 3,
+          "media": true
+        },
+        {
+          "id": "tablet-growth-stages",
+          "title": "Growing with every stage",
+          "items": 4,
+          "media": true
+        },
+        {
+          "id": "",
+          "title": "A Parent Center that puts you in control",
+          "items": 5,
+          "media": true
+        }
+      ]
+    },
+    {
+      "browser": "chromium",
+      "locale": "en",
+      "product": "print",
+      "sections": [
+        {
+          "id": "",
+          "title": "Become the star of your favorite tale",
+          "items": 3,
+          "media": true
+        },
+        {
+          "id": "",
+          "title": "A keepsake designed from cover to final page",
+          "items": 3,
+          "media": true
+        }
+      ]
+    },
+    {
+      "browser": "chromium",
+      "locale": "en",
+      "product": "nest",
+      "sections": [
+        {
+          "id": "orb-overview",
+          "title": "Four ways to make every day easier",
+          "items": 4,
+          "media": true
+        },
+        {
+          "id": "orb-recipes",
+          "title": "From what’s in the fridge to dinner on the table",
+          "items": 4,
+          "media": true
+        },
+        {
+          "id": "orb-calendar",
+          "title": "A clearer view of everyone’s plans",
+          "items": 4,
+          "media": true
+        },
+        {
+          "id": "orb-chores",
+          "title": "Small tasks  Shared progress ",
+          "items": 4,
+          "media": true
+        },
+        {
+          "id": "orb-photos",
+          "title": "Give your memories a place at home",
+          "items": 3,
+          "media": true
+        },
+        {
+          "id": "orb-finishes",
+          "title": "Find the finish for your space",
+          "items": 3,
+          "media": true
+        }
+      ]
+    },
+    {
+      "browser": "chromium",
+      "locale": "ja",
+      "product": "ola",
+      "sections": [
+        {
+          "id": "",
+          "title": "どの部屋にも、魔法を",
+          "items": 3,
+          "media": true
+        },
+        {
+          "id": "",
+          "title": "大人とシニアのために ",
+          "items": 5,
+          "media": true
+        },
+        {
+          "id": "",
+          "title": "LumiqOla が暮らしを支える3つの方法",
+          "items": 3,
+          "media": true
+        },
+        {
+          "id": "",
+          "title": "LumiqOla が家庭にもたらす、5つの静かな力 ",
+          "items": 5,
+          "media": true
+        }
+      ]
+    },
+    {
+      "browser": "chromium",
+      "locale": "ja",
+      "product": "ola-go",
+      "sections": [
+        {
+          "id": "",
+          "title": "家では LumiqOla、外出には LumiqOlaGo ",
+          "items": 3,
+          "media": true
+        },
+        {
+          "id": "",
+          "title": "携帯リマインダー",
+          "items": 3,
+          "media": true
+        },
+        {
+          "id": "",
+          "title": "天気",
+          "items": 3,
+          "media": true
+        },
+        {
+          "id": "",
+          "title": "音声日記",
+          "items": 3,
+          "media": true
+        },
+        {
+          "id": "",
+          "title": "LumiqOlaGo でつながり、情報を身近に ",
+          "items": 3,
+          "media": true
+        },
+        {
+          "id": "olago-avatar",
+          "title": "アバターに、毎日の小さなお世話を",
+          "items": 3,
+          "media": true
+        }
+      ]
+    },
+    {
+      "browser": "chromium",
+      "locale": "ja",
+      "product": "tablet",
+      "sections": [
+        {
+          "id": "",
+          "title": "物語に没入する",
+          "items": 5,
+          "media": true
+        },
+        {
+          "id": "",
+          "title": "切り替え続ける スクロールし続ける ",
+          "items": 3,
+          "media": true
+        },
+        {
+          "id": "",
+          "title": "物語に没頭 一緒に探求 ",
+          "items": 3,
+          "media": true
+        },
+        {
+          "id": "",
+          "title": "自分だけの物語を楽しむ4つの方法",
+          "items": 4,
+          "media": true
+        },
+        {
+          "id": "tablet-growth",
+          "title": "物語がひらく、新しい成長への道",
+          "items": 3,
+          "media": true
+        },
+        {
+          "id": "tablet-growth-social",
+          "title": "物語を通して自分と相手を理解する",
+          "items": 3,
+          "media": true
+        },
+        {
+          "id": "tablet-growth-stages",
+          "title": "どのステージの成長にも寄り添う",
+          "items": 4,
+          "media": true
+        },
+        {
+          "id": "",
+          "title": "保護者が管理できるペアレントセンター",
+          "items": 5,
+          "media": true
+        }
+      ]
+    },
+    {
+      "browser": "chromium",
+      "locale": "ja",
+      "product": "print",
+      "sections": [
+        {
+          "id": "",
+          "title": "大好きな物語の主役になろう",
+          "items": 3,
+          "media": true
+        },
+        {
+          "id": "",
+          "title": "表紙から最後のページまで、大切に残せる一冊",
+          "items": 3,
+          "media": true
+        }
+      ]
+    },
+    {
+      "browser": "chromium",
+      "locale": "ja",
+      "product": "nest",
+      "sections": [
+        {
+          "id": "orb-overview",
+          "title": "毎日を楽にする、4つの機能",
+          "items": 4,
+          "media": true
+        },
+        {
+          "id": "orb-recipes",
+          "title": "冷蔵庫にあるものを、食卓の一皿に",
+          "items": 4,
+          "media": true
+        },
+        {
+          "id": "orb-calendar",
+          "title": "みんなの予定を、もっと見やすく",
+          "items": 4,
+          "media": true
+        },
+        {
+          "id": "orb-chores",
+          "title": "小さな家事から、みんなの達成へ",
+          "items": 4,
+          "media": true
+        },
+        {
+          "id": "orb-photos",
+          "title": "思い出に、家の中の居場所を",
+          "items": 3,
+          "media": true
+        },
+        {
+          "id": "orb-finishes",
+          "title": "暮らしに合う仕上げを見つける",
+          "items": 3,
+          "media": true
+        }
+      ]
+    },
+    {
+      "browser": "webkit",
+      "locale": "zh-hant",
+      "product": "ola",
+      "sections": [
+        {
+          "id": "",
+          "title": "每個房間，都有魔法",
+          "items": 3,
+          "media": true
+        },
+        {
+          "id": "",
+          "title": "為成人與長輩而設計 ",
+          "items": 5,
+          "media": true
+        },
+        {
+          "id": "",
+          "title": "LumiqOla 幫助你的三種方式",
+          "items": 3,
+          "media": true
+        },
+        {
+          "id": "",
+          "title": "LumiqOla 為家中帶來的五種安靜力量 ",
+          "items": 5,
+          "media": true
+        }
+      ]
+    },
+    {
+      "browser": "webkit",
+      "locale": "zh-hant",
+      "product": "ola-go",
+      "sections": [
+        {
+          "id": "",
+          "title": "在家有 LumiqOla，出門有 LumiqOlaGo ",
+          "items": 3,
+          "media": true
+        },
+        {
+          "id": "",
+          "title": "隨身提醒",
+          "items": 3,
+          "media": true
+        },
+        {
+          "id": "",
+          "title": "天氣一覽",
+          "items": 3,
+          "media": true
+        },
+        {
+          "id": "",
+          "title": "語音日記",
+          "items": 3,
+          "media": true
+        },
+        {
+          "id": "",
+          "title": "用 LumiqOlaGo 保持聯繫，掌握消息 ",
+          "items": 3,
+          "media": true
+        },
+        {
+          "id": "olago-avatar",
+          "title": "給你的角色，一點日常照顧",
+          "items": 3,
+          "media": true
+        }
+      ]
+    },
+    {
+      "browser": "webkit",
+      "locale": "zh-hant",
+      "product": "tablet",
+      "sections": [
+        {
+          "id": "",
+          "title": "沉浸在故事裡",
+          "items": 5,
+          "media": true
+        },
+        {
+          "id": "",
+          "title": "不停切換 無止盡地滑動 ",
+          "items": 3,
+          "media": true
+        },
+        {
+          "id": "",
+          "title": "沉浸閱讀 一起探索 ",
+          "items": 3,
+          "media": true
+        },
+        {
+          "id": "",
+          "title": "四種方式，讀出自己的故事",
+          "items": 4,
+          "media": true
+        },
+        {
+          "id": "tablet-growth",
+          "title": "每個故事，都開啟新的成長路徑",
+          "items": 3,
+          "media": true
+        },
+        {
+          "id": "tablet-growth-social",
+          "title": "在故事裡，練習理解自己與他人",
+          "items": 3,
+          "media": true
+        },
+        {
+          "id": "tablet-growth-stages",
+          "title": "陪伴每個階段的成長",
+          "items": 4,
+          "media": true
+        },
+        {
+          "id": "",
+          "title": "由你掌握的家長中心",
+          "items": 5,
+          "media": true
+        }
+      ]
+    },
+    {
+      "browser": "webkit",
+      "locale": "zh-hant",
+      "product": "print",
+      "sections": [
+        {
+          "id": "",
+          "title": "成為最喜愛故事中的明星",
+          "items": 3,
+          "media": true
+        },
+        {
+          "id": "",
+          "title": "從封面到最後一頁，都值得珍藏",
+          "items": 3,
+          "media": true
+        }
+      ]
+    },
+    {
+      "browser": "webkit",
+      "locale": "zh-hant",
+      "product": "nest",
+      "sections": [
+        {
+          "id": "orb-overview",
+          "title": "四種方式，讓每一天更輕鬆",
+          "items": 4,
+          "media": true
+        },
+        {
+          "id": "orb-recipes",
+          "title": "把冰箱裡的食材，變成餐桌上的晚餐",
+          "items": 4,
+          "media": true
+        },
+        {
+          "id": "orb-calendar",
+          "title": "更清楚地看見每個人的安排",
+          "items": 4,
+          "media": true
+        },
+        {
+          "id": "orb-chores",
+          "title": "小小任務，一起進步",
+          "items": 4,
+          "media": true
+        },
+        {
+          "id": "orb-photos",
+          "title": "讓回憶在家中，擁有一個位置",
+          "items": 3,
+          "media": true
+        },
+        {
+          "id": "orb-finishes",
+          "title": "找到適合你家空間的配色",
+          "items": 3,
+          "media": true
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

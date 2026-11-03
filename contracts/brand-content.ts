@@ -1,3 +1,4 @@
+import {brandSceneDetailsMessages} from './brand-scene-details';
 import {brandPresentationMessages, brandPrintPresentationMessages} from './brand-presentation';
 import type {ContentSnapshot, MessageTree} from './content';
 import {brandFaqMessages, brandStoryFaqMessages} from './brand-faq';
@@ -13,9 +14,9 @@ import {brandFooterMessages} from './brand-footer';
 
 /** Additive copy only. Historical releases and their signed snapshots stay intact. */
 export const brandContentMessages = {
-  en: {BrandPrintPresentation:brandPrintPresentationMessages.en, BrandPresentation:brandPresentationMessages.en, BrandFaq:brandFaqMessages.en, BrandStoryFaq:brandStoryFaqMessages.en, BrandTablet:brandTabletMessages.en, BrandOrb:brandOrbMessages.en, BrandPlans:brandPlansMessages.en, BrandOlaGo:brandOlaGoMessages.en, BrandProducts:brandProductsMessages.en, BrandUpdate:brandUpdateMessages.en, BrandFooter:brandFooterMessages.en},
-  'zh-hant': {BrandPrintPresentation:brandPrintPresentationMessages['zh-hant'], BrandPresentation:brandPresentationMessages['zh-hant'], BrandFaq:brandFaqMessages['zh-hant'], BrandStoryFaq:brandStoryFaqMessages['zh-hant'], BrandTablet:brandTabletMessages['zh-hant'], BrandOrb:brandOrbMessages['zh-hant'], BrandPlans:brandPlansMessages['zh-hant'], BrandOlaGo:brandOlaGoMessages['zh-hant'], BrandProducts:brandProductsMessages['zh-hant'], BrandUpdate:brandUpdateMessages['zh-hant'], BrandFooter:brandFooterMessages['zh-hant']},
-  ja: {BrandPrintPresentation:brandPrintPresentationMessages.ja, BrandPresentation:brandPresentationMessages.ja, BrandFaq:brandFaqMessages.ja, BrandStoryFaq:brandStoryFaqMessages.ja, BrandTablet:brandTabletMessages.ja, BrandOrb:brandOrbMessages.ja, BrandPlans:brandPlansMessages.ja, BrandOlaGo:brandOlaGoMessages.ja, BrandProducts:brandProductsMessages.ja, BrandUpdate:brandUpdateMessages.ja, BrandFooter:brandFooterMessages.ja},
+  en: {BrandSceneDetails:brandSceneDetailsMessages["en"], BrandPrintPresentation:brandPrintPresentationMessages.en, BrandPresentation:brandPresentationMessages.en, BrandFaq:brandFaqMessages.en, BrandStoryFaq:brandStoryFaqMessages.en, BrandTablet:brandTabletMessages.en, BrandOrb:brandOrbMessages.en, BrandPlans:brandPlansMessages.en, BrandOlaGo:brandOlaGoMessages.en, BrandProducts:brandProductsMessages.en, BrandUpdate:brandUpdateMessages.en, BrandFooter:brandFooterMessages.en},
+  'zh-hant': {BrandSceneDetails:brandSceneDetailsMessages["zh-hant"], BrandPrintPresentation:brandPrintPresentationMessages['zh-hant'], BrandPresentation:brandPresentationMessages['zh-hant'], BrandFaq:brandFaqMessages['zh-hant'], BrandStoryFaq:brandStoryFaqMessages['zh-hant'], BrandTablet:brandTabletMessages['zh-hant'], BrandOrb:brandOrbMessages['zh-hant'], BrandPlans:brandPlansMessages['zh-hant'], BrandOlaGo:brandOlaGoMessages['zh-hant'], BrandProducts:brandProductsMessages['zh-hant'], BrandUpdate:brandUpdateMessages['zh-hant'], BrandFooter:brandFooterMessages['zh-hant']},
+  ja: {BrandSceneDetails:brandSceneDetailsMessages["ja"], BrandPrintPresentation:brandPrintPresentationMessages.ja, BrandPresentation:brandPresentationMessages.ja, BrandFaq:brandFaqMessages.ja, BrandStoryFaq:brandStoryFaqMessages.ja, BrandTablet:brandTabletMessages.ja, BrandOrb:brandOrbMessages.ja, BrandPlans:brandPlansMessages.ja, BrandOlaGo:brandOlaGoMessages.ja, BrandProducts:brandProductsMessages.ja, BrandUpdate:brandUpdateMessages.ja, BrandFooter:brandFooterMessages.ja},
 };
 
 /** Renderer/editor defaults for newly introduced namespaces, never overrides

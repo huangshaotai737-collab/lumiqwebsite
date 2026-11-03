@@ -245,13 +245,11 @@
   },
   "components/NestProductPage.tsx": {
     "occurrences": {
-      "cms.url(\"/assets/nest-detail/generated/nest-family-kitchen-v2.png\")": 1,
-      "cms.url(\"/assets/nest-detail/generated/nest-routine-closeup-v2.png\")": 1,
       "cms.url(\"/assets/web/nest15-black-angle.webp\")": 1,
       "cms.url(\"/assets/web/nest15-black-front.webp\")": 1,
       "cms.url(\"/assets/web/nest15-oak-angle.webp\")": 1,
       "cms.url(\"/assets/web/nest15-oak-front.webp\")": 1,
-      "cms.url(\"/assets/web/nest15-rear.webp\")": 1,
+      "cms.url(\"/assets/web/nest15-rear.webp\")": 0,
       "cms.url(\"/assets/web/nest15-walnut-angle.webp\")": 1,
       "cms.url(\"/assets/web/nest15-walnut-front.webp\")": 1
     },
@@ -261,53 +259,17 @@
         "property": "src",
         "source": "{selected.image}",
         "alt": "{t(\"finishes.alt\", { name: selected.name, productName })}"
-      },
-      {
-        "kind": "Image",
-        "property": "src",
-        "source": "{selected.front}",
-        "alt": "{t(\"finishes.alt\", { name: selected.name, productName })}"
-      },
-      {
-        "kind": "Image",
-        "property": "src",
-        "source": "{name === \"rewards\" ? cms.slot(\"asset_3dbef3e285441f46\").url : cms.url(`/assets/orb-ui-20261102/${name}.webp`)}",
-        "alt": "{update(`screens.${name}`)}"
-      },
-      {
-        "kind": "Image",
-        "property": "src",
-        "source": "{selected.front}",
-        "alt": "{t(\"finishes.alt\", { name: selected.name, productName })}"
-      },
-      {
-        "kind": "Image",
-        "property": "src",
-        "source": "{cms.url(\"/assets/nest-detail/generated/nest-family-kitchen-v2.png\")}",
-        "alt": "{t(\"images.familyAlt\", { productName })}"
-      },
-      {
-        "kind": "Image",
-        "property": "src",
-        "source": "{cms.url(\"/assets/nest-detail/generated/nest-routine-closeup-v2.png\")}",
-        "alt": "{t(\"images.closeupAlt\", { productName })}"
-      },
-      {
-        "kind": "Image",
-        "property": "src",
-        "source": "{cms.url(\"/assets/web/nest15-rear.webp\")}",
-        "alt": "{t(\"images.rearAlt\", { productName })}"
       }
     ]
   },
   "components/OlaGoProductPage.tsx": {
     "occurrences": {
-      "cms.url(\"/assets/ola-go-detail/generated/ola-go-weather-walk-v2.png\")": 1,
-      "cms.url(\"/assets/ola-go-detail/original-20260915/ola-go-three-quarter.png\")": 1,
-      "cms.url(\"/assets/products/lumiq-ola-go.png\")": 2,
-      "cms.url(\"/assets/western-scenes-20260908/ola-go-bedside-journal-v3.webp\")": 1,
-      "cms.url(\"/assets/western-scenes-20260908/ola-go-return-home-v3.webp\")": 1,
-      "cms.url(\"/assets/western-scenes-20260908/ola-go-schoolbag-v2.webp\")": 1
+      "cms.url(\"/assets/ola-go-detail/generated/ola-go-weather-walk-v2.png\")": 0,
+      "cms.url(\"/assets/ola-go-detail/original-20260915/ola-go-three-quarter.png\")": 0,
+      "cms.url(\"/assets/products/lumiq-ola-go.png\")": 1,
+      "cms.url(\"/assets/western-scenes-20260908/ola-go-bedside-journal-v3.webp\")": 0,
+      "cms.url(\"/assets/western-scenes-20260908/ola-go-return-home-v3.webp\")": 0,
+      "cms.url(\"/assets/western-scenes-20260908/ola-go-schoolbag-v2.webp\")": 0
     },
     "uses": [
       {
@@ -319,37 +281,37 @@
       {
         "kind": "object",
         "property": "src",
-        "source": "cms.url(\"/assets/western-scenes-20260908/ola-go-return-home-v3.webp\")",
-        "alt": "t(\"alt\")"
+        "source": "cms.url(\"/assets/product-scenes-20261103/olago-home.webp\")",
+        "alt": "details(\"homeAlt\")"
       },
       {
         "kind": "object",
         "property": "src",
-        "source": "index === 0\n              ? cms.url(\"/assets/western-scenes-20260908/ola-go-schoolbag-v2.webp\")\n              : index === 1\n                ? cms.url(\"/assets/ola-go-detail/generated/ola-go-weather-walk-v2.png\")\n                : cms.url(\"/assets/western-scenes-20260908/ola-go-bedside-journal-v3.webp\")",
-        "alt": "t(\"alt\")"
+        "source": "index < 2\n              ? cms.url(\"/assets/product-scenes-20261103/olago-outdoor.webp\")\n              : cms.url(\"/assets/product-scenes-20261103/olago-journal.webp\")",
+        "alt": "details(index < 2 ? \"outdoorAlt\" : \"journalAlt\")"
       },
       {
         "kind": "object",
         "property": "src",
-        "source": "cms.url(\"/assets/ola-go-detail/original-20260915/ola-go-three-quarter.png\")",
-        "alt": "t(\"alt\")"
+        "source": "cms.url(\"/assets/product-scenes-20261103/olago-home.webp\")",
+        "alt": "details(\"homeAlt\")"
       },
       {
         "kind": "object",
         "property": "src",
-        "source": "cms.url(\"/assets/products/lumiq-ola-go.png\")",
-        "alt": "t(\"alt\")"
+        "source": "cms.url(\"/assets/product-scenes-20261103/olago-journal.webp\")",
+        "alt": "details(\"journalAlt\")"
       }
     ]
   },
   "components/OlaProductPage.tsx": {
     "occurrences": {
-      "cms.url(\"/assets/home-products-refined-20260907/ola-repaired.webp\")": 1,
+      "cms.url(\"/assets/home-products-refined-20260907/ola-repaired.webp\")": 0,
       "cms.url(\"/assets/ola-detail/original-20260915/ola-high-angle-crop.png\")": 0,
       "cms.url(\"/assets/web/ola-hero-front.webp\")": 1,
       "cms.url(\"/assets/western-scenes-20260908/ola-bedtime-story-v2.webp\")": 1,
       "cms.url(\"/assets/western-scenes-20260908/ola-family-kitchen-v2.webp\")": 1,
-      "cms.url(\"/assets/western-scenes-20260908/ola-senior-reminder-v2.webp\")": 0
+      "cms.url(\"/assets/western-scenes-20260908/ola-senior-reminder-v2.webp\")": 1
     },
     "uses": [
       {
@@ -373,7 +335,7 @@
       {
         "kind": "object",
         "property": "src",
-        "source": "cms.url(\"/assets/home-products-refined-20260907/ola-repaired.webp\")",
+        "source": "cms.url(\"/assets/western-scenes-20260908/ola-senior-reminder-v2.webp\")",
         "alt": "t(\"deviceAlt\")"
       },
       {
@@ -384,12 +346,32 @@
       }
     ]
   },
+  "components/OrbDeviceScene.tsx": {
+    "occurrences": {
+      "cms.url(\"/assets/nest-detail/generated/nest-family-kitchen-v2.png\")": 1,
+      "cms.url(\"/assets/nest-detail/generated/nest-routine-closeup-v2.png\")": 1
+    },
+    "uses": [
+      {
+        "kind": "Image",
+        "property": "src",
+        "source": "{sceneUrls[kind]}",
+        "alt": "{t(\"sceneAlt\", {screen:label})}"
+      },
+      {
+        "kind": "Image",
+        "property": "src",
+        "source": "{screen}",
+        "alt": "{label}"
+      }
+    ]
+  },
   "components/PrintProductPage.tsx": {
     "occurrences": {
       "cms.url(\"/assets/print-detail/consistent-20260907/craft.webp\")": 0,
       "cms.url(\"/assets/print-detail/consistent-20260907/gift.webp\")": 1,
-      "cms.url(\"/assets/print-detail/consistent-20260907/pages.webp\")": 1,
-      "cms.url(\"/assets/print-detail/consistent-20260907/reading.webp\")": 0,
+      "cms.url(\"/assets/print-detail/consistent-20260907/pages.webp\")": 0,
+      "cms.url(\"/assets/print-detail/consistent-20260907/reading.webp\")": 1,
       "cms.url(\"/assets/products/lumiq-print.png\")": 1
     },
     "uses": [
@@ -408,7 +390,7 @@
       {
         "kind": "object",
         "property": "src",
-        "source": "cms.url(\"/assets/print-detail/consistent-20260907/pages.webp\")",
+        "source": "cms.url(\"/assets/print-detail/consistent-20260907/reading.webp\")",
         "alt": "t(\"alt\")"
       }
     ]

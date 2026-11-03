@@ -8,7 +8,7 @@ const require=createRequire(path.join(root,'related/website/package.json'));
 const ts=require('typescript'),{parse}=require('@formatjs/icu-messageformat-parser');
 const run=(source)=>{const exports={};new Function('exports',ts.transpileModule(source,{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2020}}).outputText)(exports);return exports;};
 const {icuSignature}=run(await readFile(path.join(root,'contracts/content-icu.ts'),'utf8'));
-const sources=[['presentation','brandPrintPresentationMessages','BrandPrintPresentation','/products/print'],['presentation','brandPresentationMessages','BrandPresentation','/products'],['faq','brandFaqMessages','BrandFaq','/faq'],['faq','brandStoryFaqMessages','BrandStoryFaq','/faq'],['tablet','brandTabletMessages','BrandTablet','/products/tablet'],['orb','brandOrbMessages','BrandOrb','/products/nest'],['plans','brandPlansMessages','BrandPlans','/plans'],['olago','brandOlaGoMessages','BrandOlaGo','/products/ola-go'],['products','brandProductsMessages','BrandProducts','/products'],['footer','brandFooterMessages','BrandFooter','global/footer'],['update','brandUpdateMessages','BrandUpdate','global/brand-update']];
+const sources=[['scene-details','brandSceneDetailsMessages','BrandSceneDetails','/products'],['presentation','brandPrintPresentationMessages','BrandPrintPresentation','/products/print'],['presentation','brandPresentationMessages','BrandPresentation','/products'],['faq','brandFaqMessages','BrandFaq','/faq'],['faq','brandStoryFaqMessages','BrandStoryFaq','/faq'],['tablet','brandTabletMessages','BrandTablet','/products/tablet'],['orb','brandOrbMessages','BrandOrb','/products/nest'],['plans','brandPlansMessages','BrandPlans','/plans'],['olago','brandOlaGoMessages','BrandOlaGo','/products/ola-go'],['products','brandProductsMessages','BrandProducts','/products'],['footer','brandFooterMessages','BrandFooter','global/footer'],['update','brandUpdateMessages','BrandUpdate','global/brand-update']];
 const fields=[];
 for(const [name,exportName,namespace,page] of sources) {
  const data=run(await readFile(path.join(root,`contracts/brand-${name}.ts`),'utf8'))[exportName];
@@ -17,8 +17,8 @@ for(const [name,exportName,namespace,page] of sources) {
   const group=`messages.${locale}.${namespace}`;
   const walk=(value,key)=>{
    const object=value!==null&&typeof value==='object';
-   const product = namespace==='BrandPresentation' ? key.slice(group.length+1).split('.')[0] : '';
-   const pages = product ? [product==='olago'?'/products/ola-go':`/products/${product}`] : [page];
+   const product = ['BrandPresentation','BrandSceneDetails'].includes(namespace) ? key.slice(group.length+1).split('.')[0] : '';
+   const pages = product ? [product==='olago'?'/products/ola-go':product==='orb'?'/products/nest':`/products/${product}`] : [page];
    fields.push({path:key,pages,type:object?'object':'string',maxLength:object?null:Math.max(2000,value.length),icuSignature:object?null:icuSignature(parse(value)),mediaPurpose:null,adminOnly:false,editable:!object,owner:'snapshot',optionalGroup:group,...(!object?{initialValue:value}:{})});
    if(object)for(const [child,item] of Object.entries(value))walk(item,`${key}.${child}`);
   };

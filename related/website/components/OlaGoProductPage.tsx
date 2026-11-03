@@ -11,6 +11,7 @@ export default function OlaGoProductPage() {
   const cms = useContentAdapter();
   const t = useTranslations("OlaGo");
   const brand = useTranslations("BrandOlaGo");
+  const details = useTranslations("BrandSceneDetails.olago");
   const presentation = useTranslations("BrandPresentation.olago");
 
   const firstFeatures = ["reminders", "weather", "journal"] as const;
@@ -40,8 +41,8 @@ export default function OlaGoProductPage() {
         body: t("relationshipBody"),
         items: [{title:presentation("stepsTitle"),body:presentation("stepsBody")},{title:t("journalTitle"),body:t("journalBody")},{title:t("remindersTitle"),body:t("remindersBody")}],
         image: {
-          src: cms.url("/assets/western-scenes-20260908/ola-go-return-home-v3.webp"),
-          alt: t("alt"),
+          src: cms.url("/assets/product-scenes-20261103/olago-home.webp"),
+          alt: details("homeAlt"),
           fit: "cover",
           position: "center",
         },
@@ -50,15 +51,13 @@ export default function OlaGoProductPage() {
         eyebrow: t("scenesTitle"),
         title: t(`${key}Title`),
         body: t(`${key}Body`),
-        items:[1,2].map(number=>({title:presentation(`${key}.item${number}Title`),body:presentation(`${key}.item${number}Body`)})),
+        items:[1,2,3].map(number=>({title:details(`${key}.item${number}Title`),body:details(`${key}.item${number}Body`)})),
         image: {
           src:
-            index === 0
-              ? cms.url("/assets/western-scenes-20260908/ola-go-schoolbag-v2.webp")
-              : index === 1
-                ? cms.url("/assets/ola-go-detail/generated/ola-go-weather-walk-v2.png")
-                : cms.url("/assets/western-scenes-20260908/ola-go-bedside-journal-v3.webp"),
-          alt: t("alt"),
+            index < 2
+              ? cms.url("/assets/product-scenes-20261103/olago-outdoor.webp")
+              : cms.url("/assets/product-scenes-20261103/olago-journal.webp"),
+          alt: details(index < 2 ? "outdoorAlt" : "journalAlt"),
         },
       }))}
       features={{
@@ -70,14 +69,14 @@ export default function OlaGoProductPage() {
           body: t(`${key}Body`),
         })),
         image: {
-          src: cms.url("/assets/ola-go-detail/original-20260915/ola-go-three-quarter.png"),
-          alt: t("alt"),
+          src: cms.url("/assets/product-scenes-20261103/olago-home.webp"),
+          alt: details("homeAlt"),
           fit: "contain",
         },
       }}
       afterFeatures={<ProductFeatureSection id="olago-avatar" className="olago-avatar-floor" eyebrow={brand("avatar.eyebrow")} title={brand("avatar.title")} intro={brand("avatar.body")}
         items={avatarActions.map(action=>({title:brand(`avatar.${action}Title`),body:brand(`avatar.${action}Body`)}))}
-        image={{src:cms.url("/assets/products/lumiq-ola-go.png"),alt:t("alt"),fit:"contain"}}/>}
+        image={{src:cms.url("/assets/product-scenes-20261103/olago-journal.webp"),alt:details("journalAlt"),fit:"cover"}}/>}
       finalTitle={t("closingTitle")}
       finalBody={t("closingBody")}
       secondaryAction={{ href: "/products/ola", label: t("meetOla") }}

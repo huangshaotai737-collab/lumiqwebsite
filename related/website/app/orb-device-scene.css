@@ -1,0 +1,15 @@
+/* Real, independently editable UI layered inside a photographed device. No canvas or animation. */
+.orb-device-scene { position: relative; width: 100%; aspect-ratio: 4 / 3; overflow: hidden; }
+.lumiq-root main.product-detail-light .orb-device-scene .orb-scene-photo {
+  display: block; width: 100%; height: 100% !important; max-height: none;
+  border: 0; border-radius: 0; object-fit: cover !important;
+}
+.orb-scene-overlay { position: absolute; inset: 0; width: 100%; height: 100%; overflow: hidden; pointer-events: none; }
+.orb-scene-expand { display: block; margin: 12px 0 0 auto; padding: 8px 0; border: 0; background: none; color: var(--pd-ink); font: inherit; font-size: 16px; text-decoration: underline; text-underline-offset: 4px; cursor: pointer; }
+.orb-scene-expand:focus-visible { outline: 2px solid currentColor; outline-offset: 4px; }
+.orb-scene-dialog { width: min(1200px, 94vw); max-height: 92dvh; margin: auto; padding: 44px 16px 16px; border: 0; border-radius: 12px; background: #fff; color: #152439; overflow: auto; }
+.orb-scene-dialog::backdrop { background: rgb(18 28 43 / .65); }
+.orb-scene-dialog form button { position: absolute; right: 12px; top: 4px; width: 36px; height: 36px; border: 0; background: none; color: inherit; font-size: 30px; cursor: pointer; }
+.orb-scene-dialog p { margin-top: 12px; font-size: 16px; }
+
+.lumiq-root main.product-detail-light .orb-device-scene .orb-scene-edit-target { position: absolute; opacity: 0; max-height: none; z-index: 1; }

@@ -7,6 +7,7 @@ import ProductDetailTemplate from "@/components/ProductDetailTemplate";
 export default function PrintProductPage() {
   const cms = useContentAdapter();
   const t = useTranslations("Book");
+  const details = useTranslations("BrandSceneDetails.print");
   const presentation = useTranslations("BrandPrintPresentation");
 
   return (
@@ -36,19 +37,19 @@ export default function PrintProductPage() {
           alt: t("alt"),
           unoptimized: true,
         },
-        items: [1,4].map(number=>({title:t(`s${number}`),body:t(`s${number}Body`)})),
+        items: [...[1,4].map(number=>({title:t(`s${number}`),body:t(`s${number}Body`)})), {title:details("storyTitle"),body:details("storyBody")}],
       }}
       scenes={[]}
       features={{
         eyebrow: t("eyebrow"),
         title: t("detailsTitle"),
         intro: presentation("craftIntro"),
-        items: [2, 3].map((number) => ({
+        items: [...[2, 3].map((number) => ({
           title: t(`s${number}`),
           body: t(`s${number}Body`),
-        })),
+        })), {title:details("craftTitle"),body:details("craftBody")}],
         image: {
-          src: cms.url("/assets/print-detail/consistent-20260907/pages.webp"),
+          src: cms.url("/assets/print-detail/consistent-20260907/reading.webp"),
           alt: t("alt"),
           unoptimized: true,
         },
