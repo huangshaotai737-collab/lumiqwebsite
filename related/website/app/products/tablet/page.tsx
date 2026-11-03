@@ -24,7 +24,6 @@ export default function TabletPage() {
       productName={brand("hero.eyebrow")}
       title={brand("hero.title")}
       lede={brand("hero.body")}
-      conceptNotice={t("conceptNotice")}
       priceLabel="USD 599"
       ctaLabel={t("buy")}
       heroImage={{

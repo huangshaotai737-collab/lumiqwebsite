@@ -26,7 +26,7 @@ type ProductDetailTemplateProps = {
   productName: string;
   title: string;
   lede: string;
-  conceptNotice: string;
+  conceptNotice?: string;
   priceLabel: string;
   priceQualifier?: string;
   compactHeroPriceLabel?: boolean;
@@ -141,7 +141,7 @@ export default function ProductDetailTemplate({
               <span className="pd-product-tagline">{title}</span>
             </Heading>
             <p className="pd-hero-lede">{lede}</p>
-            <p className="pd-concept-note">{conceptNotice}</p>
+            {conceptNotice && <p className="pd-concept-note">{conceptNotice}</p>}
             <div className="pd-hero-actions">
               <div className="pd-price-row">
                 <p className={`pd-price${compactHeroPriceLabel ? " pd-price--compact" : ""}`}>
