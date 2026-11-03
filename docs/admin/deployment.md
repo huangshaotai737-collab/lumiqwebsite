@@ -1,6 +1,6 @@
 # 部署与生产阻断项
 
-2026-11-03 更新：官网与独立后台已经接入用户当前账号下的 LumiQ 云数据库，20 个迁移已应用，云端核心联动冒烟通过。后台入口为 `https://lumiq-admin-two.vercel.app/login`；官网为 `https://lumiq-showcase-20261025.vercel.app/zh-hant`。正式首管理员仍待用户注册并确认邮箱；正式 SMTP 尚未配置，真实支付未接通。不能据此宣称全部生产功能已验收。详见 [本轮实际走查结果](../../qa/reports/2026-11-03/admin-functional-audit.md)、[本地验收](acceptance.md) 与 [使用说明](operations.md)。
+2026-11-03 更新：官网与独立后台已经接入用户当前账号下的 LumiQ 云数据库，20 个迁移已应用，云端核心联动冒烟通过。后台入口为 `https://lumiq-admin-two.vercel.app/login`；官网为 `https://lumiq-showcase-20261025.vercel.app/zh-hant`。用户已完成官网注册及邮箱验证，正式首管理员已初始化并写入审计；正式 SMTP 尚未配置，真实支付未接通。不能据此宣称全部生产功能已验收。详见 [本轮实际走查结果](../../qa/reports/2026-11-03/admin-functional-audit.md)、[本地验收](acceptance.md) 与 [使用说明](operations.md)。
 
 ## 两个独立应用
 
@@ -31,7 +31,7 @@
 
 ## 尚未通过的生产门槛
 
-当前 Vercel HTTPS 入口、云数据库角色门禁、50 MiB 桶上限和实际图像/视频校验已冒烟验证。正式自有域名、真实邮箱收信与 SMTP、首管理员、备份恢复演练、最大素材负载预算、告警与运维责任人、商业价格/条款/退换货承诺确认、隐私保留策略及人工擦除范围仍需验收。公开发布/回退的完整业务流程已在隔离环境通过，本轮云端只测试未发布草稿，未覆盖官网内容。
+当前 Vercel HTTPS 入口、云数据库角色门禁、50 MiB 桶上限和实际图像/视频校验已冒烟验证。正式自有域名、员工邀请与找回密码的邮件投递、正式 SMTP、备份恢复演练、最大素材负载预算、告警与运维责任人、商业价格/条款/退换货承诺确认、隐私保留策略及人工擦除范围仍需验收。公开发布/回退的完整业务流程已在隔离环境通过，本轮云端只测试未发布草稿，未覆盖官网内容。
 
 公开下单初始关闭；五个 SKU 币种和价格为 NULL，未确认、未启用。支付适配器始终返回 `PAYMENTS_NOT_CONFIGURED`，没有通知入口、真实交易或付费订阅。支付接通材料见 [payment-integration.md](payment-integration.md) 与 [台湾主体支付准备清单](https://github.com/huangshaotai737-collab/lumiqwebsite/blob/cc11b0a124f59a0955ede33e084b960be3dfff11/docs/superpowers/specs/2026-10-20-lumiq-payments-readiness.md)。不得把技术预留视为商户准入或结算可用。
 
@@ -60,3 +60,5 @@
 - 管理后台日期显示统一使用 Asia/Shanghai，避免服务器与客户端时区差异引发重新渲染。
 - 所有服务密钥只写入 Vercel 服务端环境；不在仓库或报告记录。
 - 合成账号、测试草稿、媒体对象和候补记录已按本轮精确 ID 清理；不可变操作审计保留。真实用户注册不在清理范围。
+
+首管理员开通复核：指定用户的邮箱已确认、资料 active、员工角色 admin 且 active，`team.bootstrap` 审计存在。未使用或保存用户提供的密码，未绕过邮箱确认。官网与后台分别登录；用户可以用自己设置的凭据登录后台。
