@@ -18,7 +18,8 @@ for(const [name,exportName,namespace,page] of sources) {
   const walk=(value,key)=>{
    const object=value!==null&&typeof value==='object';
    const product = ['BrandPresentation','BrandSceneDetails'].includes(namespace) ? key.slice(group.length+1).split('.')[0] : '';
-   const pages = product ? [product==='olago'?'/products/ola-go':product==='orb'?'/products/nest':`/products/${product}`] : [page];
+   const sharedSceneAction = namespace === 'BrandSceneDetails' && ['orb.productDetails','orb.closeProduct'].includes(key.slice(group.length+1));
+   const pages = sharedSceneAction ? ['ola','ola-go','tablet','print','nest'].map(slug=>`/products/${slug}`) : product ? [product==='olago'?'/products/ola-go':product==='orb'?'/products/nest':`/products/${product}`] : [page];
    fields.push({path:key,pages,type:object?'object':'string',maxLength:object?null:Math.max(2000,value.length),icuSignature:object?null:icuSignature(parse(value)),mediaPurpose:null,adminOnly:false,editable:!object,owner:'snapshot',optionalGroup:group,...(!object?{initialValue:value}:{})});
    if(object)for(const [child,item] of Object.entries(value))walk(item,`${key}.${child}`);
   };

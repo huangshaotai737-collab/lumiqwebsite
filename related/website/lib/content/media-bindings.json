@@ -261,18 +261,6 @@
         "alt": "{t(\"finishes.alt\", { name: selected.name, productName })}"
       },
       {
-        "kind": "object",
-        "property": "src",
-        "source": "screenUrl(name)",
-        "alt": "update(`screens.${name}`)"
-      },
-      {
-        "kind": "object",
-        "property": "src",
-        "source": "screenUrl(name)",
-        "alt": "update(`screens.${name}`)"
-      },
-      {
         "kind": "Image",
         "property": "src",
         "source": "{selected.front}",

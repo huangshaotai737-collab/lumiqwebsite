@@ -4,6 +4,7 @@ import { useState, type CSSProperties } from "react";
 import { useTranslations } from "next-intl";
 import Heading from "@/components/Heading";
 import OrbDeviceScene from "@/components/OrbDeviceScene";
+import {orbProductFocus} from "@/lib/content/product-scene-focus";
 import ProductSceneFigure from "@/components/ProductSceneFigure";
 import ProductFeatureSection from "@/components/ProductFeatureSection";
 import Image from "@/components/content/ContentImage";
@@ -76,14 +77,14 @@ export default function NestProductPage() {
       <ProductFeatureSection id="orb-overview" className="orb-overview" eyebrow={t("overview.eyebrow")} title={t("overview.title")} intro={t("overview.body")}
         mediaLeft navigationLabel={t("overview.navigation")}
         items={featureSections.map(feature=>({eyebrow:t(`${feature.key}.label`),title:t(`${feature.key}.cardTitle`),body:t(`${feature.key}.cardBody`),href:`#${feature.id}`}))}
-        media={<ProductSceneFigure caption={t("overview.eyebrow")} screenDetails details={featureSections.flatMap(feature=>screenshots[feature.key]).map(name=>({src:screenUrl(name),alt:update(`screens.${name}`)}))}>
+        media={<ProductSceneFigure caption={t("overview.eyebrow")} focus={orbProductFocus.overview}>
           <OrbDeviceScene screen={cms.url("/assets/orb-ui-20261102/calendar.webp")} label={update("screens.calendar")} scene="overview"/>
         </ProductSceneFigure>}/>
 
       {featureSections.map((feature,sectionIndex)=><ProductFeatureSection key={feature.key} id={feature.id} className={`orb-detail orb-detail--${feature.key}`}
         eyebrow={t(`${feature.key}.label`)} title={t(`${feature.key}.title`)} intro={t(`${feature.key}.body`)} mediaLeft={sectionIndex%2===1}
         items={feature.details.map(number=>({title:t(`${feature.key}.detail${number}Title`),body:t(`${feature.key}.detail${number}Body`)}))}
-        media={<ProductSceneFigure caption={t(`${feature.key}.label`)} screenDetails details={screenshots[feature.key].map(name=>({src:screenUrl(name),alt:update(`screens.${name}`)}))}>
+        media={<ProductSceneFigure caption={t(`${feature.key}.label`)} focus={orbProductFocus[scenes[feature.key]]} detailViews={screenshots[feature.key].map(name=>({label:update(`screens.${name}`),content:<OrbDeviceScene screen={screenUrl(name)} label={update(`screens.${name}`)} scene={scenes[feature.key]}/>}))}>
           <OrbDeviceScene screen={screenUrl(screenshots[feature.key][0])} label={update(`screens.${screenshots[feature.key][0]}`)} scene={scenes[feature.key]}/>
         </ProductSceneFigure>}/>
       )}

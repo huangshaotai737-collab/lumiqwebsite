@@ -59,6 +59,8 @@ export const brandSceneDetailsMessages = {
       "closeup": "查看界面細節",
       "close": "關閉界面細節",
       "photoDetails": "查看圖片細節",
+      "productDetails": "查看產品特寫",
+      "closeProduct": "關閉產品特寫",
       "closePhoto": "關閉圖片",
       "previous": "上一張",
       "next": "下一張"
@@ -123,6 +125,8 @@ export const brandSceneDetailsMessages = {
       "closeup": "View screen details",
       "close": "Close screen details",
       "photoDetails": "View photo details",
+      "productDetails": "View product close-up",
+      "closeProduct": "Close product close-up",
       "closePhoto": "Close image",
       "previous": "Previous image",
       "next": "Next image"
@@ -187,6 +191,8 @@ export const brandSceneDetailsMessages = {
       "closeup": "画面の詳細を見る",
       "close": "画面の詳細を閉じる",
       "photoDetails": "写真の詳細を見る",
+      "productDetails": "製品のクローズアップを見る",
+      "closeProduct": "製品のクローズアップを閉じる",
       "closePhoto": "画像を閉じる",
       "previous": "前の画像",
       "next": "次の画像"

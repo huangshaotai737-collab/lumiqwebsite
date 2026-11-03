@@ -24,8 +24,18 @@
 .product-scene-dialog button:disabled { opacity:.35; cursor:default; }
 .product-scene-dialog button:focus-visible { outline:2px solid #152439; outline-offset:3px; }
 .product-scene-pagination { display:flex; align-items:center; gap:12px; flex-shrink:0; }
-.lumiq-root main.product-detail-light .product-scene-dialog .product-scene-detail {
-  display:block; width:100%; height:auto !important; max-height:72dvh; min-height:0;
-  padding:0; border:0; border-radius:0; object-fit:contain !important; mix-blend-mode:normal;
+/* Crop the complete scene as one layer, so device, frame and projected UI stay aligned. */
+.product-focus-viewport {
+  position:relative; overflow:hidden; margin:auto; aspect-ratio:var(--product-focus-ratio);
+  width:min(100%, calc(68dvh * var(--product-focus-ratio))); max-width:1000px;
 }
+.product-focus-scene {
+  position:absolute; left:var(--product-focus-left); top:var(--product-focus-top);
+  width:var(--product-focus-width); height:var(--product-focus-height);
+}
+.lumiq-root main.product-detail-light .product-focus-scene > img {
+  display:block; width:100%; height:100% !important; max-height:none; min-height:0;
+  padding:0; border:0; border-radius:0; object-fit:cover !important; mix-blend-mode:normal;
+}
+.product-focus-scene > .orb-device-scene { height:100%; }
 @media(max-width:600px) { .product-scene-dialog-content { padding:12px; } .product-scene-dialog .product-scene-dialog-meta { flex-wrap:wrap; } }

@@ -789,6 +789,44 @@ const fields0: readonly (ContentField & {optionalGroup:string})[] = [
     "initialValue": "View photo details"
   },
   {
+    "path": "messages.en.BrandSceneDetails.orb.productDetails",
+    "pages": [
+      "/products/ola",
+      "/products/ola-go",
+      "/products/tablet",
+      "/products/print",
+      "/products/nest"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.en.BrandSceneDetails",
+    "initialValue": "View product close-up"
+  },
+  {
+    "path": "messages.en.BrandSceneDetails.orb.closeProduct",
+    "pages": [
+      "/products/ola",
+      "/products/ola-go",
+      "/products/tablet",
+      "/products/print",
+      "/products/nest"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.en.BrandSceneDetails",
+    "initialValue": "Close product close-up"
+  },
+  {
     "path": "messages.en.BrandSceneDetails.orb.closePhoto",
     "pages": [
       "/products/nest"
@@ -1619,6 +1657,44 @@ const fields0: readonly (ContentField & {optionalGroup:string})[] = [
     "owner": "snapshot",
     "optionalGroup": "messages.zh-hant.BrandSceneDetails",
     "initialValue": "查看圖片細節"
+  },
+  {
+    "path": "messages.zh-hant.BrandSceneDetails.orb.productDetails",
+    "pages": [
+      "/products/ola",
+      "/products/ola-go",
+      "/products/tablet",
+      "/products/print",
+      "/products/nest"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.zh-hant.BrandSceneDetails",
+    "initialValue": "查看產品特寫"
+  },
+  {
+    "path": "messages.zh-hant.BrandSceneDetails.orb.closeProduct",
+    "pages": [
+      "/products/ola",
+      "/products/ola-go",
+      "/products/tablet",
+      "/products/print",
+      "/products/nest"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.zh-hant.BrandSceneDetails",
+    "initialValue": "關閉產品特寫"
   },
   {
     "path": "messages.zh-hant.BrandSceneDetails.orb.closePhoto",
@@ -2453,6 +2529,44 @@ const fields0: readonly (ContentField & {optionalGroup:string})[] = [
     "initialValue": "写真の詳細を見る"
   },
   {
+    "path": "messages.ja.BrandSceneDetails.orb.productDetails",
+    "pages": [
+      "/products/ola",
+      "/products/ola-go",
+      "/products/tablet",
+      "/products/print",
+      "/products/nest"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.ja.BrandSceneDetails",
+    "initialValue": "製品のクローズアップを見る"
+  },
+  {
+    "path": "messages.ja.BrandSceneDetails.orb.closeProduct",
+    "pages": [
+      "/products/ola",
+      "/products/ola-go",
+      "/products/tablet",
+      "/products/print",
+      "/products/nest"
+    ],
+    "type": "string",
+    "maxLength": 2000,
+    "icuSignature": "",
+    "mediaPurpose": null,
+    "adminOnly": false,
+    "editable": true,
+    "owner": "snapshot",
+    "optionalGroup": "messages.ja.BrandSceneDetails",
+    "initialValue": "製品のクローズアップを閉じる"
+  },
+  {
     "path": "messages.ja.BrandSceneDetails.orb.closePhoto",
     "pages": [
       "/products/nest"
@@ -2878,7 +2992,9 @@ const fields0: readonly (ContentField & {optionalGroup:string})[] = [
     "owner": "snapshot",
     "optionalGroup": "messages.en.BrandPresentation",
     "initialValue": "Check the weather"
-  },
+  }
+];
+const fields1: readonly (ContentField & {optionalGroup:string})[] = [
   {
     "path": "messages.en.BrandPresentation.olago.weather.item1Body",
     "pages": [
@@ -2967,9 +3083,7 @@ const fields0: readonly (ContentField & {optionalGroup:string})[] = [
     "owner": "snapshot",
     "optionalGroup": "messages.en.BrandPresentation",
     "initialValue": "Record important conversations and the things you want to remember."
-  }
-];
-const fields1: readonly (ContentField & {optionalGroup:string})[] = [
+  },
   {
     "path": "messages.en.BrandPresentation.olago.journal.item2Title",
     "pages": [
@@ -5855,7 +5969,9 @@ const fields1: readonly (ContentField & {optionalGroup:string})[] = [
     "owner": "snapshot",
     "optionalGroup": "messages.ja.BrandFaq",
     "initialValue": "試用期間とサブスクリプションの支払いはいつ始まりますか？"
-  },
+  }
+];
+const fields2: readonly (ContentField & {optionalGroup:string})[] = [
   {
     "path": "messages.ja.BrandFaq.a9",
     "pages": [
@@ -5945,9 +6061,7 @@ const fields1: readonly (ContentField & {optionalGroup:string})[] = [
     "owner": "snapshot",
     "optionalGroup": "messages.ja.BrandFaq",
     "initialValue": "LUMIQ Growth Map とは？"
-  }
-];
-const fields2: readonly (ContentField & {optionalGroup:string})[] = [
+  },
   {
     "path": "messages.ja.BrandFaq.a12",
     "pages": [
@@ -8837,7 +8951,9 @@ const fields2: readonly (ContentField & {optionalGroup:string})[] = [
     "owner": "snapshot",
     "optionalGroup": "messages.ja.BrandTablet",
     "initialValue": "6つの基本スキル · 4つの成長ステージ"
-  },
+  }
+];
+const fields3: readonly (ContentField & {optionalGroup:string})[] = [
   {
     "path": "messages.ja.BrandTablet.growth.skill1Title",
     "pages": [
@@ -8927,9 +9043,7 @@ const fields2: readonly (ContentField & {optionalGroup:string})[] = [
     "owner": "snapshot",
     "optionalGroup": "messages.ja.BrandTablet",
     "initialValue": "行動する前にひと呼吸おき、選択を考える。"
-  }
-];
-const fields3: readonly (ContentField & {optionalGroup:string})[] = [
+  },
   {
     "path": "messages.ja.BrandTablet.growth.skill3Title",
     "pages": [
@@ -11820,7 +11934,9 @@ const fields3: readonly (ContentField & {optionalGroup:string})[] = [
     "editable": false,
     "owner": "snapshot",
     "optionalGroup": "messages.zh-hant.BrandOrb"
-  },
+  }
+];
+const fields4: readonly (ContentField & {optionalGroup:string})[] = [
   {
     "path": "messages.zh-hant.BrandOrb.finishes.eyebrow",
     "pages": [
@@ -11910,9 +12026,7 @@ const fields3: readonly (ContentField & {optionalGroup:string})[] = [
     "owner": "snapshot",
     "optionalGroup": "messages.zh-hant.BrandOrb",
     "initialValue": "{name}配色的 {productName}"
-  }
-];
-const fields4: readonly (ContentField & {optionalGroup:string})[] = [
+  },
   {
     "path": "messages.zh-hant.BrandOrb.finishes.oak",
     "pages": [
@@ -14795,7 +14909,9 @@ const fields4: readonly (ContentField & {optionalGroup:string})[] = [
     "owner": "snapshot",
     "optionalGroup": "messages.zh-hant.BrandPlans",
     "initialValue": "連接 LumiqOla"
-  },
+  }
+];
+const fields5: readonly (ContentField & {optionalGroup:string})[] = [
   {
     "path": "messages.zh-hant.BrandPlans.tablet.connection",
     "pages": [
@@ -14884,9 +15000,7 @@ const fields4: readonly (ContentField & {optionalGroup:string})[] = [
     "owner": "snapshot",
     "optionalGroup": "messages.zh-hant.BrandPlans",
     "initialValue": "不包含"
-  }
-];
-const fields5: readonly (ContentField & {optionalGroup:string})[] = [
+  },
   {
     "path": "messages.zh-hant.BrandPlans.ola.proDetection",
     "pages": [
@@ -17768,7 +17882,9 @@ const fields5: readonly (ContentField & {optionalGroup:string})[] = [
     "owner": "snapshot",
     "optionalGroup": "messages.zh-hant.BrandFooter",
     "initialValue": "https://www.instagram.com/lumiq.studio_official/"
-  },
+  }
+];
+const fields6: readonly (ContentField & {optionalGroup:string})[] = [
   {
     "path": "messages.zh-hant.BrandFooter.facebookUrl",
     "pages": [
@@ -17857,9 +17973,7 @@ const fields5: readonly (ContentField & {optionalGroup:string})[] = [
     "owner": "snapshot",
     "optionalGroup": "messages.ja.BrandFooter",
     "initialValue": "https://www.instagram.com/lumiq.studio_official/"
-  }
-];
-const fields6: readonly (ContentField & {optionalGroup:string})[] = [
+  },
   {
     "path": "messages.ja.BrandFooter.facebookUrl",
     "pages": [
