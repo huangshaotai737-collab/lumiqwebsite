@@ -1,0 +1,8 @@
+{
+  "framework": "nextjs",
+  "regions": ["hnd1"],
+  "buildCommand": "node scripts/prepare-vercel-media.mjs && npm run build",
+  "functions": {
+    "app/api/media/complete/route.ts": { "maxDuration": 120 }
+  }
+}

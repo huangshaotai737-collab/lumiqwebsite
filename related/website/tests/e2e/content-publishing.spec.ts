@@ -118,7 +118,12 @@ test('draft_media_requires_current_staff_and_never_enters_public_optimizer',asyn
   await page.goto(`/en/preview/${saved.id}?page=%2Fproducts%2Ftablet`);
   const image=page.locator('.pd-hero-visual img');await expect(image).toHaveAttribute('src',privateUrl);await expect(image).toHaveJSProperty('naturalWidth',64);
   await page.setViewportSize({width:page.viewportSize()!.width<500?390:1440,height:900});await capturePreview(page,'tablet-private-media');
-  await expect(page.locator('.pd-product-name')).toHaveText('B4 tablet reference');await expect(page.locator('.pd-price').first()).toHaveText('USD 432.25');
+  await expect(page.locator('.pd-product-name')).toHaveText('B4 tablet reference');
+  // The approved layout also shows MSRP/VIP labels. Verify the edited price
+  // itself exactly, independently of those additional labels.
+  await expect.poll(()=>page.locator('.pd-price').first().evaluate(element=>
+    [...element.childNodes].filter(node=>node.nodeType===Node.TEXT_NODE).map(node=>node.textContent).join('').trim()
+  )).toBe('USD 432.25');
   await page.locator('[data-cart-add="tablet"]:visible').first().click();await expect(page.locator('.cart-product-name')).toHaveText('B4 tablet reference');await expect(page.locator('.cart-total')).toContainText('432.25');
   await backend.from('staff_memberships').update({role:'operations'}).eq('user_id',userId);expect((await context.request.get(privateUrl)).status()).toBe(403);
   const denied=await context.request.get(`/en/preview/${saved.id}?page=%2Fproducts%2Ftablet`);expect(await denied.text()).not.toContain('B4 tablet reference');

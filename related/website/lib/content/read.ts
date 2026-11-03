@@ -2,7 +2,7 @@ import 'server-only';
 import { cache } from 'react';
 import { createClient } from '@supabase/supabase-js';
 import { currentSnapshot } from './current-snapshot';
-import { parseSnapshot } from './parse';
+import { parseDisplaySnapshot } from './parse';
 import type { ContentSnapshot } from '@/lib/generated/platform/content';
 import type { UUID } from '@/lib/generated/platform/core';
 import type { Database } from '@/lib/generated/database';
@@ -21,7 +21,7 @@ export function createPublishedReader(load: () => Promise<unknown>, configured: 
       if (!value || typeof value.releaseId !== 'string' || !uuid.test(value.releaseId)) throw Error('No valid release');
       attemptedReleaseId = value.releaseId;
       reason = 'invalid-snapshot';
-      const snapshot = parseSnapshot(value.snapshot);
+      const snapshot = parseDisplaySnapshot(value.snapshot);
       lastGood = { releaseId: value.releaseId as UUID, snapshot, source: 'published' };
       return lastGood;
     } catch {

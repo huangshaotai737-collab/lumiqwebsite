@@ -4,6 +4,9 @@ import path from 'node:path';
 const nextConfig: NextConfig = {
   poweredByHeader: false,
   turbopack: { root: path.resolve(import.meta.dirname) },
+  outputFileTracingIncludes: {
+    '/api/media/complete': ['./vendor/ffprobe', './vendor/ffprobe.LICENSE'],
+  },
   async headers() {
     return [{
       source: '/:path*',

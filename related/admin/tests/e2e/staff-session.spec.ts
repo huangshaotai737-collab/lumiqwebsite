@@ -145,8 +145,11 @@ test('website_locales_login_and_current_profile_denial',async({context,page})=> 
   expect(callback.status()).toBe(307);
   expect(callback.headers().location).toBe('http://127.0.0.1:4254/ja/login?error=expired');
   const language = await context.request.get('http://127.0.0.1:4254/',{maxRedirects:0});
-  expect(new URL(language.headers().location).pathname).toBe('/en');
-  expect(['127.0.0.1','localhost']).toContain(new URL(language.headers().location).hostname);
+  expect(language.status()).toBe(307);
+  expect(language.headers().location).toBeTruthy();
+  const destination=new URL(language.headers().location,'http://127.0.0.1:4254/');
+  expect(destination.pathname).toBe('/en');
+  expect(destination.origin).toBe('http://127.0.0.1:4254');
 });
 
 test('ssr_refreshes_and_persists_real_auth_cookies_then_rejects_expired_refresh',async({context,page})=> {

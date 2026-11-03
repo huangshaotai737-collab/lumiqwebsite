@@ -5,7 +5,7 @@ import {notFound,redirect} from 'next/navigation';
 import {createClient} from '@/lib/auth/server';
 import {requireStaff} from '@/lib/auth/require-staff';
 import {HttpError} from '@/lib/http/result';
-import {parseSnapshot} from './parse';
+import {parseDisplaySnapshot} from './parse';
 import {readPublishedContent} from './read';
 import type {ContentSnapshot} from '@/lib/generated/platform/content';
 import type {UUID} from '@/lib/generated/platform/core';
@@ -16,7 +16,7 @@ export const readPreview = cache(async (draftId:UUID):Promise<ContentSnapshot> =
   const {data,error}=await client.rpc('get_content_draft',{id:draftId});
   if(error)throw new HttpError('UNAVAILABLE',503);
   if(!data)throw new HttpError('NOT_FOUND',404);
-  return parseSnapshot((data as {snapshot:unknown}).snapshot);
+  return parseDisplaySnapshot((data as {snapshot:unknown}).snapshot);
 });
 /** Only middleware creates the header, then this boundary independently verifies live staff. */
 export const readSiteContent = cache(async ():Promise<ContentSnapshot>=>{

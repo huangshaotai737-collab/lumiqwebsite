@@ -44,8 +44,9 @@ stages.contracts=async()=>{
  console.log('PASS generated database types (both apps)');
 };
 stages.database=async()=>{
- const sql=(await readdir(path.join(root,'supabase/tests/database'))).filter(f=>f.endsWith('.sql')&&f!=='order-concurrency.test.sql').sort().map(f=>`supabase/tests/database/${f}`);
- await command('sql-permissions','supabase',['test','db',...sql]);
+ // Mount the test directory so pgTAP's relative shared-fixture includes exist
+ // in the CLI container. Passing only individual SQL files omits support/.
+ await command('sql-permissions','supabase',['test','db','supabase/tests']);
  await command('sql-order-concurrency','node',['scripts/test-order-concurrency.mjs','--local-test-only']);
  await command('sql-security-advisors','supabase',['db','advisors','--local','--type','security','--level','warn','--fail-on','error']);
 };

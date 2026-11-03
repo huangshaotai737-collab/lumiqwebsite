@@ -3,8 +3,27 @@ vi.mock('server-only', () => ({}));
 import { initialSnapshot } from '@/lib/content/initial-snapshot';
 import { createPublishedReader } from '@/lib/content/read';
 import { resolveMediaSlot } from '@/lib/content/media';
+import {parseDisplaySnapshot} from '@/lib/content/parse';
+import {brandContentMessages} from '@/lib/generated/platform/brand-content';
 const releaseId = 'aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa';
 describe('published content request source', () => {
+  it('renders historical releases with new namespaces without rewriting saved content or storage', async () => {
+    const snapshot=structuredClone(initialSnapshot);
+    const original=structuredClone(snapshot);
+    const result=await createPublishedReader(async()=>({releaseId,snapshot}))();
+    expect(result.source).toBe('published');
+    for(const locale of ['en','zh-hant','ja'] as const) {
+      expect(result.snapshot.messages[locale].BrandPrintPresentation).toEqual(brandContentMessages[locale].BrandPrintPresentation);
+      expect(result.snapshot.messages[locale].HomeRefresh).toEqual(snapshot.messages[locale].HomeRefresh);
+    }
+    expect(snapshot).toEqual(original);
+    const edited=parseDisplaySnapshot(snapshot);
+    const print=edited.messages.en.BrandPrintPresentation as Record<string,string>;
+    const key=Object.keys(print).find(key=>typeof print[key]==='string')!;
+    print[key]='Saved custom wording';
+    expect((parseDisplaySnapshot(edited).messages.en.BrandPrintPresentation as Record<string,string>)[key]).toBe('Saved custom wording');
+    expect(()=>parseDisplaySnapshot({...edited,schemaVersion:999})).toThrow();
+  });
   it('reads the pointer on every request, keeps only validated last-good, and rejects empty/bad schema', async () => {
     let value: unknown = null;
     const read = createPublishedReader(async () => value);

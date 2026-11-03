@@ -11,6 +11,8 @@ await symlink(path.join(source,'node_modules'),path.join(runtime,'node_modules')
 await symlink(path.join(source,'public'),path.join(runtime,'public'));
 // A separate dist directory isolates concurrent preview builds without copying TS config or dependencies.
 const env={...localEnvironment(),LUMIQ_NEXT_DIST_DIR:'.next-test',LUMIQ_STATIC_IMAGES:'1'};
-const child=spawn(process.execPath,[path.join(source,'node_modules/next/dist/bin/next'),'dev','--hostname','127.0.0.1','--port',port],{cwd:runtime,env,stdio:'inherit'});
+// Match the app's dev/build bundler: the isolated runtime links dependencies
+// outside its directory, which Turbopack's default root cannot resolve.
+const child=spawn(process.execPath,[path.join(source,'node_modules/next/dist/bin/next'),'dev','--webpack','--hostname','127.0.0.1','--port',port],{cwd:runtime,env,stdio:'inherit'});
 for(const signal of ['SIGTERM','SIGINT']) process.on(signal,()=>child.kill(signal));
 child.on('exit',code=>process.exit(code??1));

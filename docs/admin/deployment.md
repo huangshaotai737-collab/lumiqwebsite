@@ -1,23 +1,23 @@
 # 部署与生产阻断项
 
-本功能由用户批准实施；本分支交付的是本地实现和本地验收，未推送、未配置云端、未部署生产、未开通支付。完整验收状态见 [acceptance.md](acceptance.md)，本地使用见 [operations.md](operations.md)。
+2026-11-03 更新：后台已在 Vercel 构建部署，登录入口为 `https://lumiq-admin-two.vercel.app/login`；指定组织下的独立 Supabase 项目已创建，但正确账号授权、迁移、环境变量、邮件和首管理员尚未完成，线上功能不可用。见 [本轮实际走查结果](../../qa/reports/2026-11-03/admin-functional-audit.md)。原有本地验收见 [acceptance.md](acceptance.md)，本地使用见 [operations.md](operations.md)。支付仍未接通。
 
 ## 两个独立应用
 
 | 应用 | 构建根目录 | 安装 / 构建 | 本机公开入口 |
 | --- | --- | --- | --- |
-| 三语官网 | `related/website` | Node 22，`npm ci`，`npm run build` | `http://127.0.0.1:4211` |
-| 简体中文后台 | `related/admin` | Node 22，`npm ci`，`npm run build` | `http://127.0.0.1:4270` |
+| 三语官网 | `related/website` | Node 24，`npm ci`，`npm run build` | `http://127.0.0.1:4211` |
+| 简体中文后台 | `related/admin` | Node 24，`npm ci`，`npm run build` | `http://127.0.0.1:4270` |
 
 本机启动/重启只使用 `node scripts/local-preview.mjs start` / `restart`；启动器占用公开4211/4270并转发到只监听loopback的 Next4212/4271。不要另行启动进程占用这些端口。生产的 `npm start`/Next服务必须位于已验证的外部可信代理之后，代理按下述规则覆盖身份头；直接启动 Next 不会自动提供这条信任链。
 
-先启用 Git LFS 并拉取实际素材。各应用使用自己的精确锁文件和独立依赖安装。官网保留 Next 15；后台 Next 16。构建产物、密钥、测试账号不加入 Git。原有跨操作系统 `.github/workflows/browser-platform-audit.yml` 保留；新 CI 仅使用 GitHub 托管的临时本地 Supabase 和合成账号。
+先启用 Git LFS 并拉取实际素材。各应用使用自己的精确锁文件和独立依赖安装。当前两站均使用各自锁文件中的 Next 16。构建产物、密钥、测试账号不加入 Git。原有跨操作系统 `.github/workflows/browser-platform-audit.yml` 保留；新 CI 仅使用 GitHub 托管的临时本地 Supabase 和合成账号。
 
 ## 配置与外部前提
 
 - 两站：`NEXT_PUBLIC_SUPABASE_URL`、`NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`、服务端 `SUPABASE_SERVICE_ROLE_KEY`（或已支持的服务端 secret）、各自精确 `APP_ORIGIN`。服务端密钥只限服务端；绝不能放入 NEXT_PUBLIC 变量或前端 bundle。
 - 官网候补报名存储还必须设置服务端 `SUPABASE_URL`，与该部署的 `NEXT_PUBLIC_SUPABASE_URL` 指向同一受控项目；此适配器要求 `SUPABASE_SERVICE_ROLE_KEY`。不能依赖启动 shell 恰好提供端点。
-- 限流：两站共同的高熵 `REQUEST_LIMIT_SALT`；生产可信代理覆盖/清除客户端提交的 `x-real-ip`，再设置 `REQUEST_IP_HEADER=x-real-ip`。需要独立验证代理拓扑，不能把本地请求头测试当作生产信任链验证。部署时验证 pg_cron/限流过期清理。
+- 限流：两站共同的高熵 `REQUEST_LIMIT_SALT`；生产可信代理覆盖/清除客户端提交的身份头。Vercel 使用其覆盖的 `x-vercel-forwarded-for`，设置 `REQUEST_IP_HEADER=x-vercel-forwarded-for`；自建代理仅在验证覆盖规则后使用 `x-real-ip`。需要独立验证代理拓扑，不能把本地请求头测试当作生产信任链验证。部署时验证 pg_cron/限流过期清理。
 - 后台草稿入口：`WEBSITE_ORIGIN` 指向受控官网。官网和后台分别登录，没有跨站共享 session 的假设。Auth 域名与 `/auth/callback` 白名单精确配置；正式 HTTPS 下 cookies 必须 secure。生产注册确认和重置邮件由 Supabase Auth SMTP 设置承担。
 - 员工邀请 SMTP：`SMTP_HOST`、`SMTP_PORT`、可选认证 `SMTP_USER` / `SMTP_PASSWORD` 与发件人 `STAFF_INVITE_FROM`。正式 SMTP、发件域 DNS、可投递性、限额均未验证。本地邮件仅由 Mailpit 接收，见 [auth-email-setup.md](auth-email-setup.md)。
 - 媒体：服务器可执行的 `MEDIA_FFPROBE_PATH`；运营方确认准确的 `MEDIA_STORAGE_MAX_BYTES`。图片默认20 MB、视频50 MB，实际取应用与存储上限较小者。两个固定桶均为 private；碰撞失败关闭。部署机内存、带宽、超时需按实际配置验收：公开 Range 响应当前会先读取完整对象，最大50 MiB，并非无限流式能力。透明 WebM、Safari MOV、海报配对与 settled 组仍只读，详见 [media.md](media.md)。
@@ -41,3 +41,11 @@
 ### 最终修复迁移与策略版本
 
 上线前仍须按既有备份/迁移清单要求审核并应用追加迁移 `20261020223000_final_review_boundaries.sql`，同时部署两站的规范合约副本及后台校验策略 `legacy-slots-v2-20261020`。旧后台策略凭据在新数据库策略下会失败关闭；不要把应用升级与数据库策略升级分离为长期状态。空 assetId 的媒体引用由不可由客户端修改的槽位原始映射验证；已发布受控素材的同槽位归档继承和已证明历史回退保持支持。不得通过 caller flag 或任意历史出现记录放宽原始媒体限制。运行时应收集限频内容回退告警；本地成功不代替生产告警管道验收。
+
+## Vercel 后台构建（2026-11-03）
+
+部署上传保留仓库结构，Vercel 项目 Root Directory 为 `related/admin`。根 `scripts/` 与 `contracts/` 是构建所需上下文，不能只上传后台子目录。Node 24，区域东京 `hnd1`，配置见 `related/admin/vercel.json`。
+
+构建脚本 `scripts/prepare-vercel-media.mjs` 下载 `scripts/ffprobe-linux.json` 指定的 Linux x64 FFprobe，核对 SHA-256、保留许可证并验证可执行性；仅在构建期运行。`/api/media/complete` 追踪该文件。按本仓库部署目录配置 `MEDIA_FFPROBE_PATH=/var/task/related/admin/vendor/ffprobe`，上线时仍须用真实媒体完成请求验证运行路径、大小与超时。未配置时保持失败关闭，不信任浏览器自行提交的媒体元数据。
+
+新数据库首次迁移必须包含 `20261103180000_tablet_media_compatibility.sql`，支持两个已交付 Tablet 场景图，同时保留旧素材用于回退。不要删掉历史迁移或重置旧库。
