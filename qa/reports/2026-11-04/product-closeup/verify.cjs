@@ -3,6 +3,7 @@ const {chromium,webkit}=require('../../../../related/website/node_modules/@playw
 const base=process.env.AUDIT_BASE||'http://127.0.0.1:4264';
 const evidence=__dirname, remote=base.startsWith('https');
 const expected={ola:4,'ola-go':6,tablet:8,print:2,nest:5};
+function source(src){const url=new URL(src,base);return url.pathname==='/_next/image'?url.searchParams.get('url'):src;}
 async function decode(locator){await locator.locator('img').evaluateAll(xs=>Promise.all(xs.filter(x=>x.getBoundingClientRect().height>0).map(x=>x.decode())));}
 (async()=>{
  const results=[],errors=[];
@@ -13,11 +14,14 @@ async function decode(locator){await locator.locator('img').evaluateAll(xs=>Prom
   const allPhotos=[];
   for(const product of Object.keys(expected)){
    const res=await page.goto(`${base}/zh-hant/products/${product}`,{waitUntil:'domcontentloaded'});assert.equal(res.status(),200);
+   // This suite verifies ready-page interactions; remote JS must finish loading
+   // before clicking SSR buttons. Cold-load interaction timing is recorded separately.
+   if(remote) await page.waitForLoadState('networkidle',{timeout:90000});
    await page.locator('.product-scene-image').first().waitFor();
    assert.equal(await page.locator('.product-scene-expand').count(),expected[product]);
    assert.equal(await page.locator('.product-focus-viewport').count(),0,'No mounted close-up scene before click');
    assert.equal(await page.locator('.orb-hero .product-scene-expand,.pd-hero .product-scene-expand').count(),0);
-   const photos=await page.locator('.product-scene-image img:not(.orb-scene-edit-target)').evaluateAll(xs=>xs.map(x=>x.getAttribute('src')));allPhotos.push(...photos);
+   const photos=(await page.locator('.product-scene-image img:not(.orb-scene-edit-target)').evaluateAll(xs=>xs.map(x=>x.getAttribute('src')))).map(source);allPhotos.push(...photos);
    const sections=await page.locator('.pd-feature-section').evaluateAll(xs=>xs.map(x=>({id:x.id,count:x.querySelectorAll('.pd-feature-row').length})));
    assert(sections.every(s=>s.count>=3&&s.count<=5));
    let dialogs=0,views=0;
@@ -38,7 +42,7 @@ async function decode(locator){await locator.locator('img').evaluateAll(xs=>Prom
      assert(geometry.x>=0&&geometry.y>=0&&geometry.x+geometry.w<=geometry.screenW+1&&geometry.y+geometry.h<=geometry.screenH+1,'Close-up fits viewport');
      assert(geometry.sourceX<=geometry.x&&geometry.sourceY<=geometry.y&&geometry.sourceX+geometry.sourceWidth>=geometry.x+geometry.w-1&&geometry.sourceY+geometry.sourceHeight>=geometry.y+geometry.h-1,'No empty crop area');
      assert.equal(await crop.locator('img').count(),1,'One scene photo, no separate raw UI image');
-     assert.equal(await crop.locator('img').getAttribute('src'),photos[i],'Close-up keeps the original lifestyle scene');
+     assert.equal(source(await crop.locator('img').getAttribute('src')),photos[i],'Close-up keeps the original lifestyle scene');
      if(product==='nest'){
       assert.equal(await crop.locator('.orb-device-scene svg').count(),1,'UI remains inside the photographed device');
       // Independently measured full device-frame bounds, not merely the screen.
@@ -51,7 +55,7 @@ async function decode(locator){await locator.locator('img').evaluateAll(xs=>Prom
      if(i===0&&(product==='nest'||product==='ola-go'))await page.screenshot({path:path.join(evidence,`${remote?'public':engine.name()}-${product}-${size.width}.png`)});
      const next=dialog.locator('.product-scene-pagination button').last();
      while(await next.count()&&await next.isEnabled()){
-      await next.click();await decode(dialog);assert.equal(await crop.locator('.orb-device-scene svg').count(),1);assert.equal(await crop.locator('img').getAttribute('src'),photos[i]);views++;
+      await next.click();await decode(dialog);assert.equal(await crop.locator('.orb-device-scene svg').count(),1);assert.equal(source(await crop.locator('img').getAttribute('src')),photos[i]);views++;
       if(size.width===1440&&engine===chromium&&!remote)await crop.screenshot({path:path.join(evidence,`${product}-${i+1}-next.png`)});
      }
      if(await next.count()){const prev=dialog.locator('.product-scene-pagination button').first();while(await prev.isEnabled())await prev.click();assert(await prev.isDisabled());}
