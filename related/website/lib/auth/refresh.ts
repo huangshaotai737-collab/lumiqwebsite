@@ -1,11 +1,12 @@
 import { createServerClient } from '@supabase/ssr';
 import { NextResponse, type NextRequest } from 'next/server';
 import type { Database } from '../generated/database';
+import {websiteCookieOptions} from './cookie-options';
 export async function refreshSession(request: NextRequest, respond: (request: NextRequest) => NextResponse = (req) => NextResponse.next({request:req})) {
   let response = respond(request);
   if (process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY) {
     const client = createServerClient<Database>(process.env.NEXT_PUBLIC_SUPABASE_URL,process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY,{
-      cookieOptions: {name:'lumiq-website-auth',sameSite:'lax',path:'/',secure:process.env.APP_ORIGIN?.startsWith('https://') ?? false},
+      cookieOptions: websiteCookieOptions(process.env.APP_ORIGIN?.startsWith('https://') ?? false),
       cookies:{
         getAll:()=>request.cookies.getAll(),
         setAll(values) {

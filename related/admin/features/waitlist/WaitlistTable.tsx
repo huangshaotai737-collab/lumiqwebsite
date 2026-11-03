@@ -1,4 +1,5 @@
 "use client";
+import {formatAdminDateTime} from '@/lib/date-time';
 import { useState } from "react";
 import type { Page } from "@/lib/generated/platform/core";
 import type { WaitlistSummary } from "./service";
@@ -55,7 +56,7 @@ function WaitlistRow({
         <br />
         同意版本：{row.consentVersion}
         <br />
-        {new Date(row.createdAt).toLocaleString("zh-CN")}
+        {formatAdminDateTime(row.createdAt)}
       </td>
       <td data-label="状态">
         <select

@@ -20,11 +20,16 @@ export default async function middleware(incoming: NextRequest) {
     headers.set('x-lumiq-preview-path',incoming.nextUrl.pathname + incoming.nextUrl.search);
   }
   const request = new NextRequest(incoming,{headers});
-  const response = preview || /^\/(en|zh-hant|ja)\/(members|checkout|login|register|reset-password)(\/|$)/.test(request.nextUrl.pathname)
+  const account = /^\/(en|zh-hant|ja)\/(members|checkout|login|register|reset-password)(\/|$)/.test(request.nextUrl.pathname);
+  const response = preview || account
     ? await refreshSession(request,localize) : localize(request);
   if(preview) {
     response.headers.set('Cache-Control','private, no-store, max-age=0'); response.headers.set('X-Robots-Tag','noindex, nofollow');
-    if(incoming.nextUrl.searchParams.has('editor')){const parent=previewOrigin(process.env.ADMIN_ORIGIN);response.headers.set('Content-Security-Policy',`frame-ancestors ${parent?`'self' ${parent}`:"'none'"}`);}
+    const embedded = incoming.nextUrl.searchParams.has('editor');
+    const parent = embedded ? previewOrigin(process.env.ADMIN_ORIGIN) : null;
+    response.headers.set('Content-Security-Policy', `frame-ancestors ${parent ? `'self' ${parent}` : embedded ? "'none'" : "'self'"}`);
+  } else if(account) {
+    response.headers.set('Content-Security-Policy', "frame-ancestors 'self'");
   }
   return response;
 }

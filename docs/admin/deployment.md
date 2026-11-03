@@ -1,12 +1,12 @@
 # 部署与生产阻断项
 
-2026-11-03 更新：后台已在 Vercel 构建部署，登录入口为 `https://lumiq-admin-two.vercel.app/login`；指定组织下的独立 Supabase 项目已创建，但正确账号授权、迁移、环境变量、邮件和首管理员尚未完成，线上功能不可用。见 [本轮实际走查结果](../../qa/reports/2026-11-03/admin-functional-audit.md)。原有本地验收见 [acceptance.md](acceptance.md)，本地使用见 [operations.md](operations.md)。支付仍未接通。
+2026-11-03 更新：官网与独立后台已经接入用户当前账号下的 LumiQ 云数据库，20 个迁移已应用，云端核心联动冒烟通过。后台入口为 `https://lumiq-admin-two.vercel.app/login`；官网为 `https://lumiq-showcase-20261025.vercel.app/zh-hant`。正式首管理员仍待用户注册并确认邮箱；正式 SMTP 尚未配置，真实支付未接通。不能据此宣称全部生产功能已验收。详见 [本轮实际走查结果](../../qa/reports/2026-11-03/admin-functional-audit.md)、[本地验收](acceptance.md) 与 [使用说明](operations.md)。
 
 ## 两个独立应用
 
 | 应用 | 构建根目录 | 安装 / 构建 | 本机公开入口 |
 | --- | --- | --- | --- |
-| 三语官网 | `related/website` | Node 24，`npm ci`，`npm run build` | `http://127.0.0.1:4211` |
+| 三语官网 | `related/website` | Vercel Node 22，`npm ci`，`npm run build` | `http://127.0.0.1:4211` |
 | 简体中文后台 | `related/admin` | Node 24，`npm ci`，`npm run build` | `http://127.0.0.1:4270` |
 
 本机启动/重启只使用 `node scripts/local-preview.mjs start` / `restart`；启动器占用公开4211/4270并转发到只监听loopback的 Next4212/4271。不要另行启动进程占用这些端口。生产的 `npm start`/Next服务必须位于已验证的外部可信代理之后，代理按下述规则覆盖身份头；直接启动 Next 不会自动提供这条信任链。
@@ -18,7 +18,7 @@
 - 两站：`NEXT_PUBLIC_SUPABASE_URL`、`NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`、服务端 `SUPABASE_SERVICE_ROLE_KEY`（或已支持的服务端 secret）、各自精确 `APP_ORIGIN`。服务端密钥只限服务端；绝不能放入 NEXT_PUBLIC 变量或前端 bundle。
 - 官网候补报名存储还必须设置服务端 `SUPABASE_URL`，与该部署的 `NEXT_PUBLIC_SUPABASE_URL` 指向同一受控项目；此适配器要求 `SUPABASE_SERVICE_ROLE_KEY`。不能依赖启动 shell 恰好提供端点。
 - 限流：两站共同的高熵 `REQUEST_LIMIT_SALT`；生产可信代理覆盖/清除客户端提交的身份头。Vercel 使用其覆盖的 `x-vercel-forwarded-for`，设置 `REQUEST_IP_HEADER=x-vercel-forwarded-for`；自建代理仅在验证覆盖规则后使用 `x-real-ip`。需要独立验证代理拓扑，不能把本地请求头测试当作生产信任链验证。部署时验证 pg_cron/限流过期清理。
-- 后台草稿入口：`WEBSITE_ORIGIN` 指向受控官网。官网和后台分别登录，没有跨站共享 session 的假设。Auth 域名与 `/auth/callback` 白名单精确配置；正式 HTTPS 下 cookies 必须 secure。生产注册确认和重置邮件由 Supabase Auth SMTP 设置承担。
+- 后台草稿入口：`WEBSITE_ORIGIN` 指向受控官网。官网和后台分别登录，没有跨站共享 session 的假设。Auth 域名与 `/auth/callback` 白名单精确配置；正式 HTTPS 下 cookies 必须 secure。两个独立 vercel.app 站点启用内嵌预览时，官网设置精确 `ADMIN_ORIGIN` 与 `NEXT_PUBLIC_EMBEDDED_STAFF_PREVIEW=1`，使官网 Cookie 使用 Secure/SameSite=None；后台会话保持 Lax。预览仅允许指定后台嵌入，账号页仅允许同源嵌入，所有写操作仍校验 Origin。浏览器彻底禁用第三方 Cookie 时，独立新窗口的已保存草稿预览仍可用；Safari/真实手机此项尚未验收。生产注册确认和重置邮件由 Supabase Auth SMTP 设置承担。
 - 员工邀请 SMTP：`SMTP_HOST`、`SMTP_PORT`、可选认证 `SMTP_USER` / `SMTP_PASSWORD` 与发件人 `STAFF_INVITE_FROM`。正式 SMTP、发件域 DNS、可投递性、限额均未验证。本地邮件仅由 Mailpit 接收，见 [auth-email-setup.md](auth-email-setup.md)。
 - 媒体：服务器可执行的 `MEDIA_FFPROBE_PATH`；运营方确认准确的 `MEDIA_STORAGE_MAX_BYTES`。图片默认20 MB、视频50 MB，实际取应用与存储上限较小者。两个固定桶均为 private；碰撞失败关闭。部署机内存、带宽、超时需按实际配置验收：公开 Range 响应当前会先读取完整对象，最大50 MiB，并非无限流式能力。透明 WebM、Safari MOV、海报配对与 settled 组仍只读，详见 [media.md](media.md)。
 - 首管理员：按 [bootstrap.md](bootstrap.md) 的只允许当前已验证邮箱的人工 CLI 流程创建；没有默认生产账号。员工可用性及角色由数据库当前状态决定。
@@ -31,7 +31,7 @@
 
 ## 尚未通过的生产门槛
 
-正式域名/HTTPS/可信入口、云端数据库与 RLS 冒烟、SMTP、备份恢复、存储限额与资源预算、告警与运维责任人、商业价格/条款/退换货承诺确认、隐私保留策略及人工擦除范围均需正式验收。
+当前 Vercel HTTPS 入口、云数据库角色门禁、50 MiB 桶上限和实际图像/视频校验已冒烟验证。正式自有域名、真实邮箱收信与 SMTP、首管理员、备份恢复演练、最大素材负载预算、告警与运维责任人、商业价格/条款/退换货承诺确认、隐私保留策略及人工擦除范围仍需验收。公开发布/回退的完整业务流程已在隔离环境通过，本轮云端只测试未发布草稿，未覆盖官网内容。
 
 公开下单初始关闭；五个 SKU 币种和价格为 NULL，未确认、未启用。支付适配器始终返回 `PAYMENTS_NOT_CONFIGURED`，没有通知入口、真实交易或付费订阅。支付接通材料见 [payment-integration.md](payment-integration.md) 与 [台湾主体支付准备清单](https://github.com/huangshaotai737-collab/lumiqwebsite/blob/cc11b0a124f59a0955ede33e084b960be3dfff11/docs/superpowers/specs/2026-10-20-lumiq-payments-readiness.md)。不得把技术预留视为商户准入或结算可用。
 
@@ -40,12 +40,23 @@
 
 ### 最终修复迁移与策略版本
 
-上线前仍须按既有备份/迁移清单要求审核并应用追加迁移 `20261020223000_final_review_boundaries.sql`，同时部署两站的规范合约副本及后台校验策略 `legacy-slots-v2-20261020`。旧后台策略凭据在新数据库策略下会失败关闭；不要把应用升级与数据库策略升级分离为长期状态。空 assetId 的媒体引用由不可由客户端修改的槽位原始映射验证；已发布受控素材的同槽位归档继承和已证明历史回退保持支持。不得通过 caller flag 或任意历史出现记录放宽原始媒体限制。运行时应收集限频内容回退告警；本地成功不代替生产告警管道验收。
+本次新云库已包含追加迁移 `20261020223000_final_review_boundaries.sql`；其他部署仍须按既有备份/迁移清单要求审核并应用，同时部署两站的规范合约副本及后台校验策略 `legacy-slots-v2-20261020`。旧后台策略凭据在新数据库策略下会失败关闭；不要把应用升级与数据库策略升级分离为长期状态。空 assetId 的媒体引用由不可由客户端修改的槽位原始映射验证；已发布受控素材的同槽位归档继承和已证明历史回退保持支持。不得通过 caller flag 或任意历史出现记录放宽原始媒体限制。运行时应收集限频内容回退告警；本地成功不代替生产告警管道验收。
 
 ## Vercel 后台构建（2026-11-03）
 
 部署上传保留仓库结构，Vercel 项目 Root Directory 为 `related/admin`。根 `scripts/` 与 `contracts/` 是构建所需上下文，不能只上传后台子目录。Node 24，区域东京 `hnd1`，配置见 `related/admin/vercel.json`。
 
-构建脚本 `scripts/prepare-vercel-media.mjs` 下载 `scripts/ffprobe-linux.json` 指定的 Linux x64 FFprobe，核对 SHA-256、保留许可证并验证可执行性；仅在构建期运行。`/api/media/complete` 追踪该文件。按本仓库部署目录配置 `MEDIA_FFPROBE_PATH=/var/task/related/admin/vendor/ffprobe`，上线时仍须用真实媒体完成请求验证运行路径、大小与超时。未配置时保持失败关闭，不信任浏览器自行提交的媒体元数据。
+构建脚本 `scripts/prepare-vercel-media.mjs` 下载 `scripts/ffprobe-linux.json` 指定的 Linux x64 FFprobe，核对 SHA-256、保留许可证并验证可执行性；仅在构建期运行。`/api/media/complete` 追踪该文件。按本仓库部署目录配置 `MEDIA_FFPROBE_PATH=/var/task/related/admin/vendor/ffprobe`，本次已用合成 PNG 与 H264 MP4 的真实云端上传完成请求验证运行路径及私有预览；最大尺寸、长视频与负载预算仍需独立验收。未配置时保持失败关闭，不信任浏览器自行提交的媒体元数据。
 
 新数据库首次迁移必须包含 `20261103180000_tablet_media_compatibility.sql`，支持两个已交付 Tablet 场景图，同时保留旧素材用于回退。不要删掉历史迁移或重置旧库。
+
+
+## 当前云端归属与版本
+
+用户确认将资源改建到当前 CLI 登录账号。组织 LumiQ：`vnvcxfirjcumksrlgohs`；项目 `lumiq-platform`：`hkozorbnovbuccwcijzj`；东京 `ap-northeast-1`。使用免费默认 Nano 规格，未升级付费计划。原不可访问团队里的项目未迁移、未删除。新库在确认空结构后执行迁移，未运行远端 reset 或演示种子。
+
+- 后台生产部署：`dpl_BCfq2XsisCqpdLoCy8vh6GA45LVr`，Node 24、hnd1。
+- 官网生产部署：`dpl_AtedTy8n8BLZTvCYDfqyjFqB7qVE`，保留原项目 Node 22 和区域配置。
+- 管理后台日期显示统一使用 Asia/Shanghai，避免服务器与客户端时区差异引发重新渲染。
+- 所有服务密钥只写入 Vercel 服务端环境；不在仓库或报告记录。
+- 合成账号、测试草稿、媒体对象和候补记录已按本轮精确 ID 清理；不可变操作审计保留。真实用户注册不在清理范围。

@@ -1,4 +1,5 @@
 "use client";
+import {formatAdminDateTime} from '@/lib/date-time';
 import { useEffect, useState } from "react";
 import type { CustomerSummary, CustomerNote } from "./service";
 export function CustomerDetail({
@@ -70,7 +71,7 @@ export function CustomerDetail({
     <section className="panel" aria-label="会员详情">
       <h2>{customer.displayName || "未填写姓名"}</h2>
       <p>{customer.email}</p>
-      <p>注册时间：{new Date(customer.createdAt).toLocaleString("zh-CN")}</p>
+      <p>注册时间：{formatAdminDateTime(customer.createdAt)}</p>
       <form method="POST" onSubmit={save} className="content-field">
         <label htmlFor="customer-note">新增内部备注（最多2000字）</label>
         <textarea
@@ -94,7 +95,7 @@ export function CustomerDetail({
         notes.map((item) => (
           <article key={item.id}>
             <p className="operations-note">{item.note}</p>
-            <small>{new Date(item.createdAt).toLocaleString("zh-CN")}</small>
+            <small>{formatAdminDateTime(item.createdAt)}</small>
           </article>
         ))
       ) : (

@@ -1,4 +1,5 @@
 'use client';
+import {formatAdminDateTime} from '@/lib/date-time';
 import { useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import type { ContentRelease } from './service';
@@ -17,7 +18,7 @@ export function ReleaseHistory({ releases, current, admin }: { releases: Content
   }
   return <section aria-label="发布记录"><h2>发布与回滚记录</h2><p role="status">{message}</p>{error && <p role="alert">{error}</p>}
     {releases.length === 0 ? <p>尚无已发布版本。</p> : <div className="table-scroll" tabIndex={0} aria-label="版本记录"><table><thead><tr><th>版本</th><th>来源</th><th>时间</th>{admin && <th>操作</th>}</tr></thead><tbody>{releases.map(release => <tr key={release.id}>
-      <td><code>{release.id}</code>{current === release.id && <p>当前官网版本</p>}</td><td>{release.rollbackOf ? <>回滚自 <code>{release.rollbackOf}</code></> : `草稿版本 ${release.draftVersion}`}</td><td>{new Date(release.createdAt).toLocaleString('zh-CN')}</td>
+      <td><code>{release.id}</code>{current === release.id && <p>当前官网版本</p>}</td><td>{release.rollbackOf ? <>回滚自 <code>{release.rollbackOf}</code></> : `草稿版本 ${release.draftVersion}`}</td><td>{formatAdminDateTime(release.createdAt)}</td>
       {admin && <td><button disabled={busy || current === release.id} onClick={() => rollback(release.id)}>回滚至此版本</button></td>}
     </tr>)}</tbody></table></div>}
   </section>;

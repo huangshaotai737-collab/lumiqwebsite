@@ -1,4 +1,5 @@
 "use client";
+import {formatAdminDateTime} from '@/lib/date-time';
 import { useState } from "react";
 import type { Page } from "@/lib/generated/platform/core";
 import type { CustomerSummary } from "./service";
@@ -76,7 +77,7 @@ export function CustomerTable({ initial }: { initial: Page<CustomerSummary> }) {
                   <td data-label="邮箱">{customer.email}</td>
                   <td data-label="姓名">{customer.displayName || "未填写"}</td>
                   <td data-label="注册时间">
-                    {new Date(customer.createdAt).toLocaleString("zh-CN")}
+                    {formatAdminDateTime(customer.createdAt)}
                   </td>
                   <td data-label="操作">
                     <button
