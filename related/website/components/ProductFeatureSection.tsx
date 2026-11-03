@@ -1,6 +1,6 @@
 import type {ReactNode} from "react";
 import Heading from "@/components/Heading";
-import Image from "@/components/content/ContentImage";
+import ProductSceneFigure from "@/components/ProductSceneFigure";
 
 export type ProductVisual = {
   src: string;
@@ -70,9 +70,9 @@ export default function ProductFeatureSection({id,className="",eyebrow,title,int
       <ProductFeatureHeading id={id ? `${id}-title`:undefined} eyebrow={eyebrow} title={title} intro={intro}/>
       <div className={`pd-unified-layout${mediaLeft ? " is-media-left":""}`}>
         <div className="pd-unified-copy"><ProductFeatureRows items={items} navigationLabel={navigationLabel}/>{children}</div>
-        {media ? <div className="pd-unified-visual">{media}</div> : image && <figure className="pd-unified-visual">
-          <Image src={image.src} alt={image.alt} width={1600} height={1200} sizes="(max-width: 900px) 100vw, 46vw" unoptimized={image.unoptimized} style={{objectFit:image.fit??"contain",objectPosition:image.position??"center"}}/>
-        </figure>}
+        {media ? <div className="pd-unified-visual">{media}</div> : image && <div className="pd-unified-visual">
+          <ProductSceneFigure image={image} caption={eyebrow || title}/>
+        </div>}
       </div>
     </div>
   </section>;

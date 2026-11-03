@@ -1,0 +1,58 @@
+[
+  {
+    "name": "orb-overview",
+    "prompt": "Use case: precise-object-edit / photorealistic-natural. Website product lifestyle photograph, 4:3 at 1448x1086. First input is EDIT TARGET. Second is hardware reference. Replace ONLY the people and environment in the first image with a completely distinct scene: bright Scandinavian living room, a mother and adult daughter planning their week on the sofa behind the device; vase and linen curtains, no kitchen or food. Keep the exact foreground oak LumiqOrb device, WHITE inner bezel (not black), exact device silhouette, position, scale and perspective pixel-for-pixel, its entire frame from approx x130..900 y390..930. Do NOT move, resize, rotate, or redesign the foreground device. Keep the screen corners at approximately (200,446),(795,454),(848,824),(245,860). Keep the tabletop under it but let it become a sideboard/desk matching new room. No objects or people in front of the screen. Preserve screen content; real supplied UI will be overlaid later. Natural restrained beige/wood palette, believable anatomy, realistic photograph, no text overlays, no logos outside existing device. The environment and people must be clearly different from kitchen source.",
+    "alt": "家人在客厅使用 LumiqOrb 安排生活",
+    "page": "/products/nest",
+    "asset": "related/website/public/assets/product-scenes-20261103/orb-overview.webp"
+  },
+  {
+    "name": "orb-calendar",
+    "prompt": "Use case: precise-object-edit / photorealistic-natural. Website product lifestyle photograph, 4:3 at 1448x1086. First input is EDIT TARGET. Second is hardware reference. Replace ONLY the people and environment in the first image with a completely distinct scene: airy home entrance hall, a father helps a school-age son put on his backpack in the background, coats on hooks and a bicycle helmet; morning family calendar routine; no kitchen. Keep the exact foreground oak LumiqOrb device, WHITE inner bezel (not black), exact device silhouette, position, scale and perspective pixel-for-pixel, its entire frame from approx x130..900 y390..930. Do NOT move, resize, rotate, or redesign the foreground device. Keep the screen corners at approximately (200,446),(795,454),(848,824),(245,860). Keep the tabletop under it but let it become a sideboard/desk matching new room. No objects or people in front of the screen. Preserve screen content; real supplied UI will be overlaid later. Natural restrained beige/wood palette, believable anatomy, realistic photograph, no text overlays, no logos outside existing device. The environment and people must be clearly different from kitchen source.",
+    "alt": "家长与孩子通过 LumiqOrb 查看出门安排",
+    "page": "/products/nest",
+    "asset": "related/website/public/assets/product-scenes-20261103/orb-calendar.webp"
+  },
+  {
+    "name": "orb-chores",
+    "prompt": "Use case: precise-object-edit / photorealistic-natural. Website product lifestyle photograph, 4:3 at 1448x1086. First input is EDIT TARGET. Second is hardware reference. Replace ONLY the people and environment in the first image with a completely distinct scene: cozy family study, mother smiling while two children tidy books and crayons into shelf baskets in the background, no cooking, afternoon side lighting. Keep the exact foreground oak LumiqOrb device, WHITE inner bezel (not black), exact device silhouette, position, scale and perspective pixel-for-pixel, its entire frame from approx x130..900 y390..930. Do NOT move, resize, rotate, or redesign the foreground device. Keep the screen corners at approximately (200,446),(795,454),(848,824),(245,860). Keep the tabletop under it but let it become a sideboard/desk matching new room. No objects or people in front of the screen. Preserve screen content; real supplied UI will be overlaid later. Natural restrained beige/wood palette, believable anatomy, realistic photograph, no text overlays, no logos outside existing device. The environment and people must be clearly different from kitchen source.",
+    "alt": "家人在书房整理家务并查看 LumiqOrb",
+    "page": "/products/nest",
+    "asset": "related/website/public/assets/product-scenes-20261103/orb-chores.webp"
+  },
+  {
+    "name": "olago-weather",
+    "prompt": "Use case: photorealistic-natural. Asset: LumiqOlaGo website lifestyle scene, 4:3. Reference is for exact round device shape/material/display style, not for the person or setting. Generate a new distinct high-quality realistic photograph: A 40 year old woman by an open hallway window checking the weather on the device before picking up her raincoat and umbrella. Overcast bright morning, elegant light blue hallway, medium-wide composition, device clearly recognizable in hands. Not a park portrait. Keep the device identical to the reference: compact round handheld puck with bronze side shell, thin black circular face, yellow/white small display details, no watch strap. Realistic hand scale, adult anatomy, muted warm colors, no text overlay, no watermark. Never add a black border around the photograph. Full bleed 4:3 photograph.",
+    "alt": "成人出门前用 LumiqOlaGo 查看天气",
+    "page": "/products/ola-go",
+    "asset": "related/website/public/assets/product-scenes-20261103/olago-weather.webp"
+  },
+  {
+    "name": "olago-connected",
+    "prompt": "Use case: photorealistic-natural. Asset: LumiqOlaGo website lifestyle scene, 4:3. Reference is for exact round device shape/material/display style, not for the person or setting. Generate a new distinct high-quality realistic photograph: A senior man and his adult daughter sitting on a sunlit outdoor café terrace, the senior holding the device naturally and smiling while they talk about their outing. Medium-wide scene, both people and the tabletop visible, not a closeup of a single face. Keep the device identical to the reference: compact round handheld puck with bronze side shell, thin black circular face, yellow/white small display details, no watch strap. Realistic hand scale, adult anatomy, muted warm colors, no text overlay, no watermark. Never add a black border around the photograph. Full bleed 4:3 photograph.",
+    "alt": "长辈与家人在户外使用 LumiqOlaGo",
+    "page": "/products/ola-go",
+    "asset": "related/website/public/assets/product-scenes-20261103/olago-connected.webp"
+  },
+  {
+    "name": "olago-avatar",
+    "prompt": "Use case: photorealistic-natural. Asset: LumiqOlaGo website lifestyle scene, 4:3. Reference is for exact round device shape/material/display style, not for the person or setting. Generate a new distinct high-quality realistic photograph: A young adult woman relaxing in a soft green reading nook at home, gently interacting with the round device on a small side table. Afternoon cozy natural light, wider scene with a houseplant and books. No child, no tablet, no large holographic device. Keep the device identical to the reference: compact round handheld puck with bronze side shell, thin black circular face, yellow/white small display details, no watch strap. Realistic hand scale, adult anatomy, muted warm colors, no text overlay, no watermark. Never add a black border around the photograph. Full bleed 4:3 photograph.",
+    "alt": "成人在阅读角与 LumiqOlaGo 互动",
+    "page": "/products/ola-go",
+    "asset": "related/website/public/assets/product-scenes-20261103/olago-avatar.webp"
+  },
+  {
+    "name": "tablet-growth",
+    "prompt": "Use case: photorealistic-natural. Generate a distinct 4:3 product lifestyle photo for LumiqTablet website. Supplied image is exact hardware reference only. A six-year-old girl with her father sitting at a low craft table, taking turns reading a story on the orange tablet, colored wooden blocks on the side, daylight, wider composition showing family interaction. Preserve orange tablet back design, single top-right circular camera within raised orange rectangle, thin orange edges, small white Lumiq logo. Natural realistic family photograph, hands and tablet at correct scale, no screen invented in front view, no bright neon colors, no copy overlay, no border, no watermark. Entirely different people and room composition from reference.",
+    "alt": "孩子与家长通过 LumiqTablet 一起探索",
+    "page": "/products/tablet",
+    "asset": "related/website/public/assets/product-scenes-20261103/tablet-growth.webp"
+  },
+  {
+    "name": "tablet-stages",
+    "prompt": "Use case: photorealistic-natural. Generate a distinct 4:3 product lifestyle photo for LumiqTablet website. Supplied image is exact hardware reference only. A grandmother sharing the orange tablet with two children of different ages, around four and nine, on a soft blue sofa in a bright reading room. View from behind the tablet so orange back and camera are clearly visible, all three looking at its screen, warm restrained natural lighting. Preserve orange tablet back design, single top-right circular camera within raised orange rectangle, thin orange edges, small white Lumiq logo. Natural realistic family photograph, hands and tablet at correct scale, no screen invented in front view, no bright neon colors, no copy overlay, no border, no watermark. Entirely different people and room composition from reference.",
+    "alt": "不同年龄的孩子与长辈一起使用 LumiqTablet",
+    "page": "/products/tablet",
+    "asset": "related/website/public/assets/product-scenes-20261103/tablet-stages.webp"
+  }
+]

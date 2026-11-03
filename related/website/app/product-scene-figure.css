@@ -1,0 +1,31 @@
+.lumiq-root main.product-detail-light .product-scene-figure { width:100%; min-width:0; margin:0; }
+.lumiq-root main.product-detail-light .product-scene-image {
+  display:block; width:100%; aspect-ratio:4/3; overflow:hidden; padding:0; margin:0;
+  border:0; border-radius:0; background:none; cursor:zoom-in;
+}
+.lumiq-root main.product-detail-light .product-scene-image > img {
+  display:block; width:100%; height:100% !important; min-height:0; max-height:none;
+  padding:0; border:0; border-radius:0; object-fit:cover !important; mix-blend-mode:normal;
+}
+.lumiq-root main.product-detail-light .product-scene-caption {
+  display:flex; align-items:baseline; justify-content:space-between; flex-wrap:wrap; gap:4px 16px;
+  margin:10px 0 0; padding:0; color:var(--pd-muted); font-size:16px; line-height:1.5;
+}
+.product-scene-expand { padding:0; border:0; background:none; color:var(--pd-ink); font:inherit; text-decoration:underline; text-underline-offset:4px; cursor:pointer; }
+.product-scene-image:focus-visible,.product-scene-expand:focus-visible { outline:2px solid currentColor; outline-offset:4px; }
+.product-scene-dialog { width:min(1280px,94vw); max-height:94dvh; margin:auto; padding:0; border:0; border-radius:12px; background:white; color:#152439; overflow:auto; }
+.product-scene-dialog::backdrop { background:rgb(18 28 43 / .65); }
+.product-scene-dialog-content { padding:16px; }
+.product-scene-dialog header,.product-scene-dialog .product-scene-dialog-meta { display:flex; align-items:center; justify-content:space-between; gap:12px; }
+.product-scene-dialog header { margin-bottom:12px; }
+.product-scene-dialog .product-scene-dialog-meta { margin-top:12px; }
+.product-scene-dialog p { margin:0; font-size:16px; line-height:1.5; }
+.product-scene-dialog button { flex-shrink:0; width:40px; height:40px; padding:0; border:1px solid #d7dce3; border-radius:50%; background:white; color:inherit; font:inherit; font-size:22px; cursor:pointer; }
+.product-scene-dialog button:disabled { opacity:.35; cursor:default; }
+.product-scene-dialog button:focus-visible { outline:2px solid #152439; outline-offset:3px; }
+.product-scene-pagination { display:flex; align-items:center; gap:12px; flex-shrink:0; }
+.lumiq-root main.product-detail-light .product-scene-dialog .product-scene-detail {
+  display:block; width:100%; height:auto !important; max-height:72dvh; min-height:0;
+  padding:0; border:0; border-radius:0; object-fit:contain !important; mix-blend-mode:normal;
+}
+@media(max-width:600px) { .product-scene-dialog-content { padding:12px; } .product-scene-dialog .product-scene-dialog-meta { flex-wrap:wrap; } }

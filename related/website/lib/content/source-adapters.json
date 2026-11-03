@@ -3279,8 +3279,8 @@
       "adapterFile": "components/NestProductPage.tsx",
       "expression": "cms.url(\"/assets/web/nest15-rear.webp\")",
       "replacement": {
-        "expression": "cms.url(\"/assets/orb-ui-20261102/gallery.webp\")",
-        "reason": "2026-11-03: requested lifestyle imagery for every section below the hero; historical media slots and rollback URLs retained."
+        "expression": "screenUrl(screenshots[feature.key][0])",
+        "reason": "2026-11-03: remove duplicate bottom gallery; each feature now has one distinct lifestyle photo with its real UI and a detail gallery. Original media slot retained for historical versions."
       }
     }
   ]

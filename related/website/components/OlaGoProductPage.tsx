@@ -54,10 +54,12 @@ export default function OlaGoProductPage() {
         items:[1,2,3].map(number=>({title:details(`${key}.item${number}Title`),body:details(`${key}.item${number}Body`)})),
         image: {
           src:
-            index < 2
+            index === 0
               ? cms.url("/assets/product-scenes-20261103/olago-outdoor.webp")
-              : cms.url("/assets/product-scenes-20261103/olago-journal.webp"),
-          alt: details(index < 2 ? "outdoorAlt" : "journalAlt"),
+              : index === 1
+                ? cms.url("/assets/product-scenes-20261103/olago-weather.webp")
+                : cms.url("/assets/product-scenes-20261103/olago-journal.webp"),
+          alt: details(index === 0 ? "outdoorAlt" : index === 1 ? "weatherAlt" : "journalAlt"),
         },
       }))}
       features={{
@@ -69,14 +71,14 @@ export default function OlaGoProductPage() {
           body: t(`${key}Body`),
         })),
         image: {
-          src: cms.url("/assets/product-scenes-20261103/olago-home.webp"),
-          alt: details("homeAlt"),
-          fit: "contain",
+          src: cms.url("/assets/product-scenes-20261103/olago-connected.webp"),
+          alt: details("connectedAlt"),
+          fit: "cover",
         },
       }}
       afterFeatures={<ProductFeatureSection id="olago-avatar" className="olago-avatar-floor" eyebrow={brand("avatar.eyebrow")} title={brand("avatar.title")} intro={brand("avatar.body")}
         items={avatarActions.map(action=>({title:brand(`avatar.${action}Title`),body:brand(`avatar.${action}Body`)}))}
-        image={{src:cms.url("/assets/product-scenes-20261103/olago-journal.webp"),alt:details("journalAlt"),fit:"cover"}}/>}
+        image={{src:cms.url("/assets/product-scenes-20261103/olago-avatar.webp"),alt:details("avatarAlt"),fit:"cover"}}/>}
       finalTitle={t("closingTitle")}
       finalBody={t("closingBody")}
       secondaryAction={{ href: "/products/ola", label: t("meetOla") }}

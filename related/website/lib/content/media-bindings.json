@@ -259,6 +259,24 @@
         "property": "src",
         "source": "{selected.image}",
         "alt": "{t(\"finishes.alt\", { name: selected.name, productName })}"
+      },
+      {
+        "kind": "object",
+        "property": "src",
+        "source": "screenUrl(name)",
+        "alt": "update(`screens.${name}`)"
+      },
+      {
+        "kind": "object",
+        "property": "src",
+        "source": "screenUrl(name)",
+        "alt": "update(`screens.${name}`)"
+      },
+      {
+        "kind": "Image",
+        "property": "src",
+        "source": "{selected.front}",
+        "alt": "{t(\"finishes.alt\", {name:selected.name,productName})}"
       }
     ]
   },
@@ -287,20 +305,20 @@
       {
         "kind": "object",
         "property": "src",
-        "source": "index < 2\n              ? cms.url(\"/assets/product-scenes-20261103/olago-outdoor.webp\")\n              : cms.url(\"/assets/product-scenes-20261103/olago-journal.webp\")",
-        "alt": "details(index < 2 ? \"outdoorAlt\" : \"journalAlt\")"
+        "source": "index === 0\n              ? cms.url(\"/assets/product-scenes-20261103/olago-outdoor.webp\")\n              : index === 1\n                ? cms.url(\"/assets/product-scenes-20261103/olago-weather.webp\")\n                : cms.url(\"/assets/product-scenes-20261103/olago-journal.webp\")",
+        "alt": "details(index === 0 ? \"outdoorAlt\" : index === 1 ? \"weatherAlt\" : \"journalAlt\")"
       },
       {
         "kind": "object",
         "property": "src",
-        "source": "cms.url(\"/assets/product-scenes-20261103/olago-home.webp\")",
-        "alt": "details(\"homeAlt\")"
+        "source": "cms.url(\"/assets/product-scenes-20261103/olago-connected.webp\")",
+        "alt": "details(\"connectedAlt\")"
       },
       {
         "kind": "object",
         "property": "src",
-        "source": "cms.url(\"/assets/product-scenes-20261103/olago-journal.webp\")",
-        "alt": "details(\"journalAlt\")"
+        "source": "cms.url(\"/assets/product-scenes-20261103/olago-avatar.webp\")",
+        "alt": "details(\"avatarAlt\")"
       }
     ]
   },
@@ -355,7 +373,7 @@
       {
         "kind": "Image",
         "property": "src",
-        "source": "{sceneUrls[kind]}",
+        "source": "{sceneUrls[scene]}",
         "alt": "{t(\"sceneAlt\", {screen:label})}"
       },
       {

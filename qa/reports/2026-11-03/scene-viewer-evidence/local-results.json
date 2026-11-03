@@ -1,0 +1,942 @@
+{
+  "base": "http://localhost:4263",
+  "results": [
+    {
+      "engine": "chromium",
+      "locale": "zh-hant",
+      "product": "ola",
+      "sections": [
+        {
+          "id": "",
+          "count": 3
+        },
+        {
+          "id": "",
+          "count": 5
+        },
+        {
+          "id": "",
+          "count": 3
+        },
+        {
+          "id": "",
+          "count": 5
+        }
+      ],
+      "photos": [
+        "/assets/western-scenes-20260908/ola-family-kitchen-v2.webp",
+        "/assets/ola-scenes-20261103/adult-senior-companion.webp",
+        "/assets/western-scenes-20260908/ola-senior-reminder-v2.webp",
+        "/assets/western-scenes-20260908/ola-bedtime-story-v2.webp"
+      ],
+      "dialogs": 4,
+      "detailImages": 4,
+      "viewports": [
+        {
+          "width": 1440,
+          "height": 1000
+        },
+        {
+          "width": 390,
+          "height": 844
+        },
+        {
+          "width": 2560,
+          "height": 640
+        }
+      ]
+    },
+    {
+      "engine": "chromium",
+      "locale": "zh-hant",
+      "product": "ola-go",
+      "sections": [
+        {
+          "id": "",
+          "count": 3
+        },
+        {
+          "id": "",
+          "count": 3
+        },
+        {
+          "id": "",
+          "count": 3
+        },
+        {
+          "id": "",
+          "count": 3
+        },
+        {
+          "id": "",
+          "count": 3
+        },
+        {
+          "id": "olago-avatar",
+          "count": 3
+        }
+      ],
+      "photos": [
+        "/assets/product-scenes-20261103/olago-home.webp",
+        "/assets/product-scenes-20261103/olago-outdoor.webp",
+        "/assets/product-scenes-20261103/olago-weather.webp",
+        "/assets/product-scenes-20261103/olago-journal.webp",
+        "/assets/product-scenes-20261103/olago-connected.webp",
+        "/assets/product-scenes-20261103/olago-avatar.webp"
+      ],
+      "dialogs": 6,
+      "detailImages": 6,
+      "viewports": [
+        {
+          "width": 1440,
+          "height": 1000
+        },
+        {
+          "width": 390,
+          "height": 844
+        },
+        {
+          "width": 2560,
+          "height": 640
+        }
+      ]
+    },
+    {
+      "engine": "chromium",
+      "locale": "zh-hant",
+      "product": "tablet",
+      "sections": [
+        {
+          "id": "",
+          "count": 5
+        },
+        {
+          "id": "",
+          "count": 3
+        },
+        {
+          "id": "",
+          "count": 3
+        },
+        {
+          "id": "",
+          "count": 4
+        },
+        {
+          "id": "tablet-growth",
+          "count": 3
+        },
+        {
+          "id": "tablet-growth-social",
+          "count": 3
+        },
+        {
+          "id": "tablet-growth-stages",
+          "count": 4
+        },
+        {
+          "id": "",
+          "count": 5
+        }
+      ],
+      "photos": [
+        "/assets/tablet-detail/generated/tablet-reading-lifestyle-v2.png",
+        "/assets/tablet-detail/generated/tablet-passive-new-scene-20261026.png",
+        "/assets/tablet-detail/generated/tablet-family-new-scene-20261026.png",
+        "/assets/tablet-detail/five-ways/imagime-v1.jpg",
+        "/assets/product-scenes-20261103/tablet-growth.webp",
+        "/assets/tablet-detail/generated/tablet-active-story-time-back-muted-20261001.png",
+        "/assets/product-scenes-20261103/tablet-stages.webp",
+        "/assets/western-scenes-20260908/tablet-parent-controls-v2.webp"
+      ],
+      "dialogs": 8,
+      "detailImages": 8,
+      "viewports": [
+        {
+          "width": 1440,
+          "height": 1000
+        },
+        {
+          "width": 390,
+          "height": 844
+        },
+        {
+          "width": 2560,
+          "height": 640
+        }
+      ]
+    },
+    {
+      "engine": "chromium",
+      "locale": "zh-hant",
+      "product": "print",
+      "sections": [
+        {
+          "id": "",
+          "count": 3
+        },
+        {
+          "id": "",
+          "count": 3
+        }
+      ],
+      "photos": [
+        "/assets/print-detail/consistent-20260907/gift.webp",
+        "/assets/print-detail/consistent-20260907/reading.webp"
+      ],
+      "dialogs": 2,
+      "detailImages": 2,
+      "viewports": [
+        {
+          "width": 1440,
+          "height": 1000
+        },
+        {
+          "width": 390,
+          "height": 844
+        },
+        {
+          "width": 2560,
+          "height": 640
+        }
+      ]
+    },
+    {
+      "engine": "chromium",
+      "locale": "zh-hant",
+      "product": "nest",
+      "sections": [
+        {
+          "id": "orb-overview",
+          "count": 4
+        },
+        {
+          "id": "orb-recipes",
+          "count": 4
+        },
+        {
+          "id": "orb-calendar",
+          "count": 4
+        },
+        {
+          "id": "orb-chores",
+          "count": 4
+        },
+        {
+          "id": "orb-photos",
+          "count": 3
+        },
+        {
+          "id": "orb-finishes",
+          "count": 3
+        }
+      ],
+      "photos": [
+        "/assets/product-scenes-20261103/orb-overview.webp",
+        "/assets/nest-detail/generated/nest-family-kitchen-v2.png",
+        "/assets/product-scenes-20261103/orb-calendar.webp",
+        "/assets/product-scenes-20261103/orb-chores.webp",
+        "/assets/nest-detail/generated/nest-routine-closeup-v2.png"
+      ],
+      "dialogs": 5,
+      "detailImages": 12,
+      "viewports": [
+        {
+          "width": 1440,
+          "height": 1000
+        },
+        {
+          "width": 390,
+          "height": 844
+        },
+        {
+          "width": 2560,
+          "height": 640
+        }
+      ]
+    },
+    {
+      "engine": "chromium",
+      "locale": "en",
+      "product": "ola",
+      "sections": [
+        {
+          "id": "",
+          "count": 3
+        },
+        {
+          "id": "",
+          "count": 5
+        },
+        {
+          "id": "",
+          "count": 3
+        },
+        {
+          "id": "",
+          "count": 5
+        }
+      ],
+      "photos": [
+        "/assets/western-scenes-20260908/ola-family-kitchen-v2.webp",
+        "/assets/ola-scenes-20261103/adult-senior-companion.webp",
+        "/assets/western-scenes-20260908/ola-senior-reminder-v2.webp",
+        "/assets/western-scenes-20260908/ola-bedtime-story-v2.webp"
+      ],
+      "dialogs": 4,
+      "detailImages": 4,
+      "viewports": [
+        {
+          "width": 1440,
+          "height": 1000
+        }
+      ]
+    },
+    {
+      "engine": "chromium",
+      "locale": "en",
+      "product": "ola-go",
+      "sections": [
+        {
+          "id": "",
+          "count": 3
+        },
+        {
+          "id": "",
+          "count": 3
+        },
+        {
+          "id": "",
+          "count": 3
+        },
+        {
+          "id": "",
+          "count": 3
+        },
+        {
+          "id": "",
+          "count": 3
+        },
+        {
+          "id": "olago-avatar",
+          "count": 3
+        }
+      ],
+      "photos": [
+        "/assets/product-scenes-20261103/olago-home.webp",
+        "/assets/product-scenes-20261103/olago-outdoor.webp",
+        "/assets/product-scenes-20261103/olago-weather.webp",
+        "/assets/product-scenes-20261103/olago-journal.webp",
+        "/assets/product-scenes-20261103/olago-connected.webp",
+        "/assets/product-scenes-20261103/olago-avatar.webp"
+      ],
+      "dialogs": 6,
+      "detailImages": 6,
+      "viewports": [
+        {
+          "width": 1440,
+          "height": 1000
+        }
+      ]
+    },
+    {
+      "engine": "chromium",
+      "locale": "en",
+      "product": "tablet",
+      "sections": [
+        {
+          "id": "",
+          "count": 5
+        },
+        {
+          "id": "",
+          "count": 3
+        },
+        {
+          "id": "",
+          "count": 3
+        },
+        {
+          "id": "",
+          "count": 4
+        },
+        {
+          "id": "tablet-growth",
+          "count": 3
+        },
+        {
+          "id": "tablet-growth-social",
+          "count": 3
+        },
+        {
+          "id": "tablet-growth-stages",
+          "count": 4
+        },
+        {
+          "id": "",
+          "count": 5
+        }
+      ],
+      "photos": [
+        "/assets/tablet-detail/generated/tablet-reading-lifestyle-v2.png",
+        "/assets/tablet-detail/generated/tablet-passive-new-scene-20261026.png",
+        "/assets/tablet-detail/generated/tablet-family-new-scene-20261026.png",
+        "/assets/tablet-detail/five-ways/imagime-v1.jpg",
+        "/assets/product-scenes-20261103/tablet-growth.webp",
+        "/assets/tablet-detail/generated/tablet-active-story-time-back-muted-20261001.png",
+        "/assets/product-scenes-20261103/tablet-stages.webp",
+        "/assets/western-scenes-20260908/tablet-parent-controls-v2.webp"
+      ],
+      "dialogs": 8,
+      "detailImages": 8,
+      "viewports": [
+        {
+          "width": 1440,
+          "height": 1000
+        }
+      ]
+    },
+    {
+      "engine": "chromium",
+      "locale": "en",
+      "product": "print",
+      "sections": [
+        {
+          "id": "",
+          "count": 3
+        },
+        {
+          "id": "",
+          "count": 3
+        }
+      ],
+      "photos": [
+        "/assets/print-detail/consistent-20260907/gift.webp",
+        "/assets/print-detail/consistent-20260907/reading.webp"
+      ],
+      "dialogs": 2,
+      "detailImages": 2,
+      "viewports": [
+        {
+          "width": 1440,
+          "height": 1000
+        }
+      ]
+    },
+    {
+      "engine": "chromium",
+      "locale": "en",
+      "product": "nest",
+      "sections": [
+        {
+          "id": "orb-overview",
+          "count": 4
+        },
+        {
+          "id": "orb-recipes",
+          "count": 4
+        },
+        {
+          "id": "orb-calendar",
+          "count": 4
+        },
+        {
+          "id": "orb-chores",
+          "count": 4
+        },
+        {
+          "id": "orb-photos",
+          "count": 3
+        },
+        {
+          "id": "orb-finishes",
+          "count": 3
+        }
+      ],
+      "photos": [
+        "/assets/product-scenes-20261103/orb-overview.webp",
+        "/assets/nest-detail/generated/nest-family-kitchen-v2.png",
+        "/assets/product-scenes-20261103/orb-calendar.webp",
+        "/assets/product-scenes-20261103/orb-chores.webp",
+        "/assets/nest-detail/generated/nest-routine-closeup-v2.png"
+      ],
+      "dialogs": 5,
+      "detailImages": 12,
+      "viewports": [
+        {
+          "width": 1440,
+          "height": 1000
+        }
+      ]
+    },
+    {
+      "engine": "chromium",
+      "locale": "ja",
+      "product": "ola",
+      "sections": [
+        {
+          "id": "",
+          "count": 3
+        },
+        {
+          "id": "",
+          "count": 5
+        },
+        {
+          "id": "",
+          "count": 3
+        },
+        {
+          "id": "",
+          "count": 5
+        }
+      ],
+      "photos": [
+        "/assets/western-scenes-20260908/ola-family-kitchen-v2.webp",
+        "/assets/ola-scenes-20261103/adult-senior-companion.webp",
+        "/assets/western-scenes-20260908/ola-senior-reminder-v2.webp",
+        "/assets/western-scenes-20260908/ola-bedtime-story-v2.webp"
+      ],
+      "dialogs": 4,
+      "detailImages": 4,
+      "viewports": [
+        {
+          "width": 1440,
+          "height": 1000
+        }
+      ]
+    },
+    {
+      "engine": "chromium",
+      "locale": "ja",
+      "product": "ola-go",
+      "sections": [
+        {
+          "id": "",
+          "count": 3
+        },
+        {
+          "id": "",
+          "count": 3
+        },
+        {
+          "id": "",
+          "count": 3
+        },
+        {
+          "id": "",
+          "count": 3
+        },
+        {
+          "id": "",
+          "count": 3
+        },
+        {
+          "id": "olago-avatar",
+          "count": 3
+        }
+      ],
+      "photos": [
+        "/assets/product-scenes-20261103/olago-home.webp",
+        "/assets/product-scenes-20261103/olago-outdoor.webp",
+        "/assets/product-scenes-20261103/olago-weather.webp",
+        "/assets/product-scenes-20261103/olago-journal.webp",
+        "/assets/product-scenes-20261103/olago-connected.webp",
+        "/assets/product-scenes-20261103/olago-avatar.webp"
+      ],
+      "dialogs": 6,
+      "detailImages": 6,
+      "viewports": [
+        {
+          "width": 1440,
+          "height": 1000
+        }
+      ]
+    },
+    {
+      "engine": "chromium",
+      "locale": "ja",
+      "product": "tablet",
+      "sections": [
+        {
+          "id": "",
+          "count": 5
+        },
+        {
+          "id": "",
+          "count": 3
+        },
+        {
+          "id": "",
+          "count": 3
+        },
+        {
+          "id": "",
+          "count": 4
+        },
+        {
+          "id": "tablet-growth",
+          "count": 3
+        },
+        {
+          "id": "tablet-growth-social",
+          "count": 3
+        },
+        {
+          "id": "tablet-growth-stages",
+          "count": 4
+        },
+        {
+          "id": "",
+          "count": 5
+        }
+      ],
+      "photos": [
+        "/assets/tablet-detail/generated/tablet-reading-lifestyle-v2.png",
+        "/assets/tablet-detail/generated/tablet-passive-new-scene-20261026.png",
+        "/assets/tablet-detail/generated/tablet-family-new-scene-20261026.png",
+        "/assets/tablet-detail/five-ways/imagime-v1.jpg",
+        "/assets/product-scenes-20261103/tablet-growth.webp",
+        "/assets/tablet-detail/generated/tablet-active-story-time-back-muted-20261001.png",
+        "/assets/product-scenes-20261103/tablet-stages.webp",
+        "/assets/western-scenes-20260908/tablet-parent-controls-v2.webp"
+      ],
+      "dialogs": 8,
+      "detailImages": 8,
+      "viewports": [
+        {
+          "width": 1440,
+          "height": 1000
+        }
+      ]
+    },
+    {
+      "engine": "chromium",
+      "locale": "ja",
+      "product": "print",
+      "sections": [
+        {
+          "id": "",
+          "count": 3
+        },
+        {
+          "id": "",
+          "count": 3
+        }
+      ],
+      "photos": [
+        "/assets/print-detail/consistent-20260907/gift.webp",
+        "/assets/print-detail/consistent-20260907/reading.webp"
+      ],
+      "dialogs": 2,
+      "detailImages": 2,
+      "viewports": [
+        {
+          "width": 1440,
+          "height": 1000
+        }
+      ]
+    },
+    {
+      "engine": "chromium",
+      "locale": "ja",
+      "product": "nest",
+      "sections": [
+        {
+          "id": "orb-overview",
+          "count": 4
+        },
+        {
+          "id": "orb-recipes",
+          "count": 4
+        },
+        {
+          "id": "orb-calendar",
+          "count": 4
+        },
+        {
+          "id": "orb-chores",
+          "count": 4
+        },
+        {
+          "id": "orb-photos",
+          "count": 3
+        },
+        {
+          "id": "orb-finishes",
+          "count": 3
+        }
+      ],
+      "photos": [
+        "/assets/product-scenes-20261103/orb-overview.webp",
+        "/assets/nest-detail/generated/nest-family-kitchen-v2.png",
+        "/assets/product-scenes-20261103/orb-calendar.webp",
+        "/assets/product-scenes-20261103/orb-chores.webp",
+        "/assets/nest-detail/generated/nest-routine-closeup-v2.png"
+      ],
+      "dialogs": 5,
+      "detailImages": 12,
+      "viewports": [
+        {
+          "width": 1440,
+          "height": 1000
+        }
+      ]
+    },
+    {
+      "engine": "webkit",
+      "locale": "zh-hant",
+      "product": "ola",
+      "sections": [
+        {
+          "id": "",
+          "count": 3
+        },
+        {
+          "id": "",
+          "count": 5
+        },
+        {
+          "id": "",
+          "count": 3
+        },
+        {
+          "id": "",
+          "count": 5
+        }
+      ],
+      "photos": [
+        "/assets/western-scenes-20260908/ola-family-kitchen-v2.webp",
+        "/assets/ola-scenes-20261103/adult-senior-companion.webp",
+        "/assets/western-scenes-20260908/ola-senior-reminder-v2.webp",
+        "/assets/western-scenes-20260908/ola-bedtime-story-v2.webp"
+      ],
+      "dialogs": 4,
+      "detailImages": 4,
+      "viewports": [
+        {
+          "width": 1440,
+          "height": 1000
+        },
+        {
+          "width": 390,
+          "height": 844
+        },
+        {
+          "width": 2560,
+          "height": 640
+        }
+      ]
+    },
+    {
+      "engine": "webkit",
+      "locale": "zh-hant",
+      "product": "ola-go",
+      "sections": [
+        {
+          "id": "",
+          "count": 3
+        },
+        {
+          "id": "",
+          "count": 3
+        },
+        {
+          "id": "",
+          "count": 3
+        },
+        {
+          "id": "",
+          "count": 3
+        },
+        {
+          "id": "",
+          "count": 3
+        },
+        {
+          "id": "olago-avatar",
+          "count": 3
+        }
+      ],
+      "photos": [
+        "/assets/product-scenes-20261103/olago-home.webp",
+        "/assets/product-scenes-20261103/olago-outdoor.webp",
+        "/assets/product-scenes-20261103/olago-weather.webp",
+        "/assets/product-scenes-20261103/olago-journal.webp",
+        "/assets/product-scenes-20261103/olago-connected.webp",
+        "/assets/product-scenes-20261103/olago-avatar.webp"
+      ],
+      "dialogs": 6,
+      "detailImages": 6,
+      "viewports": [
+        {
+          "width": 1440,
+          "height": 1000
+        },
+        {
+          "width": 390,
+          "height": 844
+        },
+        {
+          "width": 2560,
+          "height": 640
+        }
+      ]
+    },
+    {
+      "engine": "webkit",
+      "locale": "zh-hant",
+      "product": "tablet",
+      "sections": [
+        {
+          "id": "",
+          "count": 5
+        },
+        {
+          "id": "",
+          "count": 3
+        },
+        {
+          "id": "",
+          "count": 3
+        },
+        {
+          "id": "",
+          "count": 4
+        },
+        {
+          "id": "tablet-growth",
+          "count": 3
+        },
+        {
+          "id": "tablet-growth-social",
+          "count": 3
+        },
+        {
+          "id": "tablet-growth-stages",
+          "count": 4
+        },
+        {
+          "id": "",
+          "count": 5
+        }
+      ],
+      "photos": [
+        "/assets/tablet-detail/generated/tablet-reading-lifestyle-v2.png",
+        "/assets/tablet-detail/generated/tablet-passive-new-scene-20261026.png",
+        "/assets/tablet-detail/generated/tablet-family-new-scene-20261026.png",
+        "/assets/tablet-detail/five-ways/imagime-v1.jpg",
+        "/assets/product-scenes-20261103/tablet-growth.webp",
+        "/assets/tablet-detail/generated/tablet-active-story-time-back-muted-20261001.png",
+        "/assets/product-scenes-20261103/tablet-stages.webp",
+        "/assets/western-scenes-20260908/tablet-parent-controls-v2.webp"
+      ],
+      "dialogs": 8,
+      "detailImages": 8,
+      "viewports": [
+        {
+          "width": 1440,
+          "height": 1000
+        },
+        {
+          "width": 390,
+          "height": 844
+        },
+        {
+          "width": 2560,
+          "height": 640
+        }
+      ]
+    },
+    {
+      "engine": "webkit",
+      "locale": "zh-hant",
+      "product": "print",
+      "sections": [
+        {
+          "id": "",
+          "count": 3
+        },
+        {
+          "id": "",
+          "count": 3
+        }
+      ],
+      "photos": [
+        "/assets/print-detail/consistent-20260907/gift.webp",
+        "/assets/print-detail/consistent-20260907/reading.webp"
+      ],
+      "dialogs": 2,
+      "detailImages": 2,
+      "viewports": [
+        {
+          "width": 1440,
+          "height": 1000
+        },
+        {
+          "width": 390,
+          "height": 844
+        },
+        {
+          "width": 2560,
+          "height": 640
+        }
+      ]
+    },
+    {
+      "engine": "webkit",
+      "locale": "zh-hant",
+      "product": "nest",
+      "sections": [
+        {
+          "id": "orb-overview",
+          "count": 4
+        },
+        {
+          "id": "orb-recipes",
+          "count": 4
+        },
+        {
+          "id": "orb-calendar",
+          "count": 4
+        },
+        {
+          "id": "orb-chores",
+          "count": 4
+        },
+        {
+          "id": "orb-photos",
+          "count": 3
+        },
+        {
+          "id": "orb-finishes",
+          "count": 3
+        }
+      ],
+      "photos": [
+        "/assets/product-scenes-20261103/orb-overview.webp",
+        "/assets/nest-detail/generated/nest-family-kitchen-v2.png",
+        "/assets/product-scenes-20261103/orb-calendar.webp",
+        "/assets/product-scenes-20261103/orb-chores.webp",
+        "/assets/nest-detail/generated/nest-routine-closeup-v2.png"
+      ],
+      "dialogs": 5,
+      "detailImages": 12,
+      "viewports": [
+        {
+          "width": 1440,
+          "height": 1000
+        },
+        {
+          "width": 390,
+          "height": 844
+        },
+        {
+          "width": 2560,
+          "height": 640
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

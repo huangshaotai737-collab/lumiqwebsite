@@ -4,6 +4,7 @@ import { useState, type CSSProperties } from "react";
 import { useTranslations } from "next-intl";
 import Heading from "@/components/Heading";
 import OrbDeviceScene from "@/components/OrbDeviceScene";
+import ProductSceneFigure from "@/components/ProductSceneFigure";
 import ProductFeatureSection from "@/components/ProductFeatureSection";
 import Image from "@/components/content/ContentImage";
 import { useContentAdapter } from "@/components/content/useContentAdapter";
@@ -22,6 +23,8 @@ export default function NestProductPage() {
   const update = useTranslations("BrandUpdate");
   const details = useTranslations("BrandSceneDetails.orb");
   const screenshots = {recipes:["cook","recipe"],calendar:["calendar"],chores:["tasks","rewards"],photos:["gallery"]};
+  const scenes = {recipes:"kitchen",calendar:"calendar",chores:"chores",photos:"closeup"} as const;
+  const screenUrl = (name:string) => name === "rewards" ? cms.slot("asset_3dbef3e285441f46").url : cms.url(`/assets/orb-ui-20261102/${name}.webp`);
   const productName = cms.snapshot.products.nest.name;
   const finishes = [
     {
@@ -73,20 +76,21 @@ export default function NestProductPage() {
       <ProductFeatureSection id="orb-overview" className="orb-overview" eyebrow={t("overview.eyebrow")} title={t("overview.title")} intro={t("overview.body")}
         mediaLeft navigationLabel={t("overview.navigation")}
         items={featureSections.map(feature=>({eyebrow:t(`${feature.key}.label`),title:t(`${feature.key}.cardTitle`),body:t(`${feature.key}.cardBody`),href:`#${feature.id}`}))}
-        media={<OrbDeviceScene screen={cms.url("/assets/orb-ui-20261102/calendar.webp")} label={update("screens.calendar")} scene="kitchen"/>}/>
+        media={<ProductSceneFigure caption={t("overview.eyebrow")} screenDetails details={featureSections.flatMap(feature=>screenshots[feature.key]).map(name=>({src:screenUrl(name),alt:update(`screens.${name}`)}))}>
+          <OrbDeviceScene screen={cms.url("/assets/orb-ui-20261102/calendar.webp")} label={update("screens.calendar")} scene="overview"/>
+        </ProductSceneFigure>}/>
 
       {featureSections.map((feature,sectionIndex)=><ProductFeatureSection key={feature.key} id={feature.id} className={`orb-detail orb-detail--${feature.key}`}
         eyebrow={t(`${feature.key}.label`)} title={t(`${feature.key}.title`)} intro={t(`${feature.key}.body`)} mediaLeft={sectionIndex%2===1}
         items={feature.details.map(number=>({title:t(`${feature.key}.detail${number}Title`),body:t(`${feature.key}.detail${number}Body`)}))}
-        media={<div className="orb-ui-gallery">{screenshots[feature.key].map(name=><figure key={name}>
-          <OrbDeviceScene screen={name === "rewards" ? cms.slot("asset_3dbef3e285441f46").url : cms.url(`/assets/orb-ui-20261102/${name}.webp`)} label={update(`screens.${name}`)} scene={name === "cook" || name === "tasks" ? "kitchen" : "closeup"} expandable/>
-          <figcaption>{update(`screens.${name}`)}</figcaption>
-        </figure>)}</div>}/>
+        media={<ProductSceneFigure caption={t(`${feature.key}.label`)} screenDetails details={screenshots[feature.key].map(name=>({src:screenUrl(name),alt:update(`screens.${name}`)}))}>
+          <OrbDeviceScene screen={screenUrl(screenshots[feature.key][0])} label={update(`screens.${screenshots[feature.key][0]}`)} scene={scenes[feature.key]}/>
+        </ProductSceneFigure>}/>
       )}
 
       <ProductFeatureSection id="orb-finishes" className="orb-finishes" eyebrow={t("finishes.eyebrow")} title={t("finishes.title")} intro={t("finishes.body")}
         items={finishes.map((item,index)=>({title:item.name,body:`${item.note} ${details(`finish${index+1}Body`)}`}))}
-        media={<OrbDeviceScene screen={cms.url("/assets/orb-ui-20261102/gallery.webp")} label={t("finishes.alt", { name: selected.name, productName })} finish={selected.front}/> }>
+        media={<figure className="orb-finish-product"><Image src={selected.front} alt={t("finishes.alt", {name:selected.name,productName})} width={1200} height={1200} sizes="(max-width: 900px) 100vw, 46vw" unoptimized /></figure>}>
               <div className="pd-finish-picker orb-finish-picker" role="group" aria-label={t("finishes.choose")}>
                 <p aria-live="polite"><strong>{selected.name}</strong></p>
                 <div>
@@ -98,20 +102,6 @@ export default function NestProductPage() {
                 </div>
               </div>
       </ProductFeatureSection>
-      <div className="pd-shell">
-          <div className="orb-home-gallery">
-            <figure className="orb-home-gallery-family">
-              <OrbDeviceScene screen={cms.url("/assets/orb-ui-20261102/cook.webp")} label={update("screens.cook")} scene="kitchen" />
-            </figure>
-            <figure className="orb-home-gallery-closeup">
-              <OrbDeviceScene screen={cms.slot("asset_3dbef3e285441f46").url} label={update("screens.rewards")} />
-            </figure>
-            <figure className="orb-home-gallery-rear">
-              <OrbDeviceScene screen={cms.url("/assets/orb-ui-20261102/gallery.webp")} label={update("screens.gallery")} />
-            </figure>
-          </div>
-      </div>
-
       <section className="orb-final orb-floor" aria-labelledby="orb-final-title">
         <div className="pd-shell orb-final-inner">
           <p className="orb-eyebrow orb-product-name">{productName}</p>

@@ -28,7 +28,10 @@ export const brandSceneDetailsMessages = {
       },
       "homeAlt": "成人在家使用 LumiqOla 與 LumiqOlaGo",
       "outdoorAlt": "長者在戶外查看 LumiqOlaGo",
-      "journalAlt": "成人在家用 LumiqOlaGo 記錄語音"
+      "journalAlt": "成人在家用 LumiqOlaGo 記錄語音",
+      "weatherAlt": "成人出門前用 LumiqOlaGo 查看天氣",
+      "connectedAlt": "長輩與家人在戶外使用 LumiqOlaGo",
+      "avatarAlt": "成人在閱讀角與 LumiqOlaGo 互動"
     },
     "print": {
       "storyTitle": "把故事送到孩子手中",
@@ -54,7 +57,11 @@ export const brandSceneDetailsMessages = {
       "finish3Body": "俐落的深色邊框融入簡約空間，把注意力留給今天的行程、家人的任務與珍愛照片。",
       "sceneAlt": "家中 LumiqOrb 裝置上的{screen}",
       "closeup": "查看界面細節",
-      "close": "關閉界面細節"
+      "close": "關閉界面細節",
+      "photoDetails": "查看圖片細節",
+      "closePhoto": "關閉圖片",
+      "previous": "上一張",
+      "next": "下一張"
     }
   },
   "en": {
@@ -85,7 +92,10 @@ export const brandSceneDetailsMessages = {
       },
       "homeAlt": "An adult using LumiqOla and LumiqOlaGo at home",
       "outdoorAlt": "An older adult checking LumiqOlaGo outdoors",
-      "journalAlt": "An adult recording a voice note with LumiqOlaGo at home"
+      "journalAlt": "An adult recording a voice note with LumiqOlaGo at home",
+      "weatherAlt": "An adult checking the weather on LumiqOlaGo before leaving home",
+      "connectedAlt": "An older adult and family member using LumiqOlaGo outdoors",
+      "avatarAlt": "An adult interacting with LumiqOlaGo in a reading nook"
     },
     "print": {
       "storyTitle": "Put the story in their hands",
@@ -111,7 +121,11 @@ export const brandSceneDetailsMessages = {
       "finish3Body": "A clean, dark frame fits a minimal space, leaving attention on today’s plans, family tasks and favorite photos.",
       "sceneAlt": "{screen} on LumiqOrb at home",
       "closeup": "View screen details",
-      "close": "Close screen details"
+      "close": "Close screen details",
+      "photoDetails": "View photo details",
+      "closePhoto": "Close image",
+      "previous": "Previous image",
+      "next": "Next image"
     }
   },
   "ja": {
@@ -142,7 +156,10 @@ export const brandSceneDetailsMessages = {
       },
       "homeAlt": "自宅で LumiqOla と LumiqOlaGo を使う大人",
       "outdoorAlt": "屋外で LumiqOlaGo を確認する年配の女性",
-      "journalAlt": "自宅で LumiqOlaGo に音声を記録する大人"
+      "journalAlt": "自宅で LumiqOlaGo に音声を記録する大人",
+      "weatherAlt": "外出前に LumiqOlaGo で天気を確認する大人",
+      "connectedAlt": "屋外で LumiqOlaGo を使うシニアと家族",
+      "avatarAlt": "読書スペースで LumiqOlaGo と触れ合う大人"
     },
     "print": {
       "storyTitle": "物語を子どもの手に",
@@ -168,7 +185,11 @@ export const brandSceneDetailsMessages = {
       "finish3Body": "すっきりした濃色のフレームがシンプルな空間に馴染み、今日の予定や家族のタスク、大切な写真を引き立てます。",
       "sceneAlt": "家庭の LumiqOrb に表示された{screen}",
       "closeup": "画面の詳細を見る",
-      "close": "画面の詳細を閉じる"
+      "close": "画面の詳細を閉じる",
+      "photoDetails": "写真の詳細を見る",
+      "closePhoto": "画像を閉じる",
+      "previous": "前の画像",
+      "next": "次の画像"
     }
   }
 };

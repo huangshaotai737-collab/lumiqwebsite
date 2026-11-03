@@ -1,0 +1,11 @@
+-- Add distinct product lifestyle imagery; retain every historical media policy and slot.
+insert into private.media_profiles(usage_key,policy) values
+('asset_4c6856b30cf730cb', '{"kind":"image","profile":"asset_4c6856b30cf730cb","legacyUrl":"/assets/product-scenes-20261103/orb-overview.webp","mimes":["image/jpeg","image/png","image/webp"],"companions":[],"complex":false,"width":1448,"height":1086}'::jsonb),
+('asset_9a32e01b568635af', '{"kind":"image","profile":"asset_9a32e01b568635af","legacyUrl":"/assets/product-scenes-20261103/orb-calendar.webp","mimes":["image/jpeg","image/png","image/webp"],"companions":[],"complex":false,"width":1448,"height":1086}'::jsonb),
+('asset_e58490c8060a2b33', '{"kind":"image","profile":"asset_e58490c8060a2b33","legacyUrl":"/assets/product-scenes-20261103/orb-chores.webp","mimes":["image/jpeg","image/png","image/webp"],"companions":[],"complex":false,"width":1448,"height":1086}'::jsonb),
+('asset_94e4cb094cba33cf', '{"kind":"image","profile":"asset_94e4cb094cba33cf","legacyUrl":"/assets/product-scenes-20261103/olago-weather.webp","mimes":["image/jpeg","image/png","image/webp"],"companions":[],"complex":false,"width":1448,"height":1086}'::jsonb),
+('asset_65fa43c857e9ac70', '{"kind":"image","profile":"asset_65fa43c857e9ac70","legacyUrl":"/assets/product-scenes-20261103/olago-connected.webp","mimes":["image/jpeg","image/png","image/webp"],"companions":[],"complex":false,"width":1448,"height":1086}'::jsonb),
+('asset_48753baeb1fb59c1', '{"kind":"image","profile":"asset_48753baeb1fb59c1","legacyUrl":"/assets/product-scenes-20261103/olago-avatar.webp","mimes":["image/jpeg","image/png","image/webp"],"companions":[],"complex":false,"width":1448,"height":1086}'::jsonb),
+('asset_036ff7d78dd5ef35', '{"kind":"image","profile":"asset_036ff7d78dd5ef35","legacyUrl":"/assets/product-scenes-20261103/tablet-growth.webp","mimes":["image/jpeg","image/png","image/webp"],"companions":[],"complex":false,"width":1448,"height":1086}'::jsonb),
+('asset_60e4bc7ccaae7717', '{"kind":"image","profile":"asset_60e4bc7ccaae7717","legacyUrl":"/assets/product-scenes-20261103/tablet-stages.webp","mimes":["image/jpeg","image/png","image/webp"],"companions":[],"complex":false,"width":1448,"height":1086}'::jsonb)
+on conflict (usage_key) do nothing;
