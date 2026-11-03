@@ -271,7 +271,7 @@
       {
         "kind": "Image",
         "property": "src",
-        "source": "{cms.url(`/assets/orb-ui-20261102/${name}.webp`)}",
+        "source": "{name === \"rewards\" ? cms.slot(\"asset_3dbef3e285441f46\").url : cms.url(`/assets/orb-ui-20261102/${name}.webp`)}",
         "alt": "{update(`screens.${name}`)}"
       },
       {

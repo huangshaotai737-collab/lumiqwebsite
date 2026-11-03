@@ -6,7 +6,7 @@ async function open(page: Page, slug: string, locale = 'zh-hant') {
 }
 
 async function artworkReady(page: Page) {
-  await expect.poll(() => page.locator('.pd-hero-visual img').evaluate((image: HTMLImageElement) =>
+  await expect.poll(() => page.locator('.pd-hero-visual img, .orb-hero-visual img').evaluate((image: HTMLImageElement) =>
     image.complete && image.naturalWidth > 0 && Boolean(image.currentSrc)), {timeout: 6000}).toBe(true);
 }
 
@@ -22,7 +22,7 @@ test('Orb appears on first entry even when the image transformation service stal
     });
     await open(page, 'nest');
     await artworkReady(page);
-    for (const swatch of await page.locator('.pd-finish-picker button').all()) {
+    for (const swatch of await page.locator('.orb-finish-picker button').all()) {
       await swatch.click();
       await artworkReady(page);
     }
@@ -92,8 +92,14 @@ test('waitlist labels stay consistent while the cart leads to the approved check
     for (const slug of ['ola', 'ola-go', 'tablet', 'print', 'nest']) {
       await open(page, slug, locale);
       for (const entry of await page.locator('.pd-primary-action').all()) await expect(entry).toHaveText(label);
+      if (slug === 'nest') {
+        // Brand row 114 removes the Orb cart/price, but keeps its waitlist entry.
+        await expect(page.locator('[data-cart-add="nest"]')).toHaveCount(0);
+        await expect(page.locator('main a[href$="/prelaunch"]').first()).toHaveText(label);
+      }
     }
-    await page.locator('[data-cart-add="nest"]').first().click();
+    await open(page, 'tablet', locale);
+    await page.locator('[data-cart-add="tablet"]').first().click();
     await expect(page.locator('#lumiq-cart .cart-primary')).toHaveText(checkout);
     await expect(page.locator('#lumiq-cart .cart-primary')).toHaveAttribute('href', `/${locale}/checkout`);
     await page.keyboard.press('Escape');

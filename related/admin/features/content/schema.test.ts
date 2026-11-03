@@ -3,10 +3,24 @@ import { validateDraft } from './schema';
 import type { MediaSlot } from '@/lib/generated/platform/content';
 import { contentFields } from './fields';
 import snapshot from './initial-snapshot.json';
+import { currentSnapshot } from './current-snapshot';
 
 const copy = () => structuredClone(snapshot);
 
 describe('publish validation', () => {
+  it.each(['/assets/orb-ui-20261102/rewards.webp', '/assets/orb-ui-20261103/reward-goals.png'])('preserves reward image draft and rollback compatibility: %s', url => {
+    const draft = structuredClone(currentSnapshot);
+    draft.media.asset_3dbef3e285441f46.url = url;
+    expect(validateDraft(draft).ok).toBe(true);
+  });
+  it('does not permit arbitrary URLs or cross-slot reuse through reward image compatibility', () => {
+    const arbitrary = structuredClone(currentSnapshot);
+    arbitrary.media.asset_3dbef3e285441f46.url = '/assets/unregistered.png';
+    const wrongSlot = structuredClone(currentSnapshot);
+    wrongSlot.media.asset_a9189b139b2ce05e.url = '/assets/orb-ui-20261103/reward-goals.png';
+    expect(validateDraft(arbitrary).ok).toBe(false);
+    expect(validateDraft(wrongSlot).ok).toBe(false);
+  });
   it('hides retired local-account demo fields while keeping active product slots editable',()=>{expect(contentFields.some(field=>field.path.startsWith('messages.en.Members.'))).toBe(false);expect(contentFields.some(field=>field.path==='messages.en.CmsStatic.field_8bec1f33f31dd9ab')).toBe(true);expect(contentFields.some(field=>field.path==='media.asset_5fa455671b41fc69.url')).toBe(true);});
   it('accepts the complete imported snapshot', () => {
     expect(validateDraft(copy()).ok).toBe(true);

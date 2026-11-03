@@ -1,6 +1,8 @@
 # 部署与生产阻断项
 
-2026-11-03 更新：官网与独立后台已经接入用户当前账号下的 LumiQ 云数据库，20 个迁移已应用，云端核心联动冒烟通过。后台入口为 `https://lumiq-admin-two.vercel.app/login`；官网为 `https://lumiq-showcase-20261025.vercel.app/zh-hant`。用户已完成官网注册及邮箱验证，正式首管理员已初始化并写入审计；正式 SMTP 尚未配置，真实支付未接通。不能据此宣称全部生产功能已验收。详见 [本轮实际走查结果](../../qa/reports/2026-11-03/admin-functional-audit.md)、[本地验收](acceptance.md) 与 [使用说明](operations.md)。
+后续复测已完成云端内容发布/回退、第三方 Cookie 拦截时独立预览、61 张表的隔离备份恢复比对；最新后台部署为 `dpl_BWdbQwA3YohLhw1HrAeRYmFcR65f`。详见 [后续修复与复测](../../qa/reports/2026-11-03/followup-verification.md)。只读上线检查运行 `node scripts/check-live-sites.mjs`；需要本机代理的 Node 24 环境可加 `--use-env-proxy`。该命令不建立定时监控、不发送告警。
+
+2026-11-03 更新：官网与独立后台已经接入用户当前账号下的 LumiQ 云数据库，21 个迁移已应用，云端核心联动冒烟通过。后台入口为 `https://lumiq-admin-two.vercel.app/login`；官网为 `https://lumiq-showcase-20261025.vercel.app/zh-hant`。用户已完成官网注册及邮箱验证，正式首管理员已初始化并写入审计；正式 SMTP 尚未配置，真实支付未接通。不能据此宣称全部生产功能已验收。详见 [本轮实际走查结果](../../qa/reports/2026-11-03/admin-functional-audit.md)、[本地验收](acceptance.md) 与 [使用说明](operations.md)。
 
 ## 两个独立应用
 
@@ -31,7 +33,7 @@
 
 ## 尚未通过的生产门槛
 
-当前 Vercel HTTPS 入口、云数据库角色门禁、50 MiB 桶上限和实际图像/视频校验已冒烟验证。正式自有域名、员工邀请与找回密码的邮件投递、正式 SMTP、备份恢复演练、最大素材负载预算、告警与运维责任人、商业价格/条款/退换货承诺确认、隐私保留策略及人工擦除范围仍需验收。公开发布/回退的完整业务流程已在隔离环境通过，本轮云端只测试未发布草稿，未覆盖官网内容。
+当前 Vercel HTTPS 入口、云数据库角色门禁、50 MiB 桶上限和实际图像/视频校验已冒烟验证。正式自有域名、员工邀请与找回密码的邮件投递、正式 SMTP、对象存储与角色/授权等完整灾备恢复、最大素材负载预算、告警与运维责任人、商业价格/条款/退换货承诺确认、隐私保留策略及人工擦除范围仍需验收。公开发布/回退业务流程已在隔离环境和本轮云端受控测试通过；追加素材迁移前的数据库备份已恢复到隔离库，61 张表逐行比对通过，完整灾备仍不在该证据范围。
 
 公开下单初始关闭；五个 SKU 币种和价格为 NULL，未确认、未启用。支付适配器始终返回 `PAYMENTS_NOT_CONFIGURED`，没有通知入口、真实交易或付费订阅。支付接通材料见 [payment-integration.md](payment-integration.md) 与 [台湾主体支付准备清单](https://github.com/huangshaotai737-collab/lumiqwebsite/blob/cc11b0a124f59a0955ede33e084b960be3dfff11/docs/superpowers/specs/2026-10-20-lumiq-payments-readiness.md)。不得把技术预留视为商户准入或结算可用。
 
@@ -48,15 +50,15 @@
 
 构建脚本 `scripts/prepare-vercel-media.mjs` 下载 `scripts/ffprobe-linux.json` 指定的 Linux x64 FFprobe，核对 SHA-256、保留许可证并验证可执行性；仅在构建期运行。`/api/media/complete` 追踪该文件。按本仓库部署目录配置 `MEDIA_FFPROBE_PATH=/var/task/related/admin/vendor/ffprobe`，本次已用合成 PNG 与 H264 MP4 的真实云端上传完成请求验证运行路径及私有预览；最大尺寸、长视频与负载预算仍需独立验收。未配置时保持失败关闭，不信任浏览器自行提交的媒体元数据。
 
-新数据库首次迁移必须包含 `20261103180000_tablet_media_compatibility.sql`，支持两个已交付 Tablet 场景图，同时保留旧素材用于回退。不要删掉历史迁移或重置旧库。
+新数据库首次迁移必须包含 `20261103180000_tablet_media_compatibility.sql`，支持两个已交付 Tablet 场景图，同时保留旧素材用于回退。奖励目标截图另有追加迁移 `20261103200000_reward_goals_replacement.sql`，与应用中同槽位新旧 URL 兼容一起部署。不要删掉历史迁移或重置旧库。
 
 
 ## 当前云端归属与版本
 
 用户确认将资源改建到当前 CLI 登录账号。组织 LumiQ：`vnvcxfirjcumksrlgohs`；项目 `lumiq-platform`：`hkozorbnovbuccwcijzj`；东京 `ap-northeast-1`。使用免费默认 Nano 规格，未升级付费计划。原不可访问团队里的项目未迁移、未删除。新库在确认空结构后执行迁移，未运行远端 reset 或演示种子。
 
-- 后台生产部署：`dpl_BCfq2XsisCqpdLoCy8vh6GA45LVr`，Node 24、hnd1。
-- 官网生产部署：`dpl_AtedTy8n8BLZTvCYDfqyjFqB7qVE`，保留原项目 Node 22 和区域配置。
+- 后台生产部署：`dpl_BWdbQwA3YohLhw1HrAeRYmFcR65f`，Node 24、hnd1。
+- 官网生产部署：`dpl_HRp5iK199QRHrA4WLDiJSdfbyHMX`，保留原项目 Node 22 和区域配置。
 - 管理后台日期显示统一使用 Asia/Shanghai，避免服务器与客户端时区差异引发重新渲染。
 - 所有服务密钥只写入 Vercel 服务端环境；不在仓库或报告记录。
 - 合成账号、测试草稿、媒体对象和候补记录已按本轮精确 ID 清理；不可变操作审计保留。真实用户注册不在清理范围。

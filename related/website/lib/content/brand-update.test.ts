@@ -7,6 +7,12 @@ import {brandMediaDefaults} from '@/lib/generated/platform/brand-media';
 import {createContentAdapter} from './adapter';
 
 describe('November brand reply',()=>{
+ it.each(['/assets/orb-ui-20261102/rewards.webp','/assets/orb-ui-20261103/reward-goals.png'])('reads published reward images without falling back to bundled content: %s',url=>{
+   const s=withBrandContent(parseSnapshot(seed));
+   s.media.asset_3dbef3e285441f46.url=url;
+   const saved=parseSnapshot(s);
+   expect(createContentAdapter(withBrandContent(saved),'en').slot('asset_3dbef3e285441f46').url).toBe(url);
+ });
  it('uses approved prices and support inbox, preserving historical snapshots',()=>{
    const s=applyBrandRevision(parseSnapshot(seed)).snapshot;
    expect(s.products.tablet.price).toEqual({kind:'usd',amount:599});
@@ -17,7 +23,8 @@ describe('November brand reply',()=>{
  });
  it('adds six editable images without rebasing the original media map',()=>{
    const s=withBrandContent(parseSnapshot(seed));
-   expect(Object.values(brandMediaDefaults).filter(slot=>slot.url.startsWith('/assets/orb-ui-20261102/'))).toHaveLength(6);
+   expect(Object.values(brandMediaDefaults).filter(slot=>slot.url.startsWith('/assets/orb-ui-'))).toHaveLength(6);
+   expect(s.media.asset_3dbef3e285441f46.url).toBe('/assets/orb-ui-20261103/reward-goals.png');
    const id=Object.keys(brandMediaDefaults)[0],original=s.media[id].url;
    const uuid='11111111-1111-4111-8111-111111111111';
    s.media[id]={...s.media[id],assetId:uuid,url:`/api/media/${uuid}`};

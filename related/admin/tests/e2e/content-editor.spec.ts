@@ -251,3 +251,32 @@ test('bad ICU and missing locales saved by raw RPC cannot be published; valid pu
     }
   }
 });
+
+// Simulate an embedded login response when third-party cookies cannot be sent.
+test('blocked embedded preview keeps edits and offers a saved standalone preview', async ({page, context}) => {
+  await login(context, 'admin');
+  const created = await post(context, '/api/content/drafts', {action:'create'});
+  expect(created.status()).toBe(200);
+  const id = (await created.json()).data.id;
+  await page.route('**/preview/**', async route => {
+    if (route.request().frame().parentFrame()) return route.fulfill({status:200,contentType:'text/html',body:'<main>Employee sign in required</main>'});
+    return route.continue();
+  });
+  await page.goto(`/content/${id}`);
+  await page.locator('.visual-all-fields > summary').click();
+  await page.getByLabel('字段分组').selectOption('products');
+  await page.getByLabel('搜索字段').fill('products.ola.name');
+  const input = page.locator('[id="field-products.ola.name"]');
+  await input.fill('Unsaved edit retained');
+  const fallback = page.getByRole('link',{name:'独立窗口预览已保存草稿',exact:true});
+  await expect(fallback).toBeVisible({timeout:12000});
+  const target = new URL((await fallback.getAttribute('href'))!);
+  expect(target.pathname).toBe(`/en/preview/${id}`);
+  expect(target.searchParams.has('editor')).toBe(false);
+  await expect(fallback).toHaveAttribute('target','_blank');
+  await expect(fallback).toHaveAttribute('rel',/noopener/);
+  await expect(input).toHaveValue('Unsaved edit retained');
+  await page.getByRole('button',{name:'重新载入预览',exact:true}).click();
+  await expect(input).toHaveValue('Unsaved edit retained');
+  await expect(page.getByRole('button',{name:'保存草稿',exact:true})).toBeEnabled();
+});

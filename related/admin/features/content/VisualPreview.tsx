@@ -43,6 +43,7 @@ export default function VisualPreview({draftId,snapshot,websiteOrigin,page,local
  const size=devices[device],scale=Math.min(1,available/size.width);
  const url=websiteOrigin&&channel?`${websiteOrigin}/${locale}/preview/${draftId}?page=${encodeURIComponent(page)}&editor=${channel}`:'';
  const loginUrl=websiteOrigin?`${websiteOrigin}/${locale}/login?next=${encodeURIComponent(`/${locale}/preview/${draftId}?page=${encodeURIComponent(page)}`)}`:'';
+ const savedPreviewUrl=websiteOrigin?`${websiteOrigin}/${locale}/preview/${draftId}?page=${encodeURIComponent(page)}${hash?`#${encodeURIComponent(hash.replace(/^#/,''))}`:''}`:'';
  return <section className="visual-browser" aria-label="官网实时预览">
   <div className="visual-browser-toolbar">
    <div className="visual-context"><label>预览页面<select aria-label="预览页面" value={page} disabled={busy} onChange={e=>onPage(e.target.value)}>{visualPages.map(p=><option key={p} value={p}>{pageLabel(p)}</option>)}</select></label>
@@ -54,7 +55,7 @@ export default function VisualPreview({draftId,snapshot,websiteOrigin,page,local
   <div className="visual-address"><span aria-hidden>● ● ●</span><span>{pageLabel(page)} · {locale} · {size.width} × {size.height}</span><small>员工私有预览</small></div>
   <div className="visual-stage" ref={stage}>
    {url?<div className="visual-frame-wrap" style={{width:size.width*scale,height:size.height*scale}}><iframe key={channel} ref={frame} title="官网内容实时预览" src={url} width={size.width} height={size.height} style={{width:size.width,height:size.height,transform:`scale(${scale})`}} sandbox="allow-scripts allow-same-origin" referrerPolicy="same-origin"/></div>:<div className="visual-connection">{websiteOrigin?'正在准备预览…':'尚未配置官网预览地址。下方仍可编辑和保存原有内容。'}</div>}
-   {(busy||(url&&!connected))&&<div className="visual-busy">{busy?'正在处理草稿，请稍候…':timedOut?<div className="visual-connection-card" role="status"><h3>预览尚未连接，无需继续等待</h3><p>官网与后台分别登录。请先在新窗口使用员工账号登录官网，再返回重新载入预览。</p><div><a href={loginUrl} target="_blank" rel="noopener noreferrer">打开官网员工登录</a><button type="button" onClick={reload}>重新载入预览</button></div><small>当前未保存的修改会保留。若已登录仍无法连接，请检查预览服务和来源配置。</small></div>:'正在连接官网预览…'}</div>}
+   {(busy||(url&&!connected))&&<div className="visual-busy">{busy?'正在处理草稿，请稍候…':timedOut?<div className="visual-connection-card" role="status"><h3>预览尚未连接，无需继续等待</h3><p>官网与后台分别登录。如果浏览器拦截第三方 Cookie，已登录也可能无法使用内嵌预览。可以先保存草稿，再在独立窗口查看。</p><div><a href={savedPreviewUrl} target="_blank" rel="noopener noreferrer">独立窗口预览已保存草稿</a><a href={loginUrl} target="_blank" rel="noopener noreferrer">打开官网员工登录</a><button type="button" onClick={reload}>重新载入预览</button></div><small>当前未保存的修改会保留。独立窗口只展示已保存的版本；下方编辑、保存和发布仍可正常使用。</small></div>:'正在连接官网预览…'}</div>}
   </div>
   <div className="visual-browser-status"><span className={connected?'visual-connected':''}>{note}</span><small>{mode==='edit'?'点击文字或图片，在下方编辑':'可以浏览页面和轮播，业务提交已关闭'}</small></div>
  </section>;

@@ -2113,7 +2113,7 @@ export const brandContentFields: readonly (ContentField & {optionalGroup:string}
     "editable": true,
     "owner": "snapshot",
     "optionalGroup": "messages.en.BrandFaq",
-    "initialValue": "LumiqTablet is for children to explore stories with their parents. LumiqOla and OlaGo are companion concepts for adults and older adults. LumiqOrb brings shared routines into one place for the household."
+    "initialValue": "LumiqTablet is for children to explore stories with their parents. LumiqOla and LumiqOlaGo are companions for adults and older adults. LumiqOrb brings shared routines into one place for the household."
   },
   {
     "path": "messages.en.BrandFaq.q3",
@@ -2308,7 +2308,7 @@ export const brandContentFields: readonly (ContentField & {optionalGroup:string}
     "editable": true,
     "owner": "snapshot",
     "optionalGroup": "messages.en.BrandFaq",
-    "initialValue": "Will I need a subscription?"
+    "initialValue": "When do the trial period and subscription payments start?"
   },
   {
     "path": "messages.en.BrandFaq.a9",
@@ -2323,7 +2323,7 @@ export const brandContentFields: readonly (ContentField & {optionalGroup:string}
     "editable": true,
     "owner": "snapshot",
     "optionalGroup": "messages.en.BrandFaq",
-    "initialValue": "We’re finalizing what comes with each product and which additional experiences may require a plan. You’ll be able to review those details before making a purchase."
+    "initialValue": "The trial period starts after the user creates an account and activates the device. Monthly/yearly payments begin after subscribing to a plan. If the user cancels the subscription, automatic charges will not continue."
   },
   {
     "path": "messages.en.BrandFaq.q10",
@@ -2637,7 +2637,7 @@ export const brandContentFields: readonly (ContentField & {optionalGroup:string}
     "editable": true,
     "owner": "snapshot",
     "optionalGroup": "messages.zh-hant.BrandFaq",
-    "initialValue": "LumiqTablet 讓孩子和家長一起讀故事；LumiqOla 與 OlaGo 則是面向成人和長輩的陪伴概念。LumiqOrb 讓全家的日常安排在同一處看得見。"
+    "initialValue": "LumiqTablet 讓孩子和家長一起讀故事；LumiqOla 與 LumiqOlaGo 則是面向成人和長輩的陪伴裝置。LumiqOrb 讓全家的日常安排在同一處看得見。"
   },
   {
     "path": "messages.zh-hant.BrandFaq.q3",
@@ -2832,7 +2832,7 @@ export const brandContentFields: readonly (ContentField & {optionalGroup:string}
     "editable": true,
     "owner": "snapshot",
     "optionalGroup": "messages.zh-hant.BrandFaq",
-    "initialValue": "一定需要訂閱嗎？"
+    "initialValue": "試用期與訂閱收費從什麼時候開始？"
   },
   {
     "path": "messages.zh-hant.BrandFaq.a9",
@@ -2847,7 +2847,7 @@ export const brandContentFields: readonly (ContentField & {optionalGroup:string}
     "editable": true,
     "owner": "snapshot",
     "optionalGroup": "messages.zh-hant.BrandFaq",
-    "initialValue": "我們正在確認各產品包含的內容，以及哪些額外體驗需要搭配方案。購買前，你可以先查看完整資訊。"
+    "initialValue": "當用戶創建帳號且開通設備後開始計算試用期。訂閱方案後始開始按月/按年付款，若用戶取消訂閱，則不會繼續自動扣款。"
   },
   {
     "path": "messages.zh-hant.BrandFaq.q10",
@@ -3161,7 +3161,7 @@ export const brandContentFields: readonly (ContentField & {optionalGroup:string}
     "editable": true,
     "owner": "snapshot",
     "optionalGroup": "messages.ja.BrandFaq",
-    "initialValue": "LumiqTablet は子どもと保護者が一緒に物語を読むための製品です。LumiqOla と OlaGo は大人とシニア向けのコンパニオン構想。LumiqOrb は家族の予定を一か所で共有するための製品です。"
+    "initialValue": "LumiqTablet は子どもと保護者が一緒に物語を読むための製品です。LumiqOla と LumiqOlaGo は大人とシニア向けのコンパニオンです。LumiqOrb は家族の予定を一か所で共有するための製品です。"
   },
   {
     "path": "messages.ja.BrandFaq.q3",
@@ -3356,7 +3356,7 @@ export const brandContentFields: readonly (ContentField & {optionalGroup:string}
     "editable": true,
     "owner": "snapshot",
     "optionalGroup": "messages.ja.BrandFaq",
-    "initialValue": "サブスクリプションは必要ですか？"
+    "initialValue": "試用期間とサブスクリプションの支払いはいつ始まりますか？"
   },
   {
     "path": "messages.ja.BrandFaq.a9",
@@ -3371,7 +3371,7 @@ export const brandContentFields: readonly (ContentField & {optionalGroup:string}
     "editable": true,
     "owner": "snapshot",
     "optionalGroup": "messages.ja.BrandFaq",
-    "initialValue": "各製品に含まれる内容と、追加プランが必要な体験を確認しています。ご購入前に詳細をご確認いただけます。"
+    "initialValue": "アカウントを作成し、デバイスを有効化した時点から試用期間が始まります。プランへの加入後に月払い／年払いが始まります。サブスクリプションを解約した場合、自動課金は継続されません。"
   },
   {
     "path": "messages.ja.BrandFaq.q10",
@@ -16723,7 +16723,7 @@ export const brandContentFields: readonly (ContentField & {optionalGroup:string}
     "editable": true,
     "owner": "snapshot",
     "optionalGroup": "media.asset_3dbef3e285441f46",
-    "initialValue": "/assets/orb-ui-20261102/rewards.webp"
+    "initialValue": "/assets/orb-ui-20261103/reward-goals.png"
   },
   {
     "path": "media.asset_3dbef3e285441f46.alt",

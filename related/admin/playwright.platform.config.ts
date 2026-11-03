@@ -62,7 +62,7 @@ export default defineConfig({
     { command: 'node ../../scripts/start-auth-website-test.mjs', url: 'http://127.0.0.1:4261/en/login', reuseExistingServer: false, timeout: 120_000, env: { ...credentials, LUMIQ_WEBSITE_TEST_PORT: '4261', APP_ORIGIN: 'http://127.0.0.1:4261' } },
   ] : content ? {
     command: 'node ../../scripts/start-team-admin-test.mjs', url: 'http://127.0.0.1:4259/login', reuseExistingServer: false, timeout: 120_000,
-    env: { ...credentials, A4_TEST_PORT: '4259', APP_ORIGIN: 'http://127.0.0.1:4259' },
+    env: { ...credentials, A4_TEST_PORT: '4259', APP_ORIGIN: 'http://127.0.0.1:4259', WEBSITE_ORIGIN: 'http://127.0.0.1:4261' },
   } : team
     ? [4257, 4258].map((port) => ({
         command: 'node ../../scripts/start-team-admin-test.mjs',

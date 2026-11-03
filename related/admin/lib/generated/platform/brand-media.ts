@@ -1,5 +1,9 @@
 // Generated from contracts/ by scripts/sync-platform-contracts.mjs. Do not edit.
 import type {MediaSlot,ContentField} from './content';
+/** Exact historical URLs remain valid for editing and rolling back existing releases. */
+export const brandMediaLegacyUrls: Readonly<Record<string, readonly string[]>> = {
+  asset_3dbef3e285441f46: ['/assets/orb-ui-20261102/rewards.webp'],
+};
 /** Additive slots: old releases remain valid; replacements still require controlled assets. */
 export const brandMediaDefaults: Record<string,MediaSlot> = {
   "asset_dc26b27fe3117728": {
@@ -32,7 +36,7 @@ export const brandMediaDefaults: Record<string,MediaSlot> = {
   },
   "asset_3dbef3e285441f46": {
     "assetId": null,
-    "url": "/assets/orb-ui-20261102/rewards.webp",
+    "url": "/assets/orb-ui-20261103/reward-goals.png",
     "alt": "LumiqOrb rewards",
     "kind": "image",
     "profile": "asset_3dbef3e285441f46"
@@ -446,7 +450,7 @@ export const brandMediaFields: readonly (ContentField & {optionalGroup:string})[
     "editable": true,
     "owner": "snapshot",
     "optionalGroup": "media.asset_3dbef3e285441f46",
-    "initialValue": "/assets/orb-ui-20261102/rewards.webp"
+    "initialValue": "/assets/orb-ui-20261103/reward-goals.png"
   },
   {
     "path": "media.asset_3dbef3e285441f46.alt",

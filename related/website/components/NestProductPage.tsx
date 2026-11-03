@@ -77,7 +77,7 @@ export default function NestProductPage() {
         eyebrow={t(`${feature.key}.label`)} title={t(`${feature.key}.title`)} intro={t(`${feature.key}.body`)} mediaLeft={sectionIndex%2===1}
         items={feature.details.map(number=>({title:t(`${feature.key}.detail${number}Title`),body:t(`${feature.key}.detail${number}Body`)}))}
         media={<div className="orb-ui-gallery">{screenshots[feature.key].map(name=><figure key={name}>
-          <Image src={cms.url(`/assets/orb-ui-20261102/${name}.webp`)} alt={update(`screens.${name}`)} width={1920} height={1080} sizes="(max-width: 900px) 100vw, 46vw" unoptimized/>
+          <Image src={name === "rewards" ? cms.slot("asset_3dbef3e285441f46").url : cms.url(`/assets/orb-ui-20261102/${name}.webp`)} alt={update(`screens.${name}`)} width={1920} height={1080} sizes="(max-width: 900px) 100vw, 46vw" unoptimized/>
           <figcaption>{update(`screens.${name}`)}</figcaption>
         </figure>)}</div>}/>
       )}
