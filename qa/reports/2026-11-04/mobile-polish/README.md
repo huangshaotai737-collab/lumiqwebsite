@@ -8,7 +8,7 @@
 | --- | --- | --- |
 | 手机首页上下滑动卡顿 | 手机地址栏导致的纯高度变化不再触发桌面 pin 恢复；滑动位置改为停稳后采样；手机不再测量隐藏桌面背景视频的章节位置 | `preservation-and-scroll.json`，手机触摸滑动与高度变化测试 |
 | 四个理念模块每行两个 | 手机为 2×2，保留四个链接和原字体 | `before-safety.png` / `after-safety.png`，320、390、430、767px 检查 |
-| 手机隐藏 01–05 快捷切换 | 隐藏快捷标签；轮播箭头移到卡片下方，顺序为左箭头、页码、右箭头 | `mobile-controls.png`；四种语言/尺寸组合逐一切换五款产品 |
+| 手机隐藏 01–05 快捷切换 | 隐藏快捷标签；轮播箭头移到卡片下方，顺序为左箭头、页码、右箭头 | `mobile-controls.png`；四组语言与尺寸组合逐一切换五款产品 |
 | 放大桌面产品对比，重排手机版本 | 桌面对比区域上限 1200→1440px；图片 80→96px；名称 20→24px；手机图片 64→96px，介绍及操作另起整行 | `desktop-compare.png`，`before-compare.png` / `after-compare.png` |
 | 五款详情页手机编号条目更紧凑 | 减小条目上下内边距及说明上边距；原字体、字号、行高均保留 | `webkit-ola.png`，`preservation-and-scroll.json` |
 | 法律页减少手机首尾空白、统一背景 | 隐私、条款、Cookie、儿童安全的标题/正文均沿用隐私页背景；收紧手机标题与正文、正文与页脚间距 | `before-privacy.png` / `after-privacy.png`，六页面背景/间距测试 |
@@ -33,4 +33,10 @@
 4. 上述浏览器与触摸检查为自动化模拟；未声称真实 iPhone/Android 设备测试通过。浏览器地址栏和设备性能仍可由用户手机复核。
 5. 本轮首次响应式采集脚本使用了不存在的 `.pd-feature-list` 定位器，导致采集停止；修正为实际 `.pd-feature-row` 后完整采集。该工具定位错误不是应用故障；交付 JSON 来自完整执行。
 
-原始测试结果：`e2e.json`、`e2e-baseline.json`、`webkit-e2e.json`；构建、单测及静态检查原始日志均保存在本目录。线上部署与公开页面检查在发布记录中补充。
+原始测试结果：`e2e.json`、`e2e-baseline.json`、`webkit-e2e.json`；构建、单测及静态检查输出保存在本目录的 `*-output.txt`。
+
+## 发布验证
+
+应用提交 `86355f1` 已推送至 `codex/combined-preview-20261027`，并部署到原 Vercel 正式项目。公开地址：<https://lumiq-showcase-20261025.vercel.app/zh-hant>。匿名请求返回 HTTP 200，未跳转登录。
+
+公开网址上的四项针对性浏览器测试全部通过：产品下方控制与五款产品切换、首页手机高度变化、四理念 2×2、六个法律/公司页背景和间距。原始结果为 `online-e2e.json`，发布元数据为 `release.json`。Vercel 唯一部署地址仍有平台保护，分享请使用上面的公开正式网址。
