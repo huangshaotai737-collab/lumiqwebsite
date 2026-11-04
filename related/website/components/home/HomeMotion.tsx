@@ -25,7 +25,9 @@ export default function HomeMotion({ children }: { children: ReactNode }) {
   }, []);
   useGSAP(
     () => {
-      const fontsChanged = () => ScrollTrigger.refresh();
+      const fontsChanged = () => {
+        if (matchMedia(homeMotionQuery).matches) ScrollTrigger.refresh();
+      };
       document.fonts.addEventListener("loadingdone", fontsChanged);
       const releasePosition = root.current ? mountHomePosition(root.current) : () => {};
       const releaseOpening = root.current

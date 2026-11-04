@@ -491,7 +491,7 @@ export default function ProductsShowcase() {
         </div>
         <div className="prod-comparison-list">
           {products.map(product=><article className="prod-comparison-row" key={product.id}>
-            <Image src={product.img} alt="" width={160} height={160} sizes="(max-width:600px) 64px, 80px" />
+            <Image src={product.img} alt="" width={192} height={192} sizes="96px" />
             <div><Heading as="h3">{product.name}</Heading><p>{brand(`audiences.${product.id==='pal'?'ola':product.id==='book'?'print':product.id}`)}</p></div>
             <div className="prod-comparison-purpose"><span>{brand('purpose')}</span><p>{product.desc}</p></div>
             <div><span className="prod-comparison-status">{brand('upcoming')}</span><Link href={product.href} prefetch={false}>{brand('explore')} <ArrowRight size={16} aria-hidden /></Link></div>

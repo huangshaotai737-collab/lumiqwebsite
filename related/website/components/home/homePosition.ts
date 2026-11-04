@@ -1,5 +1,6 @@
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import {homeWideQuery} from "./responsiveLayout";
 
 type ReadingPosition = { element: HTMLElement; top: number };
 
@@ -37,6 +38,8 @@ export function mountHomePosition(root: HTMLElement) {
   let captureFrame = 0;
   let layoutTimer = 0;
   let inputTimer = 0;
+  let layoutWidth = window.innerWidth;
+  const wide = matchMedia(homeWideQuery);
 
   const capture = () => {
     if (inputTimer || changingLayout || restoring || scrollState.isRefreshing) return;
@@ -72,6 +75,9 @@ export function mountHomePosition(root: HTMLElement) {
   };
   const schedule = () => { if (alive && !frame) frame = requestAnimationFrame(settle); };
   const resize = () => {
+    // The narrow layout has no pins to rebuild when the address bar changes.
+    if (!wide.matches && window.innerWidth === layoutWidth) return;
+    layoutWidth = window.innerWidth;
     if (inputTimer) { releaseLayout(); return; }
     restoring ??= reading;
     changingLayout = true;

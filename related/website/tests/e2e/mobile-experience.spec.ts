@@ -5,23 +5,22 @@ async function ready(page: Page, path: string) {
   await page.locator('.cart-nav-trigger:not(:disabled)').waitFor();
 }
 
-test('all five product choices are discoverable without horizontal scrolling', async ({page}) => {
+test('phone carousel uses controls below the card and opens all five products', async ({page}) => {
   for (const [locale, width] of [['zh-hant', 320], ['zh-hant', 390], ['en', 430], ['ja', 360]] as const) {
     await page.setViewportSize({width, height: 844});
     await ready(page, `/${locale}/products`);
-    const tabs = page.getByRole('tablist');
-    await tabs.scrollIntoViewIfNeeded();
-    const visibility = await tabs.evaluate(e => {
-      const box = e.getBoundingClientRect();
-      return [...e.children].map(tab => {
-        const r = tab.getBoundingClientRect();
-        return r.left >= box.left - 1 && r.right <= box.right + 1;
-      });
+    await expect(page.locator('.prod-tabs')).toBeHidden();
+    const controls = page.locator('.prod-mobile-nav');
+    await controls.scrollIntoViewIfNeeded();
+    const placement = await controls.evaluate(e => {
+      const card = document.querySelector('.prod-carousel')!.getBoundingClientRect();
+      return {top:e.getBoundingClientRect().top, bottom:card.bottom,
+        centers:[...e.children].map(child => {const r=child.getBoundingClientRect(); return r.y+r.height/2;})};
     });
-    expect(visibility).toEqual([true, true, true, true, true]);
+    expect(placement.top).toBeGreaterThanOrEqual(placement.bottom);
+    expect(Math.max(...placement.centers)-Math.min(...placement.centers)).toBeLessThan(2);
     for (const [index, href] of ['/products/ola', '/products/ola-go', '/products/tablet', '/products/print', '/products/nest'].entries()) {
-      await tabs.getByRole('tab').nth(index).click();
-      await expect(tabs.getByRole('tab').nth(index)).toHaveAttribute('aria-selected', 'true');
+      if (index) await controls.locator('button').last().click();
       await expect(page.locator('.prod-stage .prod-product-link')).toHaveAttribute('href', `/${locale}${href}`);
       await expect(page.locator('.prod-mobile-nav')).toContainText(`${String(index + 1).padStart(2, '0')} / 05`);
     }

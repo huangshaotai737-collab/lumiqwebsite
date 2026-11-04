@@ -42,6 +42,9 @@ export function mountOpeningVideo(root: HTMLElement, source = openingVideoSource
   let failedThisVisit = false;
   let resizeFrame = 0;
   let settleTimer = 0;
+  let captureTimer = 0;
+  let layoutWidth = window.innerWidth;
+  const wide = matchMedia(homeWideQuery);
   const capture = () => {
     if (!alive || restoring !== null || restoringChapter || scrollState.isRefreshing) return;
     if (currentScroll) {
@@ -96,6 +99,10 @@ export function mountOpeningVideo(root: HTMLElement, source = openingVideoSource
     ScrollTrigger.update();
   };
   const resize = () => {
+    // Phone browser chrome changes height while a swipe is in progress. There
+    // is no pinned film in this layout, so refresh/scrollTo would fight inertia.
+    if (!wide.matches && window.innerWidth === layoutWidth) return;
+    layoutWidth = window.innerWidth;
     beginLayout();
     // A pinned element otherwise retains its old measured width for GSAP's
     // 200ms resize debounce, shifting the plane's center during a window drag.
@@ -113,10 +120,17 @@ export function mountOpeningVideo(root: HTMLElement, source = openingVideoSource
   const key = (event: KeyboardEvent) => {
     if (["ArrowUp", "ArrowDown", "PageUp", "PageDown", "Home", "End", " ", "Enter"].includes(event.key)) input();
   };
+  const onScroll = () => {
+    if (wide.matches) { capture(); return; }
+    // Keep a settled snapshot for a real width/breakpoint change, without
+    // measuring every chapter on every native phone scroll event.
+    clearTimeout(captureTimer);
+    captureTimer = window.setTimeout(capture, 150);
+  };
   mediaEvents.addEventListener("matchMediaInit", resize);
   ScrollTrigger.addEventListener("refresh", restore);
   window.addEventListener("resize", resize);
-  window.addEventListener("scroll", capture, { passive: true });
+  window.addEventListener("scroll", onScroll, { passive: true });
   window.addEventListener("wheel", input, { passive: true });
   window.addEventListener("touchstart", input, { passive: true });
   window.addEventListener("pointerdown", input, { passive: true });
@@ -331,7 +345,8 @@ export function mountOpeningVideo(root: HTMLElement, source = openingVideoSource
     mediaEvents.removeEventListener("matchMediaInit", resize);
     ScrollTrigger.removeEventListener("refresh", restore);
     window.removeEventListener("resize", resize);
-    window.removeEventListener("scroll", capture);
+    window.removeEventListener("scroll", onScroll);
+    clearTimeout(captureTimer);
     window.removeEventListener("wheel", input);
     window.removeEventListener("touchstart", input);
     window.removeEventListener("pointerdown", input);

@@ -200,7 +200,11 @@
 /* Static, restrained correction of the supplied render: no replacement character or device. */
 .lumiq-root .pd-ola .pd-hero-visual img[src*="ola-hero-front.webp"] { filter: saturate(.8) brightness(.96); }
 .lumiq-root .pd-tablet > .tablet-data-note { margin-top: 72px; margin-bottom: 72px; }
+@media (max-width: 767px) {
+  .lumiq-root main.product-detail-light .pd-feature-row { padding-block:14px; }
+  .lumiq-root main.product-detail-light .pd-feature-description { margin-top:8px; }
+}
 @media (max-width: 600px) {
-  .lumiq-root main.product-detail-light .pd-feature-row { grid-template-columns: 26px minmax(0,1fr); gap:16px; padding-block:22px; }
+  .lumiq-root main.product-detail-light .pd-feature-row { grid-template-columns: 26px minmax(0,1fr); gap:16px; }
   .lumiq-root main.product-detail-light .pd-feature-heading .pd-section-intro { margin-top:20px; }
 }

@@ -87,8 +87,11 @@ export default function HomeBackgrounds() {
         }
       }
     };
-    const schedule = () => { if (!frame) frame = requestAnimationFrame(update); };
+    const schedule = () => { if (motion.matches && !frame) frame = requestAnimationFrame(update); };
     const measure = () => {
+      // Mobile paints chapter stills in CSS. Do not measure invisible desktop
+      // video cues or mutate their styles while the user scrolls the document.
+      if (!motion.matches) return;
       const top = (selector: string) => scrollY + (document.querySelector(selector)?.getBoundingClientRect().top ?? 0);
       start = ScrollTrigger.getById("home-opening-video")?.end ?? top("#products") - innerHeight;
       end = document.documentElement.scrollHeight - innerHeight;
@@ -118,7 +121,8 @@ export default function HomeBackgrounds() {
     const configure = () => {
       movie.pause();
       if (!motion.matches) { loaded = false; presented = false; if (videoFrame) movie.cancelVideoFrameCallback(videoFrame); videoFrame = 0; cancelAnimationFrame(fallbackFrame); fallbackFrame = 0; movie.removeAttribute("src"); movie.load(); }
-      schedule();
+      measure();
+      update();
     };
     const resize = new ResizeObserver(measure);
     const home = document.querySelector(".lh-home");
@@ -135,8 +139,6 @@ export default function HomeBackgrounds() {
     motion.addEventListener("change", configure);
     ScrollTrigger.addEventListener("refresh", measure);
     configure();
-    measure();
-    update();
     return () => {
       cancelAnimationFrame(frame); cancelAnimationFrame(fallbackFrame); if (videoFrame) movie.cancelVideoFrameCallback(videoFrame); resize.disconnect(); window.removeEventListener("scroll", schedule); window.removeEventListener("resize", measure); window.removeEventListener("lumiq:home-enter", schedule);
       movie.removeEventListener("loadeddata", onLoaded); movie.removeEventListener("canplay", schedule); movie.removeEventListener("seeked", schedule); movie.removeEventListener("error", schedule);
