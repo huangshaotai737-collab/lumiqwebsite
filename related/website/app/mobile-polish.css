@@ -73,7 +73,7 @@
   .lumiq-root .lh-mobile-film-copy { padding: 14px; }
   .lumiq-root .lh-mobile-film-copy h3 { font-size: 18px; }
   .lumiq-root main.lh-home .lh-mobile-film-copy p { font-size: 14px !important; line-height: 1.65; }
-  .lumiq-root .lh-mobile-films-controls button, .lumiq-root .prod-mobile-nav button { width: 44px; height: 44px; }
+  .lumiq-root .lh-mobile-films-controls button { width: 44px; height: 44px; }
   .lumiq-root .lh-mobile-films-controls span { font-size: 13px; }
   .lumiq-root .lh-mobile-films-controls strong { font-size: 16px; }
   .lumiq-root main.lh-home .lh-room-layout { padding-block: 28px; }

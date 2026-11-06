@@ -4726,7 +4726,7 @@ const fields1: readonly (ContentField & {optionalGroup:string})[] = [
     "editable": true,
     "owner": "snapshot",
     "optionalGroup": "messages.en.BrandFaq",
-    "initialValue": "LumiqTablet is for children to explore stories with their parents. LumiqOla and LumiqOlaGo are companions for adults and older adults. LumiqOrb brings shared routines into one place for the household."
+    "initialValue": "Lumiq is designed for families. Children can explore stories and creative play, while parents and grandparents can take part in shared experiences, routines, and memories. LumiqTablet is for children to explore stories with their parents. LumiqOla and LumiqOlaGo are companions for adults and older adults. LumiqOrb brings shared routines into one place for the household."
   },
   {
     "path": "messages.en.BrandFaq.q3",
@@ -4846,7 +4846,7 @@ const fields1: readonly (ContentField & {optionalGroup:string})[] = [
     "editable": true,
     "owner": "snapshot",
     "optionalGroup": "messages.en.BrandFaq",
-    "initialValue": "The trial period starts after the user creates an account and activates the device. Monthly/yearly payments begin after subscribing to a plan. If the user cancels the subscription, automatic charges will not continue."
+    "initialValue": "Joining the waitlist does not start a paid plan. The trial period starts after the user creates an account and activates the device. Monthly/yearly payments begin after subscribing to a plan. If the user cancels the subscription, automatic charges will not continue."
   },
   {
     "path": "messages.en.BrandFaq.q7",
@@ -4921,7 +4921,7 @@ const fields1: readonly (ContentField & {optionalGroup:string})[] = [
     "editable": true,
     "owner": "snapshot",
     "optionalGroup": "messages.en.BrandFaq",
-    "initialValue": "When do the trial period and subscription payments start?"
+    "initialValue": "Will I need a subscription?"
   },
   {
     "path": "messages.en.BrandFaq.a9",
@@ -4936,7 +4936,7 @@ const fields1: readonly (ContentField & {optionalGroup:string})[] = [
     "editable": true,
     "owner": "snapshot",
     "optionalGroup": "messages.en.BrandFaq",
-    "initialValue": "The trial period starts after the user creates an account and activates the device. Monthly/yearly payments begin after subscribing to a plan. If the user cancels the subscription, automatic charges will not continue."
+    "initialValue": "You’ll be able to review those details before making a purchase. The trial period starts after the user creates an account and activates the device. Monthly/yearly payments begin after subscribing to a plan. If the user cancels the subscription, automatic charges will not continue."
   },
   {
     "path": "messages.en.BrandFaq.q10",
@@ -5086,7 +5086,7 @@ const fields1: readonly (ContentField & {optionalGroup:string})[] = [
     "editable": true,
     "owner": "snapshot",
     "optionalGroup": "messages.en.BrandFaq",
-    "initialValue": "Stay connected to enjoy the most features. OlaGo: While offline away from home, you can still record audio, interact and converse with characters, receive reminders and record steps."
+    "initialValue": "Ola brings an interactive character into the home. OlaGo is designed to carry that familiar character experience with you when you go out. Stay connected to enjoy the most features. OlaGo: While offline away from home, you can still record audio, interact and converse with characters, receive reminders and record steps."
   },
   {
     "path": "messages.en.BrandFaq.q15",
@@ -5250,7 +5250,7 @@ const fields1: readonly (ContentField & {optionalGroup:string})[] = [
     "editable": true,
     "owner": "snapshot",
     "optionalGroup": "messages.zh-hant.BrandFaq",
-    "initialValue": "LumiqTablet 讓孩子和家長一起讀故事；LumiqOla 與 LumiqOlaGo 則是面向成人和長輩的陪伴裝置。LumiqOrb 讓全家的日常安排在同一處看得見。"
+    "initialValue": "LUMIQ 為家庭而設計。孩子可以探索故事與創意遊戲，父母和祖父母也能參與其中，一起分享日常生活與回憶。LumiqTablet 讓孩子和家長一起讀故事；LumiqOla 與 LumiqOlaGo 則是面向成人和長輩的陪伴裝置。LumiqOrb 讓全家的日常安排在同一處看得見。"
   },
   {
     "path": "messages.zh-hant.BrandFaq.q3",
@@ -5370,7 +5370,7 @@ const fields1: readonly (ContentField & {optionalGroup:string})[] = [
     "editable": true,
     "owner": "snapshot",
     "optionalGroup": "messages.zh-hant.BrandFaq",
-    "initialValue": "當用戶創建帳號且開通設備後開始計算試用期。訂閱方案後始開始按月/按年付款，若用戶取消訂閱，則不會繼續自動扣款。"
+    "initialValue": "加入候補名單不會啟用付費方案。當用戶創建帳號且開通設備後開始計算試用期。訂閱方案後始開始按月/按年付款，若用戶取消訂閱，則不會繼續自動扣款。"
   },
   {
     "path": "messages.zh-hant.BrandFaq.q7",
@@ -5445,7 +5445,7 @@ const fields1: readonly (ContentField & {optionalGroup:string})[] = [
     "editable": true,
     "owner": "snapshot",
     "optionalGroup": "messages.zh-hant.BrandFaq",
-    "initialValue": "試用期與訂閱收費從什麼時候開始？"
+    "initialValue": "我需要訂閱方案嗎？"
   },
   {
     "path": "messages.zh-hant.BrandFaq.a9",
@@ -5460,7 +5460,7 @@ const fields1: readonly (ContentField & {optionalGroup:string})[] = [
     "editable": true,
     "owner": "snapshot",
     "optionalGroup": "messages.zh-hant.BrandFaq",
-    "initialValue": "當用戶創建帳號且開通設備後開始計算試用期。訂閱方案後始開始按月/按年付款，若用戶取消訂閱，則不會繼續自動扣款。"
+    "initialValue": "購買前，你可以查看各項方案的詳細內容。當用戶創建帳號且開通設備後開始計算試用期。訂閱方案後始開始按月/按年付款，若用戶取消訂閱，則不會繼續自動扣款。"
   },
   {
     "path": "messages.zh-hant.BrandFaq.q10",
@@ -5610,7 +5610,7 @@ const fields1: readonly (ContentField & {optionalGroup:string})[] = [
     "editable": true,
     "owner": "snapshot",
     "optionalGroup": "messages.zh-hant.BrandFaq",
-    "initialValue": "保持連線狀態享受最多功能 OlaGo: 外出離線時仍可錄音、與角色互動對話、提醒事項通知、步數記錄。"
+    "initialValue": "Ola 讓互動角色走進家中；外出時，OlaGo 讓你帶著熟悉的角色一起出門。保持連線狀態享受最多功能 OlaGo: 外出離線時仍可錄音、與角色互動對話、提醒事項通知、步數記錄。"
   },
   {
     "path": "messages.zh-hant.BrandFaq.q15",
@@ -5774,7 +5774,7 @@ const fields1: readonly (ContentField & {optionalGroup:string})[] = [
     "editable": true,
     "owner": "snapshot",
     "optionalGroup": "messages.ja.BrandFaq",
-    "initialValue": "LumiqTablet は子どもと保護者が一緒に物語を読むための製品です。LumiqOla と LumiqOlaGo は大人とシニア向けのコンパニオンです。LumiqOrb は家族の予定を一か所で共有するための製品です。"
+    "initialValue": "LUMIQ は家族のために設計されています。子どもは物語や創造的な遊びを楽しみ、親や祖父母も一緒に体験し、日々の習慣や思い出を共有できます。LumiqTablet は子どもと保護者が一緒に物語を読むための製品です。LumiqOla と LumiqOlaGo は大人とシニア向けのコンパニオンです。LumiqOrb は家族の予定を一か所で共有するための製品です。"
   },
   {
     "path": "messages.ja.BrandFaq.q3",
@@ -5894,7 +5894,7 @@ const fields1: readonly (ContentField & {optionalGroup:string})[] = [
     "editable": true,
     "owner": "snapshot",
     "optionalGroup": "messages.ja.BrandFaq",
-    "initialValue": "アカウントを作成し、デバイスを有効化した時点から試用期間が始まります。プランへの加入後に月払い／年払いが始まります。サブスクリプションを解約した場合、自動課金は継続されません。"
+    "initialValue": "ウェイトリストへの登録だけで有料プランが始まることはありません。アカウントを作成し、デバイスを有効化した時点から試用期間が始まります。プランへの加入後に月払い／年払いが始まります。サブスクリプションを解約した場合、自動課金は継続されません。"
   },
   {
     "path": "messages.ja.BrandFaq.q7",
@@ -5969,7 +5969,7 @@ const fields1: readonly (ContentField & {optionalGroup:string})[] = [
     "editable": true,
     "owner": "snapshot",
     "optionalGroup": "messages.ja.BrandFaq",
-    "initialValue": "試用期間とサブスクリプションの支払いはいつ始まりますか？"
+    "initialValue": "サブスクリプションは必要ですか？"
   }
 ];
 const fields2: readonly (ContentField & {optionalGroup:string})[] = [
@@ -5986,7 +5986,7 @@ const fields2: readonly (ContentField & {optionalGroup:string})[] = [
     "editable": true,
     "owner": "snapshot",
     "optionalGroup": "messages.ja.BrandFaq",
-    "initialValue": "アカウントを作成し、デバイスを有効化した時点から試用期間が始まります。プランへの加入後に月払い／年払いが始まります。サブスクリプションを解約した場合、自動課金は継続されません。"
+    "initialValue": "ご購入の前にプランの詳細をご確認いただけます。アカウントを作成し、デバイスを有効化した時点から試用期間が始まります。プランへの加入後に月払い／年払いが始まります。サブスクリプションを解約した場合、自動課金は継続されません。"
   },
   {
     "path": "messages.ja.BrandFaq.q10",
@@ -6136,7 +6136,7 @@ const fields2: readonly (ContentField & {optionalGroup:string})[] = [
     "editable": true,
     "owner": "snapshot",
     "optionalGroup": "messages.ja.BrandFaq",
-    "initialValue": "より多くの機能を楽しむには、接続状態を保ってください。 OlaGo: 外出先でオフラインでも、録音、キャラクターとの対話、リマインダー通知、歩数記録を利用できます。"
+    "initialValue": "Ola は対話できるキャラクターを家庭に届けます。外出時には OlaGo で、そのおなじみのキャラクターを連れて出かけられます。より多くの機能を楽しむには、接続状態を保ってください。 OlaGo: 外出先でオフラインでも、録音、キャラクターとの対話、リマインダー通知、歩数記録を利用できます。"
   },
   {
     "path": "messages.ja.BrandFaq.q15",
@@ -15917,7 +15917,7 @@ const fields5: readonly (ContentField & {optionalGroup:string})[] = [
     "editable": true,
     "owner": "snapshot",
     "optionalGroup": "messages.en.BrandOlaGo",
-    "initialValue": "Feed your avatar"
+    "initialValue": "Feed your Avatar"
   },
   {
     "path": "messages.en.BrandOlaGo.avatar.feedBody",
@@ -15932,7 +15932,7 @@ const fields5: readonly (ContentField & {optionalGroup:string})[] = [
     "editable": true,
     "owner": "snapshot",
     "optionalGroup": "messages.en.BrandOlaGo",
-    "initialValue": "Feed your avatar to keep it happy."
+    "initialValue": "Make sure you feed your avatar to keep it happy"
   },
   {
     "path": "messages.en.BrandOlaGo.avatar.cleanTitle",
@@ -15947,7 +15947,7 @@ const fields5: readonly (ContentField & {optionalGroup:string})[] = [
     "editable": true,
     "owner": "snapshot",
     "optionalGroup": "messages.en.BrandOlaGo",
-    "initialValue": "Clean your avatar"
+    "initialValue": "Clean your Avatar"
   },
   {
     "path": "messages.en.BrandOlaGo.avatar.cleanBody",
@@ -15962,7 +15962,7 @@ const fields5: readonly (ContentField & {optionalGroup:string})[] = [
     "editable": true,
     "owner": "snapshot",
     "optionalGroup": "messages.en.BrandOlaGo",
-    "initialValue": "Keep your avatar clean as part of its daily care."
+    "initialValue": "The cleaner they are, the easier it is to take care"
   },
   {
     "path": "messages.en.BrandOlaGo.avatar.exchangeTitle",
@@ -15977,7 +15977,7 @@ const fields5: readonly (ContentField & {optionalGroup:string})[] = [
     "editable": true,
     "owner": "snapshot",
     "optionalGroup": "messages.en.BrandOlaGo",
-    "initialValue": "Exchange avatars with friends"
+    "initialValue": "Exchange Avatars with Friends"
   },
   {
     "path": "messages.en.BrandOlaGo.avatar.exchangeBody",
@@ -15992,7 +15992,7 @@ const fields5: readonly (ContentField & {optionalGroup:string})[] = [
     "editable": true,
     "owner": "snapshot",
     "optionalGroup": "messages.en.BrandOlaGo",
-    "initialValue": "Share and exchange avatars with friends."
+    "initialValue": "Share your avatars by with friends"
   },
   {
     "path": "messages.en.BrandOlaGo.support",
@@ -16244,7 +16244,7 @@ const fields5: readonly (ContentField & {optionalGroup:string})[] = [
     "editable": true,
     "owner": "snapshot",
     "optionalGroup": "messages.zh-hant.BrandOlaGo",
-    "initialValue": "記得餵食，讓你的角色保持好心情。"
+    "initialValue": "記得餵食你的角色，讓它保持好心情。"
   },
   {
     "path": "messages.zh-hant.BrandOlaGo.avatar.cleanTitle",
@@ -16274,7 +16274,7 @@ const fields5: readonly (ContentField & {optionalGroup:string})[] = [
     "editable": true,
     "owner": "snapshot",
     "optionalGroup": "messages.zh-hant.BrandOlaGo",
-    "initialValue": "將清潔融入日常照顧，讓角色保持乾淨。"
+    "initialValue": "角色越乾淨，照顧起來就越容易。"
   },
   {
     "path": "messages.zh-hant.BrandOlaGo.avatar.exchangeTitle",
@@ -16304,7 +16304,7 @@ const fields5: readonly (ContentField & {optionalGroup:string})[] = [
     "editable": true,
     "owner": "snapshot",
     "optionalGroup": "messages.zh-hant.BrandOlaGo",
-    "initialValue": "與朋友分享、交換各自的角色。"
+    "initialValue": "與朋友分享你的角色。"
   },
   {
     "path": "messages.zh-hant.BrandOlaGo.support",
@@ -16556,7 +16556,7 @@ const fields5: readonly (ContentField & {optionalGroup:string})[] = [
     "editable": true,
     "owner": "snapshot",
     "optionalGroup": "messages.ja.BrandOlaGo",
-    "initialValue": "ごはんをあげて、アバターをごきげんに。"
+    "initialValue": "アバターがごきげんでいられるよう、ごはんをあげましょう。"
   },
   {
     "path": "messages.ja.BrandOlaGo.avatar.cleanTitle",
@@ -16586,7 +16586,7 @@ const fields5: readonly (ContentField & {optionalGroup:string})[] = [
     "editable": true,
     "owner": "snapshot",
     "optionalGroup": "messages.ja.BrandOlaGo",
-    "initialValue": "毎日のお世話にお掃除を取り入れて、アバターを清潔に保てます。"
+    "initialValue": "きれいにしておくほど、お世話がしやすくなります。"
   },
   {
     "path": "messages.ja.BrandOlaGo.avatar.exchangeTitle",
@@ -16616,7 +16616,7 @@ const fields5: readonly (ContentField & {optionalGroup:string})[] = [
     "editable": true,
     "owner": "snapshot",
     "optionalGroup": "messages.ja.BrandOlaGo",
-    "initialValue": "友だちとアバターをシェアしたり、交換したりできます。"
+    "initialValue": "友だちとアバターをシェアしましょう。"
   },
   {
     "path": "messages.ja.BrandOlaGo.support",

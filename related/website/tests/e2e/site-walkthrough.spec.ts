@@ -136,9 +136,9 @@ test('hardware reservation and detail links do not overlap on narrow Japanese pa
   expect(separated.every(Boolean)).toBe(true);
 });
 
-test('FAQ search, clearing and expanded answers stay usable in all phone languages', async ({page}) => {
+for (const locale of ['en', 'zh-hant', 'ja']) {
+  test('FAQ search, clearing and reading all 18 answers on a phone in ' + locale, async ({page}) => {
   await page.setViewportSize({width: 320, height: 740});
-  for (const locale of ['en', 'zh-hant', 'ja']) {
     await ready(page, `/${locale}/faq`);
     const search = page.locator('.faq-search input');
     await search.fill('NoMatchingQuestionXYZ');
@@ -146,9 +146,9 @@ test('FAQ search, clearing and expanded answers stay usable in all phone languag
     await page.locator('.faq-clear').click();
     await expect(search).toHaveValue('');
     await expect(search).toBeFocused();
-    // Approved workbook row 149 replaces six questions and adds eleven.
-    await expect(page.locator('.faq-row')).toHaveCount(17);
-    for (let index = 0; index < 17; index++) {
+    // The original seventeen remain, plus the later Tablet/Ola question.
+    await expect(page.locator('.faq-row')).toHaveCount(18);
+    for (let index = 0; index < 18; index++) {
       const button = page.locator('.faq-q').nth(index);
       if (await button.getAttribute('aria-expanded') !== 'true') await button.click();
       await expect(button).toHaveAttribute('aria-expanded', 'true');
@@ -156,8 +156,8 @@ test('FAQ search, clearing and expanded answers stay usable in all phone languag
       await expect.poll(() => answer.evaluate(e => e.scrollHeight - e.clientHeight)).toBeLessThan(2);
       expect(await answer.evaluate(e => e.scrollWidth <= e.clientWidth + 1)).toBe(true);
     }
-  }
-});
+  });
+}
 
 test('language switching preserves the product route, query, hash and cart', async ({page}) => {
   await page.setViewportSize({width: 390, height: 844});

@@ -33,6 +33,7 @@
  .lumiq-root .prod-comparison-row>div:last-child {display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;}
  .lumiq-root .prod-comparison-row h3 {font-size:20px;}
  .lumiq-root .prod-comparison-row :is(p,a) {font-size:16px;}
+ .lumiq-root .prod-page .prod-feat strong {font-size:18px!important;}
  .lumiq-root .prod-page :is(.prod-feat small,.prod-specs li,.prod-promise-item small) {font-size:16px!important;line-height:1.6;}
  .lumiq-root .tablet-data-note {margin:0 20px 36px;padding:20px;}
 }

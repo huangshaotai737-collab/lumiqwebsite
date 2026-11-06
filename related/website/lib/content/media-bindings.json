@@ -281,6 +281,12 @@
       {
         "kind": "object",
         "property": "src",
+        "source": "cms.url(scenePath)",
+        "alt": "details(\"avatarAlt\")"
+      },
+      {
+        "kind": "object",
+        "property": "src",
         "source": "cms.url(\"/assets/products/lumiq-ola-go.png\")",
         "alt": "t(\"alt\")"
       },
@@ -303,10 +309,10 @@
         "alt": "details(\"connectedAlt\")"
       },
       {
-        "kind": "object",
+        "kind": "ContentImage",
         "property": "src",
-        "source": "cms.url(\"/assets/product-scenes-20261103/olago-avatar.webp\")",
-        "alt": "details(\"avatarAlt\")"
+        "source": "{avatarScene.src}",
+        "alt": "{avatarScene.alt}"
       }
     ]
   },

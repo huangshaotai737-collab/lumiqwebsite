@@ -60,6 +60,21 @@ export default function HomeFilms() {
     setTravel(0);
     switching.current = false;
     pendingStep.current = 0;
+    if (!isPhone) return;
+    // A user just selected a desktop story. After the pinned desktop layout
+    // settles, keep that same card fully readable in the compact layout.
+    const align = () => {
+      const rail = document.querySelector<HTMLElement>(".lh-mobile-films-track");
+      const box = rail?.getBoundingClientRect();
+      if (!box || box.bottom <= 0 || box.top >= innerHeight) return;
+      const top = (document.querySelector(".site-nav")?.getBoundingClientRect().bottom ?? 0) + 8;
+      if (box.top < top) window.scrollBy({top: box.top - top, behavior: "instant"});
+    };
+    const settle = window.setTimeout(align, 350);
+    const cancel = () => clearTimeout(settle);
+    const inputs = ["pointerdown", "touchstart", "wheel", "keydown"] as const;
+    for (const event of inputs) window.addEventListener(event, cancel, {passive: true, once: true});
+    return () => {cancel(); for (const event of inputs) window.removeEventListener(event, cancel);};
   }, [isPhone]);
   useEffect(() => {
     const target = stage.current?.closest("[data-home-section]");

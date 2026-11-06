@@ -5,7 +5,7 @@ import Heading from "@/components/Heading";
 
 import { Link } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import Image from "@/components/content/ContentImage";
 import dynamic from "next/dynamic";
 import {
@@ -37,11 +37,9 @@ export default function ProductsShowcase() {
   const pointerOverCardRef = useRef(false);
   const [active, setActive] = useState(0);
   const activeRef = useRef(0);
-  const pendingRef = useRef<number | null>(null);
-  const phaseRef = useRef<"idle" | "out" | "in">("idle");
-  const switchTimerRef = useRef<number | null>(null);
-  const revealFrameRef = useRef<number | null>(null);
-  const [switching, setSwitching] = useState(false);
+  const lastStep = useRef({direction: 0, time: -Infinity});
+  const lastLayout = useRef<Map<HTMLElement, DOMRect> | null>(null);
+  const slideAnimations = useRef<Animation[]>([]);
   const [stageFullyVisible, setStageFullyVisible] = useState(false);
   const products = [
     {
@@ -105,58 +103,39 @@ export default function ProductsShowcase() {
     {Icon:Lock,title:brand('waitlistTitle'),sub:brand('waitlistBody')},
   ];
 
-  const changeProduct = useCallback((target: number | ((current: number) => number), instant = false) => {
-    const current = pendingRef.current ?? activeRef.current;
+  const changeProduct = useCallback((target: number | ((current: number) => number)) => {
+    const current = activeRef.current;
     const requested = typeof target === "function" ? target(current) : target;
     const next = (requested + products.length) % products.length;
     if (next === current) return;
-    if (instant) {
-      if (switchTimerRef.current !== null) window.clearTimeout(switchTimerRef.current);
-      if (revealFrameRef.current !== null) window.cancelAnimationFrame(revealFrameRef.current);
-      switchTimerRef.current = revealFrameRef.current = null;
-      pendingRef.current = null;
-      phaseRef.current = "idle";
-      activeRef.current = next;
-      setActive(next);
-      setSwitching(false);
-      return;
-    }
-    if (phaseRef.current === "out") {
-      pendingRef.current = next;
-      return;
-    }
-    if (phaseRef.current === "in") {
-      activeRef.current = next;
-      setActive(next);
-      return;
-    }
-    pendingRef.current = next;
-    phaseRef.current = "out";
-    setSwitching(true);
-    const exitDuration = window.matchMedia("(prefers-reduced-motion: reduce)").matches ? 100 : 170;
-    switchTimerRef.current = window.setTimeout(() => {
-      const destination = pendingRef.current;
-      pendingRef.current = null;
-      switchTimerRef.current = null;
-      if (destination === null) return;
-      activeRef.current = destination;
-      setActive(destination);
-      phaseRef.current = "in";
-      // Commit the new positions while the cards are invisible, then reveal.
-      revealFrameRef.current = window.requestAnimationFrame(() => {
-        revealFrameRef.current = window.requestAnimationFrame(() => {
-          revealFrameRef.current = null;
-          phaseRef.current = "idle";
-          setSwitching(false);
-        });
-      });
-    }, exitDuration);
+    const slides = stageRef.current?.querySelectorAll<HTMLElement>(".prod-slide");
+    // Snapshot the *displayed* positions so a quick reverse continues from mid-flight.
+    lastLayout.current = slides && matchMedia("(min-width: 961px) and (prefers-reduced-motion: no-preference)").matches
+      ? new Map(Array.from(slides, slide => [slide, slide.getBoundingClientRect()])) : null;
+    for (const animation of slideAnimations.current) animation.cancel();
+    slideAnimations.current = [];
+    activeRef.current = next;
+    setActive(next);
   }, [products.length]);
 
-  useEffect(() => () => {
-    if (switchTimerRef.current !== null) window.clearTimeout(switchTimerRef.current);
-    if (revealFrameRef.current !== null) window.cancelAnimationFrame(revealFrameRef.current);
-  }, []);
+  useLayoutEffect(() => {
+    const previous = lastLayout.current;
+    lastLayout.current = null;
+    if (!previous) return;
+    const bounds = Array.from(previous, ([slide, from]) => ({slide, from, to: slide.getBoundingClientRect()}));
+    for (const {slide, from, to} of bounds) {
+      if (!from.width || !to.width || slide.dataset.slot?.startsWith("far-")) continue;
+      const dx = from.left + from.width / 2 - to.left - to.width / 2;
+      // Far cards share the position of their side previews. Only animate cards changing slots.
+      if (Math.abs(dx) < 1 && Math.abs(from.width - to.width) < 1) continue;
+      const end = getComputedStyle(slide).transform;
+      const start = `translate(calc(-50% + ${dx}px), -50%) scale(${from.width / to.width}, ${from.height / to.height})`;
+      slideAnimations.current.push(slide.animate([{transform: start}, {transform: end}],
+        {duration: 400, easing: "cubic-bezier(.22,.72,.22,1)"}));
+    }
+  }, [active]);
+
+  useEffect(() => () => { for (const animation of slideAnimations.current) animation.cancel(); }, []);
 
   useEffect(() => {
     const stage = stageRef.current;
@@ -287,14 +266,12 @@ export default function ProductsShowcase() {
   };
 
 
-  const selectProduct = (index: number, instant = false) => {
-    if (!instant && !isPhone && !carouselInput.navigate(performance.now())) return;
-    changeProduct(index, instant);
-  };
-
-  const stepProduct = (direction: 1 | -1, instant = false) => {
-    if (!instant && !isPhone && !carouselInput.navigate(performance.now())) return;
-    changeProduct(index => index + direction, instant);
+  const selectProduct = (index: number) => changeProduct(index);
+  const stepProduct = (direction: 1 | -1) => {
+    const now = performance.now();
+    if (matchMedia("(min-width: 961px)").matches && lastStep.current.direction === direction && now - lastStep.current.time < 280) return;
+    lastStep.current = {direction, time: now};
+    changeProduct(index => index + direction);
   };
 
   return (
@@ -378,14 +355,14 @@ export default function ProductsShowcase() {
               aria-selected={i === active}
               tabIndex={i === active ? 0 : -1}
               className={`prod-tab${i === active ? " on" : ""}`}
-              onClick={(event) => selectProduct(i, event.detail === 0)}
+              onClick={() => selectProduct(i)}
               onKeyDown={(event) => {
                 const next = event.key === "ArrowRight" ? (i + 1) % products.length
                   : event.key === "ArrowLeft" ? (i + products.length - 1) % products.length
                   : event.key === "Home" ? 0 : event.key === "End" ? products.length - 1 : null;
                 if (next === null) return;
                 event.preventDefault();
-                selectProduct(next, true);
+                selectProduct(next);
                 const target = document.getElementById(`product-tab-${products[next].id}`);
                 target?.focus({ preventScroll: true });
                 target?.scrollIntoView({ block: "nearest", inline: "nearest", behavior: "instant" });
@@ -399,12 +376,7 @@ export default function ProductsShowcase() {
         </div>
 
         <div className="prod-carousel-shell">
-        <nav className="prod-mobile-nav" aria-label={t('productsAria')}>
-          <button type="button" onClick={(event) => stepProduct(-1, event.detail === 0)} aria-label={t('previous')}><ArrowLeft size={22} /></button>
-          <span className="prod-counter" aria-live="polite" aria-atomic="true">{String(active + 1).padStart(2, '0')} {cms.text("field_48ba3248da14b636")}</span>
-          <button type="button" onClick={(event) => stepProduct(1, event.detail === 0)} aria-label={t('next')}><ArrowRight size={22} /></button>
-        </nav>
-        <div ref={stageRef} className="prod-carousel" data-switching={switching ? "true" : undefined} style={{touchAction: 'pan-y pinch-zoom'}} onDragStart={event => event.preventDefault()}>
+        <div ref={stageRef} className="prod-carousel" style={{touchAction: 'pan-y pinch-zoom'}} onDragStart={event => event.preventDefault()}>
           {products.map((p, i) => {
             const distance = (i - active + products.length) % products.length;
             const slot = ["center", "next", "far-next", "far-previous", "previous"][distance];
@@ -423,11 +395,11 @@ export default function ProductsShowcase() {
                 aria-hidden={!selected && !preview ? true : undefined}
                 data-carousel-ready={selected ? (stageFullyVisible ? "true" : "false") : undefined}
                 tabIndex={selected || preview ? 0 : -1}
-                onClick={preview ? (event) => selectProduct(i, event.detail === 0) : undefined}
+                onClick={preview ? () => selectProduct(i) : undefined}
                 onKeyDown={preview ? (event) => {
                   if (event.key === "Enter" || event.key === " ") {
                     event.preventDefault();
-                    selectProduct(i, true);
+                    selectProduct(i);
                   }
                 } : undefined}
               >
@@ -463,20 +435,16 @@ export default function ProductsShowcase() {
                       {t("discover", { name: p.name })}
                     </Link>
                   </div>
-                  <div className="prod-stage-nav">
-                    <button type="button" aria-label={t("previous")} tabIndex={selected ? 0 : -1} onClick={(event) => { event.stopPropagation(); stepProduct(-1, event.detail === 0); }}>
-                      <ArrowLeft size={18} strokeWidth={1.8} />
-                    </button>
-                    <span className="prod-counter">{p.tag} {cms.text("field_4e137c8eab6ae1ed")}</span>
-                    <button type="button" aria-label={t("next")} tabIndex={selected ? 0 : -1} onClick={(event) => { event.stopPropagation(); stepProduct(1, event.detail === 0); }}>
-                      <ArrowRight size={18} strokeWidth={1.8} />
-                    </button>
-                  </div>
                 </div>
               </div>
             );
           })}
         </div>
+        <nav className="prod-lineup-controls" aria-label={t('productsAria')}>
+          <button type="button" onClick={() => stepProduct(-1)} aria-label={t('previous')}><ArrowLeft size={22} /></button>
+          <span className="prod-counter" aria-live="polite" aria-atomic="true">{String(active + 1).padStart(2, '0')} {isPhone ? cms.text("field_48ba3248da14b636") : cms.text("field_4e137c8eab6ae1ed")}</span>
+          <button type="button" onClick={() => stepProduct(1)} aria-label={t('next')}><ArrowRight size={22} /></button>
+        </nav>
         </div>
       </section>
 
@@ -595,7 +563,7 @@ export default function ProductsShowcase() {
         .prod-tab:hover { color: var(--ink-2); }
         .prod-tab.on { color: var(--ink); }
         .prod-tab.on::before { width: 100%; }
-        .prod-tab-num { display: block; font-size: 0.9375rem; font-style: italic; }
+        .prod-tab-num { display: block; font-size: 0.9375rem; font-style: normal; }
         .prod-tab-name { display: block; font-family: var(--font-serif); font-size: 1.375rem; margin-top: 0.35rem; }
         .prod-tab-sub { display: block; font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; margin-top: 0.35rem; }
 
@@ -606,7 +574,6 @@ export default function ProductsShowcase() {
         .prod-slide[data-slot="next"], .prod-slide[data-slot="far-next"] { left: calc(100% - var(--side-width) / 2); width: var(--side-width); height: 76%; transform: translate(-50%,-50%) rotateY(-5deg); }
         .prod-slide[data-slot="previous"], .prod-slide[data-slot="next"] { z-index: 1; opacity: .68; cursor: pointer; }
         .prod-slide[data-slot^="far-"] { opacity: 0; pointer-events: none; }
-        .prod-carousel[data-switching="true"] .prod-slide:is([data-slot="center"], [data-slot="previous"], [data-slot="next"]) { opacity: 0; pointer-events: none; transition-duration: 170ms; }
         .prod-stage:focus-visible, .prod-peek:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
         .prod-peek:hover, .prod-peek:focus-visible { opacity: .9; }
         .prod-stage-media { position: absolute; z-index: 1; left: .5rem; top: .75rem; width: calc(100% - 1rem); height: 75%; overflow: hidden; }
@@ -634,9 +601,10 @@ export default function ProductsShowcase() {
         .prod-page .prod-product-link:hover { background: var(--gold); color: #fff; transform: translateY(-2px); box-shadow: 0 12px 26px rgba(24,18,10,.14); }
         .prod-page .prod-product-link:focus-visible { outline: 2px solid var(--ink); outline-offset: 4px; }
 
-        .prod-stage-nav { display: flex; align-items: center; gap: 1.25rem; margin-top: 1rem; }
-        .prod-stage-nav button { width: 42px; height: 42px; border-radius: 50%; border: 1px solid rgba(255,255,255,.76); background: rgba(255,255,255,.48); color: var(--ink); display: inline-flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: inset 0 1px 0 rgba(255,255,255,.75); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); transition: background .25s, color .25s, border-color .25s; }
-        .prod-stage-nav button:hover { background: var(--ink); color: #fff; border-color: var(--ink); }
+        .prod-lineup-controls { display: flex; align-items: center; justify-content: center; gap: 1.25rem; margin: clamp(22px, 3vw, 40px) auto 0; width: fit-content; }
+        .prod-lineup-controls button { width: 44px; height: 44px; border-radius: 50%; border: 1px solid rgba(255,255,255,.76); background: rgba(255,255,255,.48); color: var(--ink); display: inline-flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: inset 0 1px 0 rgba(255,255,255,.75); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); transition: background .25s, color .25s, border-color .25s; }
+        .prod-lineup-controls button:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+        .prod-lineup-controls button:hover { background: var(--ink); color: #fff; border-color: var(--ink); }
         .prod-counter { font-size: 0.8125rem; letter-spacing: 0.14em; color: var(--ink-3); }
 
         .prod-page > .prod-story-invite { padding-top: 0; padding-bottom: 0; border: 0; background: transparent; }
@@ -668,11 +636,14 @@ export default function ProductsShowcase() {
           .prod-tab.on { background: var(--navy); color: #fff; border-color: var(--navy); }
           .prod-tab::before, .prod-tab-num, .prod-tab-sub { display: none; }
           .prod-tab-name { margin: 0; font-family: var(--font-sans); font-size: 14px; font-weight: 600; white-space: nowrap; }
-          .prod-carousel { width: 100%; height: auto; margin-left: 0; transform: none; }
-          .prod-slide:not(.prod-stage) { display: none; }
-          .prod-slide[data-slot="center"] { position: relative; top: auto; left: auto; width: 100%; height: auto; min-height: 0; padding: 1.25rem; border-radius: 30px; transform: none; }
-          .prod-stage .prod-stage-media { position: relative; top: auto; left: auto; width: 100%; height: auto; aspect-ratio: 1 / 1; }
-          .prod-stage-panel, .prod-stage .prod-stage-panel { position: relative; top: auto; left: auto; width: 100%; height: auto; padding: 1.5rem .5rem .75rem; }
+          .prod-carousel { display: grid; width: 100%; height: auto; margin-left: 0; transform: none; overflow: clip; overflow-clip-margin: 4px; }
+          .prod-carousel .prod-slide[data-slot] { grid-area: 1 / 1; position: relative; inset: auto; width: 100%; height: auto; padding: 14px; border-radius: 24px; transform: translateX(0); transition: transform 340ms cubic-bezier(.22,.72,.22,1), visibility 0s; }
+          .prod-carousel .prod-slide:not(.prod-stage) { opacity: 1; visibility: hidden; pointer-events: none; transition: transform 340ms cubic-bezier(.22,.72,.22,1), visibility 0s 340ms; }
+          .prod-carousel .prod-slide:is([data-slot=next],[data-slot=far-next]) { transform: translateX(110%); }
+          .prod-carousel .prod-slide:is([data-slot=previous],[data-slot=far-previous]) { transform: translateX(-110%); }
+          .prod-carousel .prod-slide .prod-peek-caption { display: none; }
+          .prod-carousel .prod-slide .prod-stage-media { position: relative; top: auto; left: auto; width: 100%; }
+          .prod-carousel .prod-slide .prod-stage-panel { position: relative; top: auto; left: auto; width: 100%; height: auto; opacity: 1; padding: 10px 0 2px; }
           .prod-page > .prod-story-invite .prod-story-invite-inner { grid-template-columns: 1fr; gap: 2rem; min-height: 0; padding-top: 5rem; padding-bottom: 5rem; }
           .prod-promise-grid { grid-template-columns: repeat(2, 1fr); }
           .prod-promise-item:nth-child(odd) { border-left: none; }
@@ -692,8 +663,7 @@ export default function ProductsShowcase() {
         }
         @media (prefers-reduced-motion: reduce) {
           .prod-hero-media img, .prod-stage-media img, .prod-story-link svg { transition: none; animation: none; }
-          .prod-slide { transition: opacity 120ms cubic-bezier(.23,1,.32,1); animation: none; }
-          .prod-carousel[data-switching="true"] .prod-slide:is([data-slot="center"], [data-slot="previous"], [data-slot="next"]) { transition-duration: 100ms; }
+          .prod-carousel .prod-slide[data-slot] { transition: none; animation: none; }
         }
       `}</style>
     </main>

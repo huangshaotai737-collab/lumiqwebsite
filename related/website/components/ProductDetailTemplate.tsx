@@ -16,7 +16,7 @@ import ProductFeatureSection, {type ProductVisual, type ProductIndexItem} from "
 export type {ProductVisual, ProductIndexItem} from "@/components/ProductFeatureSection";
 export type ProductScene = {eyebrow?:string;title:string;preserveTitlePunctuation?:boolean;body:string;image:ProductVisual;items:ProductIndexItem[]};
 type ProductStory = ProductScene;
-type ProductSection = {eyebrow?:string;title:string;intro?:string;items:ProductIndexItem[];image?:ProductVisual};
+type ProductSection = {eyebrow?:string;title:string;preserveTitlePunctuation?:boolean;intro?:string;items:ProductIndexItem[];image?:ProductVisual};
 
 type ProductDetailTemplateProps = {
   slug: string;
@@ -181,7 +181,7 @@ export default function ProductDetailTemplate({
         <div className="pd-shell pd-final-inner">
           <div>
             <p className="pd-eyebrow">{productName}</p>
-            <Heading as="h2">{finalTitle}</Heading>
+            <Heading as="h2" preservePunctuation={preserveTitlePunctuation}>{finalTitle}</Heading>
             <p>{finalBody}</p>
           </div>
           <div className={`pd-final-actions${compactHeroPriceLabel ? " is-compact-price" : ""}`}>

@@ -700,7 +700,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.en.OlaGo.cellularBody",
     "before": "Connectivity options and supported regions are pending confirmation.",
-    "after": "Feed and clean your avatar so it’s happy and healthy."
+    "after": "Feed and clean your avatar so it's happy and healthy."
   },
   {
     "path": "messages.en.OlaGo.cellularTitle",
@@ -725,7 +725,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.en.OlaGo.connectedTitle",
     "before": "Stay connected along the way.",
-    "after": "Connect using LumiqOlaGo. Stay informed."
+    "after": "Connect using LumiqOlaGo. Stay informed"
   },
   {
     "path": "messages.en.OlaGo.included",
@@ -770,17 +770,17 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.en.OlaGo.relationshipTitle",
     "before": "At home with Ola. Along the way with Ola Go.",
-    "after": "At home with LumiqOla. Leave with LumiqOlaGo."
+    "after": "At home with LumiqOla. Leave with the LumiqOlaGo"
   },
   {
     "path": "messages.en.OlaGo.remindersBody",
     "before": "A proposed gentle way to carry daily prompts away from home.",
-    "after": "Sync with your favorite calendar so you don’t forget."
+    "after": "Sync with your favorite calendar so you don't forget."
   },
   {
     "path": "messages.en.OlaGo.safetyBody",
     "before": "These are unconfirmed safety concepts, not currently available promises.",
-    "after": "Activate a louder beep to bring awareness to your situation."
+    "after": "activate a louder beep to bring awareness to your situation."
   },
   {
     "path": "messages.en.OlaGo.safetyTitle",

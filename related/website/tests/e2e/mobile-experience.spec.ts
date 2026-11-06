@@ -10,7 +10,7 @@ test('phone carousel uses controls below the card and opens all five products', 
     await page.setViewportSize({width, height: 844});
     await ready(page, `/${locale}/products`);
     await expect(page.locator('.prod-tabs')).toBeHidden();
-    const controls = page.locator('.prod-mobile-nav');
+    const controls = page.locator('.prod-lineup-controls');
     await controls.scrollIntoViewIfNeeded();
     const placement = await controls.evaluate(e => {
       const card = document.querySelector('.prod-carousel')!.getBoundingClientRect();
@@ -22,7 +22,7 @@ test('phone carousel uses controls below the card and opens all five products', 
     for (const [index, href] of ['/products/ola', '/products/ola-go', '/products/tablet', '/products/print', '/products/nest'].entries()) {
       if (index) await controls.locator('button').last().click();
       await expect(page.locator('.prod-stage .prod-product-link')).toHaveAttribute('href', `/${locale}${href}`);
-      await expect(page.locator('.prod-mobile-nav')).toContainText(`${String(index + 1).padStart(2, '0')} / 05`);
+      await expect(page.locator('.prod-lineup-controls')).toContainText(`${String(index + 1).padStart(2, '0')} / 05`);
     }
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1)).toBe(true);
   }
