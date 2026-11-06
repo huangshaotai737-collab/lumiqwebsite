@@ -6,6 +6,15 @@ import type {MessageTree} from '../../../../contracts/content';
 
 // Independent acceptance strings transcribed from the brand workbook's replacement column.
 const approved = [
+  [21, 'Products.p3S4', 'Custom avatars'],
+  [31, 'Tablet.conceptNotice', 'Offline use, parental controls and other AI features will have continuous OTA updates.'],
+  [37, 'Tablet.passiveTitle', 'Active switching. Endless scrolling.'],
+  [40, 'Tablet.activeTitle', 'Immersive reading. Exploring together.'],
+  [41, 'Tablet.activeBody', 'Children focuses on the story, change their face, or choose what happens next.'],
+  [96, 'HomeRefresh.roomLabels.ola.title', 'COMPANIONSHIP'],
+  [96, 'HomeRefresh.roomLabels.ola.subtitle', 'grows with you'],
+  [123, 'Pal.everyAge', 'One Device. Mulitple Personalities'],
+  [126, 'Pal.adults3', 'Easiy contact family members'],
   [34, 'Tablet.spec2', 'Certified with TUV80 - 80% Blue Light Reduction (BLR)'],
   [45, 'Plans.palTitle', 'Ola (OlaGo included)'],
   [113, 'Pal.lede', 'Brings stories to life, joins the conversation, interactive avatars and offers gentle support through the day.'],

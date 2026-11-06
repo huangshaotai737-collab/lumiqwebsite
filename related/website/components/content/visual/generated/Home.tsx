@@ -114,10 +114,6 @@ export default function Home() {
                     {t("discover")}
                     <ArrowRight size={18} />
                   </a>
-                  <Link prefetch={false} href="/story#brand-film" className="lh-text-link">
-                    {t("ourStory")}
-                    <ArrowUpRight size={18} />
-                  </Link>
                 </div>
               </div>
             </div>
@@ -339,7 +335,7 @@ export default function Home() {
               </div>
               <div className="lh-section-intro">
                 <p>{t("familyBody")}</p>
-                <Link prefetch={false} href="/story" className="lh-text-link">
+                <Link prefetch={false} href="/story#brand-film" className="lh-text-link">
                   {t("ourStory")}
                   <ArrowRight size={18} />
                 </Link>

@@ -390,12 +390,12 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.en.HomeRefresh.roomLabels.ola.subtitle",
     "before": "that grows",
-    "after": "at home"
+    "after": "grows with you"
   },
   {
     "path": "messages.en.HomeRefresh.roomLabels.ola.title",
     "before": "Companionship",
-    "after": "Conversation"
+    "after": "COMPANIONSHIP"
   },
   {
     "path": "messages.en.HomeRefresh.roomLabels.print.subtitle",
@@ -815,7 +815,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.en.Pal.adults3",
     "before": "Potential one-tap family contact",
-    "after": "Easily contact family members"
+    "after": "Easiy contact family members"
   },
   {
     "path": "messages.en.Pal.adultsAlt",
@@ -845,7 +845,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.en.Pal.kidsBody",
     "before": "Designed to pair with Lumiq Tablet so stories can extend into the room.",
-    "after": "A familiar character adds a new voice to everyday moments at home."
+    "after": "LumiqOla gives adults and older adults a familiar character to talk with at home."
   },
   {
     "path": "messages.en.Pal.lede",
@@ -1180,7 +1180,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.en.Tablet.activeBody",
     "before": "Children focus on the story, change their face, or choose what happens next.",
-    "after": "Children focus on a story, personalize selected stories with their name and photo, or choose what happens next."
+    "after": "Children focuses on the story, change their face, or choose what happens next."
   },
   {
     "path": "messages.en.Tablet.activeTag",
@@ -1205,7 +1205,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.en.Tablet.conceptNotice",
     "before": "Offline use, parental controls and other AI features will have continuous OTA updates.",
-    "after": "Downloaded books can be read offline."
+    "after": "Offline use, parental controls and other AI features will have continuous OTA updates."
   },
   {
     "path": "messages.en.Tablet.deviceAlt",
@@ -1700,12 +1700,12 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.ja.HomeRefresh.roomLabels.ola.subtitle",
     "before": "育っていく",
-    "after": "家でゆっくり"
+    "after": "あなたとともに成長"
   },
   {
     "path": "messages.ja.HomeRefresh.roomLabels.ola.title",
     "before": "つながりが",
-    "after": "日々の会話"
+    "after": "寄り添う仲間が"
   },
   {
     "path": "messages.ja.HomeRefresh.roomLabels.print.subtitle",
@@ -2105,7 +2105,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.ja.Pal.adults3",
     "before": "ワンタップで家族に連絡",
-    "after": "家族へかんたんに連絡"
+    "after": "家族にかんたんに連絡"
   },
   {
     "path": "messages.ja.Pal.adultsAlt",
@@ -2135,7 +2135,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.ja.Pal.kidsBody",
     "before": "Lumiq Tablet と連携し、物語が画面を飛び出して部屋の中に広がります。",
-    "after": "親しみのあるキャラクターの声が、大人の日常に寄り添います。"
+    "after": "大人とシニアが、家でなじみのキャラクターと会話を楽しめます。"
   },
   {
     "path": "messages.ja.Pal.lede",
@@ -2465,7 +2465,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.ja.Tablet.activeBody",
     "before": "子どもたちは物語に集中し、登場人物の顔を変えたり、次に起こることを選んだりします。",
-    "after": "物語に集中し、対象の物語を名前や写真で自分らしくしたり、次の展開を選んだりできます。"
+    "after": "物語に集中し、登場人物の顔を自分の顔に変えたり、次の展開を選んだりできます。"
   },
   {
     "path": "messages.ja.Tablet.activeTag",
@@ -2490,7 +2490,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.ja.Tablet.conceptNotice",
     "before": "オフライン利用、保護者向け管理機能、その他のAI機能はOTAで継続的に更新されます。",
-    "after": "ダウンロード済みの本はオフラインで読めます。"
+    "after": "オフライン利用、保護者による管理、その他のAI機能は、ワイヤレスアップデートで継続的に更新されます。"
   },
   {
     "path": "messages.ja.Tablet.deviceAlt",
@@ -2975,7 +2975,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.zh-hant.HomeRefresh.roomLabels.ola.subtitle",
     "before": "一起成長",
-    "after": "在家發生"
+    "after": "與你一起成長"
   },
   {
     "path": "messages.zh-hant.HomeRefresh.roomLabels.print.subtitle",
@@ -3420,7 +3420,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.zh-hant.Pal.kidsBody",
     "before": "與 Lumiq Tablet 配對，讓故事走出螢幕、進入房間。",
-    "after": "讓熟悉的角色與語音互動，為成人的日常添一點陪伴。"
+    "after": "LumiqOla 讓成人與長輩在家中也能和熟悉的角色聊聊天。"
   },
   {
     "path": "messages.zh-hant.Pal.lede",
@@ -3745,7 +3745,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.zh-hant.Tablet.activeBody",
     "before": "孩子專注於故事、替換角色的臉孔，或選擇接下來的情節。",
-    "after": "孩子可以專注於故事，用姓名和照片個人化指定故事，或選擇接下來的發展。"
+    "after": "孩子專注於故事，替換角色的臉孔，或選擇接下來會發生什麼。"
   },
   {
     "path": "messages.zh-hant.Tablet.activeTag",
@@ -3770,7 +3770,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.zh-hant.Tablet.conceptNotice",
     "before": "離線使用、家長控制與其他 AI 功能將持續透過 OTA 更新。",
-    "after": "已下載書籍可離線閱讀"
+    "after": "離線使用、家長控制及其他 AI 功能將持續透過無線更新升級。"
   },
   {
     "path": "messages.zh-hant.Tablet.deviceAlt",
@@ -4105,7 +4105,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.en.Products.p3S4",
     "before": "Custom avatars",
-    "after": "Personal character"
+    "after": "Custom avatars"
   },
   {
     "path": "messages.en.Products.p4Sub",
@@ -4120,7 +4120,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.en.HomeRefresh.heroBody",
     "before": "Thoughtful companions for learning, imagination and everyday family life.",
-    "after": "Interactive stories for children and parents. Conversation and everyday companionship for adults and older adults."
+    "after": "Read together after school, remember an appointment, or plan a family dinner."
   },
   {
     "path": "messages.en.HomeRefresh.olaBody",
@@ -4155,12 +4155,12 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.en.HomeRefresh.experienceBody",
     "before": "From everyday moments to special memories, LUMIQ weaves together learning, play and togetherness.",
-    "after": "Children can explore stories with their parents. Adults and older adults can explore conversation and everyday companionship."
+    "after": "Select a product in the room to see how it fits into your day."
   },
   {
     "path": "messages.en.Pal.everyAge",
     "before": "A companion, at every age.",
-    "after": "Made for adults and older adults."
+    "after": "One Device. Mulitple Personalities"
   },
   {
     "path": "messages.en.Pal.kids",
@@ -4270,7 +4270,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.zh-hant.Products.p3S4",
     "before": "自訂虛擬角色",
-    "after": "個人化角色"
+    "after": "自訂虛擬角色"
   },
   {
     "path": "messages.zh-hant.Products.p4Sub",
@@ -4285,7 +4285,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.zh-hant.HomeRefresh.heroBody",
     "before": "為學習、想像與日常陪伴而設計，與每個家庭一同成長。",
-    "after": "孩子與家長一起走進故事；成人與長輩，也有日常對話與陪伴。"
+    "after": "放學後一起讀故事，記得下一次約會，或安排全家人的晚餐。"
   },
   {
     "path": "messages.zh-hant.HomeRefresh.olaBody",
@@ -4320,17 +4320,17 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.zh-hant.HomeRefresh.experienceBody",
     "before": "從日常片刻到珍貴回憶，LUMIQ 將學習、玩樂與相聚時光交織在一起。",
-    "after": "孩子與家長一起讀故事；成人與長輩可以在日常對話中，感受另一種陪伴。"
+    "after": "點選房間裡的產品，看看它能怎麼幫忙。"
   },
   {
     "path": "messages.zh-hant.HomeRefresh.roomLabels.ola.title",
     "before": "陪伴",
-    "after": "日常對話"
+    "after": "陪伴"
   },
   {
     "path": "messages.zh-hant.Pal.everyAge",
     "before": "每個年齡都有陪伴。",
-    "after": "為成人與長輩而設計。"
+    "after": "一台裝置，多種個性"
   },
   {
     "path": "messages.zh-hant.Pal.kids",
@@ -4445,7 +4445,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.ja.Products.p3S4",
     "before": "カスタムアバター",
-    "after": "パーソナルキャラクター"
+    "after": "カスタムアバター"
   },
   {
     "path": "messages.ja.Products.p4Sub",
@@ -4460,7 +4460,7 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.ja.HomeRefresh.heroBody",
     "before": "学び、想像、日々の寄り添い。家族の毎日のために、心を込めたテクノロジーを。",
-    "after": "子どもと保護者には一緒に読む物語を。大人とシニアには会話と日々の寄り添いを。"
+    "after": "放課後に一緒に物語を読み、次の予定を思い出し、家族の夕食を決める。"
   },
   {
     "path": "messages.ja.HomeRefresh.olaBody",
@@ -4495,12 +4495,12 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
   {
     "path": "messages.ja.HomeRefresh.experienceBody",
     "before": "日々の何気ない瞬間から特別な思い出まで、LUMIQ は学び、遊び、ともに過ごす時間をつないでいきます。",
-    "after": "子どもと保護者は一緒に物語を読み、大人とシニアは日々の会話や寄り添いを楽しめます。"
+    "after": "部屋の製品を選んで、暮らしの中での使い方を見てみましょう。"
   },
   {
     "path": "messages.ja.Pal.everyAge",
     "before": "あらゆる世代に、寄り添う存在。",
-    "after": "大人とシニアのために。"
+    "after": "一台のデバイスに、さまざまな個性"
   },
   {
     "path": "messages.ja.Pal.kids",
@@ -4921,5 +4921,95 @@ export const brandRevisionPatch: readonly BrandRevisionPatchEntry[] = [
     "path": "media.asset_38c045ee1dd24e31.alt",
     "before": "LUMIQ OLA + Go",
     "after": "LumiqOla + LumiqOlaGo"
+  },
+  {
+    "path": "messages.en.HomeRefresh.familyKicker",
+    "before": "Our reason for being",
+    "after": "Family routines"
+  },
+  {
+    "path": "messages.en.HomeRefresh.familyTitle",
+    "before": "More than connected.",
+    "after": "A day"
+  },
+  {
+    "path": "messages.en.HomeRefresh.familyAccent",
+    "before": "Closer.",
+    "after": "together"
+  },
+  {
+    "path": "messages.en.HomeRefresh.familyBody",
+    "before": "For the story shared after dinner. For the little discoveries. For children, parents and grandparents — and the time that brings them together.",
+    "after": "Choose morning, afternoon or bedtime to explore a moment at home."
+  },
+  {
+    "path": "messages.en.HomeRefresh.joinBody",
+    "before": "Product news, first looks and invitations to future experiences. Join the LUMIQ waitlist.",
+    "after": "Get product launch updates by email."
+  },
+  {
+    "path": "messages.en.CmsStatic.field_49f53ec0cc8f512b",
+    "before": "more",
+    "after": "Compare plans"
+  },
+  {
+    "path": "messages.zh-hant.HomeRefresh.familyKicker",
+    "before": "我們為何而做",
+    "after": "家庭日常"
+  },
+  {
+    "path": "messages.zh-hant.HomeRefresh.familyTitle",
+    "before": "不只是連接，",
+    "after": "一家人的"
+  },
+  {
+    "path": "messages.zh-hant.HomeRefresh.familyAccent",
+    "before": "更是親近。",
+    "after": "一天"
+  },
+  {
+    "path": "messages.zh-hant.HomeRefresh.familyBody",
+    "before": "為晚餐後共享的故事，為每一次小小的發現，為孩子、父母與祖父母，以及讓彼此走近的時光。",
+    "after": "選擇早晨、午後或睡前，看看家中的日常片刻。"
+  },
+  {
+    "path": "messages.zh-hant.HomeRefresh.joinBody",
+    "before": "加入 LUMIQ 候補名單，獲取產品消息、搶先預覽及未來體驗活動邀請。",
+    "after": "留下電子郵件，接收產品上市消息。"
+  },
+  {
+    "path": "messages.zh-hant.CmsStatic.field_49f53ec0cc8f512b",
+    "before": "more",
+    "after": "比較方案"
+  },
+  {
+    "path": "messages.ja.HomeRefresh.familyKicker",
+    "before": "私たちがつくる理由",
+    "after": "家族の日常"
+  },
+  {
+    "path": "messages.ja.HomeRefresh.familyTitle",
+    "before": "つながるだけでなく、",
+    "after": "家族と過ごす"
+  },
+  {
+    "path": "messages.ja.HomeRefresh.familyAccent",
+    "before": "もっと身近に。",
+    "after": "一日"
+  },
+  {
+    "path": "messages.ja.HomeRefresh.familyBody",
+    "before": "夕食の後に分かち合う物語。小さな発見。子ども、親、祖父母、そして家族の距離を縮める時間のために。",
+    "after": "朝、午後、就寝前から選んで、家で過ごすひとときをご覧ください。"
+  },
+  {
+    "path": "messages.ja.HomeRefresh.joinBody",
+    "before": "LUMIQ のウェイトリストに登録して、製品ニュース、先行プレビュー、今後の体験イベントへのご案内を。",
+    "after": "製品の発売情報をメールでお届けします。"
+  },
+  {
+    "path": "messages.ja.CmsStatic.field_49f53ec0cc8f512b",
+    "before": "more",
+    "after": "プランを比較"
   }
 ];

@@ -41,6 +41,7 @@ export default function OlaProductPage() {
         {
           eyebrow: t("kids"),
           title: t("everyAge"),
+          preserveTitlePunctuation: true,
           body: `${t("kidsBody")} ${t("adultsBody")}`,
           items: [{title:`${t("kids1")} · ${t("kids2")}`,body:`${presentation("daily1")} ${presentation("daily2")}`}, ...["kids3","adults1","adults2","adults3"].map((key,index)=>({title:t(key),body:presentation(`daily${index+3}`)}))],
           image: {

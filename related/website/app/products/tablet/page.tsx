@@ -24,6 +24,8 @@ export default function TabletPage() {
       backLabel={t("all")}
       productName={brand("hero.eyebrow")}
       title={brand("hero.title")}
+      preserveTitlePunctuation
+      conceptNotice={t("conceptNotice")}
       lede={brand("hero.body")}
       priceLabel="USD 599"
       ctaLabel={t("buy")}
@@ -46,6 +48,7 @@ export default function TabletPage() {
         {
           eyebrow: t("passiveTag"),
           title: t("passiveTitle"),
+          preserveTitlePunctuation: true,
           body: t("passiveBody"),
           items: [...[1,2].map(number=>({title:presentation(`passive.item${number}Title`),body:presentation(`passive.item${number}Body`)})), {title:details("passiveTitle"),body:details("passiveBody")}],
           image: {
@@ -56,6 +59,7 @@ export default function TabletPage() {
         {
           eyebrow: t("activeTag"),
           title: t("activeTitle"),
+          preserveTitlePunctuation: true,
           body: t("activeBody"),
           items: [...[1,2].map(number=>({title:presentation(`active.item${number}Title`),body:presentation(`active.item${number}Body`)})), {title:details("activeTitle"),body:details("activeBody")}],
           image: {

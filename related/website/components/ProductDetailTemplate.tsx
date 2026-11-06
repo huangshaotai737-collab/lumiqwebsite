@@ -14,7 +14,7 @@ import { Link } from "@/i18n/navigation";
 
 import ProductFeatureSection, {type ProductVisual, type ProductIndexItem} from "@/components/ProductFeatureSection";
 export type {ProductVisual, ProductIndexItem} from "@/components/ProductFeatureSection";
-export type ProductScene = {eyebrow?:string;title:string;body:string;image:ProductVisual;items:ProductIndexItem[]};
+export type ProductScene = {eyebrow?:string;title:string;preserveTitlePunctuation?:boolean;body:string;image:ProductVisual;items:ProductIndexItem[]};
 type ProductStory = ProductScene;
 type ProductSection = {eyebrow?:string;title:string;intro?:string;items:ProductIndexItem[];image?:ProductVisual};
 
@@ -25,6 +25,7 @@ type ProductDetailTemplateProps = {
   backLabel: string;
   productName: string;
   title: string;
+  preserveTitlePunctuation?: boolean;
   lede: string;
   conceptNotice?: string;
   priceLabel: string;
@@ -82,6 +83,7 @@ export default function ProductDetailTemplate({
   backLabel,
   productName,
   title,
+  preserveTitlePunctuation,
   lede,
   conceptNotice,
   priceLabel,
@@ -136,7 +138,7 @@ export default function ProductDetailTemplate({
             <div className="pd-hero-display-title" aria-hidden="true">
               {productName}
             </div>
-            <Heading as="h1">
+            <Heading as="h1" preservePunctuation={preserveTitlePunctuation}>
               <span className="pd-product-name">{productName}</span>
               <span className="pd-product-tagline">{title}</span>
             </Heading>

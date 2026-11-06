@@ -320,9 +320,6 @@ export default function ProductsShowcase() {
             <a href="#lineup" className="btn btn-navy">
               {t("explore")}
             </a>
-            <Link href="/plans" className="prod-ghost-link">
-              {t("compare")}
-            </Link>
           </div>
         </div>
         <div
@@ -487,7 +484,7 @@ export default function ProductsShowcase() {
         <div className="prod-comparison-heading">
           <Heading as="h2" id="catalog-heading">{brand('comparison')}</Heading>
           <Image src={cms.url("/assets/brand/lumiq-logo-transparent-dark.png")} alt={cms.value("media.asset_e036cbcfe52d5970.alt")} width={180} height={70} />
-          <p>{cms.text("field_49f53ec0cc8f512b")}</p>
+          <p><Link href="/plans" className="prod-ghost-link">{cms.text("field_49f53ec0cc8f512b")}</Link></p>
         </div>
         <div className="prod-comparison-list">
           {products.map(product=><article className="prod-comparison-row" key={product.id}>
