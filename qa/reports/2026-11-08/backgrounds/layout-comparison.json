@@ -1,0 +1,16 @@
+{
+  "count": 48,
+  "differences": [
+    {
+      "route": "/products/ola-go",
+      "size": {
+        "width": 1440,
+        "height": 1000
+      },
+      "fields": [
+        "ui"
+      ]
+    }
+  ],
+  "openingEqual": true
+}

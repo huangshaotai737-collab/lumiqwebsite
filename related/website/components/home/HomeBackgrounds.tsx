@@ -9,6 +9,8 @@ import { createPortal } from "react-dom";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 export const backgroundVideoSource = "/assets/background-variants-20260911/version-5-tail-wave-20260914.mp4";
+const lightBackgroundVideo = "/assets/site-backgrounds-20261108/pearl-flow-scroll.mp4";
+const lightBackgroundPoster = "/assets/site-backgrounds-20261108/pearl-flow-poster.webp";
 
 export const chapterImage = (name: string) => `/assets/chapter-backgrounds-20260910/${name}.webp`;
 
@@ -16,7 +18,11 @@ export default function HomeBackgrounds() {
   const cms = useContentAdapter();
   const visual = useVisualPreview();
   const mediaDependency = visualMediaDependency(cms,visual,backgroundVideoSource);
-  const resolvedVideoSource = cms.url(backgroundVideoSource);
+  // Keep the existing CMS binding; only replace the bundled default movie.
+  const contentVideoSource = cms.url(backgroundVideoSource);
+  const resolvedVideoSource = contentVideoSource === backgroundVideoSource ? lightBackgroundVideo : contentVideoSource;
+  const contentPoster = cms.url(chapterImage("products"));
+  const resolvedPoster = contentPoster === chapterImage("products") ? lightBackgroundPoster : contentPoster;
   const [host, setHost] = useState<Element | null>(null);
   const fallback = useRef<HTMLDivElement>(null);
   const video = useRef<HTMLVideoElement>(null);
@@ -28,6 +34,7 @@ export default function HomeBackgrounds() {
     let frame = 0;
     let loaded = false;
     let presented = false;
+    let presentedTime = -1;
     let videoFrame = 0;
     let fallbackFrame = 0;
     let start = 0;
@@ -37,13 +44,26 @@ export default function HomeBackgrounds() {
     const root = host.closest<HTMLElement>(".lumiq-root");
     const lastFrame = () => Math.max(0, movie.duration - 1 / 24);
     const motion = matchMedia(homeMotionQuery);
+    const watchFirstFrame = () => {
+      if (presented || videoFrame || typeof movie.requestVideoFrameCallback !== "function") return;
+      videoFrame = movie.requestVideoFrameCallback((_, metadata) => {
+        videoFrame = 0;
+        presentedTime = metadata.mediaTime;
+        schedule();
+      });
+    };
     const update = () => {
       frame = 0;
       // Load the approved light movie only as its first chapter approaches.
       if (motion.matches && !document.hidden && scrollY >= start - innerHeight * .75 && !movie.getAttribute("src")) {
+        watchFirstFrame();
         movie.src = resolvedVideoSource;
         movie.load();
       }
+      // A paused frame callback can arrive before seeked. Remember its time and
+      // validate it against the current frame instead of a stale scroll target.
+      if (!presented && !movie.seeking && movie.readyState >= 2 && movie.videoWidth > 0 &&
+          presentedTime >= 0 && Math.abs(movie.currentTime - presentedTime) < .1) presented = true;
       // Seeking can temporarily lower readyState. Keep the last decoded frame visible.
       const ready = motion.matches && !movie.error && presented;
       movie.dataset.ready = String(ready);
@@ -65,6 +85,8 @@ export default function HomeBackgrounds() {
         desired = Math.min(desired, lastFrame());
       }
       desired = Math.min(lastFrame(), Math.round(desired * 24) / 24);
+      // Subscribe before seeking so the first paused frame cannot be missed.
+      watchFirstFrame();
       if (Math.abs(movie.currentTime - desired) > 1 / 48) movie.currentTime = desired;
       // loadeddata only proves decoding started. Keep the approved still until
       // a frame at the requested scroll position has reached the compositor.
@@ -74,13 +96,7 @@ export default function HomeBackgrounds() {
               Math.abs(movie.currentTime - desired) < .1) presented = true;
           schedule();
         };
-        if (typeof movie.requestVideoFrameCallback === "function") {
-          videoFrame = movie.requestVideoFrameCallback((_, metadata) => {
-            videoFrame = 0;
-            if (Math.abs(metadata.mediaTime - desired) < .1) confirm();
-            else schedule();
-          });
-        } else if (!movie.seeking) {
+        if (typeof movie.requestVideoFrameCallback !== "function" && !movie.seeking) {
           fallbackFrame = requestAnimationFrame(() => {
             fallbackFrame = requestAnimationFrame(() => { fallbackFrame = 0; confirm(); });
           });
@@ -120,7 +136,7 @@ export default function HomeBackgrounds() {
     const onLoaded = () => { loaded = true; schedule(); };
     const configure = () => {
       movie.pause();
-      if (!motion.matches) { loaded = false; presented = false; if (videoFrame) movie.cancelVideoFrameCallback(videoFrame); videoFrame = 0; cancelAnimationFrame(fallbackFrame); fallbackFrame = 0; movie.removeAttribute("src"); movie.load(); }
+      if (!motion.matches) { loaded = false; presented = false; presentedTime = -1; if (videoFrame) movie.cancelVideoFrameCallback(videoFrame); videoFrame = 0; cancelAnimationFrame(fallbackFrame); fallbackFrame = 0; movie.removeAttribute("src"); movie.load(); }
       measure();
       update();
     };
@@ -150,6 +166,6 @@ export default function HomeBackgrounds() {
   }, [host, mediaDependency, resolvedVideoSource]);
   return host ? createPortal(<div className="lh-fixed-backgrounds" aria-hidden="true">
     <video ref={video} data-background-video muted playsInline preload="auto" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", opacity: 0 }} />
-    <div data-background-fallback ref={fallback} style={{ backgroundImage: `url('${cms.url(chapterImage("products"))}')` }} />
+    <div data-background-fallback ref={fallback} style={{ backgroundImage: `url('${resolvedPoster}')` }} />
   </div>, host) : null;
 }
