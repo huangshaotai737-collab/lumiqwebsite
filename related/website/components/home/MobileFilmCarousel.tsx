@@ -125,7 +125,7 @@ export default function MobileFilmCarousel({films, active, onChange}: {
             </button>
             {failed && <a className="lh-film-open" href={cms.url(`/assets/films-20260908/${film}.mp4`)} target="_blank" rel="noopener noreferrer">{t('open')} {cms.text("field_3e2795a1de57d032")}</a>}
           </> : <button className="lh-mobile-film-poster" type="button" onClick={() => moveTo(index)} aria-label={`${t('next')}: ${t(`${film}.title`)}`}>
-            <Image src={cms.url(`/assets/films-20260908/${film}.jpg`)} alt="" width={1280} height={720} unoptimized />
+            <Image src={cms.url(`/assets/films-20260908/${film}.jpg`)} alt="" width={1280} height={720} unoptimized loading={requested ? "eager" : "lazy"} sizes="100vw" />
           </button>}
         </div>
         <div className="lh-mobile-film-copy"><h3>{t(`${film}.title`)}</h3><p>{t(`${film}.body`)}</p></div>

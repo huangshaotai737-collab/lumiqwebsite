@@ -14,7 +14,13 @@
 .lh-home :is(.lh-products-controls,.lh-family-controls,.lh-films-controls,.lh-mobile-films-controls) strong {font-size:inherit;font-weight:500;color:inherit}
 .lh-home :is(.lh-family-controls,.lh-films-controls,.lh-mobile-films-controls) {margin:22px auto 0}
 .lh-home .lh-family-controls {order:3}
-.lh-home :is(.lh-family-stage,.lh-films-stage) {-webkit-mask-image:none;mask-image:none}
+.lh-home .lh-family-stage {-webkit-mask-image:none;mask-image:none}
+/* Fade only the clipped strip at the stage's left edge. The main film starts
+   at 9%, so its picture, controls and right edge stay fully opaque. */
+.lh-home .lh-films-stage {
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000);
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000);
+}
 .lh-home .lh-films-layout {flex-direction:column;gap:0}
 .lh-home .lh-films-controls {position:relative;inset:auto;transform:none;flex-shrink:0}
 @media(min-width:768px){

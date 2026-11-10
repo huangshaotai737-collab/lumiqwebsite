@@ -11,6 +11,11 @@ const nextConfig: NextConfig = {
     qualities: [75, 90, 95],
     minimumCacheTTL: 60,
   },
+  async headers() {
+    return [{source: "/assets/responsive/:path*", headers: [
+      {key: "Cache-Control", value: "public, max-age=31536000, immutable"},
+    ]}];
+  },
 };
 
 export default withNextIntl(nextConfig);

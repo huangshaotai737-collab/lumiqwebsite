@@ -3,13 +3,20 @@ import {useSitePathname} from "@/components/content/useSitePathname";
 import {useContentAdapter} from "@/components/content/useContentAdapter";
 import {useVisualPreview} from '@/components/content/SiteContentProvider';
 import { Link, useRouter } from "@/i18n/navigation";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, useRouter as useNextRouter } from "next/navigation";
+import {useLinkStatus} from "next/link";
+import {PrefetchKind} from "next/dist/client/components/router-reducer/router-reducer-types";
 import { useLocale, useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
 import { Globe2, Menu, X } from "lucide-react";
 import type { Locale } from "@/i18n/routing";
 import Image from "@/components/content/ContentImage";
 import CartTrigger from "@/components/cart/CartTrigger";
+
+function NavigationPending() {
+  const {pending} = useLinkStatus();
+  return pending ? <span className="site-navigation-pending" aria-hidden="true" /> : null;
+}
 
 export default function SiteHeader() {
   const cms = useContentAdapter();
@@ -20,6 +27,8 @@ export default function SiteHeader() {
   const locale = useLocale() as Locale;
   const pathname = useSitePathname();
   const router = useRouter();
+  const nextRouter = useNextRouter();
+  const warmed = useRef(new Map<string, number>());
   const searchParams = useSearchParams();
   const isHomepage = pathname === "/";
   const [scrolled, setScrolled] = useState(false);
@@ -116,6 +125,28 @@ export default function SiteHeader() {
     setLangOpen(false);
   };
 
+  // Intent takes priority over speculative homepage warmup, even if an image is
+  // slow. Keep private/account routes and CMS previews out of the public cache.
+  const warmDestination = (href: string) => {
+    if (visual || cms.preview || href === "/members" || href === pathname) return;
+    const target = `/${locale}${href === "/" ? "" : href}`;
+    const now = Date.now();
+    if (now - (warmed.current.get(target) ?? 0) < 30_000) return;
+    warmed.current.set(target, now);
+    nextRouter.prefetch(target, {kind: PrefetchKind.FULL});
+  };
+  const navigateHome = (event: {preventDefault(): void}) => {
+    closeMenu();
+    if (!isHomepage || visual || cms.preview) return;
+    event.preventDefault();
+    // A Link to the current route is a router no-op. Explicitly release reading
+    // anchors and return to the opening, including keyboard and mobile clicks.
+    window.dispatchEvent(new Event("lumiq:home-top"));
+    if (location.hash) history.replaceState(history.state, "", location.pathname + location.search);
+    window.scrollTo({top: 0, behavior: "instant"});
+    document.querySelector<HTMLElement>("#main-content")?.focus({preventScroll: true});
+  };
+
   const isActive = (href: string) =>
     href === "/"
       ? pathname === "/"
@@ -145,7 +176,8 @@ export default function SiteHeader() {
         </a>
       )}
       <div className="container nav-inner">
-        <Link prefetch={false} href="/" className="nav-logo" onClick={closeMenu}>
+        <Link prefetch={false} href="/" className="nav-logo" onClick={closeMenu} onNavigate={navigateHome}
+          onMouseEnter={() => warmDestination("/")} onFocus={() => warmDestination("/")} onTouchStart={() => warmDestination("/")}>
           <Image
             src={cms.url("/assets/brand/lumiq-logo-transparent-dark.png")}
             alt={isHomepage ? cms.text("field_430041fc9b25a88e") : cms.text("field_b805d448f3a55978")}
@@ -167,8 +199,13 @@ export default function SiteHeader() {
               href={l.href}
               className={isActive(l.href) ? "active" : ""}
               aria-current={isActive(l.href) ? "page" : undefined}
+              onMouseEnter={() => warmDestination(l.href)}
+              onFocus={() => warmDestination(l.href)}
+              onTouchStart={() => warmDestination(l.href)}
+              onNavigate={l.href === "/" ? navigateHome : undefined}
             >
               {l.label}
+              <NavigationPending />
             </Link>
           ))}
         </div>
@@ -209,6 +246,9 @@ export default function SiteHeader() {
             prefetch={false}
             href="/prelaunch"
             onClick={closeMenu}
+            onMouseEnter={() => warmDestination("/prelaunch")}
+            onFocus={() => warmDestination("/prelaunch")}
+            onTouchStart={() => warmDestination("/prelaunch")}
             className="btn btn-ghost-navy login-btn site-login-btn"
             aria-label={t("login")}
           >
@@ -258,9 +298,14 @@ export default function SiteHeader() {
             href={l.href}
             aria-current={isActive(l.href) ? "page" : undefined}
             onClick={closeMenu}
+            onMouseEnter={() => warmDestination(l.href)}
+            onFocus={() => warmDestination(l.href)}
+            onTouchStart={() => warmDestination(l.href)}
+            onNavigate={l.href === "/" ? navigateHome : undefined}
             className={isActive(l.href) ? "active" : ""}
           >
             {l.label}
+            <NavigationPending />
           </Link>
         ))}
         <div className="site-mobile-languages" aria-label={t("language")}>

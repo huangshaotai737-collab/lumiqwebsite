@@ -144,6 +144,7 @@ export function mountHomePosition(root: HTMLElement) {
   window.addEventListener("wheel", input, { passive: true });
   window.addEventListener("touchstart", input, { passive: true });
   window.addEventListener("pointerdown", input, { passive: true });
+  window.addEventListener("lumiq:home-top", input);
   window.addEventListener("keydown", key);
   document.fonts.ready.then(schedule);
   // The browser/Next router may already have restored a scroll offset here,
@@ -171,6 +172,7 @@ export function mountHomePosition(root: HTMLElement) {
     window.removeEventListener("wheel", input);
     window.removeEventListener("touchstart", input);
     window.removeEventListener("pointerdown", input);
+    window.removeEventListener("lumiq:home-top", input);
     window.removeEventListener("keydown", key);
   };
 }

@@ -12,6 +12,7 @@ export default function HomeFamily() {
   const t = useTranslations("HomeRefresh");
   const update = useTranslations("BrandUpdate");
   const [active, setActive] = useState(0);
+  const [nearby, setNearby] = useState(false);
   const chapters = useRef<HTMLDivElement>(null);
   const stage = useRef<HTMLDivElement>(null);
   const tabs = useRef<(HTMLButtonElement | null)[]>([]);
@@ -32,6 +33,16 @@ export default function HomeFamily() {
   }, []);
 
   useEffect(() => () => clearTimeout(timer.current), []);
+
+  useEffect(() => {
+    const target = stage.current;
+    if (!target) return;
+    const observer = new IntersectionObserver(entries => {
+      if (entries.some(entry => entry.isIntersecting)) {setNearby(true); observer.disconnect();}
+    }, {rootMargin: "800px 0px"});
+    observer.observe(target);
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     const target = stage.current;
@@ -139,7 +150,8 @@ export default function HomeFamily() {
                 alt=""
                 fill
                 quality={90}
-                sizes="100vw"
+                sizes="(max-width: 1199px) 84vw, 64vw"
+                loading={nearby ? "eager" : "lazy"}
                 draggable={false}
               />
             </button> : <Image
@@ -147,7 +159,8 @@ export default function HomeFamily() {
               alt={t(`familyMoments.${key}`)}
               fill
               quality={90}
-              sizes="100vw"
+              sizes="(max-width: 1199px) 84vw, 64vw"
+              loading={nearby ? "eager" : "lazy"}
               draggable={false}
             />}
           </div>

@@ -213,7 +213,8 @@ export default function HomeFilms() {
           {offset !== 0 ? <button className={`lh-film-preview lh-film-preview-${offset < 0 ? "top" : "bottom"}`}
             tabIndex={Math.abs(slot) > 1 || travel !== 0 ? -1 : 0} disabled={travel !== 0}
             type="button" onClick={() => select(Math.sign(offset))} aria-label={`${t(offset < 0 ? "previous" : "next")}: ${t(`${films[index]}.title`)}`}>
-            <Image src={cms.url(`/assets/films-20260908/${films[index]}.jpg`)} alt="" width={1280} height={720} unoptimized />
+            <Image src={cms.url(`/assets/films-20260908/${films[index]}.jpg`)} alt="" width={1280} height={720} unoptimized
+              loading={mediaRequested ? "eager" : "lazy"} sizes="(max-width: 1199px) 70vw, 46vw" />
           </button> : <article className={`lh-film-card${films[active] === "welcome-home" ? " lh-film-card-portrait" : ""}`} aria-label={`${active + 1} / ${films.length}`} data-playing={playing}>
           <video key={films[active]} ref={video} playsInline preload={mediaRequested ? "metadata" : "none"} poster={mediaRequested ? cms.url(`/assets/films-20260908/${films[active]}.jpg`) : undefined}
             aria-label={t(`${films[active]}.title`)} onError={() => setPlaybackError(true)} onPlay={() => setPlaying(true)} onPause={() => setPlaying(false)} onEnded={() => setPlaying(false)}>
