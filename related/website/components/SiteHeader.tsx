@@ -15,7 +15,18 @@ import CartTrigger from "@/components/cart/CartTrigger";
 
 function NavigationPending() {
   const {pending} = useLinkStatus();
-  return pending ? <span className="site-navigation-pending" aria-hidden="true" /> : null;
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    if (!pending) {
+      setVisible(false);
+      return;
+    }
+    const timer = window.setTimeout(() => setVisible(true), 1000);
+    return () => window.clearTimeout(timer);
+  }, [pending]);
+
+  return pending && visible ? <span className="site-navigation-pending" aria-hidden="true" /> : null;
 }
 
 export default function SiteHeader() {

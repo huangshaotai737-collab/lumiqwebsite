@@ -89,7 +89,7 @@ test('image retries stop during an outage and resume when the network returns',a
   await expect.poll(()=>image.evaluate((img:HTMLImageElement)=>img.complete&&img.naturalWidth>100)).toBe(true);
 });
 
-test('navigation gives immediate feedback while its destination is in flight',async({page})=>{
+test('navigation progress waits one second and disappears on arrival',async({page})=>{
   let release!:()=>void;
   const held=new Promise<void>(r=>release=r);
   await page.route(url=>url.pathname==='/zh-hant/products'&&url.searchParams.has('_rsc'),async route=>{await held;await route.continue().catch(()=>{});});
@@ -97,7 +97,10 @@ test('navigation gives immediate feedback while its destination is in flight',as
     await page.goto('/zh-hant',{waitUntil:'domcontentloaded'});
     await expect(page.locator('#products')).toHaveAttribute('data-enhanced','true');
     await page.locator('.site-desktop-nav a[href="/zh-hant/products"]').click();
-    await expect(page.locator('.site-navigation-pending')).toBeAttached({timeout:1000});
+    await expect(page.locator('.site-navigation-pending')).toHaveCount(0);
+    await page.waitForTimeout(500);
+    await expect(page.locator('.site-navigation-pending')).toHaveCount(0);
+    await expect(page.locator('.site-navigation-pending')).toBeAttached({timeout:1500});
     release();
     await expect(page).toHaveURL(/\/zh-hant\/products$/);
     await expect(page.locator('.site-navigation-pending')).toHaveCount(0);
