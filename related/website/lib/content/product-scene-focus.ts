@@ -14,7 +14,7 @@ export const productSceneFocus: Record<string, ProductFocus> = {
   "/assets/product-scenes-20261103/olago-connected.webp": [46, 32, 17, 23],
   "/assets/product-scenes-20261103/olago-avatar.webp": [68, 51, 20, 29],
   "/assets/tablet-detail/generated/tablet-reading-lifestyle-v2.png": [22, 52, 49, 40],
-  "/assets/tablet-detail/generated/tablet-passive-new-scene-20261026.png": [53, 52, 37, 34],
+  "/assets/tablet-detail/generated/tablet-passive-screen-time-v2.png": [40, 34, 28, 31],
   "/assets/tablet-detail/generated/tablet-family-new-scene-20261026.png": [23, 45, 47, 40],
   "/assets/tablet-detail/five-ways/imagime-v1.jpg": [29, 48, 51, 48],
   "/assets/product-scenes-20261103/tablet-growth.webp": [34, 42, 33, 29],

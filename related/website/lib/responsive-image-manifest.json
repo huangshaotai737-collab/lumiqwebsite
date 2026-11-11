@@ -64,12 +64,14 @@
     ]
   },
   "/assets/nest-detail/generated/nest-family-kitchen-v2.png": {
-    "base": "/assets/responsive/nest-family-kitchen-v2-6cd2e79fb52b",
+    "base": "/assets/responsive/nest-family-kitchen-v2-fd29c6006833",
     "widths": [
       480,
       768,
       1200,
-      1448
+      1600,
+      1920,
+      2368
     ]
   },
   "/assets/nest-detail/generated/nest-routine-closeup-v2.png": {
@@ -101,67 +103,80 @@
     ]
   },
   "/assets/print-detail/consistent-20260907/reading.webp": {
-    "base": "/assets/responsive/reading-0d241d0cb6db",
+    "base": "/assets/responsive/reading-7108ff6b062f",
     "widths": [
       480,
       768,
       1200,
       1600,
-      1800
+      1920,
+      2368
     ]
   },
   "/assets/product-scenes-20261103/olago-avatar.webp": {
-    "base": "/assets/responsive/olago-avatar-21bd3a69cb15",
+    "base": "/assets/responsive/olago-avatar-9762997bb49b",
     "widths": [
       480,
       768,
       1200,
-      1448
+      1600,
+      1920,
+      2368
     ]
   },
   "/assets/product-scenes-20261103/olago-connected.webp": {
-    "base": "/assets/responsive/olago-connected-a81055ad06bd",
+    "base": "/assets/responsive/olago-connected-2fa1e7304049",
     "widths": [
       480,
       768,
       1200,
-      1448
+      1600,
+      1920,
+      2368
     ]
   },
   "/assets/product-scenes-20261103/olago-home.webp": {
-    "base": "/assets/responsive/olago-home-7044923c28f8",
+    "base": "/assets/responsive/olago-home-d9ba8120c501",
     "widths": [
       480,
       768,
       1200,
-      1448
+      1600,
+      1920,
+      2368
     ]
   },
   "/assets/product-scenes-20261103/olago-journal.webp": {
-    "base": "/assets/responsive/olago-journal-2d834a5bfb9a",
+    "base": "/assets/responsive/olago-journal-4faae2624a50",
     "widths": [
       480,
       768,
       1200,
-      1448
+      1600,
+      1920,
+      2368
     ]
   },
   "/assets/product-scenes-20261103/olago-outdoor.webp": {
-    "base": "/assets/responsive/olago-outdoor-17e1247d9816",
+    "base": "/assets/responsive/olago-outdoor-f6de55dff24b",
     "widths": [
       480,
       768,
       1200,
-      1448
+      1600,
+      1920,
+      2368
     ]
   },
   "/assets/product-scenes-20261103/olago-weather.webp": {
-    "base": "/assets/responsive/olago-weather-73789979bfe5",
+    "base": "/assets/responsive/olago-weather-a417b5b16970",
     "widths": [
       480,
       768,
       1200,
-      1448
+      1600,
+      1920,
+      2368
     ]
   },
   "/assets/product-scenes-20261103/orb-calendar.webp": {
@@ -192,7 +207,7 @@
     ]
   },
   "/assets/product-scenes-20261103/tablet-growth.webp": {
-    "base": "/assets/responsive/tablet-growth-4a939a67f2f9",
+    "base": "/assets/responsive/tablet-growth-d77658da5bd4",
     "widths": [
       480,
       768,
@@ -201,12 +216,14 @@
     ]
   },
   "/assets/product-scenes-20261103/tablet-stages.webp": {
-    "base": "/assets/responsive/tablet-stages-ad089a68cb0e",
+    "base": "/assets/responsive/tablet-stages-099ab410e846",
     "widths": [
       480,
       768,
       1200,
-      1448
+      1600,
+      1920,
+      2368
     ]
   },
   "/assets/products/lumiq-ola-go.png": {
@@ -263,13 +280,15 @@
       1448
     ]
   },
-  "/assets/tablet-detail/generated/tablet-passive-new-scene-20261026.png": {
-    "base": "/assets/responsive/tablet-passive-new-scene-20261026-59be0f6e96f4",
+  "/assets/tablet-detail/generated/tablet-passive-screen-time-v2.png": {
+    "base": "/assets/responsive/tablet-passive-screen-time-v2-2a7ad7fcb8b9",
     "widths": [
       480,
       768,
       1200,
-      1448
+      1600,
+      1920,
+      2368
     ]
   },
   "/assets/tablet-detail/generated/tablet-reading-lifestyle-v2.png": {

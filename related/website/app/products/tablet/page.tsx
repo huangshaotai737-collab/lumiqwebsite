@@ -52,7 +52,7 @@ export default function TabletPage() {
           body: t("passiveBody"),
           items: [...[1,2].map(number=>({title:presentation(`passive.item${number}Title`),body:presentation(`passive.item${number}Body`)})), {title:details("passiveTitle"),body:details("passiveBody")}],
           image: {
-            src: cms.url("/assets/tablet-detail/generated/tablet-passive-new-scene-20261026.png"),
+            src: cms.url("/assets/tablet-detail/generated/tablet-passive-screen-time-v2.png"),
             alt: t("passiveTitle"),
           },
         },
