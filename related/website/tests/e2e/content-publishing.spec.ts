@@ -116,7 +116,7 @@ test('draft_media_requires_current_staff_and_never_enters_public_optimizer',asyn
   const media=await context.request.get(privateUrl);expect(media.status()).toBe(200);expect(await media.body()).toEqual(bytes);expect(media.headers()['cache-control']).toContain('no-store');
   for(const encoded of [privateUrl,encodeURIComponent(privateUrl)]){const optimizer=await context.request.get(`/_next/image?url=${encodeURIComponent(encoded)}&w=640&q=75`);expect(optimizer.status()).toBe(400);expect(optimizer.headers()['cache-control']).toContain('no-store');}
   await page.goto(`/en/preview/${saved.id}?page=%2Fproducts%2Ftablet`);
-  const image=page.locator('.pd-hero-visual img');await expect(image).toHaveAttribute('src',privateUrl);await expect(image).toHaveJSProperty('naturalWidth',64);
+  const image=page.locator('.pd-hero-visual img');await expect.poll(()=>image.evaluate((element:HTMLImageElement)=>element.src)).toBe(new URL(privateUrl,siteOrigin).href);await expect(image).toHaveJSProperty('naturalWidth',64);
   await page.setViewportSize({width:page.viewportSize()!.width<500?390:1440,height:900});await capturePreview(page,'tablet-private-media');
   await expect(page.locator('.pd-product-name')).toHaveText('B4 tablet reference');
   // The approved layout also shows MSRP/VIP labels. Verify the edited price
@@ -135,7 +135,7 @@ test('draft_media_requires_current_staff_and_never_enters_public_optimizer',asyn
   try {const failed=await context.request.post(`${adminOrigin}/api/content/publish`,{headers:{origin:adminOrigin},data:{id:saved.id,expectedVersion:saved.version}});expect(failed.status()).toBe(503);expect((await anon.request.get(`/api/media/${upload.assetId}`)).status()).toBe(404);expect(await publishedReleaseId()).toBe(before);} finally {await backend.storage.updateBucket('media-releases',{public:false,fileSizeLimit:52428800});}
   await post(context,'/api/content/publish',{id:saved.id,expectedVersion:saved.version});
   const published=await anon.request.get(`/api/media/${upload.assetId}`);expect(published.status()).toBe(200);expect(await published.body()).toEqual(bytes);expect(published.headers()['cache-control']).toContain('immutable');
-  await page.goto('/en/products/tablet');await expect(page.locator('.pd-hero-visual img')).toHaveAttribute('src',`/api/media/${upload.assetId}`);
+  await page.goto('/en/products/tablet');await expect.poll(()=>page.locator('.pd-hero-visual img').evaluate((element:HTMLImageElement)=>element.src)).toBe(new URL(`/api/media/${upload.assetId}`,siteOrigin).href);
   await anon.close();
 });
 
@@ -159,7 +159,7 @@ async function expectNavigationTablet(page:import('@playwright/test').Page,snaps
   await expect(page.locator('.pd-hero-lede')).toHaveText(snapshot.products.tablet.name);
   await expect(page.locator('.nav-logo-img')).toHaveAttribute('alt',snapshot.products.tablet.name);
   await expect(page.locator('.foot-logo-img:not(.foot-logo-light)')).toHaveAttribute('alt',snapshot.products.tablet.name);
-  await expect(page.locator('.pd-hero-visual img')).toHaveAttribute('src',snapshot.media.asset_137d79f5442fc11a.url);
+  await expect.poll(()=>page.locator('.pd-hero-visual img').evaluate((element:HTMLImageElement)=>element.src)).toBe(new URL(snapshot.media.asset_137d79f5442fc11a.url,siteOrigin).href);
   expect(await page.locator('.lumiq-root').evaluate(e=>e.style.getPropertyValue('--cms-asset_51f05a7e73f89c59'))).toContain(snapshot.media.asset_51f05a7e73f89c59.url);
   await expect(page.locator('.site-nav')).not.toHaveClass(/home-nav/);
   expect(await page.evaluate(()=>(window as unknown as Record<string,string>).__b4Navigation)).toBe('present');
