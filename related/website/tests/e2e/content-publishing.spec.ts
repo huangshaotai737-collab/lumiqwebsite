@@ -50,7 +50,7 @@ test('publish_updates_three_locales',async({page,context,browser})=>{
   const snapshot=structuredClone(seed) as ContentSnapshot;
   for(const locale of ['en','zh-hant','ja'] as const)(snapshot.messages[locale].HomeRefresh as Record<string,string>).hero1=draftTitle;
   const saved=await post(context,'/api/content/drafts',{id:draftId,expectedVersion:draft.version,snapshot});
-  await page.goto(`${adminOrigin}/content/${draftId}`);await expect(page.getByRole('link',{name:'预览已保存草稿'})).toHaveAttribute('href',`${siteOrigin}/en/preview/${draftId}?page=%2F`);
+  await page.goto(`${adminOrigin}/content/${draftId}`);await expect(page.getByRole('link',{name:'预览已保存草稿',exact:true})).toHaveAttribute('href',`${siteOrigin}/en/preview/${draftId}?page=%2F`);
   const anonymous=await browser.newContext();const publicPage=await anonymous.newPage();await publicPage.goto('/en');await expect(publicPage.locator('#hero-title')).not.toContainText(draftTitle);
   await post(context,'/api/content/publish',{id:draftId,expectedVersion:saved.version});
   for(const locale of ['en','zh-hant','ja']){await page.goto(`/${locale}`);await expect(page.locator('#hero-title')).toContainText(draftTitle,{timeout:60_000});}

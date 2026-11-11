@@ -54,6 +54,7 @@ export default function TabletPage() {
           image: {
             src: cms.url("/assets/tablet-detail/generated/tablet-passive-new-scene-20261026.png"),
             alt: t("passiveTitle"),
+            showDetailLink: false,
           },
         },
         {

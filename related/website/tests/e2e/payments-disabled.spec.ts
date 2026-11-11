@@ -1,7 +1,7 @@
 import { createHmac } from 'node:crypto';
 import { test, expect, type Page } from '@playwright/test';
 import { setup, cleanup, configure, customer, users, password, address, sql } from '../support/order-fixtures';
-const origin = 'http://127.0.0.1:4211';
+const origin = 'http://127.0.0.1:4254';
 test.beforeAll(setup);
 test.afterAll(async () => {
     try {

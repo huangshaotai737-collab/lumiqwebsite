@@ -56,7 +56,7 @@ export default function ProductSceneFigure({image, caption, children, focus, det
     </button> : <div className="product-scene-image">{children ?? imageContent}</div>}
     <figcaption className="product-scene-caption">
       <span>{caption}</span>
-      {bounds && <button className="product-scene-expand" type="button" onClick={show} aria-haspopup="dialog">{action} <span aria-hidden="true">↗</span></button>}
+      {bounds && image?.showDetailLink !== false && <button className="product-scene-expand" type="button" onClick={show} aria-haspopup="dialog">{action} <span aria-hidden="true">↗</span></button>}
     </figcaption>
     <dialog ref={dialog} className="product-scene-dialog" aria-labelledby={labelId}
       onClose={() => {setOpen(false);returnFocus.current?.focus({preventScroll:true});}}

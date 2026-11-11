@@ -1,10 +1,10 @@
 // Read-only production smoke check. No credentials, writes, or email requests.
 const checks = [
-  ['官网首页', 'https://lumiq-showcase-20261025.vercel.app/zh-hant', 200, 'text/html'],
-  ['官网产品页', 'https://lumiq-showcase-20261025.vercel.app/en/products/nest', 200, 'text/html'],
+  ['官网首页', 'https://lumiq-parallax-collab-public.vercel.app/zh-hant', 200, 'text/html'],
+  ['官网产品页', 'https://lumiq-parallax-collab-public.vercel.app/en/products/nest', 200, 'text/html'],
   ['后台登录页', 'https://lumiq-admin-two.vercel.app/login', 200, 'text/html'],
   ['后台内容接口拒绝匿名', 'https://lumiq-admin-two.vercel.app/api/content/drafts', 401, 'application/json'],
-  ['会员资料接口拒绝匿名', 'https://lumiq-showcase-20261025.vercel.app/api/account/profile', 401, 'application/json'],
+  ['会员资料接口拒绝匿名', 'https://lumiq-parallax-collab-public.vercel.app/api/account/profile', 401, 'application/json'],
 ];
 const results = await Promise.all(checks.map(async ([name, url, expected, type]) => {
   const started = performance.now();

@@ -3,7 +3,6 @@ import {useContentAdapter} from "@/components/content/useContentAdapter";
 
 import { useTranslations } from "next-intl";
 import ProductSceneFigure from "@/components/ProductSceneFigure";
-import ContentImage from "@/components/content/ContentImage";
 import ProductFeatureSection from "@/components/ProductFeatureSection";
 import ProductDetailTemplate from "@/components/ProductDetailTemplate";
 
@@ -84,16 +83,7 @@ export default function OlaGoProductPage() {
       }}
       afterFeatures={<ProductFeatureSection id="olago-avatar" className="olago-avatar-floor" eyebrow={brand("avatar.eyebrow")} title={brand("avatar.title")} intro={brand("avatar.body")}
         items={avatarActions.map(action=>({title:brand(`avatar.${action}Title`),body:brand(`avatar.${action}Body`)}))}
-        media={<ProductSceneFigure image={avatarScene} caption={brand("avatar.eyebrow")}>
-          {avatarScene.src === scenePath ? <div className="olago-avatar-scene">
-            <ContentImage src={avatarScene.src} alt={avatarScene.alt} width={1600} height={1200} sizes="(max-width: 900px) 100vw, 46vw"/>
-            {/* Register the supplied display artwork to the photographed device, including the finger in front. */}
-            <svg viewBox="0 0 580 435" aria-hidden="true" focusable="false">
-              <image href="/assets/product-scenes-20261103/olago-avatar-display.webp" width="324" height="346"
-                transform="matrix(.199 .012 -.067 .232 423.4 235.8)" style={{clipPath:"ellipse(49% 49% at 50% 50%)"}}/>
-            </svg>
-          </div> : undefined}
-        </ProductSceneFigure>}/>}
+        media={<ProductSceneFigure image={avatarScene} caption={brand("avatar.eyebrow")} />}/>}
       finalTitle={t("closingTitle")}
       finalBody={t("closingBody")}
       secondaryAction={{ href: "/products/ola", label: t("meetOla") }}

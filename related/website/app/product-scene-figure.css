@@ -39,12 +39,3 @@
 }
 .product-focus-scene > .orb-device-scene { height:100%; }
 @media(max-width:600px) { .product-scene-dialog-content { padding:12px; } .product-scene-dialog .product-scene-dialog-meta { flex-wrap:wrap; } }
-
-.olago-avatar-scene { position:relative; width:100%; height:100%; }
-.lumiq-root main.product-detail-light .olago-avatar-scene > img {
-  display:block; width:100%; height:100%; max-height:none; object-fit:cover;
-}
-.olago-avatar-scene > svg {
-  position:absolute; inset:0; width:100%; height:100%; pointer-events:none;
-  clip-path:polygon(0 0,100% 0,100% 100%,0 100%,0 69%,71.3% 68.6%,72% 68%,72% 67.1%,71.3% 66.3%,0 63%);
-}

@@ -22,11 +22,11 @@ export default defineConfig({
   retries: 0,
   timeout: 90000,
   reporter: "list",
-  use: { baseURL: "http://127.0.0.1:4211", trace: "retain-on-failure" },
+  use: { baseURL: "http://127.0.0.1:4254", trace: "retain-on-failure" },
   projects: [{ name: "chromium", use: { ...devices["Desktop Chrome"] } }],
   webServer: {
     command: "node ../../scripts/start-auth-website-test.mjs",
-    url: "http://127.0.0.1:4211/en",
+    url: "http://127.0.0.1:4254/en",
     reuseExistingServer: false,
     timeout: 120000,
     env: {
@@ -37,8 +37,8 @@ export default defineConfig({
       REQUEST_LIMIT_SALT: "lumiq-synthetic-auth-e2e-shared-salt-20261020",
       REQUEST_IP_HEADER: "x-real-ip",
       NEXT_TELEMETRY_DISABLED: "1",
-      LUMIQ_WEBSITE_TEST_PORT: "4211",
-      APP_ORIGIN: "http://127.0.0.1:4211",
+      LUMIQ_WEBSITE_TEST_PORT: "4254",
+      APP_ORIGIN: "http://127.0.0.1:4254",
     },
   },
 });

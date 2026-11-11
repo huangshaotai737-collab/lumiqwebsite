@@ -8,6 +8,7 @@ export type ProductVisual = {
   fit?: "cover" | "contain";
   position?: string;
   unoptimized?: boolean;
+  showDetailLink?: boolean;
 };
 export type ProductIndexItem = {
   eyebrow?: string;

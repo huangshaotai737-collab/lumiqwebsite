@@ -10,7 +10,7 @@ const local = parseEnv(readFileSync(process.env.LUMIQ_TEST_ENV_FILE || path.reso
 if (local.API_URL && local.API_URL !== 'http://127.0.0.1:54321') throw Error('Only synthetic local backend is allowed');
 
 const backend = createClient(local.API_URL!, local.SERVICE_ROLE_KEY!, { auth: { persistSession: false, autoRefreshToken: false } });
-const origin = 'http://127.0.0.1:4211', mail = 'http://127.0.0.1:54324';
+const origin = 'http://127.0.0.1:4254', mail = 'http://127.0.0.1:54324';
 const created: string[] = [];
 function ip() { return `2001:db8:${crypto.randomUUID().slice(0, 4)}::9`; }
 async function identify(context: BrowserContext) { await context.setExtraHTTPHeaders({ 'x-real-ip': ip() }); }

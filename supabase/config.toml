@@ -31,7 +31,7 @@ file_size_limit = "50MiB"
 [auth]
 enabled = true
 site_url = "http://127.0.0.1:4250"
-additional_redirect_urls = ["http://127.0.0.1:4250/auth/callback", "http://127.0.0.1:4211/auth/callback"]
+additional_redirect_urls = ["http://127.0.0.1:4250/auth/callback", "http://127.0.0.1:4211/auth/callback", "http://127.0.0.1:4254/auth/callback"]
 enable_signup = true
 
 [auth.email]

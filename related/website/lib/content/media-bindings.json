@@ -307,12 +307,6 @@
         "property": "src",
         "source": "cms.url(\"/assets/product-scenes-20261103/olago-connected.webp\")",
         "alt": "details(\"connectedAlt\")"
-      },
-      {
-        "kind": "ContentImage",
-        "property": "src",
-        "source": "{avatarScene.src}",
-        "alt": "{avatarScene.alt}"
       }
     ]
   },
