@@ -32,10 +32,10 @@
   background-image: none;
 }
 
-/* The selected homepage product is opaque, with its white base darkened 3%. */
+/* The selected homepage product is 85% opaque, with its white base darkened 3%. */
 .lumiq-root main.lh-home .lh-products:not([data-glass-3d]) .lh-products-viewport .lh-product-slot[data-active=true] > .lh-product,
 .lumiq-root main.lh-home .lh-products:not([data-glass-3d]) .lh-products-viewport .lh-product-slot:not([data-offset]):first-child > .lh-product {
-  background-color: rgb(247 247 247);
+  background-color: rgb(247 247 247 / 85%);
 }
 
 /* Keep the selected desktop card's existing highlight; only its fill changes. */
