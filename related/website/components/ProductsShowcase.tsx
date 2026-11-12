@@ -7,7 +7,6 @@ import { Link } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import Image from "@/components/content/ContentImage";
-import dynamic from "next/dynamic";
 import {
   ArrowLeft,
   ArrowRight,
@@ -22,8 +21,6 @@ import {
 } from "lucide-react";
 import { CarouselInput } from "@/lib/carousel-input";
 import {usePhoneLayout} from "@/components/home/usePhoneLayout";
-
-const GlassCardMaterial = dynamic(() => import("./GlassCardMaterial"), {ssr: false});
 
 export default function ProductsShowcase() {
   const cms = useContentAdapter();
@@ -403,7 +400,6 @@ export default function ProductsShowcase() {
                   }
                 } : undefined}
               >
-                {!isPhone && (selected || preview) && <GlassCardMaterial animated={selected} />}
                 <div className="prod-stage-media">
                   <Image
                     src={p.img}

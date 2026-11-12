@@ -1,0 +1,47 @@
+/* Product card texture only. Geometry, type, controls and interactions remain
+   owned by their existing layouts. Use the original home side card's computed
+   13% white surface, rather than its overridden legacy SVG declaration. */
+.lumiq-root :is(.brand-plans-page .hw-card, .prod-page .prod-slide[data-slot],
+  .prod-page .prod-catalog-card, .feat-img-card, .duo-card),
+.lumiq-root :is(.brand-plans-page .hw-card, .prod-page .prod-slide[data-slot],
+  .prod-page .prod-catalog-card, .feat-img-card, .duo-card):where(:hover, :focus-visible, :focus-within) {
+  background: rgb(255 255 255 / 13%);
+  border-color: rgb(255 255 255 / 58%);
+  box-shadow: inset 0 0 0 1px rgb(255 255 255 / 22%), 0 15px 35px rgb(63 56 93 / 10%);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+.lumiq-root main.lh-home .lh-products:not([data-glass-3d]) .lh-products-viewport .lh-product-slot > .lh-product {
+  background: rgb(255 255 255 / 13%);
+  border-color: rgb(255 255 255 / 58%);
+  box-shadow: inset 0 0 0 1px rgb(255 255 255 / 22%), 0 15px 35px rgb(63 56 93 / 10%);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+/* Retire only the old surface overlays, not their cards or interactions. */
+.lumiq-root .prod-page .prod-slide[data-slot]::before,
+.lumiq-root .prod-page .prod-slide[data-slot]::after,
+.lumiq-root main.lh-home .lh-products:not([data-glass-3d]) .lh-products-viewport .lh-product-slot > .lh-product::before,
+.lumiq-root main.lh-home .lh-products:not([data-glass-3d]) .lh-products-viewport .lh-product-slot > .lh-product::after {
+  content: none;
+}
+/* Product artwork stays directly on that surface; image-well geometry remains. */
+.lumiq-root .brand-plans-page .hw-card .hw-img,
+.lumiq-root .prod-page .prod-slide .prod-stage-media {
+  background-color: transparent;
+  background-image: none;
+}
+
+/* The homepage's selected product is the sole opacity exception. */
+.lumiq-root main.lh-home .lh-products:not([data-glass-3d]) .lh-products-viewport .lh-product-slot[data-active=true] > .lh-product,
+.lumiq-root main.lh-home .lh-products:not([data-glass-3d]) .lh-products-viewport .lh-product-slot:not([data-offset]):first-child > .lh-product {
+  background-color: rgb(255 255 255 / 23%);
+}
+
+/* Keep the selected desktop card's existing highlight; only its fill changes. */
+@media (min-width: 1200px) {
+  .lumiq-root main.lh-home .lh-products:not([data-glass-3d]) .lh-products-viewport .lh-product-slot[data-active=true] > .lh-product,
+  .lumiq-root main.lh-home .lh-products:not([data-glass-3d]) .lh-products-viewport .lh-product-slot:not([data-offset]):first-child > .lh-product {
+    box-shadow: 0 0 28px rgb(255 235 248 / 65%), inset 0 0 18px rgb(255 255 255 / 35%);
+  }
+}

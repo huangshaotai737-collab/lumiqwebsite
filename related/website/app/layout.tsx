@@ -27,6 +27,7 @@ import {htmlLang, type Locale} from "@/i18n/routing";
 import "./brand-reply-20261102.css";
 import "./product-feature-layout.css";
 import "./site-backgrounds.css";
+import "./product-card-surfaces.css";
 
 export async function generateMetadata() {
   const cms = await readContentAdapter({publishedOnly:true});
