@@ -66,10 +66,10 @@ test('anonymous_is_401_and_metadata_member_is_403',async({context})=> {
 test('disabled_staff_session_is_rejected',async({context,page})=> {
   await context.setExtraHTTPHeaders({'x-real-ip':ipAddress(12)});
   await page.goto('/login');
-  await page.getByLabel('工作邮箱').fill(staffEmail);
-  await page.getByLabel('密码',{exact:true}).fill(password);
-  await page.getByRole('button',{name:'登录',exact:true}).click();
-  await expect(page.getByRole('heading',{name:'欢迎回来'})).toBeVisible();
+  await page.getByLabel('工作郵箱').fill(staffEmail);
+  await page.getByLabel('密碼',{exact:true}).fill(password);
+  await page.getByRole('button',{name:'登錄',exact:true}).click();
+  await expect(page.getByRole('heading',{name:'歡迎回來'})).toBeVisible();
   expect((await context.request.get('/api/session')).status()).toBe(200);
   const oldCookies = (await context.cookies()).filter(cookie=>cookie.name.startsWith('lumiq-admin-auth'));
   expect(oldCookies.length).toBeGreaterThan(0);
@@ -80,7 +80,7 @@ test('disabled_staff_session_is_rejected',async({context,page})=> {
   expect(response.status()).toBe(403);
   expect((await context.cookies()).filter(cookie=>cookie.name.startsWith('lumiq-admin-auth'))).toEqual(oldCookies);
   await page.goto('/');
-  await expect(page.getByRole('status')).toContainText('当前账号没有有效的员工权限');
+  await expect(page.getByRole('status')).toContainText('當前賬號沒有有效的員工權限');
   await backend.from('staff_memberships').update({active:true}).eq('user_id',staffId);
 });
 test('cross_origin_writes_are_403_and_signout_clears_session',async({context,page})=> {
@@ -92,8 +92,8 @@ test('cross_origin_writes_are_403_and_signout_clears_session',async({context,pag
   const missing = await context.request.post('/api/auth/signout');
   expect(missing.status()).toBe(403);
   await page.goto('/');
-  await page.getByRole('button',{name:'退出登录'}).click();
-  await expect(page.getByRole('status')).toContainText('已安全退出登录');
+  await page.getByRole('button',{name:'退出登錄'}).click();
+  await expect(page.getByRole('status')).toContainText('已安全退出登錄');
   expect((await context.request.get('/api/session')).status()).toBe(401);
 });
 test('reject_external_auth_redirect_and_handle_expired_callback',async({context,page})=> {
@@ -106,7 +106,7 @@ test('reject_external_auth_redirect_and_handle_expired_callback',async({context,
   }
   await page.goto('/auth/callback?next=https://evil.example');
   await expect(page).toHaveURL(/\/login\?error=expired$/);
-  await expect(page.getByRole('status')).toContainText('验证链接已失效');
+  await expect(page.getByRole('status')).toContainText('驗證鏈接已失效');
 });
 test('limits_are_shared_between_two_app_instances',async({context})=> {
   const urls = ['http://127.0.0.1:4253','http://127.0.0.1:4254'];
@@ -163,7 +163,7 @@ test('ssr_refreshes_and_persists_real_auth_cookies_then_rejects_expired_refresh'
   await expireCookie(context,'lumiq-admin-auth',true);
   expect((await context.request.get('/api/session')).status()).toBe(401);
   await page.goto('/');
-  await expect(page.getByRole('status')).toContainText('登录已过期');
+  await expect(page.getByRole('status')).toContainText('登錄已過期');
 });
 
 test('permission-response counterexample rejects an injected success',async({page})=>{

@@ -130,10 +130,10 @@ test('editor and operations invitation APIs return 403, missing origin fails clo
     const page = await context.newPage();
     await page.goto('/');
     expect(
-      await page.getByRole('link', { name: '团队与权限', exact: true }).count(),
+      await page.getByRole('link', { name: '團隊與權限', exact: true }).count(),
     ).toBe(0);
     expect(
-      await page.getByRole('link', { name: '操作记录', exact: true }).count(),
+      await page.getByRole('link', { name: '操作記錄', exact: true }).count(),
     ).toBe(1);
     expect((await context.request.get(`${origin}/api/settings`)).status()).toBe(
       403,
@@ -158,12 +158,12 @@ test('invitation email, verified identity, explicit acceptance and single use wo
 }) => {
   await login(context, 'admin');
   await page.goto('/team');
-  await page.getByLabel('邀请邮箱').fill(users.member.email);
-  await page.getByLabel('邀请角色').selectOption('editor');
-  await page.getByRole('button', { name: '发送邀请', exact: true }).click();
+  await page.getByLabel('邀請郵箱').fill(users.member.email);
+  await page.getByLabel('邀請角色').selectOption('editor');
+  await page.getByRole('button', { name: '發送邀請', exact: true }).click();
   await expect(
-    page.getByRole('region', { name: '邀请员工' }).getByRole('status'),
-  ).toContainText('邀请已发送');
+    page.getByRole('region', { name: '邀請員工' }).getByRole('status'),
+  ).toContainText('邀請已發送');
   const link = await mailLink(users.member.email);
   const invite = new URLSearchParams(new URL(link).hash.slice(1));
   const wrong = await browser.newContext({
@@ -198,17 +198,17 @@ test('invitation email, verified identity, explicit acceptance and single use wo
   });
   const recipientPage = await recipient.newPage();
   await recipientPage.goto(link);
-  await recipientPage.getByLabel('受邀邮箱').fill(users.member.email);
-  await recipientPage.getByLabel('密码', { exact: true }).fill(password);
+  await recipientPage.getByLabel('受邀郵箱').fill(users.member.email);
+  await recipientPage.getByLabel('密碼', { exact: true }).fill(password);
   await recipientPage
-    .getByRole('button', { name: '验证账号', exact: true })
+    .getByRole('button', { name: '驗證賬號', exact: true })
     .click();
-  await expect(recipientPage.getByRole('status')).toContainText('账号已验证');
+  await expect(recipientPage.getByRole('status')).toContainText('賬號已驗證');
   await recipientPage
-    .getByRole('button', { name: '接受邀请', exact: true })
+    .getByRole('button', { name: '接受邀請', exact: true })
     .click();
   await expect(recipientPage.getByRole('status')).toContainText(
-    '已获得员工权限',
+    '已獲得員工權限',
   );
   expect(
     (
@@ -224,7 +224,7 @@ test('pending team save locks the submitted values and later edits clear saved f
   await login(context, 'admin');
   await page.goto('/team');
   const row = page.getByRole('row').filter({ hasText: users.editor.email });
-  await row.getByLabel('员工角色').selectOption('operations');
+  await row.getByLabel('員工角色').selectOption('operations');
   let release!: () => void;
   let arrived!: () => void;
   const gate = new Promise<void>(resolve => { release = resolve; });
@@ -236,20 +236,20 @@ test('pending team save locks the submitted values and later edits clear saved f
     await route.fulfill({ response });
   });
   try {
-    await row.getByRole('button', { name: '保存权限' }).click();
+    await row.getByRole('button', { name: '保存權限' }).click();
     await requested;
-    await expect(row.getByLabel('员工角色')).toBeDisabled();
-    await expect(row.getByLabel('在职')).toBeDisabled();
+    await expect(row.getByLabel('員工角色')).toBeDisabled();
+    await expect(row.getByLabel('在職')).toBeDisabled();
     release();
     await expect(row.getByRole('status')).toContainText('已保存');
-    await expect(row.getByLabel('员工角色')).toBeEnabled();
+    await expect(row.getByLabel('員工角色')).toBeEnabled();
     const stored = await backend.from('staff_memberships').select('role,active').eq('user_id', users.editor.id).single();
     expect(stored.data).toEqual({ role: 'operations', active: true });
-    await row.getByLabel('员工角色').selectOption('editor');
+    await row.getByLabel('員工角色').selectOption('editor');
     await expect(row.getByRole('status')).not.toContainText('已保存');
-    await row.getByRole('button', { name: '保存权限' }).click();
+    await row.getByRole('button', { name: '保存權限' }).click();
     await expect(row.getByRole('status')).toContainText('已保存');
-    await row.getByLabel('在职').uncheck();
+    await row.getByLabel('在職').uncheck();
     await expect(row.getByRole('status')).not.toContainText('已保存');
   } finally {
     release();
@@ -280,20 +280,20 @@ test('failed SMTP delivery never grants role; role/status change and safe settin
   ).toHaveLength(0);
   await page.goto('/team');
   const row = page.getByRole('row').filter({ hasText: users.member.email });
-  await row.getByLabel('员工角色').selectOption('operations');
-  await row.getByRole('button', { name: '保存权限' }).click();
+  await row.getByLabel('員工角色').selectOption('operations');
+  await row.getByRole('button', { name: '保存權限' }).click();
   await expect(row.getByRole('status')).toContainText('已保存');
   const affected = await browser.newContext();
   await login(affected, 'member');
-  await row.getByLabel('在职').uncheck();
-  await row.getByRole('button', { name: '保存权限' }).click();
+  await row.getByLabel('在職').uncheck();
+  await row.getByRole('button', { name: '保存權限' }).click();
   await expect(row.getByRole('status')).toContainText('已保存');
   expect((await affected.request.get(`${origin}/api/session`)).status()).toBe(
     403,
   );
   await affected.close();
   await page.goto('/settings');
-  await expect(page.getByText('配置状态')).toBeVisible();
+  await expect(page.getByText('配置狀態')).toBeVisible();
   const settings = await context.request.get('/api/settings');
   const body = await settings.json();
   expect(body.ok).toBe(true);
@@ -325,7 +325,7 @@ test('failed SMTP delivery never grants role; role/status change and safe settin
       () => document.documentElement.scrollWidth <= innerWidth,
     ),
   ).toBe(true);
-  const mobileSave = page.getByRole('button', { name: '保存权限' }).first();
+  const mobileSave = page.getByRole('button', { name: '保存權限' }).first();
   await mobileSave.scrollIntoViewIfNeeded();
   await expect(mobileSave).toBeInViewport();
   const bounds = await mobileSave.boundingBox();

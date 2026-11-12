@@ -26,10 +26,10 @@ export function OrderTable({ initial }: { initial: Page<Order> }) {
         setMessage("");
       } else {
         setData({ ...initial, items: [], total: 0 });
-        setMessage("订单不可用或权限已失效。");
+        setMessage("訂單不可用或權限已失效。");
       }
     } catch {
-      setMessage("读取失败，请重试。");
+      setMessage("讀取失敗，請重試。");
     }
     busy.current = false;
     setPending(false);
@@ -43,7 +43,7 @@ export function OrderTable({ initial }: { initial: Page<Order> }) {
       <form onSubmit={submit}>
         <fieldset disabled={pending}>
           <label>
-            订单或会员 ID
+            訂單或會員 ID
             <input
               value={search}
               maxLength={254}
@@ -51,14 +51,14 @@ export function OrderTable({ initial }: { initial: Page<Order> }) {
             />
           </label>
           <label>
-            状态
+            狀態
             <select
-              aria-label="状态"
+              aria-label="狀態"
               value={status}
               onChange={(e) => setStatus(e.target.value)}
             >
               <option value="all">全部</option>
-              <option value="pending_payment_setup">待支付开放</option>
+              <option value="pending_payment_setup">待支付開放</option>
               <option value="cancelled">已取消</option>
             </select>
           </label>
@@ -70,10 +70,10 @@ export function OrderTable({ initial }: { initial: Page<Order> }) {
         <table>
           <thead>
             <tr>
-              <th>订单</th>
-              <th>状态</th>
-              <th>商品小计（最小单位）</th>
-              <th>创建时间</th>
+              <th>訂單</th>
+              <th>狀態</th>
+              <th>商品小計（最小單位）</th>
+              <th>創建時間</th>
             </tr>
           </thead>
           <tbody>
@@ -82,7 +82,7 @@ export function OrderTable({ initial }: { initial: Page<Order> }) {
                 <td>
                   <Link href={`/orders/${o.id}`}>{o.id}</Link>
                 </td>
-                <td>{o.status === "cancelled" ? "已取消" : "待支付开放"}</td>
+                <td>{o.status === "cancelled" ? "已取消" : "待支付開放"}</td>
                 <td>
                   {o.currency} {o.totals.itemsMinor}
                 </td>
@@ -92,19 +92,19 @@ export function OrderTable({ initial }: { initial: Page<Order> }) {
           </tbody>
         </table>
       </div>
-      {!data.total && <p>暂无订单</p>}
+      {!data.total && <p>暫無訂單</p>}
       <button
         disabled={pending || data.page === 1}
         onClick={() => void load(data.page - 1)}
       >
-        上一页
+        上一頁
       </button>
       <span>{data.page}</span>
       <button
         disabled={pending || data.page * data.pageSize >= data.total}
         onClick={() => void load(data.page + 1)}
       >
-        下一页
+        下一頁
       </button>
     </section>
   );

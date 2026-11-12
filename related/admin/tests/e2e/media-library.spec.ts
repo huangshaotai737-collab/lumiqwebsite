@@ -46,11 +46,11 @@ test('real staff upload and private no-store preview; no anonymous originals or 
   expect((await post(context, '/api/media/upload', {})).status()).toBe(401);
   const ops = await browser.newContext(); await login(ops, 'operations'); expect((await post(ops, '/api/media/upload', {})).status()).toBe(403); await ops.close();
   await login(context, 'editor'); await page.goto('/media'); await page.getByLabel('素材用途').selectOption(usage);
-  await page.getByLabel('选择文件').setInputFiles({ name: 'synthetic-blue.png', mimeType: 'image/png', buffer: syntheticImage });
+  await page.getByLabel('選擇文件').setInputFiles({ name: 'synthetic-blue.png', mimeType: 'image/png', buffer: syntheticImage });
   const complete = page.waitForResponse(response => response.url().endsWith('/api/media/complete'));
-  await page.getByRole('button', { name: '上传并校验' }).click(); const completed = await complete;
+  await page.getByRole('button', { name: '上傳並校驗' }).click(); const completed = await complete;
   expect(completed.status()).toBe(200); imageId = (await completed.json()).data.assetId;
-  await expect(page.locator('form').getByRole('status')).toContainText('素材已校验');
+  await expect(page.locator('form').getByRole('status')).toContainText('素材已校驗');
   const preview = await context.request.get(`${origin}/api/media/preview?assetId=${imageId}`); expect(preview.status()).toBe(200); expect(preview.headers()['cache-control']).toContain('no-store'); expect(await preview.body()).toEqual(syntheticImage);
   await expect(page.locator('.media-library img').first()).toHaveJSProperty('naturalWidth', 64); expect(await page.locator('.media-library img').first().getAttribute('src')).not.toContain('/_next/image');
   const privateOriginal = await anon.storage.from('media-originals').download(`${users.editor.id}/${imageId}`); expect(privateOriginal.error).not.toBeNull();
@@ -58,7 +58,7 @@ test('real staff upload and private no-store preview; no anonymous originals or 
   const evidence=path.resolve(__dirname,'../../../../.lumiq-local/evidence/task-7-evidence');mkdirSync(evidence,{recursive:true});
   await page.screenshot({path:path.join(evidence,'media-library-desktop.png'),fullPage:true});
   for(const width of [320,390]){await page.setViewportSize({width,height:900});expect(await page.evaluate(()=>Array.from(document.querySelectorAll('body *')).filter(node=>node.getBoundingClientRect().right>innerWidth+1).map(node=>({tag:node.tagName,class:node.className,width:node.getBoundingClientRect().width,right:node.getBoundingClientRect().right})).slice(-8))).toEqual([]);await page.screenshot({path:path.join(evidence,`media-library-${width}.png`),fullPage:true});}
-  await page.getByLabel('素材用途').selectOption('asset_a6510e681604d2f9'); await expect(page.getByRole('note')).toContainText('MOV'); await expect(page.getByRole('button', { name: '上传并校验' })).toHaveCount(0);
+  await page.getByLabel('素材用途').selectOption('asset_a6510e681604d2f9'); await expect(page.getByRole('note')).toContainText('MOV'); await expect(page.getByRole('button', { name: '上傳並校驗' })).toHaveCount(0);
 });
 test('disguised_html_is_rejected, real size and foreign actor metadata are enforced', async ({ context, browser }) => {
   await login(context,'editor');
@@ -88,7 +88,7 @@ test('failed_media_publish_stays_private and exact snapshot publication; archiva
   expect(releasePath).toMatch(new RegExp(`^releases/${imageId}/[a-f0-9]{64}$`));
   const existingCopy=await backend.storage.from('media-releases').download(releasePath);expect(existingCopy.error).toBeNull();expect(Buffer.from(await existingCopy.data!.arrayBuffer())).toEqual(syntheticImage);
   const copied=await anon.storage.from('media-releases').download(releasePath); expect(copied.error).not.toBeNull();
-  await page.goto(`/content/${draftId}`); await page.locator('.visual-all-fields > summary').click(); await page.getByLabel('字段分组').selectOption('media'); await page.getByLabel('搜索字段').fill(`media.${usage}.assetId`); await expect(page.locator(`[id="field-media.${usage}.assetId"]`)).toHaveValue(imageId);
+  await page.goto(`/content/${draftId}`); await page.locator('.visual-all-fields > summary').click(); await page.getByLabel('字段分組').selectOption('media'); await page.getByLabel('搜索字段').fill(`media.${usage}.assetId`); await expect(page.locator(`[id="field-media.${usage}.assetId"]`)).toHaveValue(imageId);
   expect((await post(context,'/api/media/archive',{assetId:imageId})).status()).toBe(200);
   expect((await context.request.get(`${website}/api/media/${imageId}`)).status()).toBe(200);
   const newDraft=await post(context,'/api/content/drafts',{action:'create'}); expect(newDraft.status()).toBe(200);
@@ -131,14 +131,14 @@ test('older ready media remains discoverable and selectable beyond 200 newer att
     insert into public.media_assets(created_by,file_name,advertised_size,mime,usage_key,original_path,status,created_at)
     select '${users.admin.id}','boundary-ready-'||n,1,'image/png','${usage}','${boundaryPrefix}/ready-'||n,'ready',now()+interval '1 day' from generate_series(1,26) n;`);
   const created=await post(context,'/api/content/drafts',{id:crypto.randomUUID(),expectedVersion:0,snapshot:initialSnapshot});expect(created.status()).toBe(200);const draft=(await created.json()).data;
-  await page.goto(`/content/${draft.id}`); await page.locator('.visual-all-fields > summary').click();await page.getByLabel('字段分组').selectOption('media');await page.getByLabel('搜索字段').fill(`media.${usage}.assetId`);
+  await page.goto(`/content/${draft.id}`); await page.locator('.visual-all-fields > summary').click();await page.getByLabel('字段分組').selectOption('media');await page.getByLabel('搜索字段').fill(`media.${usage}.assetId`);
   const picker=page.locator(`[id="field-media.${usage}.assetId"]`);const field=page.locator('.content-field').filter({has:picker});
   await field.getByRole('button',{name:'查找素材',exact:true}).click();
   await expect(picker.locator(`option[value="${target}"]`)).toHaveCount(0);
-  await field.getByRole('button',{name:'下一页素材',exact:true}).click();await expect(picker.locator(`option[value="${target}"]`)).toHaveCount(1);
+  await field.getByRole('button',{name:'下一頁素材',exact:true}).click();await expect(picker.locator(`option[value="${target}"]`)).toHaveCount(1);
   await picker.selectOption(target);await page.getByRole('button',{name:'保存草稿',exact:true}).click();await expect(page.getByRole('status').filter({hasText:'草稿已保存'})).toBeVisible();
   const saved=await context.request.get(`${origin}/api/content/drafts?id=${draft.id}`);expect((await saved.json()).data.snapshot.media[usage].assetId).toBe(target);
-  await field.getByLabel('按文件名或编号查找素材').fill(target);await field.getByRole('button',{name:'查找素材',exact:true}).click();await expect(picker.locator(`option[value="${target}"]`)).toHaveCount(1);await expect(field.getByRole('button',{name:'下一页素材',exact:true})).toBeDisabled();
+  await field.getByLabel('按文件名或編號查找素材').fill(target);await field.getByRole('button',{name:'查找素材',exact:true}).click();await expect(picker.locator(`option[value="${target}"]`)).toHaveCount(1);await expect(field.getByRole('button',{name:'下一頁素材',exact:true})).toBeDisabled();
   const options=await context.request.get(`${origin}/api/media/options?usageKey=${usage}&q=${target}`);expect(options.status()).toBe(200);expect(options.headers()['cache-control']).toContain('no-store');expect((await options.json()).data.items).toHaveLength(1);
   const outsider=await browser.newContext();expect((await outsider.request.get(`${origin}/api/media/options?usageKey=${usage}`)).status()).toBe(401);await login(outsider,'operations');expect((await outsider.request.get(`${origin}/api/media/options?usageKey=${usage}`)).status()).toBe(403);await outsider.close();
 });

@@ -23,14 +23,14 @@ export function FieldControl({ field, snapshot, change, invalidControlPaths, sel
     const pricePath = field.path.slice(0, -5);
     const price = fieldValue(snapshot, pricePath) as ProductPresentation['price'];
     control = <><select {...properties} value={price.kind} onChange={event => change(pricePath, event.target.value === 'usd' ? { kind: 'usd', amount: 0 } : { kind: 'pending' })}>
-      <option value="pending">待确认</option><option value="usd">美元参考价</option>
-    </select>{price.kind === 'usd' && <label>参考金额（美元）<input {...controlProperties(`${pricePath}.amount`)} aria-label="参考金额（美元）" inputMode="decimal" defaultValue={price.amount} onChange={event => change(pricePath, { kind: 'usd', amount: numericValue(event.target.value) })} /></label>}
-    <small>仅用于展示，不影响订单金额。</small></>;
+      <option value="pending">待確認</option><option value="usd">美元參考價</option>
+    </select>{price.kind === 'usd' && <label>參考金額（美元）<input {...controlProperties(`${pricePath}.amount`)} aria-label="參考金額（美元）" inputMode="decimal" defaultValue={price.amount} onChange={event => change(pricePath, { kind: 'usd', amount: numericValue(event.target.value) })} /></label>}
+    <small>僅用於展示，不影響訂單金額。</small></>;
   } else if (field.path.endsWith('.contentStatus')) {
-    control = <select {...properties} value={String(value)} onChange={event => change(field.path, event.target.value)}><option value="pending_brand_confirmation">待品牌确认</option><option value="confirmed">已确认</option></select>;
+    control = <select {...properties} value={String(value)} onChange={event => change(field.path, event.target.value)}><option value="pending_brand_confirmation">待品牌確認</option><option value="confirmed">已確認</option></select>;
   } else if (/^products\.[^.]+\.image$/.test(field.path)) {
     const {slotId}=trustedProductImages[field.path.split('.')[1]]; const slot=snapshot.media[slotId];
-    control = <><MediaPicker usageKey={slotId} assetId={slot.assetId} controlProps={properties} onChange={assetId=>change(`media.${slotId}`,{...slot,assetId,url:assetId?`/api/media/${assetId}`:legacyMedia[slotId]})}/><small>产品图片与对应素材统一管理，预览和发布使用同一图片。</small></>;
+    control = <><MediaPicker usageKey={slotId} assetId={slot.assetId} controlProps={properties} onChange={assetId=>change(`media.${slotId}`,{...slot,assetId,url:assetId?`/api/media/${assetId}`:legacyMedia[slotId]})}/><small>產品圖片與對應素材統一管理，預覽和發佈使用同一圖片。</small></>;
   } else if (field.type === 'assetId') {
     const slotKey = field.path.split('.')[1]; const slot = snapshot.media[slotKey];
     control = <MediaPicker usageKey={slotKey} assetId={slot.assetId} controlProps={properties} onChange={assetId => change(`media.${slotKey}`, { ...slot, assetId, url: assetId ? `/api/media/${assetId}` : legacyMedia[slotKey] })} />;
@@ -41,5 +41,5 @@ export function FieldControl({ field, snapshot, change, invalidControlPaths, sel
   } else {
     control = <textarea {...properties} readOnly={field.path.startsWith('media.') && field.path.endsWith('.url')} rows={field.maxLength && field.maxLength <= 120 ? 2 : 3} value={value == null ? '' : String(value)} onChange={event => change(field.path, field.type === 'assetId' && event.target.value === '' ? null : event.target.value)} />;
   }
-  return <div className="content-field"><label htmlFor={properties.id}>{fieldLabel(field, snapshot)}</label><small id={`context-${field.path}`}>{fieldContext(field, snapshot, selectedPage)}</small><code className="content-path">{field.path}</code>{control}<small id={`hint-${field.path}`}>{field.maxLength ? `最多 ${field.maxLength} 字符。` : ''}{field.icuSignature !== null ? '保留原有变量与格式标记。' : ''}{field.mediaPurpose ? `素材用途：${field.mediaPurpose}` : ''}</small></div>;
+  return <div className="content-field"><label htmlFor={properties.id}>{fieldLabel(field, snapshot)}</label><small id={`context-${field.path}`}>{fieldContext(field, snapshot, selectedPage)}</small><code className="content-path">{field.path}</code>{control}<small id={`hint-${field.path}`}>{field.maxLength ? `最多 ${field.maxLength} 字符。` : ''}{field.icuSignature !== null ? '保留原有變量與格式標記。' : ''}{field.mediaPurpose ? `素材用途：${field.mediaPurpose}` : ''}</small></div>;
 }

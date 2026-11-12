@@ -4,8 +4,8 @@ import { currencyMinorDigits, type Order } from "@/lib/generated/platform/commer
 import type { StaffOrderDetail } from "./service";
 function money(value: number, currency: string) {
   const digits = currencyMinorDigits[currency as keyof typeof currencyMinorDigits];
-  if (digits === undefined) return `${currency} ${value}（最小单位）`;
-  return new Intl.NumberFormat('zh-CN', {style:'currency',currency,currencyDisplay:'code',minimumFractionDigits:digits,maximumFractionDigits:digits}).format(value / 10 ** digits);
+  if (digits === undefined) return `${currency} ${value}（最小單位）`;
+  return new Intl.NumberFormat('zh-TW', {style:'currency',currency,currencyDisplay:'code',minimumFractionDigits:digits,maximumFractionDigits:digits}).format(value / 10 ** digits);
 }
 export function OrderDetail({
   order,
@@ -40,55 +40,55 @@ export function OrderDetail({
         ).json();
         if (fresh.ok) {
           setNotes(fresh.data.notes);
-          setMessage("备注已保存。");
+          setMessage("備註已保存。");
         } else {
           setNotes([]);
-          setMessage("备注已保存，但无法重新读取。");
+          setMessage("備註已保存，但無法重新讀取。");
         }
       } else {
-        setMessage("备注未保存，权限可能已失效，请重试。");
+        setMessage("備註未保存，權限可能已失效，請重試。");
         if (r.error === "FORBIDDEN" || r.error === "UNAUTHENTICATED")
           setNotes([]);
       }
     } catch {
-      setMessage("结果未确认，请刷新检查备注后再重试。");
+      setMessage("結果未確認，請刷新檢查備註後再重試。");
     }
     busy.current = false;
     setPending(false);
   }
   return (
     <>
-      <h1>订单详情</h1>
+      <h1>訂單詳情</h1>
       <section className="panel order-workspace">
         <h2>{order.id}</h2>
         <p>
-          {order.status === "cancelled" ? "已取消" : "待支付开放"} ·
-          支付尚未开通 · 配送尚未安排
+          {order.status === "cancelled" ? "已取消" : "待支付開放"} ·
+          支付尚未開通 · 配送尚未安排
         </p>
-        <p>不创建交易，不支持手工改为已付款或已发货。</p>
-        <p>会员：{order.userId}</p>
+        <p>不創建交易，不支持手工改為已付款或已發貨。</p>
+        <p>會員：{order.userId}</p>
         <ul>
           {order.items.map((i) => (
             <li key={i.skuId}>
-              {i.name} × {i.quantity} · {money(i.unitMinor, order.currency)}（单价）
+              {i.name} × {i.quantity} · {money(i.unitMinor, order.currency)}（單價）
             </li>
           ))}
         </ul>
         <p>
-          商品小计：{money(order.totals.itemsMinor, order.currency)}
+          商品小計：{money(order.totals.itemsMinor, order.currency)}
         </p>
-        <p>运费、税额、最终应付总额：待确认</p>
-        <h2>收件资料</h2>
+        <p>運費、稅額、最終應付總額：待確認</p>
+        <h2>收件資料</h2>
         <dl>
           {Object.entries({
             name: "收件人",
-            country: "国家",
-            region: "地区",
+            country: "國家",
+            region: "地區",
             city: "城市",
-            postalCode: "邮编",
+            postalCode: "郵編",
             line1: "地址一",
             line2: "地址二",
-            phone: "电话",
+            phone: "電話",
           }).map(([key, label]) => (
             <div key={key}>
               <dt>{label}</dt>
@@ -100,12 +100,12 @@ export function OrderDetail({
             </div>
           ))}
         </dl>
-        <p>条款版本：{detail.termsVersion}</p>
-        <p>取消记录：{detail.cancelledAt || "尚无取消记录"}</p>
+        <p>條款版本：{detail.termsVersion}</p>
+        <p>取消記錄：{detail.cancelledAt || "尚無取消記錄"}</p>
       </section>
       <section className="panel order-workspace">
-        <h2>内部备注</h2>
-        <p>仅管理员和运营可见。</p>
+        <h2>內部備註</h2>
+        <p>僅管理員和運營可見。</p>
         <ul>
           {notes.map((n) => (
             <li key={n.id}>
@@ -117,7 +117,7 @@ export function OrderDetail({
         <form method="POST" onSubmit={submit}>
           <fieldset disabled={pending}>
             <label>
-              添加内部备注
+              添加內部備註
               <textarea
                 required
                 maxLength={2000}
@@ -125,7 +125,7 @@ export function OrderDetail({
                 onChange={(e) => setNote(e.target.value)}
               />
             </label>
-            <button className="primary-button">{pending ? "保存中…" : "保存备注"}</button>
+            <button className="primary-button">{pending ? "保存中…" : "保存備註"}</button>
           </fieldset>
         </form>
         <p role="status">{message}</p>

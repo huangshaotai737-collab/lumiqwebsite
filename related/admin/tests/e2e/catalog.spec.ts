@@ -118,12 +118,12 @@ test("admin confirms synthetic SKU with version/origin guards; actual customer J
   }
   await page.goto("/catalog");
   await expect(
-    page.getByRole("heading", { name: "产品与方案", exact: true }),
+    page.getByRole("heading", { name: "產品與方案", exact: true }),
   ).toBeVisible();
   for (const width of [1440, 320, 390]) {
     await page.setViewportSize({ width, height: 900 });
     await expect(
-      page.getByText("当前仅保存待付款配置订单。", { exact: false }),
+      page.getByText("當前僅保存待付款配置訂單。", { exact: false }),
     ).toBeVisible();
     expect(
       await page.evaluate(
@@ -140,10 +140,10 @@ test("admin confirms synthetic SKU with version/origin guards; actual customer J
     .filter({
       has: page.getByRole("heading", { name: "LumiQ Ola", exact: true }),
     });
-  await section.getByLabel("币种", { exact: true }).selectOption("USD");
-  await section.getByLabel("单价（币种最小单位整数）").fill("123");
-  await section.getByLabel("我已确认此 SKU 的实际商业价格").check();
-  await section.getByLabel("允许此 SKU 下单").check();
+  await section.getByLabel("幣種", { exact: true }).selectOption("USD");
+  await section.getByLabel("單價（幣種最小單位整數）").fill("123");
+  await section.getByLabel("我已確認此 SKU 的實際商業價格").check();
+  await section.getByLabel("允許此 SKU 下單").check();
   let release!: () => void;
   const gate = new Promise<void>((resolve) => (release = resolve));
   let reached!: () => void;
@@ -159,12 +159,12 @@ test("admin confirms synthetic SKU with version/origin guards; actual customer J
       .getByRole("button", { name: "保存 LumiQ Ola", exact: true })
       .click();
     await started;
-    await expect(section.getByLabel("单价（币种最小单位整数）")).toBeDisabled();
+    await expect(section.getByLabel("單價（幣種最小單位整數）")).toBeDisabled();
   } finally {
     release();
   }
   await expect(
-    section.getByText("商业价格已确认", { exact: false }),
+    section.getByText("商業價格已確認", { exact: false }),
   ).toBeVisible();
   await page.unroute("**/api/catalog/update");
   const admin = createClient(local.API_URL!, local.ANON_KEY!, {
@@ -210,10 +210,10 @@ test("admin confirms synthetic SKU with version/origin guards; actual customer J
     },
   });
   expect(conflict.status()).toBe(409);
-  await page.getByLabel("我已审核并批准当前已发布的三种语言商业条款").check();
-  await page.getByLabel("开放订单提交").check();
-  await page.getByRole("button", { name: "保存订单设置" }).click();
-  await expect(page.getByText("订单提交已开放")).toBeVisible();
+  await page.getByLabel("我已審核並批准當前已發佈的三種語言商業條款").check();
+  await page.getByLabel("開放訂單提交").check();
+  await page.getByRole("button", { name: "保存訂單設置" }).click();
+  await expect(page.getByText("訂單提交已開放")).toBeVisible();
   const customer = createClient(local.API_URL!, local.ANON_KEY!, {
     auth: { persistSession: false },
   });

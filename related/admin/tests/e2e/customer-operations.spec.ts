@@ -123,13 +123,13 @@ test("real signup, dedup, staff permissions, notes, versions, CSV and audit", as
   await denied.close();
   await login(page.context(), "operations");
   await page.goto("/waitlist");
-  await page.getByLabel("邮箱搜索").fill(email);
-  await page.getByRole("button", { name: "筛选", exact: true }).click();
-  await expect(page.getByText("共 1 条", { exact: false })).toBeVisible();
+  await page.getByLabel("郵箱搜索").fill(email);
+  await page.getByRole("button", { name: "篩選", exact: true }).click();
+  await expect(page.getByText("共 1 條", { exact: false })).toBeVisible();
   await expect(page.getByRole("cell", { name: email })).toHaveCount(1);
-  await page.getByLabel(`状态 ${email}`).selectOption("contacted");
-  await page.getByLabel(`备注 ${email}`).fill('=1+1,"运营"\n下一行');
-  await page.getByRole("button", { name: "保存处理", exact: true }).click();
+  await page.getByLabel(`狀態 ${email}`).selectOption("contacted");
+  await page.getByLabel(`備註 ${email}`).fill('=1+1,"運營"\n下一行');
+  await page.getByRole("button", { name: "保存處理", exact: true }).click();
   await expect
     .poll(async () => {
       const result = await (
@@ -142,7 +142,7 @@ test("real signup, dedup, staff permissions, notes, versions, CSV and audit", as
     await page.request.get("/api/waitlist/list?search=" + email)
   ).json();
   const row = listed.data.items[0];
-  expect(row.note).toBe('=1+1,"运营"\n下一行');
+  expect(row.note).toBe('=1+1,"運營"\n下一行');
   const stale = await page.request.post("/api/waitlist/update", {
     headers: { origin },
     data: {
@@ -165,7 +165,7 @@ test("real signup, dedup, staff permissions, notes, versions, CSV and audit", as
   );
   expect(exported.status()).toBe(200);
   expect(exported.headers()["content-type"]).toContain("text/csv");
-  expect(await exported.text()).toContain("'=1+1," + '""运营""');
+  expect(await exported.text()).toContain("'=1+1," + '""運營""');
   const auditReader = createClient(local.API_URL!, local.ANON_KEY!, {
     auth: { persistSession: false },
   });
@@ -196,24 +196,24 @@ test("real signup, dedup, staff permissions, notes, versions, CSV and audit", as
   expect(memberList.data.total).toBe(1);
   expect(memberList.data.items[0].id).toBe(users.member.id);
   await page.goto("/customers");
-  await page.getByLabel("姓名或邮箱").fill(users.member.email);
-  await page.getByRole("button", { name: "搜索会员" }).click();
+  await page.getByLabel("姓名或郵箱").fill(users.member.email);
+  await page.getByRole("button", { name: "搜索會員" }).click();
   await expect(
     page.getByRole("cell", { name: users.member.email }),
   ).toBeVisible();
-  await page.getByRole("button", { name: "查看详情" }).click();
-  await page.getByLabel("新增内部备注（最多2000字）").fill("运营跟进备注");
-  await page.getByRole("button", { name: "保存备注" }).click();
-  await expect(page.getByText("备注已保存。", { exact: true })).toBeVisible();
-  await expect(page.getByText("运营跟进备注", { exact: true })).toBeVisible();
+  await page.getByRole("button", { name: "查看詳情" }).click();
+  await page.getByLabel("新增內部備註（最多2000字）").fill("運營跟進備註");
+  await page.getByRole("button", { name: "保存備註" }).click();
+  await expect(page.getByText("備註已保存。", { exact: true })).toBeVisible();
+  await expect(page.getByText("運營跟進備註", { exact: true })).toBeVisible();
   let releaseNote!: () => void;
   const noteGate=new Promise<void>(resolve=>{releaseNote=resolve;});
   await page.route("**/api/customers/note",async route=>{await noteGate;await route.fulfill({status:503,contentType:'application/json',body:JSON.stringify({ok:false,error:'UNAVAILABLE'})});});
-  await page.getByLabel("新增内部备注（最多2000字）").fill("未提交的备注仍保留");
-  await page.getByRole("button",{name:"保存备注"}).click();
-  try {await expect(page.getByLabel("新增内部备注（最多2000字）")).toBeDisabled();}finally{releaseNote();}
-  await expect(page.getByText("保存失败，请检查权限或稍后重试。")).toBeVisible();
-  await expect(page.getByLabel("新增内部备注（最多2000字）")).toHaveValue("未提交的备注仍保留");
+  await page.getByLabel("新增內部備註（最多2000字）").fill("未提交的備註仍保留");
+  await page.getByRole("button",{name:"保存備註"}).click();
+  try {await expect(page.getByLabel("新增內部備註（最多2000字）")).toBeDisabled();}finally{releaseNote();}
+  await expect(page.getByText("保存失敗，請檢查權限或稍後重試。")).toBeVisible();
+  await expect(page.getByLabel("新增內部備註（最多2000字）")).toHaveValue("未提交的備註仍保留");
   await page.unroute("**/api/customers/note");
   const memberToken = await createClient(local.API_URL!, local.ANON_KEY!, {
     auth: { persistSession: false },
@@ -232,11 +232,11 @@ test("real signup, dedup, staff permissions, notes, versions, CSV and audit", as
   for (const width of [1440, 320, 390]) {
     await page.setViewportSize({ width, height: 900 });
     await page.goto("/waitlist");
-    await page.getByLabel("邮箱搜索").fill(email);
-    await page.getByRole("button", { name: "筛选", exact: true }).click();
+    await page.getByLabel("郵箱搜索").fill(email);
+    await page.getByRole("button", { name: "篩選", exact: true }).click();
     await expect(page.getByRole("cell", { name: email })).toBeVisible();
     await expect(
-      page.getByRole("button", { name: "筛选", exact: true }),
+      page.getByRole("button", { name: "篩選", exact: true }),
     ).toBeEnabled();
     expect(
       await page.evaluate(
@@ -248,10 +248,10 @@ test("real signup, dedup, staff permissions, notes, versions, CSV and audit", as
       fullPage: true,
     });
     await page.goto("/customers");
-    await page.getByLabel("姓名或邮箱").fill(users.member.email);
-    await page.getByRole("button", { name: "搜索会员" }).click();
-    await page.getByRole("button", { name: "查看详情" }).click();
-    await expect(page.getByText("运营跟进备注", { exact: true })).toBeVisible();
+    await page.getByLabel("姓名或郵箱").fill(users.member.email);
+    await page.getByRole("button", { name: "搜索會員" }).click();
+    await page.getByRole("button", { name: "查看詳情" }).click();
+    await expect(page.getByText("運營跟進備註", { exact: true })).toBeVisible();
     expect(
       await page.evaluate(
         () => document.documentElement.scrollWidth <= innerWidth,
@@ -263,14 +263,14 @@ test("real signup, dedup, staff permissions, notes, versions, CSV and audit", as
     });
   }
   await page.goto("/waitlist");
-  await page.getByLabel("邮箱搜索").fill(email);
-  await page.getByRole("button", { name: "筛选", exact: true }).click();
-  await expect(page.getByText("共 1 条", { exact: false })).toBeVisible();
+  await page.getByLabel("郵箱搜索").fill(email);
+  await page.getByRole("button", { name: "篩選", exact: true }).click();
+  await expect(page.getByText("共 1 條", { exact: false })).toBeVisible();
   const downloading = page.waitForEvent("download");
-  await page.getByRole("button", { name: "导出筛选结果，最多10000条" }).click();
+  await page.getByRole("button", { name: "導出篩選結果，最多10000條" }).click();
   const download = await downloading;
   expect(download.suggestedFilename()).toBe("lumiq-waitlist.csv");
-  expect(readFileSync((await download.path())!, "utf8")).toContain("'=1+1," + '""运营""');
+  expect(readFileSync((await download.path())!, "utf8")).toContain("'=1+1," + '""運營""');
   // A real API error must retain the last successful rows and cannot show a false empty state.
   await page.route("**/api/waitlist/list?**", (route) =>
     route.fulfill({
@@ -281,7 +281,7 @@ test("real signup, dedup, staff permissions, notes, versions, CSV and audit", as
   );
   await page.getByRole("button", { name: "刷新列表" }).click();
   await expect(
-    page.getByText("读取失败，当前显示上次成功结果。请重试。"),
+    page.getByText("讀取失敗，當前顯示上次成功結果。請重試。"),
   ).toBeVisible();
   await expect(page.getByRole("cell", { name: email })).toBeVisible();
   await page.unroute("**/api/waitlist/list?**");
@@ -291,14 +291,14 @@ test("real signup, dedup, staff permissions, notes, versions, CSV and audit", as
     await saveGate;
     await route.fulfill({status:503,contentType:"application/json",body:JSON.stringify({ok:false,error:"UNAVAILABLE"})});
   });
-  await page.getByLabel(`备注 ${email}`).fill("unsaved");
-  await page.getByRole("button", {name:"保存处理"}).click();
+  await page.getByLabel(`備註 ${email}`).fill("unsaved");
+  await page.getByRole("button", {name:"保存處理"}).click();
   try {
-    await expect(page.getByLabel(`备注 ${email}`)).toBeDisabled();
-    await expect(page.getByLabel(`状态 ${email}`)).toBeDisabled();
+    await expect(page.getByLabel(`備註 ${email}`)).toBeDisabled();
+    await expect(page.getByLabel(`狀態 ${email}`)).toBeDisabled();
   } finally {releaseSave();}
-  await expect(page.getByText("保存失败，请重试。")).toBeVisible();
-  await expect(page.getByLabel(`备注 ${email}`)).toHaveValue("unsaved");
+  await expect(page.getByText("保存失敗，請重試。")).toBeVisible();
+  await expect(page.getByLabel(`備註 ${email}`)).toHaveValue("unsaved");
   await page.unroute("**/api/waitlist/update");
   await login(page.context(), "admin");
   expect(

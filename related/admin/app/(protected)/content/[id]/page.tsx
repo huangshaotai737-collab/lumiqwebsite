@@ -9,7 +9,7 @@ export default async function ContentDraftPage({ params }: { params: Promise<{ i
     const { id } = await params;
     data = await Promise.all([requireStaff(['admin', 'editor']), loadDraft(id)]);
   } catch {
-    return <p role="alert">无法载入草稿。请检查草稿编号和当前权限或稍后重试。</p>;
+    return <p role="alert">無法載入草稿。請檢查草稿編號和當前權限或稍後重試。</p>;
   }
   const [actor, draft] = data;
   const fields = contentFields.filter(field => field.editable && (actor.role === 'admin' || !field.adminOnly))

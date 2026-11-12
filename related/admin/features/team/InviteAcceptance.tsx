@@ -19,7 +19,7 @@ export function InviteAcceptance() {
   const invitation =
     !consumed && inviteId && token ? { inviteId, token } : null;
   const [message, setMessage] = useState(
-    '请验证受邀邮箱的账号，再明确接受邀请。',
+    '請驗證受邀郵箱的賬號，再明確接受邀請。',
   );
   const [pending, setPending] = useState(false);
   const [verified, setVerified] = useState(false);
@@ -42,11 +42,11 @@ export function InviteAcceptance() {
       setVerified(result.ok);
       setMessage(
         result.ok
-          ? '账号已验证，请点击接受邀请。'
-          : '账号验证失败，请确认邮箱已验证并检查密码。',
+          ? '賬號已驗證，請點擊接受邀請。'
+          : '賬號驗證失敗，請確認郵箱已驗證並檢查密碼。',
       );
     } catch {
-      setMessage('网络连接失败，请重试。');
+      setMessage('網絡連接失敗，請重試。');
     } finally {
       setPending(false);
     }
@@ -63,17 +63,17 @@ export function InviteAcceptance() {
       const result = await response.json();
       setMessage(
         result.ok
-          ? '已获得员工权限，请前往工作台。'
+          ? '已獲得員工權限，請前往工作臺。'
           : result.error === 'FORBIDDEN'
-            ? '账号邮箱与邀请不一致，或账号不可用。'
-            : '邀请已失效、已使用或未发送，请联系管理员。',
+            ? '賬號郵箱與邀請不一致，或賬號不可用。'
+            : '邀請已失效、已使用或未發送，請聯繫管理員。',
       );
       if (result.ok) {
         setConsumed(true);
         window.history.replaceState(null, '', '/invite');
       }
     } catch {
-      setMessage('网络连接失败，请重试。');
+      setMessage('網絡連接失敗，請重試。');
     } finally {
       setPending(false);
     }
@@ -81,7 +81,7 @@ export function InviteAcceptance() {
   return (
     <>
       <form method="POST" className="login-form" onSubmit={signin}>
-        <label htmlFor="recipient-email">受邀邮箱</label>
+        <label htmlFor="recipient-email">受邀郵箱</label>
         <input
           id="recipient-email"
           name="email"
@@ -90,7 +90,7 @@ export function InviteAcceptance() {
           required
           maxLength={254}
         />
-        <label htmlFor="recipient-password">密码</label>
+        <label htmlFor="recipient-password">密碼</label>
         <input
           id="recipient-password"
           name="password"
@@ -100,12 +100,12 @@ export function InviteAcceptance() {
           maxLength={1024}
         />
         <button className="primary-button" disabled={!ready || pending || !invitation}>
-          验证账号
+          驗證賬號
         </button>
       </form>
       <p role="status">
         {hash && !invitation && !consumed
-          ? '邀请链接无效，请联系管理员重新发送。'
+          ? '邀請鏈接無效，請聯繫管理員重新發送。'
           : message}
       </p>
       <button
@@ -113,10 +113,10 @@ export function InviteAcceptance() {
         disabled={!ready || pending || !invitation || !verified}
         onClick={accept}
       >
-        接受邀请
+        接受邀請
       </button>
-      <p>新账号须先在官网完成注册和邮箱验证。登录不会自动成为员工。</p>
-      <Link href="/">前往工作台</Link>
+      <p>新賬號須先在官網完成註冊和郵箱驗證。登錄不會自動成為員工。</p>
+      <Link href="/">前往工作臺</Link>
     </>
   );
 }
