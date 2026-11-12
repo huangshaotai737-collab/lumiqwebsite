@@ -48,7 +48,9 @@
 
 部署上传保留仓库结构，Vercel 项目 Root Directory 为 `related/admin`。根 `scripts/` 与 `contracts/` 是构建所需上下文，不能只上传后台子目录。Node 24，区域东京 `hnd1`，配置见 `related/admin/vercel.json`。
 
-构建脚本 `scripts/prepare-vercel-media.mjs` 下载 `scripts/ffprobe-linux.json` 指定的 Linux x64 FFprobe，核对 SHA-256、保留许可证并验证可执行性；仅在构建期运行。`/api/media/complete` 追踪该文件。按本仓库部署目录配置 `MEDIA_FFPROBE_PATH=/var/task/related/admin/vendor/ffprobe`，本次已用合成 PNG 与 H264 MP4 的真实云端上传完成请求验证运行路径及私有预览；最大尺寸、长视频与负载预算仍需独立验收。未配置时保持失败关闭，不信任浏览器自行提交的媒体元数据。
+构建脚本 `scripts/prepare-vercel-media.mjs` 下载 `scripts/ffprobe-linux.json` 指定的 Linux x64 FFprobe，核对 SHA-256、保留许可证并验证可执行性；仅在构建期运行。`/api/media/complete` 与 `/api/content/publish` 都必须追踪该文件和许可证，因为发布时会重新校验原始素材。Vercel 构建结束后运行 `node --test tests/packaging/media-validator.test.mjs`，核对两个接口的实际追踪清单。
+
+`MEDIA_FFPROBE_PATH` 必须匹配该次部署的函数文件目录：根目录为独立后台应用时使用 `/var/task/vendor/ffprobe`；保留仓库 `related/admin` 层级的部署使用 `/var/task/related/admin/vendor/ffprobe`。更换部署入口时，须用真实图片、视频的上传完成和发布请求核验路径，不能只凭构建成功判断。未配置时保持失败关闭，不信任浏览器自行提交的媒体元数据。最大尺寸、长视频与负载预算仍需独立验收。
 
 新数据库首次迁移必须包含 `20261103180000_tablet_media_compatibility.sql`，支持两个已交付 Tablet 场景图，同时保留旧素材用于回退。奖励目标截图另有追加迁移 `20261103200000_reward_goals_replacement.sql`，与应用中同槽位新旧 URL 兼容一起部署。不要删掉历史迁移或重置旧库。
 
