@@ -14,6 +14,8 @@
 
 .lh-fixed-backgrounds { position: fixed; inset: 0; pointer-events: none; background: #f8f7fc; }
 .lh-fixed-backgrounds > div { position: absolute; inset: 0; background-position: center; background-size: cover; background-repeat: no-repeat; }
+/* Soften only the chapter background by 20%; products and copy stay untouched. */
+.lh-fixed-backgrounds::after { content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none; background: rgb(248 247 252 / 20%); }
 .lh-home :is(.lh-products, .lh-films-section, .lh-experiences, .lh-safety, .lh-family, .lh-join)::before { display: none; }
 
 /* Foregrounds no longer depend on video readiness: every frame stays light. */

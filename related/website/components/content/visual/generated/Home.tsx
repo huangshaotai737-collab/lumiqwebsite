@@ -23,6 +23,7 @@ import HomeExperiences from "@/components/home/HomeExperiences";
 import HomeWaitlist from "@/components/home/HomeWaitlist";
 import HomeFamily from "@/components/home/HomeFamily";
 import "@/app/homepage.css";
+import "@/app/home-loading.css";
 import "@/app/opening-video.css";
 import "@/app/home-floors-3-4.css";
 import "@/app/home-films.css";
@@ -83,12 +84,8 @@ export default function Home() {
             data-home-section
           >
             <div className="lh-mobile-hero-art" role="img" aria-label={t("heroAlt")}>
-              <picture>
-                <source
-                  media="(min-width: 768px)"
-                  srcSet={cms.url("/assets/home-video/ola-scroll-v16-start-20260909.webp")}
-                />
                 <Image
+                  wideSource={cms.url("/assets/home-video/ola-scroll-v16-start-20260909.webp")}
                   src={cms.url("/assets/mobile-backgrounds-20260914/hero-unified.webp")}
                   alt=""
                   fill
@@ -97,7 +94,6 @@ export default function Home() {
                   priority
                   fetchPriority="high"
                 />
-              </picture>
             </div>
             <div className="lh-wrap lh-hero-layout">
               <div className="lh-hero-copy">
@@ -139,9 +135,8 @@ export default function Home() {
                 </Link>
               </div>
               <div className="lh-mobile-ola-art">
-                <picture>
-                <source media="(min-width: 768px)" srcSet={cms.url("/assets/home-video/ola-scroll-v16-end-20260909.webp")} />
                 <Image
+                  wideSource={cms.url("/assets/home-video/ola-scroll-v16-end-20260909.webp")}
                   src={cms.url("/assets/mobile-backgrounds-20260914/ola-go-ui.webp")}
                   alt={cms.value("media.asset_38c045ee1dd24e31.alt")}
                   width={941}
@@ -149,7 +144,6 @@ export default function Home() {
                   sizes="(max-width: 1199px) 100vw, 1px"
                   unoptimized
                 />
-                </picture>
               </div>
               <div className="lh-rhythm-cards">
                 {(["learn", "connect", "care"] as const).map((key) => (

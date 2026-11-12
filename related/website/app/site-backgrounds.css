@@ -37,7 +37,16 @@
   /* Native scrolling: no new fixed or scroll-driven layer on touch layouts. */
   .lumiq-root main.lh-home :is(#products, #films, #experiences, #safety, #family, #join)::before {
     display: block;
-    background: var(--site-background-base) var(--site-background-art) center bottom / 100% auto no-repeat;
+    background: linear-gradient(rgb(248 247 252 / 20%), rgb(248 247 252 / 20%)), var(--site-background-base) var(--site-background-art) center bottom / 100% auto no-repeat;
     mask-image: none;
   }
+}
+
+/* Homepage stills retain their decoded 480px frame until full artwork is ready. */
+.lumiq-root main.lh-home { --site-background-art: var(--home-flow-desktop); }
+@media (min-width: 768px) and (max-width: 1199px) {
+  .lumiq-root main.lh-home { --site-background-art: var(--home-flow-compact); }
+}
+@media (max-width: 767px) {
+  .lumiq-root main.lh-home { --site-background-art: var(--home-flow-mobile); }
 }

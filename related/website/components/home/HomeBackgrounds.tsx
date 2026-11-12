@@ -2,6 +2,9 @@
 import {useContentAdapter} from "@/components/content/useContentAdapter";
 import {useVisualPreview} from '@/components/content/SiteContentProvider';
 import {visualMediaDependency} from '@/lib/content/visual-dependency';
+import {useStagedArtwork} from "./useStagedArtwork";
+import {useHomeMedia} from "./HomeMediaContext";
+import {resolveFlowVideo} from "./homeMediaSources";
 import {homeMotionQuery} from "./responsiveLayout";
 
 import { useEffect, useRef, useState } from "react";
@@ -9,20 +12,22 @@ import { createPortal } from "react-dom";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 export const backgroundVideoSource = "/assets/background-variants-20260911/version-5-tail-wave-20260914.mp4";
-const lightBackgroundVideo = "/assets/site-backgrounds-20261108/pearl-flow-scroll.mp4";
 const lightBackgroundPoster = "/assets/site-backgrounds-20261108/pearl-flow-poster.webp";
 
 export const chapterImage = (name: string) => `/assets/chapter-backgrounds-20260910/${name}.webp`;
 
 export default function HomeBackgrounds() {
   const cms = useContentAdapter();
+  const media = useHomeMedia();
   const visual = useVisualPreview();
   const mediaDependency = visualMediaDependency(cms,visual,backgroundVideoSource);
   // Keep the existing CMS binding; only replace the bundled default movie.
   const contentVideoSource = cms.url(backgroundVideoSource);
-  const resolvedVideoSource = contentVideoSource === backgroundVideoSource ? lightBackgroundVideo : contentVideoSource;
+  const actualVideoSource = resolveFlowVideo(contentVideoSource);
+  const resolvedVideoSource = media?.movies[actualVideoSource] ?? actualVideoSource;
   const contentPoster = cms.url(chapterImage("products"));
   const resolvedPoster = contentPoster === chapterImage("products") ? lightBackgroundPoster : contentPoster;
+  const stagedPoster = useStagedArtwork(resolvedPoster, media?.prepared ?? true);
   const [host, setHost] = useState<Element | null>(null);
   const fallback = useRef<HTMLDivElement>(null);
   const video = useRef<HTMLVideoElement>(null);
@@ -30,7 +35,7 @@ export default function HomeBackgrounds() {
     setHost(document.querySelector(".lumiq-root .bg-layer"));
   }, []);
   useEffect(() => {
-    if (!host) return;
+    if (!host || (media && !media.prepared)) return;
     let frame = 0;
     let loaded = false;
     let presented = false;
@@ -163,9 +168,9 @@ export default function HomeBackgrounds() {
       movie.pause(); movie.removeAttribute("src"); movie.load();
       if (root) delete root.dataset.flowBackground;
     };
-  }, [host, mediaDependency, resolvedVideoSource]);
+  }, [host, mediaDependency, resolvedVideoSource, media]);
   return host ? createPortal(<div className="lh-fixed-backgrounds" aria-hidden="true">
     <video ref={video} data-background-video muted playsInline preload="auto" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", opacity: 0 }} />
-    <div data-background-fallback ref={fallback} style={{ backgroundImage: `url('${resolvedPoster}')` }} />
+    <div data-background-fallback ref={fallback} style={{ backgroundImage: `url('${stagedPoster}')` }} />
   </div>, host) : null;
 }

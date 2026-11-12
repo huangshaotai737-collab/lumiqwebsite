@@ -551,7 +551,7 @@
       {
         "kind": "video",
         "property": "poster",
-        "source": "{mediaRequested ? cms.url(`/assets/films-20260908/${films[active]}.jpg`) : undefined}",
+        "source": "{mediaRequested ? filmPoster : undefined}",
         "alt": null
       },
       {
@@ -563,7 +563,7 @@
       {
         "kind": "video",
         "property": "poster",
-        "source": "{mediaRequested ? cms.url(\"/assets/character-20261012/poster-clean.png\") : undefined}",
+        "source": "{mediaRequested ? characterPoster : undefined}",
         "alt": null
       },
       {
@@ -583,21 +583,21 @@
   "components/home/HomeMotion.tsx": {
     "occurrences": {
       "cms.slot(\"asset_76a5de3f207ca5bb\").url": 1,
-      "cms.slot(\"asset_a4b2063e90484449\").url": 1,
+      "cms.slot(\"asset_a4b2063e90484449\").url": 3,
       "cms.slot(\"asset_d11e4e878cf13138\").url": 1
     },
     "uses": []
   },
   "components/home/MobileFilmCarousel.tsx": {
     "occurrences": {
-      "cms.url(`/assets/films-20260908/${film}.jpg`)": 2,
+      "cms.url(`/assets/films-20260908/${film}.jpg`)": 1,
       "cms.url(`/assets/films-20260908/${film}.mp4`)": 2
     },
     "uses": [
       {
         "kind": "video",
         "property": "poster",
-        "source": "{cms.url(`/assets/films-20260908/${film}.jpg`)}",
+        "source": "{filmPoster}",
         "alt": null
       },
       {

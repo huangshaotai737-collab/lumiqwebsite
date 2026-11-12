@@ -7,6 +7,8 @@ import {useEffect, useRef, useState} from 'react';
 import {useTranslations} from 'next-intl';
 import {ArrowLeft, ArrowRight, Pause, Play} from 'lucide-react';
 import Image from './HomeImage';
+import {useHomeMedia} from './HomeMediaContext';
+import {useStagedArtwork} from './useStagedArtwork';
 
 export default function MobileFilmCarousel({films, active, onChange}: {
   films: readonly string[];
@@ -14,6 +16,8 @@ export default function MobileFilmCarousel({films, active, onChange}: {
   onChange: (index: number) => void;
 }) {
   const cms = useContentAdapter();
+  const media = useHomeMedia();
+  const filmPoster = useStagedArtwork(cms.url(`/assets/films-20260908/${films[active]}.jpg`), media?.prepared ?? true);
   const visual = useVisualPreview();
   const mediaDependency = visualMediaDependency(cms,visual,`/assets/films-20260908/${films[active]}.mp4`);
   const t = useTranslations('HomeFilms');
@@ -116,7 +120,7 @@ export default function MobileFilmCarousel({films, active, onChange}: {
       {films.map((film, index) => <article key={film} className="lh-mobile-film-card" aria-label={`${index + 1} / ${films.length}: ${t(`${film}.title`)}`}>
         <div className="lh-mobile-film-media">
           {index === active ? <>
-            <video key={film} ref={video} playsInline preload={requested ? 'metadata' : 'none'} poster={cms.url(`/assets/films-20260908/${film}.jpg`)}
+            <video key={film} ref={video} playsInline preload={requested ? 'metadata' : 'none'} poster={filmPoster}
               aria-label={t(`${film}.title`)} onPlay={() => setPlaying(true)} onPause={() => setPlaying(false)} onEnded={() => setPlaying(false)} onError={() => setFailed(true)}>
               {requested && <source src={cms.url(`/assets/films-20260908/${film}.mp4`)} type="video/mp4" onError={() => setFailed(true)} />}
             </video>

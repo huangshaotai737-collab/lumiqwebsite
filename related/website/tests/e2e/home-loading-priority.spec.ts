@@ -1,13 +1,13 @@
 import {test, expect} from '@playwright/test';
 
-test('mobile opening image starts at high network priority', async ({page, browserName}) => {
+test('mobile 480 opening image starts at high network priority', async ({page, browserName}) => {
   test.skip(browserName !== 'chromium', 'Network priority is observed through Chromium CDP.');
   await page.setViewportSize({width:390, height:844});
   const cdp = await page.context().newCDPSession(page);
   await cdp.send('Network.enable');
   const priorities: string[] = [];
   cdp.on('Network.requestWillBeSent', event => {
-    if (decodeURIComponent(event.request.url).includes('/mobile-backgrounds-20260914/hero-unified.webp')) priorities.push(event.request.initialPriority);
+    if (/\/home-loading-480\/hero-unified-.*-480\.webp/.test(event.request.url)) priorities.push(event.request.initialPriority);
   });
   await page.goto('/zh-hant');
   await expect.poll(() => page.locator('.lh-mobile-hero-art img').evaluate(element => (element as HTMLImageElement).naturalWidth)).toBeGreaterThan(0);
@@ -17,24 +17,27 @@ test('mobile opening image starts at high network priority', async ({page, brows
 test('a phone receives a smaller opening image without changing the artwork', async ({page}) => {
   await page.setViewportSize({width:390, height:844});
   const imageResponse = page.waitForResponse(response =>
-    decodeURIComponent(response.url()).includes('/mobile-backgrounds-20260914/hero-unified.webp') && response.status() === 200);
+    /\/home-loading-480\/hero-unified-.*-480\.webp/.test(response.url()) && response.status() === 200);
   await page.goto('/zh-hant');
   const response = await imageResponse;
   await expect.poll(() => page.locator('.lh-mobile-hero-art img').evaluate(element => (element as HTMLImageElement).naturalWidth)).toBeGreaterThan(0);
   // A 390px phone should not transfer the entire 941px/143KB source.
   expect((await response.body()).byteLength).toBeLessThan(100 * 1024);
-  expect(decodeURIComponent(await page.locator('.lh-mobile-hero-art img').evaluate(element => (element as HTMLImageElement).currentSrc)))
-    .toContain('/mobile-backgrounds-20260914/hero-unified.webp');
+  await expect(page.locator('.lh-mobile-hero-art img')).toHaveAttribute('data-home-source', '/assets/mobile-backgrounds-20260914/hero-unified.webp');
+  expect(await page.evaluate(async source => {
+    const image = new Image(); image.src = source; await image.decode(); return image.naturalWidth;
+  }, response.url())).toBe(480);
 });
 
-test('distant film character does not compete with the opening image', async ({page}) => {
+test('phone preloads character stills but leaves its distant alpha animation on demand', async ({page}) => {
   await page.setViewportSize({width:390, height:844});
   const requests: string[] = [];
   page.on('request', request => {
-    if (request.url().includes('/character-20261012/')) requests.push(request.url());
+    if (/\/character-20261012\/.*\.(webm|mov)/.test(request.url())) requests.push(request.url());
   });
   await page.goto('/zh-hant');
   await expect(page.locator('.lh-mobile-films-track')).toBeAttached();
+  await expect(page.locator('.lh-loader')).toHaveAttribute('data-state', 'hidden');
   expect(requests).toEqual([]);
 });
 
@@ -42,8 +45,12 @@ test('film character still falls back to its approved image when the animation f
   await page.setViewportSize({width:1440, height:1000});
   await page.route('**/ola-girl-clean-alpha.webm', route => route.abort('failed'));
   await page.goto('/zh-hant#films');
+  await expect(page.locator('.lh-loader')).toHaveAttribute('data-state', 'hidden');
+  // Exercise the media error itself, independently of the intersection-driven
+  // play() timing while the loading gate and desktop pins finish their handoff.
+  await page.locator('.lh-film-character').evaluate(host => host.querySelector('video')?.load());
   const image = page.locator('.lh-film-character img');
-  await expect(image).toHaveAttribute('src', /character-20261012\/settled-clean\.png/);
+  await expect(image).toHaveAttribute('data-home-source', '/assets/character-20261012/settled-clean.png');
   await expect.poll(() => image.evaluate(element => (element as HTMLImageElement).naturalWidth)).toBeGreaterThan(0);
 });
 
@@ -51,9 +58,12 @@ test('desktop film character also waits for its chapter', async ({page}) => {
   await page.setViewportSize({width:1440, height:1000});
   const requests: string[] = [];
   page.on('request', request => {
-    if (request.url().includes('/character-20261012/')) requests.push(request.url());
+    if (/\/character-20261012\/.*\.(webm|mov)/.test(request.url())) requests.push(request.url());
   });
   await page.goto('/zh-hant');
-  await expect(page.locator('.lh-film-character')).toHaveAttribute('data-alpha-video', 'true');
+  // iPhone emulation may reject HEVC alpha and use the approved still. Both
+  // renderer paths must remain inactive until the film chapter approaches.
+  await expect(page.locator('.lh-film-character')).toHaveAttribute('data-visible', 'false');
+  await expect(page.locator('.lh-loader')).toHaveAttribute('data-state', 'hidden');
   expect(requests).toEqual([]);
 });

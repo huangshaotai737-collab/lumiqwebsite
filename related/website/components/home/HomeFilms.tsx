@@ -5,6 +5,8 @@ import {visualMediaDependency} from '@/lib/content/visual-dependency';
 import {homeWideQuery} from "./responsiveLayout";
 import {usePhoneLayout} from "./usePhoneLayout";
 import MobileFilmCarousel from "./MobileFilmCarousel";
+import {useHomeMedia} from "./HomeMediaContext";
+import {useStagedArtwork} from "./useStagedArtwork";
 
 
 import { useCallback, useEffect, useRef, useState, type CSSProperties } from "react";
@@ -21,6 +23,9 @@ export default function HomeFilms() {
   const t = useTranslations("HomeFilms");
   const isPhone = usePhoneLayout();
   const [active, setActive] = useState(0);
+  const media = useHomeMedia();
+  const filmPoster = useStagedArtwork(cms.url(`/assets/films-20260908/${films[active]}.jpg`), media?.prepared ?? true);
+  const characterPoster = useStagedArtwork(cms.url("/assets/character-20261012/poster-clean.png"), media?.prepared ?? true);
   const mediaDependency = visualMediaDependency(cms,visual,`/assets/films-20260908/${films[active]}.mp4`);
   const [mediaRequested, setMediaRequested] = useState(false);
   const [playing, setPlaying] = useState(false);
@@ -216,7 +221,7 @@ export default function HomeFilms() {
             <Image src={cms.url(`/assets/films-20260908/${films[index]}.jpg`)} alt="" width={1280} height={720} unoptimized
               loading={mediaRequested ? "eager" : "lazy"} sizes="(max-width: 1199px) 70vw, 46vw" />
           </button> : <article className={`lh-film-card${films[active] === "welcome-home" ? " lh-film-card-portrait" : ""}`} aria-label={`${active + 1} / ${films.length}`} data-playing={playing}>
-          <video key={films[active]} ref={video} playsInline preload={mediaRequested ? "metadata" : "none"} poster={mediaRequested ? cms.url(`/assets/films-20260908/${films[active]}.jpg`) : undefined}
+          <video key={films[active]} ref={video} playsInline preload={mediaRequested ? "metadata" : "none"} poster={mediaRequested ? filmPoster : undefined}
             aria-label={t(`${films[active]}.title`)} onError={() => setPlaybackError(true)} onPlay={() => setPlaying(true)} onPause={() => setPlaying(false)} onEnded={() => setPlaying(false)}>
             {mediaRequested && <source src={cms.url(`/assets/films-20260908/${films[active]}.mp4`)} type="video/mp4" onError={() => setPlaybackError(true)} />}
             <a href={cms.url(`/assets/films-20260908/${films[active]}.mp4`)}>{t("open")}</a>
@@ -236,7 +241,7 @@ export default function HomeFilms() {
       </nav>
       </div>
       <div ref={characterHost} className="lh-film-character" data-alpha-video={Boolean(characterFormat && !characterFailed)} aria-hidden="true">
-      {characterFormat && !characterFailed ? <video key={characterFormat} ref={character} muted playsInline preload="none" poster={mediaRequested ? cms.url("/assets/character-20261012/poster-clean.png") : undefined} onError={() => setCharacterFailed(true)}>
+      {characterFormat && !characterFailed ? <video key={characterFormat} ref={character} muted playsInline preload="none" poster={mediaRequested ? characterPoster : undefined} onError={() => setCharacterFailed(true)}>
         <source src={cms.url(`/assets/character-20261012/ola-girl-clean-alpha${characterFormat === "hevc" ? "-safari.mov" : ".webm"}`)} type={characterFormat === "hevc" ? 'video/quicktime; codecs="hvc1"' : "video/webm"} onError={() => setCharacterFailed(true)} />
       </video> : mediaRequested && <Image src={cms.url("/assets/character-20261012/settled-clean.png")} alt="" fill unoptimized sizes="100vw" />}
       </div>
