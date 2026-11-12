@@ -69,8 +69,11 @@
     line-height: 1.45;
   }
 
-  .lumiq-root main.lh-home .lh-products:not([data-glass-3d]) .lh-product-slot:not([data-active="true"]) .lh-product-bottom {
+  .lumiq-root main.lh-home .lh-products:not([data-glass-3d]) .lh-product-slot .lh-product-bottom {
     font-size: 18px !important;
+  }
+
+  .lumiq-root main.lh-home .lh-products:not([data-glass-3d]) .lh-product-slot:not([data-active="true"]) .lh-product-bottom {
     white-space: normal;
     text-wrap: balance;
   }
