@@ -216,3 +216,27 @@ test('continuous upward scrolling passes the second anchor without a click', asy
   });
   await at(page,'#top');
 });
+
+test('second-screen text and photos arrive 40 percent faster without speeding up the film', async ({page}) => {
+  await ready(page,'#ola');
+  await at(page,'#ola');
+  const destination = await page.locator('.lh-ola-layout').evaluate(e=>e.getBoundingClientRect().top);
+  await page.keyboard.press('PageUp');
+  await at(page,'#top');
+  const arrival = await page.evaluate(destination=>new Promise<{time:number;film:number}>(resolve=>{
+    const started=performance.now();
+    document.querySelector('#top')!.dispatchEvent(new WheelEvent('wheel',{deltaY:60,bubbles:true,cancelable:true}));
+    const sample=(now:number)=>{
+      if(document.querySelector('.lh-ola-layout')!.getBoundingClientRect().top<=destination+2) {
+        resolve({time:now-started,film:Number((document.querySelector('.lh-opening-video') as HTMLVideoElement).dataset.scrollProgress)});
+      } else requestAnimationFrame(sample);
+    };
+    requestAnimationFrame(sample);
+  }),destination);
+  expect(arrival.time).toBeGreaterThan(950);
+  expect(arrival.time).toBeLessThan(1250);
+  expect(arrival.film).toBeLessThan(.9);
+  await at(page,'#ola');
+  await expect(page.locator('.lh-ola-copy h2')).toBeInViewport();
+  for(const photo of await page.locator('.lh-rhythm-photo').all()) await expect(photo).toBeInViewport();
+});

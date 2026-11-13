@@ -10,6 +10,7 @@ export function mountOpeningVideo(root: HTMLElement, source = openingVideoSource
   const opening = root.querySelector<HTMLElement>(".lh-opening")!;
   const hero = opening.querySelector<HTMLElement>("#top")!;
   const companion = opening.querySelector<HTMLElement>("#ola")!;
+  const companionLayout = companion.querySelector<HTMLElement>(".lh-ola-layout")!;
   const video = opening.querySelector<HTMLVideoElement>(".lh-opening-video")!;
   const layer = opening.querySelector<HTMLElement>(".lh-video-layer")!;
   const posterLayers = [...layer.querySelectorAll<HTMLElement>(".lh-video-start-poster, .lh-video-end-poster")];
@@ -24,6 +25,7 @@ export function mountOpeningVideo(root: HTMLElement, source = openingVideoSource
     initialLayout = false;
     if (!context.conditions?.desktop) return;
     const motion = Boolean(context.conditions.motion);
+    const previousTransform = companionLayout.style.transform;
     opening.dataset.openingAnchors = "true";
     opening.dataset.videoMode = "true";
     if (!motion) opening.dataset.staticOpening = "true";
@@ -112,7 +114,15 @@ export function mountOpeningVideo(root: HTMLElement, source = openingVideoSource
       frame = 0;
       if (!mounted) return;
       const first = top(0), second = top(1);
-      const elapsed = Math.max(0, Math.min(1, (scrollY - first) / Math.max(1, second - first))) * duration;
+      const travel = second - first;
+      const scrollProgress = Math.max(0, Math.min(1, (scrollY - first) / Math.max(1, travel)));
+      if (motion) {
+        // Bring the whole second-screen layout in 1.4x faster, then let normal
+        // document flow carry it away with the film after the second anchor.
+        const offset = -travel * Math.min(.4 * scrollProgress, 1 - scrollProgress);
+        companionLayout.style.transform = offset ? `translate3d(0, ${offset}px, 0)` : previousTransform;
+      }
+      const elapsed = scrollProgress * duration;
       const revealTime = 1.3 * reveal * 1.4;
       // Scroll at constant speed; retime only the film's pre-reveal segment.
       progress = elapsed <= revealTime ? elapsed / (1.3 * 1.4) : reveal + (elapsed - revealTime) / 1.3;
@@ -188,6 +198,7 @@ export function mountOpeningVideo(root: HTMLElement, source = openingVideoSource
       delete layer.dataset.ready;
       delete layer.dataset.intro;
       delete layer.dataset.poster;
+      companionLayout.style.transform = previousTransform;
     };
   });
   return () => {
