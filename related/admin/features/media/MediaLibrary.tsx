@@ -1,5 +1,5 @@
 'use client';
-import Image from 'next/image';
+import { MediaPreview } from './MediaPreview';
 import Link from 'next/link';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
@@ -23,7 +23,7 @@ export function MediaLibrary({ assets, profiles, total, page, pageSize, query }:
       <button type="submit">搜索與篩選</button> <Link href="/media">清除篩選</Link>
     </form>
     <p aria-live="polite">{`共 ${total} 條；第 ${page} 頁，每頁最多 ${pageSize} 條。`}</p><p role="status">{message}</p>
-    {assets.length === 0 ? <p>{total === 0 ? '沒有符合條件的素材。可清除篩選或上傳新素材。' : '此頁沒有素材，結果可能已變動。'} {page > 1 && <Link href={mediaLibraryHref(query, 1)}>返回第一頁</Link>}</p> : <ul className="media-library">{assets.map(asset => <li key={asset.id}><strong>{asset.fileName}</strong><p>{usageLabel(asset.usageKey)} · {(asset.size / 1024).toFixed(1)} KB · {asset.status === 'ready' ? '可選用' : asset.status === 'archived' ? '已歸檔' : '待校驗'}</p><code>{asset.id}</code>
+    {assets.length === 0 ? <p>{total === 0 ? '沒有符合條件的素材。可清除篩選或上傳新素材。' : '此頁沒有素材，結果可能已變動。'} {page > 1 && <Link href={mediaLibraryHref(query, 1)}>返回第一頁</Link>}</p> : <ul className="media-library">{assets.map(asset => <li key={asset.id}><MediaPreview src={asset.previewUrl} kind={asset.mime.startsWith('video/') ? 'video' : 'image'} title={usageLabel(asset.usageKey)} /><strong>{usageLabel(asset.usageKey)}</strong><p>{(asset.size / 1024).toFixed(1)} KB · {asset.status === 'ready' ? '可選用' : asset.status === 'archived' ? '已歸檔' : '待校驗'}</p><details className="media-technical-details"><summary>檔名與素材編號</summary><p>{asset.fileName}</p><code>{asset.id}</code></details>
       <p>{asset.references.currentPublication ? '當前官網引用' : asset.references.releaseCount > 0 ? '僅歷史發佈引用' : '尚無發佈引用'} · 草稿引用 {asset.references.draftCount} 處 · 發佈引用 {asset.references.releaseCount} 處</p>
       <details><summary>查看實際引用</summary>
         {asset.references.draftCount === 0 ? <p>沒有當前草稿引用。</p> : <ul>{asset.references.drafts.map(ref => <li key={`${ref.id}:${ref.usageKey}`}><Link href={`/content/${ref.id}`}>草稿 {ref.id}</Link> · 版本 {ref.version} · {ref.status === 'submitted' ? '已提交審覈' : '編輯中'} · {usageLabel(ref.usageKey)}</li>)}</ul>}
@@ -31,7 +31,6 @@ export function MediaLibrary({ assets, profiles, total, page, pageSize, query }:
         {asset.references.releaseCount === 0 ? <p>沒有不可變發佈引用。</p> : <ul>{asset.references.releases.map(ref => <li key={`${ref.id}:${ref.usageKey}`}>發佈 <code>{ref.id}</code> · {ref.current ? '當前官網版本' : '歷史版本'} · {usageLabel(ref.usageKey)}</li>)}</ul>}
         {asset.references.releasesTruncated && <p>僅展示最近 5 處發佈引用（當前官網優先）；以上發佈引用總數包含未展開記錄。</p>}
       </details>
-      {asset.previewUrl && (asset.mime.startsWith('video/') ? <video controls preload="metadata" src={asset.previewUrl} /> : <Image unoptimized width={260} height={180} style={{ height: 'auto' }} src={asset.previewUrl} alt={asset.fileName} loading="lazy" />)}
       {asset.status !== 'archived' && <button type="button" disabled={Boolean(busy)} onClick={() => archive(asset.id)}>歸檔 {asset.fileName}</button>}</li>)}</ul>}
     <nav aria-label="素材分頁">{page > 1 && <Link href={mediaLibraryHref(query, page - 1)}>上一頁</Link>} {page < lastPage && <Link href={mediaLibraryHref(query, page + 1)}>下一頁</Link>}</nav>
   </section></div>;

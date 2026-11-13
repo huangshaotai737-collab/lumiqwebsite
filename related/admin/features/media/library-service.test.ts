@@ -16,7 +16,7 @@ beforeEach(() => {
   process.env.NEXT_PUBLIC_SUPABASE_URL = 'http://127.0.0.1:54321'; process.env.SUPABASE_SERVICE_ROLE_KEY = 'synthetic'; process.env.MEDIA_STORAGE_MAX_BYTES = '52428800';
   deps.staff.mockResolvedValue({ userId: id, role: 'editor' });
   deps.bucket.mockResolvedValue({ data: { public: false, file_size_limit: 52428800 }, error: null });
-  deps.rpc.mockImplementation(async (name, input) => name === 'list_media_library' && input.search === 'older-than-200' && input.page === 2
+  deps.rpc.mockImplementation(async (name, input) => name === 'get_published_content' ? { data: null, error: null } : name === 'list_media_library' && input.search === 'older-than-200' && input.page === 2
     ? { data: { items: [item], total: 26, page: 2, pageSize: 25 }, error: null }
     : { data: [legacy], error: null });
 });
@@ -41,8 +41,8 @@ describe('whole-library server read', () => {
     await expect(loadMediaLibrary({})).rejects.toMatchObject({ code: 'FORBIDDEN' });
   });
   it('never previews pending bytes and preserves an empty page and its total', async () => {
-    deps.rpc.mockResolvedValueOnce({ data: { items: [{ ...item, status: 'pending' }], total: 1, page: 1, pageSize: 25 }, error: null })
-      .mockResolvedValueOnce({ data: { items: [], total: 0, page: 1, pageSize: 25 }, error: null });
+    let reads = 0;
+    deps.rpc.mockImplementation(async name => name === 'get_published_content' ? { data: null, error: null } : { data: reads++ === 0 ? { items: [{ ...item, status: 'pending' }], total: 1, page: 1, pageSize: 25 } : { items: [], total: 0, page: 1, pageSize: 25 }, error: null });
     expect(await loadMediaLibrary({})).toMatchObject({ assets: [{ previewUrl: null }] });
     expect(await loadMediaLibrary({})).toMatchObject({ assets: [], total: 0 });
   });

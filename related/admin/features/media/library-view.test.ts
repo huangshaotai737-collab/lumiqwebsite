@@ -2,9 +2,10 @@ import { createElement } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { describe, expect, it, vi } from 'vitest';
 import { MediaLibrary } from './MediaLibrary';
+import { uploadProfiles } from './upload-profiles';
 vi.mock('next/navigation', () => ({ useRouter: () => ({ refresh() {} }) }));
 const query = { q: 'old & rare', usage: '', status: 'archived', reference: 'published', page: 2 };
-const profiles = [{ key: 'asset_012d3bf8af92d486', kind: 'image', profile: 'public-content', label: '靜態圖片 · evening.webp', maxBytes: 20971520, mimes: ['image/png'], companions: [], reason: null, constraints: 'JPEG / PNG / WebP' }];
+const profiles = uploadProfiles({}, 'https://lumiq.example', 20971520, false);
 const asset = { id: 'abed1700-0000-4000-8000-000000000001', fileName: 'photo.png', usageKey: 'asset_012d3bf8af92d486', mime: 'image/png', size: 1, status: 'archived', previewUrl: null, references: { draftCount: 0, releaseCount: 8, currentPublication: true, drafts: [], releases: [{ id: 'abed1700-0000-4000-8000-000000000003', usageKey: 'asset_012d3bf8af92d486', current: true }], draftsTruncated: false, releasesTruncated: true } };
 describe('media library read presentation', () => {
   it('shows an exact filtered total, keeps URL filters while paging, and reveals actual current references', () => {

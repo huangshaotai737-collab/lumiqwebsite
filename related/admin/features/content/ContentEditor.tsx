@@ -145,7 +145,7 @@ export function ContentEditor({ initial, fields, admin, legacyMedia, websiteOrig
       <div className="visual-section-heading"><div><small>當前編輯</small><h2>{selection.length?'選中內容':'從網頁中選擇內容'}</h2></div>{selection.length>0&&<button type="button" onClick={()=>setSelection([])}>取消選擇</button>}</div>
       {selection.length===0?<p>在上方點選標題、段落、插圖或商品圖，這裏只展示對應的編輯項。更多字段可在下方“全部內容與更多設置”中查看。</p>:
         selection.length>1?<><p>此處有相同或共用文案，請選擇要修改的項目。</p><div className="visual-candidates">{selection.map(path=>{const field=fields.find(f=>f.path===path)!;return <button key={path} disabled={busy} onClick={()=>setSelection([path])}><strong>{fieldLabel(field,snapshot)}</strong><span>{fieldContext(field,snapshot,selectedPage)}</span><small>{path}</small></button>;})}</div></>:
-        (()=>{const field=fields.find(f=>f.path===selection[0])!;return <fieldset disabled={busy} className="content-fieldset"><FieldControl key={`${field.path}:${version}:${epoch}`} field={field} snapshot={snapshot} selectedPage={selectedPage} legacyMedia={legacyMedia} change={change} invalidControlPaths={invalidControlPaths}/>
+        (()=>{const field=fields.find(f=>f.path===selection[0])!;return <fieldset disabled={busy} className="content-fieldset"><FieldControl key={`${field.path}:${version}:${epoch}`} field={field} snapshot={snapshot} selectedPage={selectedPage} legacyMedia={legacyMedia} websiteOrigin={websiteOrigin} change={change} invalidControlPaths={invalidControlPaths}/>
           {field.pages.length>1&&<p className="visual-shared-note">共用內容：修改會同步用於 {field.pages.map(pageLabel).join('、')}。</p>}
           <button type="button" onClick={()=>{const path=field.type==='assetId'?field.path.split('.').slice(0,2).join('.'):field.path;change(path,canvasValue(saved.current,path));setEpoch(value=>value+1);}}>恢復已保存值</button></fieldset>;})()}
     </section>
@@ -156,7 +156,7 @@ export function ContentEditor({ initial, fields, admin, legacyMedia, websiteOrig
       {group === 'messages' && <label>文案語言<select aria-label="文案語言" value={locale} onChange={event => { setSearchSnapshot(snapshot); setLocale(event.target.value); setPage(0); }}><option value="en">英文</option><option value="zh-hant">繁體中文</option><option value="ja">日文</option></select></label>}
       <label>搜索字段<input aria-label="搜索字段" placeholder="搜索當前文案、中文名稱或字段路徑" value={query} onChange={event => { setSearchSnapshot(snapshot); setQuery(event.target.value); setPage(0); }} /></label></div>
       <p>共 {filtered.length} 個字段，每頁最多顯示 40 項。</p>
-      {visible.filter(field=>selection.length!==1||field.path!==selection[0]).map(field => <FieldControl key={`${field.path}:${version}:${epoch}`} field={field} snapshot={snapshot} selectedPage={selectedPage} legacyMedia={legacyMedia} change={change} invalidControlPaths={invalidControlPaths} />)}
+      {visible.filter(field=>selection.length!==1||field.path!==selection[0]).map(field => <FieldControl key={`${field.path}:${version}:${epoch}`} field={field} snapshot={snapshot} selectedPage={selectedPage} legacyMedia={legacyMedia} websiteOrigin={websiteOrigin} change={change} invalidControlPaths={invalidControlPaths} />)}
       <div className="content-toolbar"><button disabled={page === 0} onClick={() => setPage(value => value - 1)}>上一頁字段</button><span>第 {page + 1} 頁</span><button disabled={(page + 1) * 40 >= filtered.length} onClick={() => setPage(value => value + 1)}>下一頁字段</button></div>
       </fieldset>
     </section>}

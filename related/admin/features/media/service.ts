@@ -10,6 +10,9 @@ import { enforceRateLimit } from '@/lib/http/rate-limit';
 import { HttpError } from '@/lib/http/result';
 import { inspectMedia, mediaProfiles, validateUpload, type UploadInput, type MediaMetadata } from './validate';
 import { parseMediaLibraryQuery, type MediaSearchParams, type MediaLibraryPage } from './library-query';
+import { uploadProfiles } from './upload-profiles';
+import { currentSnapshot } from '@/features/content/current-snapshot';
+import { withBrandContent } from '@/lib/generated/platform/brand-content';
 type Asset = Database['public']['Tables']['media_assets']['Row'];
 const uuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 function trusted() {
@@ -105,12 +108,19 @@ export async function loadMediaLibrary(input: MediaSearchParams = {}) {
   await requireStaff(['admin', 'editor']);
   const query = parseMediaLibraryQuery(input, Object.keys(mediaProfiles));
   const client = await createClient();
-  const response = await client.rpc('list_media_library', { search: query.q, usage_key: query.usage || undefined, asset_status: query.status || undefined, reference_state: query.reference || undefined, page: query.page });
-  sql(response.error);
+  const service = trusted();
+  const [response, published, hostCap] = await Promise.all([
+    client.rpc('list_media_library', { search: query.q, usage_key: query.usage || undefined, asset_status: query.status || undefined, reference_state: query.reference || undefined, page: query.page }),
+    client.rpc('get_published_content'),
+    hostLimit(service),
+  ]);
+  sql(response.error); sql(published.error);
   const library = response.data as unknown as MediaLibraryPage;
-  const service = trusted(); const hostCap = await hostLimit(service);
   const previews = library.items.map(asset => ({ ...asset, previewUrl: asset.status === 'pending' ? null : `/api/media/preview?assetId=${asset.id}` }));
-  return { assets: previews, total: library.total, page: library.page, pageSize: library.pageSize, query, hostCap, profiles: Object.entries(mediaProfiles).map(([key, value]) => ({ key, kind: value.kind, profile: value.profile, label: `${'readOnlyReason' in value ? '透明人物（只讀）' : value.complex ? (key === 'asset_a4b2063e90484449' ? '開場視頻' : '滾動背景視頻') : value.kind === 'video' ? '普通影片' : value.companions.length ? '配套封面' : '靜態圖片'} · ${value.legacyUrl.split('/').pop()!}`, maxBytes: Math.min(hostCap, value.kind === 'image' ? 20971520 : 52428800), mimes: value.mimes, companions: value.companions.map(key => mediaProfiles[key as keyof typeof mediaProfiles].legacyUrl.split('/').pop()!), reason: 'readOnlyReason' in value ? value.readOnlyReason : null, constraints: 'duration' in value ? `${value.width}:${value.height}；${value.duration === null ? '最長 600 秒' : value.duration + ' 秒（±1/24秒）'}；${value.codec}` : `${'width' in value ? `${value.width}:${value.height}；` : ''}JPEG / PNG / WebP` })) };
+  const publication = published.data as unknown as { snapshot: ContentSnapshot } | null;
+  const snapshot = publication ? withBrandContent(publication.snapshot) : currentSnapshot;
+  const websiteOrigin = process.env.WEBSITE_ORIGIN ? new URL(process.env.WEBSITE_ORIGIN).origin : null;
+  return { assets: previews, total: library.total, page: library.page, pageSize: library.pageSize, query, hostCap, profiles: uploadProfiles(snapshot.media, websiteOrigin, hostCap, Boolean(publication)) };
 }
 
 export type MediaOption = { id: string; fileName: string };
