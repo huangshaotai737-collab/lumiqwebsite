@@ -167,29 +167,31 @@ export function PrivacyAction({ initial }: { initial: PrivacyWorkspace }) {
       <p>
         第 {workspace.jobs.page} 頁，共 {workspace.jobs.total} 條
       </p>
-      <button className="secondary-button"
-        disabled={pending || workspace.jobs.page === 1}
-        onClick={() =>
-          read(workspace.jobs.page - 1).catch(() =>
-            setMessage("任務讀取失敗。"),
-          )
-        }
-      >
-        上一頁
-      </button>
-      <button className="secondary-button"
-        disabled={
-          pending ||
-          workspace.jobs.page * workspace.jobs.pageSize >= workspace.jobs.total
-        }
-        onClick={() =>
-          read(workspace.jobs.page + 1).catch(() =>
-            setMessage("任務讀取失敗。"),
-          )
-        }
-      >
-        下一頁
-      </button>
+      <nav className="pagination-controls" aria-label="匿名化任務分頁">
+        <button className="secondary-button"
+          disabled={pending || workspace.jobs.page === 1}
+          onClick={() =>
+            read(workspace.jobs.page - 1).catch(() =>
+              setMessage("任務讀取失敗。"),
+            )
+          }
+        >
+          上一頁
+        </button>
+        <button className="secondary-button"
+          disabled={
+            pending ||
+            workspace.jobs.page * workspace.jobs.pageSize >= workspace.jobs.total
+          }
+          onClick={() =>
+            read(workspace.jobs.page + 1).catch(() =>
+              setMessage("任務讀取失敗。"),
+            )
+          }
+        >
+          下一頁
+        </button>
+      </nav>
       <p>
         執行中斷的任務在5分鐘租約到期後可恢復。失敗期間保持暫停訪問；策略版本變化需人工複覈，不自動切換清理範圍。
       </p>

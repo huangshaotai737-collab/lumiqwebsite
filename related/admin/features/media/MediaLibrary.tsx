@@ -35,6 +35,6 @@ export function MediaLibrary({ assets, profiles, total, page, pageSize, query, r
         {asset.references.releasesTruncated && <p>僅展示最近 5 處發佈引用（當前官網優先）；以上發佈引用總數包含未展開記錄。</p>}
       </details>
       </li>)}</ul>}
-    <nav aria-label="素材分頁">{page > 1 && <Link href={mediaLibraryHref(query, page - 1)}>上一頁</Link>} {page < lastPage && <Link href={mediaLibraryHref(query, page + 1)}>下一頁</Link>}</nav>
+    <nav className="pagination-controls" aria-label="素材分頁">{page > 1 && <Link href={mediaLibraryHref(query, page - 1)}>上一頁</Link>} {page < lastPage && <Link href={mediaLibraryHref(query, page + 1)}>下一頁</Link>}</nav>
   </section></div>;
 }

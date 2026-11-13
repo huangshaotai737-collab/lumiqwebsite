@@ -1,0 +1,175 @@
+:root {
+  --control-border: #cde2f7;
+  --control-height: 44px;
+}
+
+/* Reset native inset borders and keep every form field on the same scale. */
+:root :is(.workspace, .login-page) :is(input:not([type="checkbox"], [type="radio"], [type="file"], [type="hidden"], [type="range"], [type="color"], [type="submit"], [type="button"]), select, textarea) {
+  box-sizing: border-box;
+  max-width: 100%;
+  min-width: 0;
+  min-height: var(--control-height);
+  margin: 0;
+  border: 1px solid var(--control-border);
+  border-radius: 8px;
+  padding: 10px 14px;
+  color: #24364f;
+  background-color: #fff;
+  box-shadow: none;
+  font: inherit;
+  line-height: 22px;
+}
+
+:root :is(.workspace, .login-page) input:not([type="checkbox"], [type="radio"], [type="file"], [type="hidden"], [type="range"], [type="color"], [type="submit"], [type="button"]),
+:root :is(.workspace, .login-page) select:not([multiple]) {
+  height: var(--control-height);
+}
+
+:root :is(.workspace, .login-page) select:not([multiple]) {
+  appearance: none;
+  -webkit-appearance: none;
+  padding-right: 44px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16' fill='none'%3E%3Cpath d='m4 6 4 4 4-4' stroke='%23687991' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-position: right 14px center;
+  background-size: 16px 16px;
+  background-repeat: no-repeat;
+}
+
+:root :is(.workspace, .login-page) textarea {
+  min-height: 104px;
+  resize: vertical;
+}
+
+:root :is(.workspace, .login-page) input[type="file"] {
+  min-height: var(--control-height);
+  padding: 7px 14px;
+  border: 1px solid var(--control-border);
+  border-radius: 8px;
+  color: #24364f;
+  background: #fff;
+  line-height: 20px;
+}
+
+:root :is(.workspace, .login-page) input::file-selector-button {
+  margin-right: 10px;
+  padding: 3px 8px;
+  border: 1px solid var(--control-border);
+  border-radius: 5px;
+  color: #355170;
+  background: #f7fbff;
+  font: inherit;
+  line-height: 20px;
+}
+
+:root :is(.workspace, .login-page) :is(input, textarea)::placeholder {
+  color: #7b879a;
+  opacity: 1;
+}
+
+:root :is(.workspace, .login-page) :is(input, select, textarea):focus-visible {
+  border-color: #91bdef;
+  outline: 2px solid #a9cff7;
+  outline-offset: 2px;
+}
+
+:root :is(.workspace, .login-page) :is(input, select, textarea)[aria-invalid="true"] {
+  border-color: #b93636;
+}
+
+.workspace-content label:has(> input:not([type="checkbox"], [type="radio"]), > select, > textarea) {
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+}
+
+.content-field label:has(> input[type="checkbox"]) {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.content-field label > input[type="checkbox"] {
+  flex: 0 0 18px;
+  margin: 2px 0 0;
+}
+
+.pagination-controls {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.pagination-controls > span {
+  min-width: 44px;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+
+.pagination-controls > a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 8px 14px;
+  border: 1px solid var(--control-border);
+  border-radius: 8px;
+}
+
+.workspace-content .pagination-controls > button {
+  margin: 0;
+  min-height: 44px;
+}
+
+.staff-table :is(th, td) {
+  text-align: center;
+  vertical-align: middle;
+}
+
+.staff-table select {
+  width: 100%;
+  max-width: 220px;
+}
+
+.staff-active-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.staff-active-toggle input {
+  margin: 0;
+}
+
+.staff-table [role="status"] {
+  min-width: 0;
+  margin: 6px 0 0;
+}
+
+.staff-table [role="status"]:empty {
+  display: none;
+}
+
+@media (min-width: 701px) {
+  .sku-card .content-field:nth-child(-n + 2) > label {
+    display: flex;
+    align-items: flex-end;
+    min-height: 44px;
+  }
+}
+
+@media (max-width: 700px) {
+  .staff-table td {
+    align-items: center;
+    text-align: left;
+  }
+
+  .staff-table select {
+    max-width: none;
+  }
+
+  .staff-active-toggle {
+    justify-content: flex-start;
+  }
+}

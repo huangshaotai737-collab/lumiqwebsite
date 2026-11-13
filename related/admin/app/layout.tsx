@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import './globals.css';
 import './admin-ui.css';
 import './visual-editor.css';
+import './form-controls.css';
 
 export const metadata: Metadata = {
   title: 'LumiQ 管理後臺',

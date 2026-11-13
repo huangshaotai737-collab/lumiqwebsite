@@ -93,19 +93,21 @@ export function OrderTable({ initial }: { initial: Page<Order> }) {
         </table>
       </div>
       {!data.total && <p>暫無訂單</p>}
-      <button
-        disabled={pending || data.page === 1}
-        onClick={() => void load(data.page - 1)}
-      >
-        上一頁
-      </button>
-      <span>{data.page}</span>
-      <button
-        disabled={pending || data.page * data.pageSize >= data.total}
-        onClick={() => void load(data.page + 1)}
-      >
-        下一頁
-      </button>
+      <nav className="pagination-controls" aria-label="訂單分頁">
+        <button
+          disabled={pending || data.page === 1}
+          onClick={() => void load(data.page - 1)}
+        >
+          上一頁
+        </button>
+        <span>{data.page}</span>
+        <button
+          disabled={pending || data.page * data.pageSize >= data.total}
+          onClick={() => void load(data.page + 1)}
+        >
+          下一頁
+        </button>
+      </nav>
     </section>
   );
 }

@@ -57,7 +57,7 @@ function TeamRow({ member }: { member: TeamMember }) {
         </select>
       </td>
       <td data-label="在職狀態">
-        <label>
+        <label className="staff-active-toggle">
           <input
             aria-label="在職"
             type="checkbox"
@@ -84,7 +84,7 @@ export function TeamTable({ members }: { members: TeamMember[] }) {
       tabIndex={0}
       aria-label="員工列表"
     >
-      <table className="team-list-table">
+      <table className="team-list-table staff-table">
         <thead>
           <tr>
             <th>郵箱</th>
