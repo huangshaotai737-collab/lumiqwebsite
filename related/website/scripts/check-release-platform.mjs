@@ -39,7 +39,13 @@ for(const [engine,type] of Object.entries(engines)){
   browser=await stage({engine},'launch',()=>type.launch(engine==='edge'?{channel:'msedge',timeout:timeoutMs}:{timeout:timeoutMs}));
   const page=await stage({engine},'new-page',()=>browser.newPage());
   page.setDefaultTimeout(timeoutMs);page.setDefaultNavigationTimeout(navigationTimeoutMs);
-  page.on('pageerror',e=>errors.push({message:e.message,stack:e.stack}));
+  page.on('pageerror',e=>{errors.push({message:e.message,stack:e.stack});console.log('LUMIQ_PAGEERROR',JSON.stringify({current,url:page.url(),message:e.message}));});
+  page.on('requestfailed',request=>console.log('LUMIQ_REQUESTFAILED',JSON.stringify({current,url:request.url(),failure:request.failure()})));
+  await page.addInitScript(()=>{
+   addEventListener('unhandledrejection',event=>console.info('LUMIQ_AUDIT_REJECTION',String(event.reason),location.href));
+   addEventListener('error',event=>console.info('LUMIQ_AUDIT_ERROR_EVENT',event.message,location.href));
+   addEventListener('pagehide',()=>console.info('LUMIQ_AUDIT_PAGEHIDE',location.href));
+  });
   page.on('crash',()=>console.log('AUDIT_RENDERER_CRASH',JSON.stringify(current)));
   page.on('console',message=>{if(message.text().startsWith('LUMIQ_AUDIT_'))console.log(message.text(),JSON.stringify(current));});
   for(const locale of ['en','zh-hant','ja'])for(const route of routes){
