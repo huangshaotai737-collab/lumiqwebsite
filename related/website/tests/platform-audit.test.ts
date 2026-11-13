@@ -23,6 +23,7 @@ vi.mock('@playwright/test', () => {
       let visits = 0;
       const page = {
         on() {},
+        async addInitScript() {},
         setDefaultTimeout() {},
         setDefaultNavigationTimeout() {},
         async goto() {
