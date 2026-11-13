@@ -39,7 +39,13 @@ export async function inspectMedia(bytes: Buffer, input: UploadInput, hostCap = 
     const inputOptions = input.mime === 'video/mp4' ? ['-enable_drefs', '0', '-use_absolute_path', '0'] : [];
     let raw: string;
     try { raw = (await promisify(execFile)(binary, ['-v', 'error', '-protocol_whitelist', 'file', '-format_whitelist', 'mov,png_pipe,jpeg_pipe,webp_pipe,matroska,webm', '-f', demuxer, ...inputOptions, '-show_streams', '-show_format', '-of', 'json', file], { timeout: 15000, maxBuffer: 1024 * 1024 })).stdout; }
-    catch (error) { if ((error as NodeJS.ErrnoException).code === 'ENOENT') throw new HttpError('UNAVAILABLE', 503); throw new HttpError('INVALID_INPUT', 400); }
+    catch (error) {
+      if ((error as NodeJS.ErrnoException).code === 'ENOENT') {
+        console.error('Media validator executable is missing', { binary, cwd: process.cwd() });
+        throw new HttpError('UNAVAILABLE', 503);
+      }
+      throw new HttpError('INVALID_INPUT', 400);
+    }
     const probe = JSON.parse(raw);
     const streams = probe.streams?.filter((stream: { codec_type: string }) => stream.codec_type === 'video');
     const stream = streams?.[0];
