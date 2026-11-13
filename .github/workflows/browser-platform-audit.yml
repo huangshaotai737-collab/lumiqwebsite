@@ -44,7 +44,7 @@ jobs:
       - run: npx playwright install --with-deps chromium firefox webkit
       - if: runner.os == 'Windows'
         run: npx playwright install msedge
-      - run: sudo apt-get install -y gstreamer1.0-gl gstreamer1.0-tools gdb
+      - run: sudo apt-get install -y gstreamer1.0-gl gstreamer1.0-tools gdb gdb
       - run: gst-inspect-1.0 glimagesink
       - run: npm test
       - run: npm run build
