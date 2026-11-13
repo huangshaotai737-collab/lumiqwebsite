@@ -69,7 +69,7 @@ test('disabled_staff_session_is_rejected',async({context,page})=> {
   await page.getByLabel('工作郵箱').fill(staffEmail);
   await page.getByLabel('密碼',{exact:true}).fill(password);
   await page.getByRole('button',{name:'登錄',exact:true}).click();
-  await expect(page.getByRole('heading',{name:'歡迎回來'})).toBeVisible();
+  await expect(page.getByRole('heading',{name:'管理總覽'})).toBeVisible();
   expect((await context.request.get('/api/session')).status()).toBe(200);
   const oldCookies = (await context.cookies()).filter(cookie=>cookie.name.startsWith('lumiq-admin-auth'));
   expect(oldCookies.length).toBeGreaterThan(0);

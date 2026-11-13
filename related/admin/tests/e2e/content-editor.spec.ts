@@ -197,7 +197,7 @@ test('editor settings bypass and operations drafts access are denied by server a
   expect((await direct.rpc('publish_content_draft', { id: draftId, expected_version: current.version })).error?.code).toBe('42501');
   expect((await direct.rpc('save_content_draft', { id: draftId, expected_version: current.version, snapshot: current.snapshot })).error?.code).toBe('42501');
   const page = await context.newPage(); await page.goto(`/content/${draftId}`); await page.locator('.visual-all-fields > summary').click();
-  expect(await page.getByRole('option', { name: '繫統設置' }).count()).toBe(0);
+  expect(await page.getByRole('option', { name: '系統設置' }).count()).toBe(0);
   const valid = await draft(context); valid.snapshot.products.ola.name = 'Editor ordinary content';
   const saved = await post(context, '/api/content/drafts', { id: draftId, expectedVersion: valid.version, snapshot: valid.snapshot });
   expect(saved.status()).toBe(200);

@@ -24,12 +24,12 @@ test('administrator reads disabled payment preparation entry while other staff s
     for (const role of ['editor', 'operations']) {
         await login(page, role);
         await page.goto('/settings');
-        await expect(page.locator('p[role=alert]')).toContainText('繫統設置僅管理員可查看');
+        await expect(page.locator('p[role=alert]')).toContainText('系統設置僅管理員可查看');
         await expect(page.getByRole('heading', { name: '支付接入準備' })).toHaveCount(0);
     }
     await login(page, 'admin');
     await page.goto('/settings');
-    await expect(page.getByText('支付渠道尚未開通，本次不創建真實交易。')).toBeVisible();
+    await expect(page.getByText('支付渠道尚未開通，目前無法收款。')).toBeVisible();
     await page.getByRole('link', { name: '查看接入材料與準備順序' }).click();
     await expect(page).toHaveURL(/#payment-preparation-checklist$/);
     await expect(page.locator('#payment-preparation-checklist ol li')).toHaveCount(5);
