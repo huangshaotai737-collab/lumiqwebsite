@@ -43,10 +43,7 @@ export function mountHomePosition(root: HTMLElement) {
 
   const capture = () => {
     if (inputTimer || changingLayout || restoring || scrollState.isRefreshing) return;
-    // Native #ola positioning can expose a later chapter before the opening's
-    // pin exists. Its own controller resolves that anchor to a film frame;
-    // a snapshot of the temporary chapter must not override that position.
-    if (openingAnchor) { reading = null; return; }
+    if (openingAnchor && !root.querySelector('[data-opening-anchors]')) { reading = null; return; }
     const landing = navTop();
     let visible: HTMLElement | null = null;
     let visibleHeight = 0;
@@ -55,9 +52,9 @@ export function mountHomePosition(root: HTMLElement) {
       const height = Math.min(bounds.bottom, innerHeight) - Math.max(bounds.top, landing);
       if (height > visibleHeight) { visible = section; visibleHeight = height; }
     }
-    // A sliver of the previous opening chapter must not hide a mostly visible
-    // product section. Rank viewport coverage before delegating opening layout.
-    reading = visible && !visible.closest(".lh-opening")
+    // The desktop opening uses real sections, so preserve its reading position
+    // through media-query changes just like the chapters below it.
+    reading = visible && (!visible.closest(".lh-opening") || visible.closest('[data-opening-anchors]'))
       ? { element: visible, top: visible.getBoundingClientRect().top }
       : null;
   };

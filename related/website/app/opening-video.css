@@ -222,3 +222,28 @@
 /* A buffered frame is optional: keep both chapters readable before it arrives. */
 .lh-video-layer:not([data-ready])[data-poster="end"] .lh-video-start-poster { opacity: 0; }
 .lh-video-layer:not([data-ready])[data-poster="end"] .lh-video-end-poster { opacity: 1; }
+
+/* Desktop opening: two actual document anchors, one sticky film plane.
+   Native scrolling and fragment links have the same one-viewport distance. */
+.lumiq-root main.lh-home .lh-opening[data-opening-anchors]:not([data-static-opening]) .lh-opening-stage {
+  height: auto;
+}
+.lumiq-root main.lh-home .lh-opening[data-opening-anchors]:not([data-static-opening]) .lh-video-layer {
+  position: sticky;
+  top: 0;
+  inset-inline: auto;
+  height: 100svh;
+  margin-bottom: -100svh;
+  z-index: 0;
+}
+.lumiq-root main.lh-home .lh-opening[data-opening-anchors]:not([data-static-opening]) :is(.lh-hero, .lh-ola) {
+  position: relative;
+  inset: auto;
+  height: 100svh;
+  min-height: 0;
+  padding: 0;
+  z-index: 1;
+}
+.lh-opening[data-opening-anchors] :is(#top, #ola) {
+  scroll-margin-top: -100px;
+}

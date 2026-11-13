@@ -114,7 +114,7 @@ export default function HomeBackgrounds() {
       // video cues or mutate their styles while the user scrolls the document.
       if (!motion.matches) return;
       const top = (selector: string) => scrollY + (document.querySelector(selector)?.getBoundingClientRect().top ?? 0);
-      start = ScrollTrigger.getById("home-opening-video")?.end ?? top("#products") - innerHeight;
+      start = top("#products") - innerHeight;
       end = document.documentElement.scrollHeight - innerHeight;
       const nav = document.querySelector('.site-nav')?.getBoundingClientRect().height ?? 0;
       cues = [[start, 0]];

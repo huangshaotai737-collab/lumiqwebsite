@@ -14,12 +14,12 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { mountProductRail } from "./productRail";
 import { mountRoomAnchor } from "./roomAnchor";
-import { mountOpeningVideo, openingVideoQuery } from "./openingVideo";
+import { mountOpeningVideo } from "./openingVideo";
 import { mountHomePosition } from "./homePosition";
 import HomePageWarmup from "./HomePageWarmup";
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
-/** Native scrolling drives the current opening at every desktop aspect ratio. */
+/** Desktop opening anchors and native mobile scrolling share the same content. */
 export default function HomeMotion({ children }: { children: ReactNode }) {
   const cms = useContentAdapter();
   const visual = useVisualPreview();
@@ -111,7 +111,6 @@ export default function HomeMotion({ children }: { children: ReactNode }) {
         {
           desktop:
             `${homeMotionQuery} and (min-height: 640px)`,
-          video: openingVideoQuery,
         },
         (context) => {
           if (!context.conditions?.desktop) return;
