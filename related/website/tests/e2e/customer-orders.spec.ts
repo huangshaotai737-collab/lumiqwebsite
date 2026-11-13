@@ -188,11 +188,21 @@ test("retry_checkout_reuses_order after lost response, reload and double submit"
     page.getByRole("button", { name: "Retry the same request", exact: true }),
   ).toBeEnabled();
   await expect(page.locator("[name=name]")).toBeDisabled();
-  await page
-    .getByRole("button", { name: "Retry the same request", exact: true })
-    .click();
+  const [detailResponse] = await Promise.all([
+    page.waitForResponse(
+      (response) =>
+        response.request().method() === "GET" &&
+        /^\/api\/orders\/[0-9a-f-]{36}$/.test(new URL(response.url()).pathname),
+      { timeout: 30000 },
+    ),
+    page
+      .getByRole("button", { name: "Retry the same request", exact: true })
+      .click(),
+  ]);
+  expect(detailResponse.status()).toBe(200);
   await expect(page).toHaveURL(/\/members\/orders\/[0-9a-f-]+$/);
   previousOrderId = page.url().split("/").pop()!;
+  expect((await detailResponse.json()).data.id).toBe(previousOrderId);
   expect(requests).toEqual([pendingKey, pendingKey]);
   expect(
     sql(

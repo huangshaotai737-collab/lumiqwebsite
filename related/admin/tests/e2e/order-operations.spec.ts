@@ -83,7 +83,10 @@ test("operations/admin search cancelled order and append private audited note; e
     const note = `Internal ${role} synthetic note`;
     await page.getByLabel("添加內部備註").fill(note);
     await page.getByRole("button", { name: "保存備註", exact: true }).click();
-    await expect(page.getByText(note, { exact: true })).toBeVisible();
+    await expect(page.getByText("備註已保存。", { exact: true })).toBeVisible();
+    await expect(
+      page.getByRole("listitem").getByText(note, { exact: true }),
+    ).toBeVisible();
     expect(
       sql(
         `select count(*) from public.audit_events where action='orders.note_added' and entity_id='${orderId}' and actor_id='${users[role].id}'`,
