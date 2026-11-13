@@ -21,7 +21,7 @@ export type PlanPresentation = {
   tiers: string[];
   rows: { id: string; labelKey: string; values: (string | boolean)[] }[];
 };
-export type MediaSlot = { assetId: UUID | null; url: string; alt: string; kind: 'image' | 'video'; profile: string };
+export type MediaSlot = { assetId: UUID | null; url: string; alt: string; kind: 'image' | 'video'; profile: string; hidden?: boolean };
 export type ContentSnapshot = {
   schemaVersion: 1;
   messages: Record<Locale, MessageTree>;

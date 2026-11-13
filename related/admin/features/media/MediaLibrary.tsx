@@ -6,7 +6,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { UploadForm, type UploadProfile } from './UploadForm';
 import { mediaLibraryHref, type LibraryAsset, type MediaLibraryQuery } from './library-query';
-export function MediaLibrary({ assets, profiles, total, page, pageSize, query }: { assets: LibraryAsset[]; profiles: UploadProfile[]; total: number; page: number; pageSize: number; query: MediaLibraryQuery }) {
+export function MediaLibrary({ assets, profiles, total, page, pageSize, query, releaseId = null, canRemove = false }: { releaseId?: string | null; canRemove?: boolean; assets: LibraryAsset[]; profiles: UploadProfile[]; total: number; page: number; pageSize: number; query: MediaLibraryQuery }) {
   const router = useRouter(); const [busy, setBusy] = useState(''); const [message, setMessage] = useState('');
   async function archive(asset: LibraryAsset) {
     if (!window.confirm(`刪除「${asset.fileName}」？刪除後不能在新草稿中選用；官網及歷史版本已使用的圖片會保留。`)) return;
@@ -17,7 +17,7 @@ export function MediaLibrary({ assets, profiles, total, page, pageSize, query }:
   }
   const lastPage = Math.max(1, Math.ceil(total / pageSize));
   const usageLabel = (key: string) => profiles.find(profile => profile.key === key)?.label || key;
-  return <div className="media-workspace"><UploadForm key={query.usage} profiles={profiles} initialUsage={query.usage} /><section className="panel" id="uploaded-materials"><h2>已上傳素材</h2><p>依檔名、素材編號或用途搜尋，查看預覽及使用記錄。頁面分類用於整理用途選項，實際使用位置請查看各素材的記錄。</p><p>點選素材卡片中的「刪除素材」可將素材歸檔。刪除後無法在新草稿中選用，官網及歷史版本已使用的素材仍會保留。預覽僅供已登入的管理人員查看。</p>
+  return <div className="media-workspace"><UploadForm key={query.usage} profiles={profiles} initialUsage={query.usage} releaseId={releaseId} canRemove={canRemove} /><section className="panel" id="uploaded-materials"><h2>已上傳素材</h2><p>依檔名、素材編號或用途搜尋，查看預覽及使用記錄。頁面分類用於整理用途選項，實際使用位置請查看各素材的記錄。</p><p>點選素材卡片中的「刪除素材」可將素材歸檔。刪除後無法在新草稿中選用，官網及歷史版本已使用的素材仍會保留。預覽僅供已登入的管理人員查看。</p>
     <form action="/media" method="get" className="filters" key={JSON.stringify(query)}>
       <label>搜尋檔名、素材編號或用途<input name="q" maxLength={100} defaultValue={query.q} /></label>
       <LibraryUsageFilter profiles={profiles} initial={query.usage} />

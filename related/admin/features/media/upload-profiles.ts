@@ -14,8 +14,9 @@ export function uploadProfiles(media: ContentSnapshot['media'], websiteOrigin: s
     const presentation = mediaPresentation(key);
     return { key, pages: mediaPageKeys(key), ...presentation, kind: value.kind, profile: value.profile,
       label: `${presentation.group} · ${presentation.title}`,
-      previewUrl: preview(key), posterUrl: value.kind === 'video' && value.companions.length ? preview(value.companions[0]) : null,
-      previewSource: published && media[key] ? '官網目前素材' : '原始參考素材',
+      hidden: Boolean(media[key]?.hidden), published: Boolean(published && media[key]),
+      previewUrl: media[key]?.hidden ? null : preview(key), posterUrl: value.kind === 'video' && value.companions.length ? preview(value.companions[0]) : null,
+      previewSource: media[key]?.hidden ? '已從官網移除' : published && media[key] ? '官網目前素材' : '原始參考素材',
       maxBytes: Math.min(hostCap, value.kind === 'image' ? 20971520 : 52428800), mimes: value.mimes as string[],
       companions: value.companions.map(companion => mediaPresentation(companion).title),
       reason: 'readOnlyReason' in value ? value.readOnlyReason : null,

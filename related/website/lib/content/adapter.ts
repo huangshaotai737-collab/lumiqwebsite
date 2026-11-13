@@ -6,14 +6,16 @@ import {brandMediaDefaults} from '@/lib/generated/platform/brand-media';
 import cssSlots from './css-slots.json';
 import {resolveMediaSlot} from './media';
 const byUrl:Record<string,string>={...slots,...Object.fromEntries(Object.entries(brandMediaDefaults).map(([id,slot])=>[slot.url,id]))};
+export const emptyImageUrl = '/assets/content/empty-image.svg';
 export function previewMediaUrl(url:string,preview:boolean) {
   return preview ? url.replace(/^\/api\/media\//,'/api/content/preview-media/') : url;
 }
 export function createContentAdapter(snapshot:ContentSnapshot,locale:Locale,preview=false) {
-  const url=(original:string)=>previewMediaUrl(byUrl[original] ? resolveMediaSlot(snapshot,byUrl[original]).url : original,preview);
+  const hidden=(original:string)=>original === emptyImageUrl || Boolean(byUrl[original] && resolveMediaSlot(snapshot,byUrl[original]).hidden);
+  const url=(original:string)=>hidden(original) ? emptyImageUrl : previewMediaUrl(byUrl[original] ? resolveMediaSlot(snapshot,byUrl[original]).url : original,preview);
   return {
-    snapshot,locale,preview,url,
-    slot:(id:string)=>({...resolveMediaSlot(snapshot,id),url:previewMediaUrl(resolveMediaSlot(snapshot,id).url,preview)}),
+    snapshot,locale,preview,url,hidden,
+    slot:(id:string)=>({...resolveMediaSlot(snapshot,id),url:resolveMediaSlot(snapshot,id).hidden ? emptyImageUrl : previewMediaUrl(resolveMediaSlot(snapshot,id).url,preview)}),
     text:(key:string)=>{
       const value=(snapshot.messages[locale].CmsStatic as Record<string,string>)[key];
       if(typeof value!=='string')throw Error(`Unknown static content: ${key}`);
@@ -24,6 +26,6 @@ export function createContentAdapter(snapshot:ContentSnapshot,locale:Locale,prev
       if(typeof resolved!=='string')throw Error(`Unknown display string: ${path}`);
       return resolved;
     },
-    css:()=>Object.fromEntries(cssSlots.map(id=>[`--cms-${id}`,`url(${JSON.stringify(previewMediaUrl(snapshot.media[id].url,preview))})`])) as CSSProperties,
+    css:()=>Object.fromEntries(cssSlots.map(id=>[`--cms-${id}`,snapshot.media[id].hidden ? 'none' : `url(${JSON.stringify(previewMediaUrl(snapshot.media[id].url,preview))})`])) as CSSProperties,
   };
 }

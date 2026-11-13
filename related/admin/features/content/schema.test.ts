@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { validateDraft } from './schema';
-import type { MediaSlot } from '@/lib/generated/platform/content';
+import type { MediaSlot, ContentSnapshot } from '@/lib/generated/platform/content';
 import { contentFields } from './fields';
 import snapshot from './initial-snapshot.json';
 import { currentSnapshot } from './current-snapshot';
@@ -132,4 +132,18 @@ describe('publish validation', () => {
     expect(result.ok).toBe(false);
     if (!result.ok) expect(result.issues.map(issue => issue.path)).toEqual(expect.arrayContaining(['settings.siteUrl', 'messages.en.Contact.title']));
   });
+});
+
+it('supports optional image removal without weakening other field validation', () => {
+  const value = structuredClone(snapshot) as ContentSnapshot;
+  const image = Object.keys(value.media).find(key => value.media[key].kind === 'image')!;
+  const video = Object.keys(value.media).find(key => value.media[key].kind === 'video')!;
+  value.media[image].hidden = true;
+  expect(validateDraft(value).ok).toBe(true);
+  Object.assign(value.media[image], { hidden: 'true' });
+  expect(validateDraft(value).ok).toBe(false);
+  value.media[image].hidden = false;
+  expect(validateDraft(value).ok).toBe(true);
+  value.media[video].hidden = true;
+  expect(validateDraft(value).ok).toBe(false);
 });

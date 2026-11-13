@@ -24,3 +24,12 @@ describe('media library read presentation', () => {
     expect(pastEnd).toContain('返回第一頁');
   });
 });
+
+it('places selected-image removal directly below upload with an explicit website warning', () => {
+  const available = profiles.map(profile => ({ ...profile, published: true }));
+  const html = renderToStaticMarkup(createElement(MediaLibrary, { assets: [], profiles: available, total: 0, page: 1, pageSize: 25, query: { ...query, page: 1 }, releaseId: asset.id, canRemove: true }));
+  expect(html).toMatch(/上傳並校驗<\/button><button class="danger-button media-remove-selected" type="button">刪除此素材<\/button>/);
+  expect(html).toContain('aria-labelledby="media-removal-title"');
+  expect(html).toContain('刪除此素材後，官網對應位置的圖片也會一併移除');
+  expect(html).toContain('確認刪除'); expect(html).toContain('取消');
+});

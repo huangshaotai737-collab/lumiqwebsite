@@ -31,10 +31,10 @@ export function FieldControl({ field, snapshot, change, invalidControlPaths, sel
     control = <select {...properties} value={String(value)} onChange={event => change(field.path, event.target.value)}><option value="pending_brand_confirmation">待品牌確認</option><option value="confirmed">已確認</option></select>;
   } else if (/^products\.[^.]+\.image$/.test(field.path)) {
     const {slotId}=trustedProductImages[field.path.split('.')[1]]; const slot=snapshot.media[slotId];
-    control = <><MediaPicker usageKey={slotId} assetId={slot.assetId} controlProps={properties} originalPreviewUrl={websiteOrigin ? new URL(legacyMedia[slotId], websiteOrigin).href : null} onChange={assetId=>change(`media.${slotId}`,{...slot,assetId,url:assetId?`/api/media/${assetId}`:legacyMedia[slotId]})}/><small>產品圖片與對應素材統一管理，預覽和發佈使用同一圖片。</small></>;
+    control = <><MediaPicker usageKey={slotId} assetId={slot.assetId} hidden={slot.hidden} controlProps={properties} originalPreviewUrl={websiteOrigin ? new URL(legacyMedia[slotId], websiteOrigin).href : null} onChange={assetId=>change(`media.${slotId}`,{...slot,...(slot.hidden ? {hidden:false} : {}),assetId,url:assetId?`/api/media/${assetId}`:legacyMedia[slotId]})}/><small>產品圖片與對應素材統一管理，預覽和發佈使用同一圖片。</small></>;
   } else if (field.type === 'assetId') {
     const slotKey = field.path.split('.')[1]; const slot = snapshot.media[slotKey];
-    control = <MediaPicker usageKey={slotKey} assetId={slot.assetId} controlProps={properties} originalPreviewUrl={websiteOrigin ? new URL(legacyMedia[slotKey], websiteOrigin).href : null} onChange={assetId => change(`media.${slotKey}`, { ...slot, assetId, url: assetId ? `/api/media/${assetId}` : legacyMedia[slotKey] })} />;
+    control = <MediaPicker usageKey={slotKey} assetId={slot.assetId} hidden={slot.hidden} controlProps={properties} originalPreviewUrl={websiteOrigin ? new URL(legacyMedia[slotKey], websiteOrigin).href : null} onChange={assetId => change(`media.${slotKey}`, { ...slot, ...(slot.hidden ? { hidden: false } : {}), assetId, url: assetId ? `/api/media/${assetId}` : legacyMedia[slotKey] })} />;
   } else if (field.type === 'boolean') {
     control = <input {...properties} type="checkbox" checked={Boolean(value)} onChange={event => change(field.path, event.target.checked)} />;
   } else if (field.type === 'number') {

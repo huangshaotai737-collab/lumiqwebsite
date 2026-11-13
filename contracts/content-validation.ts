@@ -46,7 +46,13 @@ export function validateContentSnapshot(
   const issues: { path: string; message: string }[] = [];
   const issue = (path: string, message: string) => issues.push({ path, message });
   if (!ownObject(input)) return { ok: false, issues: [{ path: '', message: 'Expected a content snapshot object' }] };
-  const expected = new Map(fields.map(field => [field.path, field]));
+  // Optional image visibility preserves historical snapshots without adding default fields.
+  const visibilityRules: ContentRule[] = fields.filter(field => /^media\.[^.]+\.kind$/.test(field.path) && field.fixedValue === 'image').map(field => {
+    const path = field.path.replace(/\.kind$/, '.hidden');
+    return { path, type: 'boolean', maxLength: null, icuSignature: null, optionalGroup: path };
+  });
+  const rules = [...fields, ...visibilityRules];
+  const expected = new Map(rules.map(field => [field.path, field]));
   const values = new Map<string, unknown>();
   const seen = new Set<object>();
   const walk = (value: unknown, path: string, depth: number) => {
@@ -80,7 +86,7 @@ export function validateContentSnapshot(
   };
   walk(input, '', 0);
   for (const path of values.keys()) if (!expected.has(path)) issue(path, 'Unexpected content field');
-  for (const field of fields) {
+  for (const field of rules) {
     const value = values.get(field.path);
     if (field.optionalGroup && !values.has(field.optionalGroup)) continue;
     if (!values.has(field.path)) { issue(field.path, 'Required content field'); continue; }

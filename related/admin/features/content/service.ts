@@ -12,6 +12,8 @@ import { attestSnapshot } from './validation-attestation';
 import { prepareReleaseAssets } from '@/features/media/service';
 import {currentSnapshot} from './current-snapshot';
 import type { DraftDetails } from './draft-details';
+import mediaProfiles from '@/features/media/profiles.json';
+import { mediaPresentation } from '@/features/media/presentation';
 
 export type FieldIssue = { path: string; message: string };
 export type ContentResult<T> = ApiResult<T> & { issues?: FieldIssue[] };
@@ -109,16 +111,42 @@ export async function submitDraft(input: { id: UUID; expectedVersion: number }):
     return submitted.data as { id: UUID; version: number };
   });
 }
+async function publishValidatedDraft(id: UUID, version: number, actorId: UUID, removal?: { releaseId: UUID; usageKey: string }) {
+  const { client, draft } = await readDraft(id);
+  if (draft.version !== version) throw new HttpError('CONFLICT', 409);
+  const snapshot = checked(draft.snapshot);
+  await prepareReleaseAssets(id, { version, snapshot });
+  await attestSnapshot({ kind: 'draft', id, version, snapshot, actorId });
+  const published = removal
+    ? await client.rpc('publish_media_removal', { draft_id: id, expected_version: version, expected_release: removal.releaseId, usage_key: removal.usageKey })
+    : await client.rpc('publish_content_draft', { id, expected_version: version });
+  sqlError(published.error);
+  return { releaseId: published.data! };
+}
 export async function publishDraft(input: { id: UUID; expectedVersion: number }): Promise<ContentResult<{ releaseId: UUID }>> {
   return result(async () => {
     const actor = await writer(true); if (input?.expectedVersion === undefined) throw new HttpError('INVALID_INPUT', 400); identity(input?.id, input?.expectedVersion);
-    const { client, draft } = await readDraft(input.id);
-    if (draft.version !== input.expectedVersion) throw new HttpError('CONFLICT', 409);
-    const snapshot = checked(draft.snapshot);
-    await prepareReleaseAssets(input.id, { version: input.expectedVersion, snapshot });
-    await attestSnapshot({ kind: 'draft', id: input.id, version: input.expectedVersion, snapshot, actorId: actor.userId });
-    const published = await client.rpc('publish_content_draft', { id: input.id, expected_version: input.expectedVersion }); sqlError(published.error);
-    return { releaseId: published.data! };
+    return publishValidatedDraft(input.id, input.expectedVersion, actor.userId);
+  });
+}
+export async function removeWebsiteImage(input: { usageKey: string; expectedReleaseId: UUID }): Promise<ContentResult<{ releaseId: UUID }>> {
+  return result(async () => {
+    const actor = await writer(true);
+    identity(input?.expectedReleaseId);
+    if (typeof input?.usageKey !== 'string' || !Object.hasOwn(mediaProfiles, input.usageKey) || mediaProfiles[input.usageKey as keyof typeof mediaProfiles].kind !== 'image') throw new HttpError('INVALID_INPUT', 400);
+    const client = await createClient();
+    const published = await client.rpc('get_published_content'); sqlError(published.error);
+    const current = published.data as unknown as { releaseId: UUID; snapshot: ContentSnapshot } | null;
+    if (!current || current.releaseId !== input.expectedReleaseId) throw new HttpError('CONFLICT', 409);
+    const slot = current.snapshot.media[input.usageKey];
+    if (!slot) throw new HttpError('NOT_FOUND', 404);
+    if (slot.hidden) throw new HttpError('CONFLICT', 409);
+    const snapshot = checked({ ...current.snapshot, media: { ...current.snapshot.media, [input.usageKey]: { ...slot, hidden: true } } });
+    const title = mediaPresentation(input.usageKey).title;
+    const id = randomUUID();
+    const saved = await client.rpc('save_described_content_draft', { id, expected_version: 0, snapshot: snapshot as unknown as Json, draft_name: `移除圖片：${title}`, change_summary: `移除「${title}」，官網對應位置不再顯示此圖片。` }); sqlError(saved.error);
+    const draft = saved.data as { version: number };
+    return publishValidatedDraft(id, draft.version, actor.userId, { releaseId: current.releaseId, usageKey: input.usageKey });
   });
 }
 export async function rollbackRelease(input: { releaseId: UUID }): Promise<ContentResult<{ releaseId: UUID }>> {

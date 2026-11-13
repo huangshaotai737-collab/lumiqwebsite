@@ -7,6 +7,7 @@ export type {ImageProps} from 'next/image';
 const assets: Record<string, {base: string; widths: number[]}> = responsive;
 export default function ContentImage(props: ImageProps) {
   const cms = useContentAdapter();
+  if (typeof props.src === 'string' && cms.hidden(props.src)) return null;
   const src = typeof props.src === 'string' ? cms.url(props.src) : props.src;
   const asset = typeof src === 'string' && !cms.preview ? assets[src] : undefined;
   return <Image {...props} key={typeof src === 'string' ? src : src.toString()} alt={props.alt} src={src}

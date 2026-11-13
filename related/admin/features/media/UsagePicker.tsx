@@ -21,7 +21,7 @@ export function UsagePicker({ profiles, value, onChange }: { profiles: UploadPro
       {visible.map(profile => <label className="media-usage-card" data-selected={profile.key === value} key={profile.key}>
         <input type="radio" name="upload-usage" value={profile.key} checked={profile.key === value} onChange={() => onChange(profile.key)} />
         <MediaPreview key={profile.previewUrl} src={profile.previewUrl} kind={profile.kind} title={profile.title} thumbnail poster={profile.posterUrl || undefined} />
-        <span className="media-usage-copy"><small>{profile.group} · {profile.format}</small><strong>{profile.title}</strong><span>{profile.key === value ? '✓ 已選取' : '選取素材位置'}</span></span>
+        <span className="media-usage-copy"><small>{profile.group} · {profile.format}</small><strong>{profile.title}</strong><span>{profile.hidden ? '已從官網移除' : profile.key === value ? '✓ 已選取' : '選取素材位置'}</span></span>
       </label>)}
     </div>
     {visible.length === 0 && <div className="media-no-results"><p>沒有符合條件的圖片位置。</p><button type="button" onClick={() => { setQuery(''); }}>清除搜尋</button></div>}

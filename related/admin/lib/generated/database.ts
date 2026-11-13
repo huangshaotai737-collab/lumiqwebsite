@@ -544,6 +544,7 @@ isOneToOne: true
 "mark_staff_invite_delivery":
 { Args: { "delivered": boolean,"invite_id": string }; Returns: undefined
                            },
+"publish_media_removal": { Args: { "draft_id": string; "expected_version": number; "expected_release": string; "usage_key": string }; Returns: string },
 "publish_content_draft":
 { Args: { "expected_version": number,"id": string }; Returns: string
                            },

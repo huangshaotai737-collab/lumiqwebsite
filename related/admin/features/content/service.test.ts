@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import fixture from './initial-snapshot.json';
 import type { ContentSnapshot } from '@/lib/generated/platform/content';
-import { createDraft, saveDraft as saveDraftRequest, publishDraft, rollbackRelease } from './service';
+import { createDraft, saveDraft as saveDraftRequest, publishDraft, rollbackRelease, removeWebsiteImage } from './service';
 const dependencies = vi.hoisted(() => ({
   requireStaff: vi.fn(), enforceRateLimit: vi.fn(), rpc: vi.fn(), attest: vi.fn(),
 }));
@@ -89,5 +89,44 @@ describe('server content boundary', () => {
     dependencies.rpc.mockResolvedValue({ data: { id, snapshot: value }, error: null });
     expect(await rollbackRelease({ releaseId: id })).toMatchObject({ ok: false, error: 'INVALID_INPUT' });
     expect(dependencies.attest).not.toHaveBeenCalled();
+  });
+});
+
+describe('confirmed website image removal', () => {
+  const usageKey = Object.keys(fixture.media).find(key => fixture.media[key as keyof typeof fixture.media].kind === 'image')!;
+  const releaseId = '60000000-0000-4000-8000-000000000002';
+  it('requires administrator access before reading or writing content', async () => {
+    const { HttpError } = await import('@/lib/http/result');
+    dependencies.requireStaff.mockRejectedValue(new HttpError('FORBIDDEN', 403));
+    expect(await removeWebsiteImage({ usageKey, expectedReleaseId: releaseId })).toMatchObject({ ok: false, error: 'FORBIDDEN' });
+    expect(dependencies.rpc).not.toHaveBeenCalled();
+  });
+  it('refuses a stale publication before creating a draft', async () => {
+    dependencies.rpc.mockResolvedValue({ data: { releaseId: id, snapshot: snapshot() }, error: null });
+    expect(await removeWebsiteImage({ usageKey, expectedReleaseId: releaseId })).toMatchObject({ ok: false, error: 'CONFLICT' });
+    expect(dependencies.rpc.mock.calls.map(call => call[0])).toEqual(['get_published_content']);
+  });
+  it('changes only selected image visibility and publishes through the final database version guard', async () => {
+    const original = snapshot(); let saved: ContentSnapshot; let draftId: string;
+    dependencies.rpc.mockImplementation(async (name, args) => {
+      if (name === 'get_published_content') return { data: { releaseId, snapshot: original }, error: null };
+      if (name === 'save_described_content_draft') { saved = args.snapshot; draftId = args.id; return { data: { version: 1 }, error: null }; }
+      if (name === 'get_content_draft') return { data: { id: draftId, version: 1, snapshot: saved }, error: null };
+      return { data: id, error: null };
+    });
+    expect(await removeWebsiteImage({ usageKey, expectedReleaseId: releaseId })).toEqual({ ok: true, data: { releaseId: id } });
+    const expected = snapshot(); expected.media[usageKey].hidden = true;
+    expect(saved!).toEqual(expected); expect(original.media[usageKey].hidden).toBeUndefined();
+    expect(dependencies.attest).toHaveBeenCalledWith(expect.objectContaining({ id: draftId!, version: 1, snapshot: expected }));
+    expect(dependencies.rpc).toHaveBeenLastCalledWith('publish_media_removal', { draft_id: draftId!, expected_version: 1, expected_release: releaseId, usage_key: usageKey });
+  });
+  it('rejects video or unknown positions and already removed images', async () => {
+    for (const key of ['__proto__', 'unknown', Object.keys(fixture.media).find(key => fixture.media[key as keyof typeof fixture.media].kind === 'video')!]) {
+      expect(await removeWebsiteImage({ usageKey: key, expectedReleaseId: releaseId })).toMatchObject({ ok: false, error: 'INVALID_INPUT' });
+    }
+    expect(dependencies.rpc).not.toHaveBeenCalled();
+    const value = snapshot(); value.media[usageKey].hidden = true;
+    dependencies.rpc.mockResolvedValue({ data: { releaseId, snapshot: value }, error: null });
+    expect(await removeWebsiteImage({ usageKey, expectedReleaseId: releaseId })).toMatchObject({ ok: false, error: 'CONFLICT' });
   });
 });

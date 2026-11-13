@@ -103,3 +103,24 @@ it('unconfigured local content is quiet, configured missing/invalid releases rep
   expect(JSON.stringify(warn.mock.calls)).not.toContain('SECRET');
  }finally{warn.mockRestore();}
 });
+
+it('removes selected image and background usages while retaining originals for recovery', async () => {
+  const {createContentAdapter, emptyImageUrl} = await import('@/lib/content/adapter');
+  const snapshot = structuredClone(initialSnapshot);
+  const id = 'asset_012d3bf8af92d486', original = snapshot.media[id].url;
+  snapshot.media[id].hidden = true;
+  const result = await createPublishedReader(async () => ({ releaseId, snapshot }))();
+  expect(result.source).toBe('published');
+  const cms = createContentAdapter(result.snapshot, 'en');
+  expect(cms.hidden(original)).toBe(true);
+  expect(cms.url(original)).toBe(emptyImageUrl);
+  expect(cms.hidden(cms.url(original))).toBe(true);
+  expect(cms.slot(id).url).toBe(emptyImageUrl);
+  expect(snapshot.media[id].url).toBe(original);
+  expect(cms.url('/assets/unrelated-image.webp')).toBe('/assets/unrelated-image.webp');
+  const backgrounds = (await import('@/lib/content/css-slots.json')).default;
+  const background = backgrounds[0]; snapshot.media[background].hidden = true;
+  expect(createContentAdapter(snapshot, 'en').css()).toHaveProperty(`--cms-${background}`, 'none');
+  snapshot.media[id].hidden = false;
+  expect(createContentAdapter(snapshot, 'en').url(original)).toBe(original);
+});

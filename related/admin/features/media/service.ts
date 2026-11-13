@@ -105,7 +105,7 @@ export async function prepareReleaseAssets(draftId: UUID, expected?: { version: 
 }
 export async function archiveAsset(assetId: UUID): Promise<ApiResult<null>> { return result(async () => { await writer(); identity(assetId); const client = await createClient(); const archived = await client.rpc('archive_media_asset', { asset_id: assetId }); sql(archived.error); return null; }); }
 export async function loadMediaLibrary(input: MediaSearchParams = {}) {
-  await requireStaff(['admin', 'editor']);
+  const actor = await requireStaff(['admin', 'editor']);
   const query = parseMediaLibraryQuery(input, Object.keys(mediaProfiles));
   const client = await createClient();
   const service = trusted();
@@ -117,10 +117,10 @@ export async function loadMediaLibrary(input: MediaSearchParams = {}) {
   sql(response.error); sql(published.error);
   const library = response.data as unknown as MediaLibraryPage;
   const previews = library.items.map(asset => ({ ...asset, previewUrl: asset.status === 'pending' ? null : `/api/media/preview?assetId=${asset.id}` }));
-  const publication = published.data as unknown as { snapshot: ContentSnapshot } | null;
+  const publication = published.data as unknown as { releaseId: UUID; snapshot: ContentSnapshot } | null;
   const snapshot = publication ? withBrandContent(publication.snapshot) : currentSnapshot;
   const websiteOrigin = process.env.WEBSITE_ORIGIN ? new URL(process.env.WEBSITE_ORIGIN).origin : null;
-  return { assets: previews, total: library.total, page: library.page, pageSize: library.pageSize, query, hostCap, profiles: uploadProfiles(snapshot.media, websiteOrigin, hostCap, Boolean(publication)) };
+  return { releaseId: publication?.releaseId || null, canRemove: actor.role === 'admin', assets: previews, total: library.total, page: library.page, pageSize: library.pageSize, query, hostCap, profiles: uploadProfiles(snapshot.media, websiteOrigin, hostCap, Boolean(publication)) };
 }
 
 export type MediaOption = { id: string; fileName: string };
