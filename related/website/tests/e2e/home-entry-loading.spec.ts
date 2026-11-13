@@ -12,6 +12,38 @@ const held = () => {
   return {wait, release};
 };
 
+for (const width of [1440, 390]) {
+  test(`${width}px cached entry keeps the loading page for at least 800ms`, async ({page}) => {
+    await page.setViewportSize({width, height:900});
+    await page.addInitScript(({movies}) => {
+      // Isolate the minimum display time from network and decoder latency.
+      HTMLImageElement.prototype.decode = () => Promise.resolve();
+      const originalFetch = window.fetch;
+      const timing = window as typeof window & {entryTiming: {started: number; ready: number; opened: number}};
+      timing.entryTiming = {started:0, ready:0, opened:0};
+      window.fetch = (input, init) => {
+        if (!movies.some(movie => String(input).endsWith(movie))) return originalFetch(input, init);
+        if (!timing.entryTiming.started) timing.entryTiming.started = performance.now();
+        return Promise.resolve(new Response(new Blob(['cached movie'], {type:'video/mp4'})));
+      };
+      const observer = new MutationObserver(() => {
+        const progress = document.querySelector('.lh-loader-progress');
+        if (progress?.getAttribute('aria-valuenow') === '100' && !timing.entryTiming.ready) timing.entryTiming.ready = performance.now();
+        if (document.querySelector('.lh-home')?.getAttribute('data-home-state') === 'open' && !timing.entryTiming.opened) timing.entryTiming.opened = performance.now();
+      });
+      observer.observe(document, {subtree:true, childList:true, attributes:true});
+    }, {movies:[...movies]});
+    await page.goto('/zh-hant', {waitUntil:'domcontentloaded'});
+    await expect(page.locator('.lh-loader-progress')).toHaveAttribute('aria-valuenow', '100');
+    await expect(page.locator('.lh-loader')).toHaveAttribute('data-state', 'hidden');
+    const timing = await page.evaluate(() => (window as typeof window & {entryTiming: {started:number; ready:number; opened:number}}).entryTiming);
+    expect(timing.ready).toBeGreaterThan(0);
+    // Fetch begins just after the gate clock; allow 5ms for that synchronous setup.
+    expect(timing.opened - timing.started).toBeGreaterThanOrEqual(795);
+    expect(timing.opened).toBeGreaterThan(timing.ready);
+  });
+}
+
 test('entry waits for decoded 480 artwork while full quality downloads concurrently', async ({page}) => {
   await page.setViewportSize({width:1440, height:900});
   const gate = held();

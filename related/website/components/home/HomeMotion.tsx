@@ -13,12 +13,12 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { mountProductRail } from "./productRail";
 import { mountRoomAnchor } from "./roomAnchor";
-import { mountOpeningVideo, openingVideoQuery } from "./openingVideo";
+import { mountOpeningVideo } from "./openingVideo";
 import { mountHomePosition } from "./homePosition";
 import HomePageWarmup from "./HomePageWarmup";
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
-/** Native scrolling drives the current opening at every desktop aspect ratio. */
+/** Desktop opening anchors and native mobile scrolling share the same content. */
 export default function HomeMotion({ children }: { children: ReactNode }) {
   const cms = useContentAdapter();
   const motionDependency = [cms.slot('asset_a4b2063e90484449').url,cms.slot('asset_76a5de3f207ca5bb').url,cms.slot('asset_d11e4e878cf13138').url].join('|');
@@ -39,10 +39,12 @@ export default function HomeMotion({ children }: { children: ReactNode }) {
     artwork: homeImageSources.filter(source => /films-20260908|character-20261012|site-backgrounds-20261108/.test(source)).map(source => cms.url(source)),
   }));
   useEffect(() => {
+    const startedAt = performance.now();
     const controller = new AbortController();
     const movies: Record<string, string> = {};
     let alive = true;
     let deadline: ReturnType<typeof setTimeout>;
+    let entryTimer: ReturnType<typeof setTimeout>;
     const watch = () => {
       clearTimeout(deadline);
       deadline = setTimeout(() => controller.abort(new Error("Loading made no progress")), 60000);
@@ -64,10 +66,14 @@ export default function HomeMotion({ children }: { children: ReactNode }) {
       if (alive) setPercent(value);
     }, (source, url) => { movies[source] = url; }).then(() => {
       clearTimeout(deadline);
-      if (alive) setMedia({prepared: true, movies});
+      // Preload and minimum display time overlap; slow downloads add no extra wait.
+      entryTimer = setTimeout(() => {
+        if (alive) setMedia({prepared: true, movies});
+      }, Math.max(0, 800 - (performance.now() - startedAt)));
     }).catch(() => {
       controller.abort();
       clearTimeout(deadline);
+      clearTimeout(entryTimer);
       if (alive) setError(true);
     });
     return () => {
@@ -111,7 +117,6 @@ export default function HomeMotion({ children }: { children: ReactNode }) {
         {
           desktop:
             `${homeMotionQuery} and (min-height: 640px)`,
-          video: openingVideoQuery,
         },
         (context) => {
           if (!context.conditions?.desktop) return;

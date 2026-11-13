@@ -58,17 +58,19 @@ export default async function Home() {
       <HomeBackgrounds />
       <div className="lh-opening">
         <div className="lh-opening-stage">
-          <div className="lh-video-layer" aria-hidden="true">
-            <div className="lh-opening-film">
-              <div className="lh-video-start-poster" />
-              <div className="lh-video-end-poster" />
-              <video
-                className="lh-opening-video"
-                muted
-                playsInline
-                preload="none"
-                tabIndex={-1}
-              />
+          <div className="lh-video-track" aria-hidden="true">
+            <div className="lh-video-layer">
+              <div className="lh-opening-film">
+                <div className="lh-video-start-poster" />
+                <div className="lh-video-end-poster" />
+                <video
+                  className="lh-opening-video"
+                  muted
+                  playsInline
+                  preload="none"
+                  tabIndex={-1}
+                />
+              </div>
             </div>
           </div>
           <div

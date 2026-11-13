@@ -20,6 +20,7 @@
 }
 /* Desktop uses one viewport stage, one 16:9 film plane and stable copy
    anchors. Width/height resize changes their scale continuously, not layouts. */
+.lh-video-track { display: contents; }
 .lh-video-layer { display: none; }
 .lh-opening[data-video-mode] {
   --opening-gutter: clamp(28px, 5vw, 104px);
@@ -194,6 +195,7 @@
   grid-column: 2;
   grid-row: 2;
   min-width: 0;
+  max-width: var(--opening-height);
   gap: clamp(8px, 1vw, 15px);
 }
 .lumiq-root .lh-home .lh-opening[data-video-mode]:not([data-static-opening]) .lh-rhythm-card {
@@ -222,3 +224,35 @@
 /* A buffered frame is optional: keep both chapters readable before it arrives. */
 .lh-video-layer:not([data-ready])[data-poster="end"] .lh-video-start-poster { opacity: 0; }
 .lh-video-layer:not([data-ready])[data-poster="end"] .lh-video-end-poster { opacity: 1; }
+
+/* Desktop opening: two actual document anchors, one sticky film plane.
+   Native scrolling and fragment links have the same one-viewport distance. */
+.lumiq-root main.lh-home .lh-opening[data-opening-anchors]:not([data-static-opening]) .lh-opening-stage {
+  height: auto;
+}
+.lumiq-root main.lh-home .lh-opening[data-opening-anchors]:not([data-static-opening]) .lh-video-track {
+  display: block;
+  position: absolute;
+  inset: 0 0 auto;
+  height: 200svh;
+  pointer-events: none;
+}
+.lumiq-root main.lh-home .lh-opening[data-opening-anchors]:not([data-static-opening]) .lh-video-layer {
+  position: sticky;
+  top: 0;
+  inset-inline: auto;
+  height: 100svh;
+  margin-bottom: 0;
+  z-index: 0;
+}
+.lumiq-root main.lh-home .lh-opening[data-opening-anchors]:not([data-static-opening]) :is(.lh-hero, .lh-ola) {
+  position: relative;
+  inset: auto;
+  height: 100svh;
+  min-height: 0;
+  padding: 0;
+  z-index: 1;
+}
+.lh-opening[data-opening-anchors] :is(#top, #ola) {
+  scroll-margin-top: -100px;
+}

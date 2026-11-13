@@ -32,16 +32,9 @@
   background-image: none;
 }
 
-/* The selected homepage product is 85% opaque, with its white base darkened 3%. */
+/* Selected product cards share an 85% opaque white base darkened 3%. */
+.lumiq-root .prod-page .prod-slide[data-slot="center"],
 .lumiq-root main.lh-home .lh-products:not([data-glass-3d]) .lh-products-viewport .lh-product-slot[data-active=true] > .lh-product,
 .lumiq-root main.lh-home .lh-products:not([data-glass-3d]) .lh-products-viewport .lh-product-slot:not([data-offset]):first-child > .lh-product {
   background-color: rgb(247 247 247 / 85%);
-}
-
-/* Keep the selected desktop card's existing highlight; only its fill changes. */
-@media (min-width: 1200px) {
-  .lumiq-root main.lh-home .lh-products:not([data-glass-3d]) .lh-products-viewport .lh-product-slot[data-active=true] > .lh-product,
-  .lumiq-root main.lh-home .lh-products:not([data-glass-3d]) .lh-products-viewport .lh-product-slot:not([data-offset]):first-child > .lh-product {
-    box-shadow: 0 0 28px rgb(255 235 248 / 65%), inset 0 0 18px rgb(255 255 255 / 35%);
-  }
 }
