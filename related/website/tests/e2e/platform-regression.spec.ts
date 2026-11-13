@@ -8,8 +8,8 @@ async function fiveProducts(page:Page) {
   for(const id of products) await expect(page.locator(`#products .lh-product-slot-${id}`)).toHaveCount(1);
 }
 for(const locale of ['en','zh-hant','ja']) test(`${locale}: no_horizontal_overflow and five_product_entries_survive_resize`,async({page},info)=>{
-  test.skip(info.project.name!=='desktop');test.setTimeout(150000);
-  await page.goto(`/${locale}`);await expect(page.locator('#hero-title')).toBeVisible();
+  test.skip(info.project.name!=='desktop');
+  await page.goto(`/${locale}`);await expect(page.locator('.lh-home')).toHaveAttribute('data-home-state','open',{timeout:60000});await expect(page.locator('#hero-title')).toBeVisible();
   let resizePass=0;
   for(const width of [1920,320,360,390,430,820,1440,1920]) {
     resizePass++;await page.setViewportSize({width,height:900});await fiveProducts(page);await noHorizontalOverflow(page);
@@ -21,11 +21,12 @@ for(const locale of ['en','zh-hant','ja']) test(`${locale}: no_horizontal_overfl
       await page.screenshot({path:`test-results/home-products-${locale}-${width}-${resizePass}.png`,animations:'disabled'});
     }
   }
-  for(const route of ['login','register','reset-password','faq','prelaunch','checkout','members/orders']) {
+});
+for(const locale of ['en','zh-hant','ja']) for(const route of ['login','register','reset-password','faq','prelaunch','checkout','members/orders']) test(`${locale}/${route}: public form fits every viewport`,async({page},info)=>{
+    test.skip(info.project.name!=='desktop');
     for(const width of [320,430,820,1440]) {
       await page.setViewportSize({width,height:900});await page.goto(`/${locale}/${route}`);await noHorizontalOverflow(page);
     }
-  }
 });
 test('failed preload offers retry and then restores readable published content',async({page},info)=>{
  test.skip(info.project.name!=='desktop');

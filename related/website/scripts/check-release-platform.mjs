@@ -36,7 +36,11 @@ for(const [engine,type] of Object.entries(engines)){
  let browser;
  const errors=[];
  try{
-  browser=await stage({engine},'launch',()=>type.launch(engine==='edge'?{channel:'msedge',timeout:timeoutMs}:{timeout:timeoutMs}));
+  browser=await stage({engine},'launch',()=>type.launch({
+   timeout:timeoutMs,
+   ...(engine==='edge'?{channel:'msedge'}:{}),
+   ...(engine==='webkit'&&process.env.AUDIT_HEADED_WEBKIT==='1'?{headless:false}:{}),
+  }));
   for(const locale of ['en','zh-hant','ja'])for(const route of routes){
    const context={engine,locale,route};
    // Layout cases own their context; navigation behaviour has separate E2E coverage.

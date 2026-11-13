@@ -210,7 +210,7 @@ test("admin confirms synthetic SKU with version/origin guards; actual customer J
     },
   });
   expect(conflict.status()).toBe(409);
-  await page.getByLabel("我已審覈並批準當前已發佈的三種語言商業條款").check();
+  await page.getByLabel("我已審覈並批准當前已發佈的三種語言商業條款").check();
   await page.getByLabel("開放訂單提交").check();
   await page.getByRole("button", { name: "保存訂單設置" }).click();
   await expect(page.getByText("訂單提交已開放")).toBeVisible();

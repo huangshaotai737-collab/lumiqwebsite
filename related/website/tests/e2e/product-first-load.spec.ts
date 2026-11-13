@@ -85,9 +85,8 @@ for (const density of [1, 2]) {
   });
 }
 
-test('waitlist labels stay consistent while the cart leads to the approved checkout', async ({page}) => {
-  test.setTimeout(90000);
-  for (const [locale, label, checkout] of [['zh-hant', '加入候補名單', '結帳'], ['en', 'Join the waitlist', 'Checkout'], ['ja', 'ウェイトリストに登録', 'チェックアウト']]) {
+for (const [locale, label, checkout] of [['zh-hant', '加入候補名單', '結帳'], ['en', 'Join the waitlist', 'Checkout'], ['ja', 'ウェイトリストに登録', 'チェックアウト']]) {
+  test(`${locale}: waitlist labels stay consistent while the cart leads to the approved checkout`, async ({page}) => {
     await page.setViewportSize({width: 1440, height: 900});
     for (const slug of ['ola', 'ola-go', 'tablet', 'print', 'nest']) {
       await open(page, slug, locale);
@@ -107,7 +106,9 @@ test('waitlist labels stay consistent while the cart leads to the approved check
     for (const entry of await page.locator('main a[href$="/prelaunch"]').all()) await expect(entry).toHaveText(label);
     await page.goto(`/${locale}/prelaunch`, {waitUntil: 'domcontentloaded'});
     await expect(page.locator('button[type="submit"]')).toHaveText(label);
-  }
+  });
+}
+test('Orb waitlist navigation retains its label on phones', async ({page}) => {
   for (const width of [320, 390, 767]) {
     await page.setViewportSize({width, height: 844});
     await open(page, 'nest');

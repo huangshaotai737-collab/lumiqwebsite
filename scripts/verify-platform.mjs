@@ -2,7 +2,7 @@
 // Local/CI only. Database population tests run strictly before browser fixtures.
 import path from 'node:path';
 import {execFileSync} from 'node:child_process';
-import {mkdir,writeFile,readFile,readdir,copyFile} from 'node:fs/promises';
+import {mkdir,writeFile,readFile,readdir,copyFile,cp} from 'node:fs/promises';
 import {createHash} from 'node:crypto';
 import {withStageOwnership} from './platform/stage-owner.mjs';
 import {root,localRoot,captureLocal,prepareMirror,assertTestBoundary} from './platform/local.mjs';
@@ -25,10 +25,10 @@ const scopeHash=accept=>{const digest=createHash('sha256');for(const file of fil
 const inputScopes={database:scopeHash(file=>file.startsWith('supabase/')||file.startsWith('scripts/')),contracts:scopeHash(file=>/^(contracts\/|related\/|scripts\/|supabase\/)/.test(file)),adminApp:scopeHash(file=>file.startsWith('related/admin/')||file.startsWith('contracts/')||file.startsWith('scripts/')),websiteApp:scopeHash(file=>file.startsWith('related/website/')||file.startsWith('contracts/')||file.startsWith('scripts/'))};
 const report={inputFiles,inputScopes,commit:execFileSync('git',['rev-parse','HEAD'],{cwd:root,encoding:'utf8'}).trim(),sourceSha256:hash.digest('hex'),node:process.version,platform:process.platform,startedAt:new Date().toISOString(),selected:selected||'all',browserFrom:browserFrom||null,stages:[]};
 async function checkpoint(){await writeFile(path.join(evidence,selected?`targeted-${selected}.json`:'result.json'),JSON.stringify(report,null,2)+'\n');}
-async function command(name,cmd,args,cwd=mirror,extra={}){
+async function command(name,cmd,args,cwd=mirror,extra={},live=false){
  console.log(`START ${name}`);const log=await import('node:fs').then(fs=>fs.createWriteStream(path.join(evidence,`${name}.log`)));
  const start=Date.now();let exitCode;
- try {exitCode=await owner.execute(cmd,args,{cwd,env:{...env,...extra},stdio:['ignore','pipe','pipe'],onSpawn:child=>{child.stdout.pipe(log,{end:false});child.stderr.pipe(log,{end:false});}});}
+ try {exitCode=await owner.execute(cmd,args,{cwd,env:{...env,...extra},stdio:['ignore','pipe','pipe'],onSpawn:child=>{child.stdout.pipe(log,{end:false});child.stderr.pipe(log,{end:false});if(live){child.stdout.pipe(process.stdout,{end:false});child.stderr.pipe(process.stderr,{end:false});}}});}
  finally{log.end();}
  report.stages.push({name,exitCode,durationMs:Date.now()-start});await checkpoint();
  console.log(`${exitCode===0?'PASS':'FAIL'} ${name} (${Math.round((Date.now()-start)/1000)}s)`);
@@ -72,8 +72,8 @@ stages.browsers=async()=>{
  const failedOwners=[];
  for(const owner of owners.slice(from)) {
   const cwd=path.join(mirror,'related',owner.app);
-  try {await command(owner.name,'npm',['run',owner.script],cwd,owner.extra);}
-  catch(error) {failedOwners.push(owner.name);console.error(error.message);}
+  try {await command(owner.name,'npm',['run',owner.script,'--','--reporter=line'],cwd,owner.extra,true);}
+  catch(error) {await cp(path.join(cwd,'test-results'),path.join(evidence,owner.name+'-results'),{recursive:true});failedOwners.push(owner.name);console.error(error.message);}
   finally {
    // The next Playwright owner clears test-results; preserve its synthetic visual evidence first.
    const destination=path.join(localRoot,'evidence','visual',owner.name);await mkdir(destination,{recursive:true});

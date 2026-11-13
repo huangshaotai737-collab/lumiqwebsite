@@ -7,7 +7,7 @@ const out=process.env.QA_OUTPUT||'qa/detail-hero';
 await fs.mkdir(out,{recursive:true});
 const results=[],failures=[];
 for(const [engine,type] of Object.entries({chromium,firefox,webkit})){
- const browser=await type.launch();
+ const browser=await type.launch(engine==='webkit'&&process.env.AUDIT_HEADED_WEBKIT==='1'?{headless:false}:{});
  try{
   const page=await browser.newPage();
   for(const locale of ['en','zh-hant','ja'])for(const slug of ['tablet','ola','ola-go','print','nest']){

@@ -1,8 +1,6 @@
-name: Admin platform acceptance
+name: Focused order diagnostics
 on:
   workflow_dispatch:
-  pull_request:
-    paths: ['related/**', 'scripts/**', 'contracts/**', 'supabase/**', '.github/workflows/admin-platform.yml']
 permissions:
   contents: read
 concurrency:
@@ -39,7 +37,7 @@ jobs:
           cd ../admin
           npx playwright install --with-deps chromium
       - name: Run local verification (SQL precedes synthetic browser accounts)
-        run: node scripts/verify-platform.mjs
+        run: node scripts/verify-platform.mjs --stage=browsers --browser-from=admin-catalog
       - name: Remove ephemeral database and local credentials
         if: always()
         run: |
@@ -49,5 +47,5 @@ jobs:
         if: always()
         with:
           name: platform-verification
-          path: .lumiq-local/evidence/verification
+          path: .lumiq-local/evidence
           retention-days: 7

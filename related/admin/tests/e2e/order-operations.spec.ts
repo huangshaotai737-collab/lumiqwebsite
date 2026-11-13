@@ -84,6 +84,8 @@ test("operations/admin search cancelled order and append private audited note; e
     await page.getByLabel("添加內部備註").fill(note);
     await page.getByRole("button", { name: "保存備註", exact: true }).click();
     await expect(page.getByText(note, { exact: true })).toBeVisible();
+    console.log("NOTE_AUDIT",role,users[role].id,sql(`select json_agg(json_build_object('action',action,'actor',actor_id,'entity',entity_id)) from public.audit_events where action='orders.note_added'`));
+    console.log("NOTE_UI",await page.locator("main").innerText());
     expect(
       sql(
         `select count(*) from public.audit_events where action='orders.note_added' and entity_id='${orderId}' and actor_id='${users[role].id}'`,

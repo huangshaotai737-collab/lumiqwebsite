@@ -11,7 +11,7 @@ try {
   await new Promise(r=>setTimeout(r,500));
  }
  if(!ready)throw Error('Preview server did not become ready');
-
- await import('./diagnose-home-webkit.mjs');
-
+ await import('./check-webgl-fallback.mjs');
+ await import('./check-release-platform.mjs');
+ await import('./check-detail-hero.mjs');
 }finally{server.kill();fs.closeSync(log);}

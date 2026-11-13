@@ -6,12 +6,15 @@ import {acquireRunLock} from './run-lock.mjs';
 
 // POSIX local/CI runner. Snapshot identity prevents signalling a reused PID.
 function snapshot(){
- const result=spawnSync('ps',['-axo','uid=,pid=,ppid=,pgid=,stat=,lstart='],{encoding:'utf8'});
+ const result=spawnSync('ps',['-axo','uid=,pid=,ppid=,pgid=,stat=,comm=,lstart='],{encoding:'utf8'});
  if(result.error||result.status!==0)throw Error('Process inspection unavailable');
  const processes=new Map();
  for(const line of result.stdout.split('\n')){
   const match=line.trim().match(/^(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\S+)\s+(.+)$/);
-  if(match&&Number(match[2])!==result.pid)processes.set(Number(match[2]),{uid:Number(match[1]),pid:Number(match[2]),parent:Number(match[3]),group:Number(match[4]),state:match[5],identity:match[6]});
+  if(match&&Number(match[2])!==result.pid){
+   const detail=match[6].trim().split(/\s+/);
+   processes.set(Number(match[2]),{uid:Number(match[1]),pid:Number(match[2]),parent:Number(match[3]),group:Number(match[4]),state:match[5],command:detail.slice(0,-5).join(' '),identity:detail.slice(-5).join(' ')});
+  }
  }
  if(!processes.has(process.pid))throw Error('Process inspection incomplete');
  return processes;
@@ -48,7 +51,9 @@ class StageOwner {
   let changed=true;
   while(changed){changed=false;for(const item of table.values())if(!owned.has(item.pid)&&owned.has(item.parent)){owned.add(item.pid);changed=true;}}
   for(const pid of owned)this.known.set(pid,table.get(pid).identity);
-  this.unknown=[...table.values()].filter(item=>item.uid===process.getuid()&&!owned.has(item.pid)&&this.baseline.get(item.pid)?.identity!==item.identity);
+  // A surrounding verifier also samples this process table. Keep its read-only
+  // ps probes out of the unknown-app list; owned probes still remain tracked.
+  this.unknown=[...table.values()].filter(item=>item.uid===process.getuid()&&!owned.has(item.pid)&&this.baseline.get(item.pid)?.identity!==item.identity&&path.basename(item.command)!=='ps');
   this.observed=[...owned].map(pid=>table.get(pid));
   return this.observed;
  }

@@ -131,6 +131,13 @@ test("checkout disabled still offers waitlist and safe sign-in", async ({
 test("retry_checkout_reuses_order after lost response, reload and double submit", async ({
   page,
 }) => {
+  page.on("response", async response => {
+    if (/\/api\/orders\/[0-9a-f-]+$/.test(response.url())) {
+      const body=await response.json();
+      console.log("ORDER_READ",response.status(),JSON.stringify({ok:body.ok,error:body.error,id:body.data?.id}));
+    }
+  });
+  page.on("pageerror",error=>console.log("ORDER_PAGEERROR",error.message));
   await configure();
   await login(page);
   await cart(page);
@@ -193,6 +200,7 @@ test("retry_checkout_reuses_order after lost response, reload and double submit"
     .click();
   await expect(page).toHaveURL(/\/members\/orders\/[0-9a-f-]+$/);
   previousOrderId = page.url().split("/").pop()!;
+  console.log("ORDER_DOM",await page.locator("main").innerText());
   expect(requests).toEqual([pendingKey, pendingKey]);
   expect(
     sql(

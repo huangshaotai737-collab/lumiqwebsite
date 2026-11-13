@@ -14,6 +14,7 @@ const scenario = vi.hoisted(() => ({
   pages: 0,
   closedPages: 0,
   errorOnClose: false,
+  launches: [] as Record<string, unknown>[],
   onSecondRoute: undefined as (() => Promise<void>) | undefined,
 }));
 
@@ -21,7 +22,8 @@ const scenario = vi.hoisted(() => ({
 vi.mock('@playwright/test', () => {
   const pending = () => new Promise(() => {});
   const engine = {
-    async launch() {
+    async launch(options: Record<string, unknown>) {
+      scenario.launches.push(options);
       let viewport = {width: 0, height: 0};
       let visits = 0;
       let onPageError: ((error: Error) => void) | undefined;
@@ -89,6 +91,7 @@ beforeEach(async () => {
   scenario.pages = 0;
   scenario.closedPages = 0;
   scenario.errorOnClose = false;
+  scenario.launches = [];
   scenario.onSecondRoute = undefined;
   vi.spyOn(console, 'log').mockImplementation(() => {});
 });
@@ -201,4 +204,14 @@ auditTest('page errors during route cleanup still fail the audit', async () => {
       expect.objectContaining({locale:'en', route:'', message:'page cleanup failed'}),
     ])}),
   ]));
+});
+
+auditTest('the Linux CI option selects GTK WebKit without changing Chromium or Firefox', async () => {
+  vi.stubEnv('AUDIT_HEADED_WEBKIT','1');
+  expect((await runAudit()).outcome).toBe('passed');
+  expect(scenario.launches).toEqual([
+    {timeout:20},
+    {timeout:20},
+    {timeout:20,headless:false},
+  ]);
 });
