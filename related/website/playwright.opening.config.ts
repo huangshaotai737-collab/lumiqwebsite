@@ -2,7 +2,7 @@ import {defineConfig} from '@playwright/test';
 
 export default defineConfig({
   testDir: './tests/e2e',
-  testMatch: ['opening-anchors.spec.ts', 'home-entry-loading.spec.ts'],
+  testMatch: ['opening-anchors.spec.ts', 'home-entry-loading.spec.ts', 'home-entry-paint.spec.ts'],
   workers: 1,
   retries: 0,
   timeout: 60000,

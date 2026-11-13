@@ -22,5 +22,5 @@ export default async function PreviewPage({params,searchParams}:{params:Promise<
     return <VisualCanvas initial={snapshot} locale={locale as Locale} page={page} channel={query.editor} adminOrigin={adminOrigin} fields={fields}/>;
   }
   const {default:Page}=await previewPages[page as keyof typeof previewPages]();
-  return <SiteContentBoundary><Page /></SiteContentBoundary>;
+  return <SiteContentBoundary home={page === '/'}><Page /></SiteContentBoundary>;
 }

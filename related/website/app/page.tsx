@@ -21,7 +21,6 @@ import HomeExperiences from "@/components/home/HomeExperiences";
 import HomeWaitlist from "@/components/home/HomeWaitlist";
 import HomeFamily from "@/components/home/HomeFamily";
 import "./homepage.css";
-import "./home-loading.css";
 import "./opening-video.css";
 import "./home-floors-3-4.css";
 import "./home-films.css";

@@ -22,7 +22,7 @@ export async function siteRequestLocale() {
 
 /** Lives in the leaf page, never a retained layout/template. One request supplies
  * the entire visible shell and renderer, including media CSS and cart prices. */
-export default async function SiteContentBoundary({children, publishedOnly = false}: {children: ReactNode; publishedOnly?: boolean}) {
+export default async function SiteContentBoundary({children, publishedOnly = false, home = false}: {children: ReactNode; publishedOnly?: boolean; home?: boolean}) {
   const locale = await siteRequestLocale();
   const snapshot = withBrandContent(publishedOnly ? (await readPublishedContent()).snapshot : await readSiteContent());
   const preview = !publishedOnly && Boolean((await headers()).get('x-lumiq-preview-draft'));
@@ -34,7 +34,7 @@ export default async function SiteContentBoundary({children, publishedOnly = fal
         <CartProvider>
           {!preview && <PublishedContentRefresh releaseId={(await readPublishedContent()).releaseId} />}
           <LocaleDocument locale={locale} />
-          <div style={createContentAdapter(snapshot, locale, preview).css()} className={`lumiq-root locale-${locale} flex min-h-screen flex-col`}>
+          <div data-home-entry={home ? "" : undefined} style={createContentAdapter(snapshot, locale, preview).css()} className={`lumiq-root locale-${locale} flex min-h-screen flex-col`}>
             <div className="bg-layer" />
             <SiteHeader />
             <div className="flex-1">{children}</div>

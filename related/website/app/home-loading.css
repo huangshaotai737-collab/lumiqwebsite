@@ -10,7 +10,8 @@
 }
 /* Match the opening film's pearl/lilac palette without an extra scene.
    The veil dissolves over the prepared opening frame, which stays in place. */
-.lh-loader::before {
+.lh-loader::before,
+.lumiq-root[data-home-entry]:not(:has(.lh-home[data-home-state="open"]))::after {
   content: "";
   position: absolute;
   inset: 0;
@@ -19,8 +20,16 @@
     radial-gradient(ellipse at 82% 15%, #f9edf380, transparent 62%),
     radial-gradient(ellipse at 8% 85%, #e5e3f270, transparent 65%),
     linear-gradient(135deg, #f6f3f8, #f0ecf4 58%, #f6f2f7);
-  transition: opacity 940ms cubic-bezier(.4, 0, .2, 1) 160ms;
 }
+.lh-loader::before { transition: opacity 940ms cubic-bezier(.4, 0, .2, 1) 160ms; }
+/* This shell exists before streamed home content and hydration arrive. */
+.lumiq-root[data-home-entry]:not(:has(.lh-home[data-home-state="open"]))::after {
+  position: fixed;
+  z-index: 999;
+}
+.lumiq-root[data-home-entry]:not(:has(.lh-home[data-home-state="open"])) > :is(.site-nav, .footer) { visibility: hidden; }
+html:has(.lumiq-root[data-home-entry]:not(:has(.lh-home[data-home-state="open"]))),
+body:has(.lumiq-root[data-home-entry]:not(:has(.lh-home[data-home-state="open"]))) { overflow: hidden; }
 .lh-loader[data-state="revealing"] { pointer-events: none; }
 .lh-loader[data-state="revealing"]::before { opacity: 0; }
 .lh-loader[data-state="hidden"] { display: none; }
@@ -51,6 +60,7 @@
 }
 .lh-loader-wordmark:not([data-ready="true"]) :is(.lh-loader-letter, .lh-loader-letter-float) { animation-play-state: paused; }
 .lh-loader-progress { margin-top: 28px; animation: lh-progress-arrive 900ms ease 850ms both; }
+.lh-loader:not([data-logo-ready="true"]) .lh-loader-progress { animation-play-state: paused; }
 .lh-loader-percent { color: #71748a; font-size: 12px; font-variant-numeric: tabular-nums; letter-spacing: .08em; }
 .lh-loader-percent small { margin-left: 3px; font-size: 9px; opacity: .7; }
 .lh-loader-label { margin: 24px -24px 0; color: #687389; font-size: 12px; line-height: 1.7; }

@@ -23,7 +23,6 @@ import HomeExperiences from "@/components/home/HomeExperiences";
 import HomeWaitlist from "@/components/home/HomeWaitlist";
 import HomeFamily from "@/components/home/HomeFamily";
 import "@/app/homepage.css";
-import "@/app/home-loading.css";
 import "@/app/opening-video.css";
 import "@/app/home-floors-3-4.css";
 import "@/app/home-films.css";
