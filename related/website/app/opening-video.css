@@ -20,6 +20,7 @@
 }
 /* Desktop uses one viewport stage, one 16:9 film plane and stable copy
    anchors. Width/height resize changes their scale continuously, not layouts. */
+.lh-video-track { display: contents; }
 .lh-video-layer { display: none; }
 .lh-opening[data-video-mode] {
   --opening-gutter: clamp(28px, 5vw, 104px);
@@ -229,12 +230,19 @@
 .lumiq-root main.lh-home .lh-opening[data-opening-anchors]:not([data-static-opening]) .lh-opening-stage {
   height: auto;
 }
+.lumiq-root main.lh-home .lh-opening[data-opening-anchors]:not([data-static-opening]) .lh-video-track {
+  display: block;
+  position: absolute;
+  inset: 0 0 auto;
+  height: 200svh;
+  pointer-events: none;
+}
 .lumiq-root main.lh-home .lh-opening[data-opening-anchors]:not([data-static-opening]) .lh-video-layer {
   position: sticky;
   top: 0;
   inset-inline: auto;
   height: 100svh;
-  margin-bottom: -100svh;
+  margin-bottom: 0;
   z-index: 0;
 }
 .lumiq-root main.lh-home .lh-opening[data-opening-anchors]:not([data-static-opening]) :is(.lh-hero, .lh-ola) {

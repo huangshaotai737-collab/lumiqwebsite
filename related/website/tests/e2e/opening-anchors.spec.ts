@@ -140,3 +140,23 @@ test('changing motion preferences does not replay a stale fragment after scrolli
   await expect(page.locator('.lh-opening')).toHaveAttribute('data-static-opening','true');
   await expect.poll(()=>page.locator('#ola').evaluate((e,y)=>Math.abs(e.getBoundingClientRect().top-y),before)).toBeLessThan(2);
 });
+
+test('the Ola film leaves with its cards before the product lineup enters', async ({page}) => {
+  for (const [width,height] of [[1440,900],[2560,600]]) {
+    await page.setViewportSize({width,height});
+    await ready(page,'#ola');
+    await at(page,'#ola');
+    const positions = () => page.evaluate(() => ({
+      film: document.querySelector('.lh-opening-film')!.getBoundingClientRect().top,
+      cards: document.querySelector('.lh-rhythm-cards')!.getBoundingClientRect().top,
+    }));
+    const before = await positions();
+    await page.evaluate(()=>scrollBy({top:160,behavior:'instant'}));
+    await expect.poll(async()=>{
+      const after = await positions();
+      return Math.abs((after.film-before.film)-(after.cards-before.cards));
+    }).toBeLessThan(2);
+    await page.evaluate(()=>scrollTo({top:scrollY+document.querySelector('#products')!.getBoundingClientRect().top,behavior:'instant'}));
+    await expect.poll(()=>page.locator('.lh-opening-film').evaluate(e=>e.getBoundingClientRect().bottom)).toBeLessThanOrEqual(0);
+  }
+});
