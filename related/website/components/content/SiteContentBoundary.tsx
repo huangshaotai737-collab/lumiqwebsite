@@ -7,6 +7,7 @@ import {createContentAdapter} from '@/lib/content/adapter';
 import {readSiteContent} from '@/lib/content/preview';
 import {readPublishedContent} from '@/lib/content/read';
 import SiteContentProvider from './SiteContentProvider';
+import PublishedContentRefresh from './PublishedContentRefresh';
 import CartProvider from '@/components/cart/CartProvider';
 import LocaleDocument from '@/components/LocaleDocument';
 import SiteHeader from '@/components/SiteHeader';
@@ -31,6 +32,7 @@ export default async function SiteContentBoundary({children, publishedOnly = fal
 
       <SiteContentProvider snapshot={snapshot} preview={preview}>
         <CartProvider>
+          {!preview && <PublishedContentRefresh releaseId={(await readPublishedContent()).releaseId} />}
           <LocaleDocument locale={locale} />
           <div style={createContentAdapter(snapshot, locale, preview).css()} className={`lumiq-root locale-${locale} flex min-h-screen flex-col`}>
             <div className="bg-layer" />

@@ -1,6 +1,5 @@
 "use client";
 import {useContentAdapter} from "@/components/content/useContentAdapter";
-import {useVisualPreview} from '@/components/content/SiteContentProvider';
 import {visualMediaDependency} from '@/lib/content/visual-dependency';
 import {useStagedArtwork} from "./useStagedArtwork";
 import {useHomeMedia} from "./HomeMediaContext";
@@ -19,8 +18,7 @@ export const chapterImage = (name: string) => `/assets/chapter-backgrounds-20260
 export default function HomeBackgrounds() {
   const cms = useContentAdapter();
   const media = useHomeMedia();
-  const visual = useVisualPreview();
-  const mediaDependency = visualMediaDependency(cms,visual,backgroundVideoSource);
+  const mediaDependency = visualMediaDependency(cms,backgroundVideoSource);
   // Keep the existing CMS binding; only replace the bundled default movie.
   const contentVideoSource = cms.url(backgroundVideoSource);
   const actualVideoSource = resolveFlowVideo(contentVideoSource);

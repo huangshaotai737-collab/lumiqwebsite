@@ -2,6 +2,7 @@ import type { DashboardData } from "./service";
 import { AdminIcon } from "@/features/shell/AdminIcon";
 const actions: Record<string,string> = {
   'team.bootstrap':'初始化管理員', 'team.invited':'邀請員工', 'team.invite_created':'邀請員工', 'team.accepted':'接受員工邀請', 'team.changed':'更新員工權限',
+  'content.draft_deleted':'刪除草稿', 'content.release_deleted':'刪除發佈記錄', 'content.image_removed':'移除官網圖片',
   'content.saved':'保存草稿', 'content.submitted':'提交審覈', 'content.published':'發佈內容', 'content.rolled_back':'回退內容',
   'media.upload_created':'創建素材上傳', 'system.media_validated':'完成素材校驗', 'media.archived':'歸檔素材',
   'customers.note_added':'添加會員備註', 'waitlist.updated':'更新報名處理', 'waitlist.exported':'導出報名',

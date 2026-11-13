@@ -497,6 +497,8 @@ isOneToOne: true
 "get_public_asset":
 { Args: { "asset_id": string }; Returns: Json
                            },
+"get_published_content_revision":
+{ Args: Record<PropertyKey, never>; Returns: string },
 "get_published_content":
 { Args: Record<PropertyKey, never>; Returns: Json
                            },

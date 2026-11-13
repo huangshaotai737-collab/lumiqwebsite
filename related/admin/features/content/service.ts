@@ -19,7 +19,8 @@ export type FieldIssue = { path: string; message: string };
 export type ContentResult<T> = ApiResult<T> & { issues?: FieldIssue[] };
 export type ContentDraft = DraftDetails & { id: UUID; version: number; status: 'editing' | 'submitted'; snapshot: ContentSnapshot; updatedAt: string };
 export type ContentRelease = { id: UUID; draftId: UUID | null; draftVersion: number | null; rollbackOf: UUID | null; createdAt: string };
-export type ContentWorkspace = { drafts: Omit<ContentDraft, 'snapshot'>[]; releases: ContentRelease[]; publishedReleaseId: UUID | null };
+export type ContentPagination = { page: number; total: number; totalPages: number };
+export type ContentWorkspace = { drafts: Omit<ContentDraft, 'snapshot'>[]; releases: ContentRelease[]; publishedReleaseId: UUID | null; draftPagination: ContentPagination; releasePagination: ContentPagination };
 const uuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 class InvalidContent extends HttpError {
   constructor(readonly issues: FieldIssue[]) { super('INVALID_INPUT', 400); }
@@ -168,9 +169,22 @@ export async function loadDraft(id: UUID): Promise<ContentDraft> {
   if (!loaded.data) throw new HttpError('NOT_FOUND', 404);
   return loaded.data as unknown as ContentDraft;
 }
-export async function loadWorkspace(): Promise<ContentWorkspace> {
+export async function loadWorkspace(draftPage = 1, releasePage = 1): Promise<ContentWorkspace> {
   await requireStaff(['admin', 'editor']);
-  const client = await createClient(); const response = await client.rpc('get_described_content_workspace'); sqlError(response.error);
+  const client = await createClient(); const response = await client.rpc('get_paginated_content_workspace', { draft_page: draftPage, release_page: releasePage }); sqlError(response.error);
   if (!response.data) throw new HttpError('UNAVAILABLE', 503);
   return response.data as unknown as ContentWorkspace;
+}
+
+export async function deleteContentRecord(input: { kind: 'draft' | 'release'; id: UUID; expectedVersion?: number }): Promise<ContentResult<null>> {
+  return result(async () => {
+    await writer(true);
+    if (input?.kind !== 'draft' && input?.kind !== 'release') throw new HttpError('INVALID_INPUT', 400);
+    identity(input.id, input.expectedVersion);
+    if (input.kind === 'draft' && input.expectedVersion === undefined) throw new HttpError('INVALID_INPUT', 400);
+    const client = await createClient();
+    const removed = await client.rpc('delete_content_record', { record_kind: input.kind, record_id: input.id, expected_version: input.expectedVersion });
+    sqlError(removed.error);
+    return null;
+  });
 }

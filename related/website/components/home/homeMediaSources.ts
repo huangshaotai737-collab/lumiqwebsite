@@ -10,6 +10,7 @@ export const homeImageSources = Object.keys(images);
 /** Never append parameters to a signed CMS URL. Local CMS media goes through
  * the same-origin optimizer; bundled artwork uses committed 480px files. */
 export function homeLowSource(source: string) {
+  if (source === '/assets/content/empty-image.svg' || source.startsWith('/api/content/preview-media/')) return source;
   return images[source] ?? (source.startsWith("/")
     ? `/_next/image?url=${encodeURIComponent(source)}&w=480&q=75` : source);
 }

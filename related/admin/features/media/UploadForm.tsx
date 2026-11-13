@@ -36,7 +36,7 @@ export function UploadForm({ profiles, initialUsage = '', releaseId = null, canR
         setMessage(response.error === 'CONFLICT' ? '官網內容已更新。請重新整理，確認目前圖片後再刪除。' : response.error === 'FORBIDDEN' ? '只有管理員可以刪除官網素材。' : '刪除未完成，請稍後重試。');
         return;
       }
-      setMessage('素材已從官網移除，發佈記錄已保存。已開啟的官網頁面需重新整理後查看。');
+      setMessage('素材已從官網移除，發佈記錄已保存。官網頁面會自動更新，也可重新整理立即查看。');
       setPending(null); if (file.current) file.current.value = ''; router.refresh();
     } catch { setMessage('無法確認刪除結果，請重新整理查看目前狀態。'); }
     finally { setRemoving(false); confirmation.current?.close(); }

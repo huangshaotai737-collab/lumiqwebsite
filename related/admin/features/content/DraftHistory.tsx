@@ -1,11 +1,12 @@
 import Link from 'next/link';
+import { DeleteRecordButton } from './DeleteRecordButton';
 import { formatAdminDateTime } from '@/lib/date-time';
 import type { ContentDraft } from './service';
 import { draftName, type DraftChange } from './draft-details';
-export function RecentDrafts({ drafts }: { drafts: Omit<ContentDraft, 'snapshot'>[] }) {
-  return <section className="panel"><h2>最近草稿</h2>{drafts.length ? <div className="table-scroll" tabIndex={0} aria-label="最近草稿記錄"><table className="draft-history"><thead><tr><th>草稿名稱</th><th>最近修改摘要</th><th>版本與狀態</th><th>建立時間</th><th>最後修改時間</th><th>操作</th></tr></thead><tbody>{drafts.map(draft => <tr key={draft.id}>
+export function RecentDrafts({ drafts, admin = false }: { drafts: Omit<ContentDraft, 'snapshot'>[]; admin?: boolean }) {
+  return <section id="recent-drafts" className="panel"><h2>最近草稿</h2>{drafts.length ? <div className="table-scroll" tabIndex={0} aria-label="最近草稿記錄"><table className="draft-history"><thead><tr><th>草稿名稱</th><th>最近修改摘要</th><th>版本與狀態</th><th>建立時間</th><th>最後修改時間</th><th>操作</th></tr></thead><tbody>{drafts.map(draft => <tr key={draft.id}>
     <td><Link href={`/content/${draft.id}`}>{draftName(draft)}</Link></td><td>{draft.summary || '早期草稿，編輯時可補上摘要'}</td><td>第 {draft.version} 版 · {draft.status === 'submitted' ? '已提交審核' : '編輯中'}</td>
-    <td>{draft.createdAt ? formatAdminDateTime(draft.createdAt) : '早期記錄'}</td><td>{formatAdminDateTime(draft.updatedAt)}</td><td><Link href={`/content/${draft.id}`}>編輯草稿</Link></td>
+    <td>{draft.createdAt ? formatAdminDateTime(draft.createdAt) : '早期記錄'}</td><td>{formatAdminDateTime(draft.updatedAt)}</td><td><Link href={`/content/${draft.id}`}>編輯草稿</Link>{admin && <DeleteRecordButton kind="draft" id={draft.id} name={draftName(draft)} version={draft.version} />}</td>
   </tr>)}</tbody></table></div> : <p>尚無草稿。</p>}</section>;
 }
 export function DraftChanges({ changes }: { changes: DraftChange[] }) {

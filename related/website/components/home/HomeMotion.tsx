@@ -1,9 +1,8 @@
 "use client";
 import {useContentAdapter} from "@/components/content/useContentAdapter";
 import {homeMotionQuery} from "./responsiveLayout";
-import {useVisualPreview} from '@/components/content/SiteContentProvider';
 
-import { useEffect, useRef, useState, useMemo, type CSSProperties, type ReactNode } from "react";
+import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import {HomeMediaContext, type HomeMedia} from "./HomeMediaContext";
 import {prepareHome} from "./prepareHome";
 import {homeImageSources, homeLowSource, resolveFlowVideo, legacyBackgroundVideo} from "./homeMediaSources";
@@ -22,8 +21,7 @@ gsap.registerPlugin(useGSAP, ScrollTrigger);
 /** Native scrolling drives the current opening at every desktop aspect ratio. */
 export default function HomeMotion({ children }: { children: ReactNode }) {
   const cms = useContentAdapter();
-  const visual = useVisualPreview();
-  const motionDependency = visual ? [cms.slot('asset_a4b2063e90484449').url,cms.slot('asset_76a5de3f207ca5bb').url,cms.slot('asset_d11e4e878cf13138').url].join('|') : cms;
+  const motionDependency = [cms.slot('asset_a4b2063e90484449').url,cms.slot('asset_76a5de3f207ca5bb').url,cms.slot('asset_d11e4e878cf13138').url].join('|');
   const root = useRef<HTMLElement>(null);
   const [media, setMedia] = useState<HomeMedia>({prepared: false, movies: {}});
   const [percent, setPercent] = useState(0);
@@ -34,10 +32,12 @@ export default function HomeMotion({ children }: { children: ReactNode }) {
   const desktopBackground = useStagedArtwork("/assets/site-backgrounds-20261108/pearl-flow-desktop.webp", media.prepared);
   const compactBackground = useStagedArtwork("/assets/site-backgrounds-20261108/pearl-flow-compact.webp", media.prepared);
   const mobileBackground = useStagedArtwork("/assets/site-backgrounds-20261108/pearl-flow-mobile.webp", media.prepared);
-  const assets = useMemo(() => ({
+  // The entry gate runs once; live edits load new sources without hiding the page.
+  const [assets] = useState(() => ({
     images: homeImageSources.map(source => homeLowSource(cms.url(source))),
     videos: [cms.slot("asset_a4b2063e90484449").url, resolveFlowVideo(cms.url(legacyBackgroundVideo))],
-  }), [cms]);
+    artwork: homeImageSources.filter(source => /films-20260908|character-20261012|site-backgrounds-20261108/.test(source)).map(source => cms.url(source)),
+  }));
   useEffect(() => {
     const controller = new AbortController();
     const movies: Record<string, string> = {};
@@ -48,10 +48,10 @@ export default function HomeMotion({ children }: { children: ReactNode }) {
       deadline = setTimeout(() => controller.abort(new Error("Loading made no progress")), 60000);
     };
     watch();
-    const extraArtwork = homeImageSources.filter(source => /films-20260908|character-20261012|site-backgrounds-20261108/.test(source)).map(source => {
+    const extraArtwork = assets.artwork.map(source => {
       const image = new Image();
       image.fetchPriority = "low";
-      image.src = cms.url(source);
+      image.src = source;
       void image.decode().catch(() => {});
       return image;
     });
@@ -77,7 +77,7 @@ export default function HomeMotion({ children }: { children: ReactNode }) {
       extraArtwork.forEach(image => {image.src = "";});
       Object.values(movies).forEach(url => URL.revokeObjectURL(url));
     };
-  }, [assets, attempt, cms]);
+  }, [assets, attempt]);
   useEffect(() => {
     const main = root.current;
     if (!main) return;

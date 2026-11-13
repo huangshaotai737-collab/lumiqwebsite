@@ -1,6 +1,5 @@
 "use client";
 import {useContentAdapter} from "@/components/content/useContentAdapter";
-import {useVisualPreview} from '@/components/content/SiteContentProvider';
 import {visualMediaDependency} from '@/lib/content/visual-dependency';
 
 import {useEffect, useRef, useState} from 'react';
@@ -18,8 +17,7 @@ export default function MobileFilmCarousel({films, active, onChange}: {
   const cms = useContentAdapter();
   const media = useHomeMedia();
   const filmPoster = useStagedArtwork(cms.url(`/assets/films-20260908/${films[active]}.jpg`), media?.prepared ?? true);
-  const visual = useVisualPreview();
-  const mediaDependency = visualMediaDependency(cms,visual,`/assets/films-20260908/${films[active]}.mp4`);
+  const mediaDependency = visualMediaDependency(cms,`/assets/films-20260908/${films[active]}.mp4`);
   const t = useTranslations('HomeFilms');
   const track = useRef<HTMLDivElement>(null);
   const video = useRef<HTMLVideoElement>(null);

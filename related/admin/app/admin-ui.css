@@ -308,3 +308,7 @@ dd { min-width: 0; overflow-wrap: anywhere; }
 .media-removal-warning{padding:12px;border-radius:8px;color:#912018;background:#fff2f0}
 .media-removal-actions{display:flex;justify-content:flex-end;gap:12px;margin-top:22px}
 .media-removal-actions button{min-width:100px;min-height:44px}
+
+.history-pagination{display:flex;align-items:center;flex-wrap:wrap;gap:16px;margin:16px 0 28px;font-size:14px}
+.history-pagination a{padding:8px 14px;border:1px solid #dce3ee;border-radius:8px;background:#fff}
+.draft-history td:last-child .danger-button,#release-history td:last-child .danger-button{display:block;margin-top:10px}

@@ -481,6 +481,10 @@ isOneToOne: true
                            },
 "get_described_content_draft":
 { Args: { "id": string }; Returns: Json },
+"get_paginated_content_workspace":
+{ Args: { "draft_page"?: number; "release_page"?: number }; Returns: Json },
+"delete_content_record":
+{ Args: { "record_kind": string; "record_id": string; "expected_version"?: number }; Returns: undefined },
 "get_described_content_workspace":
 { Args: Record<PropertyKey, never>; Returns: Json },
 "save_described_content_draft":

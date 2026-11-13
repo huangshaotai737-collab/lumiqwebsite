@@ -1,6 +1,5 @@
 "use client";
 import {useContentAdapter} from "@/components/content/useContentAdapter";
-import {useVisualPreview} from '@/components/content/SiteContentProvider';
 import {visualMediaDependency} from '@/lib/content/visual-dependency';
 import {homeWideQuery} from "./responsiveLayout";
 import {usePhoneLayout} from "./usePhoneLayout";
@@ -19,14 +18,13 @@ const films = ["everyday-companion", "worlds-together", "welcome-home"] as const
 
 export default function HomeFilms() {
   const cms = useContentAdapter();
-  const visual = useVisualPreview();
   const t = useTranslations("HomeFilms");
   const isPhone = usePhoneLayout();
   const [active, setActive] = useState(0);
   const media = useHomeMedia();
   const filmPoster = useStagedArtwork(cms.url(`/assets/films-20260908/${films[active]}.jpg`), media?.prepared ?? true);
   const characterPoster = useStagedArtwork(cms.url("/assets/character-20261012/poster-clean.png"), media?.prepared ?? true);
-  const mediaDependency = visualMediaDependency(cms,visual,`/assets/films-20260908/${films[active]}.mp4`);
+  const mediaDependency = visualMediaDependency(cms,`/assets/films-20260908/${films[active]}.mp4`);
   const [mediaRequested, setMediaRequested] = useState(false);
   const [playing, setPlaying] = useState(false);
   const [playbackError, setPlaybackError] = useState(false);

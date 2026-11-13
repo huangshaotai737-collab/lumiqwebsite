@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import fixture from './initial-snapshot.json';
 import type { ContentSnapshot } from '@/lib/generated/platform/content';
-import { createDraft, saveDraft as saveDraftRequest, publishDraft, rollbackRelease, removeWebsiteImage } from './service';
+import { createDraft, saveDraft as saveDraftRequest, publishDraft, rollbackRelease, removeWebsiteImage, deleteContentRecord } from './service';
 const dependencies = vi.hoisted(() => ({
   requireStaff: vi.fn(), enforceRateLimit: vi.fn(), rpc: vi.fn(), attest: vi.fn(),
 }));
@@ -128,5 +128,25 @@ describe('confirmed website image removal', () => {
     const value = snapshot(); value.media[usageKey].hidden = true;
     dependencies.rpc.mockResolvedValue({ data: { releaseId, snapshot: value }, error: null });
     expect(await removeWebsiteImage({ usageKey, expectedReleaseId: releaseId })).toMatchObject({ ok: false, error: 'CONFLICT' });
+  });
+});
+
+describe('administrator record deletion', () => {
+  beforeEach(() => { dependencies.requireStaff.mockResolvedValue({ userId: id, role: 'admin' }); dependencies.rpc.mockReset(); dependencies.rpc.mockResolvedValue({ data: null, error: null }); });
+  it('requires an administrator and sends the displayed draft version', async () => {
+    expect(await deleteContentRecord({ kind: 'draft', id, expectedVersion: 7 })).toEqual({ ok: true, data: null });
+    expect(dependencies.requireStaff).toHaveBeenLastCalledWith(['admin']);
+    expect(dependencies.rpc).toHaveBeenCalledWith('delete_content_record', { record_kind: 'draft', record_id: id, expected_version: 7 });
+  });
+  it('rejects missing versions and unknown kinds before mutation', async () => {
+    expect(await deleteContentRecord({ kind: 'draft', id })).toMatchObject({ ok: false, error: 'INVALID_INPUT' });
+    expect(await deleteContentRecord({ kind: 'unknown' as 'draft', id })).toMatchObject({ ok: false, error: 'INVALID_INPUT' });
+    expect(dependencies.rpc).not.toHaveBeenCalled();
+  });
+  it('preserves SQL conflicts, permissions and missing-record errors', async () => {
+    for (const [code, error] of [['23505', 'CONFLICT'], ['42501', 'FORBIDDEN'], ['P0002', 'NOT_FOUND']]) {
+      dependencies.rpc.mockResolvedValueOnce({ data: null, error: { code } });
+      expect(await deleteContentRecord({ kind: 'release', id })).toMatchObject({ ok: false, error });
+    }
   });
 });
