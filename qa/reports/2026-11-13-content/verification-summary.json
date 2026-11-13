@@ -1,0 +1,61 @@
+{
+  "date": "2026-11-13",
+  "adminCode": "f3a9d3671cd2bb70679a4700acd50b7ab761e90c",
+  "websiteCode": "4601794473ff1578b192dfbed06ca10ace890ec4",
+  "unit": {
+    "admin": 172,
+    "website": 257,
+    "boundaryAndContract": 4,
+    "cloudMediaPackaging": 2
+  },
+  "coverage": {
+    "activeFields": 4225,
+    "retiredFields": 171,
+    "historicalMediaSlots": 111,
+    "mediaReferences": 278,
+    "adapterFiles": 30,
+    "readOnlyTransparentAssets": 4
+  },
+  "liveUpdate": {
+    "publishedAt": "2026-11-13T10:26:51.808509Z",
+    "observedAtMs": 1794565619585,
+    "observedDelayMs": 7776.491,
+    "sameDocument": true,
+    "loaderStates": [
+      "hidden"
+    ]
+  },
+  "rollback": {
+    "sameDocument": true,
+    "scrollBefore": 6355,
+    "scrollAfter": 6355,
+    "originalSnapshotMD5": "c61e801f73676bafe43120b1e3e2dc3b",
+    "restoredSnapshotMD5": "c61e801f73676bafe43120b1e3e2dc3b"
+  },
+  "cleanup": {
+    "draftsRemoved": 2,
+    "oldOwnReleaseRecordsRemoved": 5,
+    "uploadedCopiesArchived": 3,
+    "currentReleaseProtected": true
+  },
+  "widths": [
+    320,
+    390,
+    820,
+    1440
+  ],
+  "currentScope": "Actual CMS write, upload, publish, rollback and history deletion; other admin modules read-only; Chromium only.",
+  "deployments": {
+    "admin": "dpl_BFjLreXXftgGGkD5yFBLcFY1jivb",
+    "website": "dpl_59DXyXvXTjUBanRx5GjQ6qjMYYDJ"
+  },
+  "finalMergedVerification": {
+    "sameDocument": true,
+    "loaderRemainedHidden": true,
+    "scrollBefore": 1800,
+    "scrollAfter": 1800,
+    "snapshotRestored": true,
+    "draftTotal": 14,
+    "releaseTotal": 15
+  }
+}
