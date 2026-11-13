@@ -160,3 +160,59 @@ test('the Ola film leaves with its cards before the product lineup enters', asyn
     await expect.poll(()=>page.locator('.lh-opening-film').evaluate(e=>e.getBoundingClientRect().bottom)).toBeLessThanOrEqual(0);
   }
 });
+
+test('reversing a continuous wheel gesture returns without a click or a pause', async ({page}) => {
+  await ready(page);
+  await expect(page.locator('.lh-opening')).toHaveAttribute('data-opening-anchors','true');
+  const positions = await page.evaluate(async()=>{
+    const wheel=(deltaY: number)=>document.querySelector('#top')!.dispatchEvent(new WheelEvent('wheel',{deltaY,bubbles:true,cancelable:true}));
+    wheel(60);
+    await new Promise(r=>setTimeout(r,500));
+    const down = scrollY;
+    wheel(-20);
+    await new Promise(r=>setTimeout(r,120));
+    const afterReverse = scrollY;
+    for(let i=0;i<30;i++) {
+      wheel(-20);
+      await new Promise(r=>setTimeout(r,60));
+    }
+    return {down,afterReverse};
+  });
+  expect(positions.down).toBeGreaterThan(100);
+  expect(positions.afterReverse).toBeLessThan(positions.down-20);
+  await at(page,'#top');
+});
+
+test('the Ola movement takes 40 percent longer while the Go reveal retains its duration', async ({page}) => {
+  await ready(page);
+  await expect(page.locator('.lh-opening')).toHaveAttribute('data-opening-anchors','true');
+  const timing = await page.evaluate(()=>new Promise<{ola:number;go:number}>(resolve=>{
+    const started=performance.now();
+    let reveal=0;
+    document.querySelector('#top')!.dispatchEvent(new WheelEvent('wheel',{deltaY:60,bubbles:true,cancelable:true}));
+    const sample=(now:number)=>{
+      const progress=Number((document.querySelector('.lh-opening-video') as HTMLVideoElement).dataset.scrollProgress);
+      if(!reveal&&progress>=3.75/6.55) reveal=now-started;
+      if(progress>=.999) resolve({ola:reveal,go:now-started-reveal});
+      else requestAnimationFrame(sample);
+    };
+    requestAnimationFrame(sample);
+  }));
+  expect(timing.ola).toBeGreaterThan(900);
+  expect(timing.ola).toBeLessThan(1250);
+  expect(timing.go).toBeGreaterThan(420);
+  expect(timing.go).toBeLessThan(720);
+});
+
+test('continuous upward scrolling passes the second anchor without a click', async ({page}) => {
+  await ready(page,'#ola');
+  await at(page,'#ola');
+  await page.evaluate(async()=>{
+    scrollBy({top:300,behavior:'instant'});
+    for(let i=0;i<40;i++) {
+      document.querySelector('#ola')!.dispatchEvent(new WheelEvent('wheel',{deltaY:-30,bubbles:true,cancelable:true}));
+      await new Promise(r=>setTimeout(r,60));
+    }
+  });
+  await at(page,'#top');
+});

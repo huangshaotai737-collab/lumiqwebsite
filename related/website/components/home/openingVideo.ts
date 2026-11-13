@@ -31,6 +31,7 @@ export function mountOpeningVideo(root: HTMLElement, source = openingVideoSource
     const top = (index: number) => scrollY + chapters[index].getBoundingClientRect().top;
     let tween: gsap.core.Tween | undefined;
     let lastWheel = -Infinity;
+    let wheelDirection = 0;
     let consumed = false;
     let settled: number | null = null;
     let frame = 0;
@@ -39,6 +40,9 @@ export function mountOpeningVideo(root: HTMLElement, source = openingVideoSource
     let failed = false;
     let mounted = true;
     let progress = 0;
+    // The Go disc starts detaching after 3.75s of the approved 6.55s range.
+    const reveal = 3.75 / 6.55;
+    const duration = 1.3 * (1 + .4 * reveal);
     const endTime = () => Number.isFinite(video.duration) ? Math.max(0, video.duration - 1 / 30) : 0;
     const desiredTime = () => Math.min(endTime(), Math.round(progress * endTime() * 24) / 24);
     const stop = () => { tween?.kill(); tween = undefined; };
@@ -51,8 +55,9 @@ export function mountOpeningVideo(root: HTMLElement, source = openingVideoSource
         return;
       }
       const position = {y: scrollY};
+      const destination = top(index);
       tween = gsap.to(position, {
-        y: top(index), duration: 1.3, ease: "none",
+        y: destination, duration: duration * Math.abs(destination - scrollY) / (top(1) - top(0)), ease: "none",
         onUpdate: () => window.scrollTo({top: position.y, behavior: "instant"}),
         onComplete: () => { tween = undefined; settled = index; schedule(); },
       });
@@ -63,15 +68,20 @@ export function mountOpeningVideo(root: HTMLElement, source = openingVideoSource
       const first = top(0), second = top(1);
       const returning = event.deltaY < 0 && scrollY > second + 2 && scrollY < second + innerHeight;
       if (scrollY < first - 2 || scrollY > second + 2 && !returning) return;
+      const direction = Math.sign(event.deltaY);
+      if (direction !== wheelDirection) {
+        stop();
+        consumed = false;
+      }
       if (event.timeStamp - lastWheel > 280) consumed = false;
       lastWheel = event.timeStamp;
-      // A trackpad's tail can continue after the animation. Keep the same
-      // gesture on its destination; a fresh downward gesture leaves screen two.
+      wheelDirection = direction;
+      // Hold only the downward trackpad tail at screen two. Upward scrolling
+      // can continue through that anchor to the first screen without a click.
       if (consumed || tween) { event.preventDefault(); return; }
-      const direction = Math.sign(event.deltaY);
       if (direction > 0 && scrollY >= second - 2 || direction < 0 && scrollY <= first + 2) return;
       event.preventDefault();
-      consumed = true;
+      consumed = direction > 0;
       go(returning || direction > 0 ? 1 : 0, true);
     };
     const key = (event: KeyboardEvent) => {
@@ -102,7 +112,10 @@ export function mountOpeningVideo(root: HTMLElement, source = openingVideoSource
       frame = 0;
       if (!mounted) return;
       const first = top(0), second = top(1);
-      progress = Math.max(0, Math.min(1, (scrollY - first) / Math.max(1, second - first)));
+      const elapsed = Math.max(0, Math.min(1, (scrollY - first) / Math.max(1, second - first))) * duration;
+      const revealTime = 1.3 * reveal * 1.4;
+      // Scroll at constant speed; retime only the film's pre-reveal segment.
+      progress = elapsed <= revealTime ? elapsed / (1.3 * 1.4) : reveal + (elapsed - revealTime) / 1.3;
       if (!tween) settled = Math.abs(scrollY - first) < 2 ? 0 : Math.abs(scrollY - second) < 2 ? 1 : null;
       layer.dataset.poster = progress >= .5 ? 'end' : 'start';
       if (!motion || failed || document.hidden) return;
