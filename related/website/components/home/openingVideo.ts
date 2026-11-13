@@ -107,7 +107,12 @@ export function mountOpeningVideo(root: HTMLElement, source = openingVideoSource
     const resize = () => {
       const index = settled;
       stop();
-      if (index !== null) go(index, false);
+      // Navigation can move below the opening before its next scroll frame.
+      // Restore only an anchor whose chapter is still on screen.
+      if (index !== null) {
+        const bounds = chapters[index].getBoundingClientRect();
+        if (bounds.top < innerHeight && bounds.bottom > 0) go(index, false);
+      }
       schedule();
     };
     const render = () => {

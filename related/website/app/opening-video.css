@@ -119,10 +119,11 @@
   width: 100%;
   min-width: 0;
   max-width: 660px;
+  container-type: inline-size;
 }
 .lumiq-root .lh-home .lh-opening[data-video-mode]:not([data-static-opening]) .lh-hero h1 {
   width: 100%;
-  font-size: clamp(34px, min(4.8vw, calc(var(--opening-height) * .105)), 82px);
+  font-size: clamp(34px, min(12.5cqw, 4.8vw, calc(var(--opening-height) * .105)), 82px);
   line-height: 1.16;
   letter-spacing: -.025em;
   font-weight: 700;

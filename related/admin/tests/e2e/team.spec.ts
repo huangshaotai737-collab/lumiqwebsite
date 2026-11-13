@@ -246,11 +246,11 @@ test('pending team save locks the submitted values and later edits clear saved f
     const stored = await backend.from('staff_memberships').select('role,active').eq('user_id', users.editor.id).single();
     expect(stored.data).toEqual({ role: 'operations', active: true });
     await row.getByLabel('員工角色').selectOption('editor');
-    await expect(row.getByRole('status')).not.toContainText('已保存');
+    await expect(row.getByRole('status', { includeHidden: true })).toHaveText('');
     await row.getByRole('button', { name: '保存權限' }).click();
     await expect(row.getByRole('status')).toContainText('已保存');
     await row.getByLabel('在職').uncheck();
-    await expect(row.getByRole('status')).not.toContainText('已保存');
+    await expect(row.getByRole('status', { includeHidden: true })).toHaveText('');
   } finally {
     release();
     await page.unrouteAll({ behavior: 'wait' });
