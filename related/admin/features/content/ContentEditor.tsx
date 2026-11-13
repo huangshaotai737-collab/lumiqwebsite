@@ -1,4 +1,5 @@
 'use client';
+import { mediaPresentation } from '@/features/media/presentation';
 import Link from 'next/link';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { FieldControl, replaceField } from './EditorFields';
@@ -43,7 +44,7 @@ export function ContentEditor({ initial, fields, admin, legacyMedia, websiteOrig
   const availablePages = useMemo(() => [...new Set(fields.flatMap(field => field.pages))].sort(), [fields]);
   const filtered = useMemo(() => fields.filter(field => field.path.startsWith(`${group}.`) &&
     (group !== 'messages' || field.path.startsWith(`messages.${locale}.`)) &&
-    (selectedPage === 'all' || field.pages.includes(selectedPage)) && matchesField(field, searchSnapshot, query) && !field.path.match(/\.price\.amount$/)).sort((left, right) => selectedPage === 'all' ? 0 : left.pages.length - right.pages.length), [fields, group, locale, query, selectedPage, searchSnapshot]);
+    (selectedPage === 'all' || field.pages.includes(selectedPage)) && matchesField(field, searchSnapshot, query, field.path.startsWith('media.') ? Object.values(mediaPresentation(field.path.split('.')[1])).join(' ') : '') && !field.path.match(/\.price\.amount$/)).sort((left, right) => selectedPage === 'all' ? 0 : left.pages.length - right.pages.length), [fields, group, locale, query, selectedPage, searchSnapshot]);
   const invalidControlPaths = issues.map(issue => fieldIssueTarget(issue.path, snapshot).controlPath);
   const visible = filtered.slice(page * 40, (page + 1) * 40);
   useEffect(() => {

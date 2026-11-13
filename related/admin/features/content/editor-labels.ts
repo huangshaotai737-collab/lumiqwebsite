@@ -44,9 +44,9 @@ export function fieldContext(field: EditorField, snapshot: ContentSnapshot, sele
   const pages = selectedPage !== 'all' && field.pages.includes(selectedPage) ? [selectedPage, ...field.pages.filter(page => page !== selectedPage)] : field.pages;
   return [pages.slice(0, 2).map(pageLabel).join('、'), field.pages.length > 2 ? `另 ${field.pages.length - 2} 個頁面` : '', locales[locale] || '跨語種共用', product].filter(Boolean).join(' · ');
 }
-export function matchesField(field: EditorField, snapshot: ContentSnapshot, query: string) {
+export function matchesField(field: EditorField, snapshot: ContentSnapshot, query: string, searchText = '') {
   const needle = query.trim().toLocaleLowerCase();
-  return !needle || [field.path, fieldLabel(field, snapshot), fieldValue(snapshot, field.path)].some(value => String(value ?? '').toLocaleLowerCase().includes(needle));
+  return !needle || [field.path, fieldLabel(field, snapshot), fieldValue(snapshot, field.path), searchText].some(value => String(value ?? '').toLocaleLowerCase().includes(needle));
 }
 
 /** One mapping for both error navigation and the actual input's aria-invalid marker. */
