@@ -194,6 +194,7 @@
   grid-column: 2;
   grid-row: 2;
   min-width: 0;
+  max-width: var(--opening-height);
   gap: clamp(8px, 1vw, 15px);
 }
 .lumiq-root .lh-home .lh-opening[data-video-mode]:not([data-static-opening]) .lh-rhythm-card {

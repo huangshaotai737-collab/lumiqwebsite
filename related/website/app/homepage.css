@@ -363,11 +363,7 @@ html:has(.lh-home) {
   overflow: hidden;
 }
 .lh-rhythm-photo img {
-  object-fit: cover;
-  transition: transform 0.8s var(--lh-ease);
-}
-.lh-rhythm-card:hover .lh-rhythm-photo img {
-  transform: scale(1.035);
+  object-fit: contain;
 }
 .lh-rhythm-copy {
   padding: 22px 19px 26px;
