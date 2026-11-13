@@ -240,3 +240,34 @@ test('second-screen text and photos arrive 40 percent faster without speeding up
   await expect(page.locator('.lh-ola-copy h2')).toBeInViewport();
   for(const photo of await page.locator('.lh-rhythm-photo').all()) await expect(photo).toBeInViewport();
 });
+
+test('short ultrawide windows keep second-screen copy and complete photos within the viewport', async ({page}) => {
+  for(const [locale,width,height] of [
+    ['zh-hant',2360,580],['zh-hant',2560,500],['zh-hant',3440,600],
+    ['zh-hant',1920,480],['en',2560,580],['ja',2560,580],
+  ] as const) {
+    await page.setViewportSize({width,height});
+    await page.goto(`/${locale}#ola`);
+    await expect(page.locator('.lh-opening')).toHaveAttribute('data-opening-anchors','true');
+    await at(page,'#ola');
+    const bounds=await page.evaluate(()=>{
+      const nav=document.querySelector('.site-nav')!.getBoundingClientRect();
+      const copy=document.querySelector('.lh-ola-copy')!.getBoundingClientRect();
+      const cards=document.querySelector('.lh-rhythm-cards')!.getBoundingClientRect();
+      return {copyTop:copy.top,navBottom:nav.bottom,cardsBottom:cards.bottom,height:innerHeight,sectionHeight:document.querySelector('#ola')!.getBoundingClientRect().height,overflow:document.documentElement.scrollWidth>innerWidth};
+    });
+    expect(bounds.copyTop,`${locale} ${width}×${height}: copy clears navigation`).toBeGreaterThanOrEqual(bounds.navBottom);
+    expect(bounds.cardsBottom,`${locale} ${width}×${height}: complete cards fit`).toBeLessThanOrEqual(height-16);
+    expect(bounds.sectionHeight).toBeLessThanOrEqual(height+1);
+    expect(bounds.overflow).toBe(false);
+    for(const photo of await page.locator('.lh-rhythm-photo').all()) {
+      const image=await photo.evaluate(e=>{
+        const box=e.getBoundingClientRect(),img=e.querySelector('img')!;
+        return {ratioError:Math.abs(box.height-box.width*3/4),fit:getComputedStyle(img).objectFit,transform:getComputedStyle(img).transform};
+      });
+      expect(image.ratioError).toBeLessThan(1);
+      expect(image.fit).toBe('contain');
+      expect(image.transform).toBe('none');
+    }
+  }
+});
