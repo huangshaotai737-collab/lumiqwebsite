@@ -15,7 +15,7 @@ export default async function ContentPage({ searchParams }: { searchParams: Prom
   const [actor, workspace] = data;
   return <>
     <h1>官網內容工作區</h1>
-    <p>管理員與內容編輯共享草稿。發佈與回滾僅限管理員，官網內容最多 60 秒內生效。</p>
+    <p>管理員與內容編輯共享草稿。管理員發佈或回滾後，官網會在 60 秒內自動更新，無需重新部署網站。</p>
     {!workspace.publishedReleaseId && <p className="notice">尚無已發佈版本。管理員可使用現有官網內容建立草稿；內容編輯需等待管理員完成首次發佈。</p>}
     <CreateDraftButton />
     <RecentDrafts drafts={workspace.drafts} admin={actor.role === 'admin'} />

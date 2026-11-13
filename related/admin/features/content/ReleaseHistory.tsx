@@ -13,7 +13,7 @@ export function ReleaseHistory({ releases, current, admin }: { releases: Content
       const response = await fetch('/api/content/rollback', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ releaseId }) });
       const result = await response.json();
       if (!result.ok) { setError('回滾失敗，請檢查當前權限或稍後重試。'); return; }
-      setMessage('已創建回滾版本，官網內容將在 60 秒內生效。'); router.refresh();
+      setMessage('已建立回滾版本，官網內容將在 60 秒內自動更新。'); router.refresh();
     } catch { setError('回滾服務暫不可用。'); }
     finally { lock.current = false; setBusy(false); }
   }

@@ -150,14 +150,14 @@ export function ContentEditor({ initial, fields, admin, legacyMedia, websiteOrig
       <label>本次修改摘要<textarea aria-label="本次修改摘要" value={summary} maxLength={240} required disabled={busy} placeholder="填寫本次修改內容，例如：更換首頁共讀圖片、調整產品介紹標題" onChange={event => { setSummary(event.target.value); setMessage(''); }} /></label>
       <p>最後修改：{formatAdminDateTime(updatedAt)}。每次保存需填寫摘要，保存後會列入下方記錄。</p>
     </section>
-    <p>選取預覽中的文字或圖片後，可在下方編輯對應內容。修改需經保存、提交審核及管理員發佈，才會更新官網。</p>
+    <p>選取預覽中的文字或圖片後，可在下方編輯對應內容。保存後可提交管理員審核；管理員發佈後，官網才會更新。</p>
     <div className="content-toolbar"><button className="primary-button" disabled={busy} onClick={() => operate('save')}>保存草稿</button>
       <button disabled={busy||!history.past.length} onClick={()=>travel('undo')}>撤銷</button><button disabled={busy||!history.future.length} onClick={()=>travel('redo')}>重做</button>
       <button disabled={busy || hasChanges} onClick={() => operate('submit')}>提交審覈</button>
       {websiteOrigin ? <a href={`${websiteOrigin}/${locale}/preview/${initial.id}?page=${encodeURIComponent(selectedPage.startsWith('/') ? selectedPage : '/')}`} target="_blank" rel="noopener noreferrer">預覽已保存草稿</a> : <span>官網預覽地址尚未配置</span>}
       {admin && <button disabled={busy || hasChanges} onClick={() => operate('publish')}>發佈當前版本</button>}
     </div>
-    <p className="visual-save-explainer">發佈流程：保存草稿 → 提交審核 → 管理員發佈。「預覽已保存草稿」會在新視窗開啟，僅顯示已保存的內容。</p>
+    <p className="visual-save-explainer">內容編輯流程：保存草稿 → 提交審核 → 管理員發佈。管理員也可直接發佈已保存的草稿。「預覽已保存草稿」會在新視窗開啟，僅顯示已保存的內容。</p>
     <p role="status" aria-live="polite">{message}</p>
     {error && <section role="alert" className="notice"><p>{error}</p>{issues.length > 0 && <ul>{issues.map((issue, index) => <li key={`${issue.path}-${index}`}><button disabled={busy} onClick={() => locate(issue.path)} aria-label={`定位 ${issue.path}`}>{issue.path}</button>：{issue.message}</li>)}</ul>}</section>}
     {conflict && <div className="content-toolbar"><button onClick={download}>下載衝突副本</button><button disabled={busy} onClick={loadLatest}>載入最新草稿</button></div>}
