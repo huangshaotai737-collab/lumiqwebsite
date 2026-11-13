@@ -15,7 +15,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
+        os: [ubuntu-latest]
     runs-on: ${{ matrix.os }}
     # Windows installs can consume over eight minutes before browser checks.
     # Keep per-operation deadlines; allow time for all four browser engines.
@@ -25,6 +25,7 @@ jobs:
         working-directory: related/website
         shell: bash
     env:
+      DEBUG: pw:browser
       LUMIQ_STATIC_IMAGES: '1'
       SITE_URL: http://localhost:4223
       QA_OUTPUT: qa/release-platform

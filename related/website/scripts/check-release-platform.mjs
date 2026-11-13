@@ -40,6 +40,8 @@ for(const [engine,type] of Object.entries(engines)){
   const page=await stage({engine},'new-page',()=>browser.newPage());
   page.setDefaultTimeout(timeoutMs);page.setDefaultNavigationTimeout(navigationTimeoutMs);
   page.on('pageerror',e=>errors.push({message:e.message,stack:e.stack}));
+  page.on('crash',()=>console.log('AUDIT_RENDERER_CRASH',JSON.stringify(current)));
+  page.on('console',message=>{if(message.text().startsWith('LUMIQ_AUDIT_'))console.log(message.text(),JSON.stringify(current));});
   for(const locale of ['en','zh-hant','ja'])for(const route of routes){
    const context={engine,locale,route};
    try{
@@ -58,6 +60,7 @@ for(const [engine,type] of Object.entries(engines)){
      await stage(viewContext,'viewport',()=>page.setViewportSize(viewport));
      await stage(viewContext,'settle',()=>page.waitForTimeout(120));
      const state=await stage(viewContext,'evaluate',()=>page.evaluate(()=>{
+      console.info('LUMIQ_AUDIT_ENTERED');
       const visible=e=>e.getClientRects().length&&getComputedStyle(e).visibility!=='hidden';
       const intersect=(a,b)=>Math.min(a.right,b.right)>Math.max(a.left,b.left)+1&&Math.min(a.bottom,b.bottom)>Math.max(a.top,b.top)+1;
       const blocks=[...document.querySelectorAll('.pd-product-tagline,.pd-hero-lede,.pd-concept-note,.pd-hero-display-title')].filter(visible).map(e=>e.getBoundingClientRect());
@@ -68,7 +71,10 @@ for(const [engine,type] of Object.entries(engines)){
       // white lettering on their intentionally dark button surface.
       const wrongColor=main?[...main.querySelectorAll('*')].filter(e=>visible(e)&&!e.closest('.pd-primary-action')&&[...e.childNodes].some(n=>n.nodeType===3&&n.textContent.trim())&&!isDark(getComputedStyle(e).color)&&!isDark(getComputedStyle(e).webkitTextFillColor)).map(e=>e.textContent.slice(0,30)):[];
       const member=document.querySelector('.members-heading h1');
-      return {overflow:document.documentElement.scrollWidth>innerWidth+1,overlaps,wrongColor,memberReadable:!member||isDark(getComputedStyle(member).color),legacy:document.querySelectorAll('.lh-glass-word,.lh-hero-object,.lh-brand-character').length};
+      console.info('LUMIQ_AUDIT_BEFORE_LAYOUT');
+      const overflow=document.documentElement.scrollWidth>innerWidth+1;
+      console.info('LUMIQ_AUDIT_AFTER_LAYOUT');
+      return {overflow,overlaps,wrongColor,memberReadable:!member||isDark(getComputedStyle(member).color),legacy:document.querySelectorAll('.lh-glass-word,.lh-hero-object,.lh-brand-character').length};
      }));
      const item={engine,locale,route,viewport,status:response?.status()??0,...state};checks.push(item);
      if(item.status!==200||state.overflow||state.overlaps||state.wrongColor.length||!state.memberReadable||state.legacy)failures.push(item);
