@@ -27,10 +27,16 @@ for(const locale of ['en','zh-hant','ja']) test(`${locale}: no_horizontal_overfl
     }
   }
 });
-test('first-load media failure retains readable published content',async({page},info)=>{
+test('failed preload offers retry and then restores readable published content',async({page},info)=>{
  test.skip(info.project.name!=='desktop');
  await page.addInitScript(()=>{const original=HTMLCanvasElement.prototype.getContext;HTMLCanvasElement.prototype.getContext=function(this:HTMLCanvasElement,type:string,...args:unknown[]){return /webgl/i.test(type)?null:original.call(this,type,...args);} as typeof original;});
- await page.route('**/*.mp4',route=>route.abort());await page.goto('/en');
+ let failMedia=true;
+ await page.route('**/*.mp4',route=>failMedia?route.abort():route.continue());await page.goto('/en');
+ await expect(page.locator('.lh-loader')).toHaveAttribute('data-state','error');
+ await expect(page.locator('#hero-title')).toBeHidden();
+ failMedia=false;
+ await page.getByRole('button',{name:'Try again',exact:true}).click();
+ await expect(page.locator('.lh-home')).toHaveAttribute('data-home-state','open');
  await expect(page.locator('#hero-title')).toBeVisible();await fiveProducts(page);await noHorizontalOverflow(page);
  await page.locator('#products[data-enhanced="true"]').waitFor();await page.locator('#products').scrollIntoViewIfNeeded();
  for(const id of products) {
