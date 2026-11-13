@@ -3,7 +3,7 @@ import {execFileSync} from 'node:child_process';
 import fs from 'node:fs';
 const sizes=[{width:320,height:740},{width:390,height:844},{width:768,height:1024},{width:1024,height:1280},{width:1100,height:1000},{width:1280,height:720},{width:1440,height:900},{width:2435,height:498},{width:3440,height:1440}];
 fs.writeFileSync('qa/release-platform/webkit-launcher.sh',fs.readFileSync(webkit.executablePath()));
-const browser=await webkit.launch();
+const browser=await webkit.launch({headless:false});
 const deadline=async(task,label)=>{let timer;try{return await Promise.race([task,new Promise((_,reject)=>{timer=setTimeout(()=>reject(Error(label)),30000);})]);}finally{clearTimeout(timer);}};
 try{
  for(let i=0;i<15;i++){
