@@ -15,8 +15,8 @@ function headingChildren(children: ReactNode): ReactNode {
   });
 }
 
-type Props = ComponentPropsWithRef<"h2"> & { as: "h1" | "h2" | "h3" | "h4" | "h5" | "h6" };
+type Props = ComponentPropsWithRef<"h2"> & { as: "h1" | "h2" | "h3" | "h4" | "h5" | "h6"; preservePunctuation?: boolean };
 
-export default function Heading({ as: Tag, children, ...props }: Props) {
-  return createElement(Tag, props, headingChildren(children));
+export default function Heading({ as: Tag, children, preservePunctuation = false, ...props }: Props) {
+  return createElement(Tag, props, preservePunctuation ? children : headingChildren(children));
 }

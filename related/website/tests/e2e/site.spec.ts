@@ -197,7 +197,7 @@ test("mobile navigation opens, closes and navigates without horizontal overflow"
   await trigger.click();
   await page
     .locator("#mobile-navigation")
-    .getByRole("menuitem", { name: "Products" })
+    .getByRole("link", { name: "Products" })
     .click();
   await expect(page).toHaveURL(/\/en\/products$/);
   const overflow = await page.evaluate(

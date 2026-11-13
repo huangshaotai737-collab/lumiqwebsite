@@ -56,7 +56,7 @@ test('mobile menus keep every destination and language reachable in portrait and
       await ready(page, `/${locale}/story`);
       await page.locator('.site-mobile-trigger').click();
       const menu = page.locator('.site-mobile-menu');
-      await expect(menu.locator('a[role="menuitem"]')).toHaveCount(6);
+      await expect(menu.getByRole('link')).toHaveCount(6);
       await expect(menu.locator('.site-mobile-languages button')).toHaveCount(3);
       const last = menu.locator('.site-mobile-languages button').last();
       await last.scrollIntoViewIfNeeded();
@@ -74,9 +74,12 @@ test('cart contents persist, quantities update and removing items restores the e
   await ready(page, '/zh-hant/products/tablet');
   await page.locator('[data-cart-add="tablet"]').first().click();
   const cart = page.locator('#lumiq-cart');
+  const unitPrice = Number((await cart.locator('.cart-item-price').innerText()).replace(/[^\d.]/g, ''));
+  // Approved workbook row 43: Tablet member preview price starts at USD 359.
+  expect(unitPrice).toBe(359);
   await cart.locator('.cart-quantity button').last().click();
   await expect(cart.locator('output')).toHaveText('2');
-  await expect(cart.locator('.cart-total strong')).toContainText('798');
+  await expect.poll(async () => Number((await cart.locator('.cart-total strong').innerText()).replace(/[^\d.]/g, ''))).toBe(unitPrice * 2);
   for (let i = 0; i < 12; i++) {
     await page.keyboard.press('Tab');
     expect(await cart.evaluate(e => e.contains(document.activeElement))).toBe(true);
@@ -133,9 +136,9 @@ test('hardware reservation and detail links do not overlap on narrow Japanese pa
   expect(separated.every(Boolean)).toBe(true);
 });
 
-test('FAQ search, clearing and expanded answers stay usable in all phone languages', async ({page}) => {
+for (const locale of ['en', 'zh-hant', 'ja']) {
+  test('FAQ search, clearing and reading all 18 answers on a phone in ' + locale, async ({page}) => {
   await page.setViewportSize({width: 320, height: 740});
-  for (const locale of ['en', 'zh-hant', 'ja']) {
     await ready(page, `/${locale}/faq`);
     const search = page.locator('.faq-search input');
     await search.fill('NoMatchingQuestionXYZ');
@@ -143,8 +146,9 @@ test('FAQ search, clearing and expanded answers stay usable in all phone languag
     await page.locator('.faq-clear').click();
     await expect(search).toHaveValue('');
     await expect(search).toBeFocused();
-    await expect(page.locator('.faq-row')).toHaveCount(6);
-    for (let index = 0; index < 6; index++) {
+    // The original seventeen remain, plus the later Tablet/Ola question.
+    await expect(page.locator('.faq-row')).toHaveCount(18);
+    for (let index = 0; index < 18; index++) {
       const button = page.locator('.faq-q').nth(index);
       if (await button.getAttribute('aria-expanded') !== 'true') await button.click();
       await expect(button).toHaveAttribute('aria-expanded', 'true');
@@ -152,8 +156,8 @@ test('FAQ search, clearing and expanded answers stay usable in all phone languag
       await expect.poll(() => answer.evaluate(e => e.scrollHeight - e.clientHeight)).toBeLessThan(2);
       expect(await answer.evaluate(e => e.scrollWidth <= e.clientWidth + 1)).toBe(true);
     }
-  }
-});
+  });
+}
 
 test('language switching preserves the product route, query, hash and cart', async ({page}) => {
   await page.setViewportSize({width: 390, height: 844});

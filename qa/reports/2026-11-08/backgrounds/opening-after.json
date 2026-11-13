@@ -1,0 +1,34 @@
+[
+  {
+    "y": 0,
+    "src": "/assets/home-video/compat-20261008/ola-scroll-v16-scrub.mp4",
+    "time": 0,
+    "style": null,
+    "stage": "translate: none; rotate: none; scale: none; left: 0px; top: 0.001px; margin: 0px; max-width: 1440px; width: 1440px; max-height: 1000px; height: 1000px; padding: 0px; box-sizing: border-box; position: fixed; transform: translate(0px, 0px);",
+    "scrollHeight": 9768
+  },
+  {
+    "y": 700,
+    "src": "/assets/home-video/compat-20261008/ola-scroll-v16-scrub.mp4",
+    "time": 1.75,
+    "style": null,
+    "stage": "translate: none; rotate: none; scale: none; left: 0px; top: 0.001px; margin: 0px; max-width: 1440px; width: 1440px; max-height: 1000px; height: 1000px; padding: 0px; box-sizing: border-box; position: fixed; transform: translate(0px, 0px);",
+    "scrollHeight": 9768
+  },
+  {
+    "y": 1400,
+    "src": "/assets/home-video/compat-20261008/ola-scroll-v16-scrub.mp4",
+    "time": 3.5,
+    "style": null,
+    "stage": "translate: none; rotate: none; scale: none; left: 0px; top: 0.001px; margin: 0px; max-width: 1440px; width: 1440px; max-height: 1000px; height: 1000px; padding: 0px; box-sizing: border-box; position: fixed; transform: translate(0px, 0px);",
+    "scrollHeight": 9768
+  },
+  {
+    "y": 2100,
+    "src": "/assets/home-video/compat-20261008/ola-scroll-v16-scrub.mp4",
+    "time": 5.25,
+    "style": null,
+    "stage": "translate: none; rotate: none; scale: none; left: 0px; top: 0.001px; margin: 0px; max-width: 1440px; width: 1440px; max-height: 1000px; height: 1000px; padding: 0px; box-sizing: border-box; position: fixed; transform: translate(0px, 0px);",
+    "scrollHeight": 9768
+  }
+]

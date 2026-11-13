@@ -1,0 +1,1107 @@
+{
+  "config": {
+    "argv": [
+      "/usr/local/bin/node",
+      "/Users/huangshaotai/Documents/lumiqwebsite-responsive-local-20261013/related/website/node_modules/.bin/playwright",
+      "test",
+      "-c",
+      ".lumiq-local/mobile-polish-20261104/playwright.config.cjs"
+    ],
+    "configFile": "/Users/huangshaotai/Documents/lumiqwebsite-responsive-local-20261013/.lumiq-local/mobile-polish-20261104/playwright.config.cjs",
+    "rootDir": "/Users/huangshaotai/Documents/lumiqwebsite-responsive-local-20261013/related/website/tests/e2e",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "/Users/huangshaotai/Documents/lumiqwebsite-responsive-local-20261013/.lumiq-local/mobile-polish-20261104/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "desktop",
+        "name": "desktop",
+        "testDir": "/Users/huangshaotai/Documents/lumiqwebsite-responsive-local-20261013/related/website/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "mobile-experience.spec.ts",
+          "mobile-layout-polish.spec.ts",
+          "opening-resize.spec.ts",
+          "home-return.spec.ts",
+          "opening-nonblocking.spec.ts"
+        ],
+        "timeout": 60000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "line",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "/Users/huangshaotai/Documents/lumiqwebsite-responsive-local-20261013/.lumiq-local/mobile-polish-20261104/e2e.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.62.1",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "home-return.spec.ts",
+      "file": "home-return.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "reload preserves #products instead of restoring a pre-pin chapter",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop",
+              "projectName": "desktop",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 7236,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-04T11:17:07.168Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "2e335906431d864cef34-384f64469558d98cc267",
+          "file": "home-return.spec.ts",
+          "line": 12,
+          "column": 7
+        },
+        {
+          "title": "reload preserves #films instead of restoring a pre-pin chapter",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop",
+              "projectName": "desktop",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 6775,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-04T11:17:14.510Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "2e335906431d864cef34-d8aa039e119e85016702",
+          "file": "home-return.spec.ts",
+          "line": 12,
+          "column": 7
+        },
+        {
+          "title": "home navigation resets to the opening after repeated visits to deep product content",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop",
+              "projectName": "desktop",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 11199,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-04T11:17:21.292Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "2e335906431d864cef34-3170b26a45cbabe792cf",
+          "file": "home-return.spec.ts",
+          "line": 34,
+          "column": 5
+        },
+        {
+          "title": "browser Back keeps the reading position and film controls respond",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop",
+              "projectName": "desktop",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 5131,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-04T11:17:32.497Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "2e335906431d864cef34-681830912e93347469a8",
+          "file": "home-return.spec.ts",
+          "line": 61,
+          "column": 5
+        },
+        {
+          "title": "vertical wheel input crosses the film composition without being caught or held",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop",
+              "projectName": "desktop",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2512,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-04T11:17:37.634Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "2e335906431d864cef34-70ea4d68d3125a5f57b0",
+          "file": "home-return.spec.ts",
+          "line": 77,
+          "column": 5
+        }
+      ]
+    },
+    {
+      "title": "mobile-experience.spec.ts",
+      "file": "mobile-experience.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "phone carousel uses controls below the card and opens all five products",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop",
+              "projectName": "desktop",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4590,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-04T11:17:40.160Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d0e828948376f89f9963-d8055ac681a583ffb88d",
+          "file": "mobile-experience.spec.ts",
+          "line": 8,
+          "column": 5
+        },
+        {
+          "title": "feature copy has a clear hierarchy and fits narrow screens in every language",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop",
+              "projectName": "desktop",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 400,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m\n    at /Users/huangshaotai/Documents/lumiqwebsite-responsive-local-20261013/related/website/tests/e2e/mobile-experience.spec.ts:43:95",
+                    "location": {
+                      "file": "/Users/huangshaotai/Documents/lumiqwebsite-responsive-local-20261013/related/website/tests/e2e/mobile-experience.spec.ts",
+                      "column": 95,
+                      "line": 43
+                    },
+                    "snippet": "  41 |         return {titleSize: parseFloat(getComputedStyle(title).fontSize), bodySize: parseFloat(getComputedStyle(body).fontSize), fits: r.left >= box.left && r.right <= box.right + 1, width: box.width, y: box.y};\n  42 |       }));\n> 43 |       expect(measurements.every(x => x.titleSize > x.bodySize && x.bodySize >= 14 && x.fits)).toBe(true);\n     |                                                                                               ^\n  44 |       if (width === 320) expect(measurements[0].width).toBeGreaterThan(250);\n  45 |       else expect(Math.abs(measurements[0].y - measurements[1].y)).toBeLessThan(2);\n  46 |     }"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "/Users/huangshaotai/Documents/lumiqwebsite-responsive-local-20261013/related/website/tests/e2e/mobile-experience.spec.ts",
+                        "column": 95,
+                        "line": 43
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m\n\n  41 |         return {titleSize: parseFloat(getComputedStyle(title).fontSize), bodySize: parseFloat(getComputedStyle(body).fontSize), fits: r.left >= box.left && r.right <= box.right + 1, width: box.width, y: box.y};\n  42 |       }));\n> 43 |       expect(measurements.every(x => x.titleSize > x.bodySize && x.bodySize >= 14 && x.fits)).toBe(true);\n     |                                                                                               ^\n  44 |       if (width === 320) expect(measurements[0].width).toBeGreaterThan(250);\n  45 |       else expect(Math.abs(measurements[0].y - measurements[1].y)).toBeLessThan(2);\n  46 |     }\n    at /Users/huangshaotai/Documents/lumiqwebsite-responsive-local-20261013/related/website/tests/e2e/mobile-experience.spec.ts:43:95"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-04T11:17:44.755Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/Users/huangshaotai/Documents/lumiqwebsite-responsive-local-20261013/.lumiq-local/mobile-polish-20261104/test-results/mobile-experience-feature--b4369-w-screens-in-every-language-desktop/test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "/Users/huangshaotai/Documents/lumiqwebsite-responsive-local-20261013/.lumiq-local/mobile-polish-20261104/test-results/mobile-experience-feature--b4369-w-screens-in-every-language-desktop/error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "/Users/huangshaotai/Documents/lumiqwebsite-responsive-local-20261013/.lumiq-local/mobile-polish-20261104/test-results/mobile-experience-feature--b4369-w-screens-in-every-language-desktop/trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "/Users/huangshaotai/Documents/lumiqwebsite-responsive-local-20261013/related/website/tests/e2e/mobile-experience.spec.ts",
+                    "column": 95,
+                    "line": 43
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "d0e828948376f89f9963-895950f5258eecb344d7",
+          "file": "mobile-experience.spec.ts",
+          "line": 31,
+          "column": 5
+        },
+        {
+          "title": "a narrow computer window switches stories to mobile controls and preserves the selected story",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop",
+              "projectName": "desktop",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1789,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-04T11:17:45.535Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d0e828948376f89f9963-efa55e5b794f682152e5",
+          "file": "mobile-experience.spec.ts",
+          "line": 50,
+          "column": 5
+        },
+        {
+          "title": "native horizontal story swipes change stories while vertical swipes scroll the page",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop",
+              "projectName": "desktop",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2269,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-04T11:17:47.434Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d0e828948376f89f9963-26ddb3733f018f185706",
+          "file": "mobile-experience.spec.ts",
+          "line": 65,
+          "column": 5
+        },
+        {
+          "title": "desktop and tablet compositions match the preserved version",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [
+                {
+                  "type": "skip",
+                  "description": "Set MOBILE_BASELINE_URL to compare against a preserved preview.",
+                  "location": {
+                    "file": "/Users/huangshaotai/Documents/lumiqwebsite-responsive-local-20261013/related/website/tests/e2e/mobile-experience.spec.ts",
+                    "line": 98,
+                    "column": 8
+                  }
+                }
+              ],
+              "expectedStatus": "skipped",
+              "projectId": "desktop",
+              "projectName": "desktop",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "skipped",
+                  "duration": 0,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-04T11:17:49.709Z",
+                  "annotations": [
+                    {
+                      "type": "skip",
+                      "description": "Set MOBILE_BASELINE_URL to compare against a preserved preview.",
+                      "location": {
+                        "file": "/Users/huangshaotai/Documents/lumiqwebsite-responsive-local-20261013/related/website/tests/e2e/mobile-experience.spec.ts",
+                        "line": 98,
+                        "column": 8
+                      }
+                    }
+                  ],
+                  "attachments": []
+                }
+              ],
+              "status": "skipped"
+            }
+          ],
+          "id": "d0e828948376f89f9963-3eee1e74c535b2db37ab",
+          "file": "mobile-experience.spec.ts",
+          "line": 96,
+          "column": 5
+        },
+        {
+          "title": "only the selected mobile story plays and switching pauses the previous video",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop",
+              "projectName": "desktop",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 970,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-04T11:17:49.713Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d0e828948376f89f9963-e7c73dd5aa9af3f232ec",
+          "file": "mobile-experience.spec.ts",
+          "line": 130,
+          "column": 5
+        },
+        {
+          "title": "resizing during a desktop story transition keeps the indicated mobile story in view",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop",
+              "projectName": "desktop",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 11499,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeInViewport\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  locator('.lh-mobile-film-card').nth(1)\nExpected: in viewport\nReceived: viewport ratio 0.7051308751106262\nTimeout:  10000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeInViewport\" with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('.lh-mobile-film-card').nth(1)\u001b[22m\n\u001b[2m    23 × locator resolved to <article class=\"lh-mobile-film-card\" aria-label=\"2 / 3: 走進故事，陪伴生活。\">…</article>\u001b[22m\n\u001b[2m       - unexpected value \"viewport ratio 0.7051308751106262\"\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeInViewport\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  locator('.lh-mobile-film-card').nth(1)\nExpected: in viewport\nReceived: viewport ratio 0.7051308751106262\nTimeout:  10000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeInViewport\" with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('.lh-mobile-film-card').nth(1)\u001b[22m\n\u001b[2m    23 × locator resolved to <article class=\"lh-mobile-film-card\" aria-label=\"2 / 3: 走進故事，陪伴生活。\">…</article>\u001b[22m\n\u001b[2m       - unexpected value \"viewport ratio 0.7051308751106262\"\u001b[22m\n\n    at /Users/huangshaotai/Documents/lumiqwebsite-responsive-local-20261013/related/website/tests/e2e/mobile-experience.spec.ts:152:61",
+                    "location": {
+                      "file": "/Users/huangshaotai/Documents/lumiqwebsite-responsive-local-20261013/related/website/tests/e2e/mobile-experience.spec.ts",
+                      "column": 61,
+                      "line": 152
+                    },
+                    "snippet": "  150 |   await page.setViewportSize({width: 390, height: 844});\n  151 |   await expect(page.locator('.lh-mobile-films-controls strong')).toHaveText('02');\n> 152 |   await expect(page.locator('.lh-mobile-film-card').nth(1)).toBeInViewport({ratio: .8});\n      |                                                             ^\n  153 | });\n  154 |"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "/Users/huangshaotai/Documents/lumiqwebsite-responsive-local-20261013/related/website/tests/e2e/mobile-experience.spec.ts",
+                        "column": 61,
+                        "line": 152
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeInViewport\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  locator('.lh-mobile-film-card').nth(1)\nExpected: in viewport\nReceived: viewport ratio 0.7051308751106262\nTimeout:  10000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeInViewport\" with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('.lh-mobile-film-card').nth(1)\u001b[22m\n\u001b[2m    23 × locator resolved to <article class=\"lh-mobile-film-card\" aria-label=\"2 / 3: 走進故事，陪伴生活。\">…</article>\u001b[22m\n\u001b[2m       - unexpected value \"viewport ratio 0.7051308751106262\"\u001b[22m\n\n\n  150 |   await page.setViewportSize({width: 390, height: 844});\n  151 |   await expect(page.locator('.lh-mobile-films-controls strong')).toHaveText('02');\n> 152 |   await expect(page.locator('.lh-mobile-film-card').nth(1)).toBeInViewport({ratio: .8});\n      |                                                             ^\n  153 | });\n  154 |\n    at /Users/huangshaotai/Documents/lumiqwebsite-responsive-local-20261013/related/website/tests/e2e/mobile-experience.spec.ts:152:61"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-04T11:17:50.688Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/Users/huangshaotai/Documents/lumiqwebsite-responsive-local-20261013/.lumiq-local/mobile-polish-20261104/test-results/mobile-experience-resizing-80175-icated-mobile-story-in-view-desktop/test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "/Users/huangshaotai/Documents/lumiqwebsite-responsive-local-20261013/.lumiq-local/mobile-polish-20261104/test-results/mobile-experience-resizing-80175-icated-mobile-story-in-view-desktop/error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "/Users/huangshaotai/Documents/lumiqwebsite-responsive-local-20261013/.lumiq-local/mobile-polish-20261104/test-results/mobile-experience-resizing-80175-icated-mobile-story-in-view-desktop/trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "/Users/huangshaotai/Documents/lumiqwebsite-responsive-local-20261013/related/website/tests/e2e/mobile-experience.spec.ts",
+                    "column": 61,
+                    "line": 152
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "d0e828948376f89f9963-6fd1087c98ef193b4507",
+          "file": "mobile-experience.spec.ts",
+          "line": 146,
+          "column": 5
+        }
+      ]
+    },
+    {
+      "title": "mobile-layout-polish.spec.ts",
+      "file": "mobile-layout-polish.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "phone height changes and font completion do not reset native home scrolling",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop",
+              "projectName": "desktop",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3060,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-04T11:18:03.199Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "468626fadcfc420c6bb8-4ecc369d6225bd8bc995",
+          "file": "mobile-layout-polish.spec.ts",
+          "line": 5,
+          "column": 5
+        },
+        {
+          "title": "four phone principles form two rows, retaining their links",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop",
+              "projectName": "desktop",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 898,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-04T11:18:06.374Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "468626fadcfc420c6bb8-cee1240fb588fa404caa",
+          "file": "mobile-layout-polish.spec.ts",
+          "line": 30,
+          "column": 5
+        },
+        {
+          "title": "legal and company pages share privacy backgrounds and compact phone spacing",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop",
+              "projectName": "desktop",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 653,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-04T11:18:07.278Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "468626fadcfc420c6bb8-f811290abdc589b79595",
+          "file": "mobile-layout-polish.spec.ts",
+          "line": 45,
+          "column": 5
+        }
+      ]
+    },
+    {
+      "title": "opening-nonblocking.spec.ts",
+      "file": "opening-nonblocking.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "scrolling and the hero action work while the opening film is pending",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop",
+              "projectName": "desktop",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 824,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-04T11:18:07.940Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "88cf3694aed10ddc31aa-ba9efefec2e5b1f5722e",
+          "file": "opening-nonblocking.spec.ts",
+          "line": 8,
+          "column": 5
+        },
+        {
+          "title": "navigation and its menus work before the opening media responds",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop",
+              "projectName": "desktop",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 693,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-04T11:18:08.770Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "88cf3694aed10ddc31aa-4a5e8921fa1d6ae0acb8",
+          "file": "opening-nonblocking.spec.ts",
+          "line": 28,
+          "column": 5
+        }
+      ]
+    },
+    {
+      "title": "opening-resize.spec.ts",
+      "file": "opening-resize.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "height resizing preserves the current opening frame and reverse scrub",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop",
+              "projectName": "desktop",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4146,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-04T11:18:09.473Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "ef5629e80b187ed5d3f8-831c60546931bce99ec4",
+          "file": "opening-resize.spec.ts",
+          "line": 20,
+          "column": 5
+        },
+        {
+          "title": "1199/1200px handoff retains opening progress when returning to desktop",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop",
+              "projectName": "desktop",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2347,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-04T11:18:13.625Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "ef5629e80b187ed5d3f8-d66504dc5b9c81fb4280",
+          "file": "opening-resize.spec.ts",
+          "line": 38,
+          "column": 5
+        },
+        {
+          "title": "continuous width and aspect-ratio resize keeps one proportional media plane",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop",
+              "projectName": "desktop",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3046,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-04T11:18:15.978Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "ef5629e80b187ed5d3f8-1ca56281509ce635db39",
+          "file": "opening-resize.spec.ts",
+          "line": 55,
+          "column": 5
+        },
+        {
+          "title": "a continuous window drag keeps the mid-film frame through width and height breakpoints",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop",
+              "projectName": "desktop",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 2482,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-04T11:18:19.031Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "ef5629e80b187ed5d3f8-e5c7883e22e0f53bc943",
+          "file": "opening-resize.spec.ts",
+          "line": 91,
+          "column": 5
+        },
+        {
+          "title": "a direct OLA link still opens the final opening frame",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop",
+              "projectName": "desktop",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1237,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-04T11:18:21.524Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "ef5629e80b187ed5d3f8-a4a2a50f779bb9045ac9",
+          "file": "opening-resize.spec.ts",
+          "line": 106,
+          "column": 5
+        },
+        {
+          "title": "pointer navigation immediately after resize is never pulled back into the opening",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop",
+              "projectName": "desktop",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1494,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-04T11:18:22.768Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "ef5629e80b187ed5d3f8-379417a43596aefdb704",
+          "file": "opening-resize.spec.ts",
+          "line": 115,
+          "column": 7
+        },
+        {
+          "title": "Enter navigation immediately after resize is never pulled back into the opening",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop",
+              "projectName": "desktop",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1451,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-04T11:18:24.269Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "ef5629e80b187ed5d3f8-b00a5f8651c938f08a2a",
+          "file": "opening-resize.spec.ts",
+          "line": 115,
+          "column": 7
+        },
+        {
+          "title": "pointer initiated scrollbar movement cancels resize restoration",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop",
+              "projectName": "desktop",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1443,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-04T11:18:25.738Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "ef5629e80b187ed5d3f8-7bf30a37547842c32af2",
+          "file": "opening-resize.spec.ts",
+          "line": 147,
+          "column": 5
+        },
+        {
+          "title": "generic refreshes do not reacquire resize restoration during a held pointer scroll",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop",
+              "projectName": "desktop",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1496,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-04T11:18:27.190Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "ef5629e80b187ed5d3f8-3c0cde0af42863063f94",
+          "file": "opening-resize.spec.ts",
+          "line": 163,
+          "column": 5
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-11-04T11:17:06.867Z",
+    "duration": 81885.596,
+    "expected": 23,
+    "skipped": 1,
+    "unexpected": 2,
+    "flaky": 0
+  }
+}

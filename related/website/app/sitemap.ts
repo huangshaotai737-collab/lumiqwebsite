@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { htmlLang, routing } from "@/i18n/routing";
-import { SITE_URL } from "@/lib/metadata";
+import {readPublishedContent} from "@/lib/content/read";
+export const dynamic = "force-dynamic";
 
 const paths = [
   "",
@@ -18,18 +19,19 @@ const paths = [
   "/prelaunch",
 ] as const;
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const siteUrl = (await readPublishedContent()).snapshot.settings.siteUrl;
   return paths.flatMap((path) => {
     const languages = Object.fromEntries([
       ...routing.locales.map((locale) => [
         htmlLang[locale],
-        `${SITE_URL}/${locale}${path}`,
+        `${siteUrl}/${locale}${path}`,
       ]),
-      ["x-default", `${SITE_URL}/${routing.defaultLocale}${path}`],
+      ["x-default", `${siteUrl}/${routing.defaultLocale}${path}`],
     ]);
 
     return routing.locales.map((locale) => ({
-      url: `${SITE_URL}/${locale}${path}`,
+      url: `${siteUrl}/${locale}${path}`,
       lastModified: new Date(),
       changeFrequency: path === "" ? ("weekly" as const) : ("monthly" as const),
       priority: path === "" ? 1 : path === "/products" ? 0.9 : 0.7,

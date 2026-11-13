@@ -5,13 +5,19 @@
 .lh-home .lh-films-heading h2 { font-size: clamp(32px,3.8vw,60px); letter-spacing: -.045em; line-height: 1.08; max-width: 22ch; }
 @media(min-width:768px) { .lh-films-heading { position: absolute; top: clamp(28px,3.6svh,44px); left: 4vw; width: 85vw; margin: 0; z-index: 2; } .lh-home .lh-films-heading h2 { font-size: clamp(28px,3.2vw,73px); line-height: .96; max-width: none; white-space: nowrap; } }
 .lh-films-layout { --film-width: min(47.92vw,1092px); --film-height: calc(var(--film-width) * 9 / 16); position: relative; display: flex; align-items: center; gap: clamp(20px,3vw,48px); margin: 0 8vw 0 auto; width: max-content; }
-.lh-films-stage { position: relative; width: min(52.66vw,1200px); height: clamp(600px,76svh,930px); isolation: isolate; overflow: clip; mask-image: linear-gradient(transparent,#000 8%,#000 92%,transparent); }
+.lh-films-stage { position: relative; width: min(52.66vw,1200px); height: clamp(600px,76svh,930px); isolation: isolate; overflow: clip;  }
 /* A reserved left text lane prevents the heading from painting across the video. */
 @media(min-width:1200px) {
   .lh-films-layout { --film-width: min(45.5vw,1092px); margin-right: 3vw; }
   .lh-films-stage { width: min(50vw,1200px); }
 }
-.lh-film-slot { position: absolute; top: 50%; right: 0; width: 91%; height: calc(var(--film-height) * var(--card-height)); translate: 0 -50%; transform: translateY(calc(var(--slot) * (var(--film-height) * .62 + 24px))) scale(var(--card-scale)); opacity: var(--card-opacity); transform-origin: center; }
+/* On panoramic displays, viewport height bounds the complete film and controls.
+   Keep the desktop arrangement and the original chapter background. */
+@media(min-width:1200px) and (min-aspect-ratio:5/2) {
+  .lh-films-layout { --film-height: min(614.25px, calc((100svh - 128px) * .68)); --film-width: calc(var(--film-height) * 16 / 9); }
+  .lh-films-stage { width: calc(var(--film-width) / .91); height: calc(100svh - 128px); }
+}
+.lh-film-slot { position: absolute; top: 50%; right: 0; width: 91%; height: var(--film-height); translate: 0 -50%; transform: translateX(calc(var(--slot) * (var(--film-width) * .86 + 24px))) scale(var(--card-scale)); opacity: var(--card-opacity); transform-origin: center; }
 .lh-film-slot { z-index: 1; }
 .lh-film-slot[data-main=true] { z-index: 2; }
 .lh-film-slot[data-center=true] { z-index: 3; }
@@ -19,7 +25,7 @@
 .lh-films-stage[data-moving=true] .lh-film-slot[data-center=true] { transition-property: transform, height; }
 .lh-film-card { position: relative; width: 100%; height: 100%; overflow: hidden; border: 1px solid #ffffffb3; border-radius: 26px; background: #141412; box-shadow: 0 24px 60px #353f6020; }
 .lh-film-card video { display: block; width: 100%; aspect-ratio: 16/9; object-fit: contain; background: #141412; }
-.lh-film-card-portrait { background: #141412 url('/assets/films-20260908/welcome-home.jpg') center / cover no-repeat; }
+.lh-film-card-portrait { background: #141412 var(--cms-asset_210077b6875ebb01, url('/assets/films-20260908/welcome-home.jpg')) center / cover no-repeat; }
 .lh-film-card-portrait video { height: 100%; aspect-ratio: auto; background: transparent; }
 .lh-film-preview { display: block; width: 100%; height: 100%; border-radius: 24px; overflow: hidden; border: 1px solid #fff9; cursor: pointer; padding: 0; box-shadow: 0 16px 45px #353f6015; }
 .lh-film-preview img { width: 100%; height: 100%; object-fit: cover; }

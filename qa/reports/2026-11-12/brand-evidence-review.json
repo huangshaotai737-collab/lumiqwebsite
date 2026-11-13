@@ -1,0 +1,1146 @@
+[
+  {
+    "row": 2,
+    "evidence_count": 1,
+    "visually_reviewed": true,
+    "replaced_image_ids": [],
+    "action": "保留；已逐图核对"
+  },
+  {
+    "row": 3,
+    "evidence_count": 1,
+    "visually_reviewed": true,
+    "replaced_image_ids": [],
+    "action": "保留；已逐图核对"
+  },
+  {
+    "row": 4,
+    "evidence_count": 1,
+    "visually_reviewed": true,
+    "replaced_image_ids": [],
+    "action": "保留；已逐图核对"
+  },
+  {
+    "row": 5,
+    "evidence_count": 1,
+    "visually_reviewed": true,
+    "replaced_image_ids": [
+      3
+    ],
+    "action": "替换问题截图"
+  },
+  {
+    "row": 6,
+    "evidence_count": 1,
+    "visually_reviewed": true,
+    "replaced_image_ids": [],
+    "action": "保留；已逐图核对"
+  },
+  {
+    "row": 7,
+    "evidence_count": 1,
+    "visually_reviewed": true,
+    "replaced_image_ids": [
+      5
+    ],
+    "action": "替换问题截图"
+  },
+  {
+    "row": 8,
+    "evidence_count": 1,
+    "visually_reviewed": true,
+    "replaced_image_ids": [],
+    "action": "保留；已逐图核对"
+  },
+  {
+    "row": 9,
+    "evidence_count": 1,
+    "visually_reviewed": true,
+    "replaced_image_ids": [],
+    "action": "保留；已逐图核对"
+  },
+  {
+    "row": 10,
+    "evidence_count": 1,
+    "visually_reviewed": true,
+    "replaced_image_ids": [
+      5
+    ],
+    "action": "替换问题截图"
+  },
+  {
+    "row": 11,
+    "evidence_count": 1,
+    "visually_reviewed": true,
+    "replaced_image_ids": [],
+    "action": "保留；已逐图核对"
+  },
+  {
+    "row": 12,
+    "evidence_count": 1,
+    "visually_reviewed": true,
+    "replaced_image_ids": [
+      9
+    ],
+    "action": "替换问题截图"
+  },
+  {
+    "row": 13,
+    "evidence_count": 2,
+    "visually_reviewed": true,
+    "replaced_image_ids": [],
+    "action": "保留；已逐图核对"
+  },
+  {
+    "row": 14,
+    "evidence_count": 1,
+    "visually_reviewed": true,
+    "replaced_image_ids": [
+      5
+    ],
+    "action": "替换问题截图"
+  },
+  {
+    "row": 15,
+    "evidence_count": 1,
+    "visually_reviewed": true,
+    "replaced_image_ids": [],
+    "action": "保留；已逐图核对"
+  },
+  {
+    "row": 16,
+    "evidence_count": 1,
+    "visually_reviewed": true,
+    "replaced_image_ids": [],
+    "action": "保留；已逐图核对"
+  },
+  {
+    "row": 17,
+    "evidence_count": 2,
+    "visually_reviewed": true,
+    "replaced_image_ids": [
+      14,
+      15
+    ],
+    "action": "替换问题截图"
+  },
+  {
+    "row": 18,
+    "evidence_count": 1,
+    "visually_reviewed": true,
+    "replaced_image_ids": [
+      16
+    ],
+    "action": "替换问题截图"
+  },
+  {
+    "row": 19,
+    "evidence_count": 1,
+    "visually_reviewed": true,
+    "replaced_image_ids": [],
+    "action": "保留；已逐图核对"
+  },
+  {
+    "row": 20,
+    "evidence_count": 1,
+    "visually_reviewed": true,
+    "replaced_image_ids": [
+      18
+    ],
+    "action": "替换问题截图"
+  },
+  {
+    "row": 21,
+    "evidence_count": 1,
+    "visually_reviewed": true,
+    "replaced_image_ids": [],
+    "action": "保留；已逐图核对"
+  },
+  {
+    "row": 22,
+    "evidence_count": 1,
+    "visually_reviewed": true,
+    "replaced_image_ids": [],
+    "action": "保留；已逐图核对"
+  },
+  {
+    "row": 23,
+    "evidence_count": 1,
+    "visually_reviewed": true,
+    "replaced_image_ids": [],
+    "action": "保留；已逐图核对"
+  },
+  {
+    "row": 24,
+    "evidence_count": 1,
+    "visually_reviewed": true,
+    "replaced_image_ids": [],
+    "action": "保留；已逐图核对"
+  },
+  {
+    "row": 25,
+    "evidence_count": 2,
+    "visually_reviewed": true,
+    "replaced_image_ids": [
+      14,
+      15
+    ],
+    "action": "替换问题截图"
+  },
+  {
+    "row": 26,
+    "evidence_count": 2,
+    "visually_reviewed": true,
+    "replaced_image_ids": [
+      14,
+      15
+    ],
+    "action": "替换问题截图"
+  },
+  {
+    "row": 27,
+    "evidence_count": 1,
+    "visually_reviewed": true,
+    "replaced_image_ids": [
+      23
+    ],
+    "action": "替换问题截图"
+  },
+  {
+    "row": 28,
+    "evidence_count": 1,
+    "visually_reviewed": true,
+    "replaced_image_ids": [],
+    "action": "保留；已逐图核对"
+  },
+  {
+    "row": 29,
+    "evidence_count": 1,
+    "visually_reviewed": true,
+    "replaced_image_ids": [],
+    "action": "保留；已逐图核对"
+  },
+  {
+    "row": 30,
+    "evidence_count": 1,
+    "visually_reviewed": true,
+    "replaced_image_ids": [
+      26
+    ],
+    "action": "替换问题截图"
+  },
+  {
+    "row": 31,
+    "evidence_count": 1,
+    "visually_reviewed": true,
+    "replaced_image_ids": [],
+    "action": "保留；已逐图核对"
+  },
+  {
+    "row": 32,
+    "evidence_count": 1,
+    "visually_reviewed": true,
+    "replaced_image_ids": [],
+    "action": "保留；已逐图核对"
+  },
+  {
+    "row": 33,
+    "evidence_count": 1,
+    "visually_reviewed": true,
+    "replaced_image_ids": [],
+    "action": "保留；已逐图核对"
+  },
+  {
+    "row": 34,
+    "evidence_count": 1,
+    "visually_reviewed": true,
+    "replaced_image_ids": [],
+    "action": "保留；已逐图核对"
+  },
+  {
+    "row": 35,
+    "evidence_count": 1,
+    "visually_reviewed": true,
+    "replaced_image_ids": [],
+    "action": "保留；已逐图核对"
+  },
+  {
+    "row": 36,
+    "evidence_count": 1,
+    "visually_reviewed": true,
+    "replaced_image_ids": [
+      32
+    ],
+    "action": "替换问题截图"
+  },
+  {
+    "row": 37,
+    "evidence_count": 1,
+    "visually_reviewed": true,
+    "replaced_image_ids": [],
+    "action": "保留；已逐图核对"
+  },
+  {
+    "row": 38,
+    "evidence_count": 1,
+    "visually_reviewed": true,
+    "replaced_image_ids": [],
+    "action": "保留；已逐图核对"
+  },
+  {
+    "row": 39,
+    "evidence_count": 1,
+    "visually_reviewed": true,
+    "replaced_image_ids": [],
+    "action": "保留；已逐图核对"
+  },
+  {
+    "row": 40,
+    "evidence_count": 1,
+    "visually_reviewed": true,
+    "replaced_image_ids": [],
+    "action": "保留；已逐图核对"
+  },
+  {
+    "row": 41,
+    "evidence_count": 1,
+    "visually_reviewed": true,
+    "replaced_image_ids": [],
+    "action": "保留；已逐图核对"
+  },
+  {
+    "row": 42,
+    "evidence_count": 1,
+    "visually_reviewed": true,
+    "replaced_image_ids": [],
+    "action": "保留；已逐图核对"
+  },
+  {
+    "row": 43,
+    "evidence_count": 2,
+    "visually_reviewed": true,
+    "replaced_image_ids": [],
+    "action": "保留；已逐图核对"
+  },
+  {
+    "row": 44,
+    "evidence_count": 4,
+    "visually_reviewed": true,
+    "replaced_image_ids": [],
+    "action": "保留；已逐图核对"
+  },
+  {
+    "row": 45,
+    "evidence_count": 3,
+    "visually_reviewed": true,
+    "replaced_image_ids": [],
+    "action": "保留；已逐图核对"
+  },
+  {
+    "row": 46,
+    "evidence_count": 1,
+    "visually_reviewed": true,
+    "replaced_image_ids": [],
+    "action": "保留；已逐图核对"
+  },
+  {
+    "row": 47,
+    "evidence_count": 2,
+    "visually_reviewed": true,
+    "replaced_image_ids": [],
+    "action": "保留；已逐图核对"
+  },
+  {
+    "row": 48,
+    "evidence_count": 2,
+    "visually_reviewed": true,
+    "replaced_image_ids": [],
+    "action": "保留；已逐图核对"
+  },
+  {
+    "row": 49,
+    "evidence_count": 2,
+    "visually_reviewed": true,
+    "replaced_image_ids": [],
+    "action": "保留；已逐图核对"
+  },
+  {
+    "row": 50,
+    "evidence_count": 1,
+    "visually_reviewed": true,
+    "replaced_image_ids": [],
+    "action": "保留；已逐图核对"
+  },
+  {
+    "row": 51,
+    "evidence_count": 3,
+    "visually_reviewed": true,
+    "replaced_image_ids": [],
+    "action": "保留；已逐图核对"
+  },
+  {
+    "row": 52,
+    "evidence_count": 4,
+    "visually_reviewed": true,
+    "replaced_image_ids": [],
+    "action": "保留；已逐图核对"
+  },
+  {
+    "row": 53,
+    "evidence_count": 2,
+    "visually_reviewed": true,
+    "replaced_image_ids": [
+      62,
+      63
+    ],
+    "action": "替换问题截图"
+  },
+  {
+    "row": 54,
+    "evidence_count": 1,
+    "visually_reviewed": true,
+    "replaced_image_ids": [],
+    "action": "保留；已逐图核对"
+  },
+  {
+    "row": 55,
+    "evidence_count": 1,
+    "visually_reviewed": true,
+    "replaced_image_ids": [
+      65
+    ],
+    "action": "替换问题截图"
+  },
+  {
+    "row": 56,
+    "evidence_count": 2,
+    "visually_reviewed": true,
+    "replaced_image_ids": [
+      65
+    ],
+    "action": "替换问题截图"
+  },
+  {
+    "row": 57,
+    "evidence_count": 3,
+    "visually_reviewed": true,
+    "replaced_image_ids": [
+      67
+    ],
+    "action": "替换问题截图"
+  },
+  {
+    "row": 58,
+    "evidence_count": 1,
+    "visually_reviewed": true,
+    "replaced_image_ids": [],
+    "action": "保留；已逐图核对"
+  },
+  {
+    "row": 59,
+    "evidence_count": 2,
+    "visually_reviewed": true,
+    "replaced_image_ids": [],
+    "action": "保留；已逐图核对"
+  },
+  {
+    "row": 60,
+    "evidence_count": 1,
+    "visually_reviewed": true,
+    "replaced_image_ids": [],
+    "action": "保留；已逐图核对"
+  },
+  {
+    "row": 61,
+    "evidence_count": 2,
+    "visually_reviewed": true,
+    "replaced_image_ids": [],
+    "action": "保留；已逐图核对"
+  },
+  {
+    "row": 62,
+    "evidence_count": 2,
+    "visually_reviewed": true,
+    "replaced_image_ids": [],
+    "action": "保留；已逐图核对"
+  },
+  {
+    "row": 63,
+    "evidence_count": 4,
+    "visually_reviewed": true,
+    "replaced_image_ids": [],
+    "action": "保留；已逐图核对"
+  },
+  {
+    "row": 64,
+    "evidence_count": 1,
+    "visually_reviewed": true,
+    "replaced_image_ids": [
+      81
+    ],
+    "action": "替换问题截图"
+  },
+  {
+    "row": 65,
+    "evidence_count": 2,
+    "visually_reviewed": true,
+    "replaced_image_ids": [],
+    "action": "保留；已逐图核对"
+  },
+  {
+    "row": 66,
+    "evidence_count": 2,
+    "visually_reviewed": true,
+    "replaced_image_ids": [],
+    "action": "保留；已逐图核对"
+  },
+  {
+    "row": 67,
+    "evidence_count": 1,
+    "visually_reviewed": true,
+    "replaced_image_ids": [],
+    "action": "保留；已逐图核对"
+  },
+  {
+    "row": 68,
+    "evidence_count": 2,
+    "visually_reviewed": true,
+    "replaced_image_ids": [
+      85,
+      86
+    ],
+    "action": "替换问题截图"
+  },
+  {
+    "row": 69,
+    "evidence_count": 2,
+    "visually_reviewed": true,
+    "replaced_image_ids": [],
+    "action": "保留；已逐图核对"
+  },
+  {
+    "row": 70,
+    "evidence_count": 1,
+    "visually_reviewed": true,
+    "replaced_image_ids": [],
+    "action": "保留；已逐图核对"
+  },
+  {
+    "row": 71,
+    "evidence_count": 4,
+    "visually_reviewed": true,
+    "replaced_image_ids": [],
+    "action": "保留；已逐图核对"
+  },
+  {
+    "row": 72,
+    "evidence_count": 2,
+    "visually_reviewed": true,
+    "replaced_image_ids": [
+      62,
+      63
+    ],
+    "action": "替换问题截图"
+  },
+  {
+    "row": 73,
+    "evidence_count": 2,
+    "visually_reviewed": true,
+    "replaced_image_ids": [],
+    "action": "保留；已逐图核对"
+  },
+  {
+    "row": 74,
+    "evidence_count": 2,
+    "visually_reviewed": true,
+    "replaced_image_ids": [],
+    "action": "保留；已逐图核对"
+  },
+  {
+    "row": 75,
+    "evidence_count": 3,
+    "visually_reviewed": true,
+    "replaced_image_ids": [],
+    "action": "保留；已逐图核对"
+  },
+  {
+    "row": 76,
+    "evidence_count": 2,
+    "visually_reviewed": true,
+    "replaced_image_ids": [],
+    "action": "保留；已逐图核对"
+  },
+  {
+    "row": 77,
+    "evidence_count": 4,
+    "visually_reviewed": true,
+    "replaced_image_ids": [
+      95,
+      97
+    ],
+    "action": "替换问题截图"
+  },
+  {
+    "row": 78,
+    "evidence_count": 2,
+    "visually_reviewed": true,
+    "replaced_image_ids": [
+      62,
+      63
+    ],
+    "action": "替换问题截图"
+  },
+  {
+    "row": 79,
+    "evidence_count": 4,
+    "visually_reviewed": true,
+    "replaced_image_ids": [],
+    "action": "保留；已逐图核对"
+  },
+  {
+    "row": 80,
+    "evidence_count": 2,
+    "visually_reviewed": true,
+    "replaced_image_ids": [],
+    "action": "保留；已逐图核对"
+  },
+  {
+    "row": 81,
+    "evidence_count": 1,
+    "visually_reviewed": true,
+    "replaced_image_ids": [],
+    "action": "保留；已逐图核对"
+  },
+  {
+    "row": 82,
+    "evidence_count": 2,
+    "visually_reviewed": true,
+    "replaced_image_ids": [
+      103
+    ],
+    "action": "替换问题截图"
+  },
+  {
+    "row": 83,
+    "evidence_count": 1,
+    "visually_reviewed": true,
+    "replaced_image_ids": [
+      18
+    ],
+    "action": "替换问题截图"
+  },
+  {
+    "row": 84,
+    "evidence_count": 4,
+    "visually_reviewed": true,
+    "replaced_image_ids": [],
+    "action": "保留；已逐图核对"
+  },
+  {
+    "row": 85,
+    "evidence_count": 3,
+    "visually_reviewed": true,
+    "replaced_image_ids": [],
+    "action": "保留；已逐图核对"
+  },
+  {
+    "row": 86,
+    "evidence_count": 3,
+    "visually_reviewed": true,
+    "replaced_image_ids": [
+      18
+    ],
+    "action": "替换问题截图"
+  },
+  {
+    "row": 87,
+    "evidence_count": 5,
+    "visually_reviewed": true,
+    "replaced_image_ids": [],
+    "action": "保留；已逐图核对"
+  },
+  {
+    "row": 88,
+    "evidence_count": 1,
+    "visually_reviewed": true,
+    "replaced_image_ids": [],
+    "action": "保留；已逐图核对"
+  },
+  {
+    "row": 89,
+    "evidence_count": 1,
+    "visually_reviewed": true,
+    "replaced_image_ids": [],
+    "action": "保留；已逐图核对"
+  },
+  {
+    "row": 90,
+    "evidence_count": 2,
+    "visually_reviewed": true,
+    "replaced_image_ids": [],
+    "action": "保留；已逐图核对"
+  },
+  {
+    "row": 91,
+    "evidence_count": 1,
+    "visually_reviewed": true,
+    "replaced_image_ids": [],
+    "action": "保留；已逐图核对"
+  },
+  {
+    "row": 92,
+    "evidence_count": 3,
+    "visually_reviewed": true,
+    "replaced_image_ids": [
+      86
+    ],
+    "action": "替换问题截图"
+  },
+  {
+    "row": 93,
+    "evidence_count": 1,
+    "visually_reviewed": true,
+    "replaced_image_ids": [],
+    "action": "保留；已逐图核对"
+  },
+  {
+    "row": 94,
+    "evidence_count": 1,
+    "visually_reviewed": true,
+    "replaced_image_ids": [],
+    "action": "保留；已逐图核对"
+  },
+  {
+    "row": 95,
+    "evidence_count": 1,
+    "visually_reviewed": true,
+    "replaced_image_ids": [],
+    "action": "保留；已逐图核对"
+  },
+  {
+    "row": 96,
+    "evidence_count": 5,
+    "visually_reviewed": true,
+    "replaced_image_ids": [
+      118,
+      119,
+      120,
+      121,
+      122
+    ],
+    "action": "替换问题截图"
+  },
+  {
+    "row": 97,
+    "evidence_count": 4,
+    "visually_reviewed": true,
+    "replaced_image_ids": [],
+    "action": "保留；已逐图核对"
+  },
+  {
+    "row": 98,
+    "evidence_count": 2,
+    "visually_reviewed": true,
+    "replaced_image_ids": [],
+    "action": "保留；已逐图核对"
+  },
+  {
+    "row": 99,
+    "evidence_count": 1,
+    "visually_reviewed": true,
+    "replaced_image_ids": [],
+    "action": "保留；已逐图核对"
+  },
+  {
+    "row": 100,
+    "evidence_count": 1,
+    "visually_reviewed": true,
+    "replaced_image_ids": [],
+    "action": "保留；已逐图核对"
+  },
+  {
+    "row": 101,
+    "evidence_count": 1,
+    "visually_reviewed": true,
+    "replaced_image_ids": [],
+    "action": "保留；已逐图核对"
+  },
+  {
+    "row": 102,
+    "evidence_count": 1,
+    "visually_reviewed": true,
+    "replaced_image_ids": [],
+    "action": "保留；已逐图核对"
+  },
+  {
+    "row": 103,
+    "evidence_count": 1,
+    "visually_reviewed": true,
+    "replaced_image_ids": [],
+    "action": "保留；已逐图核对"
+  },
+  {
+    "row": 104,
+    "evidence_count": 1,
+    "visually_reviewed": true,
+    "replaced_image_ids": [],
+    "action": "保留；已逐图核对"
+  },
+  {
+    "row": 105,
+    "evidence_count": 1,
+    "visually_reviewed": true,
+    "replaced_image_ids": [],
+    "action": "保留；已逐图核对"
+  },
+  {
+    "row": 106,
+    "evidence_count": 1,
+    "visually_reviewed": true,
+    "replaced_image_ids": [],
+    "action": "保留；已逐图核对"
+  },
+  {
+    "row": 107,
+    "evidence_count": 1,
+    "visually_reviewed": true,
+    "replaced_image_ids": [],
+    "action": "保留；已逐图核对"
+  },
+  {
+    "row": 108,
+    "evidence_count": 1,
+    "visually_reviewed": true,
+    "replaced_image_ids": [],
+    "action": "保留；已逐图核对"
+  },
+  {
+    "row": 109,
+    "evidence_count": 2,
+    "visually_reviewed": true,
+    "replaced_image_ids": [],
+    "action": "保留；已逐图核对"
+  },
+  {
+    "row": 110,
+    "evidence_count": 1,
+    "visually_reviewed": true,
+    "replaced_image_ids": [],
+    "action": "保留；已逐图核对"
+  },
+  {
+    "row": 111,
+    "evidence_count": 1,
+    "visually_reviewed": true,
+    "replaced_image_ids": [],
+    "action": "保留；已逐图核对"
+  },
+  {
+    "row": 112,
+    "evidence_count": 1,
+    "visually_reviewed": true,
+    "replaced_image_ids": [
+      137
+    ],
+    "action": "替换问题截图"
+  },
+  {
+    "row": 113,
+    "evidence_count": 1,
+    "visually_reviewed": true,
+    "replaced_image_ids": [],
+    "action": "保留；已逐图核对"
+  },
+  {
+    "row": 114,
+    "evidence_count": 13,
+    "visually_reviewed": true,
+    "replaced_image_ids": [
+      138,
+      139,
+      140,
+      141,
+      142,
+      143,
+      144,
+      145,
+      146,
+      147,
+      149
+    ],
+    "action": "替换问题截图"
+  },
+  {
+    "row": 116,
+    "evidence_count": 1,
+    "visually_reviewed": true,
+    "replaced_image_ids": [],
+    "action": "保留；已逐图核对"
+  },
+  {
+    "row": 117,
+    "evidence_count": 1,
+    "visually_reviewed": true,
+    "replaced_image_ids": [
+      18
+    ],
+    "action": "替换问题截图"
+  },
+  {
+    "row": 118,
+    "evidence_count": 2,
+    "visually_reviewed": true,
+    "replaced_image_ids": [
+      152,
+      153
+    ],
+    "action": "替换问题截图"
+  },
+  {
+    "row": 119,
+    "evidence_count": 5,
+    "visually_reviewed": true,
+    "replaced_image_ids": [
+      65,
+      154,
+      155,
+      157
+    ],
+    "action": "替换问题截图"
+  },
+  {
+    "row": 120,
+    "evidence_count": 1,
+    "visually_reviewed": true,
+    "replaced_image_ids": [
+      158
+    ],
+    "action": "替换问题截图"
+  },
+  {
+    "row": 121,
+    "evidence_count": 2,
+    "visually_reviewed": true,
+    "replaced_image_ids": [
+      160
+    ],
+    "action": "替换问题截图"
+  },
+  {
+    "row": 122,
+    "evidence_count": 1,
+    "visually_reviewed": true,
+    "replaced_image_ids": [],
+    "action": "保留；已逐图核对"
+  },
+  {
+    "row": 123,
+    "evidence_count": 1,
+    "visually_reviewed": true,
+    "replaced_image_ids": [],
+    "action": "保留；已逐图核对"
+  },
+  {
+    "row": 124,
+    "evidence_count": 2,
+    "visually_reviewed": true,
+    "replaced_image_ids": [],
+    "action": "保留；已逐图核对"
+  },
+  {
+    "row": 125,
+    "evidence_count": 1,
+    "visually_reviewed": true,
+    "replaced_image_ids": [],
+    "action": "保留；已逐图核对"
+  },
+  {
+    "row": 126,
+    "evidence_count": 3,
+    "visually_reviewed": true,
+    "replaced_image_ids": [],
+    "action": "保留；已逐图核对"
+  },
+  {
+    "row": 127,
+    "evidence_count": 1,
+    "visually_reviewed": true,
+    "replaced_image_ids": [],
+    "action": "保留；已逐图核对"
+  },
+  {
+    "row": 128,
+    "evidence_count": 1,
+    "visually_reviewed": true,
+    "replaced_image_ids": [],
+    "action": "保留；已逐图核对"
+  },
+  {
+    "row": 129,
+    "evidence_count": 1,
+    "visually_reviewed": true,
+    "replaced_image_ids": [],
+    "action": "保留；已逐图核对"
+  },
+  {
+    "row": 130,
+    "evidence_count": 1,
+    "visually_reviewed": true,
+    "replaced_image_ids": [],
+    "action": "保留；已逐图核对"
+  },
+  {
+    "row": 131,
+    "evidence_count": 1,
+    "visually_reviewed": true,
+    "replaced_image_ids": [],
+    "action": "保留；已逐图核对"
+  },
+  {
+    "row": 132,
+    "evidence_count": 1,
+    "visually_reviewed": true,
+    "replaced_image_ids": [],
+    "action": "保留；已逐图核对"
+  },
+  {
+    "row": 133,
+    "evidence_count": 1,
+    "visually_reviewed": true,
+    "replaced_image_ids": [],
+    "action": "保留；已逐图核对"
+  },
+  {
+    "row": 134,
+    "evidence_count": 1,
+    "visually_reviewed": true,
+    "replaced_image_ids": [],
+    "action": "保留；已逐图核对"
+  },
+  {
+    "row": 135,
+    "evidence_count": 1,
+    "visually_reviewed": true,
+    "replaced_image_ids": [],
+    "action": "保留；已逐图核对"
+  },
+  {
+    "row": 136,
+    "evidence_count": 1,
+    "visually_reviewed": true,
+    "replaced_image_ids": [],
+    "action": "保留；已逐图核对"
+  },
+  {
+    "row": 137,
+    "evidence_count": 1,
+    "visually_reviewed": true,
+    "replaced_image_ids": [],
+    "action": "保留；已逐图核对"
+  },
+  {
+    "row": 138,
+    "evidence_count": 1,
+    "visually_reviewed": true,
+    "replaced_image_ids": [],
+    "action": "保留；已逐图核对"
+  },
+  {
+    "row": 139,
+    "evidence_count": 1,
+    "visually_reviewed": true,
+    "replaced_image_ids": [],
+    "action": "保留；已逐图核对"
+  },
+  {
+    "row": 140,
+    "evidence_count": 1,
+    "visually_reviewed": true,
+    "replaced_image_ids": [],
+    "action": "保留；已逐图核对"
+  },
+  {
+    "row": 141,
+    "evidence_count": 1,
+    "visually_reviewed": true,
+    "replaced_image_ids": [],
+    "action": "保留；已逐图核对"
+  },
+  {
+    "row": 142,
+    "evidence_count": 1,
+    "visually_reviewed": true,
+    "replaced_image_ids": [],
+    "action": "保留；已逐图核对"
+  },
+  {
+    "row": 143,
+    "evidence_count": 1,
+    "visually_reviewed": true,
+    "replaced_image_ids": [],
+    "action": "保留；已逐图核对"
+  },
+  {
+    "row": 144,
+    "evidence_count": 1,
+    "visually_reviewed": true,
+    "replaced_image_ids": [],
+    "action": "保留；已逐图核对"
+  },
+  {
+    "row": 145,
+    "evidence_count": 1,
+    "visually_reviewed": true,
+    "replaced_image_ids": [],
+    "action": "保留；已逐图核对"
+  },
+  {
+    "row": 146,
+    "evidence_count": 1,
+    "visually_reviewed": true,
+    "replaced_image_ids": [],
+    "action": "保留；已逐图核对"
+  },
+  {
+    "row": 147,
+    "evidence_count": 1,
+    "visually_reviewed": true,
+    "replaced_image_ids": [],
+    "action": "保留；已逐图核对"
+  },
+  {
+    "row": 148,
+    "evidence_count": 2,
+    "visually_reviewed": true,
+    "replaced_image_ids": [
+      190
+    ],
+    "action": "替换问题截图"
+  },
+  {
+    "row": 149,
+    "evidence_count": 18,
+    "visually_reviewed": true,
+    "replaced_image_ids": [
+      191,
+      192,
+      193,
+      194,
+      195,
+      196,
+      197,
+      198,
+      199,
+      200,
+      201,
+      202,
+      203,
+      204,
+      205,
+      206,
+      207,
+      208
+    ],
+    "action": "替换问题截图"
+  }
+]

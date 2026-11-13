@@ -1,30 +1,31 @@
+import {readContentAdapter} from "@/lib/content/server-adapter";
 import Heading from "@/components/Heading";
-import Image from "next/image";
+import Image from "@/components/content/ContentImage";
 import { ArrowRight } from "lucide-react";
 import { Link } from "@/i18n/navigation";
-import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
 import RevealObserver from "@/components/RevealObserver";
 import StoryHeroVideo from "@/components/StoryHeroVideo";
-import { PRODUCT_BY_ID } from "@/lib/products";
 
-export default function StoryPage() {
-  const t = useTranslations("Story");
+export default async function StoryPage() {
+  const cms = await readContentAdapter();
+  const t = await getTranslations("Story");
   const principles = [1, 2, 3, 4].map((i) => ({
     n: `0${i}`,
     title: t(`p${i}Title`),
     body: t(`p${i}Body`),
   }));
-  const years = ["2024", "2025", "2026"];
+  const years = [cms.text("field_dc11cabae4312bcd"), cms.text("field_1fc4604260fe5b69"), cms.text("field_2739b97c8be23bf8")];
   const milestones = years.map((year, i) => ({
     year,
     title: t(`m${i + 2}Title`),
     body: t(`m${i + 2}Body`),
   }));
   const collection = [
-    PRODUCT_BY_ID.tablet,
-    PRODUCT_BY_ID.ola,
-    PRODUCT_BY_ID.print,
-    PRODUCT_BY_ID.nest,
+    cms.snapshot.products.tablet,
+    cms.snapshot.products.ola,
+    cms.snapshot.products.print,
+    cms.snapshot.products.nest,
   ];
 
   return (
@@ -44,15 +45,15 @@ export default function StoryPage() {
           eyebrow={t("principlesEyebrow")}
           label={t("heroVideoLabel")}
           playLabel={t("heroVideoPlay")}
-          poster="/assets/western-scenes-20260908/lumiq-story-family-v3.webp"
+          poster={cms.url("/assets/western-scenes-20260908/lumiq-story-family-v3.webp")}
           quote={t("quote")}
-          src="/assets/story/lumiq-brand-film.mp4"
+          src={cms.url("/assets/story/lumiq-brand-film.mp4")}
         />
       </section>
 
       <section className="container story-origin reveal">
         <div className="story-section-label">
-          <span>01</span>
+          <span>{cms.text("field_2c27e6c9d0a3a5b1")}</span>
           <p>{t("eyebrow")}</p>
         </div>
         <div className="story-origin-copy">
@@ -85,7 +86,7 @@ export default function StoryPage() {
 
       <section className="story-quote-band reveal">
         <div className="container">
-          <span aria-hidden="true">“</span>
+          <span aria-hidden="true">{cms.text("field_88472b6b27cb174f")}</span>
           <blockquote className="serif">{t("quote")}</blockquote>
           <cite>{t("quoteSource")}</cite>
         </div>

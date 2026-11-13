@@ -1,13 +1,13 @@
 "use client";
+import {useContentAdapter} from "@/components/content/useContentAdapter";
 import Heading from "@/components/Heading";
 
 import { chapterImage } from "./HomeBackgrounds";
 
-import { Suspense, useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { Suspense, createContext, useContext, useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Environment, Html, Lightformer, MeshTransmissionMaterial, useFBO } from "@react-three/drei";
-import { CanvasTexture, ExtrudeGeometry, Group, MathUtils, NoToneMapping, PerspectiveCamera, ShaderMaterial, Shape, SRGBColorSpace, Texture, TextureLoader, VideoTexture, Vector3 } from "three";
+import { CanvasTexture, ExtrudeGeometry, Group, MathUtils, NoToneMapping, PerspectiveCamera, ShaderMaterial, Shape, SRGBColorSpace, Texture, TextureLoader, Vector3 } from "three";
 import "@/app/[locale]/glass-preview/preview.css";
 import copyStyles from "./ProductCardCopy.module.css";
 
@@ -21,46 +21,57 @@ const demoProducts: GlassProduct[] = [
 
 type CardPointer = { x: number; y: number; hovered: boolean };
 
-/**
- * A missing LFS object is served as a small text pointer during a fresh clone.
- * Drei's useTexture rejects that decode and takes down the whole canvas. Keep a
- * neutral canvas texture on screen until the real asset is available instead.
- */
-function useSafeTexture(url: string, transparent = false): Texture {
+type TextureEntry = { texture: Texture | null; settled: boolean; listeners: Set<() => void> };
+const TexturePool = createContext<Map<string, TextureEntry> | null>(null);
+
+// One request and GPU texture per CMS-resolved asset, shared by face and reflection.
+// The pool belongs to this canvas and is disposed when the canvas unmounts.
+function useSafeTexture(originalUrl: string, transparent = false): Texture {
+  const cms = useContentAdapter();
+  const url = cms.url(originalUrl);
+  const pool = useContext(TexturePool)!;
+  const invalidate = useThree(state => state.invalidate);
+  const [, update] = useState(0);
   const fallback = useMemo(() => {
     const canvas = document.createElement("canvas");
     canvas.width = canvas.height = 96;
     const ctx = canvas.getContext("2d")!;
     if (!transparent) {
-      const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+      const gradient = ctx.createLinearGradient(0, 0, 96, 96);
       gradient.addColorStop(0, "#f8f5fb");
       gradient.addColorStop(.5, "#e9eef8");
       gradient.addColorStop(1, "#f7eee9");
       ctx.fillStyle = gradient;
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.fillRect(0, 0, 96, 96);
     }
     const texture = new CanvasTexture(canvas);
     texture.colorSpace = SRGBColorSpace;
     return texture;
   }, [transparent]);
-  const [texture, setTexture] = useState<Texture>(fallback);
   useEffect(() => {
-    let alive = true;
-    let loaded: Texture | undefined;
-    setTexture(fallback);
-    new TextureLoader().load(url, value => {
-      if (!alive) { value.dispose(); return; }
-      value.colorSpace = SRGBColorSpace;
-      loaded = value;
-      setTexture(value);
-    }, undefined, () => {
-      // The static fallback keeps local development usable until `git lfs pull` finishes.
-      console.warn(`Could not load ${url}; using the local preview texture.`);
-    });
-    return () => { alive = false; loaded?.dispose(); };
-  }, [url, fallback]);
+    let entry = pool.get(url);
+    const changed = () => { update(value => value + 1); invalidate(); };
+    if (!entry) {
+      entry = { texture: null, settled: false, listeners: new Set() };
+      pool.set(url, entry);
+      const resource = entry;
+      new TextureLoader().load(url, texture => {
+        if (pool.get(url) !== resource) { texture.dispose(); return; }
+        texture.colorSpace = SRGBColorSpace;
+        resource.texture = texture;
+        resource.settled = true;
+        resource.listeners.forEach(notify => notify());
+      }, undefined, () => {
+        resource.settled = true;
+        resource.listeners.forEach(notify => notify());
+      });
+    }
+    entry.listeners.add(changed);
+    changed();
+    return () => { entry.listeners.delete(changed); };
+  }, [url, pool, invalidate]);
   useEffect(() => () => fallback.dispose(), [fallback]);
-  return texture;
+  return pool.get(url)?.texture ?? fallback;
 }
 
 function GlassScene({ selected, select, sideView, content, products, carousel = false }: {
@@ -94,26 +105,8 @@ function GlassScene({ selected, select, sideView, content, products, carousel = 
   const reflections = useRef<Group>(null);
   const refractionBackground = useRef<Group>(null);
   const pointers = useMemo(() => products.map(() => ({ x: 0, y: 0, hovered: false })), [products]);
-  const buffer = useFBO(768, 768);
+  const buffer = useFBO(512, 512);
   useFrame(({ gl, scene }) => {
-    if (reflections.current && carousel) {
-      const stop = ScrollTrigger.getById("home-products-hold");
-      const stage = gl.domElement.closest('.lh-products-stage');
-      const top = stage?.getBoundingClientRect().top ?? innerHeight;
-      const entry = 1 - MathUtils.smoothstep(top, 0, 80);
-      const exit = stop ? MathUtils.smoothstep(scrollY, stop.end - 80, stop.end + innerHeight * .35) : MathUtils.smoothstep(-top, 0, innerHeight * .35);
-      const fade = entry * (1 - exit);
-      reflections.current.visible = fade > .001;
-      reflections.current.position.y = -4.56 - exit * 5.5;
-      reflections.current.traverse(object => {
-        const material = (object as unknown as { material?: ShaderMaterial }).material;
-        if (!material) return;
-        if (material.uniforms?.reflectionFade) material.uniforms.reflectionFade.value = fade;
-        else if (typeof material.userData.reflectionOpacity === 'number') material.opacity = material.userData.reflectionOpacity * fade;
-      });
-      gl.domElement.dataset.reflectionOpacity = fade.toFixed(3);
-      gl.domElement.dataset.reflectionOffset = (exit * 5.5).toFixed(3);
-    }
     if (!opticalObjects.current) return;
     const previous = gl.getRenderTarget();
     opticalObjects.current.visible = false;
@@ -173,9 +166,6 @@ function GlassScene({ selected, select, sideView, content, products, carousel = 
 // Refraction uses the same fixed viewport coordinates and crossfade as the page background.
 function ViewportBackground({ texture, fixed }: { texture: Texture; fixed: boolean }) {
   const nextTexture = useSafeTexture(chapterImage("films"));
-  const videoMap = useRef<VideoTexture | null>(null);
-  const decodedTime = useRef(-1);
-  useEffect(() => () => { videoMap.current?.dispose(); }, []);
   const material = useRef<ShaderMaterial>(null);
   const { gl } = useThree();
   const uniforms = useMemo(() => ({ map: { value: texture }, nextMap: { value: nextTexture }, blend: { value: 0 }, viewport: { value: [1, 1] },
@@ -185,24 +175,16 @@ function ViewportBackground({ texture, fixed }: { texture: Texture; fixed: boole
     const rect = gl.domElement.getBoundingClientRect();
     const u = material.current.uniforms;
     const image = texture.image as HTMLImageElement;
-    const video = fixed ? document.querySelector<HTMLVideoElement>("[data-background-video]") : null;
-    const liveVideo = video?.dataset.ready === "true";
-    if (liveVideo && !videoMap.current) {
-      videoMap.current = new VideoTexture(video);
-      videoMap.current.colorSpace = SRGBColorSpace;
-    }
-    if (liveVideo && videoMap.current && !video.seeking && decodedTime.current !== video.currentTime) {
-      videoMap.current.needsUpdate = true;
-      decodedTime.current = video.currentTime;
-    }
-    u.map.value = liveVideo ? videoMap.current : texture;
-    u.nextMap.value = liveVideo ? videoMap.current : nextTexture;
+    // A scrolling video can be mid-seek or have an unpresented black frame.
+    // Refraction uses the stable chapter image; the page keeps its video motion.
+    u.map.value = texture;
+    u.nextMap.value = nextTexture;
     const backdrop = fixed ? document.querySelector('.lh-fixed-backgrounds')?.getBoundingClientRect() : null;
     u.viewport.value = backdrop ? [backdrop.width, backdrop.height] : [rect.width, rect.height];
     u.blend.value = 0;
     u.canvasOrigin.value = backdrop ? [rect.left - backdrop.left, rect.top - backdrop.top] : [0, 0]; u.canvasHeight.value = rect.height;
     u.canvasSize.value = [rect.width, rect.height];
-    u.pixelRatio.value = gl.getPixelRatio(); u.imageSize.value = liveVideo ? [video.videoWidth, video.videoHeight] : [image.width, image.height];
+    u.pixelRatio.value = gl.getPixelRatio(); u.imageSize.value = [image.width, image.height];
   }, -2);
   return <mesh frustumCulled={false} renderOrder={-10} raycast={() => {}}>
     <planeGeometry args={[2, 2]} />
@@ -223,14 +205,19 @@ function ViewportBackground({ texture, fixed }: { texture: Texture; fixed: boole
 function GlassCard({ geometry, index, product, offset, five, active, select, hover, sideView, content, buffer, pointer, reflected = false }: {
   geometry: ExtrudeGeometry; index: number; product: GlassProduct; offset: number; five: boolean; active: boolean; select: (index: number) => void; hover: (index: number | null) => void; sideView: boolean; content: boolean; buffer: Texture; pointer: CardPointer; reflected?: boolean;
 }) {
+  const cms = useContentAdapter();
   const group = useRef<Group>(null);
   const copySurface = useRef<HTMLDivElement>(null);
+  const lastTransform = useRef("");
+  const motionPreference = useMemo(() => window.matchMedia("(prefers-reduced-motion: reduce)"), []);
   const projected = useMemo(() => [new Vector3(), new Vector3(), new Vector3()], []);
-  const targetX = five ? Math.sign(offset) * ([0, 3.8, 6.6][Math.abs(offset)] ?? 6.6) : offset * 3.55;
-  const targetScale = five ? [1.2, .7, .66][Math.abs(offset)] : active ? 1 : .9;
+  const targetX = five ? Math.sign(offset) * ([0, 4.15, 7][Math.abs(offset)] ?? 7) : offset * 3.55;
+  const targetScale = five ? [1.36, .83, .76][Math.abs(offset)] : active ? 1 : .9;
   const opacity = five && !active ? .7 : 1;
   const initialX = useRef(targetX);
+  const initialScale = useRef(targetScale);
   const previousOffset = useRef(offset);
+  useLayoutEffect(() => { group.current?.scale.setScalar(initialScale.current); }, []);
   useFrame(({camera, size}, delta) => {
     if (!group.current) return;
     const angle = sideView ? .82 : offset > 0 ? -.28 : .28;
@@ -242,7 +229,7 @@ function GlassCard({ geometry, index, product, offset, five, active, select, hov
       pointer.hovered = false;
     }
     previousOffset.current = offset;
-    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const reduced = motionPreference.matches;
     const hovering = pointer.hovered && !reduced;
     group.current.rotation.y = MathUtils.damp(group.current.rotation.y, angle + (hovering ? pointer.x * .07 : 0), 7, delta);
     group.current.rotation.x = MathUtils.damp(group.current.rotation.x, hovering ? -pointer.y * .045 : 0, 7, delta);
@@ -262,7 +249,14 @@ function GlassCard({ geometry, index, product, offset, five, active, select, hov
       y.set(0, -1, .3).applyMatrix4(group.current.matrixWorld).project(camera);
       const a=(x.x-origin.x)*size.width/200, b=-(x.y-origin.y)*size.height/200;
       const c=(y.x-origin.x)*size.width/200, d=-(y.y-origin.y)*size.height/200;
-      copySurface.current.style.transform=`matrix(${a},${b},${c},${d},${-142.5*a-210*c},${-142.5*b-210*d})`;
+      const transform = `matrix(${[a,b,c,d,-142.5*a-210*c,-142.5*b-210*d].map(value => value.toFixed(4)).join(",")})`;
+      if (transform !== lastTransform.current) {
+        copySurface.current.style.transform = transform;
+        lastTransform.current = transform;
+      }
+      // The first projected frame is ready before DOM copy becomes visible.
+      // Otherwise Html briefly paints unscaled text at its default position.
+      if (!copySurface.current.dataset.projected) copySurface.current.dataset.projected = "true";
     }
   });
   // Keep the beveled bottom on the reflecting floor at either card scale.
@@ -277,12 +271,13 @@ function GlassCard({ geometry, index, product, offset, five, active, select, hov
       hover(index);
     }} onPointerOut={reflected ? undefined : () => { pointer.hovered = false; hover(null); }}
       onPointerOver={reflected ? undefined : e => { e.stopPropagation(); hover(index); }} onClick={reflected ? undefined : e => { e.stopPropagation(); select(index); }}>
+      {reflected ? <meshBasicMaterial color="#f1eef8" transparent opacity={.10 * opacity} depthWrite={false} toneMapped={false} /> :
       <MeshTransmissionMaterial buffer={buffer} thickness={.25}
         userData={reflected ? { reflectionOpacity: .45 * opacity } : {}}
         transmission={1} roughness={active ? .7 : .38} ior={1.65} transparent opacity={(reflected ? .45 : 1) * opacity}
         clearcoat={1} clearcoatRoughness={.045} attenuationColor="#dcd5ea" attenuationDistance={2.5}
         chromaticAberration={0} anisotropicBlur={0} distortion={0}
-        samples={6} resolution={512} backsideResolution={256} color="#ffffff" />
+        samples={2} resolution={512} backsideResolution={256} color="#ffffff" />}
     </mesh>
     <PearlFlow index={index} reflected={reflected} opacity={opacity} active={active} />
     {content && <CardArtwork product={product} active={active} reflected={reflected} opacity={opacity} hideLabel={five && !reflected && Boolean(product.body)} />}
@@ -300,12 +295,12 @@ function GlassCard({ geometry, index, product, offset, five, active, select, hov
           onClick={e => { if (!active) { e.preventDefault(); select(index); } }}
           aria-label={`${product.name}. ${product.body}. ${product.explore}`} /> :
           <button className="glass-product-hit" onClick={() => select(index)} aria-pressed={active}>
-            <span className="glass-accessible-label">{product.name} · {active ? "选中 · 70% 磨砂" : "未选中 · 38% 磨砂"}</span>
+            <span className="glass-accessible-label">{product.name} {cms.text("field_9df95ca6165be7d3")}{active ? cms.text("field_508457dea05708c6") : cms.text("field_d584df7212969e9c")}</span>
           </button>}
         {five && product.body && <div className={copyStyles.copy} data-card-copy data-no-word-reveal aria-hidden="true">
           <div className={copyStyles.title} data-card-title>{product.name}</div>
           {active && <p className={copyStyles.description}>{product.body}</p>}
-          <div className={copyStyles.action} data-card-action>{product.explore} ↗</div>
+          <div className={copyStyles.action} data-card-action>{product.explore} {cms.text("field_028813a441e9ed0f")}</div>
         </div>}
       </div>
     </Html>}
@@ -382,10 +377,10 @@ function CardArtwork({ product, active, reflected, opacity, hideLabel = false }:
 function PearlFlow({ index, reflected, opacity, active }: { index: number; reflected: boolean; opacity: number; active: boolean }) {
   const material = useRef<ShaderMaterial>(null);
   const uniforms = useMemo(() => ({ time: { value: 0 }, strength: { value: 1 }, glowWidth: { value: 1 }, reflectionFade: { value: 1 } }), []);
-  useFrame(({ clock }) => {
+  useFrame((_, delta) => {
     if (!material.current) return;
     const live = material.current.uniforms;
-    live.time.value = window.matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : clock.elapsedTime / 22 + index * .8;
+    if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) live.time.value += Math.min(delta, .05) / 22;
     live.strength.value = (reflected ? .55 : 1) * opacity * (active ? 2.4 : .85);
     live.glowWidth.value = active ? 2.8 : 1;
   });
@@ -415,41 +410,71 @@ function PearlFlow({ index, reflected, opacity, active }: { index: number; refle
 
 /** Keep the DOM cards until the real renderer and product artwork can paint.
  * A successful capability probe does not guarantee Canvas can create a context. */
-function CanvasReady({ products, onReady }: { products: GlassProduct[]; onReady: () => void }) {
-  const ready = useRef(false);
+function CanvasReady({ onReady }: { onReady: () => void }) {
+  const pool = useContext(TexturePool)!;
+  const elapsed = useRef(0);
+  const frames = useRef(0);
   const announced = useRef(false);
-  const frame = useRef(0);
+  const revealFrame = useRef(0);
+  useEffect(() => () => cancelAnimationFrame(revealFrame.current), []);
   const callback = useRef(onReady);
   callback.current = onReady;
-  useEffect(() => {
-    let alive = true;
-    ready.current = announced.current = false;
-    void Promise.all(products.map(product => new Promise<void>((resolve, reject) => {
-      const image = new window.Image();
-      image.onload = () => { void image.decode().then(resolve, reject); };
-      image.onerror = reject;
-      image.src = product.image;
-    }))).then(() => { if (alive) ready.current = true; }).catch(() => {
-      // Missing artwork leaves the navigable DOM card/inline-preview fallback.
-    });
-    return () => { alive = false; cancelAnimationFrame(frame.current); };
-  }, [products]);
-  useFrame(() => {
-    if (ready.current && !announced.current) {
+  useFrame((_, delta) => {
+    elapsed.current += delta;
+    frames.current++;
+    // Never gate the entire mirror on the slowest image. Late artwork fills in
+    // on the same mirror surface; failed artwork retains a neutral texture.
+    if (!announced.current && frames.current > 2 && pool.size > 0 &&
+        ([...pool.values()].every(entry => entry.settled) || elapsed.current >= 1.2)) {
       announced.current = true;
-      frame.current = requestAnimationFrame(() => callback.current());
+      // useFrame runs before drawing: reveal only after that frame completed.
+      revealFrame.current = requestAnimationFrame(() => callback.current());
     }
   });
+  return null;
+}
+
+// Render during interaction and settling only. The mirrored composition stays
+// on the canvas while idle; scroll/resize/late textures explicitly wake it.
+function InteractionFrames({ running, selected }: { running: boolean; selected: number }) {
+  const { invalidate, size } = useThree();
+  useEffect(() => {
+    if (!running) return;
+    let request = 0;
+    let until = 0;
+    const tick = (now: number) => {
+      invalidate();
+      if (now < until) request = requestAnimationFrame(tick);
+      else request = 0;
+    };
+    const wake = () => {
+      until = performance.now() + 1600;
+      if (!request) request = requestAnimationFrame(tick);
+    };
+    const events = ["pointermove", "pointerdown", "pointerout", "scroll", "resize", "keydown"];
+    events.forEach(name => window.addEventListener(name, wake, {passive:true, capture:true}));
+    wake();
+    return () => {
+      cancelAnimationFrame(request);
+      events.forEach(name => window.removeEventListener(name, wake, true));
+    };
+  }, [running, selected, size.width, size.height, invalidate]);
   return null;
 }
 
 export function GlassCanvas({ selected, select, products = demoProducts, sideView = false, content = true, carousel = false, running = true, onReady }: {
   selected: number; select: (index: number) => void; products?: GlassProduct[]; sideView?: boolean; content?: boolean; carousel?: boolean; running?: boolean; onReady?: () => void;
 }) {
-  return <Canvas frameloop={running ? "always" : "never"} camera={{ position: [0, 1.3, 36], fov: 12, near: .1, far: 100 }} dpr={[1, 1.25]}
-    gl={{ antialias: true, alpha: true, toneMapping: NoToneMapping }} fallback={carousel ? null : <p>此样板需要启用 WebGL 的浏览器。</p>}>
+  const cms = useContentAdapter();
+  const [pool] = useState(() => new Map<string, TextureEntry>());
+  useEffect(() => () => {
+    pool.forEach(entry => entry.texture?.dispose());
+    pool.clear();
+  }, [pool]);
+  return <Canvas frameloop={running ? "demand" : "never"} camera={{ position: [0, 1.3, 36], fov: 12, near: .1, far: 100 }} dpr={1}
+    gl={{ antialias: true, alpha: true, toneMapping: NoToneMapping }} fallback={carousel ? null : <p>{cms.text("field_33e42817ed9c66ca")}</p>}>
     {!carousel && <color attach="background" args={["#f5f3f9"]} />}
-    <Suspense fallback={null}>{onReady && <CanvasReady products={products} onReady={onReady} />}<GlassScene selected={selected} select={select} sideView={sideView} content={content} products={products} carousel={carousel} /></Suspense>
+    <TexturePool.Provider value={pool}><InteractionFrames running={running} selected={selected} /><Suspense fallback={null}>{onReady && <CanvasReady onReady={onReady} />}<GlassScene selected={selected} select={select} sideView={sideView} content={content} products={products} carousel={carousel} /></Suspense></TexturePool.Provider>
   </Canvas>;
 }
 

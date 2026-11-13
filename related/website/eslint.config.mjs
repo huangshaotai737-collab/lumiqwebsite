@@ -1,24 +1,19 @@
-import { FlatCompat } from "@eslint/eslintrc";
-import path from "node:path";
-import { fileURLToPath } from "node:url";
+import {defineConfig, globalIgnores} from 'eslint/config';
+import nextVitals from 'eslint-config-next/core-web-vitals';
+import nextTypescript from 'eslint-config-next/typescript';
 
-const currentFile = fileURLToPath(import.meta.url);
-const currentDirectory = path.dirname(currentFile);
-const compat = new FlatCompat({ baseDirectory: currentDirectory });
+// Preserve the existing hooks lint policy during the renderer upgrade.
+// React Compiler is not enabled for the imperative GSAP/Three.js components.
+const hookRules = new Set(['react-hooks/rules-of-hooks', 'react-hooks/exhaustive-deps']);
+const compatibleVitals = nextVitals.map(config => ({
+  ...config,
+  ...(config.rules && {rules: Object.fromEntries(Object.entries(config.rules).filter(
+    ([name]) => !name.startsWith('react-hooks/') || hookRules.has(name),
+  ))}),
+}));
 
-const config = [
-  {
-    ignores: [
-      ".next/**",
-      ".next-*/**",
-      "node_modules/**",
-      "coverage/**",
-      "playwright-report/**",
-      "test-results/**",
-      "next-env.d.ts",
-    ],
-  },
-  ...compat.extends("next/core-web-vitals", "next/typescript"),
-];
-
-export default config;
+export default defineConfig([
+  ...compatibleVitals,
+  ...nextTypescript,
+  globalIgnores(['.next/**', '.next-*/**', 'node_modules/**', 'coverage/**', 'playwright-report/**', 'test-results/**', 'next-env.d.ts']),
+]);

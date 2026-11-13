@@ -1,4 +1,5 @@
 "use client";
+import {useContentAdapter} from "@/components/content/useContentAdapter";
 import Heading from "@/components/Heading";
 
 import Image from "@/components/home/HomeImage";
@@ -16,6 +17,7 @@ const products = [
 ] as const;
 
 export default function HomeExperiences() {
+  const cms = useContentAdapter();
   const t = useTranslations("HomeRefresh");
   const [active, setActive] = useState<string | null>(null);
   return (
@@ -27,7 +29,7 @@ export default function HomeExperiences() {
       <div className="lh-room-map">
         <div className="lh-room-canvas">
           <div className="lh-room-background">
-            <Image src="/assets/home-rooms-20260907/room-full-4k.webp" alt={t("houseAlt")} fill sizes="(max-width: 1199px) 154vw, (min-width: 1920px) 1920px, 100vw" quality={95} />
+            <Image src={cms.url("/assets/home-rooms-20260907/room-full-4k.webp")} alt={t("houseAlt")} fill sizes="(max-width: 1199px) 154vw, (min-width: 1920px) 1920px, 100vw" quality={95} />
           </div>
           <svg className="lh-room-lines" viewBox="0 0 1000 562.5" aria-hidden="true">
             <defs>
@@ -53,7 +55,7 @@ export default function HomeExperiences() {
                 aria-label={`${t(`products.${id}.name`)} · ${t(`roomLabels.${id}.title`)} ${t(`roomLabels.${id}.subtitle`)}`}
                 onMouseEnter={()=>setActive(id)} onMouseLeave={()=>setActive(null)} onFocus={()=>setActive(id)} onBlur={()=>setActive(null)}>
                 <span className="lh-room-product-art">
-                  <Image src={`/assets/home-premium-20260907/${id}-halo.webp`} alt="" fill sizes="(max-width: 767px) 94px, (max-width: 1199px) 130px, 190px" quality={95} />
+                  <Image src={cms.url(`/assets/home-premium-20260907/${id}-halo.webp`)} alt="" fill sizes="(max-width: 767px) 94px, (max-width: 1199px) 130px, 190px" quality={95} />
                 </span>
                 <span className="lh-room-label"><span>{t(`roomLabels.${id}.title`)}</span><small>{t(`roomLabels.${id}.subtitle`)}</small></span>
               </Link>

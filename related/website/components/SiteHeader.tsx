@@ -1,20 +1,45 @@
 "use client";
-import { Link, usePathname, useRouter } from "@/i18n/navigation";
-import { useSearchParams } from "next/navigation";
+import {useSitePathname} from "@/components/content/useSitePathname";
+import {useContentAdapter} from "@/components/content/useContentAdapter";
+import {useVisualPreview} from '@/components/content/SiteContentProvider';
+import { Link, useRouter } from "@/i18n/navigation";
+import { useSearchParams, useRouter as useNextRouter } from "next/navigation";
+import {useLinkStatus} from "next/link";
+import {PrefetchKind} from "next/dist/client/components/router-reducer/router-reducer-types";
 import { useLocale, useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
 import { Globe2, Menu, X } from "lucide-react";
 import type { Locale } from "@/i18n/routing";
-import Image from "next/image";
+import Image from "@/components/content/ContentImage";
 import CartTrigger from "@/components/cart/CartTrigger";
 
+function NavigationPending() {
+  const {pending} = useLinkStatus();
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    if (!pending) {
+      setVisible(false);
+      return;
+    }
+    const timer = window.setTimeout(() => setVisible(true), 1000);
+    return () => window.clearTimeout(timer);
+  }, [pending]);
+
+  return pending && visible ? <span className="site-navigation-pending" aria-hidden="true" /> : null;
+}
+
 export default function SiteHeader() {
+  const cms = useContentAdapter();
+  const visual = useVisualPreview();
   const t = useTranslations("Common");
   const home = useTranslations("HomeRefresh");
   const members = useTranslations("Members");
   const locale = useLocale() as Locale;
-  const pathname = usePathname();
+  const pathname = useSitePathname();
   const router = useRouter();
+  const nextRouter = useNextRouter();
+  const warmed = useRef(new Map<string, number>());
   const searchParams = useSearchParams();
   const isHomepage = pathname === "/";
   const [scrolled, setScrolled] = useState(false);
@@ -34,9 +59,9 @@ export default function SiteHeader() {
   ] as const;
 
   const languages: { locale: Locale; code: string; label: string }[] = [
-    { locale: "en", code: "EN", label: t("english") },
-    { locale: "zh-hant", code: "繁中", label: t("traditionalChinese") },
-    { locale: "ja", code: "日本語", label: t("japanese") },
+    { locale: "en", code: cms.text("field_dbf7fc4623365aca"), label: t("english") },
+    { locale: "zh-hant", code: cms.text("field_88d310bbf9c719ef"), label: t("traditionalChinese") },
+    { locale: "ja", code: cms.text("field_4f1ba9da652781b3"), label: t("japanese") },
   ];
   const activeLanguage =
     languages.find((item) => item.locale === locale) ?? languages[0];
@@ -111,12 +136,35 @@ export default function SiteHeader() {
     setLangOpen(false);
   };
 
+  // Intent takes priority over speculative homepage warmup, even if an image is
+  // slow. Keep private/account routes and CMS previews out of the public cache.
+  const warmDestination = (href: string) => {
+    if (visual || cms.preview || href === "/members" || href === pathname) return;
+    const target = `/${locale}${href === "/" ? "" : href}`;
+    const now = Date.now();
+    if (now - (warmed.current.get(target) ?? 0) < 30_000) return;
+    warmed.current.set(target, now);
+    nextRouter.prefetch(target, {kind: PrefetchKind.FULL});
+  };
+  const navigateHome = (event: {preventDefault(): void}) => {
+    closeMenu();
+    if (!isHomepage || visual || cms.preview) return;
+    event.preventDefault();
+    // A Link to the current route is a router no-op. Explicitly release reading
+    // anchors and return to the opening, including keyboard and mobile clicks.
+    window.dispatchEvent(new Event("lumiq:home-top"));
+    if (location.hash) history.replaceState(history.state, "", location.pathname + location.search);
+    window.scrollTo({top: 0, behavior: "instant"});
+    document.querySelector<HTMLElement>("#main-content")?.focus({preventScroll: true});
+  };
+
   const isActive = (href: string) =>
     href === "/"
       ? pathname === "/"
       : pathname === href || pathname.startsWith(`${href}/`);
 
   const switchLanguage = (nextLocale: Locale) => {
+    if(visual){window.dispatchEvent(new CustomEvent('lumiq:visual-language',{detail:nextLocale}));setLangOpen(false);setMenuOpen(false);return;}
     const query = searchParams.toString();
     const hash = typeof window === "undefined" ? "" : window.location.hash;
     router.replace(`${pathname}${query ? `?${query}` : ""}${hash}`, {
@@ -139,10 +187,11 @@ export default function SiteHeader() {
         </a>
       )}
       <div className="container nav-inner">
-        <Link prefetch={false} href="/" className="nav-logo" onClick={closeMenu}>
+        <Link prefetch={false} href="/" className="nav-logo" onClick={closeMenu} onNavigate={navigateHome}
+          onMouseEnter={() => warmDestination("/")} onFocus={() => warmDestination("/")} onTouchStart={() => warmDestination("/")}>
           <Image
-            src="/assets/brand/lumiq-logo-transparent-dark.png"
-            alt={isHomepage ? "LUMIQ Studio" : "LumiQ Studio"}
+            src={cms.url("/assets/brand/lumiq-logo-transparent-dark.png")}
+            alt={isHomepage ? cms.text("field_430041fc9b25a88e") : cms.text("field_b805d448f3a55978")}
             className="nav-logo-img"
             width={360}
             height={96}
@@ -161,8 +210,13 @@ export default function SiteHeader() {
               href={l.href}
               className={isActive(l.href) ? "active" : ""}
               aria-current={isActive(l.href) ? "page" : undefined}
+              onMouseEnter={() => warmDestination(l.href)}
+              onFocus={() => warmDestination(l.href)}
+              onTouchStart={() => warmDestination(l.href)}
+              onNavigate={l.href === "/" ? navigateHome : undefined}
             >
               {l.label}
+              <NavigationPending />
             </Link>
           ))}
         </div>
@@ -175,20 +229,20 @@ export default function SiteHeader() {
               ref={languageRef}
               className="lang-btn"
               onClick={() => setLangOpen((v) => !v)}
-              aria-haspopup="listbox"
+              aria-label={`${t("language")}: ${activeLanguage.label}`}
+              aria-controls={langOpen ? "site-language-options" : undefined}
               aria-expanded={langOpen}
             >
               <Globe2 size={16} aria-hidden="true" /> {activeLanguage.code}{" "}
-              <span className="lang-caret">▾</span>
+              <span className="lang-caret">{cms.text("field_a11b193e1a6e95b8")}</span>
             </button>
             {langOpen && (
-              <ul className="lang-menu" role="listbox">
+              <ul id="site-language-options" className="lang-menu" aria-label={t("language")}>
                 {languages.map((o) => (
                   <li key={o.locale}>
                     <button
                       type="button"
-                      role="option"
-                      aria-selected={locale === o.locale}
+                      aria-current={locale === o.locale ? "true" : undefined}
                       className={`lang-item${locale === o.locale ? " active" : ""}`}
                       onClick={() => switchLanguage(o.locale)}
                     >
@@ -203,6 +257,9 @@ export default function SiteHeader() {
             prefetch={false}
             href="/prelaunch"
             onClick={closeMenu}
+            onMouseEnter={() => warmDestination("/prelaunch")}
+            onFocus={() => warmDestination("/prelaunch")}
+            onTouchStart={() => warmDestination("/prelaunch")}
             className="btn btn-ghost-navy login-btn site-login-btn"
             aria-label={t("login")}
           >
@@ -232,7 +289,6 @@ export default function SiteHeader() {
       <div
         id="mobile-navigation"
         className={`site-mobile-menu md:hidden ${menuOpen ? "flex open" : "hidden"}`}
-        role="menu"
         aria-hidden={!menuOpen}
       >
         <div className="site-mobile-menu-head">
@@ -241,7 +297,7 @@ export default function SiteHeader() {
             type="button"
             className="site-mobile-close"
             aria-label={t("closeMenu")}
-            onClick={closeMenu}
+            onClick={() => { closeMenu(); triggerRef.current?.focus(); }}
           >
             <X size={20} />
           </button>
@@ -251,12 +307,16 @@ export default function SiteHeader() {
             prefetch={false}
             key={l.href}
             href={l.href}
-            role="menuitem"
             aria-current={isActive(l.href) ? "page" : undefined}
             onClick={closeMenu}
+            onMouseEnter={() => warmDestination(l.href)}
+            onFocus={() => warmDestination(l.href)}
+            onTouchStart={() => warmDestination(l.href)}
+            onNavigate={l.href === "/" ? navigateHome : undefined}
             className={isActive(l.href) ? "active" : ""}
           >
             {l.label}
+            <NavigationPending />
           </Link>
         ))}
         <div className="site-mobile-languages" aria-label={t("language")}>

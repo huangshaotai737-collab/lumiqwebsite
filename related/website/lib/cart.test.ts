@@ -48,3 +48,12 @@ describe("versioned local storage", () => {
     expect(parseCart('{"version":1,"items":[{"id":"tablet","quantity":70},{"id":"tablet","quantity":70}]}')).toEqual([{ id: "tablet", quantity: 99 }]);
   });
 });
+
+test('reference totals use the same edited product snapshot, without changing cart identities', async () => {
+  const {initialSnapshot}=await import('./content/initial-snapshot');
+  const snapshot=structuredClone(initialSnapshot);
+  snapshot.products.tablet.price={kind:'usd',amount:432.25};
+  snapshot.products.nest.price={kind:'usd',amount:199.5};
+  snapshot.products.ola.price={kind:'pending'};
+  expect(summarizeCart([{id:'tablet',quantity:2},{id:'nest',quantity:1},{id:'ola',quantity:1}],snapshot.products)).toEqual({quantity:4,referenceTotal:1064,pricedQuantity:3,unpricedQuantity:1});
+});

@@ -1,5 +1,6 @@
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import {homeWideQuery} from "./responsiveLayout";
 
 type ReadingPosition = { element: HTMLElement; top: number };
 
@@ -15,10 +16,19 @@ export function mountHomePosition(root: HTMLElement) {
   const sections = [...root.querySelectorAll<HTMLElement>("[data-home-section]")];
   const navTop = () => document.querySelector(".site-nav")?.getBoundingClientRect().height ?? 86;
   const hashTarget = () => {
-    const target = document.getElementById(location.hash.slice(1));
+    const id = location.hash.slice(1);
+    if (!id) return null;
+    const target = document.getElementById(id);
     return target && root.contains(target) && target !== root && !target.closest(".lh-opening") ? target : null;
   };
+  const hasOpeningAnchor = () => {
+    const id = location.hash.slice(1);
+    if (!id) return false;
+    const element = document.getElementById(id);
+    return Boolean(element && root.contains(element) && element.closest(".lh-opening"));
+  };
   let target = hashTarget();
+  let openingAnchor = hasOpeningAnchor();
   let reading: ReadingPosition | null = null;
   let restoring: ReadingPosition | null = null;
   let changingLayout = false;
@@ -28,9 +38,12 @@ export function mountHomePosition(root: HTMLElement) {
   let captureFrame = 0;
   let layoutTimer = 0;
   let inputTimer = 0;
+  let layoutWidth = window.innerWidth;
+  const wide = matchMedia(homeWideQuery);
 
   const capture = () => {
     if (inputTimer || changingLayout || restoring || scrollState.isRefreshing) return;
+    if (openingAnchor && !root.querySelector('[data-opening-anchors]')) { reading = null; return; }
     const landing = navTop();
     let visible: HTMLElement | null = null;
     let visibleHeight = 0;
@@ -39,9 +52,9 @@ export function mountHomePosition(root: HTMLElement) {
       const height = Math.min(bounds.bottom, innerHeight) - Math.max(bounds.top, landing);
       if (height > visibleHeight) { visible = section; visibleHeight = height; }
     }
-    // A sliver of the previous opening chapter must not hide a mostly visible
-    // product section. Rank viewport coverage before delegating opening layout.
-    reading = visible && !visible.closest(".lh-opening")
+    // The desktop opening uses real sections, so preserve its reading position
+    // through media-query changes just like the chapters below it.
+    reading = visible && (!visible.closest(".lh-opening") || visible.closest('[data-opening-anchors]'))
       ? { element: visible, top: visible.getBoundingClientRect().top }
       : null;
   };
@@ -59,6 +72,9 @@ export function mountHomePosition(root: HTMLElement) {
   };
   const schedule = () => { if (alive && !frame) frame = requestAnimationFrame(settle); };
   const resize = () => {
+    // The narrow layout has no pins to rebuild when the address bar changes.
+    if (!wide.matches && window.innerWidth === layoutWidth) return;
+    layoutWidth = window.innerWidth;
     if (inputTimer) { releaseLayout(); return; }
     restoring ??= reading;
     changingLayout = true;
@@ -82,14 +98,14 @@ export function mountHomePosition(root: HTMLElement) {
   };
   const navigate = () => {
     clearTimeout(inputTimer); inputTimer = 0;
-    releaseLayout(); target = hashTarget(); aligned = false; schedule();
+    releaseLayout(); target = hashTarget(); openingAnchor = hasOpeningAnchor(); aligned = false; schedule();
   };
   const waitForInput = () => {
     clearTimeout(inputTimer);
     inputTimer = window.setTimeout(() => { inputTimer = 0; capture(); }, 300);
   };
   const input = () => {
-    target = null; reading = null; releaseLayout(); waitForInput();
+    target = null; openingAnchor = false; reading = null; releaseLayout(); waitForInput();
   };
   const key = (event: KeyboardEvent) => {
     if (["ArrowUp", "ArrowDown", "PageUp", "PageDown", "Home", "End", " "].includes(event.key)) input();
@@ -125,9 +141,15 @@ export function mountHomePosition(root: HTMLElement) {
   window.addEventListener("wheel", input, { passive: true });
   window.addEventListener("touchstart", input, { passive: true });
   window.addEventListener("pointerdown", input, { passive: true });
+  window.addEventListener("lumiq:home-top", input);
   window.addEventListener("keydown", key);
   document.fonts.ready.then(schedule);
-  capture();
+  // The browser/Next router may already have restored a scroll offset here,
+  // but HomeMotion has not created the opening's pin yet. Capturing this
+  // temporary layout would pick a later chapter and pull the reader down when
+  // the initial refresh adds the pin. The first scheduled settle captures only
+  // after the synchronous motion setup has finished; real resizes still use
+  // the last settled snapshot above.
   schedule();
 
   return () => {
@@ -147,6 +169,7 @@ export function mountHomePosition(root: HTMLElement) {
     window.removeEventListener("wheel", input);
     window.removeEventListener("touchstart", input);
     window.removeEventListener("pointerdown", input);
+    window.removeEventListener("lumiq:home-top", input);
     window.removeEventListener("keydown", key);
   };
 }

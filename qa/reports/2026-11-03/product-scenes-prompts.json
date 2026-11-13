@@ -1,0 +1,24 @@
+[
+  {
+    "name": "olago-home",
+    "prompt": "Use case: compositing. Create one premium photorealistic lifestyle product photo for LumiqOlaGo, landscape 4:3. Image 1 is the exact palm-sized round LumiqOlaGo device reference; image 2 shows the matching gold LumiqOla home device, its avatar and room style. An adult woman around 45 arrives home, gently holding the round device near the gold Ola on a wooden console. Adult-only scene, no children. Keep both device designs and proportions faithful, round device about 8cm diameter and gold device roughly 35cm tall. Natural warm window light, calm modern home, beige/wood palette. Both products clearly visible, no extra devices, no captions, no promotional typography. Do not alter the blonde character's costume. A fresh scene, not a screenshot of a website.",
+    "references": [
+      "related/website/public/assets/ola-go-detail/original-20260915/ola-go-three-quarter.png",
+      "related/website/public/assets/western-scenes-20260908/ola-go-return-home-v3.webp"
+    ]
+  },
+  {
+    "name": "olago-outdoor",
+    "prompt": "Use case: product-mockup. One landscape 4:3 photorealistic lifestyle product photo. Use the supplied image as exact reference for the round LumiqOlaGo: champagne metallic rim, black round screen with yellow/white time and weather UI, two side buttons. A smiling woman about 60 wearing a beige jacket pauses on a sunlit park path, looking down at this palm-sized device in her hand. Device 8cm diameter, unmistakably visible in foreground, hands natural. Mid-close composition, soft greenery, premium natural photography, calm warm neutral palette. No children, no smartphone, no smartwatch straps, no text overlays. Preserve the device industrial design.",
+    "references": [
+      "related/website/public/assets/ola-go-detail/original-20260915/ola-go-three-quarter.png"
+    ]
+  },
+  {
+    "name": "olago-journal",
+    "prompt": "Use case: product-mockup. Create one landscape 4:3 photorealistic lifestyle image for the voice journal of LumiqOlaGo. Exact device reference supplied: round palm-sized black display with gold-yellow/white dashboard, champagne metallic rim, two buttons, no watch band. A man around 50 seated on a cream sofa at home, comfortably holding this 8cm device at chest level while talking softly to it, device face visible to camera. Three-quarter medium-close photo, natural hand anatomy, device clearly visible, a notebook on side table, warm soft daylight, realistic textures, uncluttered. No children, no captions, no extra devices or fabricated UI overlays. Keep product design faithful.",
+    "references": [
+      "related/website/public/assets/ola-go-detail/original-20260915/ola-go-three-quarter.png"
+    ]
+  }
+]

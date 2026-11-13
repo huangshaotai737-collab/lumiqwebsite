@@ -69,14 +69,17 @@ test('native product swipes change products while vertical gestures still scroll
   } finally { await context.close(); }
 });
 
-test('major phone chapter headings match the opening headline and inner-page text has stronger contrast', async ({page}) => {
+test('phone chapter headings share one level below the opening headline and inner-page text has stronger contrast', async ({page}) => {
   await page.setViewportSize({width: 390, height: 844});
   await ready(page, '/zh-hant');
   const sizes = await page.evaluate(() => {
     const size = (s: string) => parseFloat(getComputedStyle(document.querySelector(s)!).fontSize);
     return {hero: size('#hero-title'), sections: ['#ola-title', '#films-title', '.lh-room-heading h2', '.lh-safety-copy h2', '.lh-family-heading h2', '.lh-join-copy h2'].map(size)};
   });
-  expect(sizes.sections.every(size => Math.abs(size - sizes.hero) < 1)).toBe(true);
+  // Preserve the existing H1/H2 hierarchy while enforcing consistent chapter sizing.
+  expect(sizes.sections.every(size => Math.abs(size - sizes.sections[0]) < 1)).toBe(true);
+  expect(Math.min(...sizes.sections)).toBeGreaterThanOrEqual(28);
+  expect(sizes.hero).toBeGreaterThan(Math.max(...sizes.sections));
   await ready(page, '/zh-hant/products');
   const text = await page.locator('.prod-hero-text p').evaluate(e => ({size: parseFloat(getComputedStyle(e).fontSize), colour: getComputedStyle(e).color}));
   expect(text.size).toBeGreaterThanOrEqual(17);

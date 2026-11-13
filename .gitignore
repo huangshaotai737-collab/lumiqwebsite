@@ -15,3 +15,6 @@ output/交付/LumiQ-Codex-接力包-*.zip.sha256
 config/
 **/config/mcporter.json
 
+
+# Task-owned local platform runtime, credentials and verification evidence
+.lumiq-local/

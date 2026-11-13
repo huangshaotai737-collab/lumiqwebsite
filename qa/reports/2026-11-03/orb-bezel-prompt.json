@@ -1,0 +1,8 @@
+{
+  "tool": "image_gen built-in",
+  "mode": "edit",
+  "target": "related/website/public/assets/nest-detail/generated/nest-routine-closeup-v2.png",
+  "reference": "related/website/public/assets/web/nest15-oak-front.webp",
+  "prompt": "Use case: precise-object-edit. Input image 1 is the edit target: Orb wood-frame desktop device closeup next to a ceramic cup and pencil, 4:3 composition. Input image 2 is the actual product appearance reference ONLY: light oak outer frame and matte off-white inner bezel. Change ONLY the thick BLACK inner bezel surrounding the screen in image 1 into a matte warm OFF-WHITE inner bezel matching image 2, with subtle realistic existing lighting and very subtle recess shading. Keep the outer wooden frame, exact physical geometry, exact device position, exact screen quadrilateral and screen content, perspective, all edges, camera, tabletop, cup, pencil, background and image dimensions/composition unchanged. The screen's original four corners are near (223,199),(1140,214),(1213,820),(286,866) on the 1448x1086 original; keep these placements exactly to support an independently overlaid real UI. Do not add or remove objects. Do not place a black band inside the wood frame. Preserve fine wood texture. Output the complete edited target photo, not the reference.",
+  "processing": "PNG palette encoding only (Sharp, 256 colors); same 1448 × 1086 dimensions. User explicitly requested replacement of the wrong bezel."
+}

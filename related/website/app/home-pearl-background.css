@@ -6,7 +6,7 @@
 .lumiq-root .lh-home .lh-join-art, .lh-home .lh-join::before { display: none; }
 .lh-home .lh-trust-room::after, .lh-home .lh-safety-photo::after, .lh-home .lh-family-stage::after { background: none; }
 .lh-home .lh-room-background { mask-image: radial-gradient(ellipse at center, #000 48%, transparent 73%); }
-.lh-home .lh-safety-photo, .lh-home .lh-family-stage { mask-image: linear-gradient(transparent, #000 6%, #000 94%, transparent); }
+.lh-home .lh-safety-photo, .lh-home .lh-family-stage { mask-image: none; }
 .lh-home .lh-glass-products { mask-image: linear-gradient(transparent, #000 6%, #000 87%, transparent); }
 .lh-home .lh-products[data-glass-3d] .lh-glass-products::after { display: none; }
 .lumiq-root:has(.lh-home) > .footer { border-top-color: #ffffff70; }
@@ -14,6 +14,8 @@
 
 .lh-fixed-backgrounds { position: fixed; inset: 0; pointer-events: none; background: #f8f7fc; }
 .lh-fixed-backgrounds > div { position: absolute; inset: 0; background-position: center; background-size: cover; background-repeat: no-repeat; }
+/* Soften only the chapter background by 20%; products and copy stay untouched. */
+.lh-fixed-backgrounds::after { content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none; background: rgb(248 247 252 / 20%); }
 .lh-home :is(.lh-products, .lh-films-section, .lh-experiences, .lh-safety, .lh-family, .lh-join)::before { display: none; }
 
 /* Foregrounds no longer depend on video readiness: every frame stays light. */

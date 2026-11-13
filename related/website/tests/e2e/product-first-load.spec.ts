@@ -6,7 +6,7 @@ async function open(page: Page, slug: string, locale = 'zh-hant') {
 }
 
 async function artworkReady(page: Page) {
-  await expect.poll(() => page.locator('.pd-hero-visual img').evaluate((image: HTMLImageElement) =>
+  await expect.poll(() => page.locator('.pd-hero-visual img, .orb-hero-visual img').evaluate((image: HTMLImageElement) =>
     image.complete && image.naturalWidth > 0 && Boolean(image.currentSrc)), {timeout: 6000}).toBe(true);
 }
 
@@ -22,7 +22,7 @@ test('Orb appears on first entry even when the image transformation service stal
     });
     await open(page, 'nest');
     await artworkReady(page);
-    for (const swatch of await page.locator('.pd-finish-picker button').all()) {
+    for (const swatch of await page.locator('.orb-finish-picker button').all()) {
       await swatch.click();
       await artworkReady(page);
     }
@@ -85,22 +85,30 @@ for (const density of [1, 2]) {
   });
 }
 
-test('waitlist entries use the same label on products, plans, forms and the cart', async ({page}) => {
-  test.setTimeout(90000);
-  for (const [locale, label] of [['zh-hant', '加入候補名單'], ['en', 'Join the waitlist'], ['ja', 'ウェイトリストに登録']]) {
+for (const [locale, label, checkout] of [['zh-hant', '加入候補名單', '結帳'], ['en', 'Join the waitlist', 'Checkout'], ['ja', 'ウェイトリストに登録', 'チェックアウト']]) {
+  test(`${locale}: waitlist labels stay consistent while the cart leads to the approved checkout`, async ({page}) => {
     await page.setViewportSize({width: 1440, height: 900});
     for (const slug of ['ola', 'ola-go', 'tablet', 'print', 'nest']) {
       await open(page, slug, locale);
       for (const entry of await page.locator('.pd-primary-action').all()) await expect(entry).toHaveText(label);
+      if (slug === 'nest') {
+        // Brand row 114 removes the Orb cart/price, but keeps its waitlist entry.
+        await expect(page.locator('[data-cart-add="nest"]')).toHaveCount(0);
+        await expect(page.locator('main a[href$="/prelaunch"]').first()).toHaveText(label);
+      }
     }
-    await page.locator('[data-cart-add="nest"]').first().click();
-    await expect(page.locator('#lumiq-cart .cart-primary')).toHaveText(label);
+    await open(page, 'tablet', locale);
+    await page.locator('[data-cart-add="tablet"]').first().click();
+    await expect(page.locator('#lumiq-cart .cart-primary')).toHaveText(checkout);
+    await expect(page.locator('#lumiq-cart .cart-primary')).toHaveAttribute('href', `/${locale}/checkout`);
     await page.keyboard.press('Escape');
     await page.goto(`/${locale}/plans`, {waitUntil: 'domcontentloaded'});
     for (const entry of await page.locator('main a[href$="/prelaunch"]').all()) await expect(entry).toHaveText(label);
     await page.goto(`/${locale}/prelaunch`, {waitUntil: 'domcontentloaded'});
     await expect(page.locator('button[type="submit"]')).toHaveText(label);
-  }
+  });
+}
+test('Orb waitlist navigation retains its label on phones', async ({page}) => {
   for (const width of [320, 390, 767]) {
     await page.setViewportSize({width, height: 844});
     await open(page, 'nest');

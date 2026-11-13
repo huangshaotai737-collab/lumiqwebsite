@@ -103,23 +103,23 @@ test('mobile type has supporting, reading and heading levels while inputs stay r
   expect(await page.locator('.members-panel input[maxlength="60"]').evaluate(e => parseFloat(getComputedStyle(e).fontSize))).toBeGreaterThanOrEqual(16);
 });
 
-test('phone opening copy and lower sections reveal on entry and reduced motion remains readable', async ({page}) => {
+test('phone opening copy and lower sections are readable on their first scroll frame', async ({page}) => {
   await page.setViewportSize({width: 390, height: 844});
   await page.emulateMedia({reducedMotion: 'no-preference'});
   await ready(page, '/zh-hant');
   const heading = page.locator('.lh-ola-copy h2');
-  await expect(heading).toHaveAttribute('data-scroll-reveal', 'pending');
-  await heading.evaluate(e => window.scrollTo({top: scrollY + e.getBoundingClientRect().top - 280, behavior: 'instant'}));
-  await expect.poll(() => heading.evaluate(e => e.getAnimations().length)).toBeGreaterThan(0);
   await expect(heading).not.toHaveAttribute('data-scroll-reveal', 'pending');
+  await heading.evaluate(e => window.scrollTo({top: scrollY + e.getBoundingClientRect().top - 280, behavior: 'instant'}));
+  expect(await heading.evaluate(e => getComputedStyle(e).opacity)).toBe('1');
+  expect(await heading.evaluate(e => e.getAnimations().length)).toBe(0);
   await page.emulateMedia({reducedMotion: 'reduce'});
   await expect(page.locator('[data-scroll-reveal="pending"]')).toHaveCount(0);
   await page.emulateMedia({reducedMotion: 'no-preference'});
   const lower = page.locator('.lh-safety-copy h2');
-  await expect(lower).toHaveAttribute('data-scroll-reveal', 'pending');
-  await lower.evaluate(e => window.scrollTo({top: scrollY + e.getBoundingClientRect().top - 280, behavior: 'instant'}));
-  await expect.poll(() => lower.evaluate(e => e.getAnimations().length)).toBeGreaterThan(0);
   await expect(lower).not.toHaveAttribute('data-scroll-reveal', 'pending');
+  await lower.evaluate(e => window.scrollTo({top: scrollY + e.getBoundingClientRect().top - 280, behavior: 'instant'}));
+  expect(await lower.evaluate(e => getComputedStyle(e).opacity)).toBe('1');
+  expect(await lower.evaluate(e => e.getAnimations().length)).toBe(0);
   await page.setViewportSize({width: 1440, height: 900});
   await page.emulateMedia({reducedMotion: 'reduce'});
   await expect(page.locator('[data-scroll-reveal="pending"]')).toHaveCount(0);

@@ -1,0 +1,232 @@
+{
+  "config": {
+    "argv": [
+      "/usr/local/bin/node",
+      "/Users/huangshaotai/Documents/lumiqwebsite-responsive-local-20261013/related/website/node_modules/.bin/playwright",
+      "test",
+      "-c",
+      ".lumiq-local/mobile-polish-20261104/playwright-online.config.cjs"
+    ],
+    "configFile": "/Users/huangshaotai/Documents/lumiqwebsite-responsive-local-20261013/.lumiq-local/mobile-polish-20261104/playwright-online.config.cjs",
+    "rootDir": "/Users/huangshaotai/Documents/lumiqwebsite-responsive-local-20261013/related/website/tests/e2e",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "/Users/huangshaotai/Documents/lumiqwebsite-responsive-local-20261013/.lumiq-local/mobile-polish-20261104/test-results-online",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "public-chromium",
+        "name": "public-chromium",
+        "testDir": "/Users/huangshaotai/Documents/lumiqwebsite-responsive-local-20261013/related/website/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "mobile-layout-polish.spec.ts",
+          "mobile-experience.spec.ts"
+        ],
+        "timeout": 120000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "line",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "/Users/huangshaotai/Documents/lumiqwebsite-responsive-local-20261013/.lumiq-local/mobile-polish-20261104/online-e2e.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.62.1",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "mobile-experience.spec.ts",
+      "file": "mobile-experience.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "phone carousel uses controls below the card and opens all five products",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "public-chromium",
+              "projectName": "public-chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 16230,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-04T11:39:38.372Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d0e828948376f89f9963-8f2d0158f7147beb4a73",
+          "file": "mobile-experience.spec.ts",
+          "line": 8,
+          "column": 5
+        }
+      ]
+    },
+    {
+      "title": "mobile-layout-polish.spec.ts",
+      "file": "mobile-layout-polish.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "phone height changes and font completion do not reset native home scrolling",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "public-chromium",
+              "projectName": "public-chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 6996,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-04T11:39:54.811Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "468626fadcfc420c6bb8-743d33e6607d8f854a20",
+          "file": "mobile-layout-polish.spec.ts",
+          "line": 5,
+          "column": 5
+        },
+        {
+          "title": "four phone principles form two rows, retaining their links",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "public-chromium",
+              "projectName": "public-chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 11154,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-04T11:40:01.811Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "468626fadcfc420c6bb8-68acfc0fb762d4032a7c",
+          "file": "mobile-layout-polish.spec.ts",
+          "line": 30,
+          "column": 5
+        },
+        {
+          "title": "legal and company pages share privacy backgrounds and compact phone spacing",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 120000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "public-chromium",
+              "projectName": "public-chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 15678,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-04T11:40:12.970Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "468626fadcfc420c6bb8-8b0099ea66742c8225e3",
+          "file": "mobile-layout-polish.spec.ts",
+          "line": 45,
+          "column": 5
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-11-04T11:39:38.152Z",
+    "duration": 50554.934,
+    "expected": 4,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}

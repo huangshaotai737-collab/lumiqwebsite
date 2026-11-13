@@ -31,7 +31,7 @@ describe("waitlist registration", () => {
 
     await expect(
       registerWaitlistEmail(
-        { email: "  Person@Example.COM ", website: "" },
+        "person@example.com",
         insert,
       ),
     ).resolves.toEqual({ ok: true, state: "created" });
@@ -48,7 +48,7 @@ describe("waitlist registration", () => {
 
     await expect(
       registerWaitlistEmail(
-        { email: "person@example.com", website: "" },
+        "person@example.com",
         insert,
       ),
     ).resolves.toEqual({ ok: true, state: "already_registered" });
@@ -59,22 +59,13 @@ describe("waitlist registration", () => {
 
     await expect(
       registerWaitlistEmail(
-        { email: "person@example.com", website: "" },
+        "person@example.com",
         insert,
       ),
     ).resolves.toEqual({ ok: false, error: "temporarily_unavailable" });
   });
 
-  it("does not insert honeypot submissions", async () => {
-    const insert = vi.fn();
-
-    await expect(
-      registerWaitlistEmail(
-        { email: "person@example.com", website: "https://spam.example" },
-        insert,
-      ),
-    ).resolves.toEqual({ ok: true, state: "created", isBot: true });
-
-    expect(insert).not.toHaveBeenCalled();
+  it("marks honeypot submissions before the insert boundary", () => {
+    expect(parseWaitlistRequest({ email: "person@example.com", website: "https://spam.example" })).toEqual({ ok: true, email: "person@example.com", isBot: true });
   });
 });

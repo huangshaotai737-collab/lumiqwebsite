@@ -36,12 +36,18 @@ for(const [engine,type] of Object.entries(engines)){
  let browser;
  const errors=[];
  try{
-  browser=await stage({engine},'launch',()=>type.launch(engine==='edge'?{channel:'msedge',timeout:timeoutMs}:{timeout:timeoutMs}));
-  const page=await stage({engine},'new-page',()=>browser.newPage());
-  page.setDefaultTimeout(timeoutMs);page.setDefaultNavigationTimeout(navigationTimeoutMs);
-  page.on('pageerror',e=>errors.push({message:e.message,stack:e.stack}));
+  browser=await stage({engine},'launch',()=>type.launch({
+   timeout:timeoutMs,
+   ...(engine==='edge'?{channel:'msedge'}:{}),
+   ...(engine==='webkit'&&process.env.AUDIT_HEADED_WEBKIT==='1'?{headless:false}:{}),
+  }));
   for(const locale of ['en','zh-hant','ja'])for(const route of routes){
    const context={engine,locale,route};
+   // Layout cases own their context; navigation behaviour has separate E2E coverage.
+   // Closing the page also disposes its paused decoders and outstanding prefetches.
+   const page=await stage(context,'new-page',()=>browser.newPage());
+   page.setDefaultTimeout(timeoutMs);page.setDefaultNavigationTimeout(navigationTimeoutMs);
+   page.on('pageerror',e=>errors.push({...context,message:e.message,stack:e.stack}));
    try{
     // Slow/unsupported media must not hold the layout audit at window.load.
     // Wait for the actual page and its typography instead of unrelated videos.
@@ -74,7 +80,10 @@ for(const [engine,type] of Object.entries(engines)){
      if(item.status!==200||state.overflow||state.overlaps||state.wrongColor.length||!state.memberReadable||state.legacy)failures.push(item);
     }
     if(locale==='zh-hant'&&['/products/tablet','/members'].includes(route))await stage(context,'screenshot',()=>page.screenshot({path:`${out}/${engine}-${route.replaceAll('/','-')}.png`,timeout:timeoutMs}));
-   }finally{await save();}
+   }finally{
+    try{await stage(context,'page-close',()=>page.close());}
+    finally{await save();}
+   }
   }
  }catch(error){
   failures.push({engine,...error.audit,message:error.message});

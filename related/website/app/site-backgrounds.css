@@ -1,0 +1,52 @@
+/* Decorative environments only: typography, layout and foreground media stay intact. */
+.lumiq-root {
+  --site-background-base: #f5f6fd;
+  --site-background-art: url('/assets/site-backgrounds-20261108/pearl-flow-desktop.webp');
+}
+
+/* A single continuous canvas avoids joins between long-page sections. */
+.lumiq-root:not(:has(.lh-home)) {
+  isolation: isolate;
+  background-color: var(--site-background-base);
+}
+.lumiq-root:not(:has(.lh-home)) > .bg-layer {
+  position: fixed;
+  bottom: auto;
+  height: 100vh;
+  height: 100lvh;
+  pointer-events: none;
+  background: var(--site-background-base) var(--site-background-art) center bottom / cover no-repeat;
+  transform: translateZ(0);
+}
+.lumiq-root :is(.story-page, .plans-page, .media-page, .faq-page, .prelaunch-page, .prod-page, .product-detail-light, .members-page, .subpage) {
+  background: transparent !important;
+}
+.lumiq-root :is(.story-page, .plans-page, .media-page, .faq-page, .prelaunch-page, .prod-page, .product-detail-light, .members-page)::before,
+.lumiq-root :is(.editorial-page, .subpage) > section::before {
+  content: none;
+}
+
+/* The home page retains its existing chapter-scrubbed video, separate from the opening. */
+@media (min-width: 768px) and (max-width: 1199px) {
+  .lumiq-root { --site-background-art: url('/assets/site-backgrounds-20261108/pearl-flow-compact.webp'); }
+}
+@media (max-width: 767px) {
+  .lumiq-root { --site-background-art: url('/assets/site-backgrounds-20261108/pearl-flow-mobile.webp'); }
+}
+@media (max-width: 1199px) {
+  /* Native scrolling: no new fixed or scroll-driven layer on touch layouts. */
+  .lumiq-root main.lh-home :is(#products, #films, #experiences, #safety, #family, #join)::before {
+    display: block;
+    background: linear-gradient(rgb(248 247 252 / 20%), rgb(248 247 252 / 20%)), var(--site-background-base) var(--site-background-art) center bottom / 100% auto no-repeat;
+    mask-image: none;
+  }
+}
+
+/* Homepage stills retain their decoded 480px frame until full artwork is ready. */
+.lumiq-root main.lh-home { --site-background-art: var(--home-flow-desktop); }
+@media (min-width: 768px) and (max-width: 1199px) {
+  .lumiq-root main.lh-home { --site-background-art: var(--home-flow-compact); }
+}
+@media (max-width: 767px) {
+  .lumiq-root main.lh-home { --site-background-art: var(--home-flow-mobile); }
+}

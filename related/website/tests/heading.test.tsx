@@ -14,4 +14,9 @@ describe("heading punctuation", () => {
     const html = renderToStaticMarkup(React.createElement(Heading, { as: "h1", id: "title" }, "One family.", React.createElement("br"), React.createElement("span", {}, "Different rhythms.")));
     expect(html).toBe('<h1 id="title">One family <br/><span>Different rhythms </span></h1>');
   });
+  it("can keep approved sentence punctuation without changing other headings", () => {
+    const html = renderToStaticMarkup(React.createElement(Heading, { as: "h1", preservePunctuation: true }, "Interaction.", React.createElement("br"), React.createElement("span", {}, "Reimagined.")));
+    expect(html).toBe('<h1>Interaction.<br/><span>Reimagined.</span></h1>');
+    expect(html).not.toContain('preservePunctuation');
+  });
 });

@@ -1,10 +1,13 @@
 "use client";
+import {useContentAdapter} from "@/components/content/useContentAdapter";
 
 import { useTranslations } from "next-intl";
 import ProductDetailTemplate from "@/components/ProductDetailTemplate";
 
 export default function OlaProductPage() {
+  const cms = useContentAdapter();
   const t = useTranslations("Pal");
+  const presentation = useTranslations("BrandPresentation.ola");
 
   return (
     <ProductDetailTemplate
@@ -16,10 +19,10 @@ export default function OlaProductPage() {
       title={`${t("titleBefore")} ${t("titleEm")}`}
       lede={t("lede")}
       conceptNotice={t("conceptNotice")}
-      priceLabel="USD 599"
+      priceLabel="USD 899"
       ctaLabel={t("buy")}
       heroImage={{
-        src: "/assets/web/ola-hero-front.webp",
+        src: cms.url("/assets/web/ola-hero-front.webp"),
         alt: t("deviceAlt"),
         fit: "contain",
         position: "center",
@@ -29,45 +32,33 @@ export default function OlaProductPage() {
         title: t("magic"),
         body: t("magicBody"),
         image: {
-          src: "/assets/western-scenes-20260908/ola-family-kitchen-v2.webp",
+          src: cms.url("/assets/western-scenes-20260908/ola-family-kitchen-v2.webp"),
           alt: t("adultsAlt"),
         },
-        noteTitle: t("synced"),
-        noteBody: t("syncedBody"),
+        items: [{title:t("way1Title"),body:t("way1Body")},{title:t("synced"),body:t("syncedBody")},{title:t("st1"),body:t("sb1")}],
       }}
-      scenesEyebrow={t("twoLives")}
-      scenesTitle={t("everyAge")}
       scenes={[
         {
           eyebrow: t("kids"),
-          title: t("kidsTitle"),
-          body: t("kidsBody"),
-          bullets: [t("kids1"), t("kids2"), t("kids3")],
+          title: t("everyAge"),
+          preserveTitlePunctuation: true,
+          body: `${t("kidsBody")} ${t("adultsBody")}`,
+          items: [{title:`${t("kids1")} · ${t("kids2")}`,body:`${presentation("daily1")} ${presentation("daily2")}`}, ...["kids3","adults1","adults2","adults3"].map((key,index)=>({title:t(key),body:presentation(`daily${index+3}`)}))],
           image: {
-            src: "/assets/western-scenes-20260908/ola-bedtime-story-v2.webp",
-            alt: t("kidsAlt"),
-          },
-        },
-        {
-          eyebrow: t("adults"),
-          title: t("adultsTitle"),
-          body: t("adultsBody"),
-          bullets: [t("adults1"), t("adults2"), t("adults3")],
-          image: {
-            src: "/assets/western-scenes-20260908/ola-senior-reminder-v2.webp",
+            src: cms.url("/assets/ola-scenes-20261103/adult-senior-companion.webp"),
             alt: t("adultsAlt"),
           },
         },
       ]}
       features={{
         title: t("waysTitle"),
+        intro: presentation("featuresIntro"),
         items: [1, 2, 3].map((number) => ({
-          eyebrow: t(`way${number}Pill`),
           title: t(`way${number}Title`),
           body: t(`way${number}Body`),
         })),
         image: {
-          src: "/assets/home-products-refined-20260907/ola-repaired.webp",
+          src: cms.url("/assets/western-scenes-20260908/ola-senior-reminder-v2.webp"),
           alt: t("deviceAlt"),
           fit: "contain",
         },
@@ -81,8 +72,8 @@ export default function OlaProductPage() {
           body: t(`sb${number}`),
         })),
         image: {
-          src: "/assets/ola-detail/original-20260915/ola-high-angle-crop.png",
-          alt: t("deviceAlt"),
+          src: cms.url("/assets/western-scenes-20260908/ola-bedtime-story-v2.webp"),
+          alt: t("kidsAlt"),
           fit: "contain",
         },
       }}

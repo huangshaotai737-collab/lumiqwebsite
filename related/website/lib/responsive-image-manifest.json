@@ -1,0 +1,376 @@
+{
+  "/assets/brand/lumiq-logo-transparent-dark.png": {
+    "base": "/assets/responsive/lumiq-logo-transparent-dark-32ed17a84321",
+    "widths": [
+      480,
+      768,
+      1200,
+      1600,
+      1920,
+      2560
+    ]
+  },
+  "/assets/brand/lumiq-logo-white-transparent-v2.png": {
+    "base": "/assets/responsive/lumiq-logo-white-transparent-v2-955314cb7d2e",
+    "widths": [
+      480,
+      768,
+      1200,
+      1600,
+      1920,
+      2560
+    ]
+  },
+  "/assets/films-20260908/welcome-home.jpg": {
+    "base": "/assets/responsive/welcome-home-2079c974148b",
+    "widths": [
+      480,
+      768,
+      1200,
+      1280
+    ]
+  },
+  "/assets/home-products-refined-20260907/ola-original-transparent.webp": {
+    "base": "/assets/responsive/ola-original-transparent-70bb25d8876f",
+    "widths": [
+      480,
+      768,
+      992
+    ]
+  },
+  "/assets/home-safety-20261002/story-world-family.jpg": {
+    "base": "/assets/responsive/story-world-family-03ce5bd07442",
+    "widths": [
+      480,
+      768,
+      1200,
+      1512
+    ]
+  },
+  "/assets/mobile-backgrounds-20260914/hero-unified.webp": {
+    "base": "/assets/responsive/hero-unified-28b9bcf2b072",
+    "widths": [
+      480,
+      768,
+      941
+    ]
+  },
+  "/assets/mobile-backgrounds-20260914/ola-go-ui.webp": {
+    "base": "/assets/responsive/ola-go-ui-af2ec3e85e6b",
+    "widths": [
+      480,
+      768,
+      941
+    ]
+  },
+  "/assets/nest-detail/generated/nest-family-kitchen-v2.png": {
+    "base": "/assets/responsive/nest-family-kitchen-v2-fd29c6006833",
+    "widths": [
+      480,
+      768,
+      1200,
+      1600,
+      1920,
+      2368
+    ]
+  },
+  "/assets/nest-detail/generated/nest-routine-closeup-v2.png": {
+    "base": "/assets/responsive/nest-routine-closeup-v2-daee1ed7936d",
+    "widths": [
+      480,
+      768,
+      1200,
+      1448
+    ]
+  },
+  "/assets/ola-scenes-20261103/adult-senior-companion.webp": {
+    "base": "/assets/responsive/adult-senior-companion-34d7748b10fb",
+    "widths": [
+      480,
+      768,
+      1200,
+      1448
+    ]
+  },
+  "/assets/print-detail/consistent-20260907/gift.webp": {
+    "base": "/assets/responsive/gift-59ce875c34e5",
+    "widths": [
+      480,
+      768,
+      1200,
+      1600,
+      1800
+    ]
+  },
+  "/assets/print-detail/consistent-20260907/reading.webp": {
+    "base": "/assets/responsive/reading-7108ff6b062f",
+    "widths": [
+      480,
+      768,
+      1200,
+      1600,
+      1920,
+      2368
+    ]
+  },
+  "/assets/product-scenes-20261103/olago-avatar.webp": {
+    "base": "/assets/responsive/olago-avatar-a57b1f7b31e0",
+    "widths": [
+      480,
+      768,
+      1200,
+      1448
+    ]
+  },
+  "/assets/product-scenes-20261103/olago-connected.webp": {
+    "base": "/assets/responsive/olago-connected-2fa1e7304049",
+    "widths": [
+      480,
+      768,
+      1200,
+      1600,
+      1920,
+      2368
+    ]
+  },
+  "/assets/product-scenes-20261103/olago-home.webp": {
+    "base": "/assets/responsive/olago-home-d9ba8120c501",
+    "widths": [
+      480,
+      768,
+      1200,
+      1600,
+      1920,
+      2368
+    ]
+  },
+  "/assets/product-scenes-20261103/olago-journal.webp": {
+    "base": "/assets/responsive/olago-journal-4faae2624a50",
+    "widths": [
+      480,
+      768,
+      1200,
+      1600,
+      1920,
+      2368
+    ]
+  },
+  "/assets/product-scenes-20261103/olago-outdoor.webp": {
+    "base": "/assets/responsive/olago-outdoor-f6de55dff24b",
+    "widths": [
+      480,
+      768,
+      1200,
+      1600,
+      1920,
+      2368
+    ]
+  },
+  "/assets/product-scenes-20261103/olago-weather.webp": {
+    "base": "/assets/responsive/olago-weather-a417b5b16970",
+    "widths": [
+      480,
+      768,
+      1200,
+      1600,
+      1920,
+      2368
+    ]
+  },
+  "/assets/product-scenes-20261103/orb-calendar.webp": {
+    "base": "/assets/responsive/orb-calendar-0d3595cce454",
+    "widths": [
+      480,
+      768,
+      1200,
+      1448
+    ]
+  },
+  "/assets/product-scenes-20261103/orb-chores.webp": {
+    "base": "/assets/responsive/orb-chores-67b7dee90e2d",
+    "widths": [
+      480,
+      768,
+      1200,
+      1448
+    ]
+  },
+  "/assets/product-scenes-20261103/orb-overview.webp": {
+    "base": "/assets/responsive/orb-overview-881bc36e6492",
+    "widths": [
+      480,
+      768,
+      1200,
+      1448
+    ]
+  },
+  "/assets/product-scenes-20261103/tablet-growth.webp": {
+    "base": "/assets/responsive/tablet-growth-4a939a67f2f9",
+    "widths": [
+      480,
+      768,
+      1200,
+      1448
+    ]
+  },
+  "/assets/product-scenes-20261103/tablet-stages.webp": {
+    "base": "/assets/responsive/tablet-stages-099ab410e846",
+    "widths": [
+      480,
+      768,
+      1200,
+      1600,
+      1920,
+      2368
+    ]
+  },
+  "/assets/products/lumiq-ola-go.png": {
+    "base": "/assets/responsive/lumiq-ola-go-c6455edcfd59",
+    "widths": [
+      480,
+      768,
+      1200,
+      1254
+    ]
+  },
+  "/assets/products/lumiq-ola-tablet-hero.webp": {
+    "base": "/assets/responsive/lumiq-ola-tablet-hero-8c4fccd9b765",
+    "widths": [
+      480,
+      768,
+      1200,
+      1268
+    ]
+  },
+  "/assets/products/lumiq-print.png": {
+    "base": "/assets/responsive/lumiq-print-08d622e4e532",
+    "widths": [
+      480,
+      768,
+      1200,
+      1254
+    ]
+  },
+  "/assets/tablet-detail/five-ways/imagime-v1.jpg": {
+    "base": "/assets/responsive/imagime-v1-704ac7683012",
+    "widths": [
+      480,
+      768,
+      1200,
+      1448
+    ]
+  },
+  "/assets/tablet-detail/generated/tablet-active-story-time-back-muted-20261001.png": {
+    "base": "/assets/responsive/tablet-active-story-time-back-muted-20261001-6639e52cacae",
+    "widths": [
+      480,
+      768,
+      1200,
+      1448
+    ]
+  },
+  "/assets/tablet-detail/generated/tablet-family-new-scene-20261026.png": {
+    "base": "/assets/responsive/tablet-family-new-scene-20261026-32531e3c1341",
+    "widths": [
+      480,
+      768,
+      1200,
+      1448
+    ]
+  },
+  "/assets/tablet-detail/generated/tablet-passive-new-scene-20261026.png": {
+    "base": "/assets/responsive/tablet-passive-new-scene-20261026-59be0f6e96f4",
+    "widths": [
+      480,
+      768,
+      1200,
+      1448
+    ]
+  },
+  "/assets/tablet-detail/generated/tablet-reading-lifestyle-v2.png": {
+    "base": "/assets/responsive/tablet-reading-lifestyle-v2-85cdbe147d47",
+    "widths": [
+      480,
+      768,
+      1200,
+      1448
+    ]
+  },
+  "/assets/tablet-detail/original-20260915/tablet-hero-original-transparent.png": {
+    "base": "/assets/responsive/tablet-hero-original-transparent-ee619e292a30",
+    "widths": [
+      480,
+      768,
+      1200,
+      1600,
+      1920,
+      2400
+    ]
+  },
+  "/assets/web/lumiq-print.webp": {
+    "base": "/assets/responsive/lumiq-print-2b154ed8bb57",
+    "widths": [
+      480,
+      768,
+      1000
+    ]
+  },
+  "/assets/web/lumiq-tablet.webp": {
+    "base": "/assets/responsive/lumiq-tablet-6d4ee2da3c07",
+    "widths": [
+      480,
+      768,
+      1100
+    ]
+  },
+  "/assets/web/ola-hero-front.webp": {
+    "base": "/assets/responsive/ola-hero-front-eafc808a4b24",
+    "widths": [
+      480,
+      768,
+      1200,
+      1600,
+      1800
+    ]
+  },
+  "/assets/western-scenes-20260908/ola-bedtime-story-v2.webp": {
+    "base": "/assets/responsive/ola-bedtime-story-v2-08f8272feab4",
+    "widths": [
+      480,
+      768,
+      1200,
+      1448
+    ]
+  },
+  "/assets/western-scenes-20260908/ola-family-kitchen-v2.webp": {
+    "base": "/assets/responsive/ola-family-kitchen-v2-4eca8b96c692",
+    "widths": [
+      480,
+      768,
+      1200,
+      1448
+    ]
+  },
+  "/assets/western-scenes-20260908/ola-senior-reminder-v2.webp": {
+    "base": "/assets/responsive/ola-senior-reminder-v2-4258b1f569f7",
+    "widths": [
+      480,
+      768,
+      1200,
+      1600,
+      1920,
+      2560
+    ]
+  },
+  "/assets/western-scenes-20260908/tablet-parent-controls-v2.webp": {
+    "base": "/assets/responsive/tablet-parent-controls-v2-0771b418c826",
+    "widths": [
+      480,
+      768,
+      1200,
+      1600,
+      1920,
+      2560
+    ]
+  }
+}

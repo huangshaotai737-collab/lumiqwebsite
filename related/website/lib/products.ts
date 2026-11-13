@@ -1,3 +1,4 @@
+import type {ContentSnapshot, ProductPresentation} from "./generated/platform/content";
 export type ProductId = "ola" | "ola-go" | "tablet" | "print" | "nest";
 
 export type ProductPrice =
@@ -119,3 +120,8 @@ export const PRODUCT_BY_ID = Object.fromEntries(
 export const PURCHASABLE_PRODUCTS = PRODUCT_CATALOG.filter(
   (product) => product.price.kind === "usd",
 );
+
+/** Fixed identity and order; presentation always comes from this request snapshot. */
+export function productCatalogue(snapshot: ContentSnapshot): ProductPresentation[] {
+  return PRODUCT_CATALOG.map(({id}) => snapshot.products[id]);
+}

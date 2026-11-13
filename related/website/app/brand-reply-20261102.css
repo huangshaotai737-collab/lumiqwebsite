@@ -1,0 +1,45 @@
+/* Brand reply: one carousel control style; preserve the product mirror and loading path. */
+.lh-home :is(.lh-products-controls,.lh-family-controls,.lh-films-controls,.lh-mobile-films-controls) {
+  display:flex; flex-direction:row; align-items:center; justify-content:center; gap:22px;
+  width:max-content; max-width:100%; height:auto; min-height:44px; font-variant-numeric:tabular-nums;
+}
+.lh-home :is(.lh-products-controls,.lh-family-controls,.lh-films-controls,.lh-mobile-films-controls) button {
+  width:44px; height:44px; min-width:44px; flex:0 0 44px; display:grid; place-items:center;
+  padding:0; border-radius:50%; border:1px solid #d2d8df; background:#fff; color:#233448;
+}
+.lh-home :is(.lh-products-controls,.lh-family-controls,.lh-films-controls,.lh-mobile-films-controls) button svg {width:22px;height:22px}
+.lh-home :is(.lh-products-controls,.lh-family-controls,.lh-films-controls,.lh-mobile-films-controls) > span {
+  display:flex; flex-direction:row; align-items:center; gap:4px; font-size:16px; color:#526176; letter-spacing:0; line-height:1.5;
+}
+.lh-home :is(.lh-products-controls,.lh-family-controls,.lh-films-controls,.lh-mobile-films-controls) strong {font-size:inherit;font-weight:500;color:inherit}
+.lh-home :is(.lh-family-controls,.lh-films-controls,.lh-mobile-films-controls) {margin:22px auto 0}
+.lh-home .lh-family-controls {order:3}
+.lh-home .lh-family-stage {-webkit-mask-image:none;mask-image:none}
+/* Fade only the clipped strip at the stage's left edge. The main film starts
+   at 9%, so its picture, controls and right edge stay fully opaque. */
+.lh-home .lh-films-stage {
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000);
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000);
+}
+.lh-home .lh-films-layout {flex-direction:column;gap:0}
+.lh-home .lh-films-controls {position:relative;inset:auto;transform:none;flex-shrink:0}
+@media(min-width:768px){
+  .lh-home .lh-films-stage {height:calc(var(--film-height) + 64px)}
+  .lh-home .lh-films-layout {padding-top:clamp(120px,15svh,190px)}
+}
+@media(min-width:1200px) and (min-aspect-ratio:5/2){
+  .lh-home .lh-films-layout {padding-top:80px}
+  .lh-home .lh-films-stage {height:calc(var(--film-height) + 24px)}
+}
+.pd-vip-price {display:block;font-size:16px;line-height:1.5;font-weight:500;margin-top:4px}
+.brand-family-data {max-width:80ch;line-height:1.85}
+.lumiq-root .brand-family-data {padding-block:24px}
+.brand-family-data h2 {font-size:clamp(22px,2vw,32px);line-height:1.4}
+.brand-family-data p {margin:16px 0}
+.brand-family-data a {text-decoration:underline;overflow-wrap:anywhere}
+.orb-ui-gallery {display:grid;gap:28px;margin-top:36px}
+.orb-ui-gallery figure {margin:0;min-width:0}
+.orb-ui-gallery img {display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:contain;border:1px solid #d9dfe4;border-radius:14px}
+.orb-ui-gallery figcaption {margin-top:10px;color:#526176;font-size:15px}
+.lumiq-root main .plans-hardware .hw-name {font-size:clamp(24px,2.35vw,34px) !important;word-break:normal;overflow-wrap:normal}
+@media(min-width:1100px){.orb-ui-gallery:has(figure:nth-child(2)){grid-template-columns:repeat(2,minmax(0,1fr))}}

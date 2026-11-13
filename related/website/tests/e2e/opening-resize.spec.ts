@@ -1,6 +1,5 @@
 import { expect, test, type Page } from "@playwright/test";
 
-test.use({ channel: "chrome" });
 test.beforeEach(async ({ page }, info) => {
   test.skip(info.project.name !== "desktop", "Desktop film and its responsive handoff");
   await page.setViewportSize({ width: 1440, height: 800 });
@@ -16,22 +15,18 @@ const state = (page: Page) => page.locator(".lh-opening-video").evaluate((video:
   src: video.getAttribute("src"),
 }));
 
-// Catches height-dependent scroll-distance recalculation advancing the film,
-// and unrelated responsive GSAP contexts resetting the opening to frame zero.
-test("height resizing preserves the current opening frame and reverse scrub", async ({ page }) => {
-  await page.evaluate(() => scrollTo({ top: 1100, behavior: "instant" }));
-  await expect.poll(async () => (await state(page)).time).toBeGreaterThan(3);
-  const before = await state(page);
+// The opening now has two real viewport anchors rather than a pinned scrub range.
+test("height resizing preserves the companion anchor and allows a reverse gesture", async ({ page }) => {
+  await page.evaluate(() => { location.hash = 'ola'; });
+  await expect.poll(() => page.locator('#ola').evaluate(e => Math.abs(e.getBoundingClientRect().top))).toBeLessThan(2);
+  await expect.poll(async () => (await state(page)).progress).toBeGreaterThan(.99);
   for (const height of [600, 1000, 498, 800]) {
     await page.setViewportSize({ width: 1440, height });
-    await page.waitForTimeout(650);
-    const after = await state(page);
-    expect(Math.abs(after.progress - before.progress), `frame progress at ${height}px height`).toBeLessThan(.015);
-    expect(Math.abs(after.time - before.time)).toBeLessThan(.09);
+    await expect.poll(() => page.locator('#ola').evaluate(e => Math.abs(e.getBoundingClientRect().top))).toBeLessThan(2);
+    await expect.poll(async () => (await state(page)).progress).toBeGreaterThan(.99);
   }
   await page.mouse.wheel(0, -240);
-  await expect.poll(async () => (await state(page)).time).toBeLessThan(before.time - .2);
-  await page.evaluate(() => scrollTo({ top: 0, behavior: "instant" }));
+  await expect.poll(async () => (await state(page)).y).toBeLessThan(2);
   await expect.poll(async () => (await state(page)).time).toBeLessThan(.05);
 });
 
@@ -87,21 +82,19 @@ test("continuous width and aspect-ratio resize keeps one proportional media plan
   }
 });
 
-// Catches progress snapshots being overwritten by the intermediate pin revert
-// during a drag, including quick consecutive desktop/mobile transitions.
-test("a continuous window drag keeps the mid-film frame through width and height breakpoints", async ({ page }) => {
-  await page.evaluate(() => scrollTo({ top: 1100, behavior: "instant" }));
-  await expect.poll(async () => (await state(page)).time).toBeGreaterThan(3);
-  const before = await state(page);
+// Returning from compact layout retains the companion anchor, not an obsolete
+// mid-film pixel offset, and upward scrolling remains available.
+test("a continuous window drag retains the companion anchor through breakpoints", async ({ page }) => {
+  await page.evaluate(() => { location.hash = 'ola'; });
+  await expect.poll(async () => (await state(page)).progress).toBeGreaterThan(.99);
   for (const [width, height] of [[1460, 790], [1500, 780], [1519, 799], [1521, 801], [1440, 719], [1400, 640], [1380, 600], [1280, 498], [1200, 720], [1199, 720], [1190, 730], [1200, 740], [1440, 800]]) {
     await page.setViewportSize({ width, height });
     await page.evaluate(() => new Promise<void>(resolve => requestAnimationFrame(() => requestAnimationFrame(() => resolve()))));
-    if (width >= 1200) expect(Math.abs((await state(page)).progress - before.progress)).toBeLessThan(.015);
   }
-  await page.waitForTimeout(650);
-  expect(Math.abs((await state(page)).time - before.time)).toBeLessThan(.09);
-  await page.mouse.wheel(0, 240);
-  await expect.poll(async () => (await state(page)).time).toBeGreaterThan(before.time + .2);
+  await expect.poll(() => page.locator('#ola').evaluate(e => Math.abs(e.getBoundingClientRect().top))).toBeLessThan(2);
+  await expect.poll(async () => (await state(page)).progress).toBeGreaterThan(.99);
+  await page.mouse.wheel(0, -240);
+  await expect.poll(async () => (await state(page)).y).toBeLessThan(2);
 });
 
 test("a direct OLA link still opens the final opening frame", async ({ page }) => {
@@ -139,7 +132,9 @@ for (const activation of ["pointer", "Enter"] as const) {
     if (activation === "Enter") await page.keyboard.press("Enter");
     else await discover.click();
     const positions = await tracking;
-    expect(positions.at(-1)!.y, JSON.stringify(positions)).toBeGreaterThan(2000);
+    expect(positions.at(-1)!.hash).toBe('#products');
+    expect(positions.at(-1)!.productTop).toBeGreaterThanOrEqual(0);
+    expect(positions.at(-1)!.productTop).toBeLessThan(120);
     const largestRetreat = Math.min(0, ...positions.slice(1).map((s, index) => s.y - positions[index].y));
     expect(largestRetreat, "a delayed resize refresh must not undo the user's navigation: " + JSON.stringify(positions)).toBeGreaterThan(-100);
   });

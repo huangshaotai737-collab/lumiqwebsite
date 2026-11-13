@@ -54,8 +54,8 @@ html:has(.cart-drawer) { scrollbar-gutter: stable; }
 }
 @media (max-width: 600px) {
   .cart-drawer { width: 100vw; border-radius: 0; }
-  .cart-header { padding-inline: 22px; }
-  .cart-content { padding-inline: 22px; }
+  .cart-header,
+  .cart-content,
   .cart-footer { padding-inline: 22px; }
 }
 @media (max-width: 420px) {

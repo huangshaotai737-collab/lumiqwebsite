@@ -1,0 +1,53 @@
+name: Admin platform acceptance
+on:
+  workflow_dispatch:
+  pull_request:
+    paths: ['related/**', 'scripts/**', 'contracts/**', 'supabase/**', '.github/workflows/admin-platform.yml']
+permissions:
+  contents: read
+concurrency:
+  group: admin-platform-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  local-acceptance:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    env:
+      NEXT_TELEMETRY_DISABLED: '1'
+      MEDIA_FFPROBE_PATH: /usr/bin/ffprobe
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          lfs: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: |
+            related/admin/package-lock.json
+            related/website/package-lock.json
+      - uses: supabase/setup-cli@v1
+        with:
+          version: 2.121.0
+      - run: sudo apt-get update && sudo apt-get install -y ffmpeg
+      - run: supabase start
+      - name: Install fixed application dependencies and browser engines
+        run: |
+          node scripts/platform/prepare.mjs
+          cd .lumiq-local/verification/related/website
+          npx playwright install --with-deps chromium firefox webkit chrome
+          cd ../admin
+          npx playwright install --with-deps chromium
+      - name: Run local verification (SQL precedes synthetic browser accounts)
+        run: node scripts/verify-platform.mjs
+      - name: Remove ephemeral database and local credentials
+        if: always()
+        run: |
+          supabase stop --no-backup
+          rm -f .lumiq-local/test.env
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: platform-verification
+          path: .lumiq-local/evidence/verification
+          retention-days: 7

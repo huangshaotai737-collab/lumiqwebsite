@@ -12,8 +12,10 @@ let webglAvailable: boolean | undefined;
 function canRenderGlass() {
   if (webglAvailable !== undefined) return webglAvailable;
   try {
-    const context = document.createElement('canvas').getContext('webgl2', {alpha: true, antialias: true});
-    webglAvailable = Boolean(context);
+    const context = document.createElement('canvas').getContext('webgl2', {alpha: true, antialias: true, failIfMajorPerformanceCaveat: true});
+    const info = context?.getExtension('WEBGL_debug_renderer_info');
+    const renderer = info ? String(context?.getParameter(info.UNMASKED_RENDERER_WEBGL)) : '';
+    webglAvailable = !!context && !/swiftshader|llvmpipe|softpipe|software rasterizer|microsoft basic render/i.test(renderer);
     context?.getExtension('WEBGL_lose_context')?.loseContext();
   } catch {
     webglAvailable = false;
@@ -115,7 +117,16 @@ class MaterialFallback extends Component<{children: ReactNode}, {failed: boolean
 }
 
 function FrostedFallback() {
-  return <div style={{position: 'absolute', inset: 0, borderRadius: 'inherit', background: 'rgba(237,240,245,.7)', backdropFilter: 'blur(30px)'}} />;
+  // Paint once: a software renderer should not redraw three transmission
+  // materials (or blur their moving backdrops) on every transition frame.
+  const surface = useRef<HTMLCanvasElement>(null);
+  useEffect(() => {
+    if (surface.current?.getContext('2d')) paintStudio(surface.current, 0);
+  }, []);
+  return <div style={{position:'absolute', inset:0, borderRadius:'inherit', overflow:'hidden',
+    background:'rgba(237,240,245,.68)', boxShadow:'inset 0 2px 5px #fff, inset 0 0 12px rgba(80,100,120,.19)'}}>
+    <canvas ref={surface} width={512} height={512} style={{display:'block', opacity:.55}} />
+  </div>;
 }
 
 export default function GlassCardMaterial({animated = false, variant = 0}: {animated?: boolean; variant?: number}) {

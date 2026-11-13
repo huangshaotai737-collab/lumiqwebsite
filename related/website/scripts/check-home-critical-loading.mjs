@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import { chromium } from '@playwright/test';
 
 const url = process.env.LUMIQ_LOADING_URL || 'http://127.0.0.1:4192/en';
-const browser = await chromium.launch({ channel: 'chrome', headless: true });
+const browser = await chromium.launch({ headless: true });
 try {
   const context = await browser.newContext({ viewport: { width: 1440, height: 1000 } });
   const page = await context.newPage();
@@ -27,10 +27,23 @@ try {
   assert.equal(await page.locator('#products').getAttribute('data-glass-3d'), null, 'real product links stay available before the canvas is ready');
   assert.equal(await page.locator('#products img').first().evaluate(img => img.currentSrc.startsWith('data:')), true, 'offscreen artwork stays on an inline preview');
   const reservedHeight = await page.locator('#products').evaluate(section => section.getBoundingClientRect().height);
+  await page.evaluate(() => {
+    window.__glassTransitions = [];
+    const section = document.querySelector('#products');
+    new MutationObserver(records => records.forEach(record => {
+      window.__glassTransitions.push({name: record.attributeName, oldValue: record.oldValue, at: performance.now()});
+    })).observe(section, {attributes: true, attributeOldValue: true, attributeFilter: ['data-glass-revealing', 'data-glass-3d']});
+  });
   await page.locator('#products').scrollIntoViewIfNeeded();
   await page.waitForFunction(() => document.querySelector('.lh-glass-products canvas'), { timeout: 60000 });
   await page.locator('.lh-glass-products a').first().waitFor();
+  await page.waitForFunction(() => document.querySelector('#products')?.hasAttribute('data-glass-revealing'));
+  assert.equal(await page.locator('.lh-products-viewport').isVisible(), true, 'HTML cards remain visible during the canvas handoff');
   await page.waitForFunction(() => document.querySelector('#products')?.hasAttribute('data-glass-3d'));
+  const handoff = await page.evaluate(() => window.__glassTransitions);
+  const fadeStart = handoff.find(event => event.name === 'data-glass-revealing' && event.oldValue === null)?.at;
+  const fadeEnd = handoff.find(event => event.name === 'data-glass-3d' && event.oldValue === null)?.at;
+  assert.ok(fadeStart && fadeEnd && fadeEnd - fadeStart >= 280, 'the rendered canvas fades in before replacing HTML cards');
   const readyHeight = await page.locator('#products').evaluate(section => section.getBoundingClientRect().height);
   assert.ok(Math.abs(readyHeight - reservedHeight) < 1, '3D activation must not change the reserved chapter height');
   await page.screenshot({ path: '/tmp/lumiq-loading-products-ready.png' });

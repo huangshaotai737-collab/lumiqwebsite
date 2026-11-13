@@ -1,0 +1,1260 @@
+{
+  "application_commit": "d66a4b0adadb38148504b8af0c5e45807b817ce5",
+  "date": "2026-11-12",
+  "unit": {
+    "root": 41,
+    "admin": 145,
+    "website": 250,
+    "passed": 436
+  },
+  "database": {
+    "permissions": 566,
+    "concurrency": 16,
+    "passed": 582
+  },
+  "e2e": {
+    "passed": 221,
+    "skipped": 22,
+    "failed_after_retest": 0,
+    "basis": "按项目和测试标题去重，采用最终完整相关套件的复测结果；保留首次失败记录。",
+    "cases": [
+      {
+        "case": "[chromium] › tests/e2e/admin-responsive.spec.ts:3:7 › unconfigured login and safe shell at 360",
+        "status": "PASS",
+        "source_log": "admin-shell.log"
+      },
+      {
+        "case": "[chromium] › tests/e2e/admin-responsive.spec.ts:3:7 › unconfigured login and safe shell at 320",
+        "status": "PASS",
+        "source_log": "admin-shell.log"
+      },
+      {
+        "case": "[chromium] › tests/e2e/admin-responsive.spec.ts:3:7 › unconfigured login and safe shell at 430",
+        "status": "PASS",
+        "source_log": "admin-shell.log"
+      },
+      {
+        "case": "[chromium] › tests/e2e/admin-responsive.spec.ts:3:7 › unconfigured login and safe shell at 390",
+        "status": "PASS",
+        "source_log": "admin-shell.log"
+      },
+      {
+        "case": "[chromium] › tests/e2e/admin-responsive.spec.ts:3:7 › unconfigured login and safe shell at 1440",
+        "status": "PASS",
+        "source_log": "admin-shell.log"
+      },
+      {
+        "case": "[chromium] › tests/e2e/admin-responsive.spec.ts:3:7 › unconfigured login and safe shell at 820",
+        "status": "PASS",
+        "source_log": "admin-shell.log"
+      },
+      {
+        "case": "[chromium] › tests/e2e/admin-responsive.spec.ts:17:5 › staff credentials cannot become query strings before JavaScript is ready",
+        "status": "PASS",
+        "source_log": "admin-shell.log"
+      },
+      {
+        "case": "[chromium] › tests/e2e/shell.spec.ts:3:5 › unconfigured_admin_is_closed",
+        "status": "PASS",
+        "source_log": "admin-shell.log"
+      },
+      {
+        "case": "[chromium] › tests/e2e/admin-responsive.spec.ts:3:7 › unconfigured login and safe shell at 1920",
+        "status": "PASS",
+        "source_log": "admin-shell.log"
+      },
+      {
+        "case": "[chromium] › tests/e2e/shell.spec.ts:22:5 › login_is_accessible_by_keyboard_and_cannot_submit_without_configuration",
+        "status": "PASS",
+        "source_log": "admin-shell.log"
+      },
+      {
+        "case": "[chromium] › tests/e2e/shell.spec.ts:38:5 › sidebar_collapses_without_exposing_unimplemented_modules",
+        "status": "PASS",
+        "source_log": "admin-shell.log"
+      },
+      {
+        "case": "[chromium] › tests/e2e/shell.spec.ts:52:5 › mobile_shell_has_no_horizontal_overflow",
+        "status": "PASS",
+        "source_log": "admin-shell.log"
+      },
+      {
+        "case": "[chromium] › tests/e2e/staff-session.spec.ts:49:5 › anonymous_is_401_and_metadata_member_is_403",
+        "status": "PASS",
+        "source_log": "admin-auth.log"
+      },
+      {
+        "case": "[chromium] › tests/e2e/staff-session.spec.ts:66:5 › disabled_staff_session_is_rejected",
+        "status": "PASS",
+        "source_log": "admin-auth.log"
+      },
+      {
+        "case": "[chromium] › tests/e2e/staff-session.spec.ts:86:5 › cross_origin_writes_are_403_and_signout_clears_session",
+        "status": "PASS",
+        "source_log": "admin-auth.log"
+      },
+      {
+        "case": "[chromium] › tests/e2e/staff-session.spec.ts:99:5 › reject_external_auth_redirect_and_handle_expired_callback",
+        "status": "PASS",
+        "source_log": "admin-auth.log"
+      },
+      {
+        "case": "[chromium] › tests/e2e/staff-session.spec.ts:111:5 › limits_are_shared_between_two_app_instances",
+        "status": "PASS",
+        "source_log": "admin-auth.log"
+      },
+      {
+        "case": "[chromium] › tests/e2e/staff-session.spec.ts:118:5 › website_locales_login_and_current_profile_denial",
+        "status": "PASS",
+        "source_log": "admin-auth.log"
+      },
+      {
+        "case": "[chromium] › tests/e2e/staff-session.spec.ts:155:5 › ssr_refreshes_and_persists_real_auth_cookies_then_rejects_expired_refresh",
+        "status": "PASS",
+        "source_log": "admin-auth.log"
+      },
+      {
+        "case": "[chromium] › tests/e2e/staff-session.spec.ts:169:5 › permission-response counterexample rejects an injected success",
+        "status": "PASS",
+        "source_log": "admin-auth.log"
+      },
+      {
+        "case": "[chromium] › tests/e2e/team.spec.ts:116:5 › editor and operations invitation APIs return 403, missing origin fails closed",
+        "status": "PASS",
+        "source_log": "admin-team.log"
+      },
+      {
+        "case": "[chromium] › tests/e2e/team.spec.ts:154:5 › invitation email, verified identity, explicit acceptance and single use work in browser",
+        "status": "PASS",
+        "source_log": "admin-team.log"
+      },
+      {
+        "case": "[chromium] › tests/e2e/team.spec.ts:223:5 › pending team save locks the submitted values and later edits clear saved feedback",
+        "status": "PASS",
+        "source_log": "admin-team.log"
+      },
+      {
+        "case": "[chromium] › tests/e2e/team.spec.ts:259:5 › failed SMTP delivery never grants role; role/status change and safe settings audited",
+        "status": "PASS",
+        "source_log": "admin-team.log"
+      },
+      {
+        "case": "[chromium] › tests/e2e/content-editor.spec.ts:47:5 › admin initializes workspace; field errors keep input and expose exact field location",
+        "status": "PASS",
+        "source_log": "admin-content.log"
+      },
+      {
+        "case": "[chromium] › tests/e2e/content-editor.spec.ts:107:7 › pending save response prevents editing and cannot mark newer text saved",
+        "status": "PASS",
+        "source_log": "admin-content.log"
+      },
+      {
+        "case": "[chromium] › tests/e2e/content-editor.spec.ts:107:7 › pending submit response prevents editing and cannot mark newer text saved",
+        "status": "PASS",
+        "source_log": "admin-content.log"
+      },
+      {
+        "case": "[chromium] › tests/e2e/content-editor.spec.ts:137:5 › concurrent_draft_save_conflicts and draft_never_changes_public_release",
+        "status": "PASS",
+        "source_log": "admin-content.log"
+      },
+      {
+        "case": "[chromium] › tests/e2e/content-editor.spec.ts:151:5 › stale browser retains input and offers a downloadable conflict copy",
+        "status": "PASS",
+        "source_log": "admin-content.log"
+      },
+      {
+        "case": "[chromium] › tests/e2e/content-editor.spec.ts:179:5 › editor settings bypass and operations drafts access are denied by server and direct RPC",
+        "status": "PASS",
+        "source_log": "admin-content.log"
+      },
+      {
+        "case": "[chromium] › tests/e2e/content-editor.spec.ts:201:5 › bad ICU and missing locales saved by raw RPC cannot be published; valid publish and rollback create history",
+        "status": "PASS",
+        "source_log": "admin-content.log"
+      },
+      {
+        "case": "[chromium] › tests/e2e/content-editor.spec.ts:256:5 › blocked embedded preview keeps edits and offers a saved standalone preview",
+        "status": "PASS",
+        "source_log": "admin-content.log"
+      },
+      {
+        "case": "[chromium] › tests/e2e/media-library.spec.ts:45:5 › real staff upload and private no-store preview; no anonymous originals or optimizer",
+        "status": "PASS",
+        "source_log": "admin-media.log"
+      },
+      {
+        "case": "[chromium] › tests/e2e/media-library.spec.ts:63:5 › disguised_html_is_rejected, real size and foreign actor metadata are enforced",
+        "status": "PASS",
+        "source_log": "admin-media.log"
+      },
+      {
+        "case": "[chromium] › tests/e2e/media-library.spec.ts:72:5 › failed_media_publish_stays_private and exact snapshot publication; archival preserves URL and rollback",
+        "status": "PASS",
+        "source_log": "admin-media.log"
+      },
+      {
+        "case": "[chromium] › tests/e2e/media-library.spec.ts:106:5 › paired film/poster transaction prevents orphan exposure and delivers actual seekable video",
+        "status": "PASS",
+        "source_log": "admin-media.log"
+      },
+      {
+        "case": "[chromium] › tests/e2e/media-library.spec.ts:126:5 › older ready media remains discoverable and selectable beyond 200 newer attempts",
+        "status": "PASS",
+        "source_log": "admin-media.log"
+      },
+      {
+        "case": "[chromium] › tests/e2e/customer-operations.spec.ts:87:5 › real signup, dedup, staff permissions, notes, versions, CSV and audit",
+        "status": "PASS",
+        "source_log": "admin-operations.log"
+      },
+      {
+        "case": "[chromium] › tests/e2e/catalog.spec.ts:86:5 › admin confirms synthetic SKU with version/origin guards; actual customer JWT orders are idempotent",
+        "status": "PASS",
+        "source_log": "admin-catalog.log"
+      },
+      {
+        "case": "[chromium] › tests/e2e/order-operations.spec.ts:45:5 › operations/admin search cancelled order and append private audited note; editor/member denied",
+        "status": "PASS",
+        "source_log": "admin-orders.log"
+      },
+      {
+        "case": "[chromium] › tests/e2e/payment-settings.spec.ts:23:5 › administrator reads disabled payment preparation entry while other staff stay denied",
+        "status": "PASS",
+        "source_log": "admin-payments.log"
+      },
+      {
+        "case": "[chromium] › tests/e2e/customer-privacy.spec.ts:114:5 › closed policy, actual Auth failure, durable resume, private-data erasure and real scoped dashboard",
+        "status": "PASS",
+        "source_log": "admin-privacy.log"
+      },
+      {
+        "case": "[desktop] › tests/e2e/content-pages.spec.ts:6:104 › manifest 390 /",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[desktop] › tests/e2e/content-pages.spec.ts:6:104 › manifest 390 /products",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[desktop] › tests/e2e/content-pages.spec.ts:6:104 › manifest 390 /products/ola",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[desktop] › tests/e2e/content-pages.spec.ts:6:104 › manifest 390 /products/ola-go",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[desktop] › tests/e2e/content-pages.spec.ts:6:104 › manifest 390 /products/tablet",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[desktop] › tests/e2e/content-pages.spec.ts:6:104 › manifest 390 /products/print",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[desktop] › tests/e2e/content-pages.spec.ts:6:104 › manifest 390 /products/nest",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[desktop] › tests/e2e/content-pages.spec.ts:6:104 › manifest 390 /story",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[desktop] › tests/e2e/content-pages.spec.ts:6:104 › manifest 390 /about",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[desktop] › tests/e2e/content-pages.spec.ts:6:104 › manifest 390 /contact",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[desktop] › tests/e2e/content-pages.spec.ts:6:104 › manifest 390 /plans",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[desktop] › tests/e2e/content-pages.spec.ts:6:104 › manifest 390 /prelaunch",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[desktop] › tests/e2e/content-pages.spec.ts:6:104 › manifest 390 /members",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[desktop] › tests/e2e/content-pages.spec.ts:6:104 › manifest 390 /faq",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[desktop] › tests/e2e/content-pages.spec.ts:6:104 › manifest 390 /legal/privacy",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[desktop] › tests/e2e/content-pages.spec.ts:6:104 › manifest 390 /legal/terms",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[desktop] › tests/e2e/content-pages.spec.ts:6:104 › manifest 390 /legal/cookies",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[desktop] › tests/e2e/content-pages.spec.ts:6:104 › manifest 390 /legal/child-safety",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[desktop] › tests/e2e/content-pages.spec.ts:6:104 › manifest 1440 /",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[desktop] › tests/e2e/content-pages.spec.ts:6:104 › manifest 1440 /products",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[desktop] › tests/e2e/content-pages.spec.ts:6:104 › manifest 1440 /products/ola",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[desktop] › tests/e2e/content-pages.spec.ts:6:104 › manifest 1440 /products/ola-go",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[desktop] › tests/e2e/content-pages.spec.ts:6:104 › manifest 1440 /products/tablet",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[desktop] › tests/e2e/content-pages.spec.ts:6:104 › manifest 1440 /products/print",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[desktop] › tests/e2e/content-pages.spec.ts:6:104 › manifest 1440 /products/nest",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[desktop] › tests/e2e/content-pages.spec.ts:6:104 › manifest 1440 /story",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[desktop] › tests/e2e/content-pages.spec.ts:6:104 › manifest 1440 /about",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[desktop] › tests/e2e/content-pages.spec.ts:6:104 › manifest 1440 /contact",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[desktop] › tests/e2e/content-pages.spec.ts:6:104 › manifest 1440 /plans",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[desktop] › tests/e2e/content-pages.spec.ts:6:104 › manifest 1440 /prelaunch",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[desktop] › tests/e2e/content-pages.spec.ts:6:104 › manifest 1440 /members",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[desktop] › tests/e2e/content-pages.spec.ts:6:104 › manifest 1440 /faq",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[desktop] › tests/e2e/content-pages.spec.ts:6:104 › manifest 1440 /legal/privacy",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[desktop] › tests/e2e/content-pages.spec.ts:6:104 › manifest 1440 /legal/terms",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[desktop] › tests/e2e/content-pages.spec.ts:6:104 › manifest 1440 /legal/cookies",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[desktop] › tests/e2e/content-pages.spec.ts:6:104 › manifest 1440 /legal/child-safety",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[desktop] › tests/e2e/content-publishing.spec.ts:46:5 › publish_updates_three_locales",
+        "status": "PASS",
+        "source_log": "website-content-publishing-final.log"
+      },
+      {
+        "case": "[desktop] › tests/e2e/content-publishing.spec.ts:59:5 › database_failure_invalid_schema_and_empty_pointer_retain_last_good",
+        "status": "PASS",
+        "source_log": "website-content-publishing-final.log"
+      },
+      {
+        "case": "[desktop] › tests/e2e/content-publishing.spec.ts:68:5 › private_preview_never_leaks",
+        "status": "PASS",
+        "source_log": "website-content-publishing-final.log"
+      },
+      {
+        "case": "[desktop] › tests/e2e/content-publishing.spec.ts:102:5 › draft_media_requires_current_staff_and_never_enters_public_optimizer",
+        "status": "PASS",
+        "source_log": "website-content-publishing-final.log"
+      },
+      {
+        "case": "[desktop] › tests/e2e/content-publishing.spec.ts:167:5 › client_navigation_refreshes_published_context",
+        "status": "PASS",
+        "source_log": "website-content-publishing-final.log"
+      },
+      {
+        "case": "[desktop] › tests/e2e/content-publishing.spec.ts:180:5 › client_navigation_exits_preview_through_header_and_footer",
+        "status": "PASS",
+        "source_log": "website-content-publishing-final.log"
+      },
+      {
+        "case": "[desktop] › tests/e2e/content-publishing.spec.ts:194:5 › content_boundary_public_routes",
+        "status": "PASS",
+        "source_log": "website-content-publishing-final.log"
+      },
+      {
+        "case": "[desktop] › tests/e2e/home-family-horizontal.spec.ts:3:5 › a horizontal trackpad swipe changes one family card without moving the page",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[desktop] › tests/e2e/home-family-horizontal.spec.ts:23:5 › dragging the family card right selects the previous card",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[desktop] › tests/e2e/home-family-horizontal.spec.ts:43:5 › clicking the left preview on the first card wraps to the last card",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[desktop] › tests/e2e/home-family-horizontal.spec.ts:55:5 › clicking the right preview on the last card wraps to the first card",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[desktop] › tests/e2e/home-films.spec.ts:3:5 › one film at a time; switching stops the old film and wraps",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[desktop] › tests/e2e/mobile-experience.spec.ts:8:5 › phone carousel uses controls below the card and opens all five products",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[desktop] › tests/e2e/mobile-experience.spec.ts:31:5 › feature copy has a clear hierarchy and fits narrow screens in every language",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[desktop] › tests/e2e/mobile-experience.spec.ts:50:5 › a narrow computer window switches stories to mobile controls and preserves the selected story",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[desktop] › tests/e2e/mobile-experience.spec.ts:65:5 › native horizontal story swipes change stories while vertical swipes scroll the page",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[desktop] › tests/e2e/mobile-experience.spec.ts:96:5 › desktop and tablet compositions match the preserved version",
+        "status": "SKIP",
+        "source_log": "website-platform.log",
+        "reason": "本轮未设置历史版本对比基准地址"
+      },
+      {
+        "case": "[desktop] › tests/e2e/mobile-experience.spec.ts:130:5 › only the selected mobile story plays and switching pauses the previous video",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[desktop] › tests/e2e/mobile-experience.spec.ts:146:5 › resizing during a desktop story transition keeps the indicated mobile story in view",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[desktop] › tests/e2e/opening-resize.spec.ts:20:5 › height resizing preserves the current opening frame and reverse scrub",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[desktop] › tests/e2e/opening-resize.spec.ts:38:5 › 1199/1200px handoff retains opening progress when returning to desktop",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[desktop] › tests/e2e/opening-resize.spec.ts:55:5 › continuous width and aspect-ratio resize keeps one proportional media plane",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[desktop] › tests/e2e/opening-resize.spec.ts:91:5 › a continuous window drag keeps the mid-film frame through width and height breakpoints",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[desktop] › tests/e2e/opening-resize.spec.ts:106:5 › a direct OLA link still opens the final opening frame",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[desktop] › tests/e2e/opening-resize.spec.ts:115:7 › pointer navigation immediately after resize is never pulled back into the opening",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[desktop] › tests/e2e/opening-resize.spec.ts:115:7 › Enter navigation immediately after resize is never pulled back into the opening",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[desktop] › tests/e2e/opening-resize.spec.ts:147:5 › pointer initiated scrollbar movement cancels resize restoration",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[desktop] › tests/e2e/opening-resize.spec.ts:163:5 › generic refreshes do not reacquire resize restoration during a held pointer scroll",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[desktop] › tests/e2e/platform-regression.spec.ts:10:48 › en: no_horizontal_overflow and five_product_entries_survive_resize",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[desktop] › tests/e2e/platform-regression.spec.ts:10:48 › zh-hant: no_horizontal_overflow and five_product_entries_survive_resize",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[desktop] › tests/e2e/platform-regression.spec.ts:10:48 › ja: no_horizontal_overflow and five_product_entries_survive_resize",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[desktop] › tests/e2e/platform-regression.spec.ts:30:5 › first-load media failure retains readable published content",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[desktop] › tests/e2e/platform-regression.spec.ts:44:5 › five-card fault counterexample",
+        "status": "SKIP",
+        "source_log": "website-platform.log",
+        "reason": "本轮未启用专用故障注入开关"
+      },
+      {
+        "case": "[desktop] › tests/e2e/product-first-load.spec.ts:13:5 › Orb appears on first entry even when the image transformation service stalls",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[desktop] › tests/e2e/product-first-load.spec.ts:32:5 › a late product font renders without needing a resize to correct its metrics",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[desktop] › tests/e2e/product-first-load.spec.ts:50:5 › product names stay clear of artwork and reading copy when the custom font is unavailable",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[desktop] › tests/e2e/product-first-load.spec.ts:67:7 › all five product heroes survive entry, refresh and desktop–phone resize at DPR 1",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[desktop] › tests/e2e/product-first-load.spec.ts:67:7 › all five product heroes survive entry, refresh and desktop–phone resize at DPR 2",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[desktop] › tests/e2e/product-first-load.spec.ts:88:5 › waitlist labels stay consistent while the cart leads to the approved checkout",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[desktop] › tests/e2e/responsive-navigation.spec.ts:3:5 › full navigation fits at its 1200px breakpoint in every language",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[desktop] › tests/e2e/responsive-navigation.spec.ts:19:5 › mobile menu closes and unlocks scrolling when desktop navigation appears",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[desktop] › tests/e2e/responsive-navigation.spec.ts:33:5 › a 320px phone shows a labeled menu with all destinations and languages",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[desktop] › tests/e2e/responsive-navigation.spec.ts:54:5 › navigation stays inside its capsule during viewport changes",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[desktop] › tests/e2e/responsive-navigation.spec.ts:79:5 › public pages keep headings and navigation inside narrow and wide viewports",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[desktop] › tests/e2e/responsive-navigation.spec.ts:118:5 › the removed media route remains a 404",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[desktop] › tests/e2e/responsive-layout.spec.ts:7:7 › zh-hant: intermediate windows keep a compact, proportional opening",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[desktop] › tests/e2e/responsive-layout.spec.ts:7:7 › en: intermediate windows keep a compact, proportional opening",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[desktop] › tests/e2e/responsive-layout.spec.ts:7:7 › ja: intermediate windows keep a compact, proportional opening",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[desktop] › tests/e2e/responsive-layout.spec.ts:37:5 › product selection survives wide/compact/phone round trips",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[desktop] › tests/e2e/responsive-layout.spec.ts:59:5 › wide/compact title handoff remains continuous in short and tall windows",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[mobile] › tests/e2e/content-pages.spec.ts:6:104 › manifest 390 /",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[mobile] › tests/e2e/content-pages.spec.ts:6:104 › manifest 390 /products",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[mobile] › tests/e2e/content-pages.spec.ts:6:104 › manifest 390 /products/ola",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[mobile] › tests/e2e/content-pages.spec.ts:6:104 › manifest 390 /products/ola-go",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[mobile] › tests/e2e/content-pages.spec.ts:6:104 › manifest 390 /products/tablet",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[mobile] › tests/e2e/content-pages.spec.ts:6:104 › manifest 390 /products/print",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[mobile] › tests/e2e/content-pages.spec.ts:6:104 › manifest 390 /products/nest",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[mobile] › tests/e2e/content-pages.spec.ts:6:104 › manifest 390 /story",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[mobile] › tests/e2e/content-pages.spec.ts:6:104 › manifest 390 /about",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[mobile] › tests/e2e/content-pages.spec.ts:6:104 › manifest 390 /contact",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[mobile] › tests/e2e/content-pages.spec.ts:6:104 › manifest 390 /plans",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[mobile] › tests/e2e/content-pages.spec.ts:6:104 › manifest 390 /prelaunch",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[mobile] › tests/e2e/content-pages.spec.ts:6:104 › manifest 390 /members",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[mobile] › tests/e2e/content-pages.spec.ts:6:104 › manifest 390 /faq",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[mobile] › tests/e2e/content-pages.spec.ts:6:104 › manifest 390 /legal/privacy",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[mobile] › tests/e2e/content-pages.spec.ts:6:104 › manifest 390 /legal/terms",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[mobile] › tests/e2e/content-pages.spec.ts:6:104 › manifest 390 /legal/cookies",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[mobile] › tests/e2e/content-pages.spec.ts:6:104 › manifest 390 /legal/child-safety",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[mobile] › tests/e2e/content-pages.spec.ts:6:104 › manifest 1440 /",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[mobile] › tests/e2e/content-pages.spec.ts:6:104 › manifest 1440 /products",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[mobile] › tests/e2e/content-pages.spec.ts:6:104 › manifest 1440 /products/ola",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[mobile] › tests/e2e/content-pages.spec.ts:6:104 › manifest 1440 /products/ola-go",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[mobile] › tests/e2e/content-pages.spec.ts:6:104 › manifest 1440 /products/tablet",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[mobile] › tests/e2e/content-pages.spec.ts:6:104 › manifest 1440 /products/print",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[mobile] › tests/e2e/content-pages.spec.ts:6:104 › manifest 1440 /products/nest",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[mobile] › tests/e2e/content-pages.spec.ts:6:104 › manifest 1440 /story",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[mobile] › tests/e2e/content-pages.spec.ts:6:104 › manifest 1440 /about",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[mobile] › tests/e2e/content-pages.spec.ts:6:104 › manifest 1440 /contact",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[mobile] › tests/e2e/content-pages.spec.ts:6:104 › manifest 1440 /plans",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[mobile] › tests/e2e/content-pages.spec.ts:6:104 › manifest 1440 /prelaunch",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[mobile] › tests/e2e/content-pages.spec.ts:6:104 › manifest 1440 /members",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[mobile] › tests/e2e/content-pages.spec.ts:6:104 › manifest 1440 /faq",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[mobile] › tests/e2e/content-pages.spec.ts:6:104 › manifest 1440 /legal/privacy",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[mobile] › tests/e2e/content-pages.spec.ts:6:104 › manifest 1440 /legal/terms",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[mobile] › tests/e2e/content-pages.spec.ts:6:104 › manifest 1440 /legal/cookies",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[mobile] › tests/e2e/content-pages.spec.ts:6:104 › manifest 1440 /legal/child-safety",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[mobile] › tests/e2e/content-publishing.spec.ts:46:5 › publish_updates_three_locales",
+        "status": "PASS",
+        "source_log": "website-content-publishing-final.log"
+      },
+      {
+        "case": "[mobile] › tests/e2e/content-publishing.spec.ts:59:5 › database_failure_invalid_schema_and_empty_pointer_retain_last_good",
+        "status": "PASS",
+        "source_log": "website-content-publishing-final.log"
+      },
+      {
+        "case": "[mobile] › tests/e2e/content-publishing.spec.ts:68:5 › private_preview_never_leaks",
+        "status": "PASS",
+        "source_log": "website-content-publishing-final.log"
+      },
+      {
+        "case": "[mobile] › tests/e2e/content-publishing.spec.ts:102:5 › draft_media_requires_current_staff_and_never_enters_public_optimizer",
+        "status": "PASS",
+        "source_log": "website-content-publishing-final.log"
+      },
+      {
+        "case": "[mobile] › tests/e2e/content-publishing.spec.ts:167:5 › client_navigation_refreshes_published_context",
+        "status": "PASS",
+        "source_log": "website-content-publishing-final.log"
+      },
+      {
+        "case": "[mobile] › tests/e2e/content-publishing.spec.ts:180:5 › client_navigation_exits_preview_through_header_and_footer",
+        "status": "PASS",
+        "source_log": "website-content-publishing-final.log"
+      },
+      {
+        "case": "[mobile] › tests/e2e/content-publishing.spec.ts:194:5 › content_boundary_public_routes",
+        "status": "PASS",
+        "source_log": "website-content-publishing-final.log"
+      },
+      {
+        "case": "[mobile] › tests/e2e/home-family-horizontal.spec.ts:3:5 › a horizontal trackpad swipe changes one family card without moving the page",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[mobile] › tests/e2e/home-family-horizontal.spec.ts:23:5 › dragging the family card right selects the previous card",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[mobile] › tests/e2e/home-family-horizontal.spec.ts:43:5 › clicking the left preview on the first card wraps to the last card",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[mobile] › tests/e2e/home-family-horizontal.spec.ts:55:5 › clicking the right preview on the last card wraps to the first card",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[mobile] › tests/e2e/home-films.spec.ts:3:5 › one film at a time; switching stops the old film and wraps",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[mobile] › tests/e2e/mobile-experience.spec.ts:8:5 › phone carousel uses controls below the card and opens all five products",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[mobile] › tests/e2e/mobile-experience.spec.ts:31:5 › feature copy has a clear hierarchy and fits narrow screens in every language",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[mobile] › tests/e2e/mobile-experience.spec.ts:50:5 › a narrow computer window switches stories to mobile controls and preserves the selected story",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[mobile] › tests/e2e/mobile-experience.spec.ts:65:5 › native horizontal story swipes change stories while vertical swipes scroll the page",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[mobile] › tests/e2e/mobile-experience.spec.ts:96:5 › desktop and tablet compositions match the preserved version",
+        "status": "SKIP",
+        "source_log": "website-platform.log",
+        "reason": "本轮未设置历史版本对比基准地址"
+      },
+      {
+        "case": "[mobile] › tests/e2e/mobile-experience.spec.ts:130:5 › only the selected mobile story plays and switching pauses the previous video",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[mobile] › tests/e2e/mobile-experience.spec.ts:146:5 › resizing during a desktop story transition keeps the indicated mobile story in view",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[mobile] › tests/e2e/opening-resize.spec.ts:20:5 › height resizing preserves the current opening frame and reverse scrub",
+        "status": "SKIP",
+        "source_log": "website-platform.log",
+        "reason": "原有设备分工条件：同名用例在桌面项目运行，移动项目不重复运行"
+      },
+      {
+        "case": "[mobile] › tests/e2e/opening-resize.spec.ts:38:5 › 1199/1200px handoff retains opening progress when returning to desktop",
+        "status": "SKIP",
+        "source_log": "website-platform.log",
+        "reason": "原有设备分工条件：同名用例在桌面项目运行，移动项目不重复运行"
+      },
+      {
+        "case": "[mobile] › tests/e2e/opening-resize.spec.ts:55:5 › continuous width and aspect-ratio resize keeps one proportional media plane",
+        "status": "SKIP",
+        "source_log": "website-platform.log",
+        "reason": "原有设备分工条件：同名用例在桌面项目运行，移动项目不重复运行"
+      },
+      {
+        "case": "[mobile] › tests/e2e/opening-resize.spec.ts:91:5 › a continuous window drag keeps the mid-film frame through width and height breakpoints",
+        "status": "SKIP",
+        "source_log": "website-platform.log",
+        "reason": "原有设备分工条件：同名用例在桌面项目运行，移动项目不重复运行"
+      },
+      {
+        "case": "[mobile] › tests/e2e/opening-resize.spec.ts:106:5 › a direct OLA link still opens the final opening frame",
+        "status": "SKIP",
+        "source_log": "website-platform.log",
+        "reason": "原有设备分工条件：同名用例在桌面项目运行，移动项目不重复运行"
+      },
+      {
+        "case": "[mobile] › tests/e2e/opening-resize.spec.ts:115:7 › pointer navigation immediately after resize is never pulled back into the opening",
+        "status": "SKIP",
+        "source_log": "website-platform.log",
+        "reason": "原有设备分工条件：同名用例在桌面项目运行，移动项目不重复运行"
+      },
+      {
+        "case": "[mobile] › tests/e2e/opening-resize.spec.ts:115:7 › Enter navigation immediately after resize is never pulled back into the opening",
+        "status": "SKIP",
+        "source_log": "website-platform.log",
+        "reason": "原有设备分工条件：同名用例在桌面项目运行，移动项目不重复运行"
+      },
+      {
+        "case": "[mobile] › tests/e2e/opening-resize.spec.ts:147:5 › pointer initiated scrollbar movement cancels resize restoration",
+        "status": "SKIP",
+        "source_log": "website-platform.log",
+        "reason": "原有设备分工条件：同名用例在桌面项目运行，移动项目不重复运行"
+      },
+      {
+        "case": "[mobile] › tests/e2e/opening-resize.spec.ts:163:5 › generic refreshes do not reacquire resize restoration during a held pointer scroll",
+        "status": "SKIP",
+        "source_log": "website-platform.log",
+        "reason": "原有设备分工条件：同名用例在桌面项目运行，移动项目不重复运行"
+      },
+      {
+        "case": "[mobile] › tests/e2e/platform-regression.spec.ts:10:48 › en: no_horizontal_overflow and five_product_entries_survive_resize",
+        "status": "SKIP",
+        "source_log": "website-platform.log",
+        "reason": "原有设备分工条件：同名用例在桌面项目运行，移动项目不重复运行"
+      },
+      {
+        "case": "[mobile] › tests/e2e/platform-regression.spec.ts:10:48 › zh-hant: no_horizontal_overflow and five_product_entries_survive_resize",
+        "status": "SKIP",
+        "source_log": "website-platform.log",
+        "reason": "原有设备分工条件：同名用例在桌面项目运行，移动项目不重复运行"
+      },
+      {
+        "case": "[mobile] › tests/e2e/platform-regression.spec.ts:10:48 › ja: no_horizontal_overflow and five_product_entries_survive_resize",
+        "status": "SKIP",
+        "source_log": "website-platform.log",
+        "reason": "原有设备分工条件：同名用例在桌面项目运行，移动项目不重复运行"
+      },
+      {
+        "case": "[mobile] › tests/e2e/platform-regression.spec.ts:30:5 › first-load media failure retains readable published content",
+        "status": "SKIP",
+        "source_log": "website-platform.log",
+        "reason": "原有设备分工条件：同名用例在桌面项目运行，移动项目不重复运行"
+      },
+      {
+        "case": "[mobile] › tests/e2e/platform-regression.spec.ts:44:5 › five-card fault counterexample",
+        "status": "SKIP",
+        "source_log": "website-platform.log",
+        "reason": "本轮未启用专用故障注入开关"
+      },
+      {
+        "case": "[mobile] › tests/e2e/product-first-load.spec.ts:13:5 › Orb appears on first entry even when the image transformation service stalls",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[mobile] › tests/e2e/product-first-load.spec.ts:32:5 › a late product font renders without needing a resize to correct its metrics",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[mobile] › tests/e2e/product-first-load.spec.ts:50:5 › product names stay clear of artwork and reading copy when the custom font is unavailable",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[mobile] › tests/e2e/product-first-load.spec.ts:67:7 › all five product heroes survive entry, refresh and desktop–phone resize at DPR 1",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[mobile] › tests/e2e/product-first-load.spec.ts:67:7 › all five product heroes survive entry, refresh and desktop–phone resize at DPR 2",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[mobile] › tests/e2e/product-first-load.spec.ts:88:5 › waitlist labels stay consistent while the cart leads to the approved checkout",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[mobile] › tests/e2e/responsive-navigation.spec.ts:3:5 › full navigation fits at its 1200px breakpoint in every language",
+        "status": "SKIP",
+        "source_log": "website-platform.log",
+        "reason": "原有设备分工条件：同名用例在桌面项目运行，移动项目不重复运行"
+      },
+      {
+        "case": "[mobile] › tests/e2e/responsive-navigation.spec.ts:19:5 › mobile menu closes and unlocks scrolling when desktop navigation appears",
+        "status": "SKIP",
+        "source_log": "website-platform.log",
+        "reason": "原有设备分工条件：同名用例在桌面项目运行，移动项目不重复运行"
+      },
+      {
+        "case": "[mobile] › tests/e2e/responsive-navigation.spec.ts:33:5 › a 320px phone shows a labeled menu with all destinations and languages",
+        "status": "SKIP",
+        "source_log": "website-platform.log",
+        "reason": "原有设备分工条件：同名用例在桌面项目运行，移动项目不重复运行"
+      },
+      {
+        "case": "[mobile] › tests/e2e/responsive-navigation.spec.ts:54:5 › navigation stays inside its capsule during viewport changes",
+        "status": "SKIP",
+        "source_log": "website-platform.log",
+        "reason": "原有设备分工条件：同名用例在桌面项目运行，移动项目不重复运行"
+      },
+      {
+        "case": "[mobile] › tests/e2e/responsive-navigation.spec.ts:79:5 › public pages keep headings and navigation inside narrow and wide viewports",
+        "status": "SKIP",
+        "source_log": "website-platform.log",
+        "reason": "原有设备分工条件：同名用例在桌面项目运行，移动项目不重复运行"
+      },
+      {
+        "case": "[mobile] › tests/e2e/responsive-navigation.spec.ts:118:5 › the removed media route remains a 404",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[mobile] › tests/e2e/responsive-layout.spec.ts:7:7 › zh-hant: intermediate windows keep a compact, proportional opening",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[mobile] › tests/e2e/responsive-layout.spec.ts:7:7 › en: intermediate windows keep a compact, proportional opening",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[mobile] › tests/e2e/responsive-layout.spec.ts:7:7 › ja: intermediate windows keep a compact, proportional opening",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[mobile] › tests/e2e/responsive-layout.spec.ts:37:5 › product selection survives wide/compact/phone round trips",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[mobile] › tests/e2e/responsive-layout.spec.ts:59:5 › wide/compact title handoff remains continuous in short and tall windows",
+        "status": "PASS",
+        "source_log": "website-platform.log"
+      },
+      {
+        "case": "[desktop] › tests/e2e/account-auth.spec.ts:46:5 › real_account_registration_entry",
+        "status": "PASS",
+        "source_log": "website-account.log"
+      },
+      {
+        "case": "[desktop] › tests/e2e/account-auth.spec.ts:47:5 › verified_email_PKCE_cookie_profile_owner_and_recovery",
+        "status": "PASS",
+        "source_log": "website-account.log"
+      },
+      {
+        "case": "[desktop] › tests/e2e/account-auth.spec.ts:128:5 › origin_limits_enumeration_safe_feedback_and_redirects",
+        "status": "PASS",
+        "source_log": "website-account.log"
+      },
+      {
+        "case": "[desktop] › tests/e2e/account-auth.spec.ts:158:5 › old_local_preview_and_expired_session_do_not_grant_access",
+        "status": "PASS",
+        "source_log": "website-account.log"
+      },
+      {
+        "case": "[desktop] › tests/e2e/account-auth.spec.ts:159:5 › session_expiry_is_visible_without_saving_local_profile",
+        "status": "PASS",
+        "source_log": "website-account.log"
+      },
+      {
+        "case": "[desktop] › tests/e2e/account-auth.spec.ts:174:5 › expired_real_email_token_is_rejected_with_localized_feedback",
+        "status": "PASS",
+        "source_log": "website-account.log"
+      },
+      {
+        "case": "[desktop] › tests/e2e/account-auth.spec.ts:187:5 › auth_rejections_show_actionable_form_feedback",
+        "status": "PASS",
+        "source_log": "website-account.log"
+      },
+      {
+        "case": "[desktop] › tests/e2e/account-auth.spec.ts:218:5 › register and recovery never put credentials into URLs before hydration",
+        "status": "PASS",
+        "source_log": "website-account.log"
+      },
+      {
+        "case": "[desktop] › tests/e2e/account-auth.spec.ts:229:5 › profile save persists, rather than merely reporting success",
+        "status": "PASS",
+        "source_log": "website-account.log"
+      },
+      {
+        "case": "[mobile] › tests/e2e/account-auth.spec.ts:46:5 › real_account_registration_entry",
+        "status": "PASS",
+        "source_log": "website-account.log"
+      },
+      {
+        "case": "[mobile] › tests/e2e/account-auth.spec.ts:47:5 › verified_email_PKCE_cookie_profile_owner_and_recovery",
+        "status": "PASS",
+        "source_log": "website-account.log"
+      },
+      {
+        "case": "[mobile] › tests/e2e/account-auth.spec.ts:128:5 › origin_limits_enumeration_safe_feedback_and_redirects",
+        "status": "PASS",
+        "source_log": "website-account.log"
+      },
+      {
+        "case": "[mobile] › tests/e2e/account-auth.spec.ts:158:5 › old_local_preview_and_expired_session_do_not_grant_access",
+        "status": "PASS",
+        "source_log": "website-account.log"
+      },
+      {
+        "case": "[mobile] › tests/e2e/account-auth.spec.ts:159:5 › session_expiry_is_visible_without_saving_local_profile",
+        "status": "PASS",
+        "source_log": "website-account.log"
+      },
+      {
+        "case": "[mobile] › tests/e2e/account-auth.spec.ts:174:5 › expired_real_email_token_is_rejected_with_localized_feedback",
+        "status": "PASS",
+        "source_log": "website-account.log"
+      },
+      {
+        "case": "[mobile] › tests/e2e/account-auth.spec.ts:187:5 › auth_rejections_show_actionable_form_feedback",
+        "status": "PASS",
+        "source_log": "website-account.log"
+      },
+      {
+        "case": "[mobile] › tests/e2e/account-auth.spec.ts:218:5 › register and recovery never put credentials into URLs before hydration",
+        "status": "PASS",
+        "source_log": "website-account.log"
+      },
+      {
+        "case": "[mobile] › tests/e2e/account-auth.spec.ts:229:5 › profile save persists, rather than merely reporting success",
+        "status": "PASS",
+        "source_log": "website-account.log"
+      },
+      {
+        "case": "[chromium] › tests/e2e/customer-order-recovery.spec.ts:51:5 › older identity response cannot reveal prior address after a newer failed check; pageshow revalidates",
+        "status": "PASS",
+        "source_log": "website-orders.log"
+      },
+      {
+        "case": "[chromium] › tests/e2e/customer-order-recovery.spec.ts:138:5 › reapproved changed terms reject uncommitted stale request then refresh and require new acceptance",
+        "status": "PASS",
+        "source_log": "website-orders.log"
+      },
+      {
+        "case": "[chromium] › tests/e2e/customer-order-recovery.spec.ts:210:5 › approved legal text keeps canonical order, eyebrow and draft in all three expanded locales",
+        "status": "PASS",
+        "source_log": "website-orders.log"
+      },
+      {
+        "case": "[chromium] › tests/e2e/customer-orders.spec.ts:46:5 › login cannot submit credentials in a query before hydration, including Enter",
+        "status": "PASS",
+        "source_log": "website-orders.log"
+      },
+      {
+        "case": "[chromium] › tests/e2e/customer-orders.spec.ts:86:5 › checkout disabled still offers waitlist and safe sign-in",
+        "status": "PASS",
+        "source_log": "website-orders.log"
+      },
+      {
+        "case": "[chromium] › tests/e2e/customer-orders.spec.ts:131:5 › retry_checkout_reuses_order after lost response, reload and double submit",
+        "status": "PASS",
+        "source_log": "website-orders.log"
+      },
+      {
+        "case": "[chromium] › tests/e2e/customer-orders.spec.ts:231:5 › cancel refresh repeat retry and customer isolation",
+        "status": "PASS",
+        "source_log": "website-orders.log"
+      },
+      {
+        "case": "[chromium] › tests/e2e/customer-orders.spec.ts:271:5 › switch_account_hides_previous_orders including guessed detail and stale checkout identity",
+        "status": "PASS",
+        "source_log": "website-orders.log"
+      },
+      {
+        "case": "[chromium] › tests/e2e/customer-orders.spec.ts:307:5 › pending checkout address is hidden and discarded on account switch",
+        "status": "PASS",
+        "source_log": "website-orders.log"
+      },
+      {
+        "case": "[chromium] › tests/e2e/customer-orders.spec.ts:344:5 › Go-only and unavailable cart items stay explicit and cannot submit",
+        "status": "PASS",
+        "source_log": "website-orders.log"
+      },
+      {
+        "case": "[chromium] › tests/e2e/payments-disabled.spec.ts:24:5 › real own-order HTTP gate and browser_success_cannot_pay_order",
+        "status": "PASS",
+        "source_log": "website-payments.log"
+      }
+    ]
+  }
+}

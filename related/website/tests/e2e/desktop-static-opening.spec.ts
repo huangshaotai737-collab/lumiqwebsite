@@ -11,6 +11,9 @@ test('reduced-motion desktop opening keeps its artwork and readable companion ca
       expect(widths.every(w => w >= 150)).toBe(true);
       await expect(page.locator('.lh-mobile-hero-art')).toBeVisible();
       await expect(page.locator('.lh-mobile-ola-art')).toBeVisible();
+      for (const selector of ['.lh-hero','.lh-ola']) {
+        await expect(page.locator(selector)).toHaveCSS('background-image','none');
+      }
       const fits = await page.locator('.lh-rhythm-card').evaluateAll(items => items.map(e => {
         const box = e.getBoundingClientRect();
         return [...e.querySelectorAll('h3,p')].every(copy => {

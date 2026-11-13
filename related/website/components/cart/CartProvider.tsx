@@ -1,11 +1,12 @@
 "use client";
 
 import { createContext, useCallback, useContext, useEffect, useMemo, useReducer, useRef, useState, type ReactNode } from "react";
-import { useLocale } from "next-intl";
+import {useContentAdapter} from "@/components/content/useContentAdapter";
+import {useVisualPreview} from '@/components/content/SiteContentProvider';
 import { usePathname } from "@/i18n/navigation";
 import { CART_STORAGE_KEY, cartReducer, parseCart, serializeCart, summarizeCart, type CartItem } from "@/lib/cart";
-import { PRODUCT_BY_ID, type ProductId } from "@/lib/products";
-import { getCartMessages } from "@/lib/cart-messages";
+import { type ProductId } from "@/lib/products";
+import {useCartCopy} from "@/components/content/useCartCopy";
 import CartDrawer from "./CartDrawer";
 
 type CartContextValue = {
@@ -29,7 +30,9 @@ export function useCart() {
 }
 
 export default function CartProvider({ children }: { children: ReactNode }) {
-  const locale = useLocale();
+  const visual = useVisualPreview();
+  const cms = useContentAdapter();
+  const copy = useCartCopy();
   const pathname = usePathname();
   const [items, dispatch] = useReducer(cartReducer, []);
   const [ready, setReady] = useState(false);
@@ -43,6 +46,7 @@ export default function CartProvider({ children }: { children: ReactNode }) {
   const previousPathRef = useRef(pathname);
 
   useEffect(() => {
+    if (visual) { setReady(true); return; }
     try {
       dispatch({ type: "restore", items: parseCart(window.localStorage.getItem(CART_STORAGE_KEY)) });
     } catch { setStorageAvailable(false); }
@@ -54,15 +58,15 @@ export default function CartProvider({ children }: { children: ReactNode }) {
     };
     window.addEventListener("storage", sync);
     return () => window.removeEventListener("storage", sync);
-  }, []);
+  }, [visual]);
 
   useEffect(() => {
-    if (!ready) return;
+    if (!ready || visual) return;
     try {
       window.localStorage.setItem(CART_STORAGE_KEY, serializeCart(items));
       setStorageAvailable(true);
     } catch { setStorageAvailable(false); }
-  }, [items, ready]);
+  }, [items, ready, visual]);
 
   useEffect(() => {
     if (!isOpen) return;
@@ -123,9 +127,9 @@ export default function CartProvider({ children }: { children: ReactNode }) {
 
   const add = useCallback((id: ProductId, animate = true, trigger?: HTMLElement) => {
     dispatch({ type: "add", id });
-    setAnnouncement(getCartMessages(locale).added(PRODUCT_BY_ID[id].name));
+    setAnnouncement(copy.added(cms.snapshot.products[id].name));
     openCart(animate, trigger);
-  }, [locale, openCart]);
+  }, [cms.snapshot.products, copy, openCart]);
   const remove = useCallback((id: ProductId) => dispatch({ type: "remove", id }), []);
   const setQuantity = useCallback((id: ProductId, quantity: number) => dispatch({ type: "quantity", id, quantity }), []);
   const quantity = summarizeCart(items).quantity;
