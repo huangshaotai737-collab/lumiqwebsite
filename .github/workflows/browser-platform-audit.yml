@@ -26,6 +26,7 @@ jobs:
         shell: bash
     env:
       LIBGL_ALWAYS_SOFTWARE: '1'
+      WEBKIT_DISABLE_COMPOSITING_MODE: '1'
       DEBUG: pw:browser
       LUMIQ_STATIC_IMAGES: '1'
       SITE_URL: http://localhost:4223
