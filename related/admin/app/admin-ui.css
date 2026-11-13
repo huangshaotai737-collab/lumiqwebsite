@@ -312,3 +312,4 @@ dd { min-width: 0; overflow-wrap: anywhere; }
 .history-pagination{display:flex;align-items:center;flex-wrap:wrap;gap:16px;margin:16px 0 28px;font-size:14px}
 .history-pagination a{padding:8px 14px;border:1px solid #dce3ee;border-radius:8px;background:#fff}
 .draft-history td:last-child .danger-button,#release-history td:last-child .danger-button{display:block;margin-top:10px}
+.draft-history td:last-child>a,.draft-history td:last-child>button,#release-history td:last-child>button{white-space:nowrap}
