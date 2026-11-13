@@ -39,10 +39,12 @@ export default function HomeMotion({ children }: { children: ReactNode }) {
     videos: [cms.slot("asset_a4b2063e90484449").url, resolveFlowVideo(cms.url(legacyBackgroundVideo))],
   }), [cms]);
   useEffect(() => {
+    const startedAt = performance.now();
     const controller = new AbortController();
     const movies: Record<string, string> = {};
     let alive = true;
     let deadline: ReturnType<typeof setTimeout>;
+    let entryTimer: ReturnType<typeof setTimeout>;
     const watch = () => {
       clearTimeout(deadline);
       deadline = setTimeout(() => controller.abort(new Error("Loading made no progress")), 60000);
@@ -64,10 +66,14 @@ export default function HomeMotion({ children }: { children: ReactNode }) {
       if (alive) setPercent(value);
     }, (source, url) => { movies[source] = url; }).then(() => {
       clearTimeout(deadline);
-      if (alive) setMedia({prepared: true, movies});
+      // Preload and minimum display time overlap; slow downloads add no extra wait.
+      entryTimer = setTimeout(() => {
+        if (alive) setMedia({prepared: true, movies});
+      }, Math.max(0, 800 - (performance.now() - startedAt)));
     }).catch(() => {
       controller.abort();
       clearTimeout(deadline);
+      clearTimeout(entryTimer);
       if (alive) setError(true);
     });
     return () => {
