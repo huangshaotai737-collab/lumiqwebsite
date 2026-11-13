@@ -8,7 +8,7 @@ on:
 permissions:
   contents: read
 concurrency:
-  group: browser-audit-${{ github.workflow }}-${{ github.ref }}
+  group: browser-audit-${{ github.workflow }}-${{ github.ref }}-${{ github.sha }}
   cancel-in-progress: true
 jobs:
   audit:
@@ -26,7 +26,6 @@ jobs:
         shell: bash
     env:
       LIBGL_ALWAYS_SOFTWARE: '1'
-      WEBKIT_DISABLE_COMPOSITING_MODE: '1'
       DEBUG: pw:browser
       LUMIQ_STATIC_IMAGES: '1'
       SITE_URL: http://localhost:4223

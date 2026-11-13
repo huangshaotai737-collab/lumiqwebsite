@@ -37,19 +37,13 @@ for(const [engine,type] of Object.entries(engines)){
  const errors=[];
  try{
   browser=await stage({engine},'launch',()=>type.launch(engine==='edge'?{channel:'msedge',timeout:timeoutMs}:{timeout:timeoutMs}));
-  const page=await stage({engine},'new-page',()=>browser.newPage());
-  page.setDefaultTimeout(timeoutMs);page.setDefaultNavigationTimeout(navigationTimeoutMs);
-  page.on('pageerror',e=>{errors.push({message:e.message,stack:e.stack});console.log('LUMIQ_PAGEERROR',JSON.stringify({current,url:page.url(),message:e.message}));});
-  page.on('requestfailed',request=>console.log('LUMIQ_REQUESTFAILED',JSON.stringify({current,url:request.url(),failure:request.failure()})));
-  await page.addInitScript(()=>{
-   addEventListener('unhandledrejection',event=>console.info('LUMIQ_AUDIT_REJECTION',String(event.reason),location.href));
-   addEventListener('error',event=>console.info('LUMIQ_AUDIT_ERROR_EVENT',event.message,location.href));
-   addEventListener('pagehide',()=>console.info('LUMIQ_AUDIT_PAGEHIDE',location.href));
-  });
-  page.on('crash',()=>console.log('AUDIT_RENDERER_CRASH',JSON.stringify(current)));
-  page.on('console',message=>{if(message.text().startsWith('LUMIQ_AUDIT_'))console.log(message.text(),JSON.stringify(current));});
   for(const locale of ['en','zh-hant','ja'])for(const route of routes){
    const context={engine,locale,route};
+   // Layout cases own their context; navigation behaviour has separate E2E coverage.
+   // Closing the page also disposes its paused decoders and outstanding prefetches.
+   const page=await stage(context,'new-page',()=>browser.newPage());
+   page.setDefaultTimeout(timeoutMs);page.setDefaultNavigationTimeout(navigationTimeoutMs);
+   page.on('pageerror',e=>errors.push({...context,message:e.message,stack:e.stack}));
    try{
     // Slow/unsupported media must not hold the layout audit at window.load.
     // Wait for the actual page and its typography instead of unrelated videos.
@@ -66,7 +60,6 @@ for(const [engine,type] of Object.entries(engines)){
      await stage(viewContext,'viewport',()=>page.setViewportSize(viewport));
      await stage(viewContext,'settle',()=>page.waitForTimeout(120));
      const state=await stage(viewContext,'evaluate',()=>page.evaluate(()=>{
-      console.info('LUMIQ_AUDIT_ENTERED');
       const visible=e=>e.getClientRects().length&&getComputedStyle(e).visibility!=='hidden';
       const intersect=(a,b)=>Math.min(a.right,b.right)>Math.max(a.left,b.left)+1&&Math.min(a.bottom,b.bottom)>Math.max(a.top,b.top)+1;
       const blocks=[...document.querySelectorAll('.pd-product-tagline,.pd-hero-lede,.pd-concept-note,.pd-hero-display-title')].filter(visible).map(e=>e.getBoundingClientRect());
@@ -77,16 +70,16 @@ for(const [engine,type] of Object.entries(engines)){
       // white lettering on their intentionally dark button surface.
       const wrongColor=main?[...main.querySelectorAll('*')].filter(e=>visible(e)&&!e.closest('.pd-primary-action')&&[...e.childNodes].some(n=>n.nodeType===3&&n.textContent.trim())&&!isDark(getComputedStyle(e).color)&&!isDark(getComputedStyle(e).webkitTextFillColor)).map(e=>e.textContent.slice(0,30)):[];
       const member=document.querySelector('.members-heading h1');
-      console.info('LUMIQ_AUDIT_BEFORE_LAYOUT');
-      const overflow=document.documentElement.scrollWidth>innerWidth+1;
-      console.info('LUMIQ_AUDIT_AFTER_LAYOUT');
-      return {overflow,overlaps,wrongColor,memberReadable:!member||isDark(getComputedStyle(member).color),legacy:document.querySelectorAll('.lh-glass-word,.lh-hero-object,.lh-brand-character').length};
+      return {overflow:document.documentElement.scrollWidth>innerWidth+1,overlaps,wrongColor,memberReadable:!member||isDark(getComputedStyle(member).color),legacy:document.querySelectorAll('.lh-glass-word,.lh-hero-object,.lh-brand-character').length};
      }));
      const item={engine,locale,route,viewport,status:response?.status()??0,...state};checks.push(item);
      if(item.status!==200||state.overflow||state.overlaps||state.wrongColor.length||!state.memberReadable||state.legacy)failures.push(item);
     }
     if(locale==='zh-hant'&&['/products/tablet','/members'].includes(route))await stage(context,'screenshot',()=>page.screenshot({path:`${out}/${engine}-${route.replaceAll('/','-')}.png`,timeout:timeoutMs}));
-   }finally{await save();}
+   }finally{
+    try{await stage(context,'page-close',()=>page.close());}
+    finally{await save();}
+   }
   }
  }catch(error){
   failures.push({engine,...error.audit,message:error.message});
