@@ -11,6 +11,9 @@ const scenario = vi.hoisted(() => ({
   hang: '' as 'fonts' | 'evaluate' | 'close' | 'second-route' | '',
   overflowAt: 0,
   nativeTimeout: false,
+  pages: 0,
+  closedPages: 0,
+  errorOnClose: false,
   onSecondRoute: undefined as (() => Promise<void>) | undefined,
 }));
 
@@ -21,8 +24,13 @@ vi.mock('@playwright/test', () => {
     async launch() {
       let viewport = {width: 0, height: 0};
       let visits = 0;
+      let onPageError: ((error: Error) => void) | undefined;
       const page = {
-        on() {},
+        on(event: string, listener: (error: Error) => void) {if (event === 'pageerror') onPageError = listener;},
+        async close() {
+          scenario.closedPages += 1;
+          if (scenario.errorOnClose) onPageError?.(new Error('page cleanup failed'));
+        },
         setDefaultTimeout() {},
         setDefaultNavigationTimeout() {},
         async goto() {
@@ -60,7 +68,7 @@ vi.mock('@playwright/test', () => {
         async screenshot() {},
       };
       return {
-        newPage: async () => page,
+        newPage: async () => {scenario.pages += 1;return page;},
         close: async () => scenario.hang === 'close' ? pending() : undefined,
       };
     },
@@ -78,6 +86,9 @@ beforeEach(async () => {
   scenario.hang = '';
   scenario.overflowAt = 0;
   scenario.nativeTimeout = false;
+  scenario.pages = 0;
+  scenario.closedPages = 0;
+  scenario.errorOnClose = false;
   scenario.onSecondRoute = undefined;
   vi.spyOn(console, 'log').mockImplementation(() => {});
 });
@@ -173,5 +184,21 @@ auditTest('a successful audit measures all nine viewport sizes and finishes its 
     expect.objectContaining({viewport: {width: 1024, height: 1280}}),
     expect.objectContaining({viewport: {width: 1100, height: 1000}}),
     expect.objectContaining({viewport: {width: 1280, height: 720}}),
+  ]));
+});
+
+auditTest('each route owns and closes its page so layout cases cannot retain earlier media or prefetches', async () => {
+  expect((await runAudit()).outcome).toBe('passed');
+  expect(scenario.pages).toBe(99);
+  expect(scenario.closedPages).toBe(99);
+});
+
+auditTest('page errors during route cleanup still fail the audit', async () => {
+  scenario.errorOnClose = true;
+  expect((await runAudit()).outcome).toBe('failed');
+  expect((await report()).failures).toEqual(expect.arrayContaining([
+    expect.objectContaining({engine:'webkit', errors:expect.arrayContaining([
+      expect.objectContaining({locale:'en', route:'', message:'page cleanup failed'}),
+    ])}),
   ]));
 });
