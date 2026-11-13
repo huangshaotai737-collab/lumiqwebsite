@@ -15,7 +15,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
+        os: [ubuntu-24.04, windows-latest, macos-latest]
     runs-on: ${{ matrix.os }}
     # Windows installs can consume over eight minutes before browser checks.
     # Keep per-operation deadlines; allow time for all four browser engines.
@@ -25,6 +25,7 @@ jobs:
         working-directory: related/website
         shell: bash
     env:
+      LIBGL_ALWAYS_SOFTWARE: ${{ runner.os == 'Linux' && '1' || '' }}
       LUMIQ_STATIC_IMAGES: '1'
       SITE_URL: http://localhost:4223
       QA_OUTPUT: qa/release-platform
@@ -40,6 +41,9 @@ jobs:
           cache-dependency-path: related/website/package-lock.json
       - run: npm ci
       - run: npx playwright install --with-deps chromium firefox webkit
+      # WPE WebKit needs the GL video sink when paused videos reload on resize.
+      - if: runner.os == 'Linux'
+        run: sudo apt-get install -y gstreamer1.0-gl
       - if: runner.os == 'Windows'
         run: npx playwright install msedge
       - run: npm test

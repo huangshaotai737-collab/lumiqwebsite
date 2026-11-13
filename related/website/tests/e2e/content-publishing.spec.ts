@@ -200,6 +200,7 @@ test('content_boundary_public_routes',async({page})=>{
     await page.locator('.cart-nav-trigger:not(:disabled)').waitFor();
     await page.locator('.nav-logo').click();
     await expect(page).toHaveURL(new RegExp(`/${locale}$`));
+    await expect(page.locator('.lh-home')).toHaveAttribute('data-home-state','open',{timeout:60_000});
     await expect(page.locator('#hero-title')).toBeVisible();
   }
 });
