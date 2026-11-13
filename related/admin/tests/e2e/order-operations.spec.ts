@@ -48,7 +48,7 @@ test("operations/admin search cancelled order and append private audited note; e
   expect((await page.request.get("/api/orders")).status()).toBe(401);
   await login(page, "editor");
   await page.goto(`/orders/${orderId}`);
-  await expect(page.locator("p[role=alert]")).toContainText("没有运营权限");
+  await expect(page.locator("p[role=alert]")).toContainText("沒有運營權限");
   await expect(
     page.getByText("Synthetic Recipient", { exact: true }),
   ).toHaveCount(0);
@@ -57,20 +57,20 @@ test("operations/admin search cancelled order and append private audited note; e
     await login(page, role);
     await page.goto("/orders");
     await expect(
-      page.getByRole("heading", { name: "订单运营", exact: true }),
+      page.getByRole("heading", { name: "訂單運營", exact: true }),
     ).toBeVisible();
-    await page.getByLabel("订单或会员 ID").fill(orderId);
-    await page.getByLabel("状态", { exact: true }).selectOption("cancelled");
+    await page.getByLabel("訂單或會員 ID").fill(orderId);
+    await page.getByLabel("狀態", { exact: true }).selectOption("cancelled");
     await page.getByRole("button", { name: "搜索", exact: true }).click();
     await page.getByRole("link", { name: orderId, exact: true }).click();
     await expect(
-      page.getByRole("heading", { name: "订单详情", exact: true }),
+      page.getByRole("heading", { name: "訂單詳情", exact: true }),
     ).toBeVisible();
     await expect(
       page.getByText("Synthetic Recipient", { exact: true }),
     ).toBeVisible();
     await expect(
-      page.getByText("取消记录：尚无取消记录", { exact: true }),
+      page.getByText("取消記錄：尚無取消記錄", { exact: true }),
     ).toHaveCount(0);
     expect(
       (
@@ -81,8 +81,8 @@ test("operations/admin search cancelled order and append private audited note; e
       ).status(),
     ).toBe(403);
     const note = `Internal ${role} synthetic note`;
-    await page.getByLabel("添加内部备注").fill(note);
-    await page.getByRole("button", { name: "保存备注", exact: true }).click();
+    await page.getByLabel("添加內部備註").fill(note);
+    await page.getByRole("button", { name: "保存備註", exact: true }).click();
     await expect(page.getByText(note, { exact: true })).toBeVisible();
     expect(
       sql(

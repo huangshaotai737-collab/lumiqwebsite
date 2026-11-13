@@ -16,5 +16,5 @@ for (const width of [320,360,390,430,820,1440,1920]) {
 }
 test('staff credentials cannot become query strings before JavaScript is ready',async({browser})=>{
   const context=await browser.newContext({javaScriptEnabled:false});const page=await context.newPage();
-  try {await page.goto('/login');await page.getByLabel('工作邮箱').fill('synthetic@example.test');await page.getByLabel('密码',{exact:true}).fill('Synthetic-only!');await page.getByLabel('密码',{exact:true}).press('Enter');expect(new URL(page.url()).search).toBe('');await expect(page.locator('form')).toHaveAttribute('method','POST');}finally{await context.close();}
+  try {await page.goto('/login');await page.getByLabel('工作郵箱').fill('synthetic@example.test');await page.getByLabel('密碼',{exact:true}).fill('Synthetic-only!');await page.getByLabel('密碼',{exact:true}).press('Enter');expect(new URL(page.url()).search).toBe('');await expect(page.locator('form')).toHaveAttribute('method','POST');}finally{await context.close();}
 });

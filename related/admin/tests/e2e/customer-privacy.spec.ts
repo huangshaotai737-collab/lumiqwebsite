@@ -117,10 +117,10 @@ test("closed policy, actual Auth failure, durable resume, private-data erasure a
   await login(page, "editor");
   await page.goto("/");
   await expect(
-    page.getByRole("heading", { name: "内容草稿", exact: true }),
+    page.getByRole("heading", { name: "內容草稿", exact: true }),
   ).toBeVisible();
   await expect(
-    page.getByRole("heading", { name: "会员", exact: true }),
+    page.getByRole("heading", { name: "會員", exact: true }),
   ).toHaveCount(0);
   expect((await page.request.get("/api/customers/anonymize")).status()).toBe(
     403,
@@ -128,10 +128,10 @@ test("closed policy, actual Auth failure, durable resume, private-data erasure a
   await login(page, "operations");
   await page.goto("/");
   await expect(
-    page.getByRole("heading", { name: "订单", exact: true }),
+    page.getByRole("heading", { name: "訂單", exact: true }),
   ).toBeVisible();
   await expect(
-    page.getByRole("heading", { name: "内容草稿", exact: true }),
+    page.getByRole("heading", { name: "內容草稿", exact: true }),
   ).toHaveCount(0);
   expect(
     (
@@ -144,10 +144,10 @@ test("closed policy, actual Auth failure, durable resume, private-data erasure a
   await login(page, "admin");
   await page.goto("/customers");
   await expect(
-    page.getByRole("button", { name: "匿名化客户资料", exact: true }),
+    page.getByRole("button", { name: "匿名化客戶資料", exact: true }),
   ).toBeDisabled();
   await expect(
-    page.getByText("保留规则尚未由品牌确认，匿名化与恢复操作已关闭。"),
+    page.getByText("保留規則尚未由品牌確認，匿名化與恢復操作已關閉。"),
   ).toBeVisible();
   expect(
     (
@@ -198,18 +198,18 @@ test("closed policy, actual Auth failure, durable resume, private-data erasure a
   expect((await member.from("customer_orders").select("*")).data).toEqual([]);
   await page.reload();
   await expect(
-    page.getByRole("cell", { name: "认证联系资料未清理完成，请检查服务商或人工处理范围。", exact: true }),
+    page.getByRole("cell", { name: "認證聯繫資料未清理完成，請檢查服務商或人工處理範圍。", exact: true }),
   ).toBeVisible();
   await expect(
-    page.getByRole("button", { name: "恢复任务", exact: true }),
+    page.getByRole("button", { name: "恢復任務", exact: true }),
   ).toBeVisible();
   sql(
     "drop trigger c6_auth_failure on auth.users;drop function private.c6_auth_failure();",
   );
-  await page.getByRole("button", { name: "恢复任务", exact: true }).click();
+  await page.getByRole("button", { name: "恢復任務", exact: true }).click();
   await expect(
     page.getByText(
-      "应用资料已匿名化；服务商日志、备份和独立报名记录不在清理范围。",
+      "應用資料已匿名化；服務商日誌、備份和獨立報名記錄不在清理範圍。",
       { exact: true },
     ),
   ).toBeVisible();
@@ -288,7 +288,7 @@ test("closed policy, actual Auth failure, durable resume, private-data erasure a
     page.getByRole("cell", { name: "已完成", exact: true }),
   ).toBeVisible();
   await expect(
-    page.getByRole("button", { name: "恢复任务", exact: true }),
+    page.getByRole("button", { name: "恢復任務", exact: true }),
   ).toHaveCount(0);
   await page.setViewportSize({ width: 390, height: 900 });
   expect(
@@ -302,9 +302,9 @@ test("closed policy, actual Auth failure, durable resume, private-data erasure a
   });
   await page.goto("/");
   await expect(
-    page.getByRole("heading", { name: "会员", exact: true }),
+    page.getByRole("heading", { name: "會員", exact: true }),
   ).toBeVisible();
   await expect(
-    page.getByRole("heading", { name: "订单", exact: true }),
+    page.getByRole("heading", { name: "訂單", exact: true }),
   ).toBeVisible();
 });

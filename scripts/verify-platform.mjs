@@ -40,6 +40,7 @@ stages.contracts=async()=>{
  await command('contracts','node',['scripts/sync-platform-contracts.mjs','--check']);
  await command('content-export','node',['scripts/export-initial-content.mjs','--check'],path.join(mirror,'related/website'));
  const types=execFileSync('supabase',['gen','types','typescript','--local'],{cwd:root,env,encoding:'utf8',stdio:['ignore','pipe','pipe']});
+ await writeFile(path.join(evidence,'database.generated.ts'),types);
  for(const app of ['admin','website'])if((await readFile(path.join(root,`related/${app}/lib/generated/database.ts`),'utf8')).replace(/[ \t]+$/gm,'').trim()!==types.replace(/[ \t]+$/gm,'').trim())throw Error(`Generated database types drift: ${app}`);
  console.log('PASS generated database types (both apps)');
 };
