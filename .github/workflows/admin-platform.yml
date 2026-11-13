@@ -36,6 +36,16 @@ jobs:
           npx playwright install --with-deps chromium firefox webkit chrome
           cd ../admin
           npx playwright install --with-deps chromium
+      - name: Seed bundled publication in disposable database
+        run: |
+          node --input-type=module <<'JS'
+          import fs from 'node:fs';
+          import {execFileSync} from 'node:child_process';
+          const snapshot=JSON.stringify(JSON.parse(fs.readFileSync('related/admin/features/content/initial-snapshot.json','utf8'))).replaceAll("'", "''");
+          const actor='d1a60000-0000-4000-8000-000000000001',draft='d1a60000-0000-4000-8000-000000000002',release='d1a60000-0000-4000-8000-000000000003';
+          const query=`begin; insert into public.content_drafts(id,version,snapshot,created_by,updated_by) values('${draft}',1,'${snapshot}'::jsonb,'${actor}','${actor}'); insert into public.content_releases(id,snapshot,draft_id,draft_version,created_by) values('${release}','${snapshot}'::jsonb,'${draft}',1,'${actor}'); update public.content_publication set release_id='${release}'; commit;`;
+          execFileSync('docker',['exec','-i','supabase_db_lumiq-platform','psql','-U','postgres','-d','postgres','-v','ON_ERROR_STOP=1'],{input:query,stdio:['pipe','inherit','inherit']});
+          JS
       - name: Run local verification (SQL precedes synthetic browser accounts)
         run: node scripts/verify-platform.mjs --stage=browsers --browser-from=admin-catalog
       - name: Remove ephemeral database and local credentials
