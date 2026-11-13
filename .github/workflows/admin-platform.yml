@@ -48,6 +48,9 @@ jobs:
           JS
       - name: Run local verification (SQL precedes synthetic browser accounts)
         run: node scripts/verify-platform.mjs --stage=browsers --browser-from=admin-catalog
+      - name: Verify negative counterexamples
+        if: always()
+        run: node scripts/verify-platform.mjs --stage=counterexamples
       - name: Remove ephemeral database and local credentials
         if: always()
         run: |
