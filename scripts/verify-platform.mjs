@@ -69,15 +69,18 @@ stages.browsers=async()=>{
  ...[['website','platform'],['website','account'],['admin','operations'],['admin','catalog'],['website','orders'],['admin','orders'],['website','payments'],['admin','payments'],['admin','privacy']].map(([app,suite])=>({name:`${app}-${suite}`,app,script:`test:e2e:${suite}`,extra:{}}))];
  const from=browserFrom?owners.findIndex(owner=>owner.name===browserFrom):0;
  if(from<0)throw Error('Unknown browser owner');
+ const failedOwners=[];
  for(const owner of owners.slice(from)) {
   const cwd=path.join(mirror,'related',owner.app);
   try {await command(owner.name,'npm',['run',owner.script],cwd,owner.extra);}
+  catch(error) {failedOwners.push(owner.name);console.error(error.message);}
   finally {
    // The next Playwright owner clears test-results; preserve its synthetic visual evidence first.
    const destination=path.join(localRoot,'evidence','visual',owner.name);await mkdir(destination,{recursive:true});
    for(const file of await readdir(path.join(cwd,'test-results')).catch(()=>[]))if(file.endsWith('.png'))await copyFile(path.join(cwd,'test-results',file),path.join(destination,file));
   }
  }
+ if(failedOwners.length)throw Error(`Browser verification failed: ${failedOwners.join(', ')}`);
 };
 stages.counterexamples=async()=>{await command('counterexamples','node',['scripts/platform/counterexamples.mjs'],root);};
 if(selected&&!Object.hasOwn(stages,selected))throw Error(`Unknown stage ${selected}`);
