@@ -3,9 +3,9 @@ import {useContentAdapter} from "@/components/content/useContentAdapter";
 import {homeMotionQuery} from "./responsiveLayout";
 import {useVisualPreview} from '@/components/content/SiteContentProvider';
 
-import { useEffect, useRef, useState, useMemo, type CSSProperties, type ReactNode } from "react";
+import { useEffect, useRef, useState, useMemo, useCallback, type CSSProperties, type ReactNode } from "react";
 import {HomeMediaContext, type HomeMedia} from "./HomeMediaContext";
-import {prepareHome} from "./prepareHome";
+import {prepareHome, loadingLogo} from "./prepareHome";
 import {homeImageSources, homeLowSource, resolveFlowVideo, legacyBackgroundVideo} from "./homeMediaSources";
 import {useStagedArtwork} from "./useStagedArtwork";
 import HomeLoading from "./HomeLoading";
@@ -29,13 +29,16 @@ export default function HomeMotion({ children }: { children: ReactNode }) {
   const [percent, setPercent] = useState(0);
   const [error, setError] = useState(false);
   const [attempt, setAttempt] = useState(0);
+  const [introComplete, setIntroComplete] = useState(false);
+  const finishIntro = useCallback(() => setIntroComplete(true), []);
+  const opened = media.prepared && introComplete;
   const startPoster = useStagedArtwork(cms.slot("asset_76a5de3f207ca5bb").url, media.prepared);
   const endPoster = useStagedArtwork(cms.slot("asset_d11e4e878cf13138").url, media.prepared);
   const desktopBackground = useStagedArtwork("/assets/site-backgrounds-20261108/pearl-flow-desktop.webp", media.prepared);
   const compactBackground = useStagedArtwork("/assets/site-backgrounds-20261108/pearl-flow-compact.webp", media.prepared);
   const mobileBackground = useStagedArtwork("/assets/site-backgrounds-20261108/pearl-flow-mobile.webp", media.prepared);
   const assets = useMemo(() => ({
-    images: homeImageSources.map(source => homeLowSource(cms.url(source))),
+    images: [...homeImageSources.map(source => homeLowSource(cms.url(source))), loadingLogo],
     videos: [cms.slot("asset_a4b2063e90484449").url, resolveFlowVideo(cms.url(legacyBackgroundVideo))],
   }), [cms]);
   useEffect(() => {
@@ -80,6 +83,7 @@ export default function HomeMotion({ children }: { children: ReactNode }) {
       alive = false;
       controller.abort();
       clearTimeout(deadline);
+      clearTimeout(entryTimer);
       extraArtwork.forEach(image => {image.src = "";});
       Object.values(movies).forEach(url => URL.revokeObjectURL(url));
     };
@@ -88,17 +92,17 @@ export default function HomeMotion({ children }: { children: ReactNode }) {
     const main = root.current;
     if (!main) return;
     const previous = main.inert;
-    main.inert = !media.prepared;
+    main.inert = !opened;
     return () => {main.inert = previous;};
-  }, [media.prepared]);
+  }, [opened]);
   useEffect(() => {
-    if (!media.prepared) return;
+    if (!opened) return;
     window.dispatchEvent(new Event("lumiq:home-enter"));
     ScrollTrigger.refresh();
-  }, [media.prepared]);
+  }, [opened]);
   useGSAP(
     () => {
-      if (!media.prepared) return;
+      if (!opened) return;
       const fontsChanged = () => {
         if (matchMedia(homeMotionQuery).matches) ScrollTrigger.refresh();
       };
@@ -198,21 +202,25 @@ export default function HomeMotion({ children }: { children: ReactNode }) {
         releaseOpening();
       };
     },
-    { scope: root, dependencies: [motionDependency, media], revertOnUpdate: true },
+    { scope: root, dependencies: [motionDependency, media, opened], revertOnUpdate: true },
   );
   return (
     <HomeMediaContext.Provider value={media}>
+      <HomeLoading key={attempt} percent={percent} error={error} prepared={opened} onIntroComplete={finishIntro} retry={() => {
+        setIntroComplete(false);
+        setAttempt(value => value + 1);
+      }} />
       <main ref={root} id="main-content" className="lh-home" style={{
+        visibility: opened ? undefined : "hidden",
         "--home-opening-start": `url(${JSON.stringify(startPoster)})`,
         "--home-opening-end": `url(${JSON.stringify(endPoster)})`,
         "--home-flow-desktop": `url(${JSON.stringify(desktopBackground)})`,
         "--home-flow-compact": `url(${JSON.stringify(compactBackground)})`,
         "--home-flow-mobile": `url(${JSON.stringify(mobileBackground)})`,
-      } as CSSProperties} data-home-state={media.prepared ? "open" : "loading"} aria-busy={!media.prepared} tabIndex={-1}>
-        {media.prepared && <HomePageWarmup />}
+      } as CSSProperties} data-home-state={opened ? "open" : "loading"} aria-busy={!opened} tabIndex={-1}>
+        {opened && <HomePageWarmup />}
         {children}
       </main>
-      <HomeLoading percent={percent} error={error} prepared={media.prepared} retry={() => setAttempt(value => value + 1)} />
     </HomeMediaContext.Provider>
   );
 }

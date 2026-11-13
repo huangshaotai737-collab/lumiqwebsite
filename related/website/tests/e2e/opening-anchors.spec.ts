@@ -6,7 +6,8 @@ test.beforeEach(({page}) => {
 
 async function ready(page: Page, hash = '') {
   await page.goto(`/zh-hant${hash}`);
-  await expect(page.locator('.lh-home')).toHaveAttribute('data-home-state', 'open');
+  // Entry includes complete video downloads and the full logo introduction.
+  await expect(page.locator('.lh-home')).toHaveAttribute('data-home-state', 'open', {timeout:15000});
   await expect(page.locator('.lh-loader')).toHaveAttribute('data-state', 'hidden');
 }
 
