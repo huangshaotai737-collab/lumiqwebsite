@@ -30,8 +30,8 @@ async function login(context: BrowserContext, role: string) {
   await context.setExtraHTTPHeaders({ 'x-real-ip': `2001:db8:${crypto.randomUUID().slice(0, 4)}::6` });
   expect((await context.request.post(`${origin}/api/auth/signin`, { headers: { origin }, data: { email: users[role].email, password } })).status()).toBe(200);
 }
-async function post(context: BrowserContext, url: string, data: unknown) {
-  return context.request.post(`${origin}${url}`, { headers: { origin }, data });
+async function post(context: BrowserContext, url: string, data: Record<string, unknown>) {
+  return context.request.post(`${origin}${url}`, { headers: { origin }, data: url === '/api/content/drafts' ? { name: 'Content browser fixture', summary: 'Exercise editing and publishing', ...data } : data });
 }
 async function holdDraftResponse(page: Page) {
   let release!: () => void; let arrive!: () => void;
@@ -52,6 +52,8 @@ test('admin initializes workspace; field errors keep input and expose exact fiel
   expect((await context.request.get(`${origin}/api/content/drafts?id=${crypto.randomUUID()}`)).status()).toBe(401);
   await login(context, 'admin');
   await page.goto('/content');
+  await page.getByLabel('草稿名稱', { exact: true }).fill('Content editor browser fixture');
+  await page.getByLabel('建立摘要', { exact: true }).fill('Exercise field validation and publishing');
   await page.getByRole('button', { name: '新建草稿', exact: true }).click();
   await expect(page).toHaveURL(/\/content\/[0-9a-f-]+$/);
   draftId = new URL(page.url()).pathname.split('/').pop()!;
@@ -63,12 +65,14 @@ test('admin initializes workspace; field errors keep input and expose exact fiel
   const name = page.locator('[id="field-products.ola.name"]');
   await expect(page.getByText('產品名稱', { exact: true })).toBeVisible();
   await name.fill('<script>invalid</script>');
+  await page.getByLabel('本次修改摘要', { exact: true }).fill('Verify edited fields and save behavior');
   await page.getByRole('button', { name: '保存草稿', exact: true }).click();
   await expect(page.locator('main').getByRole('alert')).toContainText('products.ola.name');
   await expect(name).toHaveValue('<script>invalid</script>');
   await page.getByRole('button', { name: '定位 products.ola.name', exact: true }).click();
   await expect(name).toBeFocused();
   await name.fill('B2 合成測試 Ola');
+  await page.getByLabel('本次修改摘要', { exact: true }).fill('Verify edited fields and save behavior');
   await page.getByRole('button', { name: '保存草稿', exact: true }).click();
   await expect(page.getByRole('status')).toContainText('草稿已保存');
   await page.getByLabel('搜索字段').fill('產品名稱');
@@ -88,6 +92,7 @@ test('admin initializes workspace; field errors keep input and expose exact fiel
   const amount = page.getByLabel('參考金額（美元）', { exact: true });
   await amount.fill('not-a-number');
   await expect(amount).toHaveValue('not-a-number');
+  await page.getByLabel('本次修改摘要', { exact: true }).fill('Verify edited fields and save behavior');
   await page.getByRole('button', { name: '保存草稿', exact: true }).click();
   await expect(page.locator('main').getByRole('alert')).toContainText('products.nest.price');
   await expect(amount).toHaveValue('not-a-number');
@@ -99,6 +104,7 @@ test('admin initializes workspace; field errors keep input and expose exact fiel
   await expect(amount).toHaveAttribute('id', 'field-products.nest.price.amount');
   await expect(amount).toHaveValue('not-a-number');
   await page.locator('[id="field-products.nest.price.kind"]').selectOption('pending');
+  await page.getByLabel('本次修改摘要', { exact: true }).fill('Verify edited fields and save behavior');
   await page.getByRole('button', { name: '保存草稿', exact: true }).click();
   await expect(page.getByRole('status')).toContainText('草稿已保存');
 });
@@ -113,7 +119,10 @@ for (const action of ['save', 'submit'] as const) {
     await page.getByLabel('搜索字段').fill('products.ola.name');
     const name = page.locator('[id="field-products.ola.name"]');
     const requestText = action === 'save' ? 'Delayed save request content' : await name.inputValue();
-    if (action === 'save') await name.fill(requestText);
+    if (action === 'save') {
+      await name.fill(requestText);
+      await page.getByLabel('本次修改摘要', { exact: true }).fill('Verify pending save behavior');
+    }
     const held = await holdDraftResponse(page);
     try {
       await page.getByRole('button', { name: action === 'save' ? '保存草稿' : '提交審覈', exact: true }).click();
@@ -156,6 +165,7 @@ test('stale browser retains input and offers a downloadable conflict copy', asyn
   expect((await post(context, '/api/content/drafts', { id: draftId, expectedVersion: current.version, snapshot: current.snapshot })).status()).toBe(200);
   const held = await holdDraftResponse(page);
   try {
+    await page.getByLabel('本次修改摘要', { exact: true }).fill('Verify edited fields and save behavior');
     await page.getByRole('button', { name: '保存草稿', exact: true }).click();
     await held.arrived;
     await expect(page.locator('[id="field-products.ola.name"]')).toBeDisabled();
@@ -221,6 +231,7 @@ test('bad ICU and missing locales saved by raw RPC cannot be published; valid pu
   await page.getByLabel('字段分組').selectOption('settings');
   await page.getByLabel('搜索字段').fill('settings.supportEmail');
   await page.getByLabel('客服郵箱', { exact: true }).fill('admin-settings@example.test');
+  await page.getByLabel('本次修改摘要', { exact: true }).fill('Verify edited fields and save behavior');
   await page.getByRole('button', { name: '保存草稿', exact: true }).click();
   await expect(page.getByRole('status')).toContainText('草稿已保存');
   await page.getByRole('button', { name: '發佈當前版本', exact: true }).click();

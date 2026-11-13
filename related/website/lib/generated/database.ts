@@ -461,6 +461,9 @@ isOneToOne: true
 "create_staff_invite":
 { Args: { "email": string,"role": string,"token_digest": string }; Returns: string
                            },
+"delete_content_record":
+{ Args: { "expected_version"?: number,"record_id": string,"record_kind": string }; Returns: undefined
+                           },
 "export_waitlist_operations":
 { Args: { "search"?: string,"status"?: string }; Returns: Json
                            },
@@ -488,19 +491,29 @@ isOneToOne: true
 "get_customer_privacy_workspace":
 { Args: { "page"?: number,"page_size"?: number,"search"?: string }; Returns: Json
                            },
+"get_described_content_draft":
+{ Args: { "id": string }; Returns: Json
+                           },
+"get_described_content_workspace":
+{ Args: Record<PropertyKey, never>; Returns: Json
+                           },
 "get_media_assets":
 { Args: { "asset_id"?: string }; Returns: Json
                            },
 "get_ordering_catalog":
 { Args: Record<PropertyKey, never>; Returns: Json
                            },
+"get_paginated_content_workspace":
+{ Args: { "draft_page"?: number,"release_page"?: number }; Returns: Json
+                           },
 "get_public_asset":
 { Args: { "asset_id": string }; Returns: Json
                            },
-"get_published_content_revision":
-{ Args: Record<PropertyKey, never>; Returns: string },
 "get_published_content":
 { Args: Record<PropertyKey, never>; Returns: Json
+                           },
+"get_published_content_revision":
+{ Args: Record<PropertyKey, never>; Returns: string
                            },
 "get_staff_order":
 { Args: { "order_id": string }; Returns: Json
@@ -543,6 +556,9 @@ isOneToOne: true
 "publish_content_draft":
 { Args: { "expected_version": number,"id": string }; Returns: string
                            },
+"publish_media_removal":
+{ Args: { "draft_id": string,"expected_release": string,"expected_version": number,"usage_key": string }; Returns: string
+                           },
 "request_customer_anonymization":
 { Args: { "reason": string,"user_id": string }; Returns: Json
                            },
@@ -551,6 +567,9 @@ isOneToOne: true
                            },
 "save_content_draft":
 { Args: { "expected_version": number,"id": string,"snapshot": Json }; Returns: Json
+                           },
+"save_described_content_draft":
+{ Args: { "change_summary": string,"draft_name": string,"expected_version": number,"id": string,"snapshot": Json }; Returns: Json
                            },
 "set_catalog_offering":
 { Args: { "confirmed": boolean,"currency": string,"enabled": boolean,"expected_version": number,"sku_id": string,"unit_minor": number }; Returns: undefined

@@ -42,7 +42,7 @@ test.afterAll(async({browser})=>{if(!userId)return;
   });
 });
 async function login(context:BrowserContext,origin=adminOrigin){await context.setExtraHTTPHeaders({'x-real-ip':`2001:db8:${crypto.randomUUID().slice(0,4)}::8`});expect((await context.request.post(`${origin}/api/auth/signin`,{headers:{origin},data:{email,password}})).status()).toBe(200);}
-async function post(context:BrowserContext,route:string,data:unknown){const r=await context.request.post(`${adminOrigin}${route}`,{headers:{origin:adminOrigin},data});expect(r.status()).toBe(200);return (await r.json()).data;}
+async function post(context:BrowserContext,route:string,data:Record<string,unknown>){const r=await context.request.post(`${adminOrigin}${route}`,{headers:{origin:adminOrigin},data:route==='/api/content/drafts'?{name:'Publishing browser fixture',summary:'Exercise cross-site content publishing',...data}:data});expect(r.status()).toBe(200);return (await r.json()).data;}
 test('publish_updates_three_locales',async({page,context,browser})=>{
   await login(context);
   draftId=(await post(context,'/api/content/drafts',{action:'create'})).id;
@@ -50,7 +50,7 @@ test('publish_updates_three_locales',async({page,context,browser})=>{
   const snapshot=structuredClone(seed) as ContentSnapshot;
   for(const locale of ['en','zh-hant','ja'] as const)(snapshot.messages[locale].HomeRefresh as Record<string,string>).hero1=draftTitle;
   const saved=await post(context,'/api/content/drafts',{id:draftId,expectedVersion:draft.version,snapshot});
-  await page.goto(`${adminOrigin}/content/${draftId}`);await expect(page.getByRole('link',{name:'预览已保存草稿',exact:true})).toHaveAttribute('href',`${siteOrigin}/en/preview/${draftId}?page=%2F`);
+  await page.goto(`${adminOrigin}/content/${draftId}`);await expect(page.getByRole('link',{name:'預覽已保存草稿',exact:true})).toHaveAttribute('href',`${siteOrigin}/en/preview/${draftId}?page=%2F`);
   const anonymous=await browser.newContext();const publicPage=await anonymous.newPage();await publicPage.goto('/en');await expect(publicPage.locator('#hero-title')).not.toContainText(draftTitle);
   await post(context,'/api/content/publish',{id:draftId,expectedVersion:saved.version});
   for(const locale of ['en','zh-hant','ja']){await page.goto(`/${locale}`);await expect(page.locator('#hero-title')).toContainText(draftTitle,{timeout:60_000});}
