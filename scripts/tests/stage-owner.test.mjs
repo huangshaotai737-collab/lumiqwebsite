@@ -21,6 +21,21 @@ for(const signal of ['SIGTERM','SIGINT'])test(`${signal} stops and reaps stage a
   const successor=acquireRunLock(`${directory}/lock`);await delay(100);assert.throws(()=>acquireRunLock(`${directory}/lock`),/Another verifier/);successor();
  }finally{supervisor.kill('SIGKILL');for(const pid of Object.values(pids||{}))try{process.kill(pid,'SIGKILL');}catch{}rmSync(directory,{recursive:true,force:true});}
 });
+// Linux ps shares the verifier UID; macOS ps is setuid root and cannot trigger this race.
+test('a concurrent process-table inspection is left alone without retaining the lock',{timeout:12000,skip:process.platform!=='linux'},async()=>{
+ const directory=mkdtempSync(path.join(os.tmpdir(),'lumiq-inspection-'));
+ const supervisor=spawn(process.execPath,[fixture.pathname,'supervisor',directory],{stdio:'ignore'});
+ const completion=new Promise(resolve=>supervisor.once('close',resolve));let pids,inspection;
+ try{
+  await until(()=>existsSync(`${directory}/ready.json`));pids=JSON.parse(readFileSync(`${directory}/ready.json`,'utf8'));
+  inspection=spawn('/bin/ps',['-axo','pid='],{stdio:'ignore'});inspection.kill('SIGSTOP');
+  await delay(200);supervisor.kill('SIGINT');
+  assert.equal(await completion,130);
+  assert.equal(alive(inspection.pid),true,'the unrelated inspection must not be killed');
+  assert.equal(alive(pids.stage),false);assert.equal(alive(pids.grandchild),false);
+  acquireRunLock(`${directory}/lock`)();
+ }finally{supervisor.kill('SIGKILL');inspection?.kill('SIGKILL');for(const pid of Object.values(pids||{}))try{process.kill(pid,'SIGKILL');}catch{}rmSync(directory,{recursive:true,force:true});}
+});
 test('cancellation during asynchronous preparation holds lock until preparation settles and starts no stage',{timeout:12000},async()=>{
  const directory=mkdtempSync(path.join(os.tmpdir(),'lumiq-prepare-'));
  const supervisor=spawn(process.execPath,[fixture.pathname,'prepare',directory],{stdio:'ignore'});
