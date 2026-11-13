@@ -52,7 +52,7 @@ export function mountOpeningVideo(root: HTMLElement, source = openingVideoSource
       }
       const position = {y: scrollY};
       tween = gsap.to(position, {
-        y: top(index), duration: .55, ease: "power3.out",
+        y: top(index), duration: .75, ease: "sine.inOut",
         onUpdate: () => window.scrollTo({top: position.y, behavior: "instant"}),
         onComplete: () => { tween = undefined; settled = index; schedule(); },
       });
