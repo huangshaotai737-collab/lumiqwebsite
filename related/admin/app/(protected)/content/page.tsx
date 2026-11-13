@@ -8,19 +8,19 @@ export default async function ContentPage() {
   try {
     data = await Promise.all([requireStaff(['admin', 'editor']), loadWorkspace()]);
   } catch {
-    return <p role="alert">内容工作区暂不可用。仅管理员和内容编辑可访问，请检查当前权限或稍后重试。</p>;
+    return <p role="alert">內容工作區暫不可用。僅管理員和內容編輯可訪問，請檢查當前權限或稍後重試。</p>;
   }
   const [actor, workspace] = data;
   return <>
-    <h1>官网内容工作区</h1>
-    <p>管理员与内容编辑共享草稿。发布与回滚仅限管理员，官网内容最多 60 秒内生效。</p>
-    {!workspace.publishedReleaseId && <p className="notice">尚无已发布快照。管理员可从现有官网导入基线新建草稿；内容编辑需等待首次发布。</p>}
+    <h1>官網內容工作區</h1>
+    <p>管理員與內容編輯共享草稿。發佈與回滾僅限管理員，官網內容最多 60 秒內生效。</p>
+    {!workspace.publishedReleaseId && <p className="notice">尚無已發佈快照。管理員可從現有官網導入基線新建草稿；內容編輯需等待首次發佈。</p>}
     <CreateDraftButton />
     <section className="panel">
       <h2>最近草稿</h2>
       {workspace.drafts.length ? <ul>{workspace.drafts.map(draft => <li key={draft.id}>
-        <Link href={`/content/${draft.id}`}>草稿 {draft.id}</Link> · 版本 {draft.version} · {draft.status === 'submitted' ? '已提交审核' : '编辑中'}
-      </li>)}</ul> : <p>尚无草稿。</p>}
+        <Link href={`/content/${draft.id}`}>草稿 {draft.id}</Link> · 版本 {draft.version} · {draft.status === 'submitted' ? '已提交審覈' : '編輯中'}
+      </li>)}</ul> : <p>尚無草稿。</p>}
     </section>
     <ReleaseHistory releases={workspace.releases} current={workspace.publishedReleaseId} admin={actor.role === 'admin'} />
   </>;

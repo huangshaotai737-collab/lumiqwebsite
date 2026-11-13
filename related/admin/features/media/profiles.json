@@ -300,7 +300,7 @@
       "asset_57246e2797dd7da7"
     ],
     "complex": false,
-    "readOnlyReason": "透明人物需要同步验证 WebM、Safari MOV 与封面；MOV 不在本期新上传支持范围。",
+    "readOnlyReason": "透明人物需要同步驗證 WebM、Safari MOV 與封面；MOV 不在本期新上傳支持範圍。",
     "width": 1920,
     "height": 1080
   },
@@ -445,7 +445,7 @@
       "asset_3a0fc68ee0629037"
     ],
     "complex": false,
-    "readOnlyReason": "透明人物需要同步验证 WebM、Safari MOV 与封面；MOV 不在本期新上传支持范围。",
+    "readOnlyReason": "透明人物需要同步驗證 WebM、Safari MOV 與封面；MOV 不在本期新上傳支持範圍。",
     "width": 1920,
     "height": 1080
   },
@@ -541,7 +541,7 @@
     "codec": "hevc",
     "duration": 8,
     "alpha": true,
-    "readOnlyReason": "透明人物需要同步验证 WebM、Safari MOV 与封面；MOV 不在本期新上传支持范围。",
+    "readOnlyReason": "透明人物需要同步驗證 WebM、Safari MOV 與封面；MOV 不在本期新上傳支持範圍。",
     "frameRate": 24
   },
   "asset_700321a1b9f4533b": {
@@ -808,7 +808,7 @@
     "codec": "vp9",
     "duration": 8,
     "alpha": true,
-    "readOnlyReason": "透明人物需要同步验证 WebM、Safari MOV 与封面；MOV 不在本期新上传支持范围。",
+    "readOnlyReason": "透明人物需要同步驗證 WebM、Safari MOV 與封面；MOV 不在本期新上傳支持範圍。",
     "frameRate": 24
   },
   "asset_a795af9e87d42422": {

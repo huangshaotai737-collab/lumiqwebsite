@@ -6,6 +6,6 @@ export const dynamic = 'force-dynamic';
 export default async function MediaPage({ searchParams }: { searchParams: Promise<MediaSearchParams> }) {
   let library;
   try { library = await loadMediaLibrary(await searchParams); }
-  catch (error) { return <p role="alert">{error instanceof HttpError && error.code === 'INVALID_INPUT' ? '搜索或筛选条件无效。请使用不超过 100 字的单一搜索词、有效筛选与正整数页码。' : '素材库暂不可用。请核对员工权限、私有存储配置和媒体探测环境。'}</p>; }
-  return <><h1>素材库</h1><p>上传仅保存私有原件。管理员发布成功后，官网才能读取不可变副本。</p><MediaLibrary {...library} /></>;
+  catch (error) { return <p role="alert">{error instanceof HttpError && error.code === 'INVALID_INPUT' ? '搜索或篩選條件無效。請使用不超過 100 字的單一搜索詞、有效篩選與正整數頁碼。' : '素材庫暫不可用。請覈對員工權限、私有存儲配置和媒體探測環境。'}</p>; }
+  return <><h1>素材庫</h1><p>上傳僅保存私有原件。管理員發佈成功後，官網才能讀取不可變副本。</p><MediaLibrary {...library} /></>;
 }

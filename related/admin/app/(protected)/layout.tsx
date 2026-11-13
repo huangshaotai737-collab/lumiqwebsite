@@ -16,6 +16,6 @@ export default async function ProtectedLayout({children}: {children: React.React
       unavailable = true;
     }
   }
-  if (unavailable) return <AdminShell><section className="empty-state"><h1>管理后台暂不可用</h1><p>{authConfigured() ? '认证服务暂时不可用，请稍后重试。' : '认证服务尚未配置，管理访问已关闭。'}</p><Link href="/login">前往员工登录</Link></section></AdminShell>;
-  return <AdminShell status="员工身份已验证" role={staff?.role}>{children}</AdminShell>;
+  if (unavailable) return <AdminShell><section className="empty-state"><h1>管理後臺暫不可用</h1><p>{authConfigured() ? '認證服務暫時不可用，請稍後重試。' : '認證服務尚未配置，管理訪問已關閉。'}</p><Link href="/login">前往員工登錄</Link></section></AdminShell>;
+  return <AdminShell status="員工身份已驗證" role={staff?.role}>{children}</AdminShell>;
 }

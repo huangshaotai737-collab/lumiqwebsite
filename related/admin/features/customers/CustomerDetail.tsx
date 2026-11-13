@@ -33,7 +33,7 @@ export function CustomerDetail({
         if (!cancelled) setNotes(result.data);
       })
       .catch(() => {
-        if (!cancelled) setMessage("备注读取失败，请重新打开详情。");
+        if (!cancelled) setMessage("備註讀取失敗，請重新打開詳情。");
       });
     return () => {
       cancelled = true;
@@ -51,29 +51,29 @@ export function CustomerDetail({
       });
       const result = await response.json();
       if (!response.ok || !result.ok) {
-        setMessage("保存失败，请检查权限或稍后重试。");
+        setMessage("保存失敗，請檢查權限或稍後重試。");
         return;
       }
       setNote("");
       try {
         await read();
-        setMessage("备注已保存。");
+        setMessage("備註已保存。");
       } catch {
-        setMessage("备注已提交，但重新读取失败。请重新打开详情。");
+        setMessage("備註已提交，但重新讀取失敗。請重新打開詳情。");
       }
     } catch {
-      setMessage("网络连接失败，请重试。");
+      setMessage("網絡連接失敗，請重試。");
     } finally {
       setPending(false);
     }
   }
   return (
-    <section className="panel" aria-label="会员详情">
-      <h2>{customer.displayName || "未填写姓名"}</h2>
+    <section className="panel" aria-label="會員詳情">
+      <h2>{customer.displayName || "未填寫姓名"}</h2>
       <p>{customer.email}</p>
-      <p>注册时间：{formatAdminDateTime(customer.createdAt)}</p>
+      <p>註冊時間：{formatAdminDateTime(customer.createdAt)}</p>
       <form method="POST" onSubmit={save} className="content-field">
-        <label htmlFor="customer-note">新增内部备注（最多2000字）</label>
+        <label htmlFor="customer-note">新增內部備註（最多2000字）</label>
         <textarea
           disabled={pending}
           id="customer-note"
@@ -84,13 +84,13 @@ export function CustomerDetail({
           required
         />
         <button className="primary-button" disabled={pending}>
-          {pending ? "正在保存…" : "保存备注"}
+          {pending ? "正在保存…" : "保存備註"}
         </button>
       </form>
       <p role="status">{message}</p>
-      <h3>最近100条内部备注</h3>
+      <h3>最近100條內部備註</h3>
       {notes === null ? (
-        <p>备注尚未读取完成。</p>
+        <p>備註尚未讀取完成。</p>
       ) : notes.length ? (
         notes.map((item) => (
           <article key={item.id}>
@@ -99,9 +99,9 @@ export function CustomerDetail({
           </article>
         ))
       ) : (
-        <p>暂无内部备注。</p>
+        <p>暫無內部備註。</p>
       )}
-      <button className="secondary-button" onClick={close}>关闭详情</button>
+      <button className="secondary-button" onClick={close}>關閉詳情</button>
     </section>
   );
 }

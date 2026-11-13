@@ -32,12 +32,12 @@ export function PrivacyAction({ initial }: { initial: PrivacyWorkspace }) {
       });
       const result = await response.json();
       if (!response.ok || !result.ok) {
-        setMessage("操作未完成，请检查权限、保留规则或任务是否正在执行。");
+        setMessage("操作未完成，請檢查權限、保留規則或任務是否正在執行。");
       } else {
         setMessage(
           result.data.status === "completed"
-            ? "应用资料已匿名化；服务商日志、备份和独立报名记录不在清理范围。"
-            : "任务失败，客户访问仍已暂停。请在任务列表查看步骤并恢复。",
+            ? "應用資料已匿名化；服務商日誌、備份和獨立報名記錄不在清理範圍。"
+            : "任務失敗，客戶訪問仍已暫停。請在任務列表查看步驟並恢復。",
         );
         setConfirmed(false);
         router.refresh();
@@ -45,22 +45,22 @@ export function PrivacyAction({ initial }: { initial: PrivacyWorkspace }) {
       try {
         await read(workspace.jobs.page);
       } catch {
-        setMessage((m) => m + " 任务列表读取失败，请刷新页面。");
+        setMessage((m) => m + " 任務列表讀取失敗，請刷新頁面。");
       }
     } catch {
-      setMessage("连接失败，任务可能已创建。请刷新任务列表确认后恢复。");
+      setMessage("連接失敗，任務可能已創建。請刷新任務列表確認後恢復。");
     } finally {
       setPending(false);
     }
   }
   return (
-    <section className="panel" aria-label="客户匿名化">
-      <h2>客户匿名化</h2>
+    <section className="panel" aria-label="客戶匿名化">
+      <h2>客戶匿名化</h2>
       <p>
-        仅限管理员。先暂停客户访问，再清理认证联系资料、会员资料、订单收件快照及内部备注。订单金额明细与必要审计保留。
+        僅限管理員。先暫停客戶訪問，再清理認證聯繫資料、會員資料、訂單收件快照及內部備註。訂單金額明細與必要審計保留。
       </p>
       {!workspace.enabled && (
-        <p role="status">保留规则尚未由品牌确认，匿名化与恢复操作已关闭。</p>
+        <p role="status">保留規則尚未由品牌確認，匿名化與恢復操作已關閉。</p>
       )}
       <form method="POST"
         className="content-field"
@@ -70,7 +70,7 @@ export function PrivacyAction({ initial }: { initial: PrivacyWorkspace }) {
         }}
       >
         <label>
-          客户 UUID
+          客戶 UUID
           <input
             value={userId}
             onChange={(e) => setUserId(e.target.value)}
@@ -81,8 +81,8 @@ export function PrivacyAction({ initial }: { initial: PrivacyWorkspace }) {
         <label>
           原因
           <select value={reason} onChange={(e) => setReason(e.target.value)}>
-            <option value="customer_request">客户申请</option>
-            <option value="retention_expired">已确认保留期限届满</option>
+            <option value="customer_request">客戶申請</option>
+            <option value="retention_expired">已確認保留期限屆滿</option>
           </select>
         </label>
         <label>
@@ -91,14 +91,14 @@ export function PrivacyAction({ initial }: { initial: PrivacyWorkspace }) {
             checked={confirmed}
             onChange={(e) => setConfirmed(e.target.checked)}
           />
-          我已核对客户及保留范围，了解此清理不可撤销。
+          我已覈對客戶及保留範圍，瞭解此清理不可撤銷。
         </label>
         <button className="primary-button" disabled={!workspace.enabled || pending || !confirmed}>
-          匿名化客户资料
+          匿名化客戶資料
         </button>
       </form>
       <p role="status">{message}</p>
-      <h3>匿名化任务</h3>
+      <h3>匿名化任務</h3>
       <form method="POST" className="content-field"
         onSubmit={async (e) => {
           e.preventDefault();
@@ -106,55 +106,55 @@ export function PrivacyAction({ initial }: { initial: PrivacyWorkspace }) {
             await read();
             setMessage("");
           } catch {
-            setMessage("任务读取失败，请重试。");
+            setMessage("任務讀取失敗，請重試。");
           }
         }}
       >
         <label>
-          按任务或客户 UUID 搜索
+          按任務或客戶 UUID 搜索
           <input
             value={search}
             maxLength={36}
             onChange={(e) => setSearch(e.target.value)}
           />
         </label>
-        <button className="primary-button" disabled={pending}>查询 / 刷新</button>
+        <button className="primary-button" disabled={pending}>查詢 / 刷新</button>
       </form>
       <div className="table-scroll team-list-scroll" tabIndex={0}>
         <table className="team-list-table privacy-table">
           <thead>
             <tr>
-              <th>任务 / 客户</th>
-              <th>状态</th>
-              <th>认证步骤</th>
-              <th>失败步骤</th>
+              <th>任務 / 客戶</th>
+              <th>狀態</th>
+              <th>認證步驟</th>
+              <th>失敗步驟</th>
               <th>操作</th>
             </tr>
           </thead>
           <tbody>
             {workspace.jobs.items.map((j) => (
               <tr key={j.id}>
-                <td data-label="任务 / 客户"><details><summary>任务 {j.id.slice(0,8)}… · 客户 {j.userId.slice(0,8)}…</summary><p>任务：{j.id}</p><p>客户：{j.userId}</p></details></td>
-                <td data-label="状态">
+                <td data-label="任務 / 客戶"><details><summary>任務 {j.id.slice(0,8)}… · 客戶 {j.userId.slice(0,8)}…</summary><p>任務：{j.id}</p><p>客戶：{j.userId}</p></details></td>
+                <td data-label="狀態">
                   {
-                    { pending: "待处理", failed: "失败", completed: "已完成" }[
+                    { pending: "待處理", failed: "失敗", completed: "已完成" }[
                       j.status
                     ]
                   }
                 </td>
-                <td data-label="认证步骤">
-                  禁用：{j.authBanned ? "已验证" : "未完成"}
+                <td data-label="認證步驟">
+                  禁用：{j.authBanned ? "已驗證" : "未完成"}
                   <br />
-                  联系资料：{j.authCleared ? "已验证" : "未完成"}
+                  聯繫資料：{j.authCleared ? "已驗證" : "未完成"}
                 </td>
-                <td data-label="失败步骤">{j.failureStep ? ({auth_ban:"暂停客户登录失败，请检查认证服务。",auth_contact:"认证联系资料未清理完成，请检查服务商或人工处理范围。",application:"应用资料清理失败，请恢复任务重试。"} as Record<string,string>)[j.failureStep] || "步骤未完成，请由管理员核查。" : "—"}</td>
+                <td data-label="失敗步驟">{j.failureStep ? ({auth_ban:"暫停客戶登錄失敗，請檢查認證服務。",auth_contact:"認證聯繫資料未清理完成，請檢查服務商或人工處理範圍。",application:"應用資料清理失敗，請恢復任務重試。"} as Record<string,string>)[j.failureStep] || "步驟未完成，請由管理員覈查。" : "—"}</td>
                 <td data-label="操作">
                   {j.status !== "completed" && (
                     <button className="secondary-button"
                       disabled={!workspace.enabled || pending}
                       onClick={() => void write({ jobId: j.id })}
                     >
-                      恢复任务
+                      恢復任務
                     </button>
                   )}
                 </td>
@@ -163,19 +163,19 @@ export function PrivacyAction({ initial }: { initial: PrivacyWorkspace }) {
           </tbody>
         </table>
       </div>
-      {!workspace.jobs.items.length && <p>暂无符合条件的任务。</p>}
+      {!workspace.jobs.items.length && <p>暫無符合條件的任務。</p>}
       <p>
-        第 {workspace.jobs.page} 页，共 {workspace.jobs.total} 条
+        第 {workspace.jobs.page} 頁，共 {workspace.jobs.total} 條
       </p>
       <button className="secondary-button"
         disabled={pending || workspace.jobs.page === 1}
         onClick={() =>
           read(workspace.jobs.page - 1).catch(() =>
-            setMessage("任务读取失败。"),
+            setMessage("任務讀取失敗。"),
           )
         }
       >
-        上一页
+        上一頁
       </button>
       <button className="secondary-button"
         disabled={
@@ -184,14 +184,14 @@ export function PrivacyAction({ initial }: { initial: PrivacyWorkspace }) {
         }
         onClick={() =>
           read(workspace.jobs.page + 1).catch(() =>
-            setMessage("任务读取失败。"),
+            setMessage("任務讀取失敗。"),
           )
         }
       >
-        下一页
+        下一頁
       </button>
       <p>
-        执行中断的任务在5分钟租约到期后可恢复。失败期间保持暂停访问；策略版本变化需人工复核，不自动切换清理范围。
+        執行中斷的任務在5分鐘租約到期後可恢復。失敗期間保持暫停訪問；策略版本變化需人工複覈，不自動切換清理範圍。
       </p>
     </section>
   );

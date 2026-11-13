@@ -18,12 +18,12 @@ async function save(url: string, input: unknown): Promise<string> {
     return response.ok && result.ok
       ? ""
       : result.error === "CONFLICT"
-        ? "配置已被修改。请先保留当前输入，再刷新页面重试。"
+        ? "配置已被修改。請先保留當前輸入，再刷新頁面重試。"
         : result.error === "FORBIDDEN"
-          ? "权限已失效，请重新登录。"
-          : "保存失败，请检查金额、确认状态和已发布条款后重试。";
+          ? "權限已失效，請重新登錄。"
+          : "保存失敗，請檢查金額、確認狀態和已發佈條款後重試。";
   } catch {
-    return "网络连接失败，请重试。";
+    return "網絡連接失敗，請重試。";
   }
 }
 function OfferingEditor({ offering }: { offering: CatalogOffering }) {
@@ -42,7 +42,7 @@ function OfferingEditor({ offering }: { offering: CatalogOffering }) {
     return (
       <section className="panel sku-card">
         <h2>{offering.name}</h2>
-        <p>随 Ola 配套展示，不独立收费，不开放单独下单。</p>
+        <p>隨 Ola 配套展示，不獨立收費，不開放單獨下單。</p>
       </section>
     );
   async function submit(event: React.FormEvent) {
@@ -53,7 +53,7 @@ function OfferingEditor({ offering }: { offering: CatalogOffering }) {
       !Number.isSafeInteger(Number(amount)) ||
       !currency
     ) {
-      setMessage("请选择币种并输入安全范围内的非负整数金额。");
+      setMessage("請選擇幣種並輸入安全範圍內的非負整數金額。");
       return;
     }
     busy.current = true;
@@ -81,20 +81,20 @@ function OfferingEditor({ offering }: { offering: CatalogOffering }) {
     <section className="panel sku-card">
       <h2>{offering.name}</h2>
       <p>
-        {offering.confirmed ? "商业价格已确认" : "商业价格待确认"} ·{" "}
-        {offering.enabled ? "SKU 已启用" : "SKU 未启用"}
+        {offering.confirmed ? "商業價格已確認" : "商業價格待確認"} ·{" "}
+        {offering.enabled ? "SKU 已啓用" : "SKU 未啓用"}
       </p>
       <form onSubmit={submit}>
         <fieldset className="content-fieldset" disabled={pending || saved}>
           <div className="content-field">
-            <label htmlFor={"currency-" + offering.skuId}>币种</label>
+            <label htmlFor={"currency-" + offering.skuId}>幣種</label>
             <select
               id={"currency-" + offering.skuId}
               value={currency}
               onChange={(e) => setCurrency(e.target.value)}
               required
             >
-              <option value="">请选择币种</option>
+              <option value="">請選擇幣種</option>
               {Object.keys(currencyMinorDigits).map((code) => (
                 <option key={code}>{code}</option>
               ))}
@@ -102,7 +102,7 @@ function OfferingEditor({ offering }: { offering: CatalogOffering }) {
           </div>
           <div className="content-field">
             <label htmlFor={"amount-" + offering.skuId}>
-              单价（币种最小单位整数）
+              單價（幣種最小單位整數）
             </label>
             <input
               id={"amount-" + offering.skuId}
@@ -113,11 +113,11 @@ function OfferingEditor({ offering }: { offering: CatalogOffering }) {
             />
             <small>
               {digits === undefined
-                ? "请先选择币种。"
+                ? "請先選擇幣種。"
                 : digits === 0
-                  ? "该币种没有小数单位，输入 100 表示 100 元。"
-                  : "输入 100 表示 1.00，输入 123 表示 1.23。"}{" "}
-              不自动换汇。
+                  ? "該幣種沒有小數單位，輸入 100 表示 100 元。"
+                  : "輸入 100 表示 1.00，輸入 123 表示 1.23。"}{" "}
+              不自動換匯。
             </small>
           </div>
           <div className="content-field">
@@ -130,7 +130,7 @@ function OfferingEditor({ offering }: { offering: CatalogOffering }) {
                   if (!e.target.checked) setEnabled(false);
                 }}
               />{" "}
-              我已确认此 SKU 的实际商业价格
+              我已確認此 SKU 的實際商業價格
             </label>
             <label>
               <input
@@ -139,7 +139,7 @@ function OfferingEditor({ offering }: { offering: CatalogOffering }) {
                 disabled={!confirmed}
                 onChange={(e) => setEnabled(e.target.checked)}
               />{" "}
-              允许此 SKU 下单
+              允許此 SKU 下單
             </label>
           </div>
           <button className="primary-button">
@@ -174,7 +174,7 @@ function CommerceEditor({ initial }: { initial: CatalogWorkspace }) {
           : null,
       expectedVersion: initial.settings.version,
     });
-    setMessage(error || "订单设置已保存。");
+    setMessage(error || "訂單設置已保存。");
     if (!error) {
       setSaved(true);
       router.refresh();
@@ -187,20 +187,20 @@ function CommerceEditor({ initial }: { initial: CatalogWorkspace }) {
       <p>
         {initial.settings.ordersEnabled
           ? initial.termsCurrent
-            ? "订单提交已开放"
-            : "条款已变化，订单提交暂停，等待重新批准"
-          : "订单提交已关闭"}
+            ? "訂單提交已開放"
+            : "條款已變化，訂單提交暫停，等待重新批准"
+          : "訂單提交已關閉"}
       </p>
-      <h2>条款批准与订单开关</h2>
+      <h2>條款批准與訂單開關</h2>
       <p>
-        仅可批准当前已发布版本。法律条款或运费、退货、保修承诺发生变化后，新的订单会停止接受，需重新批准。
+        僅可批准當前已發佈版本。法律條款或運費、退貨、保修承諾發生變化後，新的訂單會停止接受，需重新批准。
       </p>
       <p className="content-path">
         已批准版本：{initial.settings.termsReleaseId || "尚未批准"}
         <br />
-        当前发布版本：{initial.publishedReleaseId || "尚未发布"}
+        當前發佈版本：{initial.publishedReleaseId || "尚未發佈"}
       </p>
-      <Link href="/content">查看已发布内容及商业条款</Link>
+      <Link href="/content">查看已發佈內容及商業條款</Link>
       <form onSubmit={submit}>
         <fieldset className="content-fieldset" disabled={pending || saved}>
           <div className="content-field">
@@ -211,7 +211,7 @@ function CommerceEditor({ initial }: { initial: CatalogWorkspace }) {
                 disabled={!initial.publishedReleaseId}
                 onChange={(e) => setApproved(e.target.checked)}
               />{" "}
-              我已审核并批准当前已发布的三种语言商业条款
+              我已審覈並批准當前已發佈的三種語言商業條款
             </label>
             <label>
               <input
@@ -219,11 +219,11 @@ function CommerceEditor({ initial }: { initial: CatalogWorkspace }) {
                 checked={enabled}
                 onChange={(e) => setEnabled(e.target.checked)}
               />{" "}
-              开放订单提交
+              開放訂單提交
             </label>
           </div>
           <button className="primary-button">
-            {pending ? "正在保存…" : "保存订单设置"}
+            {pending ? "正在保存…" : "保存訂單設置"}
           </button>
         </fieldset>
       </form>
@@ -234,25 +234,25 @@ function CommerceEditor({ initial }: { initial: CatalogWorkspace }) {
 
 export function CatalogEditor({ initial, readOnly = false }: { initial: CatalogWorkspace; readOnly?: boolean }) {
   if (readOnly) return <>
-    <p className="notice">运营只读：实际 SKU、价格、确认状态及订单提交配置。修改与条款批准仅限管理员。</p>
+    <p className="notice">運營只讀：實際 SKU、價格、確認狀態及訂單提交配置。修改與條款批准僅限管理員。</p>
     <div className="catalog-grid">{initial.offerings.map(offering=><section className="panel sku-card" key={offering.skuId}>
       <h2>{offering.name}</h2>
       <p>SKU：{offering.skuId}</p>
-      <p>{offering.confirmed ? "商业价格已确认" : "商业价格待确认"} · {offering.enabled ? "SKU 已启用" : "SKU 未启用"}</p>
-      <p>币种：{offering.currency || "未配置"} · 单价（币种最小单位整数）：{offering.unitMinor ?? "未配置"}</p>
-      {offering.productId === "ola-go" && <p>随 Ola 配套展示，不独立收费，不开放单独下单。</p>}
+      <p>{offering.confirmed ? "商業價格已確認" : "商業價格待確認"} · {offering.enabled ? "SKU 已啓用" : "SKU 未啓用"}</p>
+      <p>幣種：{offering.currency || "未配置"} · 單價（幣種最小單位整數）：{offering.unitMinor ?? "未配置"}</p>
+      {offering.productId === "ola-go" && <p>隨 Ola 配套展示，不獨立收費，不開放單獨下單。</p>}
     </section>)}</div>
-    <section className="panel"><h2>订单提交配置</h2>
-      <p>全局开关：{initial.settings.ordersEnabled ? "已开放" : "已关闭"}</p>
-      <p>条款：{initial.termsCurrent ? "当前有效" : "尚未批准或已变化，订单提交暂停"}</p>
+    <section className="panel"><h2>訂單提交配置</h2>
+      <p>全局開關：{initial.settings.ordersEnabled ? "已開放" : "已關閉"}</p>
+      <p>條款：{initial.termsCurrent ? "當前有效" : "尚未批准或已變化，訂單提交暫停"}</p>
       <p>已批准版本：{initial.settings.termsReleaseId || "尚未批准"}</p>
-      <p>当前发布版本：{initial.publishedReleaseId || "尚未发布"}</p>
+      <p>當前發佈版本：{initial.publishedReleaseId || "尚未發佈"}</p>
     </section>
   </>;
   return (
     <>
       <div className="notice">
-        当前仅保存待付款配置订单。运费、税费和应付总额均待确认；付款渠道未开通，配送未安排。后续付款前须补齐有效总价并由顾客确认。
+        當前僅保存待付款配置訂單。運費、稅費和應付總額均待確認；付款渠道未開通，配送未安排。後續付款前須補齊有效總價並由顧客確認。
       </div>
       <div className="catalog-grid">{initial.offerings.map((offering) => (
         <OfferingEditor

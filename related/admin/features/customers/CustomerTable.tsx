@@ -29,7 +29,7 @@ export function CustomerTable({ initial }: { initial: Page<CustomerSummary> }) {
       setData(result.data);
       setAppliedSearch(term);
     } catch {
-      setMessage("会员读取失败，当前显示上次成功结果。请重试。");
+      setMessage("會員讀取失敗，當前顯示上次成功結果。請重試。");
     } finally {
       setPending(false);
     }
@@ -44,39 +44,39 @@ export function CustomerTable({ initial }: { initial: Page<CustomerSummary> }) {
         }}
       >
         <label>
-          姓名或邮箱
+          姓名或郵箱
           <input
-            aria-label="姓名或邮箱"
+            aria-label="姓名或郵箱"
             value={search}
             maxLength={254}
             onChange={(event) => setSearch(event.target.value)}
           />
         </label>
         <button className="primary-button" disabled={pending}>
-          搜索会员
+          搜索會員
         </button>
       </form>
       <p role="status">{message}</p>
       <p>
-        共 {data.total} 位 · 第 {data.page} 页
+        共 {data.total} 位 · 第 {data.page} 頁
       </p>
       {data.items.length ? (
         <div className="table-scroll team-list-scroll">
           <table className="team-list-table">
             <thead>
               <tr>
-                <th>邮箱</th>
+                <th>郵箱</th>
                 <th>姓名</th>
-                <th>注册时间</th>
+                <th>註冊時間</th>
                 <th>操作</th>
               </tr>
             </thead>
             <tbody>
               {data.items.map((customer) => (
                 <tr key={customer.id}>
-                  <td data-label="邮箱">{customer.email}</td>
-                  <td data-label="姓名">{customer.displayName || "未填写"}</td>
-                  <td data-label="注册时间">
+                  <td data-label="郵箱">{customer.email}</td>
+                  <td data-label="姓名">{customer.displayName || "未填寫"}</td>
+                  <td data-label="註冊時間">
                     {formatAdminDateTime(customer.createdAt)}
                   </td>
                   <td data-label="操作">
@@ -84,7 +84,7 @@ export function CustomerTable({ initial }: { initial: Page<CustomerSummary> }) {
                       className="primary-button"
                       onClick={() => setSelected(customer)}
                     >
-                      查看详情
+                      查看詳情
                     </button>
                   </td>
                 </tr>
@@ -93,20 +93,20 @@ export function CustomerTable({ initial }: { initial: Page<CustomerSummary> }) {
           </table>
         </div>
       ) : (
-        <p>当前筛选或页码没有会员。</p>
+        <p>當前篩選或頁碼沒有會員。</p>
       )}
       <div className="content-toolbar">
         <button
           disabled={pending || data.page <= 1}
           onClick={() => load(data.page - 1)}
         >
-          上一页
+          上一頁
         </button>
         <button
           disabled={pending || data.page * data.pageSize >= data.total}
           onClick={() => load(data.page + 1)}
         >
-          下一页
+          下一頁
         </button>
       </div>
       {selected && (

@@ -30,47 +30,47 @@ function TeamRow({ member }: { member: TeamMember }) {
         result.ok
           ? '已保存'
           : result.error === 'CONFLICT'
-            ? '不能停用或降级最后一位管理员。'
+            ? '不能停用或降級最後一位管理員。'
             : result.error === 'FORBIDDEN'
-              ? '权限已失效，请重新登录。'
-              : '保存失败，请重试。',
+              ? '權限已失效，請重新登錄。'
+              : '保存失敗，請重試。',
       );
     } catch {
-      setMessage('网络连接失败，请重试。');
+      setMessage('網絡連接失敗，請重試。');
     } finally {
       setPending(false);
     }
   }
   return (
     <tr>
-      <td data-label="邮箱">{member.email}</td>
+      <td data-label="郵箱">{member.email}</td>
       <td data-label="角色">
         <select
-          aria-label="员工角色"
+          aria-label="員工角色"
           disabled={pending}
           value={role}
           onChange={(event) => { setRole(event.target.value); setMessage(''); }}
         >
-          <option value="admin">管理员</option>
-          <option value="editor">内容编辑</option>
-          <option value="operations">运营</option>
+          <option value="admin">管理員</option>
+          <option value="editor">內容編輯</option>
+          <option value="operations">運營</option>
         </select>
       </td>
-      <td data-label="在职状态">
+      <td data-label="在職狀態">
         <label>
           <input
-            aria-label="在职"
+            aria-label="在職"
             type="checkbox"
             disabled={pending}
             checked={active}
             onChange={(event) => { setActive(event.target.checked); setMessage(''); }}
           />{' '}
-          在职
+          在職
         </label>
       </td>
       <td data-label="操作">
         <button className="primary-button" onClick={save} disabled={pending}>
-          {pending ? '正在保存…' : '保存权限'}
+          {pending ? '正在保存…' : '保存權限'}
         </button>
         <p role="status">{message}</p>
       </td>
@@ -82,14 +82,14 @@ export function TeamTable({ members }: { members: TeamMember[] }) {
     <div
       className="table-scroll team-list-scroll"
       tabIndex={0}
-      aria-label="员工列表"
+      aria-label="員工列表"
     >
       <table className="team-list-table">
         <thead>
           <tr>
-            <th>邮箱</th>
+            <th>郵箱</th>
             <th>角色</th>
-            <th>在职状态</th>
+            <th>在職狀態</th>
             <th>操作</th>
           </tr>
         </thead>

@@ -5,7 +5,7 @@ export function InviteForm() {
   const router = useRouter();
   const [pending, setPending] = useState(false);
   const [message, setMessage] = useState(
-    '邀请有效期 48 小时，受邀人须使用同一已确认邮箱接受。',
+    '邀請有效期 48 小時，受邀人須使用同一已確認郵箱接受。',
   );
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -23,25 +23,25 @@ export function InviteForm() {
       const result = await response.json();
       setMessage(
         result.ok
-          ? '邀请已发送，尚未授予员工权限。'
+          ? '邀請已發送，尚未授予員工權限。'
           : result.error === 'CONFLICT'
-            ? '账号已有员工权限，请在列表管理。'
+            ? '賬號已有員工權限，請在列表管理。'
             : result.error === 'FORBIDDEN'
-              ? '没有邀请权限。'
-              : '邀请未发送，请检查配置或稍后重试。',
+              ? '沒有邀請權限。'
+              : '邀請未發送，請檢查配置或稍後重試。',
       );
       if (result.ok) router.refresh();
     } catch {
-      setMessage('网络连接失败，请重试。');
+      setMessage('網絡連接失敗，請重試。');
     } finally {
       setPending(false);
     }
   }
   return (
-    <section className="panel" aria-label="邀请员工">
-      <h2>邀请员工</h2>
+    <section className="panel" aria-label="邀請員工">
+      <h2>邀請員工</h2>
       <form className="login-form" onSubmit={submit}>
-        <label htmlFor="invite-email">邀请邮箱</label>
+        <label htmlFor="invite-email">邀請郵箱</label>
         <input
           id="invite-email"
           name="email"
@@ -49,14 +49,14 @@ export function InviteForm() {
           maxLength={254}
           required
         />
-        <label htmlFor="invite-role">邀请角色</label>
+        <label htmlFor="invite-role">邀請角色</label>
         <select id="invite-role" name="role" defaultValue="editor">
-          <option value="editor">内容编辑</option>
-          <option value="operations">运营</option>
-          <option value="admin">管理员</option>
+          <option value="editor">內容編輯</option>
+          <option value="operations">運營</option>
+          <option value="admin">管理員</option>
         </select>
         <button className="primary-button" disabled={pending}>
-          {pending ? '正在发送…' : '发送邀请'}
+          {pending ? '正在發送…' : '發送邀請'}
         </button>
       </form>
       <p role="status">{message}</p>

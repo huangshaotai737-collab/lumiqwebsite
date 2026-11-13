@@ -6,23 +6,23 @@ export default async function SettingsPage() {
     await requireStaff(['admin']);
   } catch {
     return (
-      <p role="alert">系统设置仅管理员可查看，请检查当前账号权限或稍后重试。</p>
+      <p role="alert">系統設置僅管理員可查看，請檢查當前賬號權限或稍後重試。</p>
     );
   }
   const status = configurationStatus();
   const labels = {
-    authentication: '身份认证',
-    email: '邀请邮件',
-    storage: '素材存储',
+    authentication: '身份認證',
+    email: '邀請郵件',
+    storage: '素材存儲',
     payments: '支付渠道',
   };
   return (
     <>
-      <h1>系统设置</h1>
+      <h1>系統設置</h1>
       <section className="panel">
-        <h2>配置状态</h2>
+        <h2>配置狀態</h2>
         <p>
-          只显示服务器配置是否存在；连通性以实际操作为准。密钥由服务器环境变量管理。
+          只顯示服務器配置是否存在；連通性以實際操作爲準。密鑰由服務器環境變量管理。
         </p>
         <dl>
           {Object.entries(status).map(([key, value]) => (
@@ -34,29 +34,29 @@ export default async function SettingsPage() {
         </dl>
       </section>
       <section className="panel">
-        <h2>官网地址与客服信息</h2>
+        <h2>官網地址與客服信息</h2>
         <p>
-          联系方式由官网内容设置统一管理。请在内容草稿的“系统设置”分组编辑，保存后由管理员发布；历史版本可回滚。
+          聯繫方式由官網內容設置統一管理。請在內容草稿的“系統設置”分組編輯，保存後由管理員發佈；歷史版本可回滾。
         </p>
-        <Link href="/content">前往内容设置</Link>
+        <Link href="/content">前往內容設置</Link>
       </section>
       <section className="panel" id="payment-materials">
-        <h2>支付接入准备</h2>
-        <p>支付渠道尚未开通，本次不创建真实交易。</p>
-        <a href="#payment-preparation-checklist">查看接入材料与准备顺序</a>
+        <h2>支付接入準備</h2>
+        <p>支付渠道尚未開通，本次不創建真實交易。</p>
+        <a href="#payment-preparation-checklist">查看接入材料與準備順序</a>
         <div id="payment-preparation-checklist">
           <ol>
-            <li>确认台湾收款主体、公司登记、负责人及收款账户资料；证件直接交支付平台。</li>
-            <li>评估 PayPal、绿界等候选渠道，向渠道确认商户资格、销售市场、计价与结算币种及审核要求。</li>
-            <li>确认正式 HTTPS 域名、客服、服务与隐私条款，以及配送、税费、退换货和退款政策。</li>
-            <li>完成商户审核，再准备独立沙箱账户与沙箱凭据，验证金额、通知、查询及退款权限。</li>
-            <li>沙箱验收通过后再准备正式凭据，由品牌方安排正式开通与验收；当前接口仍保持关闭。</li>
+            <li>確認臺灣收款主體、公司登記、負責人及收款賬戶資料；證件直接交支付平臺。</li>
+            <li>評估 PayPal、綠界等候選渠道，向渠道確認商戶資格、銷售市場、計價與結算幣種及審覈要求。</li>
+            <li>確認正式 HTTPS 域名、客服、服務與隱私條款，以及配送、稅費、退換貨和退款政策。</li>
+            <li>完成商戶審覈，再準備獨立沙箱賬戶與沙箱憑據，驗證金額、通知、查詢及退款權限。</li>
+            <li>沙箱驗收通過後再準備正式憑據，由品牌方安排正式開通與驗收；當前接口仍保持關閉。</li>
           </ol>
-          <p>准备清单不代表商户已获批。单次硬件付款仍未接通；自动续费和付费订阅不在已实现范围。</p>
-          <p>订单商品小计不是最终扣款额，运费、税费及最终应付额须确认并获得顾客同意。</p>
+          <p>準備清單不代表商戶已獲批。單次硬件付款仍未接通；自動續費和付費訂閱不在已實現範圍。</p>
+          <p>訂單商品小計不是最終扣款額，運費、稅費及最終應付額須確認並獲得顧客同意。</p>
           <p>
-            渠道资料：<a href="https://www.paypal.com/tw/business/open-business-account?locale.x=zh_TW">PayPal 台湾商业账户</a>
-            {' · '}<a href="https://www.ecpay.com.tw/Business/payment_standard">绿界支付服务</a>
+            渠道資料：<a href="https://www.paypal.com/tw/business/open-business-account?locale.x=zh_TW">PayPal 臺灣商業賬戶</a>
+            {' · '}<a href="https://www.ecpay.com.tw/Business/payment_standard">綠界支付服務</a>
           </p>
         </div>
       </section>

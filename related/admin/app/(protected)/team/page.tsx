@@ -8,7 +8,7 @@ export default async function TeamPage() {
   } catch {
     return (
       <p role="alert">
-        无法访问团队管理，仅管理员可操作。请检查当前账号权限或稍后重试。
+        無法訪問團隊管理，僅管理員可操作。請檢查當前賬號權限或稍後重試。
       </p>
     );
   }
@@ -22,50 +22,50 @@ export default async function TeamPage() {
       .limit(100),
   ]);
   if (members.error || invites.error)
-    return <p role="alert">团队资料暂时不可用，请稍后重试。</p>;
+    return <p role="alert">團隊資料暫時不可用，請稍後重試。</p>;
   return (
     <>
-      <h1>团队与权限</h1>
-      <p>角色与在职状态即时生效。最后一位管理员受到保护。</p>
+      <h1>團隊與權限</h1>
+      <p>角色與在職狀態即時生效。最後一位管理員受到保護。</p>
       <InviteForm />
-      <h2>员工</h2>
+      <h2>員工</h2>
       <TeamTable members={members.data || []} />
-      <h2>最近邀请</h2>
+      <h2>最近邀請</h2>
       <div
         className="table-scroll team-list-scroll"
         tabIndex={0}
-        aria-label="邀请记录"
+        aria-label="邀請記錄"
       >
         <table className="team-list-table">
           <thead>
             <tr>
-              <th>邮箱</th>
-              <th>状态</th>
-              <th>到期时间</th>
-              <th>重发</th>
+              <th>郵箱</th>
+              <th>狀態</th>
+              <th>到期時間</th>
+              <th>重發</th>
             </tr>
           </thead>
           <tbody>
             {invites.data?.map((invite) => (
               <tr key={invite.id}>
-                <td data-label="邮箱">{invite.email}</td>
-                <td data-label="状态">
+                <td data-label="郵箱">{invite.email}</td>
+                <td data-label="狀態">
                   {invite.accepted_at
                     ? '已接受'
                     : invite.revoked_at
-                      ? '已撤销或发送失败'
+                      ? '已撤銷或發送失敗'
                       : new Date(invite.expires_at) < new Date()
-                        ? '已过期'
+                        ? '已過期'
                         : invite.delivered_at
                           ? '待接受'
-                          : '待发送'}
+                          : '待發送'}
                 </td>
-                <td data-label="到期时间">
+                <td data-label="到期時間">
                   {new Date(invite.expires_at).toLocaleString('zh-CN', {
                     timeZone: 'Asia/Shanghai',
                   })}
                 </td>
-                <td data-label="重发">使用上方表单重发；旧邀请即失效。</td>
+                <td data-label="重發">使用上方表單重發；舊邀請即失效。</td>
               </tr>
             ))}
           </tbody>

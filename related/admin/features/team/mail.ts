@@ -38,8 +38,8 @@ export async function sendStaffInvitation(email: string, link: string) {
     const result = await transport.sendMail({
       from: process.env.STAFF_INVITE_FROM!,
       to: email,
-      subject: 'LumiQ 员工邀请',
-      text: `您收到 LumiQ 管理后台的员工邀请。请使用此邮箱已确认的账号登录后接受邀请。链接在 48 小时内有效，仅可使用一次。\n\n${link}\n\n若您没有账号，请先在官网完成注册和邮箱验证。`,
+      subject: 'LumiQ 員工邀請',
+      text: `您收到 LumiQ 管理後臺的員工邀請。請使用此郵箱已確認的賬號登錄後接受邀請。鏈接在 48 小時內有效，僅可使用一次。\n\n${link}\n\n若您沒有賬號，請先在官網完成註冊和郵箱驗證。`,
     });
     if (!result.accepted?.length || result.rejected?.length)
       throw new Error('delivery rejected');

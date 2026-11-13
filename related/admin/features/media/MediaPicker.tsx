@@ -21,18 +21,18 @@ export function MediaPicker({ usageKey, assetId, controlProps, onChange }: {
       if (!result.ok) throw new Error();
       setPage(result.data); setCursor(next); setAppliedQuery(q);
       setPrevious(direction === 'next' ? [...previous, cursor] : direction === 'previous' ? previous.slice(0, -1) : []);
-      setMessage(`本页 ${result.data.items.length} 项，仅显示当前用途的可用素材。`);
-    } catch { setMessage('素材查询暂不可用，当前选择已保留。'); }
+      setMessage(`本頁 ${result.data.items.length} 項，僅顯示當前用途的可用素材。`);
+    } catch { setMessage('素材查詢暫不可用，當前選擇已保留。'); }
     finally { busyRef.current = false; setBusy(false); }
   }
   return <fieldset className="content-fieldset media-picker" disabled={busy} aria-busy={busy}>
     <select {...controlProps} value={assetId || ''} onChange={event => onChange(event.target.value || null)}>
       <option value="">使用原站素材</option>
-      {assetId && !page.items.some(option => option.id === assetId) && <option value={assetId} disabled>当前素材 · {assetId}（不在本页或已归档）</option>}
+      {assetId && !page.items.some(option => option.id === assetId) && <option value={assetId} disabled>當前素材 · {assetId}（不在本頁或已歸檔）</option>}
       {page.items.map(option => <option key={option.id} value={option.id}>{option.fileName} · {option.id}</option>)}
     </select>
-    <label htmlFor={`${controlProps.id}-search`}>按文件名或编号查找素材</label><input id={`${controlProps.id}-search`} maxLength={100} value={query} onChange={event => setQuery(event.target.value)} />
-    <div className="content-toolbar"><button type="button" onClick={() => load('search')}>查找素材</button><button type="button" disabled={!previous.length} onClick={() => load('previous')}>上一页素材</button><button type="button" disabled={!page.nextCursor} onClick={() => load('next')}>下一页素材</button></div>
+    <label htmlFor={`${controlProps.id}-search`}>按文件名或編號查找素材</label><input id={`${controlProps.id}-search`} maxLength={100} value={query} onChange={event => setQuery(event.target.value)} />
+    <div className="content-toolbar"><button type="button" onClick={() => load('search')}>查找素材</button><button type="button" disabled={!previous.length} onClick={() => load('previous')}>上一頁素材</button><button type="button" disabled={!page.nextCursor} onClick={() => load('next')}>下一頁素材</button></div>
     <small aria-live="polite">{message}</small>
   </fieldset>;
 }
