@@ -15,7 +15,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest]
+        os: [ubuntu-24.04]
     runs-on: ${{ matrix.os }}
     # Windows installs can consume over eight minutes before browser checks.
     # Keep per-operation deadlines; allow time for all four browser engines.
