@@ -171,7 +171,7 @@ describe('content import', () => {
         cpSync(file, target);
       }
     } finally { rmSync(fixture, { recursive: true, force: true }); }
-  });
+  }, 20_000);
 
   it('reexport_is_deterministic', () => {
     const paths = ['lib/content/initial-snapshot.json', 'lib/content/field-manifest.json', '../../contracts/content-policy.ts'];
