@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import { RecentDrafts } from '@/features/content/DraftHistory';
 import { requireStaff } from '@/lib/auth/require-staff';
 import { loadWorkspace } from '@/features/content/service';
 import { CreateDraftButton } from '@/features/content/CreateDraftButton';
@@ -16,12 +16,7 @@ export default async function ContentPage() {
     <p>管理員與內容編輯共享草稿。發佈與回滾僅限管理員，官網內容最多 60 秒內生效。</p>
     {!workspace.publishedReleaseId && <p className="notice">尚無已發佈快照。管理員可從現有官網導入基線新建草稿；內容編輯需等待首次發佈。</p>}
     <CreateDraftButton />
-    <section className="panel">
-      <h2>最近草稿</h2>
-      {workspace.drafts.length ? <ul>{workspace.drafts.map(draft => <li key={draft.id}>
-        <Link href={`/content/${draft.id}`}>草稿 {draft.id}</Link> · 版本 {draft.version} · {draft.status === 'submitted' ? '已提交審覈' : '編輯中'}
-      </li>)}</ul> : <p>尚無草稿。</p>}
-    </section>
+    <RecentDrafts drafts={workspace.drafts} />
     <ReleaseHistory releases={workspace.releases} current={workspace.publishedReleaseId} admin={actor.role === 'admin'} />
   </>;
 }

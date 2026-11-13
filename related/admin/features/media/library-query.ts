@@ -13,7 +13,7 @@ export type MediaLibraryPage = { items: Omit<LibraryAsset, 'previewUrl'>[]; tota
 
 export function parseMediaLibraryQuery(input: MediaSearchParams, usages: readonly string[]): MediaLibraryQuery {
   const value = (key: string) => { const raw = input[key]; if (raw !== undefined && typeof raw !== 'string') throw new HttpError('INVALID_INPUT', 400); return raw ?? ''; };
-  const q = value('q'); const usage = value('usage'); const status = value('status'); const reference = value('reference'); const rawPage = value('page') || '1';
+  const q = value('q'); const usage = value('usage'); const status = input.status === undefined ? 'ready' : value('status'); const reference = value('reference'); const rawPage = value('page') || '1';
   if (q.length > 100 || (usage && !usages.includes(usage)) || !['', 'pending', 'ready', 'archived'].includes(status) || !['', 'draft', 'published', 'history', 'unreferenced'].includes(reference) || !/^[1-9][0-9]*$/.test(rawPage)) throw new HttpError('INVALID_INPUT', 400);
   const page = Number(rawPage);
   if (!Number.isInteger(page) || page > 2147483647) throw new HttpError('INVALID_INPUT', 400);
@@ -23,6 +23,7 @@ export function parseMediaLibraryQuery(input: MediaSearchParams, usages: readonl
 export function mediaLibraryHref(query: MediaLibraryQuery, page: number): string {
   const params = new URLSearchParams();
   for (const key of ['q', 'usage', 'status', 'reference'] as const) if (query[key]) params.set(key, query[key]);
+  if (!query.status) params.set('status', '');
   if (page > 1) params.set('page', String(page));
   return `/media${params.size ? `?${params}` : ''}`;
 }

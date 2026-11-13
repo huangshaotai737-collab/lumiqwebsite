@@ -1,5 +1,6 @@
 import type { ContentSnapshot } from '@/lib/generated/platform/content';
 import profiles from './profiles.json';
+import { mediaPageKeys } from './page-categories';
 import { mediaPresentation } from './presentation';
 
 export function uploadProfiles(media: ContentSnapshot['media'], websiteOrigin: string | null, hostCap: number, published: boolean) {
@@ -11,7 +12,7 @@ export function uploadProfiles(media: ContentSnapshot['media'], websiteOrigin: s
   };
   return Object.entries(profiles).map(([key, value]) => {
     const presentation = mediaPresentation(key);
-    return { key, ...presentation, kind: value.kind, profile: value.profile,
+    return { key, pages: mediaPageKeys(key), ...presentation, kind: value.kind, profile: value.profile,
       label: `${presentation.group} · ${presentation.title}`,
       previewUrl: preview(key), posterUrl: value.kind === 'video' && value.companions.length ? preview(value.companions[0]) : null,
       previewSource: published && media[key] ? '官網目前素材' : '原始參考素材',

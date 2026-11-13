@@ -3,14 +3,19 @@ import { useState } from 'react';
 import type { UploadProfile } from './UploadForm';
 import { matchesMedia } from './presentation';
 import { MediaPreview } from './MediaPreview';
+import { mediaPages } from './page-categories';
 
 export function UsagePicker({ profiles, value, onChange }: { profiles: UploadProfile[]; value: string; onChange: (key: string) => void }) {
   const [query, setQuery] = useState('');
-  const [group, setGroup] = useState('');
-  const visible = profiles.filter(profile => matchesMedia(profile, query, group));
+  const [page, setPage] = useState(() => profiles.find(profile => profile.key === value)!.pages[0]);
+  const visible = profiles.filter(profile => profile.pages.includes(page) && matchesMedia(profile, query, ''));
+  function selectPage(next: string) {
+    setPage(next); setQuery('');
+    onChange(profiles.find(profile => profile.pages.includes(next))!.key);
+  }
   return <section className="media-usage-browser" aria-label="選擇官網圖片位置">
     <div className="media-usage-search"><label>搜尋圖片位置<input type="search" value={query} maxLength={100} placeholder="例如：父女共讀、Ola Go、行事曆" onChange={event => setQuery(event.target.value)} /></label>
-      <label>所在頁面或分類<select value={group} onChange={event => setGroup(event.target.value)}><option value="">全部位置</option>{[...new Set(profiles.map(profile => profile.group))].map(name => <option key={name}>{name}</option>)}</select></label></div>
+      <label>所在頁面<select value={page} onChange={event => selectPage(event.target.value)}>{mediaPages.filter(([key]) => profiles.some(profile => profile.pages.includes(key))).map(([key, label]) => <option key={key} value={key}>{label}（{profiles.filter(profile => profile.pages.includes(key)).length}）</option>)}</select></label></div>
     <p className="media-result-count" aria-live="polite">{visible.length} 個位置 · 點選縮圖查看大圖與上傳設定</p>
     <div className="media-usage-grid" role="radiogroup" aria-label="官網圖片位置">
       {visible.map(profile => <label className="media-usage-card" data-selected={profile.key === value} key={profile.key}>
@@ -19,6 +24,6 @@ export function UsagePicker({ profiles, value, onChange }: { profiles: UploadPro
         <span className="media-usage-copy"><small>{profile.group} · {profile.format}</small><strong>{profile.title}</strong><span>{profile.key === value ? '✓ 已選取' : '查看並選取'}</span></span>
       </label>)}
     </div>
-    {visible.length === 0 && <div className="media-no-results"><p>沒有符合條件的圖片位置。</p><button type="button" onClick={() => { setQuery(''); setGroup(''); }}>清除搜尋與分類</button></div>}
+    {visible.length === 0 && <div className="media-no-results"><p>沒有符合條件的圖片位置。</p><button type="button" onClick={() => { setQuery(''); }}>清除搜尋</button></div>}
   </section>;
 }

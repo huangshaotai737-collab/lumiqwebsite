@@ -479,6 +479,12 @@ isOneToOne: true
 "get_content_release":
 { Args: { "id": string }; Returns: Json
                            },
+"get_described_content_draft":
+{ Args: { "id": string }; Returns: Json },
+"get_described_content_workspace":
+{ Args: Record<PropertyKey, never>; Returns: Json },
+"save_described_content_draft":
+{ Args: { "id": string; "expected_version": number; "snapshot": Json; "draft_name": string; "change_summary": string }; Returns: Json },
 "get_content_workspace":
 { Args: Record<PropertyKey, never>; Returns: Json
                            },

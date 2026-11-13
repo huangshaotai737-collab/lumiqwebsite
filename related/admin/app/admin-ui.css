@@ -281,3 +281,13 @@ dd { min-width: 0; overflow-wrap: anywhere; }
   dt { flex-basis: 100%; }
 }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; } }
+
+/* Named drafts keep the same table rhythm as publication history. */
+.draft-create,.draft-details{display:grid;gap:14px;max-width:100%;margin-block:20px}
+.draft-create label,.draft-details label{display:grid;gap:7px;max-width:760px}
+.draft-details textarea{min-height:88px;resize:vertical}
+.draft-create .primary-button{justify-self:start}
+.draft-history{min-width:800px;width:100%;table-layout:auto}
+.draft-history td{white-space:normal;overflow-wrap:anywhere;max-width:360px;vertical-align:top}
+.draft-history th{white-space:nowrap}
+.danger-button{color:#a52d2d;border-color:#efcccc}

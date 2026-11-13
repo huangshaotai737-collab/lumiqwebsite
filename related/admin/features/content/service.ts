@@ -11,10 +11,11 @@ import { validateDraft } from './schema';
 import { attestSnapshot } from './validation-attestation';
 import { prepareReleaseAssets } from '@/features/media/service';
 import {currentSnapshot} from './current-snapshot';
+import type { DraftDetails } from './draft-details';
 
 export type FieldIssue = { path: string; message: string };
 export type ContentResult<T> = ApiResult<T> & { issues?: FieldIssue[] };
-export type ContentDraft = { id: UUID; version: number; status: 'editing' | 'submitted'; snapshot: ContentSnapshot; updatedAt: string };
+export type ContentDraft = DraftDetails & { id: UUID; version: number; status: 'editing' | 'submitted'; snapshot: ContentSnapshot; updatedAt: string };
 export type ContentRelease = { id: UUID; draftId: UUID | null; draftVersion: number | null; rollbackOf: UUID | null; createdAt: string };
 export type ContentWorkspace = { drafts: Omit<ContentDraft, 'snapshot'>[]; releases: ContentRelease[]; publishedReleaseId: UUID | null };
 const uuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
@@ -55,7 +56,13 @@ function sameSettings(left: ContentSnapshot['settings'], right?: ContentSnapshot
   return Boolean(right && left.siteUrl === right.siteUrl && left.supportEmail === right.supportEmail &&
     ['en', 'zh-hant', 'ja'].every(locale => left.contactText[locale as keyof typeof left.contactText] === right.contactText?.[locale as keyof typeof right.contactText]));
 }
-export async function saveDraft(input: { id: UUID; expectedVersion: number; snapshot: ContentSnapshot }): Promise<ContentResult<{ id: UUID; version: number }>> {
+function draftDetails(input: { name?: string; summary?: string }) {
+  if (typeof input.name !== 'string' || typeof input.summary !== 'string' || !input.name.trim() || input.name.trim().length > 100 || !input.summary.trim() || input.summary.trim().length > 240) {
+    throw new InvalidContent([{ path: 'draftDetails', message: '請填寫草稿名稱（100 字內）與本次修改摘要（240 字內）。' }]);
+  }
+  return { name: input.name.trim(), summary: input.summary.trim() };
+}
+export async function saveDraft(input: { id: UUID; expectedVersion: number; snapshot: ContentSnapshot; name?: string; summary?: string }): Promise<ContentResult<{ id: UUID; version: number; updatedAt: string }>> {
   return result(async () => {
     const actor = await writer();
     if (!input || input.expectedVersion === undefined) throw new HttpError('INVALID_INPUT', 400);
@@ -68,19 +75,20 @@ export async function saveDraft(input: { id: UUID; expectedVersion: number; snap
       if (!baseline) { const published = await client.rpc('get_published_content'); sqlError(published.error); baseline = published.data as unknown as typeof baseline; }
       if (!sameSettings(snapshot.settings, baseline?.snapshot?.settings)) throw new HttpError('FORBIDDEN', 403);
     }
-    const saved = await client.rpc('save_content_draft', { id: input.id, expected_version: input.expectedVersion, snapshot: snapshot as unknown as Json });
+    const details = draftDetails(input);
+    const saved = await client.rpc('save_described_content_draft', { id: input.id, expected_version: input.expectedVersion, snapshot: snapshot as unknown as Json, draft_name: details.name, change_summary: details.summary });
     sqlError(saved.error);
-    return saved.data as { id: UUID; version: number };
+    return saved.data as { id: UUID; version: number; updatedAt: string };
   });
 }
-export async function createDraft(): Promise<ContentResult<{ id: UUID; version: number }>> {
+export async function createDraft(details?: { name?: string; summary?: string }): Promise<ContentResult<{ id: UUID; version: number; updatedAt: string }>> {
  return result(async () => {
   const actor = await requireStaff(['admin', 'editor']);
   const client = await createClient();
   const published = await client.rpc('get_published_content'); sqlError(published.error);
   const current = published.data as unknown as { snapshot: ContentSnapshot } | null;
   if (!current && actor.role !== 'admin') throw new HttpError('FORBIDDEN', 403);
-  const saved = await saveDraft({ id: randomUUID(), expectedVersion: 0, snapshot: (current?.snapshot || currentSnapshot) as ContentSnapshot });
+  const saved = await saveDraft({ id: randomUUID(), expectedVersion: 0, snapshot: (current?.snapshot || currentSnapshot) as ContentSnapshot, ...details });
   if (!saved.ok) throw new HttpError(saved.error, saved.error === 'FORBIDDEN' ? 403 : 503);
   return saved.data;
  });
@@ -125,10 +133,16 @@ export async function rollbackRelease(input: { releaseId: UUID }): Promise<Conte
     return { releaseId: rolledBack.data! };
   });
 }
-export async function loadDraft(id: UUID) { await requireStaff(['admin', 'editor']); identity(id); return (await readDraft(id)).draft; }
+export async function loadDraft(id: UUID): Promise<ContentDraft> {
+  await requireStaff(['admin', 'editor']); identity(id);
+  const client = await createClient();
+  const loaded = await client.rpc('get_described_content_draft', { id }); sqlError(loaded.error);
+  if (!loaded.data) throw new HttpError('NOT_FOUND', 404);
+  return loaded.data as unknown as ContentDraft;
+}
 export async function loadWorkspace(): Promise<ContentWorkspace> {
   await requireStaff(['admin', 'editor']);
-  const client = await createClient(); const response = await client.rpc('get_content_workspace'); sqlError(response.error);
+  const client = await createClient(); const response = await client.rpc('get_described_content_workspace'); sqlError(response.error);
   if (!response.data) throw new HttpError('UNAVAILABLE', 503);
   return response.data as unknown as ContentWorkspace;
 }

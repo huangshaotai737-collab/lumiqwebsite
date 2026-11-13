@@ -10,7 +10,7 @@ export async function POST(request: Request) {
   try {
     assertSameOrigin(request, process.env.APP_ORIGIN || '');
     const input = await readJson(request);
-    if (input?.action === 'create') return responseFor(await createDraft());
+    if (input?.action === 'create') return responseFor(await createDraft(input));
     if (input?.action === 'submit') return responseFor(await submitDraft(input));
     return responseFor(await saveDraft(input));
   } catch (error) { return failure(error); }

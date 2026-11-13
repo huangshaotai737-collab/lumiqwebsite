@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import fixture from './initial-snapshot.json';
 import type { ContentSnapshot } from '@/lib/generated/platform/content';
-import { createDraft, saveDraft, publishDraft, rollbackRelease } from './service';
+import { createDraft, saveDraft as saveDraftRequest, publishDraft, rollbackRelease } from './service';
 const dependencies = vi.hoisted(() => ({
   requireStaff: vi.fn(), enforceRateLimit: vi.fn(), rpc: vi.fn(), attest: vi.fn(),
 }));
@@ -12,6 +12,7 @@ vi.mock('@/lib/http/rate-limit', () => ({ enforceRateLimit: dependencies.enforce
 vi.mock('@/lib/auth/server', () => ({ createClient: async () => ({ rpc: dependencies.rpc }) }));
 vi.mock('./validation-attestation', () => ({ attestSnapshot: dependencies.attest }));
 const id = '60000000-0000-4000-8000-000000000001';
+const saveDraft = (input: Parameters<typeof saveDraftRequest>[0]) => saveDraftRequest({ name: '首頁內容調整', summary: '更新首頁產品介紹', ...input });
 const snapshot = () => structuredClone(fixture) as ContentSnapshot;
 beforeEach(() => {
   vi.resetAllMocks();
@@ -19,6 +20,14 @@ beforeEach(() => {
   dependencies.rpc.mockResolvedValue({ data: { id, version: 1 }, error: null });
 });
 describe('server content boundary', () => {
+  it('requires a concise name and summary and sends both in the same atomic save', async () => {
+    for (const fields of [{ name: '', summary: '說明' }, { name: '草稿', summary: '  ' }, { name: '字'.repeat(101), summary: '說明' }, { name: '草稿', summary: '字'.repeat(241) }]) {
+      expect(await saveDraft({ id, expectedVersion: 0, snapshot: snapshot(), ...fields })).toMatchObject({ ok: false, error: 'INVALID_INPUT' });
+    }
+    expect(dependencies.rpc).not.toHaveBeenCalled();
+    await saveDraft({ id, expectedVersion: 0, snapshot: snapshot(), name: '  首頁調整  ', summary: '  替換共讀圖片  ' });
+    expect(dependencies.rpc).toHaveBeenCalledWith('save_described_content_draft', expect.objectContaining({ draft_name: '首頁調整', change_summary: '替換共讀圖片', expected_version: 0 }));
+  });
   it('normalizes aliases before saving, without changing caller input', async () => {
     const value = snapshot(); value.settings.contactText.en = 'Updated contact';
     const previous = value.messages.en.Contact;
