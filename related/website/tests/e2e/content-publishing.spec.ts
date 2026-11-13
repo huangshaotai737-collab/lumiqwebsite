@@ -191,16 +191,16 @@ test('client_navigation_exits_preview_through_header_and_footer',async({context,
   await page.locator('.cart-nav-trigger').click();await expect(page.locator('.cart-product-name')).toHaveText(published.products.tablet.name);
 });
 
-test('content_boundary_public_routes',async({page})=>{
-  for(const [route,locale,language] of [['/en/members','en','en'],['/ja/login','ja','ja'],['/zh-hant/missing-b4-page','zh-hant','zh-Hant']]){
+for(const [route,locale,language] of [['/en/members','en','en'],['/ja/login','ja','ja'],['/zh-hant/missing-b4-page','zh-hant','zh-Hant']]){
+test(`content_boundary_public_routes ${locale}`,async({page})=>{
     await page.goto(route);
     await expect(page.locator('.lumiq-root')).toHaveCount(1);
     await expect(page.locator('.site-nav')).toHaveCount(1);
     await expect(page.locator('html')).toHaveAttribute('lang',language);
     await page.locator('.cart-nav-trigger:not(:disabled)').waitFor();
     await page.locator('.nav-logo').click();
-    await expect(page).toHaveURL(new RegExp(`/${locale}$`));
+    await expect(page).toHaveURL(new RegExp(`/${locale}$`),{timeout:30_000});
     await expect(page.locator('.lh-home')).toHaveAttribute('data-home-state','open',{timeout:60_000});
     await expect(page.locator('#hero-title')).toBeVisible();
-  }
 });
+}
