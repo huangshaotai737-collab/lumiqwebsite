@@ -10,6 +10,13 @@ const origin = 'https://lumiq.example';
 const cap = 20971520;
 const keyFor = (filename: string) => Object.keys(profiles).find(key => profiles[key as keyof typeof profiles].legacyUrl.endsWith(`/${filename}`))!;
 describe('visual media catalogue', () => {
+  it('names all editable media fields, including the brand scene that does not accept uploads', () => {
+    const fields = contentFields.filter(field => field.editable && field.path.startsWith('media.'));
+    for (const field of fields) expect(mediaPresentation(field.path.split('.')[1]).title).toBeTruthy();
+    const key = 'asset_1cda2c90e6c65f98';
+    expect(mediaPresentation(key).title).toBe('Ola 成人與長輩陪伴');
+    expect(uploadProfiles(currentSnapshot.media, origin, cap, false).some(item => item.key === key)).toBe(false);
+  });
   it('names every allowed slot and keeps its exact identifier and page associations', () => {
     const catalogue = uploadProfiles(currentSnapshot.media, origin, cap, false);
     expect(catalogue).toHaveLength(Object.keys(profiles).length);

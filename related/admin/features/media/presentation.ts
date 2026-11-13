@@ -56,6 +56,11 @@ const titles: Record<string, string> = {
 };
 
 export function mediaPresentation(key: string) {
+  // This brand scene has editable text fields but does not accept uploads.
+  if (key === 'asset_1cda2c90e6c65f98') return {
+    title: 'Ola 成人與長輩陪伴', group: 'Ola', fileName: 'adult-senior-companion.webp',
+    format: '圖片・唯讀', description: 'Ola 產品頁 · 圖片・唯讀',
+  };
   const profile = profiles[key as keyof typeof profiles];
   const path = profile.legacyUrl;
   const fileName = path.split('/').pop()!;
