@@ -290,4 +290,11 @@ dd { min-width: 0; overflow-wrap: anywhere; }
 .draft-history{min-width:800px;width:100%;table-layout:auto}
 .draft-history td{white-space:normal;overflow-wrap:anywhere;max-width:360px;vertical-align:top}
 .draft-history th{white-space:nowrap}
-.danger-button{color:#a52d2d;border-color:#efcccc}
+.workspace-content .danger-button{min-height:44px;color:#fff;background:#b42318;border-color:#b42318;font-weight:600}
+.workspace-content .danger-button:hover:not(:disabled){color:#fff;background:#912018;border-color:#912018}
+.workspace-content .danger-button:focus-visible{outline:2px solid #b42318;outline-offset:3px}
+.media-card-actions{margin:12px 0}
+.media-management-link{display:grid;gap:6px;margin:14px 0}
+.media-management-link>a{font-weight:600;text-decoration:underline;text-underline-offset:3px}
+.media-management-link>small{font-size:12px;line-height:1.7;color:#596d89}
+#uploaded-materials{scroll-margin-top:24px}

@@ -14,7 +14,7 @@ export default async function ContentPage() {
   return <>
     <h1>官網內容工作區</h1>
     <p>管理員與內容編輯共享草稿。發佈與回滾僅限管理員，官網內容最多 60 秒內生效。</p>
-    {!workspace.publishedReleaseId && <p className="notice">尚無已發佈快照。管理員可從現有官網導入基線新建草稿；內容編輯需等待首次發佈。</p>}
+    {!workspace.publishedReleaseId && <p className="notice">尚無已發佈版本。管理員可使用現有官網內容建立草稿；內容編輯需等待管理員完成首次發佈。</p>}
     <CreateDraftButton />
     <RecentDrafts drafts={workspace.drafts} />
     <ReleaseHistory releases={workspace.releases} current={workspace.publishedReleaseId} admin={actor.role === 'admin'} />

@@ -22,7 +22,7 @@ export default async function SettingsPage() {
       <section className="panel">
         <h2>配置狀態</h2>
         <p>
-          只顯示服務器配置是否存在；連通性以實際操作爲準。密鑰由服務器環境變量管理。
+          此處顯示各項服務是否已設定；實際可用狀態需透過對應功能確認。連線資料由系統管理員維護。
         </p>
         <dl>
           {Object.entries(status).map(([key, value]) => (
@@ -42,7 +42,7 @@ export default async function SettingsPage() {
       </section>
       <section className="panel" id="payment-materials">
         <h2>支付接入準備</h2>
-        <p>支付渠道尚未開通，本次不創建真實交易。</p>
+        <p>支付渠道尚未開通，目前無法收款。</p>
         <a href="#payment-preparation-checklist">查看接入材料與準備順序</a>
         <div id="payment-preparation-checklist">
           <ol>

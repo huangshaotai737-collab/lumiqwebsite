@@ -22,8 +22,8 @@ export default async function Dashboard() {
   return (
     <>
       <p className="eyebrow">工作臺</p>
-      <h1>歡迎回來</h1>
-      <p className="intro">當前身份：{roles[staff.role]} · 在這裏管理官網內容與日常運營。</p>
+      <h1>管理總覽</h1>
+      <p className="intro">當前身份：{roles[staff.role]} · 管理官網內容與日常營運資料。</p>
       <p className="notice dashboard-notice">支付渠道尚未開通。</p>
       {metrics.ok ? (
         <Metrics data={metrics.data} />

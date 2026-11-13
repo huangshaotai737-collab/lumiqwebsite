@@ -9,7 +9,7 @@ export default async function CatalogPage() {
   return (
     <>
       <h1>產品與方案</h1>
-      <p>實際 SKU 價格需管理員確認，官網參考價格不會用於訂單計價。</p>
+      <p>商品售價需由管理員確認。訂單依商品設定的售價計算，官網顯示的參考價格不作為計價依據。</p>
       <CatalogEditor initial={result.data} readOnly={actor.role !== "admin"} />
     </>
   );

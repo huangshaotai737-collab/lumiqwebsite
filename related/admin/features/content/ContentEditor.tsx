@@ -147,17 +147,17 @@ export function ContentEditor({ initial, fields, admin, legacyMedia, websiteOrig
     <p>版本 {version} · {status === 'submitted' ? '已提交審覈' : '編輯中'}{hasChanges ? ' · 有未保存修改' : ''}</p>
     <section className="panel draft-details" aria-label="草稿資料"><h2>草稿名稱與修改說明</h2>
       <label>草稿名稱<input aria-label="草稿名稱" value={name} maxLength={100} disabled={busy} onChange={event => { setName(event.target.value); setMessage(''); }} /></label>
-      <label>本次修改摘要<textarea aria-label="本次修改摘要" value={summary} maxLength={240} required disabled={busy} placeholder="簡述這次改了什麼，例如：更換首頁共讀圖片，調整產品介紹標題" onChange={event => { setSummary(event.target.value); setMessage(''); }} /></label>
+      <label>本次修改摘要<textarea aria-label="本次修改摘要" value={summary} maxLength={240} required disabled={busy} placeholder="填寫本次修改內容，例如：更換首頁共讀圖片、調整產品介紹標題" onChange={event => { setSummary(event.target.value); setMessage(''); }} /></label>
       <p>最後修改：{formatAdminDateTime(updatedAt)}。每次保存需填寫摘要，保存後會列入下方記錄。</p>
     </section>
-    <p>點擊預覽中的文字、插圖或商品圖，在下方修改並即時查看。保存草稿不會改變官網。</p>
+    <p>選取預覽中的文字或圖片後，可在下方編輯對應內容。修改需經保存、提交審核及管理員發佈，才會更新官網。</p>
     <div className="content-toolbar"><button className="primary-button" disabled={busy} onClick={() => operate('save')}>保存草稿</button>
       <button disabled={busy||!history.past.length} onClick={()=>travel('undo')}>撤銷</button><button disabled={busy||!history.future.length} onClick={()=>travel('redo')}>重做</button>
       <button disabled={busy || hasChanges} onClick={() => operate('submit')}>提交審覈</button>
       {websiteOrigin ? <a href={`${websiteOrigin}/${locale}/preview/${initial.id}?page=${encodeURIComponent(selectedPage.startsWith('/') ? selectedPage : '/')}`} target="_blank" rel="noopener noreferrer">預覽已保存草稿</a> : <span>官網預覽地址尚未配置</span>}
       {admin && <button disabled={busy || hasChanges} onClick={() => operate('publish')}>發佈當前版本</button>}
     </div>
-    <p className="visual-save-explainer">臨時預覽 → 保存草稿 → 提交審覈 → 管理員發佈。新窗口“預覽已保存草稿”僅顯示已保存版本。</p>
+    <p className="visual-save-explainer">發佈流程：保存草稿 → 提交審核 → 管理員發佈。「預覽已保存草稿」會在新視窗開啟，僅顯示已保存的內容。</p>
     <p role="status" aria-live="polite">{message}</p>
     {error && <section role="alert" className="notice"><p>{error}</p>{issues.length > 0 && <ul>{issues.map((issue, index) => <li key={`${issue.path}-${index}`}><button disabled={busy} onClick={() => locate(issue.path)} aria-label={`定位 ${issue.path}`}>{issue.path}</button>：{issue.message}</li>)}</ul>}</section>}
     {conflict && <div className="content-toolbar"><button onClick={download}>下載衝突副本</button><button disabled={busy} onClick={loadLatest}>載入最新草稿</button></div>}
@@ -168,13 +168,13 @@ export function ContentEditor({ initial, fields, admin, legacyMedia, websiteOrig
       onSelect={selectPaths}/>
     <section ref={selectionPanel} className="visual-selection panel" aria-label="選中內容" aria-busy={busy}>
       <div className="visual-section-heading"><div><small>當前編輯</small><h2>{selection.length?'選中內容':'從網頁中選擇內容'}</h2></div>{selection.length>0&&<button type="button" onClick={()=>setSelection([])}>取消選擇</button>}</div>
-      {selection.length===0?<p>在上方點選標題、段落、插圖或商品圖，這裏只展示對應的編輯項。更多字段可在下方“全部內容與更多設置”中查看。</p>:
+      {selection.length===0?<p>在上方預覽中選取標題、段落或圖片，此處會顯示對應的編輯項目。其他內容可在下方「全部內容與更多設置」中查看。</p>:
         selection.length>1?<><p>此處有相同或共用文案，請選擇要修改的項目。</p><div className="visual-candidates">{selection.map(path=>{const field=fields.find(f=>f.path===path)!;return <button key={path} disabled={busy} onClick={()=>setSelection([path])}><strong>{fieldLabel(field,snapshot)}</strong><span>{fieldContext(field,snapshot,selectedPage)}</span><small>{path}</small></button>;})}</div></>:
         (()=>{const field=fields.find(f=>f.path===selection[0])!;return <fieldset disabled={busy} className="content-fieldset"><FieldControl key={`${field.path}:${version}:${epoch}`} field={field} snapshot={snapshot} selectedPage={selectedPage} legacyMedia={legacyMedia} websiteOrigin={websiteOrigin} change={change} invalidControlPaths={invalidControlPaths}/>
           {field.pages.length>1&&<p className="visual-shared-note">共用內容：修改會同步用於 {field.pages.map(pageLabel).join('、')}。</p>}
           <button type="button" onClick={()=>{const path=field.type==='assetId'?field.path.split('.').slice(0,2).join('.'):field.path;change(path,canvasValue(saved.current,path));setEpoch(value=>value+1);}}>恢復已保存值</button></fieldset>;})()}
     </section>
-    <details open={allOpen} onToggle={event=>setAllOpen(event.currentTarget.open)} className="visual-all-fields panel"><summary><span>全部內容與更多設置</span><small>完整字段、搜索及校驗定位仍然保留</small></summary>
+    <details open={allOpen} onToggle={event=>setAllOpen(event.currentTarget.open)} className="visual-all-fields panel"><summary><span>全部內容與更多設置</span><small>查看全部可編輯內容，依頁面或分組篩選</small></summary>
     {allOpen&&<section className="panel" aria-label="內容字段" aria-busy={busy}>
       <fieldset className="content-fieldset" aria-label="內容編輯控件" disabled={busy}>
       <div className="content-filters"><label>頁面範圍<select aria-label="頁面範圍" value={selectedPage} onChange={event => { setSearchSnapshot(snapshot); setSelectedPage(event.target.value); setPage(0); }}><option value="all">全部頁面</option>{availablePages.map(value => <option key={value} value={value}>{pageLabel(value)}</option>)}</select></label><label>字段分組<select aria-label="字段分組" value={group} onChange={event => { setSearchSnapshot(snapshot); setGroup(event.target.value); setPage(0); }}>{Object.entries(groups).filter(([key]) => admin || key !== 'settings').map(([key, label]) => <option key={key} value={key}>{label}</option>)}</select></label>
