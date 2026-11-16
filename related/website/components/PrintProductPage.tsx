@@ -1,8 +1,12 @@
-import { useTranslations } from "next-intl";
+import {readContentAdapter} from "@/lib/content/server-adapter";
+import { getTranslations } from "next-intl/server";
 import ProductDetailTemplate from "@/components/ProductDetailTemplate";
 
-export default function PrintProductPage() {
-  const t = useTranslations("Book");
+export default async function PrintProductPage() {
+  const cms = await readContentAdapter();
+  const t = await getTranslations("Book");
+  const details = await getTranslations("BrandSceneDetails.print");
+  const presentation = await getTranslations("BrandPrintPresentation");
 
   return (
     <ProductDetailTemplate
@@ -10,14 +14,14 @@ export default function PrintProductPage() {
       accent="#336a9d"
       accentSoft="#e1edf5"
       backLabel={t("all")}
-      productName="Lumiq Print"
+      productName={cms.snapshot.products.print.name}
       title={`${t("titleBefore")} ${t("titleEm")}`}
       lede={t("lede")}
       conceptNotice={t("conceptNotice")}
       priceLabel="USD 69"
       ctaLabel={t("buy")}
       heroImage={{
-        src: "/assets/products/lumiq-print.png",
+        src: cms.url("/assets/products/lumiq-print.png"),
         alt: t("alt"),
         fit: "contain",
         unoptimized: true,
@@ -27,62 +31,24 @@ export default function PrintProductPage() {
         title: t("sectionTitle"),
         body: t("body"),
         image: {
-          src: "/assets/print-detail/consistent-20260907/gift.webp",
+          src: cms.url("/assets/print-detail/consistent-20260907/gift.webp"),
           alt: t("alt"),
           unoptimized: true,
         },
-        bullets: [1, 2, 3, 4].map((number) => t(`s${number}`)),
+        items: [...[1,4].map(number=>({title:t(`s${number}`),body:t(`s${number}Body`)})), {title:details("storyTitle"),body:details("storyBody")}],
       }}
-      scenesEyebrow={t("eyebrow")}
-      scenesTitle={t("detailsTitle")}
-      scenes={[
-        {
-          eyebrow: "01",
-          title: t("titleEm"),
-          body: t("lede"),
-          image: {
-            src: "/assets/print-detail/consistent-20260907/craft.webp",
-            alt: t("alt"),
-            unoptimized: true,
-          },
-        },
-        {
-          eyebrow: "02",
-          title: t("sectionTitle"),
-          body: t("body"),
-          image: {
-            src: "/assets/print-detail/consistent-20260907/reading.webp",
-            alt: t("alt"),
-            unoptimized: true,
-          },
-        },
-      ]}
+      scenes={[]}
       features={{
         eyebrow: t("eyebrow"),
         title: t("detailsTitle"),
-        intro: t("body"),
-        items: [1, 2, 3, 4].map((number) => ({
+        intro: presentation("craftIntro"),
+        items: [...[2, 3].map((number) => ({
           title: t(`s${number}`),
           body: t(`s${number}Body`),
-        })),
+        })), {title:details("craftTitle"),body:details("craftBody")}],
         image: {
-          src: "/assets/print-detail/consistent-20260907/pages.webp",
+          src: cms.url("/assets/print-detail/consistent-20260907/reading.webp"),
           alt: t("alt"),
-          unoptimized: true,
-        },
-      }}
-      darkSection={{
-        eyebrow: t("eyebrow"),
-        title: t("sectionTitle"),
-        intro: t("body"),
-        items: [1, 2, 3, 4].map((number) => ({
-          title: t(`s${number}`),
-          body: t(`s${number}Body`),
-        })),
-        image: {
-          src: "/assets/products/lumiq-print.png",
-          alt: t("alt"),
-          fit: "contain",
           unoptimized: true,
         },
       }}

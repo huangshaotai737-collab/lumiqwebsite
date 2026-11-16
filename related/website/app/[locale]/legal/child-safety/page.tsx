@@ -1,3 +1,5 @@
-export {default} from "@/app/legal/child-safety/page";
+import Page from "@/app/legal/child-safety/page";
+import {withSiteContent} from "@/components/content/SiteContentBoundary";
+export default withSiteContent(Page);
 import {localizedMetadata} from "@/lib/metadata";
 export const generateMetadata = localizedMetadata("childSafety");

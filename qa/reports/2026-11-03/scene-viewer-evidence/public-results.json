@@ -1,0 +1,220 @@
+{
+  "base": "https://lumiq-showcase-20261025.vercel.app",
+  "results": [
+    {
+      "engine": "chromium",
+      "locale": "zh-hant",
+      "product": "ola",
+      "sections": [
+        {
+          "id": "",
+          "count": 3
+        },
+        {
+          "id": "",
+          "count": 5
+        },
+        {
+          "id": "",
+          "count": 3
+        },
+        {
+          "id": "",
+          "count": 5
+        }
+      ],
+      "photos": [
+        "/_next/image?url=%2Fassets%2Fwestern-scenes-20260908%2Fola-family-kitchen-v2.webp&w=3840&q=75",
+        "/_next/image?url=%2Fassets%2Fola-scenes-20261103%2Fadult-senior-companion.webp&w=3840&q=75",
+        "/_next/image?url=%2Fassets%2Fwestern-scenes-20260908%2Fola-senior-reminder-v2.webp&w=3840&q=75",
+        "/_next/image?url=%2Fassets%2Fwestern-scenes-20260908%2Fola-bedtime-story-v2.webp&w=3840&q=75"
+      ],
+      "dialogs": 4,
+      "detailImages": 4,
+      "viewports": [
+        {
+          "width": 1440,
+          "height": 1000
+        }
+      ]
+    },
+    {
+      "engine": "chromium",
+      "locale": "zh-hant",
+      "product": "ola-go",
+      "sections": [
+        {
+          "id": "",
+          "count": 3
+        },
+        {
+          "id": "",
+          "count": 3
+        },
+        {
+          "id": "",
+          "count": 3
+        },
+        {
+          "id": "",
+          "count": 3
+        },
+        {
+          "id": "",
+          "count": 3
+        },
+        {
+          "id": "olago-avatar",
+          "count": 3
+        }
+      ],
+      "photos": [
+        "/_next/image?url=%2Fassets%2Fproduct-scenes-20261103%2Folago-home.webp&w=3840&q=75",
+        "/_next/image?url=%2Fassets%2Fproduct-scenes-20261103%2Folago-outdoor.webp&w=3840&q=75",
+        "/_next/image?url=%2Fassets%2Fproduct-scenes-20261103%2Folago-weather.webp&w=3840&q=75",
+        "/_next/image?url=%2Fassets%2Fproduct-scenes-20261103%2Folago-journal.webp&w=3840&q=75",
+        "/_next/image?url=%2Fassets%2Fproduct-scenes-20261103%2Folago-connected.webp&w=3840&q=75",
+        "/_next/image?url=%2Fassets%2Fproduct-scenes-20261103%2Folago-avatar.webp&w=3840&q=75"
+      ],
+      "dialogs": 6,
+      "detailImages": 6,
+      "viewports": [
+        {
+          "width": 1440,
+          "height": 1000
+        }
+      ]
+    },
+    {
+      "engine": "chromium",
+      "locale": "zh-hant",
+      "product": "tablet",
+      "sections": [
+        {
+          "id": "",
+          "count": 5
+        },
+        {
+          "id": "",
+          "count": 3
+        },
+        {
+          "id": "",
+          "count": 3
+        },
+        {
+          "id": "",
+          "count": 4
+        },
+        {
+          "id": "tablet-growth",
+          "count": 3
+        },
+        {
+          "id": "tablet-growth-social",
+          "count": 3
+        },
+        {
+          "id": "tablet-growth-stages",
+          "count": 4
+        },
+        {
+          "id": "",
+          "count": 5
+        }
+      ],
+      "photos": [
+        "/_next/image?url=%2Fassets%2Ftablet-detail%2Fgenerated%2Ftablet-reading-lifestyle-v2.png&w=3840&q=75",
+        "/_next/image?url=%2Fassets%2Ftablet-detail%2Fgenerated%2Ftablet-passive-new-scene-20261026.png&w=3840&q=75",
+        "/_next/image?url=%2Fassets%2Ftablet-detail%2Fgenerated%2Ftablet-family-new-scene-20261026.png&w=3840&q=75",
+        "/_next/image?url=%2Fassets%2Ftablet-detail%2Ffive-ways%2Fimagime-v1.jpg&w=3840&q=75",
+        "/_next/image?url=%2Fassets%2Fproduct-scenes-20261103%2Ftablet-growth.webp&w=3840&q=75",
+        "/_next/image?url=%2Fassets%2Ftablet-detail%2Fgenerated%2Ftablet-active-story-time-back-muted-20261001.png&w=3840&q=75",
+        "/_next/image?url=%2Fassets%2Fproduct-scenes-20261103%2Ftablet-stages.webp&w=3840&q=75",
+        "/_next/image?url=%2Fassets%2Fwestern-scenes-20260908%2Ftablet-parent-controls-v2.webp&w=3840&q=75"
+      ],
+      "dialogs": 8,
+      "detailImages": 8,
+      "viewports": [
+        {
+          "width": 1440,
+          "height": 1000
+        }
+      ]
+    },
+    {
+      "engine": "chromium",
+      "locale": "zh-hant",
+      "product": "print",
+      "sections": [
+        {
+          "id": "",
+          "count": 3
+        },
+        {
+          "id": "",
+          "count": 3
+        }
+      ],
+      "photos": [
+        "/assets/print-detail/consistent-20260907/gift.webp",
+        "/assets/print-detail/consistent-20260907/reading.webp"
+      ],
+      "dialogs": 2,
+      "detailImages": 2,
+      "viewports": [
+        {
+          "width": 1440,
+          "height": 1000
+        }
+      ]
+    },
+    {
+      "engine": "chromium",
+      "locale": "zh-hant",
+      "product": "nest",
+      "sections": [
+        {
+          "id": "orb-overview",
+          "count": 4
+        },
+        {
+          "id": "orb-recipes",
+          "count": 4
+        },
+        {
+          "id": "orb-calendar",
+          "count": 4
+        },
+        {
+          "id": "orb-chores",
+          "count": 4
+        },
+        {
+          "id": "orb-photos",
+          "count": 3
+        },
+        {
+          "id": "orb-finishes",
+          "count": 3
+        }
+      ],
+      "photos": [
+        "/_next/image?url=%2Fassets%2Fproduct-scenes-20261103%2Forb-overview.webp&w=3840&q=75",
+        "/_next/image?url=%2Fassets%2Fnest-detail%2Fgenerated%2Fnest-family-kitchen-v2.png&w=3840&q=75",
+        "/_next/image?url=%2Fassets%2Fproduct-scenes-20261103%2Forb-calendar.webp&w=3840&q=75",
+        "/_next/image?url=%2Fassets%2Fproduct-scenes-20261103%2Forb-chores.webp&w=3840&q=75",
+        "/_next/image?url=%2Fassets%2Fnest-detail%2Fgenerated%2Fnest-routine-closeup-v2.png&w=3840&q=75"
+      ],
+      "dialogs": 5,
+      "detailImages": 12,
+      "viewports": [
+        {
+          "width": 1440,
+          "height": 1000
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

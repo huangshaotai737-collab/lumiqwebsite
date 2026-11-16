@@ -1,14 +1,16 @@
 import type { MetadataRoute } from "next";
-import { SITE_URL } from "@/lib/metadata";
+import {readPublishedContent} from "@/lib/content/read";
+export const dynamic = "force-dynamic";
 
-export default function robots(): MetadataRoute.Robots {
+export default async function robots(): Promise<MetadataRoute.Robots> {
+  const siteUrl = (await readPublishedContent()).snapshot.settings.siteUrl;
   return {
     rules: {
       userAgent: "*",
       allow: "/",
       disallow: ["/api/"],
     },
-    sitemap: `${SITE_URL}/sitemap.xml`,
-    host: SITE_URL,
+    sitemap: `${siteUrl}/sitemap.xml`,
+    host: siteUrl,
   };
 }

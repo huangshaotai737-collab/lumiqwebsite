@@ -1,0 +1,1554 @@
+{
+  "version": 1,
+  "decision": "Task9 controller-approved exact usage retirement; immutable seed/manifest/policy retained.",
+  "fields": [
+    {
+      "path": "messages.en.CmsStatic.field_43a7027bcf6a8e50",
+      "source": {
+        "file": "components/MembersArea.tsx",
+        "locator": "FunctionDeclaration:14/Block:3/ReturnStatement:13/JsxElement:0/JsxElement:2/JsxElement:2/JsxElement:2/JsxElement:1/JsxText:1"
+      },
+      "reason": "Local-only member demo removed; verified private account replaces it.",
+      "replacement": "features/account/AccountPanel.tsx"
+    },
+    {
+      "path": "messages.zh-hant.CmsStatic.field_43a7027bcf6a8e50",
+      "source": {
+        "file": "components/MembersArea.tsx",
+        "locator": "FunctionDeclaration:14/Block:3/ReturnStatement:13/JsxElement:0/JsxElement:2/JsxElement:2/JsxElement:2/JsxElement:1/JsxText:1"
+      },
+      "reason": "Local-only member demo removed; verified private account replaces it.",
+      "replacement": "features/account/AccountPanel.tsx"
+    },
+    {
+      "path": "messages.ja.CmsStatic.field_43a7027bcf6a8e50",
+      "source": {
+        "file": "components/MembersArea.tsx",
+        "locator": "FunctionDeclaration:14/Block:3/ReturnStatement:13/JsxElement:0/JsxElement:2/JsxElement:2/JsxElement:2/JsxElement:1/JsxText:1"
+      },
+      "reason": "Local-only member demo removed; verified private account replaces it.",
+      "replacement": "features/account/AccountPanel.tsx"
+    },
+    {
+      "path": "messages.en.CmsStatic.field_a095354d062e27fe",
+      "source": {
+        "file": "components/MembersArea.tsx",
+        "locator": "FunctionDeclaration:14/Block:3/ReturnStatement:13/JsxElement:0/JsxElement:2/JsxElement:6/JsxElement:2/JsxElement:2/JsxElement:1/JsxExpression:1/ConditionalExpression:0/StringLiteral:4"
+      },
+      "reason": "Local-only member demo removed; verified private account replaces it.",
+      "replacement": "features/account/AccountPanel.tsx"
+    },
+    {
+      "path": "messages.zh-hant.CmsStatic.field_a095354d062e27fe",
+      "source": {
+        "file": "components/MembersArea.tsx",
+        "locator": "FunctionDeclaration:14/Block:3/ReturnStatement:13/JsxElement:0/JsxElement:2/JsxElement:6/JsxElement:2/JsxElement:2/JsxElement:1/JsxExpression:1/ConditionalExpression:0/StringLiteral:4"
+      },
+      "reason": "Local-only member demo removed; verified private account replaces it.",
+      "replacement": "features/account/AccountPanel.tsx"
+    },
+    {
+      "path": "messages.ja.CmsStatic.field_a095354d062e27fe",
+      "source": {
+        "file": "components/MembersArea.tsx",
+        "locator": "FunctionDeclaration:14/Block:3/ReturnStatement:13/JsxElement:0/JsxElement:2/JsxElement:6/JsxElement:2/JsxElement:2/JsxElement:1/JsxExpression:1/ConditionalExpression:0/StringLiteral:4"
+      },
+      "reason": "Local-only member demo removed; verified private account replaces it.",
+      "replacement": "features/account/AccountPanel.tsx"
+    },
+    {
+      "path": "messages.en.CmsStatic.field_4965a16a4f0c7dbc",
+      "source": {
+        "file": "components/MembersArea.tsx",
+        "locator": "FunctionDeclaration:14/Block:3/ReturnStatement:13/JsxElement:0/JsxElement:2/JsxElement:6/JsxElement:4/JsxExpression:4/BinaryExpression:0/JsxFragment:2/JsxExpression:2/ConditionalExpression:0/JsxFragment:4/JsxElement:2/JsxExpression:1/CallExpression:0/ArrowFunction:1/JsxElement:2/JsxElement:4/JsxElement:3/JsxText:2"
+      },
+      "reason": "Local-only member demo removed; verified private account replaces it.",
+      "replacement": "features/account/AccountPanel.tsx"
+    },
+    {
+      "path": "messages.zh-hant.CmsStatic.field_4965a16a4f0c7dbc",
+      "source": {
+        "file": "components/MembersArea.tsx",
+        "locator": "FunctionDeclaration:14/Block:3/ReturnStatement:13/JsxElement:0/JsxElement:2/JsxElement:6/JsxElement:4/JsxExpression:4/BinaryExpression:0/JsxFragment:2/JsxExpression:2/ConditionalExpression:0/JsxFragment:4/JsxElement:2/JsxExpression:1/CallExpression:0/ArrowFunction:1/JsxElement:2/JsxElement:4/JsxElement:3/JsxText:2"
+      },
+      "reason": "Local-only member demo removed; verified private account replaces it.",
+      "replacement": "features/account/AccountPanel.tsx"
+    },
+    {
+      "path": "messages.ja.CmsStatic.field_4965a16a4f0c7dbc",
+      "source": {
+        "file": "components/MembersArea.tsx",
+        "locator": "FunctionDeclaration:14/Block:3/ReturnStatement:13/JsxElement:0/JsxElement:2/JsxElement:6/JsxElement:4/JsxExpression:4/BinaryExpression:0/JsxFragment:2/JsxExpression:2/ConditionalExpression:0/JsxFragment:4/JsxElement:2/JsxExpression:1/CallExpression:0/ArrowFunction:1/JsxElement:2/JsxElement:4/JsxElement:3/JsxText:2"
+      },
+      "reason": "Local-only member demo removed; verified private account replaces it.",
+      "replacement": "features/account/AccountPanel.tsx"
+    },
+    {
+      "path": "messages.en.CmsStatic.field_94e6b5dbd328efb4",
+      "source": {
+        "file": "components/MembersArea.tsx",
+        "locator": "FunctionDeclaration:14/Block:3/ReturnStatement:13/JsxElement:0/JsxElement:2/JsxElement:6/JsxElement:4/JsxExpression:4/BinaryExpression:0/JsxFragment:2/JsxExpression:2/ConditionalExpression:0/JsxFragment:4/JsxExpression:4/BinaryExpression:0/JsxElement:2/JsxElement:2/JsxElement:1/JsxText:2"
+      },
+      "reason": "Local-only member demo removed; verified private account replaces it.",
+      "replacement": "features/account/AccountPanel.tsx"
+    },
+    {
+      "path": "messages.zh-hant.CmsStatic.field_94e6b5dbd328efb4",
+      "source": {
+        "file": "components/MembersArea.tsx",
+        "locator": "FunctionDeclaration:14/Block:3/ReturnStatement:13/JsxElement:0/JsxElement:2/JsxElement:6/JsxElement:4/JsxExpression:4/BinaryExpression:0/JsxFragment:2/JsxExpression:2/ConditionalExpression:0/JsxFragment:4/JsxExpression:4/BinaryExpression:0/JsxElement:2/JsxElement:2/JsxElement:1/JsxText:2"
+      },
+      "reason": "Local-only member demo removed; verified private account replaces it.",
+      "replacement": "features/account/AccountPanel.tsx"
+    },
+    {
+      "path": "messages.ja.CmsStatic.field_94e6b5dbd328efb4",
+      "source": {
+        "file": "components/MembersArea.tsx",
+        "locator": "FunctionDeclaration:14/Block:3/ReturnStatement:13/JsxElement:0/JsxElement:2/JsxElement:6/JsxElement:4/JsxExpression:4/BinaryExpression:0/JsxFragment:2/JsxExpression:2/ConditionalExpression:0/JsxFragment:4/JsxExpression:4/BinaryExpression:0/JsxElement:2/JsxElement:2/JsxElement:1/JsxText:2"
+      },
+      "reason": "Local-only member demo removed; verified private account replaces it.",
+      "replacement": "features/account/AccountPanel.tsx"
+    },
+    {
+      "path": "messages.en.CmsStatic.field_bd4d2b3e3e5a92f6",
+      "source": {
+        "file": "components/MembersArea.tsx",
+        "locator": "FunctionDeclaration:14/Block:3/ReturnStatement:13/JsxElement:0/JsxElement:2/JsxElement:6/JsxElement:4/JsxExpression:10/BinaryExpression:0/JsxElement:2/JsxElement:2/JsxElement:3/JsxText:1"
+      },
+      "reason": "Local-only member demo removed; verified private account replaces it.",
+      "replacement": "features/account/AccountPanel.tsx"
+    },
+    {
+      "path": "messages.zh-hant.CmsStatic.field_bd4d2b3e3e5a92f6",
+      "source": {
+        "file": "components/MembersArea.tsx",
+        "locator": "FunctionDeclaration:14/Block:3/ReturnStatement:13/JsxElement:0/JsxElement:2/JsxElement:6/JsxElement:4/JsxExpression:10/BinaryExpression:0/JsxElement:2/JsxElement:2/JsxElement:3/JsxText:1"
+      },
+      "reason": "Local-only member demo removed; verified private account replaces it.",
+      "replacement": "features/account/AccountPanel.tsx"
+    },
+    {
+      "path": "messages.ja.CmsStatic.field_bd4d2b3e3e5a92f6",
+      "source": {
+        "file": "components/MembersArea.tsx",
+        "locator": "FunctionDeclaration:14/Block:3/ReturnStatement:13/JsxElement:0/JsxElement:2/JsxElement:6/JsxElement:4/JsxExpression:10/BinaryExpression:0/JsxElement:2/JsxElement:2/JsxElement:3/JsxText:1"
+      },
+      "reason": "Local-only member demo removed; verified private account replaces it.",
+      "replacement": "features/account/AccountPanel.tsx"
+    },
+    {
+      "path": "messages.en.Members.chooseCover",
+      "source": {
+        "file": "messages/en.json",
+        "locator": "Members.chooseCover"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.en.Members.close",
+      "source": {
+        "file": "messages/en.json",
+        "locator": "Members.close"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.en.Members.complaint",
+      "source": {
+        "file": "messages/en.json",
+        "locator": "Members.complaint"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.en.Members.contact",
+      "source": {
+        "file": "messages/en.json",
+        "locator": "Members.contact"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.en.Members.content",
+      "source": {
+        "file": "messages/en.json",
+        "locator": "Members.content"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.en.Members.coverPreview",
+      "source": {
+        "file": "messages/en.json",
+        "locator": "Members.coverPreview"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.en.Members.demoDevice",
+      "source": {
+        "file": "messages/en.json",
+        "locator": "Members.demoDevice"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.en.Members.demoNotice",
+      "source": {
+        "file": "messages/en.json",
+        "locator": "Members.demoNotice"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.en.Members.deviceName",
+      "source": {
+        "file": "messages/en.json",
+        "locator": "Members.deviceName"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.en.Members.deviceNotice",
+      "source": {
+        "file": "messages/en.json",
+        "locator": "Members.deviceNotice"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.en.Members.devices",
+      "source": {
+        "file": "messages/en.json",
+        "locator": "Members.devices"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.en.Members.deviceSettings",
+      "source": {
+        "file": "messages/en.json",
+        "locator": "Members.deviceSettings"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.en.Members.displayName",
+      "source": {
+        "file": "messages/en.json",
+        "locator": "Members.displayName"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.en.Members.displayNamePlaceholder",
+      "source": {
+        "file": "messages/en.json",
+        "locator": "Members.displayNamePlaceholder"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.en.Members.draftSaved",
+      "source": {
+        "file": "messages/en.json",
+        "locator": "Members.draftSaved"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.en.Members.explore",
+      "source": {
+        "file": "messages/en.json",
+        "locator": "Members.explore"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.en.Members.feedback",
+      "source": {
+        "file": "messages/en.json",
+        "locator": "Members.feedback"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.en.Members.feedbackNotice",
+      "source": {
+        "file": "messages/en.json",
+        "locator": "Members.feedbackNotice"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.en.Members.feedbackType",
+      "source": {
+        "file": "messages/en.json",
+        "locator": "Members.feedbackType"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.en.Members.fileError",
+      "source": {
+        "file": "messages/en.json",
+        "locator": "Members.fileError"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.en.Members.help",
+      "source": {
+        "file": "messages/en.json",
+        "locator": "Members.help"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.en.Members.intro",
+      "source": {
+        "file": "messages/en.json",
+        "locator": "Members.intro"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.en.Members.localOnly",
+      "source": {
+        "file": "messages/en.json",
+        "locator": "Members.localOnly"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.en.Members.membership",
+      "source": {
+        "file": "messages/en.json",
+        "locator": "Members.membership"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.en.Members.nav",
+      "source": {
+        "file": "messages/en.json",
+        "locator": "Members.nav"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.en.Members.noDevices",
+      "source": {
+        "file": "messages/en.json",
+        "locator": "Members.noDevices"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.en.Members.noDevicesBody",
+      "source": {
+        "file": "messages/en.json",
+        "locator": "Members.noDevicesBody"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.en.Members.noPayment",
+      "source": {
+        "file": "messages/en.json",
+        "locator": "Members.noPayment"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.en.Members.notActivated",
+      "source": {
+        "file": "messages/en.json",
+        "locator": "Members.notActivated"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.en.Members.notConnected",
+      "source": {
+        "file": "messages/en.json",
+        "locator": "Members.notConnected"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.en.Members.notifications",
+      "source": {
+        "file": "messages/en.json",
+        "locator": "Members.notifications"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.en.Members.planBody",
+      "source": {
+        "file": "messages/en.json",
+        "locator": "Members.planBody"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.en.Members.planTitle",
+      "source": {
+        "file": "messages/en.json",
+        "locator": "Members.planTitle"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.en.Members.portfolio",
+      "source": {
+        "file": "messages/en.json",
+        "locator": "Members.portfolio"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.en.Members.preview",
+      "source": {
+        "file": "messages/en.json",
+        "locator": "Members.preview"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.en.Members.previewNotice",
+      "source": {
+        "file": "messages/en.json",
+        "locator": "Members.previewNotice"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.en.Members.profile",
+      "source": {
+        "file": "messages/en.json",
+        "locator": "Members.profile"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.en.Members.profileNotice",
+      "source": {
+        "file": "messages/en.json",
+        "locator": "Members.profileNotice"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.en.Members.quiet",
+      "source": {
+        "file": "messages/en.json",
+        "locator": "Members.quiet"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.en.Members.saved",
+      "source": {
+        "file": "messages/en.json",
+        "locator": "Members.saved"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.en.Members.saveDraft",
+      "source": {
+        "file": "messages/en.json",
+        "locator": "Members.saveDraft"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.en.Members.saveSettings",
+      "source": {
+        "file": "messages/en.json",
+        "locator": "Members.saveSettings"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.en.Members.settings",
+      "source": {
+        "file": "messages/en.json",
+        "locator": "Members.settings"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.en.Members.showDemo",
+      "source": {
+        "file": "messages/en.json",
+        "locator": "Members.showDemo"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.en.Members.storageError",
+      "source": {
+        "file": "messages/en.json",
+        "locator": "Members.storageError"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.en.Members.suggestion",
+      "source": {
+        "file": "messages/en.json",
+        "locator": "Members.suggestion"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.en.Members.title",
+      "source": {
+        "file": "messages/en.json",
+        "locator": "Members.title"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.en.Members.viewPlans",
+      "source": {
+        "file": "messages/en.json",
+        "locator": "Members.viewPlans"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.en.Members.visitor",
+      "source": {
+        "file": "messages/en.json",
+        "locator": "Members.visitor"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.en.Members.workNotice",
+      "source": {
+        "file": "messages/en.json",
+        "locator": "Members.workNotice"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.en.Members.workSaved",
+      "source": {
+        "file": "messages/en.json",
+        "locator": "Members.workSaved"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.en.Members.workTitle",
+      "source": {
+        "file": "messages/en.json",
+        "locator": "Members.workTitle"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.ja.Members.chooseCover",
+      "source": {
+        "file": "messages/ja.json",
+        "locator": "Members.chooseCover"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.ja.Members.close",
+      "source": {
+        "file": "messages/ja.json",
+        "locator": "Members.close"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.ja.Members.complaint",
+      "source": {
+        "file": "messages/ja.json",
+        "locator": "Members.complaint"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.ja.Members.contact",
+      "source": {
+        "file": "messages/ja.json",
+        "locator": "Members.contact"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.ja.Members.content",
+      "source": {
+        "file": "messages/ja.json",
+        "locator": "Members.content"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.ja.Members.coverPreview",
+      "source": {
+        "file": "messages/ja.json",
+        "locator": "Members.coverPreview"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.ja.Members.demoDevice",
+      "source": {
+        "file": "messages/ja.json",
+        "locator": "Members.demoDevice"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.ja.Members.demoNotice",
+      "source": {
+        "file": "messages/ja.json",
+        "locator": "Members.demoNotice"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.ja.Members.deviceName",
+      "source": {
+        "file": "messages/ja.json",
+        "locator": "Members.deviceName"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.ja.Members.deviceNotice",
+      "source": {
+        "file": "messages/ja.json",
+        "locator": "Members.deviceNotice"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.ja.Members.devices",
+      "source": {
+        "file": "messages/ja.json",
+        "locator": "Members.devices"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.ja.Members.deviceSettings",
+      "source": {
+        "file": "messages/ja.json",
+        "locator": "Members.deviceSettings"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.ja.Members.displayName",
+      "source": {
+        "file": "messages/ja.json",
+        "locator": "Members.displayName"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.ja.Members.displayNamePlaceholder",
+      "source": {
+        "file": "messages/ja.json",
+        "locator": "Members.displayNamePlaceholder"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.ja.Members.draftSaved",
+      "source": {
+        "file": "messages/ja.json",
+        "locator": "Members.draftSaved"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.ja.Members.explore",
+      "source": {
+        "file": "messages/ja.json",
+        "locator": "Members.explore"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.ja.Members.feedback",
+      "source": {
+        "file": "messages/ja.json",
+        "locator": "Members.feedback"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.ja.Members.feedbackNotice",
+      "source": {
+        "file": "messages/ja.json",
+        "locator": "Members.feedbackNotice"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.ja.Members.feedbackType",
+      "source": {
+        "file": "messages/ja.json",
+        "locator": "Members.feedbackType"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.ja.Members.fileError",
+      "source": {
+        "file": "messages/ja.json",
+        "locator": "Members.fileError"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.ja.Members.help",
+      "source": {
+        "file": "messages/ja.json",
+        "locator": "Members.help"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.ja.Members.intro",
+      "source": {
+        "file": "messages/ja.json",
+        "locator": "Members.intro"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.ja.Members.localOnly",
+      "source": {
+        "file": "messages/ja.json",
+        "locator": "Members.localOnly"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.ja.Members.membership",
+      "source": {
+        "file": "messages/ja.json",
+        "locator": "Members.membership"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.ja.Members.nav",
+      "source": {
+        "file": "messages/ja.json",
+        "locator": "Members.nav"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.ja.Members.noDevices",
+      "source": {
+        "file": "messages/ja.json",
+        "locator": "Members.noDevices"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.ja.Members.noDevicesBody",
+      "source": {
+        "file": "messages/ja.json",
+        "locator": "Members.noDevicesBody"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.ja.Members.noPayment",
+      "source": {
+        "file": "messages/ja.json",
+        "locator": "Members.noPayment"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.ja.Members.notActivated",
+      "source": {
+        "file": "messages/ja.json",
+        "locator": "Members.notActivated"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.ja.Members.notConnected",
+      "source": {
+        "file": "messages/ja.json",
+        "locator": "Members.notConnected"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.ja.Members.notifications",
+      "source": {
+        "file": "messages/ja.json",
+        "locator": "Members.notifications"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.ja.Members.planBody",
+      "source": {
+        "file": "messages/ja.json",
+        "locator": "Members.planBody"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.ja.Members.planTitle",
+      "source": {
+        "file": "messages/ja.json",
+        "locator": "Members.planTitle"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.ja.Members.portfolio",
+      "source": {
+        "file": "messages/ja.json",
+        "locator": "Members.portfolio"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.ja.Members.preview",
+      "source": {
+        "file": "messages/ja.json",
+        "locator": "Members.preview"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.ja.Members.previewNotice",
+      "source": {
+        "file": "messages/ja.json",
+        "locator": "Members.previewNotice"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.ja.Members.profile",
+      "source": {
+        "file": "messages/ja.json",
+        "locator": "Members.profile"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.ja.Members.profileNotice",
+      "source": {
+        "file": "messages/ja.json",
+        "locator": "Members.profileNotice"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.ja.Members.quiet",
+      "source": {
+        "file": "messages/ja.json",
+        "locator": "Members.quiet"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.ja.Members.saved",
+      "source": {
+        "file": "messages/ja.json",
+        "locator": "Members.saved"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.ja.Members.saveDraft",
+      "source": {
+        "file": "messages/ja.json",
+        "locator": "Members.saveDraft"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.ja.Members.saveSettings",
+      "source": {
+        "file": "messages/ja.json",
+        "locator": "Members.saveSettings"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.ja.Members.settings",
+      "source": {
+        "file": "messages/ja.json",
+        "locator": "Members.settings"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.ja.Members.showDemo",
+      "source": {
+        "file": "messages/ja.json",
+        "locator": "Members.showDemo"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.ja.Members.storageError",
+      "source": {
+        "file": "messages/ja.json",
+        "locator": "Members.storageError"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.ja.Members.suggestion",
+      "source": {
+        "file": "messages/ja.json",
+        "locator": "Members.suggestion"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.ja.Members.title",
+      "source": {
+        "file": "messages/ja.json",
+        "locator": "Members.title"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.ja.Members.viewPlans",
+      "source": {
+        "file": "messages/ja.json",
+        "locator": "Members.viewPlans"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.ja.Members.visitor",
+      "source": {
+        "file": "messages/ja.json",
+        "locator": "Members.visitor"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.ja.Members.workNotice",
+      "source": {
+        "file": "messages/ja.json",
+        "locator": "Members.workNotice"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.ja.Members.workSaved",
+      "source": {
+        "file": "messages/ja.json",
+        "locator": "Members.workSaved"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.ja.Members.workTitle",
+      "source": {
+        "file": "messages/ja.json",
+        "locator": "Members.workTitle"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.zh-hant.Members.chooseCover",
+      "source": {
+        "file": "messages/zh-hant.json",
+        "locator": "Members.chooseCover"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.zh-hant.Members.close",
+      "source": {
+        "file": "messages/zh-hant.json",
+        "locator": "Members.close"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.zh-hant.Members.complaint",
+      "source": {
+        "file": "messages/zh-hant.json",
+        "locator": "Members.complaint"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.zh-hant.Members.contact",
+      "source": {
+        "file": "messages/zh-hant.json",
+        "locator": "Members.contact"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.zh-hant.Members.content",
+      "source": {
+        "file": "messages/zh-hant.json",
+        "locator": "Members.content"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.zh-hant.Members.coverPreview",
+      "source": {
+        "file": "messages/zh-hant.json",
+        "locator": "Members.coverPreview"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.zh-hant.Members.demoDevice",
+      "source": {
+        "file": "messages/zh-hant.json",
+        "locator": "Members.demoDevice"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.zh-hant.Members.demoNotice",
+      "source": {
+        "file": "messages/zh-hant.json",
+        "locator": "Members.demoNotice"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.zh-hant.Members.deviceName",
+      "source": {
+        "file": "messages/zh-hant.json",
+        "locator": "Members.deviceName"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.zh-hant.Members.deviceNotice",
+      "source": {
+        "file": "messages/zh-hant.json",
+        "locator": "Members.deviceNotice"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.zh-hant.Members.devices",
+      "source": {
+        "file": "messages/zh-hant.json",
+        "locator": "Members.devices"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.zh-hant.Members.deviceSettings",
+      "source": {
+        "file": "messages/zh-hant.json",
+        "locator": "Members.deviceSettings"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.zh-hant.Members.displayName",
+      "source": {
+        "file": "messages/zh-hant.json",
+        "locator": "Members.displayName"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.zh-hant.Members.displayNamePlaceholder",
+      "source": {
+        "file": "messages/zh-hant.json",
+        "locator": "Members.displayNamePlaceholder"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.zh-hant.Members.draftSaved",
+      "source": {
+        "file": "messages/zh-hant.json",
+        "locator": "Members.draftSaved"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.zh-hant.Members.explore",
+      "source": {
+        "file": "messages/zh-hant.json",
+        "locator": "Members.explore"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.zh-hant.Members.feedback",
+      "source": {
+        "file": "messages/zh-hant.json",
+        "locator": "Members.feedback"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.zh-hant.Members.feedbackNotice",
+      "source": {
+        "file": "messages/zh-hant.json",
+        "locator": "Members.feedbackNotice"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.zh-hant.Members.feedbackType",
+      "source": {
+        "file": "messages/zh-hant.json",
+        "locator": "Members.feedbackType"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.zh-hant.Members.fileError",
+      "source": {
+        "file": "messages/zh-hant.json",
+        "locator": "Members.fileError"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.zh-hant.Members.help",
+      "source": {
+        "file": "messages/zh-hant.json",
+        "locator": "Members.help"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.zh-hant.Members.intro",
+      "source": {
+        "file": "messages/zh-hant.json",
+        "locator": "Members.intro"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.zh-hant.Members.localOnly",
+      "source": {
+        "file": "messages/zh-hant.json",
+        "locator": "Members.localOnly"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.zh-hant.Members.membership",
+      "source": {
+        "file": "messages/zh-hant.json",
+        "locator": "Members.membership"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.zh-hant.Members.nav",
+      "source": {
+        "file": "messages/zh-hant.json",
+        "locator": "Members.nav"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.zh-hant.Members.noDevices",
+      "source": {
+        "file": "messages/zh-hant.json",
+        "locator": "Members.noDevices"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.zh-hant.Members.noDevicesBody",
+      "source": {
+        "file": "messages/zh-hant.json",
+        "locator": "Members.noDevicesBody"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.zh-hant.Members.noPayment",
+      "source": {
+        "file": "messages/zh-hant.json",
+        "locator": "Members.noPayment"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.zh-hant.Members.notActivated",
+      "source": {
+        "file": "messages/zh-hant.json",
+        "locator": "Members.notActivated"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.zh-hant.Members.notConnected",
+      "source": {
+        "file": "messages/zh-hant.json",
+        "locator": "Members.notConnected"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.zh-hant.Members.notifications",
+      "source": {
+        "file": "messages/zh-hant.json",
+        "locator": "Members.notifications"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.zh-hant.Members.planBody",
+      "source": {
+        "file": "messages/zh-hant.json",
+        "locator": "Members.planBody"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.zh-hant.Members.planTitle",
+      "source": {
+        "file": "messages/zh-hant.json",
+        "locator": "Members.planTitle"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.zh-hant.Members.portfolio",
+      "source": {
+        "file": "messages/zh-hant.json",
+        "locator": "Members.portfolio"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.zh-hant.Members.preview",
+      "source": {
+        "file": "messages/zh-hant.json",
+        "locator": "Members.preview"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.zh-hant.Members.previewNotice",
+      "source": {
+        "file": "messages/zh-hant.json",
+        "locator": "Members.previewNotice"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.zh-hant.Members.profile",
+      "source": {
+        "file": "messages/zh-hant.json",
+        "locator": "Members.profile"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.zh-hant.Members.profileNotice",
+      "source": {
+        "file": "messages/zh-hant.json",
+        "locator": "Members.profileNotice"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.zh-hant.Members.quiet",
+      "source": {
+        "file": "messages/zh-hant.json",
+        "locator": "Members.quiet"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.zh-hant.Members.saved",
+      "source": {
+        "file": "messages/zh-hant.json",
+        "locator": "Members.saved"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.zh-hant.Members.saveDraft",
+      "source": {
+        "file": "messages/zh-hant.json",
+        "locator": "Members.saveDraft"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.zh-hant.Members.saveSettings",
+      "source": {
+        "file": "messages/zh-hant.json",
+        "locator": "Members.saveSettings"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.zh-hant.Members.settings",
+      "source": {
+        "file": "messages/zh-hant.json",
+        "locator": "Members.settings"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.zh-hant.Members.showDemo",
+      "source": {
+        "file": "messages/zh-hant.json",
+        "locator": "Members.showDemo"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.zh-hant.Members.storageError",
+      "source": {
+        "file": "messages/zh-hant.json",
+        "locator": "Members.storageError"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.zh-hant.Members.suggestion",
+      "source": {
+        "file": "messages/zh-hant.json",
+        "locator": "Members.suggestion"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.zh-hant.Members.title",
+      "source": {
+        "file": "messages/zh-hant.json",
+        "locator": "Members.title"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.zh-hant.Members.viewPlans",
+      "source": {
+        "file": "messages/zh-hant.json",
+        "locator": "Members.viewPlans"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.zh-hant.Members.visitor",
+      "source": {
+        "file": "messages/zh-hant.json",
+        "locator": "Members.visitor"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.zh-hant.Members.workNotice",
+      "source": {
+        "file": "messages/zh-hant.json",
+        "locator": "Members.workNotice"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.zh-hant.Members.workSaved",
+      "source": {
+        "file": "messages/zh-hant.json",
+        "locator": "Members.workSaved"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    },
+    {
+      "path": "messages.zh-hant.Members.workTitle",
+      "source": {
+        "file": "messages/zh-hant.json",
+        "locator": "Members.workTitle"
+      },
+      "reason": "Local-only member demo removed; account security and personal data feedback is code-owned.",
+      "replacement": "features/account/copy.ts"
+    }
+  ],
+  "mediaBindings": [
+    {
+      "file": "components/MembersArea.tsx",
+      "source": "{cover}",
+      "alt": "{t(\"coverPreview\")}",
+      "reason": "Local-only portfolio cover uploader removed.",
+      "replacement": "features/account/AccountPanel.tsx"
+    }
+  ]
+}

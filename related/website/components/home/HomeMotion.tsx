@@ -1,45 +1,126 @@
 "use client";
+import {useContentAdapter} from "@/components/content/useContentAdapter";
 import {homeMotionQuery} from "./responsiveLayout";
 
-import { useEffect, useRef, type ReactNode } from "react";
+import { useEffect, useRef, useState, useCallback, type CSSProperties, type ReactNode } from "react";
+import {HomeMediaContext, type HomeMedia} from "./HomeMediaContext";
+import {prepareHome, loadingLogo} from "./prepareHome";
+import {homeImageSources, homeLowSource, resolveFlowVideo, legacyBackgroundVideo} from "./homeMediaSources";
+import {useStagedArtwork} from "./useStagedArtwork";
+import HomeLoading from "./HomeLoading";
 import { useGSAP } from "@gsap/react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { mountProductRail } from "./productRail";
 import { mountRoomAnchor } from "./roomAnchor";
-import { mountOpeningVideo, openingVideoQuery } from "./openingVideo";
-import { preloadScenes } from "./preloadScenes";
-import { mountReadingAnchors } from "./readingNavigation";
+import { mountOpeningVideo } from "./openingVideo";
 import { mountHomePosition } from "./homePosition";
+import HomePageWarmup from "./HomePageWarmup";
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
-/** Native scrolling drives the current opening at every desktop aspect ratio. */
+/** Desktop opening anchors and native mobile scrolling share the same content. */
 export default function HomeMotion({ children }: { children: ReactNode }) {
+  const cms = useContentAdapter();
+  const motionDependency = [cms.slot('asset_a4b2063e90484449').url,cms.slot('asset_76a5de3f207ca5bb').url,cms.slot('asset_d11e4e878cf13138').url].join('|');
   const root = useRef<HTMLElement>(null);
+  const [media, setMedia] = useState<HomeMedia>({prepared: false, movies: {}});
+  const [percent, setPercent] = useState(0);
+  const [error, setError] = useState(false);
+  const [attempt, setAttempt] = useState(0);
+  const [introComplete, setIntroComplete] = useState(false);
+  const finishIntro = useCallback(() => setIntroComplete(true), []);
+  const opened = media.prepared && introComplete;
+  const startPoster = useStagedArtwork(cms.slot("asset_76a5de3f207ca5bb").url, media.prepared);
+  const endPoster = useStagedArtwork(cms.slot("asset_d11e4e878cf13138").url, media.prepared);
+  const desktopBackground = useStagedArtwork("/assets/site-backgrounds-20261108/pearl-flow-desktop.webp", media.prepared);
+  const compactBackground = useStagedArtwork("/assets/site-backgrounds-20261108/pearl-flow-compact.webp", media.prepared);
+  const mobileBackground = useStagedArtwork("/assets/site-backgrounds-20261108/pearl-flow-mobile.webp", media.prepared);
+  // The entry gate runs once; live edits load new sources without hiding the page.
+  const [assets] = useState(() => ({
+    images: [...homeImageSources.map(source => homeLowSource(cms.url(source))), loadingLogo],
+    videos: [cms.slot("asset_a4b2063e90484449").url, resolveFlowVideo(cms.url(legacyBackgroundVideo))],
+    artwork: homeImageSources.filter(source => /films-20260908|character-20261012|site-backgrounds-20261108/.test(source)).map(source => cms.url(source)),
+  }));
   useEffect(() => {
+    const startedAt = performance.now();
+    const controller = new AbortController();
+    const movies: Record<string, string> = {};
+    let alive = true;
+    let deadline: ReturnType<typeof setTimeout>;
+    let entryTimer: ReturnType<typeof setTimeout>;
+    const watch = () => {
+      clearTimeout(deadline);
+      deadline = setTimeout(() => controller.abort(new Error("Loading made no progress")), 60000);
+    };
+    watch();
+    const extraArtwork = assets.artwork.map(source => {
+      const image = new Image();
+      image.fetchPriority = "low";
+      image.src = source;
+      void image.decode().catch(() => {});
+      return image;
+    });
+    setError(false);
+    setPercent(0);
+    setMedia({prepared: false, movies: {}});
+    window.dispatchEvent(new Event("lumiq:retry-images"));
+    void prepareHome(assets, controller.signal, value => {
+      watch();
+      if (alive) setPercent(value);
+    }, (source, url) => { movies[source] = url; }).then(() => {
+      clearTimeout(deadline);
+      // Preload and minimum display time overlap; slow downloads add no extra wait.
+      entryTimer = setTimeout(() => {
+        if (alive) setMedia({prepared: true, movies});
+      }, Math.max(0, 800 - (performance.now() - startedAt)));
+    }).catch(() => {
+      controller.abort();
+      clearTimeout(deadline);
+      clearTimeout(entryTimer);
+      if (alive) setError(true);
+    });
+    return () => {
+      alive = false;
+      controller.abort();
+      clearTimeout(deadline);
+      clearTimeout(entryTimer);
+      extraArtwork.forEach(image => {image.src = "";});
+      Object.values(movies).forEach(url => URL.revokeObjectURL(url));
+    };
+  }, [assets, attempt]);
+  useEffect(() => {
+    const main = root.current;
+    if (!main) return;
+    const previous = main.inert;
+    main.inert = !opened;
+    return () => {main.inert = previous;};
+  }, [opened]);
+  useEffect(() => {
+    if (!opened) return;
     window.dispatchEvent(new Event("lumiq:home-enter"));
-  }, []);
+    ScrollTrigger.refresh();
+  }, [opened]);
   useGSAP(
     () => {
-      const fontsChanged = () => ScrollTrigger.refresh();
+      if (!opened) return;
+      const fontsChanged = () => {
+        if (matchMedia(homeMotionQuery).matches) ScrollTrigger.refresh();
+      };
       document.fonts.addEventListener("loadingdone", fontsChanged);
       const releasePosition = root.current ? mountHomePosition(root.current) : () => {};
-      const releaseImages = root.current ? preloadScenes(root.current) : () => {};
       const releaseOpening = root.current
-        ? mountOpeningVideo(root.current)
+        ? mountOpeningVideo(root.current, media.movies[cms.slot("asset_a4b2063e90484449").url] ?? cms.slot("asset_a4b2063e90484449").url)
         : () => {};
       // Opening layout is reserved before the horizontal product floor is measured.
       const releaseProducts = root.current
         ? mountProductRail(root.current)
         : () => {};
       const releaseRoom = root.current ? mountRoomAnchor(root.current) : () => {};
-      const releaseReading = root.current ? mountReadingAnchors(root.current) : () => {};
       const mm = gsap.matchMedia();
       mm.add(
         {
           desktop:
             `${homeMotionQuery} and (min-height: 640px)`,
-          video: openingVideoQuery,
         },
         (context) => {
           if (!context.conditions?.desktop) return;
@@ -57,8 +138,8 @@ export default function HomeMotion({ children }: { children: ReactNode }) {
               },
             },
           );
-          // ScrollWords owns whole-text entry at every viewport size. Avoid a
-          // second ancestor transform consuming the entrance before it is visible.
+          // Refresh layout measurements after fonts settle; reading copy stays
+          // in its final position during every scroll frame.
           let alive = true;
           document.fonts.ready.then(() => {
             if (alive) ScrollTrigger.refresh();
@@ -115,19 +196,31 @@ export default function HomeMotion({ children }: { children: ReactNode }) {
       return () => {
         releasePosition();
         document.fonts.removeEventListener("loadingdone", fontsChanged);
-        releaseImages();
-        releaseReading();
         mm.revert();
         releaseRoom();
         releaseProducts();
         releaseOpening();
       };
     },
-    { scope: root },
+    { scope: root, dependencies: [motionDependency, media, opened], revertOnUpdate: true },
   );
   return (
-    <main ref={root} id="main-content" className="lh-home" data-home-state="open" tabIndex={-1}>
-      {children}
-    </main>
+    <HomeMediaContext.Provider value={media}>
+      <HomeLoading key={attempt} percent={percent} error={error} prepared={opened} onIntroComplete={finishIntro} retry={() => {
+        setIntroComplete(false);
+        setAttempt(value => value + 1);
+      }} />
+      <main ref={root} id="main-content" className="lh-home" style={{
+        visibility: opened ? undefined : "hidden",
+        "--home-opening-start": `url(${JSON.stringify(startPoster)})`,
+        "--home-opening-end": `url(${JSON.stringify(endPoster)})`,
+        "--home-flow-desktop": `url(${JSON.stringify(desktopBackground)})`,
+        "--home-flow-compact": `url(${JSON.stringify(compactBackground)})`,
+        "--home-flow-mobile": `url(${JSON.stringify(mobileBackground)})`,
+      } as CSSProperties} data-home-state={opened ? "open" : "loading"} aria-busy={!opened} tabIndex={-1}>
+        {opened && <HomePageWarmup />}
+        {children}
+      </main>
+    </HomeMediaContext.Provider>
   );
 }

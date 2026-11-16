@@ -1,0 +1,10 @@
+{
+  "route": "/zh-hant/products/ola-go",
+  "viewport": {
+    "width": 1440,
+    "height": 1000
+  },
+  "fontLoadSettled": true,
+  "identical": true,
+  "elementCount": 70
+}

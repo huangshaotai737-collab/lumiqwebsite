@@ -1,0 +1,176 @@
+[
+  {
+    "name": "chromium",
+    "size": "desktop",
+    "http": 200,
+    "initial": "loading",
+    "home": {
+      "loader": "hidden",
+      "percent": "100%",
+      "state": "open",
+      "images": 27,
+      "unloaded": 0,
+      "videoReady": 4,
+      "retry": false
+    },
+    "media": 404,
+    "tablet": 200,
+    "scenes": [
+      {
+        "src": "http://127.0.0.1:4312/_next/image?url=%2Fassets%2Ftablet-detail%2Fgenerated%2Ftablet-passive-new-scene-20261026.png&w=750&q=75",
+        "width": 720,
+        "height": 539
+      },
+      {
+        "src": "http://127.0.0.1:4312/_next/image?url=%2Fassets%2Ftablet-detail%2Fgenerated%2Ftablet-family-new-scene-20261026.png&w=750&q=75",
+        "width": 720,
+        "height": 539
+      }
+    ]
+  },
+  {
+    "name": "chromium",
+    "size": "phone",
+    "http": 200,
+    "initial": "loading",
+    "home": {
+      "loader": "hidden",
+      "percent": "100%",
+      "state": "open",
+      "images": 25,
+      "unloaded": 0,
+      "videoReady": 0,
+      "retry": false
+    },
+    "media": 404,
+    "tablet": 200,
+    "scenes": [
+      {
+        "src": "http://127.0.0.1:4312/_next/image?url=%2Fassets%2Ftablet-detail%2Fgenerated%2Ftablet-passive-new-scene-20261026.png&w=640&q=75",
+        "width": 390,
+        "height": 292
+      },
+      {
+        "src": "http://127.0.0.1:4312/_next/image?url=%2Fassets%2Ftablet-detail%2Fgenerated%2Ftablet-family-new-scene-20261026.png&w=640&q=75",
+        "width": 390,
+        "height": 292
+      }
+    ]
+  },
+  {
+    "name": "firefox",
+    "size": "desktop",
+    "http": 200,
+    "initial": "loading",
+    "home": {
+      "loader": "hidden",
+      "percent": "100%",
+      "state": "open",
+      "images": 27,
+      "unloaded": 0,
+      "videoReady": 4,
+      "retry": false
+    },
+    "media": 404,
+    "tablet": 200,
+    "scenes": [
+      {
+        "src": "http://127.0.0.1:4312/_next/image?url=%2Fassets%2Ftablet-detail%2Fgenerated%2Ftablet-passive-new-scene-20261026.png&w=750&q=75",
+        "width": 720,
+        "height": 540
+      },
+      {
+        "src": "http://127.0.0.1:4312/_next/image?url=%2Fassets%2Ftablet-detail%2Fgenerated%2Ftablet-family-new-scene-20261026.png&w=750&q=75",
+        "width": 720,
+        "height": 540
+      }
+    ]
+  },
+  {
+    "name": "firefox",
+    "size": "phone",
+    "http": 200,
+    "initial": "loading",
+    "home": {
+      "loader": "hidden",
+      "percent": "100%",
+      "state": "open",
+      "images": 25,
+      "unloaded": 0,
+      "videoReady": 0,
+      "retry": false
+    },
+    "media": 404,
+    "tablet": 200,
+    "scenes": [
+      {
+        "src": "http://127.0.0.1:4312/_next/image?url=%2Fassets%2Ftablet-detail%2Fgenerated%2Ftablet-passive-new-scene-20261026.png&w=640&q=75",
+        "width": 390,
+        "height": 293
+      },
+      {
+        "src": "http://127.0.0.1:4312/_next/image?url=%2Fassets%2Ftablet-detail%2Fgenerated%2Ftablet-family-new-scene-20261026.png&w=640&q=75",
+        "width": 390,
+        "height": 293
+      }
+    ]
+  },
+  {
+    "name": "webkit",
+    "size": "desktop",
+    "http": 200,
+    "initial": "loading",
+    "home": {
+      "loader": "hidden",
+      "percent": "100%",
+      "state": "open",
+      "images": 27,
+      "unloaded": 0,
+      "videoReady": 4,
+      "retry": false
+    },
+    "media": 404,
+    "tablet": 200,
+    "scenes": [
+      {
+        "src": "http://127.0.0.1:4312/_next/image?url=%2Fassets%2Ftablet-detail%2Fgenerated%2Ftablet-passive-new-scene-20261026.png&w=750&q=75",
+        "width": 720,
+        "height": 539
+      },
+      {
+        "src": "http://127.0.0.1:4312/_next/image?url=%2Fassets%2Ftablet-detail%2Fgenerated%2Ftablet-family-new-scene-20261026.png&w=750&q=75",
+        "width": 720,
+        "height": 539
+      }
+    ]
+  },
+  {
+    "name": "webkit",
+    "size": "phone",
+    "http": 200,
+    "initial": "loading",
+    "home": {
+      "loader": "hidden",
+      "percent": "100%",
+      "state": "open",
+      "images": 25,
+      "unloaded": 0,
+      "videoReady": 0,
+      "retry": false
+    },
+    "media": 404,
+    "tablet": 200,
+    "scenes": [
+      {
+        "src": "http://127.0.0.1:4312/_next/image?url=%2Fassets%2Ftablet-detail%2Fgenerated%2Ftablet-passive-new-scene-20261026.png&w=640&q=75",
+        "width": 390,
+        "height": 292
+      },
+      {
+        "src": "http://127.0.0.1:4312/_next/image?url=%2Fassets%2Ftablet-detail%2Fgenerated%2Ftablet-family-new-scene-20261026.png&w=640&q=75",
+        "width": 390,
+        "height": 292
+      }
+    ]
+  }
+]

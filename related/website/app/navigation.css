@@ -535,3 +535,11 @@
   .lumiq-root .navbar.site-nav .site-mobile-trigger { padding-inline: 7px; gap: 4px; }
   .lumiq-root .navbar.site-nav .site-mobile-trigger-label { font-size: 10px; }
 }
+.site-navigation-pending { display: none; }
+.site-nav:has(.site-navigation-pending)::after {
+  content: ""; position: absolute; bottom: 0; left: 8%; width: 84%; height: 2px;
+  background: #756695; border-radius: 2px; pointer-events: none;
+  animation: navigation-pulse 1s ease-in-out infinite alternate;
+}
+@keyframes navigation-pulse { from { opacity: .3; } to { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .site-nav:has(.site-navigation-pending)::after { animation: none; } }

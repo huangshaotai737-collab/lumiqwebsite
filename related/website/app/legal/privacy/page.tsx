@@ -1,3 +1,4 @@
+import BrandPrivacy from "@/components/BrandPrivacy";
 import Heading from "@/components/Heading";
 import SubPage from "@/components/SubPage";
 import DraftNotice from "@/components/DraftNotice";
@@ -8,6 +9,7 @@ export default function PrivacyPage() {
   return (
     <SubPage className="privacy-page" eyebrow={t("eyebrow")} title={t("privacy.title")} intro={t("privacy.intro")}>
       <DraftNotice>{t("draft")}</DraftNotice>
+      <BrandPrivacy />
       <Heading as="h2">{t("privacy.waitlistHeading")}</Heading>
       <p>{t("privacy.waitlistBody")}</p>
       <p>{t("privacy.p1")}</p>

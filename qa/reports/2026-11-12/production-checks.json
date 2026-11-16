@@ -1,0 +1,342 @@
+{
+  "smoke": [
+    {
+      "name": "draft saves and persists",
+      "status": "PASS"
+    },
+    {
+      "name": "concurrent stale draft rejected",
+      "status": "PASS"
+    },
+    {
+      "name": "unpublished draft remains private",
+      "status": "PASS"
+    },
+    {
+      "name": "production media validation image/png",
+      "status": "PASS"
+    },
+    {
+      "name": "private media byte delivery image/png",
+      "status": "PASS"
+    },
+    {
+      "name": "unpublished media not public image/png",
+      "status": "PASS"
+    },
+    {
+      "name": "production media validation video/mp4",
+      "status": "PASS"
+    },
+    {
+      "name": "private media byte delivery video/mp4",
+      "status": "PASS"
+    },
+    {
+      "name": "unpublished media not public video/mp4",
+      "status": "PASS"
+    },
+    {
+      "name": "website unauthenticated endpoint rejected /api/account/profile",
+      "status": "PASS",
+      "details": {
+        "status": 401
+      }
+    },
+    {
+      "name": "website unauthenticated endpoint rejected /api/orders",
+      "status": "PASS",
+      "details": {
+        "status": 401
+      }
+    },
+    {
+      "name": "website member login",
+      "status": "PASS"
+    },
+    {
+      "name": "website member profile",
+      "status": "PASS"
+    },
+    {
+      "name": "website waitlist reaches admin without duplication",
+      "status": "PASS"
+    },
+    {
+      "name": "logout revokes session",
+      "status": "PASS"
+    }
+  ],
+  "permissions": [
+    {
+      "role": "guest",
+      "route": "/api/session",
+      "status": 401,
+      "result": "PASS"
+    },
+    {
+      "role": "guest",
+      "route": "/api/settings",
+      "status": 401,
+      "result": "PASS"
+    },
+    {
+      "role": "guest",
+      "route": "/api/customers/list",
+      "status": 401,
+      "result": "PASS"
+    },
+    {
+      "role": "guest",
+      "route": "/api/waitlist/list",
+      "status": 401,
+      "result": "PASS"
+    },
+    {
+      "role": "guest",
+      "route": "/api/orders",
+      "status": 401,
+      "result": "PASS"
+    },
+    {
+      "role": "guest",
+      "route": "/api/content/drafts?id=<test-draft>",
+      "status": 401,
+      "result": "PASS"
+    },
+    {
+      "role": "guest",
+      "route": "/api/waitlist/export?search=<test-run>",
+      "status": 401,
+      "result": "PASS"
+    },
+    {
+      "role": "admin",
+      "route": "/api/session",
+      "status": 200,
+      "result": "PASS"
+    },
+    {
+      "role": "admin",
+      "route": "/api/settings",
+      "status": 200,
+      "result": "PASS"
+    },
+    {
+      "role": "admin",
+      "route": "/api/customers/list",
+      "status": 200,
+      "result": "PASS"
+    },
+    {
+      "role": "admin",
+      "route": "/api/waitlist/list",
+      "status": 200,
+      "result": "PASS"
+    },
+    {
+      "role": "admin",
+      "route": "/api/orders",
+      "status": 200,
+      "result": "PASS"
+    },
+    {
+      "role": "admin",
+      "route": "/api/content/drafts?id=<test-draft>",
+      "status": 200,
+      "result": "PASS"
+    },
+    {
+      "role": "admin",
+      "route": "/api/waitlist/export?search=<test-run>",
+      "status": 200,
+      "result": "PASS"
+    },
+    {
+      "role": "admin",
+      "name": "cross-origin draft creation rejected",
+      "status": 403,
+      "result": "PASS"
+    },
+    {
+      "role": "editor",
+      "route": "/api/session",
+      "status": 200,
+      "result": "PASS"
+    },
+    {
+      "role": "editor",
+      "route": "/api/settings",
+      "status": 403,
+      "result": "PASS"
+    },
+    {
+      "role": "editor",
+      "route": "/api/customers/list",
+      "status": 403,
+      "result": "PASS"
+    },
+    {
+      "role": "editor",
+      "route": "/api/waitlist/list",
+      "status": 403,
+      "result": "PASS"
+    },
+    {
+      "role": "editor",
+      "route": "/api/orders",
+      "status": 403,
+      "result": "PASS"
+    },
+    {
+      "role": "editor",
+      "route": "/api/content/drafts?id=<test-draft>",
+      "status": 200,
+      "result": "PASS"
+    },
+    {
+      "role": "editor",
+      "route": "/api/waitlist/export?search=<test-run>",
+      "status": 403,
+      "result": "PASS"
+    },
+    {
+      "role": "editor",
+      "name": "cross-origin draft creation rejected",
+      "status": 403,
+      "result": "PASS"
+    },
+    {
+      "role": "operations",
+      "route": "/api/session",
+      "status": 200,
+      "result": "PASS"
+    },
+    {
+      "role": "operations",
+      "route": "/api/settings",
+      "status": 403,
+      "result": "PASS"
+    },
+    {
+      "role": "operations",
+      "route": "/api/customers/list",
+      "status": 200,
+      "result": "PASS"
+    },
+    {
+      "role": "operations",
+      "route": "/api/waitlist/list",
+      "status": 200,
+      "result": "PASS"
+    },
+    {
+      "role": "operations",
+      "route": "/api/orders",
+      "status": 200,
+      "result": "PASS"
+    },
+    {
+      "role": "operations",
+      "route": "/api/content/drafts?id=<test-draft>",
+      "status": 403,
+      "result": "PASS"
+    },
+    {
+      "role": "operations",
+      "route": "/api/waitlist/export?search=<test-run>",
+      "status": 200,
+      "result": "PASS"
+    },
+    {
+      "name": "waitlist single record, operations update, persistence, stale-write conflict and filtered CSV export",
+      "result": "PASS"
+    },
+    {
+      "role": "operations",
+      "name": "cross-origin draft creation rejected",
+      "status": 403,
+      "result": "PASS"
+    }
+  ],
+  "browser": [
+    {
+      "route": "/",
+      "status": "PASS"
+    },
+    {
+      "route": "/content",
+      "status": "PASS"
+    },
+    {
+      "route": "/media",
+      "status": "PASS"
+    },
+    {
+      "route": "/catalog",
+      "status": "PASS"
+    },
+    {
+      "route": "/customers",
+      "status": "PASS"
+    },
+    {
+      "route": "/waitlist",
+      "status": "PASS"
+    },
+    {
+      "route": "/orders",
+      "status": "PASS"
+    },
+    {
+      "route": "/team",
+      "status": "PASS"
+    },
+    {
+      "route": "/settings",
+      "status": "PASS"
+    },
+    {
+      "route": "/audit",
+      "status": "PASS"
+    },
+    {
+      "name": "live click selection, immediate edits, undo/redo and device switch",
+      "status": "PASS"
+    },
+    {
+      "name": "guest draft redirects to login",
+      "status": "PASS"
+    },
+    {
+      "name": "embedded preview",
+      "connected": true,
+      "frames": [
+        "后台草稿编辑页",
+        "官网同草稿私有嵌入预览页"
+      ]
+    },
+    {
+      "name": "top-level staff draft preview",
+      "status": "PASS"
+    },
+    {
+      "name": "browser errors",
+      "errors": []
+    }
+  ],
+  "cleanup": {
+    "status": "PASS",
+    "counts": [
+      {
+        "orders_enabled": false,
+        "releases": 8,
+        "test_drafts": 0,
+        "test_media": 0,
+        "test_users": 0,
+        "test_waitlist": 0
+      }
+    ],
+    "auditTrail": "preserved"
+  }
+}

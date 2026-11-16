@@ -44,7 +44,7 @@ test('rapid button clicks cannot skip intermediate cards', async ({page}) => {
   await page.locator('.prod-stage').scrollIntoViewIfNeeded();
   await page.evaluate(() => {
     for (let i = 0; i < 4; i++) {
-      (document.querySelector('.prod-stage .prod-stage-nav button:last-child') as HTMLButtonElement).click();
+      (document.querySelector('.prod-lineup-controls button:last-child') as HTMLButtonElement).click();
     }
   });
   await expect(page.locator('.prod-stage')).toHaveAttribute('data-product-id', 'ola-go');

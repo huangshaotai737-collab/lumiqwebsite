@@ -1,15 +1,17 @@
+import {readContentAdapter} from "@/lib/content/server-adapter";
 import Heading from "@/components/Heading";
 import SubPage from "@/components/SubPage";
 import DraftNotice from "@/components/DraftNotice";
-import {useTranslations} from "next-intl";
+import {getTranslations} from "next-intl/server";
 
-export default function ContactPage() {
-  const t = useTranslations("Contact");
+export default async function ContactPage() {
+  const cms = await readContentAdapter();
+  const t = await getTranslations("Contact");
   const channels = [
-    { label: t("general"), email: "hello@lumiqstudio.com" },
-    { label: t("support"), email: "support@lumiqstudio.com" },
-    { label: t("press"), email: "press@lumiqstudio.com" },
-    { label: t("partnerships"), email: "partners@lumiqstudio.com" },
+    { label: t("general"), email: cms.text("field_23cd241d015790f4") },
+    { label: t("support"), email: cms.value("settings.supportEmail") },
+    { label: t("press"), email: cms.text("field_3c5de26aeecac7ba") },
+    { label: t("partnerships"), email: cms.text("field_b560ef7d1f4e4007") },
   ];
 
   return (
@@ -33,7 +35,7 @@ export default function ContactPage() {
       <Heading as="h2">{t("mailing")}</Heading>
       <DraftNotice compact>{t("addressPending")}</DraftNotice>
       <p>
-        LumiqStudio (Arpha Inc.)<br />
+        {cms.text("field_ac77db89fd52c5f8")}<br />
         {t("address")}
       </p>
     </SubPage>

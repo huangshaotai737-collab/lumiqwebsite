@@ -1,0 +1,14 @@
+[
+  {
+    "src": true,
+    "time": 0,
+    "ready": "false",
+    "opacity": "0"
+  },
+  {
+    "src": true,
+    "time": 17.291666,
+    "ready": "true",
+    "opacity": "1"
+  }
+]

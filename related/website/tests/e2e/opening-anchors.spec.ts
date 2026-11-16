@@ -1,0 +1,274 @@
+import {expect, test, type Page} from '@playwright/test';
+
+test.beforeEach(({page}) => {
+  test.skip((page.viewportSize()?.width ?? 0) < 1200, 'Desktop anchor suite; the phone case explicitly switches to its native layout.');
+});
+
+async function ready(page: Page, hash = '') {
+  await page.goto(`/zh-hant${hash}`);
+  // Entry includes complete video downloads and the full logo introduction.
+  await expect(page.locator('.lh-home')).toHaveAttribute('data-home-state', 'open', {timeout:15000});
+  await expect(page.locator('.lh-loader')).toHaveAttribute('data-state', 'hidden');
+}
+
+async function at(page: Page, id: string) {
+  await expect.poll(() => page.locator(id).evaluate(e => Math.abs(e.getBoundingClientRect().top))).toBeLessThan(2);
+}
+
+test('one mouse gesture lands on the second anchor, reverse returns to the first', async ({page}) => {
+  await ready(page);
+  await page.mouse.move(900, 450);
+  await page.mouse.wheel(0, 60);
+  await at(page, '#ola');
+  await expect(page.locator('.lh-ola-copy')).toBeInViewport();
+  await page.waitForTimeout(350);
+  await page.mouse.wheel(0, -60);
+  await at(page, '#top');
+  expect(await page.locator('.lh-opening-stage').evaluate(e => Boolean(e.closest('.pin-spacer')))).toBe(false);
+  expect(await page.locator('#ola').evaluate(e => e.getBoundingClientRect().top + scrollY)).toBeLessThanOrEqual(901);
+});
+
+test('a long trackpad tail cannot skip the second screen, and a fresh gesture can leave it', async ({page}) => {
+  await ready(page);
+  await page.evaluate(async () => {
+    for(let i=0;i<22;i++) {
+      document.querySelector('.lh-hero')!.dispatchEvent(new WheelEvent('wheel', {deltaY: Math.max(1, 50-i*3), bubbles:true,cancelable:true}));
+      await new Promise(r=>setTimeout(r,60));
+    }
+  });
+  await at(page, '#ola');
+  await page.waitForTimeout(350);
+  await page.mouse.move(900,450);
+  await page.mouse.wheel(0,300);
+  await expect.poll(()=>page.locator('#ola').evaluate(e=>e.getBoundingClientRect().top)).toBeLessThan(-80);
+  await page.waitForTimeout(350);
+  await page.mouse.wheel(0,-80);
+  await at(page,'#ola');
+});
+
+test('line, page and pixel wheel deltas reach the same anchor', async ({page}) => {
+  await ready(page);
+  for(const deltaMode of [0,1,2]) {
+    await page.evaluate(()=>scrollTo({top:0,behavior:'instant'}));
+    await page.waitForTimeout(350);
+    await page.evaluate(mode=>document.querySelector('.lh-hero')!.dispatchEvent(new WheelEvent('wheel',{deltaY:mode===0?1:3,deltaMode:mode,bubbles:true,cancelable:true})),deltaMode);
+    await at(page,'#ola');
+  }
+});
+
+test('fragment links, keyboard, resize and reduced motion retain real anchors', async ({page}) => {
+  await ready(page,'#ola');
+  await at(page,'#ola');
+  await page.keyboard.press('PageUp');
+  await at(page,'#top');
+  await page.keyboard.press('PageDown');
+  await at(page,'#ola');
+  await page.setViewportSize({width:1280,height:720});
+  await at(page,'#ola');
+  await page.emulateMedia({reducedMotion:'reduce'});
+  await expect(page.locator('.lh-opening')).toHaveAttribute('data-static-opening','true');
+  await page.evaluate(()=>scrollTo({top:0,behavior:'instant'}));
+  await page.mouse.move(900,350);
+  await page.mouse.wheel(0,40);
+  await at(page,'#ola');
+  await expect(page.locator('.lh-ola-copy')).toBeInViewport();
+});
+
+test('phone retains native vertical scrolling and no scrubbed opening', async ({page}) => {
+  await page.setViewportSize({width:390,height:844});
+  await ready(page);
+  await expect(page.locator('.lh-opening')).not.toHaveAttribute('data-opening-anchors','true');
+  await expect(page.locator('.lh-opening')).not.toHaveAttribute('data-video-mode','true');
+  await page.mouse.move(200,400);
+  await page.mouse.wheel(0,100);
+  await expect.poll(()=>page.evaluate(()=>scrollY)).toBeGreaterThan(20);
+  expect(await page.evaluate(()=>scrollY)).toBeLessThan(200);
+  expect(await page.locator('.lh-opening-video').getAttribute('src')).toBeNull();
+});
+
+test('the approved film follows both anchors and decoder errors cannot block navigation', async ({page}) => {
+  await ready(page);
+  const movie = page.locator('.lh-opening-video');
+  await expect(page.locator('.lh-video-layer')).toHaveAttribute('data-ready', 'true');
+  await page.mouse.move(900,450);
+  await page.mouse.wheel(0,80);
+  await at(page,'#ola');
+  await expect.poll(()=>movie.evaluate((v: HTMLVideoElement)=>!v.seeking && v.currentTime > v.duration-.15)).toBe(true);
+  const plane = await page.locator('.lh-opening-film').boundingBox();
+  expect(plane!.y).toBeGreaterThan(90);
+  expect(plane!.y+plane!.height).toBeLessThan(900);
+  await movie.evaluate(v=>v.dispatchEvent(new Event('error')));
+  await page.waitForTimeout(350);
+  await page.mouse.wheel(0,-80);
+  await at(page,'#top');
+  await expect(page.locator('.lh-hero-copy')).toBeInViewport();
+  await expect(page.locator('.lh-video-layer')).not.toHaveAttribute('data-ready','true');
+});
+
+test('pinch zoom and horizontal wheel input are not consumed by the opening', async ({page}) => {
+  await ready(page);
+  const consumed = await page.evaluate(()=>[
+    {deltaY:80,ctrlKey:true}, {deltaX:80,deltaY:1},
+  ].map(options=>{
+    const e=new WheelEvent('wheel',{...options,bubbles:true,cancelable:true});
+    document.querySelector('.lh-hero')!.dispatchEvent(e);
+    return e.defaultPrevented;
+  }));
+  expect(consumed).toEqual([false,false]);
+  await at(page,'#top');
+});
+
+test('English and Japanese keep their second screen readable at desktop sizes', async ({page}) => {
+  for (const [locale,width,height] of [['en',1280,720],['ja',1710,900]] as const) {
+    await page.setViewportSize({width,height});
+    await page.goto(`/${locale}#ola`);
+    await expect(page.locator('.lh-home')).toHaveAttribute('data-home-state','open');
+    await at(page,'#ola');
+    await expect(page.locator('.lh-ola-copy')).toBeInViewport();
+    expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
+  }
+});
+
+test('changing motion preferences does not replay a stale fragment after scrolling onward', async ({page}) => {
+  await ready(page,'#ola');
+  await at(page,'#ola');
+  await page.mouse.move(900,450);
+  await page.mouse.wheel(0,300);
+  await expect.poll(()=>page.locator('#ola').evaluate(e=>e.getBoundingClientRect().top)).toBeLessThan(-80);
+  await page.waitForTimeout(400);
+  const before = await page.locator('#ola').evaluate(e=>e.getBoundingClientRect().top);
+  await page.emulateMedia({reducedMotion:'reduce'});
+  await expect(page.locator('.lh-opening')).toHaveAttribute('data-static-opening','true');
+  await expect.poll(()=>page.locator('#ola').evaluate((e,y)=>Math.abs(e.getBoundingClientRect().top-y),before)).toBeLessThan(2);
+});
+
+test('the Ola film leaves with its cards before the product lineup enters', async ({page}) => {
+  for (const [width,height] of [[1440,900],[2560,600]]) {
+    await page.setViewportSize({width,height});
+    await ready(page,'#ola');
+    await at(page,'#ola');
+    const positions = () => page.evaluate(() => ({
+      film: document.querySelector('.lh-opening-film')!.getBoundingClientRect().top,
+      cards: document.querySelector('.lh-rhythm-cards')!.getBoundingClientRect().top,
+    }));
+    const before = await positions();
+    await page.evaluate(()=>scrollBy({top:160,behavior:'instant'}));
+    await expect.poll(async()=>{
+      const after = await positions();
+      return Math.abs((after.film-before.film)-(after.cards-before.cards));
+    }).toBeLessThan(2);
+    await page.evaluate(()=>scrollTo({top:scrollY+document.querySelector('#products')!.getBoundingClientRect().top,behavior:'instant'}));
+    await expect.poll(()=>page.locator('.lh-opening-film').evaluate(e=>e.getBoundingClientRect().bottom)).toBeLessThanOrEqual(0);
+  }
+});
+
+test('reversing a continuous wheel gesture returns without a click or a pause', async ({page}) => {
+  await ready(page);
+  await expect(page.locator('.lh-opening')).toHaveAttribute('data-opening-anchors','true');
+  const positions = await page.evaluate(async()=>{
+    const wheel=(deltaY: number)=>document.querySelector('#top')!.dispatchEvent(new WheelEvent('wheel',{deltaY,bubbles:true,cancelable:true}));
+    wheel(60);
+    await new Promise(r=>setTimeout(r,500));
+    const down = scrollY;
+    wheel(-20);
+    await new Promise(r=>setTimeout(r,120));
+    const afterReverse = scrollY;
+    for(let i=0;i<30;i++) {
+      wheel(-20);
+      await new Promise(r=>setTimeout(r,60));
+    }
+    return {down,afterReverse};
+  });
+  expect(positions.down).toBeGreaterThan(100);
+  expect(positions.afterReverse).toBeLessThan(positions.down-20);
+  await at(page,'#top');
+});
+
+test('the Ola movement takes 40 percent longer while the Go reveal retains its duration', async ({page}) => {
+  await ready(page);
+  await expect(page.locator('.lh-opening')).toHaveAttribute('data-opening-anchors','true');
+  const timing = await page.evaluate(()=>new Promise<{ola:number;go:number}>(resolve=>{
+    const started=performance.now();
+    let reveal=0;
+    document.querySelector('#top')!.dispatchEvent(new WheelEvent('wheel',{deltaY:60,bubbles:true,cancelable:true}));
+    const sample=(now:number)=>{
+      const progress=Number((document.querySelector('.lh-opening-video') as HTMLVideoElement).dataset.scrollProgress);
+      if(!reveal&&progress>=3.75/6.55) reveal=now-started;
+      if(progress>=.999) resolve({ola:reveal,go:now-started-reveal});
+      else requestAnimationFrame(sample);
+    };
+    requestAnimationFrame(sample);
+  }));
+  expect(timing.ola).toBeGreaterThan(900);
+  expect(timing.ola).toBeLessThan(1250);
+  expect(timing.go).toBeGreaterThan(420);
+  expect(timing.go).toBeLessThan(720);
+});
+
+test('continuous upward scrolling passes the second anchor without a click', async ({page}) => {
+  await ready(page,'#ola');
+  await at(page,'#ola');
+  await page.evaluate(async()=>{
+    scrollBy({top:300,behavior:'instant'});
+    for(let i=0;i<40;i++) {
+      document.querySelector('#ola')!.dispatchEvent(new WheelEvent('wheel',{deltaY:-30,bubbles:true,cancelable:true}));
+      await new Promise(r=>setTimeout(r,60));
+    }
+  });
+  await at(page,'#top');
+});
+
+test('second-screen text and photos arrive 40 percent faster without speeding up the film', async ({page}) => {
+  await ready(page,'#ola');
+  await at(page,'#ola');
+  const destination = await page.locator('.lh-ola-layout').evaluate(e=>e.getBoundingClientRect().top);
+  await page.keyboard.press('PageUp');
+  await at(page,'#top');
+  const arrival = await page.evaluate(destination=>new Promise<{time:number;film:number}>(resolve=>{
+    const started=performance.now();
+    document.querySelector('#top')!.dispatchEvent(new WheelEvent('wheel',{deltaY:60,bubbles:true,cancelable:true}));
+    const sample=(now:number)=>{
+      if(document.querySelector('.lh-ola-layout')!.getBoundingClientRect().top<=destination+2) {
+        resolve({time:now-started,film:Number((document.querySelector('.lh-opening-video') as HTMLVideoElement).dataset.scrollProgress)});
+      } else requestAnimationFrame(sample);
+    };
+    requestAnimationFrame(sample);
+  }),destination);
+  expect(arrival.time).toBeGreaterThan(950);
+  expect(arrival.time).toBeLessThan(1250);
+  expect(arrival.film).toBeLessThan(.9);
+  await at(page,'#ola');
+  await expect(page.locator('.lh-ola-copy h2')).toBeInViewport();
+  for(const photo of await page.locator('.lh-rhythm-photo').all()) await expect(photo).toBeInViewport();
+});
+
+test('short ultrawide windows keep second-screen copy and complete photos within the viewport', async ({page}) => {
+  for(const [locale,width,height] of [
+    ['zh-hant',2360,580],['zh-hant',2560,500],['zh-hant',3440,600],
+    ['zh-hant',1920,480],['en',2560,580],['ja',2560,580],
+  ] as const) {
+    await page.setViewportSize({width,height});
+    await page.goto(`/${locale}#ola`);
+    await expect(page.locator('.lh-opening')).toHaveAttribute('data-opening-anchors','true');
+    await at(page,'#ola');
+    const bounds=await page.evaluate(()=>{
+      const nav=document.querySelector('.site-nav')!.getBoundingClientRect();
+      const copy=document.querySelector('.lh-ola-copy')!.getBoundingClientRect();
+      const cards=document.querySelector('.lh-rhythm-cards')!.getBoundingClientRect();
+      return {copyTop:copy.top,navBottom:nav.bottom,cardsBottom:cards.bottom,height:innerHeight,sectionHeight:document.querySelector('#ola')!.getBoundingClientRect().height,overflow:document.documentElement.scrollWidth>innerWidth};
+    });
+    expect(bounds.copyTop,`${locale} ${width}×${height}: copy clears navigation`).toBeGreaterThanOrEqual(bounds.navBottom);
+    expect(bounds.cardsBottom,`${locale} ${width}×${height}: complete cards fit`).toBeLessThanOrEqual(height-16);
+    expect(bounds.sectionHeight).toBeLessThanOrEqual(height+1);
+    expect(bounds.overflow).toBe(false);
+    for(const photo of await page.locator('.lh-rhythm-photo').all()) {
+      const image=await photo.evaluate(e=>{
+        const box=e.getBoundingClientRect(),img=e.querySelector('img')!;
+        return {ratioError:Math.abs(box.height-box.width*3/4),fit:getComputedStyle(img).objectFit,transform:getComputedStyle(img).transform};
+      });
+      expect(image.ratioError).toBeLessThan(1);
+      expect(image.fit).toBe('contain');
+      expect(image.transform).toBe('none');
+    }
+  }
+});

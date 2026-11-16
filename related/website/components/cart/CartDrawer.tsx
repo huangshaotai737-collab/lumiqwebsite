@@ -1,21 +1,24 @@
 "use client";
+import {useContentAdapter} from "@/components/content/useContentAdapter";
 
 import { useLocale } from "next-intl";
-import Image from "next/image";
+import Image from "@/components/content/ContentImage";
 import { Minus, Plus, ShoppingCart, X } from "lucide-react";
 import type { RefObject } from "react";
 import { Link } from "@/i18n/navigation";
 import { CART_MAX_QUANTITY, summarizeCart } from "@/lib/cart";
-import { PRODUCT_BY_ID } from "@/lib/products";
-import { getCartMessages } from "@/lib/cart-messages";
+import {useCartCopy} from "@/components/content/useCartCopy";
+import {orderCopy} from "@/features/orders/copy";
+import type {Locale} from "@/lib/generated/platform/core";
 import { useCart } from "./CartProvider";
 
 export default function CartDrawer({ dialogRef }: { dialogRef: RefObject<HTMLDialogElement | null> }) {
+  const cms = useContentAdapter();
   const locale = useLocale();
-  const copy = getCartMessages(locale);
+  const copy = useCartCopy();
   const { items, storageAvailable, closeCart, remove, setQuantity } = useCart();
-  const summary = summarizeCart(items);
-  const formatPrice = (amount: number) => `USD ${new Intl.NumberFormat(locale === "zh-hant" ? "zh-TW" : locale, { maximumFractionDigits: 0 }).format(amount)}`;
+  const summary = summarizeCart(items, cms.snapshot.products);
+  const formatPrice = (amount: number) => `USD ${new Intl.NumberFormat(locale === "zh-hant" ? "zh-TW" : locale, { maximumFractionDigits: 2 }).format(amount)}`;
 
   return (
     <dialog
@@ -44,14 +47,14 @@ export default function CartDrawer({ dialogRef }: { dialogRef: RefObject<HTMLDia
     >
       <div className="cart-panel">
         <header className="cart-header">
-          <div><p className="cart-eyebrow">LUMIQ STUDIO</p><h2 id="cart-title">{copy.title}</h2><p className="cart-count">{copy.countLabel(summary.quantity)}</p></div>
+          <div><p className="cart-eyebrow">{cms.text("field_031f92cca3852a5b")}</p><h2 id="cart-title">{copy.title}</h2><p className="cart-count">{copy.countLabel(summary.quantity)}</p></div>
           <button type="button" className="cart-icon-button" aria-label={copy.close} autoFocus onClick={(event) => closeCart(event.detail !== 0)}><X size={22} aria-hidden="true" /></button>
         </header>
         <div className="cart-content">
           {items.length ? (
             <ul className="cart-items">
               {items.map(({ id, quantity }) => {
-                const product = PRODUCT_BY_ID[id];
+                const product = cms.snapshot.products[id];
                 const priceLabel = product.price.kind === "usd" ? formatPrice(product.price.amount) : product.price.kind === "included" ? copy.included : copy.pending;
                 return <li className="cart-item" key={id} data-cart-product={id}>
                   <Link href={product.href} className="cart-product-art" aria-label={product.name} onClick={() => closeCart(false)}><Image src={product.image} alt="" width={120} height={120} sizes="96px" /></Link>
@@ -79,7 +82,8 @@ export default function CartDrawer({ dialogRef }: { dialogRef: RefObject<HTMLDia
             <div className="cart-total"><span>{copy.referenceTotal}</span><strong>{summary.pricedQuantity ? formatPrice(summary.referenceTotal) : copy.noPublishedTotal}</strong></div>
             {summary.unpricedQuantity ? <p className="cart-price-note">{copy.unpriced(summary.unpricedQuantity)}</p> : null}
             <p className="cart-price-note">{copy.priceNote}</p>
-            <Link href="/prelaunch" className="cart-primary" onClick={() => closeCart(false)}>{copy.interest}</Link>
+            <Link href="/checkout" className="cart-primary" onClick={() => closeCart(false)}>{orderCopy[locale as Locale].checkout}</Link>
+            <Link href="/prelaunch" className="cart-continue" onClick={() => closeCart(false)}>{copy.interest}</Link>
             <button type="button" className="cart-continue" onClick={(event) => closeCart(event.detail !== 0)}>{copy.continue}</button>
           </> : null}
           <p id="cart-local-note" className="cart-local-note">{storageAvailable ? copy.note : `${copy.note} ${copy.storageUnavailable}`}</p>

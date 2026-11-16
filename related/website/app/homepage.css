@@ -165,7 +165,7 @@ html:has(.lh-home) {
   pointer-events: none;
   z-index: -1;
   inset: 0;
-  background: url("/assets/home-interactive/pearl-light.webp") center/cover
+  background: var(--cms-asset_b0fc987be9c43a11, url("/assets/home-interactive/pearl-light.webp")) center/cover
     no-repeat;
   mask-image: linear-gradient(180deg, #000 70%, transparent);
 }
@@ -363,11 +363,7 @@ html:has(.lh-home) {
   overflow: hidden;
 }
 .lh-rhythm-photo img {
-  object-fit: cover;
-  transition: transform 0.8s var(--lh-ease);
-}
-.lh-rhythm-card:hover .lh-rhythm-photo img {
-  transform: scale(1.035);
+  object-fit: contain;
 }
 .lh-rhythm-copy {
   padding: 22px 19px 26px;
@@ -1154,9 +1150,7 @@ html:has(.lh-home) {
   }
 }
 @media (min-width: 2100px) {
-  .lh-hero {
-    min-height: 960px;
-  }
+  .lh-hero,
   .lh-hero-layout {
     min-height: 960px;
   }

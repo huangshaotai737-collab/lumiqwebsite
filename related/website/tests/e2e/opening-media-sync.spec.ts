@@ -43,31 +43,6 @@ test('a pending seek retains its presented frame and matching copy', async ({pag
   await expect(page.locator('.lh-video-layer')).toHaveAttribute('data-ready', 'true');
 });
 
-test('the opening waits for the complete download before revealing the film', async ({page}) => {
-  let release!: () => void;
-  const gate = new Promise<void>(resolve => {release = resolve;});
-  await page.route('**/compat-20261008/ola-scroll-v16-scrub.mp4', async route => {
-    await gate;
-    await route.continue().catch(() => {});
-  });
-  try {
-    await page.goto('/zh-hant', {waitUntil: 'domcontentloaded'});
-    await expect(page.locator('.lh-opening')).toHaveAttribute('data-video-mode', 'true');
-    await expect(page.locator('.lh-opening')).toHaveAttribute('data-opening-loading', 'true');
-    await expect(page.getByRole('progressbar')).toHaveCount(0);
-    await expect(page.locator('.lh-hero-copy')).toHaveCSS('opacity', '1');
-    await expect(page.locator('.lh-opening-video')).not.toHaveAttribute('src', /.+/);
-    await page.mouse.wheel(0, 900);
-    await expect.poll(() => page.evaluate(() => scrollY)).toBe(0);
-    release();
-    await expect(page.locator('.lh-video-layer')).toHaveAttribute('data-ready', 'true');
-    await expect(page.locator('.lh-opening')).not.toHaveAttribute('data-opening-loading', 'true');
-    await expect(page.locator('.lh-opening-video')).toHaveAttribute('src', /^blob:/);
-    await page.evaluate(() => scrollTo({top: innerHeight * 2.85 * .92, behavior: 'instant'}));
-    await expect(page.locator('.lh-ola-copy')).toHaveCSS('opacity', '1');
-  } finally { release(); }
-});
-
 test('an unavailable film unlocks a stable readable layout', async ({page}) => {
   await page.route('**/compat-20261008/ola-scroll-v16-scrub.mp4', route => route.abort());
   await page.goto('/zh-hant');
@@ -86,33 +61,6 @@ test('an unavailable film unlocks a stable readable layout', async ({page}) => {
   await expect(page.locator('.lh-video-layer')).not.toHaveAttribute('data-ready', 'true');
 });
 
-
-test('response headers and a first chunk cannot release the opening gate', async ({page}) => {
-  await page.addInitScript(() => {
-    const original = window.fetch;
-    window.fetch = async (...args) => {
-      const response = await original(...args);
-      if (!String(args[0]).includes('ola-scroll-v16-scrub.mp4')) return response;
-      const bytes = new Uint8Array(await response.arrayBuffer());
-      return new Response(new ReadableStream({start(controller) {
-        controller.enqueue(bytes.slice(0, 16384));
-        (window as unknown as Record<string, unknown>).finishOpeningDownload = () => {
-          controller.enqueue(bytes.slice(16384));
-          controller.close();
-        };
-      }}), {headers: {'content-length': String(bytes.length), 'content-type': 'video/mp4'}});
-    };
-  });
-  await page.goto('/zh-hant', {waitUntil: 'domcontentloaded'});
-  await expect.poll(() => page.evaluate(() => typeof (window as unknown as {finishOpeningDownload?: unknown}).finishOpeningDownload)).toBe('function');
-  await expect(page.locator('.lh-opening')).toHaveAttribute('data-opening-loading', 'true');
-  await expect(page.getByRole('progressbar')).toHaveCount(0);
-  await expect(page.locator('.lh-hero-copy')).toHaveCSS('opacity', '1');
-  await expect(page.locator('.lh-opening-video')).not.toHaveAttribute('src', /.+/);
-  await page.evaluate(() => (window as unknown as {finishOpeningDownload: () => void}).finishOpeningDownload());
-  await expect(page.locator('.lh-opening')).not.toHaveAttribute('data-opening-loading', 'true');
-  await expect(page.locator('.lh-video-layer')).toHaveAttribute('data-ready', 'true');
-});
 
 test('rapid forward and reverse scrolling never switches the revealed movie back to posters', async ({page}) => {
   await page.goto('/zh-hant');
@@ -149,27 +97,6 @@ test('a permanent decoder failure switches once to static content', async ({page
   await expect(page.locator('.lh-rhythm-cards')).toBeVisible();
   await expect(page.locator('.lh-opening-video')).not.toHaveAttribute('src', /.+/);
 });
-
-test('a download that never completes cannot block navigation indefinitely', async ({page}) => {
-  let release!: () => void;
-  const gate = new Promise<void>(resolve => {release = resolve;});
-  await page.route('**/compat-20261008/ola-scroll-v16-scrub.mp4', async route => {
-    await gate;
-    await route.continue().catch(() => {});
-  });
-  try {
-    await page.goto('/zh-hant', {waitUntil: 'domcontentloaded'});
-    await expect(page.locator('.lh-opening')).toHaveAttribute('data-opening-loading', 'true');
-    await expect(page.getByRole('progressbar')).toHaveCount(0);
-    await expect(page.locator('.lh-hero-copy')).toHaveCSS('opacity', '1');
-    await expect(page.locator('.lh-opening')).toHaveAttribute('data-static-opening', 'true', {timeout: 15000});
-    await expect(page.locator('.lh-opening')).not.toHaveAttribute('data-opening-loading', 'true');
-    release();
-    await page.evaluate(() => document.querySelector('.lh-opening-video')!.dispatchEvent(new Event('canplay')));
-    await expect(page.locator('.lh-opening-video')).not.toHaveAttribute('src', /.+/);
-  } finally {release();}
-});
-
 
 test('mobile and reduced motion do not request the desktop film', async ({page}) => {
   const requests: string[] = [];
@@ -209,7 +136,7 @@ test('lost media data after entry also releases into the static layout', async (
 });
 
 
-test('the first paint is already scroll locked before application scripts arrive', async ({page}) => {
+test('the first paint remains scrollable before application scripts arrive', async ({page}) => {
   let release!: () => void;
   const gate = new Promise<void>(resolve => {release = resolve;});
   await page.route('**/_next/static/**/*.js', async route => {
@@ -219,10 +146,14 @@ test('the first paint is already scroll locked before application scripts arrive
   try {
     await page.goto('/zh-hant', {waitUntil: 'commit'});
     await expect(page.locator('.lh-hero-copy')).toBeVisible();
-    await expect(page.locator('html')).toHaveCSS('overflow-y', 'hidden');
+    // On a remote origin, commit can precede the render-blocking stylesheet.
+    // Wait for painted layout while application scripts are still held above.
+    await expect(page.locator('.lh-hero-copy')).toHaveCSS('position', 'relative');
+    await expect(page.locator('html')).not.toHaveCSS('overflow-y', 'hidden');
     await page.mouse.wheel(0, 800);
     await page.evaluate(() => new Promise<void>(resolve => requestAnimationFrame(() => requestAnimationFrame(() => resolve()))));
-    await expect.poll(() => page.evaluate(() => scrollY)).toBe(0);
+    await expect.poll(() => page.evaluate(() => scrollY)).toBeGreaterThan(100);
+    await page.evaluate(() => scrollTo({top: 0, behavior: 'instant'}));
     release();
     await expect(page.locator('.lh-video-layer')).toHaveAttribute('data-ready', 'true', {timeout: 15000});
     await page.mouse.wheel(0, 600);

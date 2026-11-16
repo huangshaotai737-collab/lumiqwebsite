@@ -1,6 +1,6 @@
 import {expect, test} from '@playwright/test';
 
-test('glass canvas fills the moving card throughout a page turn without a second base', async ({page}) => {
+test('glass canvas fills the selected card throughout a page turn without a second base', async ({page}) => {
   await page.setViewportSize({width: 1440, height: 1000});
   await page.goto('/en/products#lineup');
   const next = page.locator('.prod-slide[data-slot="next"]');

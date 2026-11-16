@@ -15,7 +15,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
+        os: [ubuntu-24.04, windows-latest, macos-latest]
     runs-on: ${{ matrix.os }}
     # Windows installs can consume over eight minutes before browser checks.
     # Keep per-operation deadlines; allow time for all four browser engines.
@@ -25,6 +25,8 @@ jobs:
         working-directory: related/website
         shell: bash
     env:
+      LIBGL_ALWAYS_SOFTWARE: ${{ matrix.os == 'ubuntu-24.04' && '1' || '' }}
+      AUDIT_HEADED_WEBKIT: ${{ matrix.os == 'ubuntu-24.04' && '1' || '' }}
       LUMIQ_STATIC_IMAGES: '1'
       SITE_URL: http://localhost:4223
       QA_OUTPUT: qa/release-platform
@@ -40,11 +42,18 @@ jobs:
           cache-dependency-path: related/website/package-lock.json
       - run: npm ci
       - run: npx playwright install --with-deps chromium firefox webkit
+      # GTK WebKit avoids WPE renderer crashes during paused-video resizing.
+      # Use a virtual display and software GL on the GPU-less Linux runner.
+      - if: runner.os == 'Linux'
+        run: sudo apt-get install -y gstreamer1.0-gl xvfb xauth
       - if: runner.os == 'Windows'
         run: npx playwright install msedge
       - run: npm test
       - run: npm run build
-      - run: node scripts/run-platform-ci.mjs
+      - if: runner.os == 'Linux'
+        run: xvfb-run -a node scripts/run-platform-ci.mjs
+      - if: runner.os != 'Linux'
+        run: node scripts/run-platform-ci.mjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:

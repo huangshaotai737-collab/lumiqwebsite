@@ -13,18 +13,18 @@ const letters = [
   ["I", 2570, 1290, 150, 190], ["O", 2930, 1290, 230, 190],
 ] as const;
 
-export default function LoadingWordmark() {
+export default function LoadingWordmark({onReady}: {onReady: () => void}) {
   const id = useId().replace(/:/g, "");
   const [ready, setReady] = useState(false);
   useEffect(() => {
     let active = true;
     const image = new Image();
     image.src = loadingLogo;
-    void image.decode().then(() => { if (active) setReady(true); }).catch(() => {
+    void image.decode().then(() => { if (active) {setReady(true); onReady();} }).catch(() => {
       // The resource gate owns error handling and the retry action.
     });
     return () => { active = false; };
-  }, []);
+  }, [onReady]);
   return <svg className="lh-loader-wordmark" data-ready={ready} viewBox="110 300 3900 1230" aria-hidden="true">
     <defs>
       <image id={`${id}-art`} href={loadingLogo} width="4096" height="1551" />

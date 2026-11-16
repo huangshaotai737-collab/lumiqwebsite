@@ -1,3 +1,4 @@
+import {readContentAdapter} from "@/lib/content/server-adapter";
 import Heading from "@/components/Heading";
 import Image from "@/components/home/HomeImage";
 import { getTranslations, getLocale } from "next-intl/server";
@@ -11,7 +12,7 @@ import {
   SlidersHorizontal,
 } from "lucide-react";
 import { Link } from "@/i18n/navigation";
-import { PRODUCT_BY_ID, type ProductId } from "@/lib/products";
+import { type ProductId } from "@/lib/products";
 import HomeBackgrounds from "@/components/home/HomeBackgrounds";
 import HomeMotion from "@/components/home/HomeMotion";
 import HomeGlassProducts from "@/components/home/HomeGlassProducts";
@@ -27,10 +28,10 @@ import "./home-ending.css";
 import "./home-immersive.css";
 import "./home-anchored.css";
 import "./home-typography.css";
-import "./home-loading.css";
 import "./home-pearl-background.css";
 import "./home-brand-review.css";
 import "./responsive-layout.css";
+import "./home-safety-principles.css";
 
 const collection: ProductId[] = ["tablet", "ola", "ola-go", "nest", "print"];
 const artwork: Record<ProductId, string> = {
@@ -48,24 +49,27 @@ const principles = [
 ] as const;
 
 export default async function Home() {
+  const cms = await readContentAdapter();
   const t = await getTranslations("HomeRefresh");
   const locale = await getLocale();
   return (
     <HomeMotion>
       <HomeBackgrounds />
-      <div className="lh-opening" data-opening-pending="true">
+      <div className="lh-opening">
         <div className="lh-opening-stage">
-          <div className="lh-video-layer" aria-hidden="true">
-            <div className="lh-opening-film">
-              <div className="lh-video-start-poster" />
-              <div className="lh-video-end-poster" />
-              <video
-                className="lh-opening-video"
-                muted
-                playsInline
-                preload="none"
-                tabIndex={-1}
-              />
+          <div className="lh-video-track" aria-hidden="true">
+            <div className="lh-video-layer">
+              <div className="lh-opening-film">
+                <div className="lh-video-start-poster" />
+                <div className="lh-video-end-poster" />
+                <video
+                  className="lh-opening-video"
+                  muted
+                  playsInline
+                  preload="none"
+                  tabIndex={-1}
+                />
+              </div>
             </div>
           </div>
           <div
@@ -79,26 +83,21 @@ export default async function Home() {
             data-home-section
           >
             <div className="lh-mobile-hero-art" role="img" aria-label={t("heroAlt")}>
-              <picture>
-                <source
-                  media="(min-width: 768px)"
-                  srcSet="/assets/home-video/ola-scroll-v16-start-20260909.webp"
-                />
                 <Image
-                  src="/assets/mobile-backgrounds-20260914/hero-unified.webp"
+                  wideSource={cms.url("/assets/home-video/ola-scroll-v16-start-20260909.webp")}
+                  src={cms.url("/assets/mobile-backgrounds-20260914/hero-unified.webp")}
                   alt=""
                   fill
                   sizes="(max-width: 1199px) 100vw, 1px"
-                  unoptimized
+              quality={75}
                   priority
+                  fetchPriority="high"
                 />
-              </picture>
             </div>
             <div className="lh-wrap lh-hero-layout">
               <div className="lh-hero-copy">
                 <p className="lh-eyebrow">
-                  <span className="lh-dot" /> LUMIQ STUDIO
-                </p>
+                  <span className="lh-dot" /> {cms.text("field_595c7b9755eb3c39")}</p>
                 <Heading as="h1" id="hero-title">
                   <span className="lh-hero-line">{t("hero1")}</span>
                   <span className="lh-hero-line">{t("hero2")}</span>
@@ -110,10 +109,6 @@ export default async function Home() {
                     {t("discover")}
                     <ArrowRight size={18} />
                   </a>
-                  <Link prefetch={false} href="/story#brand-film" className="lh-text-link">
-                    {t("ourStory")}
-                    <ArrowUpRight size={18} />
-                  </Link>
                 </div>
               </div>
             </div>
@@ -139,17 +134,15 @@ export default async function Home() {
                 </Link>
               </div>
               <div className="lh-mobile-ola-art">
-                <picture>
-                <source media="(min-width: 768px)" srcSet="/assets/home-video/ola-scroll-v16-end-20260909.webp" />
                 <Image
-                  src="/assets/mobile-backgrounds-20260914/ola-go-ui.webp"
-                  alt="LUMIQ OLA + Go"
+                  wideSource={cms.url("/assets/home-video/ola-scroll-v16-end-20260909.webp")}
+                  src={cms.url("/assets/mobile-backgrounds-20260914/ola-go-ui.webp")}
+                  alt={cms.value("media.asset_38c045ee1dd24e31.alt")}
                   width={941}
                   height={1672}
                   sizes="(max-width: 1199px) 100vw, 1px"
                   unoptimized
                 />
-                </picture>
               </div>
               <div className="lh-rhythm-cards">
                 {(["learn", "connect", "care"] as const).map((key) => (
@@ -159,9 +152,10 @@ export default async function Home() {
                   >
                     <div className="lh-rhythm-photo">
                       <Image
-                        src={"/assets/home-video/" + key + ".webp"}
+                        src={cms.url("/assets/home-video/" + key + ".webp")}
                         alt={t(`rhythms.${key}.alt`)}
                         fill
+                        loading="eager"
                         sizes="(max-width: 520px) 42vw, (max-width: 1199px) 28vw, 320px"
                       />
                     </div>
@@ -188,7 +182,7 @@ export default async function Home() {
           </div>
           <HomeGlassProducts products={collection.map(id => ({
             name: t(`products.${id}.name`), body: t(`products.${id}.body`),
-            image: "/assets/" + artwork[id] + ".webp", href: `/${locale}${PRODUCT_BY_ID[id].href}`, explore: t("explore"),
+            image: cms.url("/assets/" + artwork[id] + ".webp"), href: `/${locale}${cms.snapshot.products[id].href}`, explore: t("explore"),
           }))} />
           <div className="lh-products-carousel">
           <div className="lh-products-viewport" id="home-products-rail">
@@ -200,17 +194,19 @@ export default async function Home() {
                 >
                   <Link
                     prefetch={false}
-                    href={PRODUCT_BY_ID[id].href}
+                    href={cms.snapshot.products[id].href}
                     className={"lh-product lh-product-" + id}
                   >
                     <div className="lh-product-art">
                       <div className="lh-product-float">
                         <Image
                           src={
-                            "/assets/" + artwork[id] + ".webp"
+                            cms.url("/assets/" + artwork[id] + ".webp")
                           }
                           alt={t(`products.${id}.name`)}
                           fill
+                          style={{objectFit: "contain"}}
+                          loading="eager"
                           sizes="(max-width: 520px) 78vw, 440px"
                           quality={90}
                         />
@@ -230,6 +226,37 @@ export default async function Home() {
                       </span>
                     </span>
                   </Link>
+                  <div className="lh-product-reflection" aria-hidden="true" inert>
+                    <div className={"lh-product lh-product-" + id}>
+                    <div className="lh-product-art">
+                      <div className="lh-product-float">
+                        <Image
+                          src={
+                            cms.url("/assets/" + artwork[id] + ".webp")
+                          }
+                          alt=""
+                          fill
+                          style={{objectFit: "contain"}}
+                          sizes="(max-width: 520px) 78vw, 440px"
+                          quality={90}
+                        />
+                      </div>
+                    </div>
+                    <div className="lh-product-copy">
+                      <span className="lh-product-type">
+                        {t(`products.${id}.type`)}
+                      </span>
+                      <div className="lh-reflection-title">{t(`products.${id}.name`)}</div>
+                      <p>{t(`products.${id}.body`)}</p>
+                    </div>
+                    <span className="lh-product-bottom">
+                      <span>{t("explore")}</span>
+                      <span className="lh-product-arrow">
+                        <ArrowUpRight size={19} />
+                      </span>
+                    </span>
+                    </div>
+                  </div>
                 </div>
               ))}
             </div>
@@ -256,7 +283,7 @@ export default async function Home() {
                 <ArrowLeft size={20} />
               </button>
               <span className="lh-products-count" aria-live="polite" aria-atomic="true">
-                <strong data-products-current>01</strong> / {String(collection.length).padStart(2, "0")}
+                <strong data-products-current>{cms.text("field_656dc81182778885")}</strong> {cms.text("field_a899a31fb0b3e230")}{String(collection.length).padStart(2, "0")}
               </span>
               <button
                 type="button"
@@ -283,65 +310,6 @@ export default async function Home() {
         <HomeExperiences />
       </section>
       <section
-        id="safety"
-        className="lh-safety lh-section"
-        aria-labelledby="safety-title"
-        data-home-section
-      >
-        <div className="lh-trust-scroll">
-          <div className="lh-trust-room">
-            <div className="lh-safety-photo">
-              <Image
-                src="/assets/home-safety-20261002/story-world-family.jpg"
-                className="lh-safety-story-world"
-                alt={t("trustAlt")}
-                fill
-                quality={90}
-                sizes="100vw"
-              />
-            </div>
-            <div className="lh-wrap lh-safety-copy">
-              <p className="lh-eyebrow">{t("safetyKicker")}</p>
-              <Heading as="h2" id="safety-title">
-                {t("safetyTitle")}
-                <br />
-                <span className="lh-muted">{t("safetyAccent")}</span>
-              </Heading>
-              <p className="lh-lead">{t("safetyBody")}</p>
-            </div>
-            <div className="lh-wrap lh-trust-notes">
-              <p className="lh-trust-caption">{t("safetySeal")}</p>
-              <div className="lh-principles">
-                {principles.map(({ key, icon: Icon, href }) => (
-                  <Link
-                    prefetch={false}
-                    href={href}
-                    key={key}
-                    className="lh-principle"
-                  >
-                    <span className="lh-principle-top" aria-hidden="true">
-                      <Icon size={22} strokeWidth={1.3} />
-                    </span>
-                    <Heading as="h3">{t(`trust.${key}.title`)}</Heading>
-                    <p>
-                      {t(`trust.${key}.body`)}
-                      <span className="lh-principle-sheen" aria-hidden="true">
-                        {t(`trust.${key}.body`)}
-                      </span>
-                    </p>
-                    <ArrowUpRight
-                      className="lh-principle-arrow"
-                      size={19}
-                      aria-hidden="true"
-                    />
-                  </Link>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-      <section
         id="family"
         className="lh-family lh-section"
         aria-labelledby="family-title"
@@ -360,13 +328,66 @@ export default async function Home() {
               </div>
               <div className="lh-section-intro">
                 <p>{t("familyBody")}</p>
-                <Link prefetch={false} href="/story" className="lh-text-link">
+                <Link prefetch={false} href="/story#brand-film" className="lh-text-link">
                   {t("ourStory")}
                   <ArrowRight size={18} />
                 </Link>
               </div>
             </div>
             <HomeFamily />
+          </div>
+        </div>
+      </section>
+      <section
+        id="safety"
+        className="lh-safety lh-section"
+        aria-labelledby="safety-title"
+        data-home-section
+      >
+        <div className="lh-trust-scroll">
+          <div className="lh-trust-room">
+            <div className="lh-safety-photo">
+              <Image
+                src={cms.url("/assets/home-safety-20261002/story-world-family.jpg")}
+                className="lh-safety-story-world"
+                alt={t("trustAlt")}
+                fill
+                quality={90}
+                sizes="100vw"
+              />
+            </div>
+            <div className="lh-wrap lh-safety-copy">
+              <p className="lh-eyebrow">{t("safetyKicker")}</p>
+              <Heading as="h2" id="safety-title">
+                {t("safetyTitle")}
+                <br />
+                <span className="lh-muted">{t("safetyAccent")}</span>
+              </Heading>
+            </div>
+            <div className="lh-wrap lh-trust-notes">
+              <p className="lh-trust-caption">{t("safetySeal")}</p>
+              <div className="lh-principles">
+                {principles.map(({ key, icon: Icon, href }) => (
+                  <Link
+                    prefetch={false}
+                    href={href}
+                    key={key}
+                    className="lh-principle"
+                  >
+                    <span className="lh-principle-top" aria-hidden="true">
+                      <Icon size={44} strokeWidth={1.6} />
+                    </span>
+                    <Heading as="h3">{t(`trust.${key}.title`)}</Heading>
+                    <p>
+                      {t(`trust.${key}.body`)}
+                      <span className="lh-principle-sheen" aria-hidden="true">
+                        {t(`trust.${key}.body`)}
+                      </span>
+                    </p>
+                  </Link>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -378,7 +399,7 @@ export default async function Home() {
       >
         <div className="lh-join-art" aria-hidden="true">
           <Image
-            src="/assets/home-anchored-2026-09-07/join-crystal.webp"
+            src={cms.url("/assets/home-anchored-2026-09-07/join-crystal.webp")}
             alt=""
             fill
             quality={90}

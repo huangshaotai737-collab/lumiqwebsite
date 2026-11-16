@@ -1,7 +1,4 @@
 /* Shared outer rhythm. Keep hero/scroll-stage geometry and all inner layouts intact. */
-[data-scroll-reveal="pending"] { opacity: 0; }
-@media (prefers-reduced-motion: reduce) { [data-scroll-reveal="pending"] { opacity: 1; } }
-@media print { [data-scroll-reveal="pending"] { opacity: 1; } }
 .lumiq-root {
   --lq-section-gap: 128px;
   --lq-section-edge: calc(var(--lq-section-gap) / 2);

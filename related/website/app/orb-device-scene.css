@@ -1,0 +1,11 @@
+/* Real, independently editable UI layered inside a photographed device. No canvas or animation. */
+.orb-device-scene { position: relative; width: 100%; aspect-ratio: 4 / 3; overflow: hidden; }
+.lumiq-root main.product-detail-light .orb-device-scene .orb-scene-photo {
+  display: block; width: 100%; height: 100% !important; min-height: 0; max-height: none;
+  border: 0; border-radius: 0; padding: 0; object-fit: cover !important; mix-blend-mode: normal;
+}
+.orb-scene-overlay { position: absolute; inset: 0; width: 100%; height: 100%; overflow: hidden; pointer-events: none; }
+
+.lumiq-root main.product-detail-light .orb-device-scene .orb-scene-edit-target { position: absolute; opacity: 0; max-height: none; z-index: 1; }
+.lumiq-root main.product-detail-light .orb-finish-product { margin:0; width:100%; }
+.lumiq-root main.product-detail-light .orb-finish-product img { width:100%; height:auto; object-fit:contain !important; padding:0; }

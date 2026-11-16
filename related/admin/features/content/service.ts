@@ -1,0 +1,190 @@
+import 'server-only';
+import { randomUUID } from 'node:crypto';
+import type { Json } from '@/lib/generated/database';
+import type { ApiResult, UUID } from '@/lib/generated/platform/core';
+import type { ContentSnapshot } from '@/lib/generated/platform/content';
+import { createClient } from '@/lib/auth/server';
+import { requireStaff } from '@/lib/auth/require-staff';
+import { enforceRateLimit } from '@/lib/http/rate-limit';
+import { HttpError } from '@/lib/http/result';
+import { validateDraft } from './schema';
+import { attestSnapshot } from './validation-attestation';
+import { prepareReleaseAssets } from '@/features/media/service';
+import {currentSnapshot} from './current-snapshot';
+import type { DraftDetails } from './draft-details';
+import mediaProfiles from '@/features/media/profiles.json';
+import { mediaPresentation } from '@/features/media/presentation';
+
+export type FieldIssue = { path: string; message: string };
+export type ContentResult<T> = ApiResult<T> & { issues?: FieldIssue[] };
+export type ContentDraft = DraftDetails & { id: UUID; version: number; status: 'editing' | 'submitted'; snapshot: ContentSnapshot; updatedAt: string };
+export type ContentRelease = { id: UUID; draftId: UUID | null; draftVersion: number | null; rollbackOf: UUID | null; createdAt: string };
+export type ContentPagination = { page: number; total: number; totalPages: number };
+export type ContentWorkspace = { drafts: Omit<ContentDraft, 'snapshot'>[]; releases: ContentRelease[]; publishedReleaseId: UUID | null; draftPagination: ContentPagination; releasePagination: ContentPagination };
+const uuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+class InvalidContent extends HttpError {
+  constructor(readonly issues: FieldIssue[]) { super('INVALID_INPUT', 400); }
+}
+function identity(id: unknown, version?: unknown) {
+  if (typeof id !== 'string' || !uuid.test(id) ||
+    (version !== undefined && (!Number.isSafeInteger(version) || (version as number) < 0 || (version as number) >= 2147483647)))
+    throw new HttpError('INVALID_INPUT', 400);
+}
+function checked(input: unknown): ContentSnapshot {
+  const value = validateDraft(input);
+  if (!value.ok) throw new InvalidContent(value.issues);
+  return value.snapshot;
+}
+function sqlError(error: { code?: string } | null) {
+  if (!error) return;
+  if (error.code === '23505' || error.code === '40001') throw new HttpError('CONFLICT', 409);
+  if (error.code === '42501') throw new HttpError('FORBIDDEN', 403);
+  if (error.code === 'P0002') throw new HttpError('NOT_FOUND', 404);
+  if (['22023', '23514', '23502'].includes(error.code || '')) throw new HttpError('INVALID_INPUT', 400);
+  throw new HttpError('UNAVAILABLE', 503);
+}
+async function result<T>(operation: () => Promise<T>): Promise<ContentResult<T>> {
+  try { return { ok: true, data: await operation() }; }
+  catch (error) {
+    const fault = error instanceof HttpError ? error : new HttpError('UNAVAILABLE', 503);
+    return { ok: false, error: fault.code, requestId: randomUUID(), ...(error instanceof InvalidContent ? { issues: error.issues } : {}) };
+  }
+}
+async function writer(admin = false) {
+  const actor = await requireStaff(admin ? ['admin'] : ['admin', 'editor']);
+  await enforceRateLimit('write', actor.userId);
+  return actor;
+}
+function sameSettings(left: ContentSnapshot['settings'], right?: ContentSnapshot['settings']) {
+  return Boolean(right && left.siteUrl === right.siteUrl && left.supportEmail === right.supportEmail &&
+    ['en', 'zh-hant', 'ja'].every(locale => left.contactText[locale as keyof typeof left.contactText] === right.contactText?.[locale as keyof typeof right.contactText]));
+}
+function draftDetails(input: { name?: string; summary?: string }) {
+  if (typeof input.name !== 'string' || typeof input.summary !== 'string' || !input.name.trim() || input.name.trim().length > 100 || !input.summary.trim() || input.summary.trim().length > 240) {
+    throw new InvalidContent([{ path: 'draftDetails', message: '請填寫草稿名稱（100 字內）與本次修改摘要（240 字內）。' }]);
+  }
+  return { name: input.name.trim(), summary: input.summary.trim() };
+}
+export async function saveDraft(input: { id: UUID; expectedVersion: number; snapshot: ContentSnapshot; name?: string; summary?: string }): Promise<ContentResult<{ id: UUID; version: number; updatedAt: string }>> {
+  return result(async () => {
+    const actor = await writer();
+    if (!input || input.expectedVersion === undefined) throw new HttpError('INVALID_INPUT', 400);
+    identity(input.id, input.expectedVersion);
+    const snapshot = checked(input.snapshot);
+    const client = await createClient();
+    if (actor.role !== 'admin') {
+      const current = await client.rpc('get_content_draft', { id: input.id }); sqlError(current.error);
+      let baseline = current.data as unknown as { snapshot: ContentSnapshot } | null;
+      if (!baseline) { const published = await client.rpc('get_published_content'); sqlError(published.error); baseline = published.data as unknown as typeof baseline; }
+      if (!sameSettings(snapshot.settings, baseline?.snapshot?.settings)) throw new HttpError('FORBIDDEN', 403);
+    }
+    const details = draftDetails(input);
+    const saved = await client.rpc('save_described_content_draft', { id: input.id, expected_version: input.expectedVersion, snapshot: snapshot as unknown as Json, draft_name: details.name, change_summary: details.summary });
+    sqlError(saved.error);
+    return saved.data as { id: UUID; version: number; updatedAt: string };
+  });
+}
+export async function createDraft(details?: { name?: string; summary?: string }): Promise<ContentResult<{ id: UUID; version: number; updatedAt: string }>> {
+ return result(async () => {
+  const actor = await requireStaff(['admin', 'editor']);
+  const client = await createClient();
+  const published = await client.rpc('get_published_content'); sqlError(published.error);
+  const current = published.data as unknown as { snapshot: ContentSnapshot } | null;
+  if (!current && actor.role !== 'admin') throw new HttpError('FORBIDDEN', 403);
+  const saved = await saveDraft({ id: randomUUID(), expectedVersion: 0, snapshot: (current?.snapshot || currentSnapshot) as ContentSnapshot, ...details });
+  if (!saved.ok) throw new HttpError(saved.error, saved.error === 'FORBIDDEN' ? 403 : 503);
+  return saved.data;
+ });
+}
+async function readDraft(id: UUID) {
+  const client = await createClient();
+  const loaded = await client.rpc('get_content_draft', { id }); sqlError(loaded.error);
+  if (!loaded.data) throw new HttpError('NOT_FOUND', 404);
+  return { client, draft: loaded.data as unknown as ContentDraft };
+}
+export async function submitDraft(input: { id: UUID; expectedVersion: number }): Promise<ContentResult<{ id: UUID; version: number }>> {
+  return result(async () => {
+    await writer(); if (input?.expectedVersion === undefined) throw new HttpError('INVALID_INPUT', 400); identity(input?.id, input?.expectedVersion);
+    const { client, draft } = await readDraft(input.id);
+    if (draft.version !== input.expectedVersion) throw new HttpError('CONFLICT', 409);
+    checked(draft.snapshot);
+    const submitted = await client.rpc('submit_content_draft', { id: input.id, expected_version: input.expectedVersion }); sqlError(submitted.error);
+    return submitted.data as { id: UUID; version: number };
+  });
+}
+async function publishValidatedDraft(id: UUID, version: number, actorId: UUID, removal?: { releaseId: UUID; usageKey: string }) {
+  const { client, draft } = await readDraft(id);
+  if (draft.version !== version) throw new HttpError('CONFLICT', 409);
+  const snapshot = checked(draft.snapshot);
+  await prepareReleaseAssets(id, { version, snapshot });
+  await attestSnapshot({ kind: 'draft', id, version, snapshot, actorId });
+  const published = removal
+    ? await client.rpc('publish_media_removal', { draft_id: id, expected_version: version, expected_release: removal.releaseId, usage_key: removal.usageKey })
+    : await client.rpc('publish_content_draft', { id, expected_version: version });
+  sqlError(published.error);
+  return { releaseId: published.data! };
+}
+export async function publishDraft(input: { id: UUID; expectedVersion: number }): Promise<ContentResult<{ releaseId: UUID }>> {
+  return result(async () => {
+    const actor = await writer(true); if (input?.expectedVersion === undefined) throw new HttpError('INVALID_INPUT', 400); identity(input?.id, input?.expectedVersion);
+    return publishValidatedDraft(input.id, input.expectedVersion, actor.userId);
+  });
+}
+export async function removeWebsiteImage(input: { usageKey: string; expectedReleaseId: UUID }): Promise<ContentResult<{ releaseId: UUID }>> {
+  return result(async () => {
+    const actor = await writer(true);
+    identity(input?.expectedReleaseId);
+    if (typeof input?.usageKey !== 'string' || !Object.hasOwn(mediaProfiles, input.usageKey) || mediaProfiles[input.usageKey as keyof typeof mediaProfiles].kind !== 'image') throw new HttpError('INVALID_INPUT', 400);
+    const client = await createClient();
+    const published = await client.rpc('get_published_content'); sqlError(published.error);
+    const current = published.data as unknown as { releaseId: UUID; snapshot: ContentSnapshot } | null;
+    if (!current || current.releaseId !== input.expectedReleaseId) throw new HttpError('CONFLICT', 409);
+    const slot = current.snapshot.media[input.usageKey];
+    if (!slot) throw new HttpError('NOT_FOUND', 404);
+    if (slot.hidden) throw new HttpError('CONFLICT', 409);
+    const snapshot = checked({ ...current.snapshot, media: { ...current.snapshot.media, [input.usageKey]: { ...slot, hidden: true } } });
+    const title = mediaPresentation(input.usageKey).title;
+    const id = randomUUID();
+    const saved = await client.rpc('save_described_content_draft', { id, expected_version: 0, snapshot: snapshot as unknown as Json, draft_name: `移除圖片：${title}`, change_summary: `移除「${title}」，官網對應位置不再顯示此圖片。` }); sqlError(saved.error);
+    const draft = saved.data as { version: number };
+    return publishValidatedDraft(id, draft.version, actor.userId, { releaseId: current.releaseId, usageKey: input.usageKey });
+  });
+}
+export async function rollbackRelease(input: { releaseId: UUID }): Promise<ContentResult<{ releaseId: UUID }>> {
+  return result(async () => {
+    const actor = await writer(true); identity(input?.releaseId);
+    const client = await createClient();
+    const target = await client.rpc('get_content_release', { id: input.releaseId }); sqlError(target.error);
+    if (!target.data) throw new HttpError('NOT_FOUND', 404);
+    const snapshot = checked((target.data as unknown as { snapshot: unknown }).snapshot);
+    await attestSnapshot({ kind: 'release', id: input.releaseId, version: 0, snapshot, actorId: actor.userId });
+    const rolledBack = await client.rpc('rollback_content_release', { release_id: input.releaseId }); sqlError(rolledBack.error);
+    return { releaseId: rolledBack.data! };
+  });
+}
+export async function loadDraft(id: UUID): Promise<ContentDraft> {
+  await requireStaff(['admin', 'editor']); identity(id);
+  const client = await createClient();
+  const loaded = await client.rpc('get_described_content_draft', { id }); sqlError(loaded.error);
+  if (!loaded.data) throw new HttpError('NOT_FOUND', 404);
+  return loaded.data as unknown as ContentDraft;
+}
+export async function loadWorkspace(draftPage = 1, releasePage = 1): Promise<ContentWorkspace> {
+  await requireStaff(['admin', 'editor']);
+  const client = await createClient(); const response = await client.rpc('get_paginated_content_workspace', { draft_page: draftPage, release_page: releasePage }); sqlError(response.error);
+  if (!response.data) throw new HttpError('UNAVAILABLE', 503);
+  return response.data as unknown as ContentWorkspace;
+}
+
+export async function deleteContentRecord(input: { kind: 'draft' | 'release'; id: UUID; expectedVersion?: number }): Promise<ContentResult<null>> {
+  return result(async () => {
+    await writer(true);
+    if (input?.kind !== 'draft' && input?.kind !== 'release') throw new HttpError('INVALID_INPUT', 400);
+    identity(input.id, input.expectedVersion);
+    if (input.kind === 'draft' && input.expectedVersion === undefined) throw new HttpError('INVALID_INPUT', 400);
+    const client = await createClient();
+    const removed = await client.rpc('delete_content_record', { record_kind: input.kind, record_id: input.id, expected_version: input.expectedVersion });
+    sqlError(removed.error);
+    return null;
+  });
+}

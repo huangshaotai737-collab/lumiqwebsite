@@ -1,0 +1,83 @@
+[
+  {
+    "engine": "chromium",
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "home": {
+      "y": 0,
+      "overflow": false,
+      "videoSource": "/assets/site-backgrounds-20261108/pearl-flow-scroll.mp4",
+      "videoReady": "true"
+    },
+    "sub": {
+      "image": "url(\"http://127.0.0.1:4217/assets/site-backgrounds-20261108/pearl-flow-desktop.webp\")",
+      "position": "fixed"
+    },
+    "errors": [],
+    "backgroundVideoRequests": [
+      "http://127.0.0.1:4217/assets/site-backgrounds-20261108/pearl-flow-scroll.mp4"
+    ]
+  },
+  {
+    "engine": "chromium",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "home": {
+      "y": 0,
+      "overflow": false,
+      "videoSource": null,
+      "videoReady": "false"
+    },
+    "sub": {
+      "image": "url(\"http://127.0.0.1:4217/assets/site-backgrounds-20261108/pearl-flow-mobile.webp\")",
+      "position": "fixed"
+    },
+    "errors": [],
+    "backgroundVideoRequests": []
+  },
+  {
+    "engine": "webkit",
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "home": {
+      "y": 0,
+      "overflow": false,
+      "videoSource": "/assets/site-backgrounds-20261108/pearl-flow-scroll.mp4",
+      "videoReady": "true"
+    },
+    "sub": {
+      "image": "url(\"http://127.0.0.1:4217/assets/site-backgrounds-20261108/pearl-flow-desktop.webp\")",
+      "position": "fixed"
+    },
+    "errors": [],
+    "backgroundVideoRequests": [
+      "http://127.0.0.1:4217/assets/site-backgrounds-20261108/pearl-flow-scroll.mp4",
+      "http://127.0.0.1:4217/assets/site-backgrounds-20261108/pearl-flow-scroll.mp4"
+    ]
+  },
+  {
+    "engine": "webkit",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "home": {
+      "y": 0,
+      "overflow": false,
+      "videoSource": null,
+      "videoReady": "false"
+    },
+    "sub": {
+      "image": "url(\"http://127.0.0.1:4217/assets/site-backgrounds-20261108/pearl-flow-mobile.webp\")",
+      "position": "fixed"
+    },
+    "errors": [],
+    "backgroundVideoRequests": []
+  }
+]

@@ -1,3 +1,4 @@
+import {readContentAdapter} from "@/lib/content/server-adapter";
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import type { Locale } from "@/i18n/routing";
@@ -48,13 +49,14 @@ export async function pageMetadata(
   key: PageMetadataKey,
   locale?: Locale,
 ): Promise<Metadata> {
+  const cms = await readContentAdapter();
   const activeLocale = locale ?? routing.defaultLocale;
   const namespace = `Metadata.${key}` as const;
   const t = await getTranslations({ locale: activeLocale, namespace });
   const path = paths[key];
-  const canonical = `${SITE_URL}/${activeLocale}${path}`;
+  const canonical = `${cms.snapshot.settings.siteUrl}/${activeLocale}${path}`;
   const languages = Object.fromEntries(
-    routing.locales.map((item) => [item, `${SITE_URL}/${item}${path}`]),
+    routing.locales.map((item) => [item, `${cms.snapshot.settings.siteUrl}/${item}${path}`]),
   );
 
   return {
@@ -63,7 +65,7 @@ export async function pageMetadata(
     alternates: { canonical, languages },
     openGraph: {
       type: "website",
-      siteName: "Lumiq Studio",
+      siteName: cms.text("field_ff38d2e683aca082"),
       title: t("title"),
       description: t("description"),
       url: canonical,

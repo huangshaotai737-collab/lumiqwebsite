@@ -1,4 +1,5 @@
 /* Semantic secondary text shares a readable scale across all public routes. */
+.lumiq-root .faq-count { color: var(--ink-3); }
 .lumiq-root {
   --lq-label-size: 16px;
   --lq-caption-size: 16px;
@@ -63,7 +64,7 @@
     --lq-link-size: 16px;
     --lq-support-size: 16px;
   }
-  .lumiq-root .navbar.site-nav .login-btn { font-size: 16px; }
+  .lumiq-root .navbar.site-nav .login-btn,
   .lumiq-root .navbar.site-nav .site-mobile-trigger-label { font-size: 16px; }
 }
 

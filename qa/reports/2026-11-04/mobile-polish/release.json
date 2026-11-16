@@ -1,0 +1,13 @@
+{
+  "sourceCommit": "86355f1",
+  "project": "lumiq-showcase-20261025",
+  "target": "production",
+  "status": "READY",
+  "deployment": "https://lumiq-showcase-20261025-gkgft8n3x.vercel.app",
+  "publicUrl": "https://lumiq-showcase-20261025.vercel.app/zh-hant",
+  "anonymousHttpStatus": 200,
+  "publicBrowserTests": {
+    "passed": 4,
+    "failed": 0
+  }
+}

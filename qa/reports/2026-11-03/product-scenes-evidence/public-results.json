@@ -1,0 +1,62 @@
+{
+  "results": [
+    {
+      "product": "ola",
+      "status": 200,
+      "counts": [
+        3,
+        5,
+        3,
+        5
+      ]
+    },
+    {
+      "product": "ola-go",
+      "status": 200,
+      "counts": [
+        3,
+        3,
+        3,
+        3,
+        3,
+        3
+      ]
+    },
+    {
+      "product": "tablet",
+      "status": 200,
+      "counts": [
+        5,
+        3,
+        3,
+        4,
+        3,
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "product": "print",
+      "status": 200,
+      "counts": [
+        3,
+        3
+      ]
+    },
+    {
+      "product": "nest",
+      "status": 200,
+      "counts": [
+        4,
+        4,
+        4,
+        4,
+        3,
+        3
+      ]
+    }
+  ],
+  "adminLogin": 200,
+  "errors": []
+}

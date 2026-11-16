@@ -1,0 +1,232 @@
+{
+  "config": {
+    "argv": [
+      "/usr/local/bin/node",
+      "/Users/huangshaotai/Documents/lumiqwebsite-responsive-local-20261013/related/website/node_modules/.bin/playwright",
+      "test",
+      "-c",
+      ".lumiq-local/mobile-polish-20261104/playwright-webkit.config.cjs"
+    ],
+    "configFile": "/Users/huangshaotai/Documents/lumiqwebsite-responsive-local-20261013/.lumiq-local/mobile-polish-20261104/playwright-webkit.config.cjs",
+    "rootDir": "/Users/huangshaotai/Documents/lumiqwebsite-responsive-local-20261013/related/website/tests/e2e",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "/Users/huangshaotai/Documents/lumiqwebsite-responsive-local-20261013/.lumiq-local/mobile-polish-20261104/test-results-webkit",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "webkit",
+        "name": "webkit",
+        "testDir": "/Users/huangshaotai/Documents/lumiqwebsite-responsive-local-20261013/related/website/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "mobile-layout-polish.spec.ts",
+          "mobile-experience.spec.ts"
+        ],
+        "timeout": 60000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "line",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "/Users/huangshaotai/Documents/lumiqwebsite-responsive-local-20261013/.lumiq-local/mobile-polish-20261104/webkit-e2e.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.62.1",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "mobile-experience.spec.ts",
+      "file": "mobile-experience.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "phone carousel uses controls below the card and opens all five products",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 5920,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-04T11:26:01.228Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d0e828948376f89f9963-343e84c82b6c6bedce1f",
+          "file": "mobile-experience.spec.ts",
+          "line": 8,
+          "column": 5
+        }
+      ]
+    },
+    {
+      "title": "mobile-layout-polish.spec.ts",
+      "file": "mobile-layout-polish.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "phone height changes and font completion do not reset native home scrolling",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3309,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-04T11:26:09.587Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "468626fadcfc420c6bb8-5c39ceb35494e7e01494",
+          "file": "mobile-layout-polish.spec.ts",
+          "line": 5,
+          "column": 5
+        },
+        {
+          "title": "four phone principles form two rows, retaining their links",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1868,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-04T11:26:12.904Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "468626fadcfc420c6bb8-e1dc2639e30de9457d4f",
+          "file": "mobile-layout-polish.spec.ts",
+          "line": 30,
+          "column": 5
+        },
+        {
+          "title": "legal and company pages share privacy backgrounds and compact phone spacing",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1243,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-04T11:26:14.779Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "468626fadcfc420c6bb8-ccc4bf225cf0ecc448f5",
+          "file": "mobile-layout-polish.spec.ts",
+          "line": 45,
+          "column": 5
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-11-04T11:26:00.856Z",
+    "duration": 15222.819000000001,
+    "expected": 4,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}

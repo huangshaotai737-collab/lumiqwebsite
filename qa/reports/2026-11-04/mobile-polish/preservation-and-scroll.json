@@ -1,0 +1,37 @@
+{
+  "fonts": [
+    {
+      "page": "ola",
+      "unchanged": true
+    },
+    {
+      "page": "ola-go",
+      "unchanged": true
+    },
+    {
+      "page": "tablet",
+      "unchanged": true
+    },
+    {
+      "page": "print",
+      "unchanged": true
+    },
+    {
+      "page": "nest",
+      "unchanged": true
+    }
+  ],
+  "scroll": {
+    "conditions": "Chromium mobile emulation, 390×844, 4× CPU slowdown, same touch scroll and viewport-height sequence; not a physical-device benchmark",
+    "before": {
+      "measurements": 1286,
+      "imperativeScrolls": 6,
+      "longTasks": []
+    },
+    "after": {
+      "measurements": 72,
+      "imperativeScrolls": 0,
+      "longTasks": []
+    }
+  }
+}

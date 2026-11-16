@@ -1,0 +1,132 @@
+> lumiqstudio-website@0.1.0 prebuild
+> node scripts/generate-visual-preview.mjs --check
+
+Private visual preview renderers match public source.
+
+> lumiqstudio-website@0.1.0 build
+> next build --webpack
+
+▲ Next.js 16.4.2 (webpack)
+✓ Running next.config.ts took 107ms
+
+⚠ The "middleware" file convention is deprecated. Please use "proxy" instead.
+
+  To migrate automatically, run:
+  npx @next/codemod@canary middleware-to-proxy .
+
+  Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+  Creating an optimized production build ...
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (114kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (268kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
+⚠ Compiled with warnings in 11.6s
+
+./node_modules/next/dist/esm/server/app-render/dynamic-rendering.js
+A Node.js API is used (process.cwd at line: 986) which is not supported in the Edge Runtime.
+Learn more: https://nextjs.org/docs/api-reference/edge-runtime
+
+Import trace for requested module:
+./node_modules/next/dist/esm/server/app-render/dynamic-rendering.js
+./node_modules/next/dist/esm/server/request/connection.js
+./node_modules/next/dist/esm/server/web/exports/index.js
+./node_modules/next/dist/esm/api/server.js
+
+./node_modules/next/dist/esm/server/app-render/dynamic-rendering.js
+A Node.js API is used (process.cwd at line: 986) which is not supported in the Edge Runtime.
+Learn more: https://nextjs.org/docs/api-reference/edge-runtime
+
+Import trace for requested module:
+./node_modules/next/dist/esm/server/app-render/dynamic-rendering.js
+./node_modules/next/dist/esm/server/request/connection.js
+./node_modules/next/dist/esm/server/web/exports/index.js
+./node_modules/next/dist/esm/api/server.js
+
+  Running TypeScript ...
+
+  We detected TypeScript in your project and reconfigured your tsconfig.json file for you.
+  The following suggested values were added to your tsconfig.json. These values can be changed to fit your project's needs:
+
+    - include was updated to add '.next-mobile-polish-20261104/types/**/*.ts'
+    - include was updated to add '.next-mobile-polish-20261104/dev/types/**/*.ts'
+
+  Finished TypeScript in 5.7s ...
+  Collecting page data using 7 workers ...
+  Generating static pages using 7 workers (0/109) ...
+  Generating static pages using 7 workers (27/109)
+  Generating static pages using 7 workers (54/109)
+  Generating static pages using 7 workers (81/109)
+✓ Generating static pages using 7 workers (109/109) in 176ms
+  Finalizing page optimization ...
+  Collecting build traces ...
+
+Route (app)
+┌ ƒ /
+├ ƒ /_not-found
+├ ƒ /[locale]
+├ ƒ /[locale]/[...rest]
+├ ƒ /[locale]/about
+├ ƒ /[locale]/checkout
+├ ƒ /[locale]/contact
+├ ƒ /[locale]/faq
+├ ƒ /[locale]/glass-preview
+├ ƒ /[locale]/legal/child-safety
+├ ƒ /[locale]/legal/cookies
+├ ƒ /[locale]/legal/privacy
+├ ƒ /[locale]/legal/terms
+├ ƒ /[locale]/login
+├ ƒ /[locale]/members
+├ ƒ /[locale]/members/orders
+├ ƒ /[locale]/members/orders/[id]
+├ ƒ /[locale]/plans
+├ ƒ /[locale]/prelaunch
+├ ƒ /[locale]/preview/[draftId]
+├ ƒ /[locale]/products
+├ ƒ /[locale]/products/book
+├ ƒ /[locale]/products/nest
+├ ƒ /[locale]/products/ola
+├ ƒ /[locale]/products/ola-go
+├ ƒ /[locale]/products/pal
+├ ƒ /[locale]/products/print
+├ ƒ /[locale]/products/tablet
+├ ƒ /[locale]/register
+├ ƒ /[locale]/reset-password
+├ ƒ /[locale]/story
+├ ƒ /about
+├ ƒ /api/account/profile
+├ ƒ /api/auth/register
+├ ƒ /api/auth/reset
+├ ƒ /api/auth/signin
+├ ƒ /api/auth/signout
+├ ƒ /api/content/preview-media/[assetId]
+├ ƒ /api/media/[assetId]
+├ ƒ /api/orders
+├ ƒ /api/orders/[id]
+├ ƒ /api/orders/[id]/cancel
+├ ƒ /api/payments/checkout
+├ ƒ /api/waitlist
+├ ƒ /auth/callback
+├ ƒ /contact
+├ ƒ /faq
+├ ○ /icon.svg
+├ ƒ /legal/child-safety
+├ ƒ /legal/cookies
+├ ƒ /legal/privacy
+├ ƒ /legal/terms
+├ ƒ /plans
+├ ƒ /prelaunch
+├ ƒ /products
+├ ƒ /products/book
+├ ƒ /products/nest
+├ ƒ /products/ola
+├ ƒ /products/ola-go
+├ ƒ /products/pal
+├ ƒ /products/print
+├ ƒ /products/tablet
+├ ƒ /robots.txt
+├ ƒ /sitemap.xml
+└ ƒ /story
+
+
+ƒ Proxy (Middleware)
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand

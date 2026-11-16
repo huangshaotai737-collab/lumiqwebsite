@@ -1,0 +1,2 @@
+-- Intentionally empty: no real users, default staff, passwords, or customer data.
+-- Database tests create synthetic identities inside rolled-back transactions.

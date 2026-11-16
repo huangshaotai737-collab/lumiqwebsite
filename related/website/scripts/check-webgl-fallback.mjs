@@ -14,14 +14,24 @@ try {
   });
   const errors = [];
   page.on('pageerror', error => errors.push(error.message));
-  const response = await page.goto(`${process.env.SITE_URL || 'http://localhost:4226'}/zh-hant/products`);
+  const response = await page.goto(`${process.env.SITE_URL || 'http://localhost:4226'}/zh-hant/products`, {waitUntil: 'domcontentloaded'});
   assert.equal(response.status(), 200);
-  await page.locator('.prod-glass-material').first().waitFor();
-  await page.waitForTimeout(1200);
+  const tabs = page.getByRole('tab');
+  await tabs.last().waitFor();
+  assert.equal(await tabs.count(), 5);
+  for (const [index, slug] of ['ola', 'ola-go', 'tablet', 'print', 'nest'].entries()) {
+    await tabs.nth(index).click();
+    const panel = page.getByRole('tabpanel');
+    await panel.getByRole('heading').waitFor();
+    assert.ok((await panel.getByRole('heading').innerText()).trim());
+    assert.equal(await panel.locator('.prod-product-link').getAttribute('href'), `/zh-hant/products/${slug}`);
+    await panel.locator('img').evaluate(image => image.decode());
+    assert.ok(await panel.locator('img').evaluate(image => image.complete && image.naturalWidth > 0));
+  }
   assert.deepEqual(errors, [], 'Unavailable WebGL must fall back without application errors');
-  assert.equal(await page.locator('.prod-glass-material canvas').count(), 0);
-  assert.ok(await page.getByText('Lumiq Tablet', { exact: true }).count() > 0);
-  await page.goto(`${process.env.SITE_URL || 'http://localhost:4226'}/zh-hant#products`);
+  assert.equal(await page.locator('.prod-carousel canvas').count(), 0);
+  await page.goto(`${process.env.SITE_URL || 'http://localhost:4226'}/zh-hant#products`, {waitUntil: 'domcontentloaded'});
+  await page.waitForFunction(() => document.querySelector('.lh-home')?.dataset.homeState === 'open');
   await page.locator('#products[data-enhanced="true"]').waitFor();
   await page.locator('#products').scrollIntoViewIfNeeded();
   const cards = await page.locator('.lh-product-slot').evaluateAll(items => items.map(e => {

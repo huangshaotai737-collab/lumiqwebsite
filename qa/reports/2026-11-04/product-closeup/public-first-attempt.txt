@@ -1,0 +1,8 @@
+locator.waitFor: Timeout 30000ms exceeded.
+Call log:
+[2m  - waiting for locator('dialog[open]') to be visible[22m
+
+    at /Users/huangshaotai/Documents/lumiqwebsite-responsive-local-20261013/qa/reports/2026-11-04/product-closeup/verify.cjs:33:83 {
+  log: [ "  - waiting for locator('dialog[open]') to be visible" ],
+  name: 'TimeoutError'
+}

@@ -1,0 +1,15 @@
+{
+  "status": "PASS",
+  "releaseId": "ee7d4141-0a8a-4290-a01e-7afef2e5da98",
+  "changedPaths": [
+    "messages.en.BrandSceneDetails",
+    "messages.zh-hant.BrandSceneDetails",
+    "messages.ja.BrandSceneDetails",
+    "media.asset_017e7987ef331c24",
+    "media.asset_92fd3c30968cbc37",
+    "media.asset_5f21bf6c2f500259"
+  ],
+  "draftDidNotPublish": true,
+  "anonymousSnapshotVerified": true,
+  "unrelatedFieldsUnchanged": true
+}

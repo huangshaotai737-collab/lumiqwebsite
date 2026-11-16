@@ -47,12 +47,13 @@ test('lineup shows side previews and changes only from card interactions', async
 
   await stage.hover();
   const scrollBeforeCardWheel = await page.evaluate(() => window.scrollY);
-  await page.mouse.wheel(0, 120);
+  await page.mouse.wheel(120, 0);
   await expect(stage).not.toHaveAttribute('aria-labelledby', initial!);
   expect(await page.evaluate(() => window.scrollY)).toBe(scrollBeforeCardWheel);
 
   const afterCardWheel = await stage.getAttribute('aria-labelledby');
-  await expect.poll(async () => (await stage.boundingBox())?.width ?? 0).toBeGreaterThan(950);
+  const carouselWidth = (await page.locator('.prod-carousel').boundingBox())!.width;
+  await expect.poll(async () => (await stage.boundingBox())?.width ?? 0).toBeGreaterThan(carouselWidth * .68);
   await expect.poll(() => stage.evaluate((element) =>
     element.getAnimations().some((animation) => animation.playState === 'running'),
   )).toBe(false);
@@ -66,7 +67,7 @@ test('lineup shows side previews and changes only from card interactions', async
   await expect(stage).toHaveAttribute('aria-labelledby', afterCardWheel!);
 });
 
-test('the next card travels into the center with its product image fully visible at the side', async ({page}, info) => {
+test('side captions have breathing room and cards slide into place above centered controls', async ({page}, info) => {
   test.skip(info.project.name !== 'desktop', 'desktop card animation');
   await page.setViewportSize({width: 1856, height: 1000});
   await page.goto('/en/products#lineup');
@@ -75,38 +76,61 @@ test('the next card travels into the center with its product image fully visible
   await stage.scrollIntoViewIfNeeded();
   await expect(stage).toHaveAttribute('data-carousel-ready', 'true');
 
-  const incoming = await page.locator('.prod-peek--next').elementHandle();
-  expect(incoming).not.toBeNull();
-  const before = await incoming!.boundingBox();
-  const stageBefore = await stage.boundingBox();
-  const sideImage = await incoming!.waitForElementState('visible').then(() => incoming!.$('img'));
-  const imageBefore = await sideImage?.boundingBox();
-  expect(before).not.toBeNull();
-  expect(stageBefore).not.toBeNull();
-  expect(imageBefore).not.toBeNull();
-  expect(imageBefore!.x).toBeGreaterThanOrEqual(stageBefore!.x + stageBefore!.width);
+  for (const width of [1024, 1200, 1440, 1856]) {
+    await page.setViewportSize({width, height: 1000});
+    for (const side of ['previous', 'next']) {
+      const inset = await page.locator(`.prod-slide[data-slot="${side}"]`).evaluate(card => {
+        const box = card.getBoundingClientRect();
+        const label = card.querySelector<HTMLElement>('.prod-peek-caption')!;
+        const caption = label.getBoundingClientRect();
+        return {outerLeft: box.left, outerRight: innerWidth - box.right,
+          left: caption.left - box.left, right: box.right - caption.right,
+          bottom: box.bottom - caption.bottom, captionWidth: label.clientWidth,
+          captionScrollWidth: label.scrollWidth};
+      });
+      expect(inset.outerLeft).toBeGreaterThan(20);
+      expect(inset.outerRight).toBeGreaterThan(20);
+      expect(inset.left).toBeGreaterThan(width >= 1400 ? 24 : 20);
+      expect(inset.right).toBeGreaterThan(width >= 1400 ? 24 : 20);
+      expect(inset.bottom).toBeGreaterThan(26);
+      expect(inset.captionScrollWidth).toBeLessThanOrEqual(inset.captionWidth + 1);
+    }
+  }
+  await stage.scrollIntoViewIfNeeded();
 
-  await stage.hover();
-  const travelSamples = incoming!.evaluate((card) => new Promise<number[]>((resolve) => {
-    const positions: number[] = [];
-    const started = performance.now();
+  const incoming = page.locator('.prod-slide[data-product-id="ola-go"]');
+  const before = (await incoming.boundingBox())!;
+  const controls = page.locator('.prod-lineup-controls');
+  const placement = (await controls.boundingBox())!;
+  const carousel = (await page.locator('.prod-carousel').boundingBox())!;
+  expect(placement.y).toBeGreaterThanOrEqual(carousel.y + carousel.height - 1);
+  expect(Math.abs(placement.x + placement.width / 2 - 1856 / 2)).toBeLessThan(2);
+  const samplesPromise = incoming.evaluate(card => new Promise<Array<{slot: string | undefined; x: number; width: number; opacity: number}>>(resolve => {
+    const samples: Array<{slot: string | undefined; x: number; width: number; opacity: number}> = [];
+    const start = performance.now();
     const capture = () => {
-      positions.push(card.getBoundingClientRect().x);
-      if (performance.now() - started < 1200) requestAnimationFrame(capture);
-      else resolve(positions);
+      const box = card.getBoundingClientRect();
+      samples.push({slot: (card as HTMLElement).dataset.slot, x: box.x, width: box.width,
+        opacity: Number(getComputedStyle(card).opacity)});
+      if (performance.now() - start < 700) requestAnimationFrame(capture);
+      else resolve(samples);
     };
     requestAnimationFrame(capture);
   }));
-  await page.mouse.wheel(0, 120);
-  await expect.poll(() => incoming!.evaluate((card) => card.classList.contains('prod-stage'))).toBe(true);
-  const positions = await travelSamples;
-  const after = await incoming!.boundingBox();
-  expect(after).not.toBeNull();
-  expect(positions.some((x) => x < before!.x - 20 && x > after!.x + 20), 'incoming card should occupy positions between side and center').toBe(true);
-  expect(after!.width).toBeGreaterThan(before!.width * 2);
+  await incoming.click();
+  const samples = await samplesPromise;
+  const centerFrames = samples.filter(frame => frame.slot === 'center');
+  await expect(incoming).toHaveAttribute('data-slot', 'center');
+  const after = (await incoming.boundingBox())!;
+  expect(centerFrames.some(f => f.x < before.x - 2 && f.x > after.x + 2
+    && f.width > before.width + 1 && f.width < after.width - 1), 'incoming card travels and scales between the two resting positions').toBe(true);
+  expect(centerFrames.every(f => f.opacity > .5), 'moving card remains visible').toBe(true);
+  await controls.locator('button').first().click();
+  await expect(stage).toHaveAttribute('data-product-id','pal');
+  expect(after.width).toBeGreaterThan(before.width * 2);
 });
 
-test('compact cards leave room for side arrows that cycle all five products', async ({page}, info) => {
+test('compact cards keep controls centered below them while arrows that cycle all five products', async ({page}, info) => {
   test.skip(info.project.name !== 'desktop', 'responsive viewport on desktop browser');
   for (const width of [320, 390, 430, 767]) {
     await page.setViewportSize({width, height: 900});
@@ -114,23 +138,22 @@ test('compact cards leave room for side arrows that cycle all five products', as
     await page.locator('.cart-nav-trigger:not(:disabled)').waitFor();
     const stage = page.locator('.prod-stage');
     // Same-page hash navigation preserves the selection from the last viewport.
-    await page.getByRole('tab').first().click();
+    await page.reload();
+    await page.locator('.cart-nav-trigger:not(:disabled)').waitFor();
     await expect(stage).toHaveAttribute('data-product-id', 'pal');
     await page.waitForFunction(() => document.fonts.status === 'loaded');
     await stage.evaluate(element => window.scrollTo({top: scrollY + element.getBoundingClientRect().top - 100, behavior: 'instant'}));
-    const controls = page.locator('.prod-mobile-nav');
+    const controls = page.locator('.prod-lineup-controls');
     const previous = controls.getByRole('button').first();
     const next = controls.getByRole('button').last();
     const card = (await stage.boundingBox())!;
     const left = (await previous.boundingBox())!;
     const right = (await next.boundingBox())!;
-    expect(left.x).toBeGreaterThanOrEqual(0);
-    expect(left.x + left.width).toBeLessThanOrEqual(card.x + 1);
-    expect(right.x).toBeGreaterThanOrEqual(card.x + card.width - 1);
-    expect(right.x + right.width).toBeLessThanOrEqual(width);
+    expect(left.y).toBeGreaterThanOrEqual(card.y + card.height - 1);
+    expect(Math.abs((left.x + right.x + right.width)/2 - width/2)).toBeLessThan(2);
+    expect(Math.abs(right.y - left.y)).toBeLessThan(1);
     expect(left.width).toBeGreaterThanOrEqual(44);
     expect(left.height).toBeGreaterThanOrEqual(44);
-    expect(Math.abs(left.y + left.height / 2 - (card.y + card.height / 2))).toBeLessThan(1);
     for (const id of ['ola-go', 'tablet', 'book', 'nest', 'pal']) {
       await next.click();
       await expect(stage).toHaveAttribute('data-product-id', id);

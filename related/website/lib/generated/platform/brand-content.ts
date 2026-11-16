@@ -1,0 +1,43 @@
+// Generated from contracts/ by scripts/sync-platform-contracts.mjs. Do not edit.
+import {brandSceneDetailsMessages} from './brand-scene-details';
+import {brandPresentationMessages, brandPrintPresentationMessages} from './brand-presentation';
+import type {ContentSnapshot, MessageTree} from './content';
+import {brandFaqMessages, brandStoryFaqMessages} from './brand-faq';
+import {brandTabletMessages} from './brand-tablet';
+import {brandOrbMessages} from './brand-orb';
+import {brandPlansMessages} from './brand-plans';
+import {brandOlaGoMessages} from './brand-olago';
+import {brandProductsMessages} from './brand-products';
+import {brandContentReplacements} from './brand-replacements';
+import {brandUpdateMessages} from './brand-update';
+import {brandMediaDefaults} from './brand-media';
+import {brandFooterMessages} from './brand-footer';
+
+/** Additive copy only. Historical releases and their signed snapshots stay intact. */
+export const brandContentMessages = {
+  en: {BrandSceneDetails:brandSceneDetailsMessages["en"], BrandPrintPresentation:brandPrintPresentationMessages.en, BrandPresentation:brandPresentationMessages.en, BrandFaq:brandFaqMessages.en, BrandStoryFaq:brandStoryFaqMessages.en, BrandTablet:brandTabletMessages.en, BrandOrb:brandOrbMessages.en, BrandPlans:brandPlansMessages.en, BrandOlaGo:brandOlaGoMessages.en, BrandProducts:brandProductsMessages.en, BrandUpdate:brandUpdateMessages.en, BrandFooter:brandFooterMessages.en},
+  'zh-hant': {BrandSceneDetails:brandSceneDetailsMessages["zh-hant"], BrandPrintPresentation:brandPrintPresentationMessages['zh-hant'], BrandPresentation:brandPresentationMessages['zh-hant'], BrandFaq:brandFaqMessages['zh-hant'], BrandStoryFaq:brandStoryFaqMessages['zh-hant'], BrandTablet:brandTabletMessages['zh-hant'], BrandOrb:brandOrbMessages['zh-hant'], BrandPlans:brandPlansMessages['zh-hant'], BrandOlaGo:brandOlaGoMessages['zh-hant'], BrandProducts:brandProductsMessages['zh-hant'], BrandUpdate:brandUpdateMessages['zh-hant'], BrandFooter:brandFooterMessages['zh-hant']},
+  ja: {BrandSceneDetails:brandSceneDetailsMessages["ja"], BrandPrintPresentation:brandPrintPresentationMessages.ja, BrandPresentation:brandPresentationMessages.ja, BrandFaq:brandFaqMessages.ja, BrandStoryFaq:brandStoryFaqMessages.ja, BrandTablet:brandTabletMessages.ja, BrandOrb:brandOrbMessages.ja, BrandPlans:brandPlansMessages.ja, BrandOlaGo:brandOlaGoMessages.ja, BrandProducts:brandProductsMessages.ja, BrandUpdate:brandUpdateMessages.ja, BrandFooter:brandFooterMessages.ja},
+};
+
+/** Renderer/editor defaults for newly introduced namespaces, never overrides
+ * saved copy and never mutates the input or a historical release in storage. */
+export function withBrandContent(snapshot:ContentSnapshot):ContentSnapshot {
+  const messages={...snapshot.messages};
+  for(const locale of ['en','zh-hant','ja'] as const) {
+    messages[locale]={...structuredClone(brandContentMessages[locale]) as Record<string,MessageTree>,...snapshot.messages[locale]};
+  }
+  const result={...snapshot,messages,media:{...structuredClone(brandMediaDefaults),...snapshot.media}};
+  for(const replacement of brandContentReplacements) {
+    const [,locale,namespace,...keys]=replacement.pathTo.split('.');
+    const language=locale as keyof typeof messages;
+    // An explicitly saved namespace owns every field, including intentional blanks.
+    if(Object.hasOwn(snapshot.messages[language],namespace))continue;
+    const value=replacement.pathFrom.split('.').reduce<unknown>((node,key)=>node&&typeof node==='object'?(node as Record<string,unknown>)[key]:undefined,snapshot);
+    if(typeof value!=='string'||value===replacement.original||value===replacement.approvedLegacy)continue;
+    const leaf=keys.pop()!;
+    const parent=keys.reduce<unknown>((node,key)=>(node as Record<string,unknown>)[key],messages[language][namespace]);
+    (parent as Record<string,unknown>)[leaf]=value;
+  }
+  return result;
+}

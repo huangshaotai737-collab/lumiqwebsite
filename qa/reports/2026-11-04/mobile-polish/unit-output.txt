@@ -1,0 +1,11 @@
+> lumiqstudio-website@0.1.0 test
+> vitest run
+
+
+ RUN  v4.1.11 /Users/huangshaotai/Documents/lumiqwebsite-responsive-local-20261013/related/website
+
+
+ Test Files  33 passed (33)
+      Tests  241 passed (241)
+   Start at  19:13:03
+   Duration  5.85s (transform 5.26s, setup 0ms, import 8.03s, tests 10.11s, environment 2ms)

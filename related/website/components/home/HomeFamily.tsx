@@ -1,4 +1,6 @@
 "use client";
+import {ArrowLeft,ArrowRight} from "lucide-react";
+import {useContentAdapter} from "@/components/content/useContentAdapter";
 import Image from "@/components/home/HomeImage";
 import { useCallback, useEffect, useRef, useState, type CSSProperties, type KeyboardEvent } from "react";
 import { useTranslations } from "next-intl";
@@ -6,8 +8,11 @@ import { useTranslations } from "next-intl";
 const moments = ["morning", "afternoon", "evening"] as const;
 
 export default function HomeFamily() {
+  const cms = useContentAdapter();
   const t = useTranslations("HomeRefresh");
+  const update = useTranslations("BrandUpdate");
   const [active, setActive] = useState(0);
+  const [nearby, setNearby] = useState(false);
   const chapters = useRef<HTMLDivElement>(null);
   const stage = useRef<HTMLDivElement>(null);
   const tabs = useRef<(HTMLButtonElement | null)[]>([]);
@@ -28,6 +33,16 @@ export default function HomeFamily() {
   }, []);
 
   useEffect(() => () => clearTimeout(timer.current), []);
+
+  useEffect(() => {
+    const target = stage.current;
+    if (!target) return;
+    const observer = new IntersectionObserver(entries => {
+      if (entries.some(entry => entry.isIntersecting)) {setNearby(true); observer.disconnect();}
+    }, {rootMargin: "800px 0px"});
+    observer.observe(target);
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     const target = stage.current;
@@ -131,24 +146,31 @@ export default function HomeFamily() {
           >
             {Math.abs(offset) === 1 ? <button type="button" className="lh-family-preview-button" aria-label={t(`familyMoments.${key}`)} onClick={() => advance(offset)}>
               <Image
-                src={`/assets/western-scenes-20260908/${key}.webp`}
+                src={cms.url(`/assets/western-scenes-20260908/${key}.webp`)}
                 alt=""
                 fill
                 quality={90}
-                sizes="100vw"
+                sizes="(max-width: 1199px) 84vw, 64vw"
+                loading={nearby ? "eager" : "lazy"}
                 draggable={false}
               />
             </button> : <Image
-              src={`/assets/western-scenes-20260908/${key}.webp`}
+              src={cms.url(`/assets/western-scenes-20260908/${key}.webp`)}
               alt={t(`familyMoments.${key}`)}
               fill
               quality={90}
-              sizes="100vw"
+              sizes="(max-width: 1199px) 84vw, 64vw"
+              loading={nearby ? "eager" : "lazy"}
               draggable={false}
             />}
           </div>
         );})}
       </div>
+      <nav className="lh-family-controls" aria-label={t("familyPanoramaAlt")}>
+        <button type="button" onClick={()=>advance(-1)} disabled={travel!==0} aria-label={update("previous")}><ArrowLeft size={22}/></button>
+        <span aria-live="polite" aria-atomic="true">{String(active+1).padStart(2,"0")} / 03</span>
+        <button type="button" onClick={()=>advance(1)} disabled={travel!==0} aria-label={update("next")}><ArrowRight size={22}/></button>
+      </nav>
     </div>
   );
 }

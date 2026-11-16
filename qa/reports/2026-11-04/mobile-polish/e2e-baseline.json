@@ -1,0 +1,241 @@
+{
+  "config": {
+    "argv": [
+      "/usr/local/bin/node",
+      "/Users/huangshaotai/Documents/lumiqwebsite-responsive-local-20261013/related/website/node_modules/.bin/playwright",
+      "test",
+      "-c",
+      ".lumiq-local/mobile-polish-20261104/playwright.config.cjs",
+      "--grep",
+      "feature copy has|resizing during a desktop story"
+    ],
+    "configFile": "/Users/huangshaotai/Documents/lumiqwebsite-responsive-local-20261013/.lumiq-local/mobile-polish-20261104/playwright.config.cjs",
+    "rootDir": "/Users/huangshaotai/Documents/lumiqwebsite-responsive-local-20261013/related/website/tests/e2e",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "/Users/huangshaotai/Documents/lumiqwebsite-responsive-local-20261013/.lumiq-local/mobile-polish-20261104/test-results-baseline",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "desktop",
+        "name": "desktop",
+        "testDir": "/Users/huangshaotai/Documents/lumiqwebsite-responsive-local-20261013/related/website/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "mobile-experience.spec.ts",
+          "mobile-layout-polish.spec.ts",
+          "opening-resize.spec.ts",
+          "home-return.spec.ts",
+          "opening-nonblocking.spec.ts"
+        ],
+        "timeout": 60000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "line",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "/Users/huangshaotai/Documents/lumiqwebsite-responsive-local-20261013/.lumiq-local/mobile-polish-20261104/e2e-baseline.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.62.1",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "mobile-experience.spec.ts",
+      "file": "mobile-experience.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "feature copy has a clear hierarchy and fits narrow screens in every language",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop",
+              "projectName": "desktop",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 424,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m\n    at /Users/huangshaotai/Documents/lumiqwebsite-responsive-local-20261013/related/website/tests/e2e/mobile-experience.spec.ts:43:95",
+                    "location": {
+                      "file": "/Users/huangshaotai/Documents/lumiqwebsite-responsive-local-20261013/related/website/tests/e2e/mobile-experience.spec.ts",
+                      "column": 95,
+                      "line": 43
+                    },
+                    "snippet": "  41 |         return {titleSize: parseFloat(getComputedStyle(title).fontSize), bodySize: parseFloat(getComputedStyle(body).fontSize), fits: r.left >= box.left && r.right <= box.right + 1, width: box.width, y: box.y};\n  42 |       }));\n> 43 |       expect(measurements.every(x => x.titleSize > x.bodySize && x.bodySize >= 14 && x.fits)).toBe(true);\n     |                                                                                               ^\n  44 |       if (width === 320) expect(measurements[0].width).toBeGreaterThan(250);\n  45 |       else expect(Math.abs(measurements[0].y - measurements[1].y)).toBeLessThan(2);\n  46 |     }"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "/Users/huangshaotai/Documents/lumiqwebsite-responsive-local-20261013/related/website/tests/e2e/mobile-experience.spec.ts",
+                        "column": 95,
+                        "line": 43
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32mtrue\u001b[39m\nReceived: \u001b[31mfalse\u001b[39m\n\n  41 |         return {titleSize: parseFloat(getComputedStyle(title).fontSize), bodySize: parseFloat(getComputedStyle(body).fontSize), fits: r.left >= box.left && r.right <= box.right + 1, width: box.width, y: box.y};\n  42 |       }));\n> 43 |       expect(measurements.every(x => x.titleSize > x.bodySize && x.bodySize >= 14 && x.fits)).toBe(true);\n     |                                                                                               ^\n  44 |       if (width === 320) expect(measurements[0].width).toBeGreaterThan(250);\n  45 |       else expect(Math.abs(measurements[0].y - measurements[1].y)).toBeLessThan(2);\n  46 |     }\n    at /Users/huangshaotai/Documents/lumiqwebsite-responsive-local-20261013/related/website/tests/e2e/mobile-experience.spec.ts:43:95"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-04T11:19:19.659Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/Users/huangshaotai/Documents/lumiqwebsite-responsive-local-20261013/.lumiq-local/mobile-polish-20261104/test-results-baseline/mobile-experience-feature--b4369-w-screens-in-every-language-desktop/test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "/Users/huangshaotai/Documents/lumiqwebsite-responsive-local-20261013/.lumiq-local/mobile-polish-20261104/test-results-baseline/mobile-experience-feature--b4369-w-screens-in-every-language-desktop/error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "/Users/huangshaotai/Documents/lumiqwebsite-responsive-local-20261013/.lumiq-local/mobile-polish-20261104/test-results-baseline/mobile-experience-feature--b4369-w-screens-in-every-language-desktop/trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "/Users/huangshaotai/Documents/lumiqwebsite-responsive-local-20261013/related/website/tests/e2e/mobile-experience.spec.ts",
+                    "column": 95,
+                    "line": 43
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "d0e828948376f89f9963-895950f5258eecb344d7",
+          "file": "mobile-experience.spec.ts",
+          "line": 31,
+          "column": 5
+        },
+        {
+          "title": "resizing during a desktop story transition keeps the indicated mobile story in view",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "desktop",
+              "projectName": "desktop",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 11664,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeInViewport\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  locator('.lh-mobile-film-card').nth(1)\nExpected: in viewport\nReceived: viewport ratio 0.7051308751106262\nTimeout:  10000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeInViewport\" with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('.lh-mobile-film-card').nth(1)\u001b[22m\n\u001b[2m    23 × locator resolved to <article class=\"lh-mobile-film-card\" aria-label=\"2 / 3: 走進故事，陪伴生活。\">…</article>\u001b[22m\n\u001b[2m       - unexpected value \"viewport ratio 0.7051308751106262\"\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeInViewport\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  locator('.lh-mobile-film-card').nth(1)\nExpected: in viewport\nReceived: viewport ratio 0.7051308751106262\nTimeout:  10000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeInViewport\" with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('.lh-mobile-film-card').nth(1)\u001b[22m\n\u001b[2m    23 × locator resolved to <article class=\"lh-mobile-film-card\" aria-label=\"2 / 3: 走進故事，陪伴生活。\">…</article>\u001b[22m\n\u001b[2m       - unexpected value \"viewport ratio 0.7051308751106262\"\u001b[22m\n\n    at /Users/huangshaotai/Documents/lumiqwebsite-responsive-local-20261013/related/website/tests/e2e/mobile-experience.spec.ts:152:61",
+                    "location": {
+                      "file": "/Users/huangshaotai/Documents/lumiqwebsite-responsive-local-20261013/related/website/tests/e2e/mobile-experience.spec.ts",
+                      "column": 61,
+                      "line": 152
+                    },
+                    "snippet": "  150 |   await page.setViewportSize({width: 390, height: 844});\n  151 |   await expect(page.locator('.lh-mobile-films-controls strong')).toHaveText('02');\n> 152 |   await expect(page.locator('.lh-mobile-film-card').nth(1)).toBeInViewport({ratio: .8});\n      |                                                             ^\n  153 | });\n  154 |"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "/Users/huangshaotai/Documents/lumiqwebsite-responsive-local-20261013/related/website/tests/e2e/mobile-experience.spec.ts",
+                        "column": 61,
+                        "line": 152
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeInViewport\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  locator('.lh-mobile-film-card').nth(1)\nExpected: in viewport\nReceived: viewport ratio 0.7051308751106262\nTimeout:  10000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeInViewport\" with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('.lh-mobile-film-card').nth(1)\u001b[22m\n\u001b[2m    23 × locator resolved to <article class=\"lh-mobile-film-card\" aria-label=\"2 / 3: 走進故事，陪伴生活。\">…</article>\u001b[22m\n\u001b[2m       - unexpected value \"viewport ratio 0.7051308751106262\"\u001b[22m\n\n\n  150 |   await page.setViewportSize({width: 390, height: 844});\n  151 |   await expect(page.locator('.lh-mobile-films-controls strong')).toHaveText('02');\n> 152 |   await expect(page.locator('.lh-mobile-film-card').nth(1)).toBeInViewport({ratio: .8});\n      |                                                             ^\n  153 | });\n  154 |\n    at /Users/huangshaotai/Documents/lumiqwebsite-responsive-local-20261013/related/website/tests/e2e/mobile-experience.spec.ts:152:61"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-04T11:19:20.537Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/Users/huangshaotai/Documents/lumiqwebsite-responsive-local-20261013/.lumiq-local/mobile-polish-20261104/test-results-baseline/mobile-experience-resizing-80175-icated-mobile-story-in-view-desktop/test-failed-1.png"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "/Users/huangshaotai/Documents/lumiqwebsite-responsive-local-20261013/.lumiq-local/mobile-polish-20261104/test-results-baseline/mobile-experience-resizing-80175-icated-mobile-story-in-view-desktop/error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "/Users/huangshaotai/Documents/lumiqwebsite-responsive-local-20261013/.lumiq-local/mobile-polish-20261104/test-results-baseline/mobile-experience-resizing-80175-icated-mobile-story-in-view-desktop/trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "/Users/huangshaotai/Documents/lumiqwebsite-responsive-local-20261013/related/website/tests/e2e/mobile-experience.spec.ts",
+                    "column": 61,
+                    "line": 152
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "d0e828948376f89f9963-6fd1087c98ef193b4507",
+          "file": "mobile-experience.spec.ts",
+          "line": 146,
+          "column": 5
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-11-04T11:19:19.425Z",
+    "duration": 13604.891000000001,
+    "expected": 0,
+    "skipped": 0,
+    "unexpected": 2,
+    "flaky": 0
+  }
+}

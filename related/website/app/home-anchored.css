@@ -207,7 +207,7 @@
   .lh-safety .lh-principle { padding-top: 12px; }
   .lh-home .lh-safety .lh-principle h3 { font-size: 17px; }
   .lh-home .lh-safety .lh-principle p { font-size: 12px; line-height: 1.55; }
-  .lh-safety .lh-principles { gap: 14px; }
+  .lh-safety .lh-principles,
   .lh-chapter-navigation { gap: 14px; }
   .lh-chapter-navigation button { flex-direction: column; gap: 8px; font-size: 13px; padding-top: 12px; }
 }

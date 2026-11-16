@@ -1,10 +1,10 @@
 import { expect, test } from "@playwright/test";
 
-test("full navigation fits at 1024px in every language", async ({ page }, info) => {
+test("full navigation fits at its 1200px breakpoint in every language", async ({ page }, info) => {
   test.skip(info.project.name !== "desktop");
 
   for (const locale of ["en", "zh-hant", "ja"]) {
-    await page.setViewportSize({ width: 1024, height: 740 });
+    await page.setViewportSize({ width: 1200, height: 740 });
     await page.goto(`/${locale}/story`, { waitUntil: "domcontentloaded" });
     const desktop = page.locator(".site-desktop-nav");
     await expect(desktop).toBeVisible();
@@ -24,7 +24,7 @@ test("mobile menu closes and unlocks scrolling when desktop navigation appears",
   await expect(page.locator("#mobile-navigation")).toBeVisible();
   await expect.poll(() => page.evaluate(() => document.body.style.overflow)).toBe("hidden");
 
-  await page.setViewportSize({ width: 1024, height: 740 });
+  await page.setViewportSize({ width: 1200, height: 740 });
   await expect(page.locator(".site-desktop-nav")).toBeVisible();
   await expect(page.locator("#mobile-navigation")).toBeHidden();
   await expect.poll(() => page.evaluate(() => document.body.style.overflow)).not.toBe("hidden");
@@ -37,7 +37,7 @@ test("a 320px phone shows a labeled menu with all destinations and languages", a
     await page.goto(`/${locale}/story`);
     const trigger = page.locator(".site-mobile-trigger");
     await expect(trigger).toBeVisible();
-    expect((await trigger.innerText()).trim()).not.toBe("");
+    await expect(trigger).toHaveAccessibleName(/.+/);
 
     const capsule = await page.locator(".site-nav").boundingBox();
     const triggerBox = await trigger.boundingBox();
@@ -45,9 +45,34 @@ test("a 320px phone shows a labeled menu with all destinations and languages", a
     expect(waitlist!.x + waitlist!.width).toBeLessThan(triggerBox!.x);
     expect(triggerBox!.x + triggerBox!.width).toBeLessThanOrEqual(capsule!.x + capsule!.width);
     await trigger.click();
-    await expect(page.locator("#mobile-navigation a[role='menuitem']")).toHaveCount(6);
+    await expect(page.locator("#mobile-navigation").getByRole("link")).toHaveCount(6);
     await expect(page.locator("#mobile-navigation .site-mobile-languages button")).toHaveCount(3);
     expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(321);
+  }
+});
+
+test("navigation stays inside its capsule during viewport changes", async ({ page }, info) => {
+  test.skip(info.project.name !== "desktop");
+  for (const locale of ["en", "zh-hant", "ja"]) {
+    await page.setViewportSize({ width: 1440, height: 740 });
+    await page.goto(`/${locale}/story`);
+    await page.evaluate(() => document.fonts.ready);
+    for (const width of [320, 390, 1200, 1280, 320]) {
+      await page.setViewportSize({ width, height: 740 });
+      for (const delay of [0, 80, 220]) {
+        if (delay) await page.waitForTimeout(delay);
+        const bounds = await page.evaluate(() => {
+          const nav = document.querySelector(".site-nav")!.getBoundingClientRect();
+          const trigger = document.querySelector(".site-mobile-trigger")!.getBoundingClientRect();
+          const actions = document.querySelector(".nav-actions")!.getBoundingClientRect();
+          const lastLink = [...document.querySelectorAll(".site-desktop-nav a")].at(-1)!.getBoundingClientRect();
+          return { navRight: nav.right, triggerRight: trigger.right, actionsLeft: actions.left, lastLinkRight: lastLink.right };
+        });
+        const label = `${locale} at ${width}px, ${delay}ms after resize`;
+        if (width < 1200) expect(bounds.triggerRight, label).toBeLessThanOrEqual(bounds.navRight + 0.5);
+        else expect(bounds.lastLinkRight, label).toBeLessThan(bounds.actionsLeft);
+      }
+    }
   }
 });
 
@@ -57,13 +82,14 @@ test("public pages keep headings and navigation inside narrow and wide viewports
   const routes = [
     "", "/products", "/products/ola", "/products/ola-go",
     "/products/tablet", "/products/print", "/products/nest",
-    "/story", "/plans", "/media", "/faq",
+    "/story", "/plans", "/about", "/faq",
   ];
   for (const locale of ["en", "zh-hant", "ja"]) {
     for (const route of routes) {
       await page.goto(`/${locale}${route}`, { waitUntil: "domcontentloaded" });
       for (const width of [320, 768, 1024, 1440, 2560]) {
         await page.setViewportSize({ width, height: 740 });
+        await page.locator("main h1").waitFor({state: "visible"});
         const rects = await page.evaluate(() => {
           const nav = document.querySelector(".site-nav")!.getBoundingClientRect();
           const heading = document.querySelector("main h1")!.getBoundingClientRect();
@@ -87,4 +113,9 @@ test("public pages keep headings and navigation inside narrow and wide viewports
       }
     }
   }
+});
+
+test("the removed media route remains a 404", async ({page}) => {
+  const response = await page.goto("/en/media");
+  expect(response?.status()).toBe(404);
 });

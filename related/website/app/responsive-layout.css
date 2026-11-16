@@ -1,3 +1,58 @@
+/* Keep all three 4:3 photographs intact across the opening's layout variants. */
+.lumiq-root main.lh-home #ola .lh-rhythm-photo {
+  width: 100%;
+  height: auto;
+  min-height: 0;
+  aspect-ratio: 4 / 3;
+  align-self: center;
+  flex-shrink: 0;
+}
+@media (min-width: 1200px) {
+  /* Short windows can scroll the complete chapter instead of clipping cards. */
+  .lh-opening[data-opening-anchors]:not([data-static-opening]) #ola,
+  .lh-opening[data-opening-anchors]:not([data-static-opening]) #ola .lh-ola-layout {
+    height: auto;
+    min-height: 100svh;
+  }
+}
+/* Fit the second chapter to short desktop windows without cropping its photos.
+   Height drives the type scale because ultrawide cards have less room for text. */
+@media (min-width: 1200px) and (max-height: 740px) {
+  .lumiq-root main.lh-home .lh-opening[data-opening-anchors]:not([data-static-opening]) #ola {
+    --opening-bottom: 16px;
+  }
+  .lumiq-root main.lh-home .lh-opening[data-opening-anchors]:not([data-static-opening]) #ola .lh-ola-layout {
+    row-gap: clamp(6px, 1.3svh, 10px);
+  }
+  .lumiq-root main.lh-home .lh-opening[data-opening-anchors]:not([data-static-opening]) #ola .lh-eyebrow {
+    font-size: clamp(12px, calc(var(--opening-height) * .03), 16px) !important;
+    margin-bottom: clamp(6px, 1.2svh, 10px);
+  }
+  .lumiq-root main.lh-home .lh-opening[data-opening-anchors]:not([data-static-opening]) #ola .lh-ola-copy h2 {
+    font-size: clamp(24px, min(3.7vw, calc(var(--opening-height) * .085)), 64px);
+  }
+  .lumiq-root main.lh-home .lh-opening[data-opening-anchors]:not([data-static-opening]) #ola .lh-lead {
+    font-size: clamp(13px, calc(var(--opening-height) * .038), 19px);
+    margin-top: clamp(6px, 1.2svh, 10px);
+    line-height: 1.45;
+  }
+  .lumiq-root main.lh-home .lh-opening[data-opening-anchors]:not([data-static-opening]) #ola .lh-text-link {
+    font-size: clamp(12px, calc(var(--opening-height) * .032), 16px) !important;
+    min-height: 30px;
+    margin-top: clamp(6px, 1.2svh, 10px);
+  }
+  .lumiq-root main.lh-home .lh-opening[data-opening-anchors]:not([data-static-opening]) #ola .lh-rhythm-copy {
+    padding: clamp(6px, 1.2svh, 10px);
+  }
+  .lumiq-root main.lh-home .lh-opening[data-opening-anchors]:not([data-static-opening]) #ola .lh-rhythm-copy h3 {
+    font-size: clamp(16px, calc(var(--opening-height) * .045), 25px);
+    margin-bottom: 3px;
+  }
+  .lumiq-root main.lh-home .lh-opening[data-opening-anchors]:not([data-static-opening]) #ola .lh-rhythm-copy p {
+    font-size: clamp(12px, calc(var(--opening-height) * .032), 18.2px) !important;
+    line-height: 1.45;
+  }
+}
 /* Compact windows use the approved landscape artwork in a composed scene.
    Copy and artwork share a section, without shrinking a desktop canvas. */
 @media (min-width: 768px) and (max-width: 1199px) {

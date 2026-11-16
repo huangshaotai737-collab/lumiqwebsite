@@ -1,49 +1,22 @@
 "use client";
+import {useTranslations} from "next-intl";
+import {useContentAdapter} from "@/components/content/useContentAdapter";
+import {useCartCopy} from "@/components/content/useCartCopy";
+import {isProductId} from "@/lib/cart";
 import Heading from "@/components/Heading";
 import AddToCartButton from "@/components/cart/AddToCartButton";
 
 
-import { useEffect, useRef, type CSSProperties, type ReactNode } from "react";
-import Image from "next/image";
+import { type CSSProperties, type ReactNode } from "react";
+import Image from "@/components/content/ContentImage";
 import { preload } from "react-dom";
 import { Link } from "@/i18n/navigation";
 
-export type ProductVisual = {
-  src: string;
-  alt: string;
-  fit?: "cover" | "contain";
-  position?: string;
-  unoptimized?: boolean;
-};
-
-export type ProductIndexItem = {
-  eyebrow?: string;
-  title: string;
-  body: string;
-};
-
-export type ProductScene = ProductIndexItem & {
-  image: ProductVisual;
-  bullets?: string[];
-};
-
-type ProductStory = {
-  eyebrow: string;
-  title: string;
-  body: string;
-  image: ProductVisual;
-  noteTitle?: string;
-  noteBody?: string;
-  bullets?: string[];
-};
-
-type ProductSection = {
-  eyebrow?: string;
-  title: string;
-  intro?: string;
-  items: ProductIndexItem[];
-  image?: ProductVisual;
-};
+import ProductFeatureSection, {type ProductVisual, type ProductIndexItem} from "@/components/ProductFeatureSection";
+export type {ProductVisual, ProductIndexItem} from "@/components/ProductFeatureSection";
+export type ProductScene = {eyebrow?:string;title:string;preserveTitlePunctuation?:boolean;body:string;image:ProductVisual;items:ProductIndexItem[]};
+type ProductStory = ProductScene;
+type ProductSection = {eyebrow?:string;title:string;preserveTitlePunctuation?:boolean;intro?:string;items:ProductIndexItem[];image?:ProductVisual};
 
 type ProductDetailTemplateProps = {
   slug: string;
@@ -52,23 +25,27 @@ type ProductDetailTemplateProps = {
   backLabel: string;
   productName: string;
   title: string;
+  preserveTitlePunctuation?: boolean;
   lede: string;
-  conceptNotice: string;
+  conceptNotice?: string;
   priceLabel: string;
+  priceQualifier?: string;
   compactHeroPriceLabel?: boolean;
   ctaLabel: string;
   heroImage: ProductVisual;
   heroOptions?: ReactNode;
   story: ProductStory;
-  scenesEyebrow?: string;
-  scenesTitle: string;
   scenes: ProductScene[];
   features: ProductSection;
-  darkSection: ProductSection;
+  darkSection?: ProductSection;
   extraSection?: ProductSection;
   finalTitle: string;
   finalBody: string;
   secondaryAction?: { href: string; label: string };
+  afterFeatures?: ReactNode;
+  hideDarkSection?: boolean;
+  afterFeaturesCount?:number;
+  afterContent?:ReactNode;
 };
 
 function ProductImage({
@@ -99,45 +76,6 @@ function ProductImage({
   );
 }
 
-function SectionHeading({
-  eyebrow,
-  title,
-  intro,
-  align = "left",
-}: {
-  eyebrow?: string;
-  title: string;
-  intro?: string;
-  align?: "left" | "center";
-}) {
-  return (
-    <header className={`pd-section-heading is-${align}`}>
-      {eyebrow && <p className="pd-eyebrow">{eyebrow}</p>}
-      <Heading as="h2">{title}</Heading>
-      {intro && <p className="pd-section-intro">{intro}</p>}
-    </header>
-  );
-}
-
-function IndexRows({ items }: { items: ProductIndexItem[] }) {
-  return (
-    <div className="pd-index-list">
-      {items.map((item, index) => (
-        <article className="pd-index-row" key={`${item.title}-${index}`}>
-          <span className="pd-index-number">
-            {String(index + 1).padStart(2, "0")}
-          </span>
-          <div>
-            {item.eyebrow && <p className="pd-row-eyebrow">{item.eyebrow}</p>}
-            <Heading as="h3">{item.title}</Heading>
-            <p>{item.body}</p>
-          </div>
-        </article>
-      ))}
-    </div>
-  );
-}
-
 export default function ProductDetailTemplate({
   slug,
   accent,
@@ -145,16 +83,16 @@ export default function ProductDetailTemplate({
   backLabel,
   productName,
   title,
+  preserveTitlePunctuation,
   lede,
   conceptNotice,
   priceLabel,
+  priceQualifier,
   compactHeroPriceLabel = false,
   ctaLabel,
   heroImage,
   heroOptions,
   story,
-  scenesEyebrow,
-  scenesTitle,
   scenes,
   features,
   darkSection,
@@ -162,34 +100,34 @@ export default function ProductDetailTemplate({
   finalTitle,
   finalBody,
   secondaryAction,
+  afterFeatures,
+  hideDarkSection = false,
+  afterFeaturesCount = 1,
+  afterContent,
 }: ProductDetailTemplateProps) {
+  const cms = useContentAdapter();
+  const copy = useCartCopy();
+  const prices = useTranslations("BrandPlans");
+  const vip = slug === "tablet" || slug === "ola" ? prices(`hardware.${slug}Vip`) : null;
+  if (vip) priceQualifier=prices("hardware.msrp");
+  if (isProductId(slug)) {
+    const product = cms.snapshot.products[slug];
+    productName = product.name;
+    priceLabel = product.price.kind === "usd" ? `USD ${product.price.amount}` : product.price.kind === "included" || slug === "nest" ? priceLabel : copy.pending;
+  }
+
   preload("/assets/fonts/barlow-condensed-semibold.ttf", {
     as: "font", type: "font/ttf", crossOrigin: "anonymous",
   });
-  const heroRef = useRef<HTMLElement>(null);
   const style = {
     "--pd-accent": accent,
     "--pd-accent-soft": accentSoft,
   } as CSSProperties;
 
-  useEffect(() => {
-    if (!heroRef.current) return;
-
-    const hero = heroRef.current;
-    const observer = new IntersectionObserver(
-      ([entry]) => hero.classList.toggle("is-entered", entry.isIntersecting),
-      { threshold: 0.25 },
-    );
-
-    observer.observe(hero);
-    return () => observer.disconnect();
-  }, [slug]);
-
   return (
     <main className={`product-detail-light pd-${slug}`} style={style}>
       <section
-        ref={heroRef}
-        className="pd-hero-floor is-entered"
+        className="pd-hero-floor"
         data-no-word-reveal=""
       >
         <div className="pd-shell pd-hero-grid">
@@ -198,17 +136,21 @@ export default function ProductDetailTemplate({
               {backLabel}
             </Link>
             <div className="pd-hero-display-title" aria-hidden="true">
-              {productName.toUpperCase()}
+              {productName}
             </div>
-            <Heading as="h1">
+            <Heading as="h1" preservePunctuation={preserveTitlePunctuation}>
               <span className="pd-product-name">{productName}</span>
               <span className="pd-product-tagline">{title}</span>
             </Heading>
             <p className="pd-hero-lede">{lede}</p>
-            <p className="pd-concept-note">{conceptNotice}</p>
+            {conceptNotice && <p className="pd-concept-note">{conceptNotice}</p>}
             <div className="pd-hero-actions">
               <div className="pd-price-row">
-                <p className={`pd-price${compactHeroPriceLabel ? " pd-price--compact" : ""}`}>{priceLabel}</p>
+                <p className={`pd-price${compactHeroPriceLabel ? " pd-price--compact" : ""}`}>
+                  {priceQualifier && <span className="pd-price-qualifier">{priceQualifier}</span>}
+                  {priceLabel}
+                  {vip && <span className="pd-vip-price">{prices("hardware.vip")} USD {vip}</span>}
+                </p>
                 <Link href="/prelaunch" className="pd-primary-action">
                   {ctaLabel}
                 </Link>
@@ -228,152 +170,26 @@ export default function ProductDetailTemplate({
         </div>
       </section>
 
-      <section className="pd-floor pd-story-floor">
-        <div className="pd-shell pd-story-grid">
-          <figure className="pd-story-visual">
-            <ProductImage
-              visual={story.image}
-              sizes="(max-width: 900px) 100vw, 58vw"
-            />
-          </figure>
-          <div className="pd-story-copy">
-            <SectionHeading
-              eyebrow={story.eyebrow}
-              title={story.title}
-              intro={story.body}
-            />
-            {story.bullets && (
-              <ul className="pd-bullet-list">
-                {story.bullets.map((item) => (
-                  <li key={item}>{item}</li>
-                ))}
-              </ul>
-            )}
-            {story.noteTitle && (
-              <aside className="pd-story-note">
-                <Heading as="h3">{story.noteTitle}</Heading>
-                {story.noteBody && <p>{story.noteBody}</p>}
-              </aside>
-            )}
-          </div>
-        </div>
-      </section>
-
-      <section className="pd-floor pd-scenes-floor">
-        <div className="pd-shell">
-          <SectionHeading
-            eyebrow={scenesEyebrow}
-            title={scenesTitle}
-            align="center"
-          />
-          <div className={`pd-scene-grid is-${Math.min(scenes.length, 3)}`}>
-            {scenes.map((scene) => (
-              <article className="pd-scene" key={scene.title}>
-                <figure>
-                  <ProductImage
-                    visual={scene.image}
-                    sizes={
-                      scenes.length > 2
-                        ? "(max-width: 900px) 100vw, 33vw"
-                        : "(max-width: 900px) 100vw, 50vw"
-                    }
-                  />
-                </figure>
-                <div className="pd-scene-copy">
-                  {scene.eyebrow && (
-                    <p className="pd-row-eyebrow">{scene.eyebrow}</p>
-                  )}
-                  <Heading as="h3">{scene.title}</Heading>
-                  <p>{scene.body}</p>
-                  {scene.bullets && (
-                    <ul className="pd-bullet-list">
-                      {scene.bullets.map((item) => (
-                        <li key={item}>{item}</li>
-                      ))}
-                    </ul>
-                  )}
-                </div>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="pd-floor pd-feature-floor">
-        <div className="pd-shell">
-          <SectionHeading
-            eyebrow={features.eyebrow}
-            title={features.title}
-            intro={features.intro}
-            align="center"
-          />
-          <div className={`pd-feature-layout${features.image ? " has-image" : ""}`}>
-            <IndexRows items={features.items} />
-            {features.image && (
-              <figure className="pd-feature-visual">
-                <ProductImage
-                  visual={features.image}
-                  sizes="(max-width: 900px) 100vw, 42vw"
-                />
-              </figure>
-            )}
-          </div>
-        </div>
-      </section>
-
-      <section className="pd-floor pd-dark-floor">
-        <div className="pd-shell pd-dark-layout">
-          <div className="pd-dark-copy">
-            <SectionHeading
-              eyebrow={darkSection.eyebrow}
-              title={darkSection.title}
-              intro={darkSection.intro}
-            />
-            <IndexRows items={darkSection.items} />
-          </div>
-          {darkSection.image && (
-            <figure className="pd-dark-visual">
-              <ProductImage
-                visual={darkSection.image}
-                sizes="(max-width: 900px) 100vw, 45vw"
-              />
-            </figure>
-          )}
-        </div>
-      </section>
-
-      {extraSection && (
-        <section className="pd-floor pd-extra-floor">
-          <div className="pd-shell">
-            <SectionHeading
-              eyebrow={extraSection.eyebrow}
-              title={extraSection.title}
-              intro={extraSection.intro}
-            />
-            <div className={`pd-extra-layout${extraSection.image ? " has-image" : ""}`}>
-              {extraSection.image && (
-                <figure className="pd-extra-visual">
-                  <ProductImage
-                    visual={extraSection.image}
-                    sizes="(max-width: 900px) 100vw, 48vw"
-                  />
-                </figure>
-              )}
-              <IndexRows items={extraSection.items} />
-            </div>
-          </div>
-        </section>
-      )}
+      <ProductFeatureSection className="pd-story-floor" {...story} intro={story.body} mediaLeft />
+      {scenes.map((scene,index)=><ProductFeatureSection key={scene.title} className="pd-scenes-floor" {...scene} intro={scene.body} mediaLeft={index%2===1} />)}
+      <ProductFeatureSection className="pd-feature-floor" {...features} mediaLeft={scenes.length%2===1}/>
+      {afterFeatures}
+      {darkSection && !hideDarkSection && <ProductFeatureSection className="pd-dark-floor" {...darkSection} mediaLeft={(scenes.length+3+(afterFeatures?afterFeaturesCount:0))%2===1}/>}
+      {extraSection && <ProductFeatureSection className="pd-extra-floor" {...extraSection} mediaLeft={(scenes.length+3+(afterFeatures?afterFeaturesCount:0)+(darkSection && !hideDarkSection?1:0))%2===1}/>}
 
       <section className="pd-final-floor">
         <div className="pd-shell pd-final-inner">
           <div>
             <p className="pd-eyebrow">{productName}</p>
-            <Heading as="h2">{finalTitle}</Heading>
+            <Heading as="h2" preservePunctuation={preserveTitlePunctuation}>{finalTitle}</Heading>
             <p>{finalBody}</p>
           </div>
           <div className={`pd-final-actions${compactHeroPriceLabel ? " is-compact-price" : ""}`}>
-            <p className="pd-price">{priceLabel}</p>
+            <p className="pd-price">
+              {priceQualifier && <span className="pd-price-qualifier">{priceQualifier}</span>}
+              {priceLabel}
+              {vip && <span className="pd-vip-price">{prices("hardware.vip")} USD {vip}</span>}
+            </p>
             <Link href="/prelaunch" className="pd-primary-action">
               {ctaLabel}
             </Link>
@@ -386,6 +202,7 @@ export default function ProductDetailTemplate({
           </div>
         </div>
       </section>
+      {afterContent}
     </main>
   );
 }
